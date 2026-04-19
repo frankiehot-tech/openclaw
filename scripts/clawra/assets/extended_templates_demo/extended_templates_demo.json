@@ -1,0 +1,411 @@
+{
+  "technical_doc": {
+    "template_id": "technical_doc_001",
+    "applied_content": {
+      "title": "Athena API v2.0 技术文档",
+      "version": "2.0.0",
+      "author": "Athena技术文档团队",
+      "sections": [
+        {
+          "name": "快速开始",
+          "content": "如何在5分钟内启动Athena API服务",
+          "code_examples": [
+            "安装命令",
+            "配置示例",
+            "验证脚本"
+          ]
+        },
+        {
+          "name": "核心API",
+          "content": "Athena核心接口的详细说明",
+          "endpoints": [
+            "/generate",
+            "/optimize",
+            "/analyze"
+          ]
+        }
+      ]
+    },
+    "structure_guide": {
+      "document_structure": [
+        "概述",
+        "安装指南",
+        "API参考",
+        "使用示例",
+        "故障排除"
+      ],
+      "writing_style": "清晰准确 + 技术深度",
+      "target_readers": [
+        "开发者",
+        "技术文档工程师",
+        "API用户"
+      ]
+    },
+    "visual_references": {
+      "diagram_style": "架构图 + 序列图",
+      "code_highlighting": "语法高亮 + 注释规范",
+      "typography": "等宽字体 + 清晰层级"
+    },
+    "brand_info": {
+      "visual_style": "minimalist",
+      "brand_colors": [
+        {
+          "name": "科技蓝",
+          "hex_code": "#4A90E2",
+          "rgb": [
+            74,
+            144,
+            226
+          ],
+          "description": "主品牌色，代表科技和创新",
+          "usage": "primary"
+        },
+        {
+          "name": "数据绿",
+          "hex_code": "#00D4AA",
+          "rgb": [
+            0,
+            212,
+            170
+          ],
+          "description": "辅助色，代表数据和智能",
+          "usage": "secondary"
+        },
+        {
+          "name": "能量橙",
+          "hex_code": "#FF6B35",
+          "rgb": [
+            255,
+            107,
+            53
+          ],
+          "description": "强调色，代表能量和行动",
+          "usage": "accent"
+        },
+        {
+          "name": "深空紫",
+          "hex_code": "#7B61FF",
+          "rgb": [
+            123,
+            97,
+            255
+          ],
+          "description": "科技感背景色",
+          "usage": "background"
+        },
+        {
+          "name": "深灰背景",
+          "hex_code": "#1A1A2E",
+          "rgb": [
+            26,
+            26,
+            46
+          ],
+          "description": "深色背景",
+          "usage": "background"
+        },
+        {
+          "name": "浅灰背景",
+          "hex_code": "#F5F7FA",
+          "rgb": [
+            245,
+            247,
+            250
+          ],
+          "description": "浅色背景",
+          "usage": "background"
+        }
+      ],
+      "design_principles": [
+        "硅基共生",
+        "漫威视觉",
+        "三体叙事"
+      ],
+      "target_audience": [
+        "开发者",
+        "技术写作者",
+        "集成工程师"
+      ]
+    },
+    "github_user_profile": {
+      "primary_audience": [
+        "80后",
+        "90后"
+      ],
+      "secondary_audience": [
+        "70后",
+        "10后"
+      ],
+      "visual_preference": "漫威电影风格",
+      "narrative_preference": "三体风格",
+      "thematic_focus": "硅基共生智慧体"
+    }
+  },
+  "product_release": {
+    "template_id": "product_release_001",
+    "applied_content": {
+      "product_name": "Athena Clawra v2.0",
+      "release_date": "2026年4月16日",
+      "version": "2.0.0",
+      "tagline": "重新定义AI内容生成的工作流",
+      "key_features": [
+        "完整的字节跳动工作流集成",
+        "智能IP数字资产管理系统",
+        "企业级部署就绪架构"
+      ],
+      "target_users": [
+        "内容创作者",
+        "技术团队",
+        "企业客户"
+      ]
+    },
+    "structure_guide": {
+      "announcement_flow": [
+        "重大新闻",
+        "核心功能",
+        "技术突破",
+        "用户价值",
+        "获取方式"
+      ],
+      "emotional_arc": "期待 → 震撼 → 信任 → 行动",
+      "media_elements": [
+        "产品演示视频",
+        "技术架构图",
+        "用户案例",
+        "路线图"
+      ]
+    },
+    "visual_references": {
+      "release_visual_style": "发布会级别视觉设计",
+      "animation": "产品功能逐步揭示动画",
+      "typography": "大标题冲击力 + 精细排版"
+    },
+    "brand_info": {
+      "visual_style": "futuristic",
+      "brand_colors": [
+        {
+          "name": "科技蓝",
+          "hex_code": "#4A90E2",
+          "rgb": [
+            74,
+            144,
+            226
+          ],
+          "description": "主品牌色，代表科技和创新",
+          "usage": "primary"
+        },
+        {
+          "name": "数据绿",
+          "hex_code": "#00D4AA",
+          "rgb": [
+            0,
+            212,
+            170
+          ],
+          "description": "辅助色，代表数据和智能",
+          "usage": "secondary"
+        },
+        {
+          "name": "能量橙",
+          "hex_code": "#FF6B35",
+          "rgb": [
+            255,
+            107,
+            53
+          ],
+          "description": "强调色，代表能量和行动",
+          "usage": "accent"
+        },
+        {
+          "name": "深空紫",
+          "hex_code": "#7B61FF",
+          "rgb": [
+            123,
+            97,
+            255
+          ],
+          "description": "科技感背景色",
+          "usage": "background"
+        },
+        {
+          "name": "深灰背景",
+          "hex_code": "#1A1A2E",
+          "rgb": [
+            26,
+            26,
+            46
+          ],
+          "description": "深色背景",
+          "usage": "background"
+        },
+        {
+          "name": "浅灰背景",
+          "hex_code": "#F5F7FA",
+          "rgb": [
+            245,
+            247,
+            250
+          ],
+          "description": "浅色背景",
+          "usage": "background"
+        }
+      ],
+      "design_principles": [
+        "硅基共生",
+        "漫威视觉",
+        "三体叙事"
+      ],
+      "target_audience": [
+        "用户",
+        "媒体",
+        "投资者",
+        "行业分析师"
+      ]
+    },
+    "github_user_profile": {
+      "primary_audience": [
+        "80后",
+        "90后"
+      ],
+      "secondary_audience": [
+        "70后",
+        "10后"
+      ],
+      "visual_preference": "漫威电影风格",
+      "narrative_preference": "三体风格",
+      "thematic_focus": "硅基共生智慧体"
+    }
+  },
+  "tutorial": {
+    "template_id": "tutorial_001",
+    "applied_content": {
+      "tutorial_title": "使用Clawra自动化内容生成工作流",
+      "difficulty": "中级",
+      "estimated_time": "45分钟",
+      "prerequisites": [
+        "Python基础",
+        "GitHub账户",
+        "豆包AI账号"
+      ],
+      "learning_objectives": [
+        "掌握Clawra核心概念",
+        "配置IP数字资产",
+        "运行自动化内容生成"
+      ]
+    },
+    "structure_guide": {
+      "learning_path": [
+        "前置知识",
+        "目标设定",
+        "逐步指导",
+        "代码示例",
+        "扩展练习"
+      ],
+      "difficulty_curve": "平滑渐进",
+      "interactive_elements": [
+        "可运行代码",
+        "交互式演示",
+        "自我测试"
+      ]
+    },
+    "visual_references": {
+      "tutorial_visuals": "步骤截图 + 箭头标注",
+      "code_walkthrough": "代码逐步高亮",
+      "progress_indicator": "学习进度可视化"
+    },
+    "brand_info": {
+      "visual_style": "cyberpunk",
+      "brand_colors": [
+        {
+          "name": "科技蓝",
+          "hex_code": "#4A90E2",
+          "rgb": [
+            74,
+            144,
+            226
+          ],
+          "description": "主品牌色，代表科技和创新",
+          "usage": "primary"
+        },
+        {
+          "name": "数据绿",
+          "hex_code": "#00D4AA",
+          "rgb": [
+            0,
+            212,
+            170
+          ],
+          "description": "辅助色，代表数据和智能",
+          "usage": "secondary"
+        },
+        {
+          "name": "能量橙",
+          "hex_code": "#FF6B35",
+          "rgb": [
+            255,
+            107,
+            53
+          ],
+          "description": "强调色，代表能量和行动",
+          "usage": "accent"
+        },
+        {
+          "name": "深空紫",
+          "hex_code": "#7B61FF",
+          "rgb": [
+            123,
+            97,
+            255
+          ],
+          "description": "科技感背景色",
+          "usage": "background"
+        },
+        {
+          "name": "深灰背景",
+          "hex_code": "#1A1A2E",
+          "rgb": [
+            26,
+            26,
+            46
+          ],
+          "description": "深色背景",
+          "usage": "background"
+        },
+        {
+          "name": "浅灰背景",
+          "hex_code": "#F5F7FA",
+          "rgb": [
+            245,
+            247,
+            250
+          ],
+          "description": "浅色背景",
+          "usage": "background"
+        }
+      ],
+      "design_principles": [
+        "硅基共生",
+        "漫威视觉",
+        "三体叙事"
+      ],
+      "target_audience": [
+        "初学者",
+        "中级开发者",
+        "教育者"
+      ]
+    },
+    "github_user_profile": {
+      "primary_audience": [
+        "80后",
+        "90后"
+      ],
+      "secondary_audience": [
+        "70后",
+        "10后"
+      ],
+      "visual_preference": "漫威电影风格",
+      "narrative_preference": "三体风格",
+      "thematic_focus": "硅基共生智慧体"
+    }
+  }
+}

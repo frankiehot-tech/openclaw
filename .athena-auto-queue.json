@@ -1,0 +1,44 @@
+{
+  "plan_dir": "/Volumes/1TB-M2/openclaw",
+  "poll_seconds": 15,
+  "exclude_dirs": [
+    "completed"
+  ],
+  "archive_dir": "/Volumes/1TB-M2/openclaw/completed",
+  "routes": [
+    {
+      "route_id": "aiplan_gene_management",
+      "manifest_path": "/Volumes/1TB-M2/openclaw/scripts/gene_management_queue_manifest.json",
+      "queue_id": "openhuman_aiplan_gene_management_20260405",
+      "name": "OpenHuman AIPlan 基因管理队列",
+      "runner_mode": "opencode_build",
+      "defaults": {
+        "entry_stage": "build",
+        "risk_level": "low",
+        "unattended_allowed": true,
+        "targets": [],
+        "metadata": {
+          "epic": "gene_management",
+          "priority": "S0"
+        }
+      }
+    },
+    {
+      "route_id": "aiplan_priority_execution",
+      "manifest_path": "/Volumes/1TB-M2/openclaw/.openclaw/plan_queue/openhuman_aiplan_priority_execution_20260414.json",
+      "queue_id": "openhuman_aiplan_build_priority_20260328",
+      "name": "OpenHuman AIPlan 优先执行队列",
+      "runner_mode": "opencode_build",
+      "defaults": {
+        "entry_stage": "build",
+        "risk_level": "medium",
+        "unattended_allowed": true,
+        "targets": [],
+        "metadata": {
+          "epic": "aiplan_execution",
+          "priority": "P1"
+        }
+      }
+    }
+  ]
+}

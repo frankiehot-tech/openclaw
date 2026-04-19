@@ -1,0 +1,1769 @@
+[
+  {
+    "id": "",
+    "category": "unknown",
+    "subcategory": "general",
+    "prompt_text": "DRAWING a drawing of [Character], crayon on white paper, in the style of a children's book illustration – simple, cute, and full-color, with [two glitter accent colors] glitter accents and high detail.",
+    "parameters": {},
+    "model_compatibility": [],
+    "quality_score": 0.5,
+    "source": "glidea/banana-prompt-quicker",
+    "examples": []
+  },
+  {
+    "id": "",
+    "category": "unknown",
+    "subcategory": "general",
+    "prompt_text": "Dreamscape or ethereal style {prompt}. surreal, mysterious, fantasy, soft glows, dreamlike sequences, pastel palette, gentle lighting, highly detailed",
+    "parameters": {},
+    "model_compatibility": [],
+    "quality_score": 0.5,
+    "source": "tin2tin/Pallaidium",
+    "examples": []
+  },
+  {
+    "id": "",
+    "category": "unknown",
+    "subcategory": "general",
+    "prompt_text": "Ethereal fantasy concept art of {prompt}. magnificent, celestial, painterly, epic, majestic, magical, cover art, dreamy",
+    "parameters": {},
+    "model_compatibility": [],
+    "quality_score": 0.5,
+    "source": "tin2tin/Pallaidium",
+    "examples": []
+  },
+  {
+    "id": "",
+    "category": "unknown",
+    "subcategory": "general",
+    "prompt_text": "Surrealist art {prompt}. dreamlike, mysterious, provocative, symbolic, intricate, detailed",
+    "parameters": {},
+    "model_compatibility": [],
+    "quality_score": 0.5,
+    "source": "tin2tin/Pallaidium",
+    "examples": []
+  },
+  {
+    "id": "",
+    "category": "unknown",
+    "subcategory": "general",
+    "prompt_text": "Watercolor painting style {prompt}. vibrant, beautiful, painterly, detailed, textural, artistic, soft edges",
+    "parameters": {},
+    "model_compatibility": [],
+    "quality_score": 0.5,
+    "source": "tin2tin/Pallaidium",
+    "examples": []
+  },
+  {
+    "id": "",
+    "category": "unknown",
+    "subcategory": "general",
+    "prompt_text": "Modern American comic style {prompt}. digital, color, dynamic action, graphic novel art, vibrant, highly detailed",
+    "parameters": {},
+    "model_compatibility": [],
+    "quality_score": 0.5,
+    "source": "tin2tin/Pallaidium",
+    "examples": []
+  },
+  {
+    "id": "",
+    "category": "unknown",
+    "subcategory": "general",
+    "prompt_text": "Manga style {prompt}. vibrant, high-energy, detailed, iconic, Japanese comic style, screentones, intricate",
+    "parameters": {},
+    "model_compatibility": [],
+    "quality_score": 0.5,
+    "source": "tin2tin/Pallaidium",
+    "examples": []
+  },
+  {
+    "id": "",
+    "category": "unknown",
+    "subcategory": "general",
+    "prompt_text": "Professional 3D model {prompt}. Octane render, Blender render, Unreal Engine, highly detailed, volumetric lighting, dramatic lighting",
+    "parameters": {},
+    "model_compatibility": [],
+    "quality_score": 0.5,
+    "source": "tin2tin/Pallaidium",
+    "examples": []
+  },
+  {
+    "id": "",
+    "category": "unknown",
+    "subcategory": "general",
+    "prompt_text": "Concept art {prompt}. digital artwork, illustrative, painterly, matte painting, highly detailed, ArtStation",
+    "parameters": {},
+    "model_compatibility": [],
+    "quality_score": 0.5,
+    "source": "tin2tin/Pallaidium",
+    "examples": []
+  },
+  {
+    "id": "",
+    "category": "unknown",
+    "subcategory": "general",
+    "prompt_text": "Storyboard drawing or sketch style {prompt}. simplified sketch, soft gestural lines, cross hatching, monochrome or muted colors, focus on composition and action, intricate, 8k",
+    "parameters": {},
+    "model_compatibility": [],
+    "quality_score": 0.5,
+    "source": "tin2tin/Pallaidium",
+    "examples": []
+  },
+  {
+    "id": "",
+    "category": "unknown",
+    "subcategory": "general",
+    "prompt_text": "Anime artwork {prompt}. anime style, key visual, vibrant, studio anime, highly detailed, cell shading",
+    "parameters": {},
+    "model_compatibility": [],
+    "quality_score": 0.5,
+    "source": "tin2tin/Pallaidium",
+    "examples": []
+  },
+  {
+    "id": "",
+    "category": "unknown",
+    "subcategory": "general",
+    "prompt_text": "Dystopian style {prompt}. bleak, post-apocalyptic, somber, dramatic, highly detailed, oppressive atmosphere",
+    "parameters": {},
+    "model_compatibility": [],
+    "quality_score": 0.5,
+    "source": "tin2tin/Pallaidium",
+    "examples": []
+  },
+  {
+    "id": "",
+    "category": "unknown",
+    "subcategory": "general",
+    "prompt_text": "Biomechanical or cybernetic style {prompt}. blend of organic and mechanical elements, futuristic, cybernetic enhancements, robotics, Giger influence, intricate, detailed",
+    "parameters": {},
+    "model_compatibility": [],
+    "quality_score": 0.5,
+    "source": "tin2tin/Pallaidium",
+    "examples": []
+  },
+  {
+    "id": "",
+    "category": "unknown",
+    "subcategory": "general",
+    "prompt_text": "Architectural style {prompt}. Clean lines, geometric shapes, minimalist or complex patterns, modern or historical, highly detailed building facade or interior",
+    "parameters": {},
+    "model_compatibility": [],
+    "quality_score": 0.5,
+    "source": "tin2tin/Pallaidium",
+    "examples": []
+  },
+  {
+    "id": "",
+    "category": "unknown",
+    "subcategory": "general",
+    "prompt_text": "HDR photo of {prompt}. Vivid, rich details, clear shadows and highlights, realistic, intense, enhanced contrast, highly detailed",
+    "parameters": {},
+    "model_compatibility": [],
+    "quality_score": 0.5,
+    "source": "tin2tin/Pallaidium",
+    "examples": []
+  },
+  {
+    "id": "",
+    "category": "unknown",
+    "subcategory": "general",
+    "prompt_text": "Silhouette style {prompt} against a bright background. High contrast, minimalistic, stark, dramatic, subject in shadow",
+    "parameters": {},
+    "model_compatibility": [],
+    "quality_score": 0.5,
+    "source": "tin2tin/Pallaidium",
+    "examples": []
+  },
+  {
+    "id": "",
+    "category": "unknown",
+    "subcategory": "general",
+    "prompt_text": "Techwear fashion {prompt}. Futuristic, cyberpunk, urban, tactical, sleek, dark colors, functional, straps, buckles, highly detailed",
+    "parameters": {},
+    "model_compatibility": [],
+    "quality_score": 0.5,
+    "source": "tin2tin/Pallaidium",
+    "examples": []
+  },
+  {
+    "id": "Avaray_stable-diffusion-simple-wildcards_artists2.txt_0",
+    "category": "text_to_image",
+    "subcategory": "fantasy",
+    "prompt_text": "Aaron Horkey, fantasy, detailed, comics",
+    "parameters": {},
+    "model_compatibility": [
+      "stable-diffusion",
+      "midjourney",
+      "dall-e"
+    ],
+    "quality_score": 0.7,
+    "source": "Avaray/stable-diffusion-simple-wildcards",
+    "examples": []
+  },
+  {
+    "id": "Avaray_stable-diffusion-simple-wildcards_artists2.txt_1",
+    "category": "character_design",
+    "subcategory": "general",
+    "prompt_text": "Aaron Jasinski, surrealism, pop art, detailed, colorful, portrait",
+    "parameters": {},
+    "model_compatibility": [
+      "stable-diffusion",
+      "midjourney",
+      "dall-e"
+    ],
+    "quality_score": 0.7,
+    "source": "Avaray/stable-diffusion-simple-wildcards",
+    "examples": []
+  },
+  {
+    "id": "Avaray_stable-diffusion-simple-wildcards_artists2.txt_2",
+    "category": "text_to_image",
+    "subcategory": "general",
+    "prompt_text": "Adi Granov, comics, detailed, character",
+    "parameters": {},
+    "model_compatibility": [
+      "stable-diffusion",
+      "midjourney",
+      "dall-e"
+    ],
+    "quality_score": 0.7,
+    "source": "Avaray/stable-diffusion-simple-wildcards",
+    "examples": []
+  },
+  {
+    "id": "Avaray_stable-diffusion-simple-wildcards_artists2.txt_3",
+    "category": "text_to_image",
+    "subcategory": "general",
+    "prompt_text": "Adonna Khare, monochromatic, detailed, surrealism, animals",
+    "parameters": {},
+    "model_compatibility": [
+      "stable-diffusion",
+      "midjourney",
+      "dall-e"
+    ],
+    "quality_score": 0.7,
+    "source": "Avaray/stable-diffusion-simple-wildcards",
+    "examples": []
+  },
+  {
+    "id": "Avaray_stable-diffusion-simple-wildcards_artists2.txt_4",
+    "category": "environment",
+    "subcategory": "general",
+    "prompt_text": "Akos Major, landscape, light, detailed",
+    "parameters": {},
+    "model_compatibility": [
+      "stable-diffusion",
+      "midjourney",
+      "dall-e"
+    ],
+    "quality_score": 0.7,
+    "source": "Avaray/stable-diffusion-simple-wildcards",
+    "examples": []
+  },
+  {
+    "id": "Avaray_stable-diffusion-simple-wildcards_artists2.txt_5",
+    "category": "environment",
+    "subcategory": "general",
+    "prompt_text": "Al Feldstein, comics, detailed, scene",
+    "parameters": {},
+    "model_compatibility": [
+      "stable-diffusion",
+      "midjourney",
+      "dall-e"
+    ],
+    "quality_score": 0.7,
+    "source": "Avaray/stable-diffusion-simple-wildcards",
+    "examples": []
+  },
+  {
+    "id": "Avaray_stable-diffusion-simple-wildcards_artists2.txt_6",
+    "category": "environment",
+    "subcategory": "general",
+    "prompt_text": "Albrecht Dürer, renaissance, detailed, scene",
+    "parameters": {},
+    "model_compatibility": [
+      "stable-diffusion",
+      "midjourney",
+      "dall-e"
+    ],
+    "quality_score": 0.7,
+    "source": "Avaray/stable-diffusion-simple-wildcards",
+    "examples": []
+  },
+  {
+    "id": "Avaray_stable-diffusion-simple-wildcards_artists2.txt_7",
+    "category": "text_to_image",
+    "subcategory": "general",
+    "prompt_text": "Amanda Sage, psychedelic, vibrant, colorful, detailed",
+    "parameters": {},
+    "model_compatibility": [
+      "stable-diffusion",
+      "midjourney",
+      "dall-e"
+    ],
+    "quality_score": 0.7,
+    "source": "Avaray/stable-diffusion-simple-wildcards",
+    "examples": []
+  },
+  {
+    "id": "Avaray_stable-diffusion-simple-wildcards_artists2.txt_8",
+    "category": "text_to_image",
+    "subcategory": "fantasy",
+    "prompt_text": "Andrew Ferez, surrealism, fantasy, detailed",
+    "parameters": {},
+    "model_compatibility": [
+      "stable-diffusion",
+      "midjourney",
+      "dall-e"
+    ],
+    "quality_score": 0.7,
+    "source": "Avaray/stable-diffusion-simple-wildcards",
+    "examples": []
+  },
+  {
+    "id": "Avaray_stable-diffusion-simple-wildcards_artists2.txt_9",
+    "category": "environment",
+    "subcategory": "general",
+    "prompt_text": "Anton Pieck, whimsical, detailed, scene",
+    "parameters": {},
+    "model_compatibility": [
+      "stable-diffusion",
+      "midjourney",
+      "dall-e"
+    ],
+    "quality_score": 0.7,
+    "source": "Avaray/stable-diffusion-simple-wildcards",
+    "examples": []
+  },
+  {
+    "id": "Avaray_stable-diffusion-simple-wildcards_artists2.txt_10",
+    "category": "environment",
+    "subcategory": "anime",
+    "prompt_text": "Austin Briggs, cartoon, detailed, scene, impressionism",
+    "parameters": {},
+    "model_compatibility": [
+      "stable-diffusion",
+      "midjourney",
+      "dall-e"
+    ],
+    "quality_score": 0.7,
+    "source": "Avaray/stable-diffusion-simple-wildcards",
+    "examples": []
+  },
+  {
+    "id": "Avaray_stable-diffusion-simple-wildcards_artists2.txt_11",
+    "category": "text_to_image",
+    "subcategory": "general",
+    "prompt_text": "Ayami Kojima, monochromatic, dark, detailed, character",
+    "parameters": {},
+    "model_compatibility": [
+      "stable-diffusion",
+      "midjourney",
+      "dall-e"
+    ],
+    "quality_score": 0.7,
+    "source": "Avaray/stable-diffusion-simple-wildcards",
+    "examples": []
+  },
+  {
+    "id": "Avaray_stable-diffusion-simple-wildcards_artists2.txt_12",
+    "category": "environment",
+    "subcategory": "general",
+    "prompt_text": "Bob Byerley, detailed, whimsical, scene",
+    "parameters": {},
+    "model_compatibility": [
+      "stable-diffusion",
+      "midjourney",
+      "dall-e"
+    ],
+    "quality_score": 0.7,
+    "source": "Avaray/stable-diffusion-simple-wildcards",
+    "examples": []
+  },
+  {
+    "id": "Avaray_stable-diffusion-simple-wildcards_artists2.txt_13",
+    "category": "environment",
+    "subcategory": "general",
+    "prompt_text": "Carlos Schwabe, symbolism, detailed, scene",
+    "parameters": {},
+    "model_compatibility": [
+      "stable-diffusion",
+      "midjourney",
+      "dall-e"
+    ],
+    "quality_score": 0.7,
+    "source": "Avaray/stable-diffusion-simple-wildcards",
+    "examples": []
+  },
+  {
+    "id": "Avaray_stable-diffusion-simple-wildcards_artists2.txt_14",
+    "category": "text_to_image",
+    "subcategory": "general",
+    "prompt_text": "Carrie Ann Baade, detailed, surrealism, pop art",
+    "parameters": {},
+    "model_compatibility": [
+      "stable-diffusion",
+      "midjourney",
+      "dall-e"
+    ],
+    "quality_score": 0.7,
+    "source": "Avaray/stable-diffusion-simple-wildcards",
+    "examples": []
+  },
+  {
+    "id": "Avaray_stable-diffusion-simple-wildcards_artists2.txt_15",
+    "category": "text_to_image",
+    "subcategory": "general",
+    "prompt_text": "Casey Weldon, pop art, surrealism, detailed",
+    "parameters": {},
+    "model_compatibility": [
+      "stable-diffusion",
+      "midjourney",
+      "dall-e"
+    ],
+    "quality_score": 0.7,
+    "source": "Avaray/stable-diffusion-simple-wildcards",
+    "examples": []
+  },
+  {
+    "id": "Avaray_stable-diffusion-simple-wildcards_artists2.txt_16",
+    "category": "character_design",
+    "subcategory": "general",
+    "prompt_text": "Chie Yoshii, character, portrait, detailed",
+    "parameters": {},
+    "model_compatibility": [
+      "stable-diffusion",
+      "midjourney",
+      "dall-e"
+    ],
+    "quality_score": 0.7,
+    "source": "Avaray/stable-diffusion-simple-wildcards",
+    "examples": []
+  },
+  {
+    "id": "Avaray_stable-diffusion-simple-wildcards_artists2.txt_17",
+    "category": "text_to_image",
+    "subcategory": "fantasy",
+    "prompt_text": "Craig Mullins, dark, detailed, fantasy",
+    "parameters": {},
+    "model_compatibility": [
+      "stable-diffusion",
+      "midjourney",
+      "dall-e"
+    ],
+    "quality_score": 0.7,
+    "source": "Avaray/stable-diffusion-simple-wildcards",
+    "examples": []
+  },
+  {
+    "id": "Avaray_stable-diffusion-simple-wildcards_artists2.txt_18",
+    "category": "character_design",
+    "subcategory": "general",
+    "prompt_text": "Dan Hillier, detailed, monochromatic, high contrast, portrait",
+    "parameters": {},
+    "model_compatibility": [
+      "stable-diffusion",
+      "midjourney",
+      "dall-e"
+    ],
+    "quality_score": 0.7,
+    "source": "Avaray/stable-diffusion-simple-wildcards",
+    "examples": []
+  },
+  {
+    "id": "Avaray_stable-diffusion-simple-wildcards_artists2.txt_19",
+    "category": "text_to_image",
+    "subcategory": "fantasy",
+    "prompt_text": "David Finch, detailed, comics, fantasy",
+    "parameters": {},
+    "model_compatibility": [
+      "stable-diffusion",
+      "midjourney",
+      "dall-e"
+    ],
+    "quality_score": 0.7,
+    "source": "Avaray/stable-diffusion-simple-wildcards",
+    "examples": []
+  },
+  {
+    "id": "Avaray_stable-diffusion-simple-wildcards_artists2.txt_20",
+    "category": "text_to_image",
+    "subcategory": "general",
+    "prompt_text": "Denis Sarazhin, realism, impressionism, detailed, character",
+    "parameters": {},
+    "model_compatibility": [
+      "stable-diffusion",
+      "midjourney",
+      "dall-e"
+    ],
+    "quality_score": 0.7,
+    "source": "Avaray/stable-diffusion-simple-wildcards",
+    "examples": []
+  },
+  {
+    "id": "Avaray_stable-diffusion-simple-wildcards_artists2.txt_21",
+    "category": "text_to_image",
+    "subcategory": "fantasy",
+    "prompt_text": "Earl Norem, detailed, fantasy, dark",
+    "parameters": {},
+    "model_compatibility": [
+      "stable-diffusion",
+      "midjourney",
+      "dall-e"
+    ],
+    "quality_score": 0.7,
+    "source": "Avaray/stable-diffusion-simple-wildcards",
+    "examples": []
+  },
+  {
+    "id": "Avaray_stable-diffusion-simple-wildcards_artists2.txt_22",
+    "category": "environment",
+    "subcategory": "general",
+    "prompt_text": "Eddie Mendoza, digital, landscape, detailed, dark",
+    "parameters": {},
+    "model_compatibility": [
+      "stable-diffusion",
+      "midjourney",
+      "dall-e"
+    ],
+    "quality_score": 0.7,
+    "source": "Avaray/stable-diffusion-simple-wildcards",
+    "examples": []
+  },
+  {
+    "id": "Avaray_stable-diffusion-simple-wildcards_artists2.txt_23",
+    "category": "text_to_image",
+    "subcategory": "general",
+    "prompt_text": "Eleanor Vere Boyle, detailed, watercolor, whimsical",
+    "parameters": {},
+    "model_compatibility": [
+      "stable-diffusion",
+      "midjourney",
+      "dall-e"
+    ],
+    "quality_score": 0.7,
+    "source": "Avaray/stable-diffusion-simple-wildcards",
+    "examples": []
+  },
+  {
+    "id": "Avaray_stable-diffusion-simple-wildcards_artists2.txt_24",
+    "category": "text_to_image",
+    "subcategory": "general",
+    "prompt_text": "Emily Balivet, detailed, art nouveau, colorful",
+    "parameters": {},
+    "model_compatibility": [
+      "stable-diffusion",
+      "midjourney",
+      "dall-e"
+    ],
+    "quality_score": 0.7,
+    "source": "Avaray/stable-diffusion-simple-wildcards",
+    "examples": []
+  },
+  {
+    "id": "Avaray_stable-diffusion-simple-wildcards_artists2.txt_25",
+    "category": "environment",
+    "subcategory": "general",
+    "prompt_text": "Ferdinand Knab, landscape, architecture, detailed",
+    "parameters": {},
+    "model_compatibility": [
+      "stable-diffusion",
+      "midjourney",
+      "dall-e"
+    ],
+    "quality_score": 0.7,
+    "source": "Avaray/stable-diffusion-simple-wildcards",
+    "examples": []
+  },
+  {
+    "id": "Avaray_stable-diffusion-simple-wildcards_artists2.txt_26",
+    "category": "environment",
+    "subcategory": "general",
+    "prompt_text": "Francesco Solimena, baroque, detailed, scene",
+    "parameters": {},
+    "model_compatibility": [
+      "stable-diffusion",
+      "midjourney",
+      "dall-e"
+    ],
+    "quality_score": 0.7,
+    "source": "Avaray/stable-diffusion-simple-wildcards",
+    "examples": []
+  },
+  {
+    "id": "Avaray_stable-diffusion-simple-wildcards_artists2.txt_27",
+    "category": "text_to_image",
+    "subcategory": "general",
+    "prompt_text": "Franklin Booth, art nouveau, detailed",
+    "parameters": {},
+    "model_compatibility": [
+      "stable-diffusion",
+      "midjourney",
+      "dall-e"
+    ],
+    "quality_score": 0.7,
+    "source": "Avaray/stable-diffusion-simple-wildcards",
+    "examples": []
+  },
+  {
+    "id": "Avaray_stable-diffusion-simple-wildcards_artists2.txt_28",
+    "category": "text_to_image",
+    "subcategory": "general",
+    "prompt_text": "Giovanni Battista Piranesi, architecture, detailed, monochromatic",
+    "parameters": {},
+    "model_compatibility": [
+      "stable-diffusion",
+      "midjourney",
+      "dall-e"
+    ],
+    "quality_score": 0.7,
+    "source": "Avaray/stable-diffusion-simple-wildcards",
+    "examples": []
+  },
+  {
+    "id": "Avaray_stable-diffusion-simple-wildcards_artists2.txt_29",
+    "category": "text_to_image",
+    "subcategory": "general",
+    "prompt_text": "Grayson Perry, detailed, collage, pop art, pink",
+    "parameters": {},
+    "model_compatibility": [
+      "stable-diffusion",
+      "midjourney",
+      "dall-e"
+    ],
+    "quality_score": 0.7,
+    "source": "Avaray/stable-diffusion-simple-wildcards",
+    "examples": []
+  },
+  {
+    "id": "Avaray_stable-diffusion-simple-wildcards_artists2.txt_30",
+    "category": "environment",
+    "subcategory": "general",
+    "prompt_text": "Hal Foster, comics, clean, detailed, scene",
+    "parameters": {},
+    "model_compatibility": [
+      "stable-diffusion",
+      "midjourney",
+      "dall-e"
+    ],
+    "quality_score": 0.7,
+    "source": "Avaray/stable-diffusion-simple-wildcards",
+    "examples": []
+  },
+  {
+    "id": "Avaray_stable-diffusion-simple-wildcards_artists2.txt_31",
+    "category": "environment",
+    "subcategory": "general",
+    "prompt_text": "Hans Makart, scene, messy, detailed",
+    "parameters": {},
+    "model_compatibility": [
+      "stable-diffusion",
+      "midjourney",
+      "dall-e"
+    ],
+    "quality_score": 0.7,
+    "source": "Avaray/stable-diffusion-simple-wildcards",
+    "examples": []
+  },
+  {
+    "id": "Avaray_stable-diffusion-simple-wildcards_artists2.txt_32",
+    "category": "environment",
+    "subcategory": "general",
+    "prompt_text": "Hiroshi Yoshida, ukiyoe, landscape, detailed",
+    "parameters": {},
+    "model_compatibility": [
+      "stable-diffusion",
+      "midjourney",
+      "dall-e"
+    ],
+    "quality_score": 0.7,
+    "source": "Avaray/stable-diffusion-simple-wildcards",
+    "examples": []
+  },
+  {
+    "id": "Avaray_stable-diffusion-simple-wildcards_artists2.txt_33",
+    "category": "text_to_image",
+    "subcategory": "general",
+    "prompt_text": "Howard Arkley, architecture, vibrant, colorful, detailed",
+    "parameters": {},
+    "model_compatibility": [
+      "stable-diffusion",
+      "midjourney",
+      "dall-e"
+    ],
+    "quality_score": 0.7,
+    "source": "Avaray/stable-diffusion-simple-wildcards",
+    "examples": []
+  },
+  {
+    "id": "Avaray_stable-diffusion-simple-wildcards_artists2.txt_34",
+    "category": "environment",
+    "subcategory": "general",
+    "prompt_text": "J. J. Grandville, detailed, scene",
+    "parameters": {},
+    "model_compatibility": [
+      "stable-diffusion",
+      "midjourney",
+      "dall-e"
+    ],
+    "quality_score": 0.7,
+    "source": "Avaray/stable-diffusion-simple-wildcards",
+    "examples": []
+  },
+  {
+    "id": "Avaray_stable-diffusion-simple-wildcards_artists2.txt_35",
+    "category": "text_to_image",
+    "subcategory": "fantasy",
+    "prompt_text": "James C. Christensen, detailed, whimsical, fantasy",
+    "parameters": {},
+    "model_compatibility": [
+      "stable-diffusion",
+      "midjourney",
+      "dall-e"
+    ],
+    "quality_score": 0.7,
+    "source": "Avaray/stable-diffusion-simple-wildcards",
+    "examples": []
+  },
+  {
+    "id": "Avaray_stable-diffusion-simple-wildcards_artists2.txt_36",
+    "category": "text_to_image",
+    "subcategory": "fantasy",
+    "prompt_text": "Jean-Baptiste Monge, dark, fantasy, detailed",
+    "parameters": {},
+    "model_compatibility": [
+      "stable-diffusion",
+      "midjourney",
+      "dall-e"
+    ],
+    "quality_score": 0.7,
+    "source": "Avaray/stable-diffusion-simple-wildcards",
+    "examples": []
+  },
+  {
+    "id": "Avaray_stable-diffusion-simple-wildcards_artists2.txt_37",
+    "category": "text_to_image",
+    "subcategory": "general",
+    "prompt_text": "Jim Lee, comics, detailed, character",
+    "parameters": {},
+    "model_compatibility": [
+      "stable-diffusion",
+      "midjourney",
+      "dall-e"
+    ],
+    "quality_score": 0.7,
+    "source": "Avaray/stable-diffusion-simple-wildcards",
+    "examples": []
+  },
+  {
+    "id": "Avaray_stable-diffusion-simple-wildcards_artists2.txt_38",
+    "category": "text_to_image",
+    "subcategory": "fantasy",
+    "prompt_text": "Jody Bergsma, watercolor, fantasy, detailed, whimsical",
+    "parameters": {},
+    "model_compatibility": [
+      "stable-diffusion",
+      "midjourney",
+      "dall-e"
+    ],
+    "quality_score": 0.7,
+    "source": "Avaray/stable-diffusion-simple-wildcards",
+    "examples": []
+  },
+  {
+    "id": "Avaray_stable-diffusion-simple-wildcards_artists2.txt_39",
+    "category": "text_to_image",
+    "subcategory": "fantasy",
+    "prompt_text": "Joe Madureira, comics, detailed, fantasy",
+    "parameters": {},
+    "model_compatibility": [
+      "stable-diffusion",
+      "midjourney",
+      "dall-e"
+    ],
+    "quality_score": 0.7,
+    "source": "Avaray/stable-diffusion-simple-wildcards",
+    "examples": []
+  },
+  {
+    "id": "Avaray_stable-diffusion-simple-wildcards_artists2.txt_40",
+    "category": "environment",
+    "subcategory": "fantasy",
+    "prompt_text": "John Anster Fitzgerald, detailed, fantasy, whimsical, scene",
+    "parameters": {},
+    "model_compatibility": [
+      "stable-diffusion",
+      "midjourney",
+      "dall-e"
+    ],
+    "quality_score": 0.7,
+    "source": "Avaray/stable-diffusion-simple-wildcards",
+    "examples": []
+  },
+  {
+    "id": "Avaray_stable-diffusion-simple-wildcards_artists2.txt_41",
+    "category": "text_to_image",
+    "subcategory": "fantasy",
+    "prompt_text": "John Howe, fantasy, dark, detailed",
+    "parameters": {},
+    "model_compatibility": [
+      "stable-diffusion",
+      "midjourney",
+      "dall-e"
+    ],
+    "quality_score": 0.7,
+    "source": "Avaray/stable-diffusion-simple-wildcards",
+    "examples": []
+  },
+  {
+    "id": "Avaray_stable-diffusion-simple-wildcards_artists2.txt_42",
+    "category": "text_to_image",
+    "subcategory": "general",
+    "prompt_text": "John Tenniel, detailed, children's illustration",
+    "parameters": {},
+    "model_compatibility": [
+      "stable-diffusion",
+      "midjourney",
+      "dall-e"
+    ],
+    "quality_score": 0.7,
+    "source": "Avaray/stable-diffusion-simple-wildcards",
+    "examples": []
+  },
+  {
+    "id": "Avaray_stable-diffusion-simple-wildcards_artists2.txt_43",
+    "category": "character_design",
+    "subcategory": "anime",
+    "prompt_text": "Junji Ito, horror, manga, portrait, monochromatic, detailed",
+    "parameters": {},
+    "model_compatibility": [
+      "stable-diffusion",
+      "midjourney",
+      "dall-e"
+    ],
+    "quality_score": 0.7,
+    "source": "Avaray/stable-diffusion-simple-wildcards",
+    "examples": []
+  },
+  {
+    "id": "Avaray_stable-diffusion-simple-wildcards_artists2.txt_44",
+    "category": "text_to_image",
+    "subcategory": "fantasy",
+    "prompt_text": "Justin Gerard, fantasy, whimsical, detailed",
+    "parameters": {},
+    "model_compatibility": [
+      "stable-diffusion",
+      "midjourney",
+      "dall-e"
+    ],
+    "quality_score": 0.7,
+    "source": "Avaray/stable-diffusion-simple-wildcards",
+    "examples": []
+  },
+  {
+    "id": "Avaray_stable-diffusion-simple-wildcards_artists2.txt_45",
+    "category": "text_to_image",
+    "subcategory": "anime",
+    "prompt_text": "Katsuhiro Otomo, manga, anime, detailed",
+    "parameters": {},
+    "model_compatibility": [
+      "stable-diffusion",
+      "midjourney",
+      "dall-e"
+    ],
+    "quality_score": 0.7,
+    "source": "Avaray/stable-diffusion-simple-wildcards",
+    "examples": []
+  },
+  {
+    "id": "Avaray_stable-diffusion-simple-wildcards_artists2.txt_46",
+    "category": "text_to_image",
+    "subcategory": "general",
+    "prompt_text": "Kay Nielsen, art nouveau, detailed",
+    "parameters": {},
+    "model_compatibility": [
+      "stable-diffusion",
+      "midjourney",
+      "dall-e"
+    ],
+    "quality_score": 0.7,
+    "source": "Avaray/stable-diffusion-simple-wildcards",
+    "examples": []
+  },
+  {
+    "id": "Avaray_stable-diffusion-simple-wildcards_artists2.txt_47",
+    "category": "character_design",
+    "subcategory": "general",
+    "prompt_text": "Kehinde Wiley, melanin, photorealism, portrait, vibrant, colorful, detailed",
+    "parameters": {},
+    "model_compatibility": [
+      "stable-diffusion",
+      "midjourney",
+      "dall-e"
+    ],
+    "quality_score": 0.7,
+    "source": "Avaray/stable-diffusion-simple-wildcards",
+    "examples": []
+  },
+  {
+    "id": "Avaray_stable-diffusion-simple-wildcards_artists2.txt_48",
+    "category": "environment",
+    "subcategory": "fantasy",
+    "prompt_text": "Keith Parkinson, fantasy, scene, detailed",
+    "parameters": {},
+    "model_compatibility": [
+      "stable-diffusion",
+      "midjourney",
+      "dall-e"
+    ],
+    "quality_score": 0.7,
+    "source": "Avaray/stable-diffusion-simple-wildcards",
+    "examples": []
+  },
+  {
+    "id": "Avaray_stable-diffusion-simple-wildcards_artists2.txt_49",
+    "category": "text_to_image",
+    "subcategory": "general",
+    "prompt_text": "Kim Jung Gi, character, detailed, monochromatic",
+    "parameters": {},
+    "model_compatibility": [
+      "stable-diffusion",
+      "midjourney",
+      "dall-e"
+    ],
+    "quality_score": 0.7,
+    "source": "Avaray/stable-diffusion-simple-wildcards",
+    "examples": []
+  },
+  {
+    "id": "Avaray_stable-diffusion-simple-wildcards_artists2.txt_50",
+    "category": "text_to_image",
+    "subcategory": "general",
+    "prompt_text": "Louis Rhead, art nouveau, detailed",
+    "parameters": {},
+    "model_compatibility": [
+      "stable-diffusion",
+      "midjourney",
+      "dall-e"
+    ],
+    "quality_score": 0.7,
+    "source": "Avaray/stable-diffusion-simple-wildcards",
+    "examples": []
+  },
+  {
+    "id": "Avaray_stable-diffusion-simple-wildcards_artists2.txt_51",
+    "category": "text_to_image",
+    "subcategory": "fantasy",
+    "prompt_text": "M.W. Kaluta, detailed, fantasy, whimsical",
+    "parameters": {},
+    "model_compatibility": [
+      "stable-diffusion",
+      "midjourney",
+      "dall-e"
+    ],
+    "quality_score": 0.7,
+    "source": "Avaray/stable-diffusion-simple-wildcards",
+    "examples": []
+  },
+  {
+    "id": "Avaray_stable-diffusion-simple-wildcards_artists2.txt_52",
+    "category": "text_to_image",
+    "subcategory": "general",
+    "prompt_text": "Marie Severin, comics, character, detailed",
+    "parameters": {},
+    "model_compatibility": [
+      "stable-diffusion",
+      "midjourney",
+      "dall-e"
+    ],
+    "quality_score": 0.7,
+    "source": "Avaray/stable-diffusion-simple-wildcards",
+    "examples": []
+  },
+  {
+    "id": "Avaray_stable-diffusion-simple-wildcards_artists2.txt_53",
+    "category": "text_to_image",
+    "subcategory": "general",
+    "prompt_text": "Martin Ansin, detailed, high contrast",
+    "parameters": {},
+    "model_compatibility": [
+      "stable-diffusion",
+      "midjourney",
+      "dall-e"
+    ],
+    "quality_score": 0.7,
+    "source": "Avaray/stable-diffusion-simple-wildcards",
+    "examples": []
+  },
+  {
+    "id": "Avaray_stable-diffusion-simple-wildcards_artists2.txt_54",
+    "category": "environment",
+    "subcategory": "general",
+    "prompt_text": "Mort Künstler, scene, detailed, realism",
+    "parameters": {},
+    "model_compatibility": [
+      "stable-diffusion",
+      "midjourney",
+      "dall-e"
+    ],
+    "quality_score": 0.7,
+    "source": "Avaray/stable-diffusion-simple-wildcards",
+    "examples": []
+  },
+  {
+    "id": "Avaray_stable-diffusion-simple-wildcards_artists2.txt_55",
+    "category": "text_to_image",
+    "subcategory": "general",
+    "prompt_text": "N/A ROA, street art, graffiti, monochromatic, detailed",
+    "parameters": {},
+    "model_compatibility": [
+      "stable-diffusion",
+      "midjourney",
+      "dall-e"
+    ],
+    "quality_score": 0.7,
+    "source": "Avaray/stable-diffusion-simple-wildcards",
+    "examples": []
+  },
+  {
+    "id": "Avaray_stable-diffusion-simple-wildcards_artists2.txt_56",
+    "category": "text_to_image",
+    "subcategory": "fantasy",
+    "prompt_text": "Nicolas Delort, monochromatic, detailed, fantasy",
+    "parameters": {},
+    "model_compatibility": [
+      "stable-diffusion",
+      "midjourney",
+      "dall-e"
+    ],
+    "quality_score": 0.7,
+    "source": "Avaray/stable-diffusion-simple-wildcards",
+    "examples": []
+  },
+  {
+    "id": "Avaray_stable-diffusion-simple-wildcards_artists2.txt_57",
+    "category": "environment",
+    "subcategory": "general",
+    "prompt_text": "Njideka Akunyili Crosby, scene, detailed, melanin, collage",
+    "parameters": {},
+    "model_compatibility": [
+      "stable-diffusion",
+      "midjourney",
+      "dall-e"
+    ],
+    "quality_score": 0.7,
+    "source": "Avaray/stable-diffusion-simple-wildcards",
+    "examples": []
+  },
+  {
+    "id": "Avaray_stable-diffusion-simple-wildcards_artists2.txt_58",
+    "category": "text_to_image",
+    "subcategory": "fantasy",
+    "prompt_text": "Patrick Brown, fantasy, comics, detailed",
+    "parameters": {},
+    "model_compatibility": [
+      "stable-diffusion",
+      "midjourney",
+      "dall-e"
+    ],
+    "quality_score": 0.7,
+    "source": "Avaray/stable-diffusion-simple-wildcards",
+    "examples": []
+  },
+  {
+    "id": "Avaray_stable-diffusion-simple-wildcards_artists2.txt_59",
+    "category": "text_to_image",
+    "subcategory": "fantasy",
+    "prompt_text": "Peter Mohrbacher, detailed, surrealism, fantasy",
+    "parameters": {},
+    "model_compatibility": [
+      "stable-diffusion",
+      "midjourney",
+      "dall-e"
+    ],
+    "quality_score": 0.7,
+    "source": "Avaray/stable-diffusion-simple-wildcards",
+    "examples": []
+  },
+  {
+    "id": "Avaray_stable-diffusion-simple-wildcards_artists2.txt_60",
+    "category": "environment",
+    "subcategory": "general",
+    "prompt_text": "Pieter Aertsen, detailed, scene, renaissance",
+    "parameters": {},
+    "model_compatibility": [
+      "stable-diffusion",
+      "midjourney",
+      "dall-e"
+    ],
+    "quality_score": 0.7,
+    "source": "Avaray/stable-diffusion-simple-wildcards",
+    "examples": []
+  },
+  {
+    "id": "Avaray_stable-diffusion-simple-wildcards_artists2.txt_61",
+    "category": "environment",
+    "subcategory": "general",
+    "prompt_text": "PJ Crook, scene, detailed, surrealism",
+    "parameters": {},
+    "model_compatibility": [
+      "stable-diffusion",
+      "midjourney",
+      "dall-e"
+    ],
+    "quality_score": 0.7,
+    "source": "Avaray/stable-diffusion-simple-wildcards",
+    "examples": []
+  },
+  {
+    "id": "Avaray_stable-diffusion-simple-wildcards_artists2.txt_62",
+    "category": "environment",
+    "subcategory": "general",
+    "prompt_text": "Randolph Caldecott, children's illustration, scene, detailed",
+    "parameters": {},
+    "model_compatibility": [
+      "stable-diffusion",
+      "midjourney",
+      "dall-e"
+    ],
+    "quality_score": 0.7,
+    "source": "Avaray/stable-diffusion-simple-wildcards",
+    "examples": []
+  },
+  {
+    "id": "Avaray_stable-diffusion-simple-wildcards_artists2.txt_63",
+    "category": "environment",
+    "subcategory": "general",
+    "prompt_text": "Reginald Marsh, detailed, realism, scene, dark",
+    "parameters": {},
+    "model_compatibility": [
+      "stable-diffusion",
+      "midjourney",
+      "dall-e"
+    ],
+    "quality_score": 0.7,
+    "source": "Avaray/stable-diffusion-simple-wildcards",
+    "examples": []
+  },
+  {
+    "id": "Avaray_stable-diffusion-simple-wildcards_artists2.txt_64",
+    "category": "text_to_image",
+    "subcategory": "general",
+    "prompt_text": "Robert Crumb, detailed, comics, character",
+    "parameters": {},
+    "model_compatibility": [
+      "stable-diffusion",
+      "midjourney",
+      "dall-e"
+    ],
+    "quality_score": 0.7,
+    "source": "Avaray/stable-diffusion-simple-wildcards",
+    "examples": []
+  },
+  {
+    "id": "Avaray_stable-diffusion-simple-wildcards_artists2.txt_65",
+    "category": "environment",
+    "subcategory": "general",
+    "prompt_text": "Ron Embleton, comics, scene, detailed",
+    "parameters": {},
+    "model_compatibility": [
+      "stable-diffusion",
+      "midjourney",
+      "dall-e"
+    ],
+    "quality_score": 0.7,
+    "source": "Avaray/stable-diffusion-simple-wildcards",
+    "examples": []
+  },
+  {
+    "id": "Avaray_stable-diffusion-simple-wildcards_artists2.txt_66",
+    "category": "text_to_image",
+    "subcategory": "anime",
+    "prompt_text": "Sam Bosma, cartoon, detailed, comics, fantasy, character",
+    "parameters": {},
+    "model_compatibility": [
+      "stable-diffusion",
+      "midjourney",
+      "dall-e"
+    ],
+    "quality_score": 0.7,
+    "source": "Avaray/stable-diffusion-simple-wildcards",
+    "examples": []
+  },
+  {
+    "id": "Avaray_stable-diffusion-simple-wildcards_artists2.txt_67",
+    "category": "environment",
+    "subcategory": "general",
+    "prompt_text": "Scarlett Hooft Graafland, photography, landscape, high contrast, pink",
+    "parameters": {},
+    "model_compatibility": [
+      "stable-diffusion",
+      "midjourney",
+      "dall-e"
+    ],
+    "quality_score": 0.6,
+    "source": "Avaray/stable-diffusion-simple-wildcards",
+    "examples": []
+  },
+  {
+    "id": "Avaray_stable-diffusion-simple-wildcards_artists2.txt_68",
+    "category": "text_to_image",
+    "subcategory": "anime",
+    "prompt_text": "Sven Nordqvist, detailed, cartoon, children's illustration",
+    "parameters": {},
+    "model_compatibility": [
+      "stable-diffusion",
+      "midjourney",
+      "dall-e"
+    ],
+    "quality_score": 0.7,
+    "source": "Avaray/stable-diffusion-simple-wildcards",
+    "examples": []
+  },
+  {
+    "id": "Avaray_stable-diffusion-simple-wildcards_artists2.txt_69",
+    "category": "text_to_image",
+    "subcategory": "general",
+    "prompt_text": "Tiffany Bozic, nature, surrealism, animals, detailed",
+    "parameters": {},
+    "model_compatibility": [
+      "stable-diffusion",
+      "midjourney",
+      "dall-e"
+    ],
+    "quality_score": 0.7,
+    "source": "Avaray/stable-diffusion-simple-wildcards",
+    "examples": []
+  },
+  {
+    "id": "Avaray_stable-diffusion-simple-wildcards_artists2.txt_70",
+    "category": "text_to_image",
+    "subcategory": "general",
+    "prompt_text": "Todd Schorr, pop art, surrealism, detailed,",
+    "parameters": {},
+    "model_compatibility": [
+      "stable-diffusion",
+      "midjourney",
+      "dall-e"
+    ],
+    "quality_score": 0.7,
+    "source": "Avaray/stable-diffusion-simple-wildcards",
+    "examples": []
+  },
+  {
+    "id": "Avaray_stable-diffusion-simple-wildcards_artists2.txt_71",
+    "category": "environment",
+    "subcategory": "fantasy",
+    "prompt_text": "Valentin Rekunenko, scene, detailed, fantasy, surrealism",
+    "parameters": {},
+    "model_compatibility": [
+      "stable-diffusion",
+      "midjourney",
+      "dall-e"
+    ],
+    "quality_score": 0.7,
+    "source": "Avaray/stable-diffusion-simple-wildcards",
+    "examples": []
+  },
+  {
+    "id": "Avaray_stable-diffusion-simple-wildcards_artists2.txt_72",
+    "category": "text_to_image",
+    "subcategory": "general",
+    "prompt_text": "Victo Ngai, detailed, vibrant, children's illustration, surrealism",
+    "parameters": {},
+    "model_compatibility": [
+      "stable-diffusion",
+      "midjourney",
+      "dall-e"
+    ],
+    "quality_score": 0.7,
+    "source": "Avaray/stable-diffusion-simple-wildcards",
+    "examples": []
+  },
+  {
+    "id": "Avaray_stable-diffusion-simple-wildcards_artists2.txt_73",
+    "category": "text_to_image",
+    "subcategory": "general",
+    "prompt_text": "Walter Crane, detailed, art nouveau,",
+    "parameters": {},
+    "model_compatibility": [
+      "stable-diffusion",
+      "midjourney",
+      "dall-e"
+    ],
+    "quality_score": 0.7,
+    "source": "Avaray/stable-diffusion-simple-wildcards",
+    "examples": []
+  },
+  {
+    "id": "Avaray_stable-diffusion-simple-wildcards_artists2.txt_74",
+    "category": "text_to_image",
+    "subcategory": "general",
+    "prompt_text": "William Morris, textile, detailed, art nouveau",
+    "parameters": {},
+    "model_compatibility": [
+      "stable-diffusion",
+      "midjourney",
+      "dall-e"
+    ],
+    "quality_score": 0.7,
+    "source": "Avaray/stable-diffusion-simple-wildcards",
+    "examples": []
+  },
+  {
+    "id": "Avaray_stable-diffusion-simple-wildcards_artists2.txt_75",
+    "category": "text_to_image",
+    "subcategory": "fantasy",
+    "prompt_text": "William Stout, detailed, dark, fantasy",
+    "parameters": {},
+    "model_compatibility": [
+      "stable-diffusion",
+      "midjourney",
+      "dall-e"
+    ],
+    "quality_score": 0.7,
+    "source": "Avaray/stable-diffusion-simple-wildcards",
+    "examples": []
+  },
+  {
+    "id": "Avaray_stable-diffusion-simple-wildcards_artists2.txt_76",
+    "category": "text_to_image",
+    "subcategory": "fantasy",
+    "prompt_text": "Yoann Lossel, fantasy, illustration, whimsical, detailed, magic realism",
+    "parameters": {},
+    "model_compatibility": [
+      "stable-diffusion",
+      "midjourney",
+      "dall-e"
+    ],
+    "quality_score": 0.7,
+    "source": "Avaray/stable-diffusion-simple-wildcards",
+    "examples": []
+  },
+  {
+    "id": "Avaray_stable-diffusion-simple-wildcards_artists2.txt_77",
+    "category": "text_to_image",
+    "subcategory": "general",
+    "prompt_text": "Yoji Shinkawa, character, comics, monochromatic, messy, high contrast",
+    "parameters": {},
+    "model_compatibility": [
+      "stable-diffusion",
+      "midjourney",
+      "dall-e"
+    ],
+    "quality_score": 0.6,
+    "source": "Avaray/stable-diffusion-simple-wildcards",
+    "examples": []
+  },
+  {
+    "id": "mehakjain07_stable-diffusion-prompts-collection_portrait.md_0",
+    "category": "character_design",
+    "subcategory": "general",
+    "prompt_text": "RAW photo, close-up portrait of a 28-year-old woman, natural freckles, green eyes, studio lighting with softbox, shallow depth of field, shot on Canon EOS R5, 85mm f/1.4 lens, ultra-detailed skin texture, 8k",
+    "parameters": {},
+    "model_compatibility": [
+      "stable-diffusion",
+      "midjourney",
+      "dall-e"
+    ],
+    "quality_score": 0.7999999999999999,
+    "source": "mehakjain07/stable-diffusion-prompts-collection",
+    "examples": []
+  },
+  {
+    "id": "mehakjain07_stable-diffusion-prompts-collection_portrait.md_1",
+    "category": "text_to_image",
+    "subcategory": "general",
+    "prompt_text": "professional headshot, confident male executive, 40s, sharp jawline, neutral background, Rembrandt lighting, business attire, Hasselblad medium format quality, highly detailed, 8k resolution",
+    "parameters": {},
+    "model_compatibility": [
+      "stable-diffusion",
+      "midjourney",
+      "dall-e"
+    ],
+    "quality_score": 1.0,
+    "source": "mehakjain07/stable-diffusion-prompts-collection",
+    "examples": []
+  },
+  {
+    "id": "mehakjain07_stable-diffusion-prompts-collection_portrait.md_2",
+    "category": "character_design",
+    "subcategory": "general",
+    "prompt_text": "oil painting portrait in the style of John Singer Sargent, young woman in Victorian dress, loose brushwork, warm candlelight, museum quality, highly detailed, fine art",
+    "parameters": {},
+    "model_compatibility": [
+      "stable-diffusion",
+      "midjourney",
+      "dall-e"
+    ],
+    "quality_score": 0.8999999999999999,
+    "source": "mehakjain07/stable-diffusion-prompts-collection",
+    "examples": []
+  },
+  {
+    "id": "mehakjain07_stable-diffusion-prompts-collection_portrait.md_3",
+    "category": "character_design",
+    "subcategory": "fantasy",
+    "prompt_text": "fantasy warrior woman, ornate silver armor with gold filigree, epic fantasy art style, dramatic rim lighting, ethereal glow, highly detailed face, painterly style, ArtStation trending",
+    "parameters": {},
+    "model_compatibility": [
+      "stable-diffusion",
+      "midjourney",
+      "dall-e"
+    ],
+    "quality_score": 0.8999999999999999,
+    "source": "mehakjain07/stable-diffusion-prompts-collection",
+    "examples": []
+  },
+  {
+    "id": "mehakjain07_stable-diffusion-prompts-collection_portrait.md_4",
+    "category": "character_design",
+    "subcategory": "general",
+    "prompt_text": "high fashion editorial portrait, androgynous model, avant-garde makeup, Vogue magazine aesthetic, dramatic shadows, high contrast, shot on Leica M, professional fashion photography, 8k",
+    "parameters": {},
+    "model_compatibility": [
+      "stable-diffusion",
+      "midjourney",
+      "dall-e"
+    ],
+    "quality_score": 0.9999999999999999,
+    "source": "mehakjain07/stable-diffusion-prompts-collection",
+    "examples": []
+  },
+  {
+    "id": "",
+    "category": "text_to_image",
+    "subcategory": "general",
+    "prompt_text": "a peaceful zen garden, detailed, 4k",
+    "parameters": {},
+    "model_compatibility": [],
+    "quality_score": 0.4,
+    "source": "baloglu321/deforum-works",
+    "examples": []
+  },
+  {
+    "id": "saharmor_dalle-playground_text_to_image_68",
+    "category": "text_to_image",
+    "subcategory": "general",
+    "prompt_text": "The original reposistory used  @borisdayma's DALL-E Mini.",
+    "parameters": {},
+    "model_compatibility": [
+      "stable-diffusion"
+    ],
+    "quality_score": 0.7,
+    "source": "saharmor/dalle-playground",
+    "examples": []
+  },
+  {
+    "id": "saharmor_dalle-playground_browserslist_2",
+    "category": "browserslist",
+    "subcategory": "general",
+    "prompt_text": "not ie <= 11",
+    "parameters": {},
+    "model_compatibility": [
+      "stable-diffusion"
+    ],
+    "quality_score": 0.5,
+    "source": "saharmor/dalle-playground",
+    "examples": []
+  },
+  {
+    "id": "saharmor_dalle-playground_browserslist_3",
+    "category": "browserslist",
+    "subcategory": "general",
+    "prompt_text": "not op_mini all",
+    "parameters": {},
+    "model_compatibility": [
+      "stable-diffusion"
+    ],
+    "quality_score": 0.5,
+    "source": "saharmor/dalle-playground",
+    "examples": []
+  },
+  {
+    "id": "Data-Advantage_VibeReference_PRODUCT.md_0",
+    "category": "text_to_image",
+    "subcategory": "general",
+    "prompt_text": "The informational hub for solo founders navigating tech suppliers. Curated prompts, vendor comparisons, and guides to take a product from concept to launch using AI coding tools.",
+    "parameters": {},
+    "model_compatibility": [
+      "stable-diffusion",
+      "midjourney",
+      "dall-e"
+    ],
+    "quality_score": 0.6,
+    "source": "Data-Advantage/VibeReference",
+    "examples": []
+  },
+  {
+    "id": "Data-Advantage_VibeReference_PRODUCT.md_2",
+    "category": "text_to_image",
+    "subcategory": "general",
+    "prompt_text": "best [tool] for solo founders",
+    "parameters": {},
+    "model_compatibility": [
+      "stable-diffusion",
+      "midjourney",
+      "dall-e"
+    ],
+    "quality_score": 0.5,
+    "source": "Data-Advantage/VibeReference",
+    "examples": []
+  },
+  {
+    "id": "Data-Advantage_VibeReference_package-lock.json_26",
+    "category": "text_to_image",
+    "subcategory": "general",
+    "prompt_text": "^18.17.0 || ^20.3.0 || >=21.0.0",
+    "parameters": {},
+    "model_compatibility": [
+      "stable-diffusion",
+      "midjourney",
+      "dall-e"
+    ],
+    "quality_score": 0.5,
+    "source": "Data-Advantage/VibeReference",
+    "examples": []
+  },
+  {
+    "id": "Data-Advantage_VibeReference_package-lock.json_115",
+    "category": "text_to_image",
+    "subcategory": "general",
+    "prompt_text": "Apache-2.0 AND LGPL-3.0-or-later AND MIT",
+    "parameters": {},
+    "model_compatibility": [
+      "stable-diffusion",
+      "midjourney",
+      "dall-e"
+    ],
+    "quality_score": 0.5,
+    "source": "Data-Advantage/VibeReference",
+    "examples": []
+  },
+  {
+    "id": "Data-Advantage_VibeReference_package-lock.json_121",
+    "category": "text_to_image",
+    "subcategory": "general",
+    "prompt_text": "Apache-2.0 AND LGPL-3.0-or-later",
+    "parameters": {},
+    "model_compatibility": [
+      "stable-diffusion",
+      "midjourney",
+      "dall-e"
+    ],
+    "quality_score": 0.5,
+    "source": "Data-Advantage/VibeReference",
+    "examples": []
+  },
+  {
+    "id": "Data-Advantage_VibeReference_package-lock.json_217",
+    "category": "text_to_image",
+    "subcategory": "general",
+    "prompt_text": "^18 || ^19 || ^19.0.0-rc",
+    "parameters": {},
+    "model_compatibility": [
+      "stable-diffusion",
+      "midjourney",
+      "dall-e"
+    ],
+    "quality_score": 0.5,
+    "source": "Data-Advantage/VibeReference",
+    "examples": []
+  },
+  {
+    "id": "Data-Advantage_VibeReference_package-lock.json_362",
+    "category": "text_to_image",
+    "subcategory": "general",
+    "prompt_text": "^8.16.0 || ^10.6.0 || >=11.0.0",
+    "parameters": {},
+    "model_compatibility": [
+      "stable-diffusion",
+      "midjourney",
+      "dall-e"
+    ],
+    "quality_score": 0.5,
+    "source": "Data-Advantage/VibeReference",
+    "examples": []
+  },
+  {
+    "id": "Data-Advantage_VibeReference_package-lock.json_811",
+    "category": "text_to_image",
+    "subcategory": "general",
+    "prompt_text": "^18.2.0 || 19.0.0-rc-de68d2f4-20241204 || ^19.0.0",
+    "parameters": {},
+    "model_compatibility": [
+      "stable-diffusion",
+      "midjourney",
+      "dall-e"
+    ],
+    "quality_score": 0.5,
+    "source": "Data-Advantage/VibeReference",
+    "examples": []
+  },
+  {
+    "id": "Data-Advantage_VibeReference_package.json_1",
+    "category": "text_to_image",
+    "subcategory": "general",
+    "prompt_text": "NODE_ENV=production next build",
+    "parameters": {},
+    "model_compatibility": [
+      "stable-diffusion",
+      "midjourney",
+      "dall-e"
+    ],
+    "quality_score": 0.5,
+    "source": "Data-Advantage/VibeReference",
+    "examples": []
+  },
+  {
+    "id": "AICMO_AiCMO-Marketing-Prompt-Collection_QUICK_START_GUIDE.md_0",
+    "category": "text_to_image",
+    "subcategory": "general",
+    "prompt_text": "I Need Results Right Now",
+    "parameters": {},
+    "model_compatibility": [
+      "stable-diffusion",
+      "midjourney",
+      "dall-e"
+    ],
+    "quality_score": 0.5,
+    "source": "AICMO/AiCMO-Marketing-Prompt-Collection",
+    "examples": []
+  },
+  {
+    "id": "AICMO_AiCMO-Marketing-Prompt-Collection_QUICK_START_GUIDE.md_4",
+    "category": "text_to_image",
+    "subcategory": "general",
+    "prompt_text": "Why successful people never check email in the morning",
+    "parameters": {},
+    "model_compatibility": [
+      "stable-diffusion",
+      "midjourney",
+      "dall-e"
+    ],
+    "quality_score": 0.5,
+    "source": "AICMO/AiCMO-Marketing-Prompt-Collection",
+    "examples": []
+  },
+  {
+    "id": "AICMO_AiCMO-Marketing-Prompt-Collection_QUICK_START_GUIDE.md_8",
+    "category": "text_to_image",
+    "subcategory": "general",
+    "prompt_text": "[Brief description of what you offer]",
+    "parameters": {},
+    "model_compatibility": [
+      "stable-diffusion",
+      "midjourney",
+      "dall-e"
+    ],
+    "quality_score": 0.5,
+    "source": "AICMO/AiCMO-Marketing-Prompt-Collection",
+    "examples": []
+  },
+  {
+    "id": "AICMO_AiCMO-Marketing-Prompt-Collection_QUICK_START_GUIDE.md_10",
+    "category": "text_to_image",
+    "subcategory": "general",
+    "prompt_text": "help me with marketing",
+    "parameters": {},
+    "model_compatibility": [
+      "stable-diffusion",
+      "midjourney",
+      "dall-e"
+    ],
+    "quality_score": 0.5,
+    "source": "AICMO/AiCMO-Marketing-Prompt-Collection",
+    "examples": []
+  },
+  {
+    "id": "AICMO_AiCMO-Marketing-Prompt-Collection_QUICK_START_GUIDE.md_11",
+    "category": "text_to_image",
+    "subcategory": "general",
+    "prompt_text": "Make this more specific",
+    "parameters": {},
+    "model_compatibility": [
+      "stable-diffusion",
+      "midjourney",
+      "dall-e"
+    ],
+    "quality_score": 0.5,
+    "source": "AICMO/AiCMO-Marketing-Prompt-Collection",
+    "examples": []
+  },
+  {
+    "id": "rockbenben_img-prompt_prompt-ar.json_0",
+    "category": "text_to_image",
+    "subcategory": "general",
+    "prompt_text": "\"displayName\": \"beautiful detailed glow,floating ashes,beautiful and detailed explosion,red moon,fire,fire cloud,wings on fire,a cloudy sky,smoke of gunpowder,burning,black dress,dove of peace,(floating cloud:1.2)\",",
+    "parameters": {},
+    "model_compatibility": [
+      "stable-diffusion",
+      "midjourney",
+      "dall-e"
+    ],
+    "quality_score": 0.9999999999999999,
+    "source": "rockbenben/img-prompt",
+    "examples": []
+  },
+  {
+    "id": "rockbenben_img-prompt_prompt-ar.json_1",
+    "category": "text_to_image",
+    "subcategory": "general",
+    "prompt_text": "\"displayName\": \"(starry tornado:1.4),starry Nebula,beautiful detailed sky\",",
+    "parameters": {},
+    "model_compatibility": [
+      "stable-diffusion",
+      "midjourney",
+      "dall-e"
+    ],
+    "quality_score": 0.7999999999999999,
+    "source": "rockbenben/img-prompt",
+    "examples": []
+  },
+  {
+    "id": "rockbenben_img-prompt_prompt-ar.json_2",
+    "category": "text_to_image",
+    "subcategory": "general",
+    "prompt_text": "\"displayName\": \"beautiful detailed glow,detailed ice,beautiful detailed water,(cold full moon),snowflake,(floating cloud:1.2)\",",
+    "parameters": {},
+    "model_compatibility": [
+      "stable-diffusion",
+      "midjourney",
+      "dall-e"
+    ],
+    "quality_score": 0.9999999999999999,
+    "source": "rockbenben/img-prompt",
+    "examples": []
+  },
+  {
+    "id": "rockbenben_img-prompt_prompt-ar.json_3",
+    "category": "text_to_image",
+    "subcategory": "general",
+    "prompt_text": "\"displayName\": \"Floating black ashes,Beautiful and detailed black,red moon,((The black clouds)),(black Wings) ,a black cloudy sky,burning,black dress,((Black fog)),Red eyes,(black smoke),((Black feathers floating in the air)),bat,(floating black cloud:1.5),\",",
+    "parameters": {},
+    "model_compatibility": [
+      "stable-diffusion",
+      "midjourney",
+      "dall-e"
+    ],
+    "quality_score": 0.7999999999999999,
+    "source": "rockbenben/img-prompt",
+    "examples": []
+  },
+  {
+    "id": "rockbenben_img-prompt_prompt-ar.json_4",
+    "category": "text_to_image",
+    "subcategory": "general",
+    "prompt_text": "\"displayName\": \"dynamic angle,detailed wet clothes,blank stare,overexplosure,floating,black long straight,red eyes,aqua eyes,gradient eyes,((blood)),white dress,frills,((expressionless)),extremely beautiful detailed water,((lying on the lake)),(bloodred water:1.5),(red background:1.3)\",",
+    "parameters": {},
+    "model_compatibility": [
+      "stable-diffusion",
+      "midjourney",
+      "dall-e"
+    ],
+    "quality_score": 0.9999999999999999,
+    "source": "rockbenben/img-prompt",
+    "examples": []
+  }
+]

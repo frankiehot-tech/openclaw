@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Athena IP形象图像画廊</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f7;
+        }
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        .header h1 {
+            margin: 0;
+            font-size: 2.5rem;
+        }
+        .header .subtitle {
+            margin-top: 10px;
+            opacity: 0.9;
+        }
+        .stats {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            margin: 30px 0;
+            gap: 20px;
+        }
+        .stat-card {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            flex: 1;
+            min-width: 200px;
+        }
+        .stat-number {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #667eea;
+        }
+        .stat-label {
+            color: #666;
+            margin-top: 5px;
+        }
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+            margin: 30px 0;
+        }
+        .image-card {
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+        .image-card:hover {
+            transform: translateY(-5px);
+        }
+        .image-container {
+            width: 100%;
+            height: 250px;
+            overflow: hidden;
+        }
+        .image-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .image-info {
+            padding: 15px;
+        }
+        .image-id {
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 5px;
+        }
+        .image-variant {
+            color: #667eea;
+            font-size: 0.9rem;
+            margin-bottom: 5px;
+        }
+        .image-score {
+            color: #666;
+            font-size: 0.8rem;
+        }
+        .summary {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 30px 0;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        .summary pre {
+            white-space: pre-wrap;
+            word-wrap: break-word;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9rem;
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 5px;
+            overflow-x: auto;
+        }
+        .footer {
+            text-align: center;
+            margin-top: 40px;
+            padding: 20px;
+            color: #666;
+            font-size: 0.9rem;
+            border-top: 1px solid #eee;
+        }
+        .tag {
+            display: inline-block;
+            background: #e9ecef;
+            color: #495057;
+            padding: 2px 8px;
+            border-radius: 10px;
+            font-size: 0.8rem;
+            margin-right: 5px;
+            margin-bottom: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>🎨 Athena IP形象图像画廊</h1>
+        <div class="subtitle">硅基共生主题 · 三体叙事风格 · 漫威电影视觉效果</div>
+    </div>
+
+    <div class="stats">
+        <div class="stat-card">
+            <div class="stat-number">30</div>
+            <div class="stat-label">总资产数</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-number">3</div>
+            <div class="stat-label">已下载图像</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-number">8.0</div>
+            <div class="stat-label">平均质量评分</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-number">核心形象-硅基共生</div>
+            <div class="stat-label">当前变体</div>
+        </div>
+    </div>
+
+    <div class="gallery">
+
+        <div class="image-card">
+            <div class="image-container">
+                <img src="data/athena_assets/images/athena_20260416_220417_16128999a968.jpg" alt="Athena图像">
+            </div>
+            <div class="image-info">
+
+                <div class="image-score">文件大小: 121.5 KB</div>
+                <div class="image-score">格式: JPG</div>
+            </div>
+        </div>
+
+        <div class="image-card">
+            <div class="image-container">
+                <img src="data/athena_assets/images/athena_20260416_220418_16f2fde448f4.jpg" alt="Athena图像">
+            </div>
+            <div class="image-info">
+
+                <div class="image-score">文件大小: 86.5 KB</div>
+                <div class="image-score">格式: JPG</div>
+            </div>
+        </div>
+
+        <div class="image-card">
+            <div class="image-container">
+                <img src="data/athena_assets/images/athena_20260416_220418_b74e1ba5080f.jpg" alt="Athena图像">
+            </div>
+            <div class="image-info">
+
+                <div class="image-score">文件大小: 80.3 KB</div>
+                <div class="image-score">格式: JPG</div>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="summary">
+        <h2>📋 资产摘要</h2>
+        <pre># Athena IP形象图像资产摘要
+
+生成时间: 2026-04-16 21:40:57
+总资产数: 30
+展示资产数: 1
+
+## 按变体分类
+
+### 核心形象-硅基共生
+
+- **资产数**: 30
+- **最佳资产**: athena_核心形象_硅基共生_16128999 (质量: 8.0/10)
+- **展示资产**: athena_核心形象_硅基共生_16128999
+  - URL: https://p3-flow-imagex-sign.byteimg.com/ocean-cloud-tos/image_generation/04ab6c4fe99a4e948f4acc39dd2...
+  - 提示词: 硅基共生主题的AI女神Athena，三体叙事风格，漫威电影视觉效果...
+  - 标签: 硅基
+
+## 资产详情
+
+| ID | 变体 | 质量评分 | URL预览 | 生成时间 |
+|----|------|----------|---------|----------|
+| athena_核心形象_硅基共生_16128999 | 核心形象-硅基共生 | 8.0 | https://p3-flow-imagex-sign.byteimg.com/ocean-clou... | 2026-04-16 |
+| athena_核心形象_硅基共生_b74e1ba5 | 核心形象-硅基共生 | 8.0 | https://p3-flow-imagex-sign.byteimg.com/ocean-clou... | 2026-04-16 |
+| athena_核心形象_硅基共生_16f2fde4 | 核心形象-硅基共生 | 8.0 | https://p11-flow-imagex-sign.byteimg.com/ocean-clo... | 2026-04-16 |
+| athena_核心形象_硅基共生_f8d7135d | 核心形象-硅基共生 | 8.0 | https://p11-flow-imagex-sign.byteimg.com/ocean-clo... | 2026-04-16 |
+| athena_核心形象_硅基共生_c98cd95c | 核心形象-硅基共生 | 8.0 | https://p3-flow-imagex-sign.byteimg.com/ocean-clou... | 2026-04-16 |
+| athena_核心形象_硅基共生_d7e131c9 | 核心形象-硅基共生 | 8.0 | https://p11-flow-imagex-sign.byteimg.com/ocean-clo... | 2026-04-16 |
+| athena_核心形象_硅基共生_796efcd9 | 核心形象-硅基共生 | 8.0 | https://p11-flow-imagex-sign.byteimg.com/ocean-clo... | 2026-04-16 |
+| athena_核心形象_硅基共生_531e143b | 核心形象-硅基共生 | 8.0 | https://p3-flow-imagex-sign.byteimg.com/ocean-clou... | 2026-04-16 |
+| athena_核心形象_硅基共生_5ffc1884 | 核心形象-硅基共生 | 8.0 | https://p3-flow-imagex-sign.byteimg.com/ocean-clou... | 2026-04-16 |
+| athena_核心形象_硅基共生_3e8fd36c | 核心形象-硅基共生 | 8.0 | https://p11-flow-imagex-sign.byteimg.com/ocean-clo... | 2026-04-16 |
+| athena_核心形象_硅基共生_f2169eca | 核心形象-硅基共生 | 8.0 | https://p3-flow-imagex-sign.byteimg.com/ocean-clou... | 2026-04-16 |
+| athena_核心形象_硅基共生_409adb51 | 核心形象-硅基共生 | 8.0 | https://p11-flow-imagex-sign.byteimg.com/ocean-clo... | 2026-04-16 |
+| athena_核心形象_硅基共生_169b3527 | 核心形象-硅基共生 | 8.0 | https://p11-flow-imagex-sign.byteimg.com/ocean-clo... | 2026-04-16 |
+| athena_核心形象_硅基共生_479e2852 | 核心形象-硅基共生 | 8.0 | https://p3-flow-imagex-sign.byteimg.com/ocean-clou... | 2026-04-16 |
+| athena_核心形象_硅基共生_a9a31b10 | 核心形象-硅基共生 | 8.0 | https://p11-flow-imagex-sign.byteimg.com/ocean-clo... | 2026-04-16 |
+| athena_核心形象_硅基共生_557baf3f | 核心形象-硅基共生 | 8.0 | https://p3-flow-imagex-sign.byteimg.com/ocean-clou... | 2026-04-16 |
+| athena_核心形象_硅基共生_abd4ba6a | 核心形象-硅基共生 | 8.0 | https://p3-flow-imagex-sign.byteimg.com/ocean-clou... | 2026-04-16 |
+| athena_核心形象_硅基共生_3d9d756b | 核心形象-硅基共生 | 8.0 | https://p11-flow-imagex-sign.byteimg.com/ocean-clo... | 2026-04-16 |
+| athena_核心形象_硅基共生_9611ba56 | 核心形象-硅基共生 | 8.0 | https://p3-flow-imagex-sign.byteimg.com/ocean-clou... | 2026-04-16 |
+| athena_核心形象_硅基共生_ef2eddfe | 核心形象-硅基共生 | 8.0 | https://p3-flow-imagex-sign.byteimg.com/ocean-clou... | 2026-04-16 |
+| athena_核心形象_硅基共生_c26fdff4 | 核心形象-硅基共生 | 8.0 | https://p11-flow-imagex-sign.byteimg.com/ocean-clo... | 2026-04-16 |
+| athena_核心形象_硅基共生_5ec7e84e | 核心形象-硅基共生 | 8.0 | https://p11-flow-imagex-sign.byteimg.com/ocean-clo... | 2026-04-16 |
+| athena_核心形象_硅基共生_b574783d | 核心形象-硅基共生 | 8.0 | https://p11-flow-imagex-sign.byteimg.com/ocean-clo... | 2026-04-16 |
+| athena_核心形象_硅基共生_0df11706 | 核心形象-硅基共生 | 8.0 | https://p11-flow-imagex-sign.byteimg.com/ocean-clo... | 2026-04-16 |
+| athena_核心形象_硅基共生_d1a1fa75 | 核心形象-硅基共生 | 8.0 | https://p3-flow-imagex-sign.byteimg.com/ocean-clou... | 2026-04-16 |
+| athena_核心形象_硅基共生_03b24e37 | 核心形象-硅基共生 | 8.0 | https://p3-flow-imagex-sign.byteimg.com/ocean-clou... | 2026-04-16 |
+| athena_核心形象_硅基共生_8b6bdd0f | 核心形象-硅基共生 | 8.0 | https://p11-flow-imagex-sign.byteimg.com/ocean-clo... | 2026-04-16 |
+| athena_核心形象_硅基共生_f35f12c4 | 核心形象-硅基共生 | 8.0 | https://p11-flow-imagex-sign.byteimg.com/ocean-clo... | 2026-04-16 |
+| athena_核心形象_硅基共生_83a082cb | 核心形象-硅基共生 | 8.0 | https://p3-flow-imagex-sign.byteimg.com/ocean-clou... | 2026-04-16 |
+| athena_核心形象_硅基共生_85e3d910 | 核心形象-硅基共生 | 8.0 | https://p3-flow-imagex-sign.byteimg.com/ocean-clou... | 2026-04-16 |
+</pre>
+    </div>
+
+    <div class="summary">
+        <h2>🔧 技术信息</h2>
+        <p><strong>生成时间:</strong> 2026-04-16</p>
+        <p><strong>图像来源:</strong> 豆包AI绘画 (字节跳动)</p>
+        <p><strong>生成模型:</strong> Seedream 文生图模型</p>
+        <p><strong>图像尺寸:</strong> 1024×1024 像素</p>
+        <p><strong>设计主题:</strong> 硅基共生 · AI女神Athena · 三体叙事风格 · 漫威电影视觉</p>
+        <p><strong>目标用户:</strong> GitHub用户 (80/90后为主，喜欢漫威电影风格)</p>
+    </div>
+
+    <div class="footer">
+        <p>🎯 Clawra模块 · Athena IP形象系统 · 生成时间: 2026-04-16</p>
+        <p>💡 提示: 所有图像均为豆包AI生成，受版权保护，仅用于展示和技术验证</p>
+    </div>
+</body>
+</html>

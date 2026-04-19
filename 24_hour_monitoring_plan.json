@@ -1,0 +1,52 @@
+{
+  "start_time": "2026-04-17T17:14:13.558905",
+  "duration_hours": 24,
+  "monitoring_checks": [
+    {
+      "check": "队列状态监控",
+      "frequency": "每2分钟",
+      "metric": "queue_status"
+    },
+    {
+      "check": "任务执行进度",
+      "frequency": "每5分钟",
+      "metric": "progress_percent"
+    },
+    {
+      "check": "系统资源使用",
+      "frequency": "每10分钟",
+      "metric": "cpu_memory_disk"
+    },
+    {
+      "check": "依赖阻塞检测",
+      "frequency": "每15分钟",
+      "metric": "dependency_blocks"
+    },
+    {
+      "check": "错误率监控",
+      "frequency": "每30分钟",
+      "metric": "error_rate"
+    },
+    {
+      "check": "吞吐量统计",
+      "frequency": "每小时",
+      "metric": "tasks_per_hour"
+    }
+  ],
+  "alert_config": {
+    "immediate_alerts": [
+      "queue_status=dependency_blocked",
+      "queue_status=failed",
+      "system_cpu>90%"
+    ],
+    "hourly_summary": true,
+    "daily_report": true
+  },
+  "verification_criteria": [
+    "队列状态保持running至少95%的时间",
+    "任务执行成功率>90%",
+    "无长时间依赖阻塞(>1小时)",
+    "系统资源使用稳定(无内存泄漏)",
+    "监控告警准确率>95%"
+  ]
+}

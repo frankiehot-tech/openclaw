@@ -1,0 +1,379 @@
+[
+  {
+    "name": "product_demo_001 + data_wisdom",
+    "content": {
+      "template_id": "product_demo_001",
+      "applied_content": {
+        "title": "Athena智慧体网络的核心优势",
+        "description": "硅基共生架构如何实现1+1>2的智慧增强效果",
+        "key_points": [
+          "意图与能力的最优匹配",
+          "分布式智慧体协作网络",
+          "实时学习和适应性优化"
+        ]
+      },
+      "structure_guide": {
+        "opening_impact": [
+          "开场震撼：数据流汇聚成雅典娜智慧之眼",
+          "核心主张：人工智能与人类智慧的共生进化"
+        ],
+        "narrative_structure": "三体式结构",
+        "visual_style": "漫威电影开场风格"
+      },
+      "visual_references": {
+        "color_scheme": "深空紫渐变 + 能量橙冲击",
+        "animation": "数据智能体从分散到协作的网络构建过程"
+      },
+      "brand_info": {
+        "visual_style": "data_wisdom",
+        "brand_colors": [
+          {
+            "name": "科技蓝",
+            "hex_code": "#4A90E2",
+            "rgb": [
+              74,
+              144,
+              226
+            ],
+            "description": "主品牌色，代表科技和创新",
+            "usage": "primary"
+          },
+          {
+            "name": "数据绿",
+            "hex_code": "#00D4AA",
+            "rgb": [
+              0,
+              212,
+              170
+            ],
+            "description": "辅助色，代表数据和智能",
+            "usage": "secondary"
+          },
+          {
+            "name": "能量橙",
+            "hex_code": "#FF6B35",
+            "rgb": [
+              255,
+              107,
+              53
+            ],
+            "description": "强调色，代表能量和行动",
+            "usage": "accent"
+          },
+          {
+            "name": "深空紫",
+            "hex_code": "#7B61FF",
+            "rgb": [
+              123,
+              97,
+              255
+            ],
+            "description": "科技感背景色",
+            "usage": "background"
+          },
+          {
+            "name": "深灰背景",
+            "hex_code": "#1A1A2E",
+            "rgb": [
+              26,
+              26,
+              46
+            ],
+            "description": "深色背景",
+            "usage": "background"
+          },
+          {
+            "name": "浅灰背景",
+            "hex_code": "#F5F7FA",
+            "rgb": [
+              245,
+              247,
+              250
+            ],
+            "description": "浅色背景",
+            "usage": "background"
+          }
+        ],
+        "design_principles": [
+          "硅基共生",
+          "漫威视觉",
+          "三体叙事"
+        ],
+        "target_audience": [
+          "技术决策者",
+          "投资者",
+          "开发者社区"
+        ]
+      },
+      "github_user_profile": {
+        "primary_audience": [
+          "80后",
+          "90后"
+        ],
+        "secondary_audience": [
+          "70后",
+          "10后"
+        ],
+        "visual_preference": "漫威电影风格",
+        "narrative_preference": "三体风格",
+        "thematic_focus": "硅基共生智慧体"
+      }
+    },
+    "style_description": "科技感、未来感、数据驱动的现代智慧形象"
+  },
+  {
+    "name": "product_demo_001 + classical_athena",
+    "content": {
+      "template_id": "product_demo_001",
+      "applied_content": {
+        "title": "Athena智慧体网络的核心优势",
+        "description": "硅基共生架构如何实现1+1>2的智慧增强效果",
+        "key_points": [
+          "意图与能力的最优匹配",
+          "分布式智慧体协作网络",
+          "实时学习和适应性优化"
+        ]
+      },
+      "structure_guide": {
+        "opening_impact": [
+          "开场震撼：数据流汇聚成雅典娜智慧之眼",
+          "核心主张：人工智能与人类智慧的共生进化"
+        ],
+        "narrative_structure": "三体式结构",
+        "visual_style": "漫威电影开场风格"
+      },
+      "visual_references": {
+        "color_scheme": "深空紫渐变 + 能量橙冲击",
+        "animation": "数据智能体从分散到协作的网络构建过程"
+      },
+      "brand_info": {
+        "visual_style": "classical_athena",
+        "brand_colors": [
+          {
+            "name": "科技蓝",
+            "hex_code": "#4A90E2",
+            "rgb": [
+              74,
+              144,
+              226
+            ],
+            "description": "主品牌色，代表科技和创新",
+            "usage": "primary"
+          },
+          {
+            "name": "数据绿",
+            "hex_code": "#00D4AA",
+            "rgb": [
+              0,
+              212,
+              170
+            ],
+            "description": "辅助色，代表数据和智能",
+            "usage": "secondary"
+          },
+          {
+            "name": "能量橙",
+            "hex_code": "#FF6B35",
+            "rgb": [
+              255,
+              107,
+              53
+            ],
+            "description": "强调色，代表能量和行动",
+            "usage": "accent"
+          },
+          {
+            "name": "深空紫",
+            "hex_code": "#7B61FF",
+            "rgb": [
+              123,
+              97,
+              255
+            ],
+            "description": "科技感背景色",
+            "usage": "background"
+          },
+          {
+            "name": "深灰背景",
+            "hex_code": "#1A1A2E",
+            "rgb": [
+              26,
+              26,
+              46
+            ],
+            "description": "深色背景",
+            "usage": "background"
+          },
+          {
+            "name": "浅灰背景",
+            "hex_code": "#F5F7FA",
+            "rgb": [
+              245,
+              247,
+              250
+            ],
+            "description": "浅色背景",
+            "usage": "background"
+          }
+        ],
+        "design_principles": [
+          "硅基共生",
+          "漫威视觉",
+          "三体叙事"
+        ],
+        "target_audience": [
+          "技术决策者",
+          "投资者",
+          "开发者社区"
+        ]
+      },
+      "github_user_profile": {
+        "primary_audience": [
+          "80后",
+          "90后"
+        ],
+        "secondary_audience": [
+          "70后",
+          "10后"
+        ],
+        "visual_preference": "漫威电影风格",
+        "narrative_preference": "三体风格",
+        "thematic_focus": "硅基共生智慧体"
+      }
+    },
+    "style_description": "古典智慧女神形象，哲学深度和永恒价值"
+  },
+  {
+    "name": "tech_social_001 + data_wisdom",
+    "content": {
+      "template_id": "tech_social_001",
+      "applied_content": {
+        "title": "Athena智慧体网络的核心优势",
+        "description": "硅基共生架构如何实现1+1>2的智慧增强效果",
+        "key_points": [
+          "意图与能力的最优匹配",
+          "分布式智慧体协作网络",
+          "实时学习和适应性优化"
+        ]
+      },
+      "structure_guide": {
+        "platforms": [
+          "Twitter",
+          "LinkedIn",
+          "Reddit",
+          "Hacker News"
+        ],
+        "content_types": [
+          "视觉海报",
+          "技术演示视频",
+          "深度技术文章",
+          "互动问答"
+        ],
+        "success_metrics": [
+          "互动率",
+          "分享率",
+          "转化率"
+        ]
+      },
+      "visual_references": {
+        "style": "漫威风格设计",
+        "animation_style": "data_flow_heroic"
+      },
+      "brand_info": {
+        "visual_style": "data_wisdom",
+        "brand_colors": [
+          {
+            "name": "科技蓝",
+            "hex_code": "#4A90E2",
+            "rgb": [
+              74,
+              144,
+              226
+            ],
+            "description": "主品牌色，代表科技和创新",
+            "usage": "primary"
+          },
+          {
+            "name": "数据绿",
+            "hex_code": "#00D4AA",
+            "rgb": [
+              0,
+              212,
+              170
+            ],
+            "description": "辅助色，代表数据和智能",
+            "usage": "secondary"
+          },
+          {
+            "name": "能量橙",
+            "hex_code": "#FF6B35",
+            "rgb": [
+              255,
+              107,
+              53
+            ],
+            "description": "强调色，代表能量和行动",
+            "usage": "accent"
+          },
+          {
+            "name": "深空紫",
+            "hex_code": "#7B61FF",
+            "rgb": [
+              123,
+              97,
+              255
+            ],
+            "description": "科技感背景色",
+            "usage": "background"
+          },
+          {
+            "name": "深灰背景",
+            "hex_code": "#1A1A2E",
+            "rgb": [
+              26,
+              26,
+              46
+            ],
+            "description": "深色背景",
+            "usage": "background"
+          },
+          {
+            "name": "浅灰背景",
+            "hex_code": "#F5F7FA",
+            "rgb": [
+              245,
+              247,
+              250
+            ],
+            "description": "浅色背景",
+            "usage": "background"
+          }
+        ],
+        "design_principles": [
+          "硅基共生",
+          "漫威视觉",
+          "三体叙事"
+        ],
+        "target_audience": [
+          "开发者",
+          "技术布道者",
+          "开源贡献者"
+        ]
+      },
+      "github_user_profile": {
+        "primary_audience": [
+          "80后",
+          "90后"
+        ],
+        "secondary_audience": [
+          "70后",
+          "10后"
+        ],
+        "visual_preference": "漫威电影风格",
+        "narrative_preference": "三体风格",
+        "thematic_focus": "硅基共生智慧体"
+      }
+    },
+    "style_description": "社交媒体优化的科技视觉风格"
+  }
+]

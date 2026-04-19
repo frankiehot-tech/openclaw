@@ -1,0 +1,65 @@
+{
+  "timestamp": "2026-04-14T14:05:32.397620",
+  "config": {
+    "mode": "mvp",
+    "output_dir": "./output/immediate_tasks_20260414_140527",
+    "enable_roma_maref": true,
+    "enable_kdenlive": true,
+    "enable_doubao_cli": true,
+    "enable_github_workflow": false,
+    "layer_focus": "L3",
+    "max_concurrent_tasks": 3,
+    "quality_preset": "standard",
+    "log_level": "INFO",
+    "timestamp": "2026-04-14T14:05:32.397623"
+  },
+  "state": {
+    "initialized": true,
+    "start_time": "2026-04-14T14:05:27.657228",
+    "component_status": {
+      "roma_maref": true,
+      "kdenlive": true,
+      "doubao_cli": true,
+      "github_workflow": false
+    },
+    "tasks_completed": 1,
+    "tasks_failed": 1,
+    "last_error": "豆包内容生成异常: AppleScript错误: 262:266: syntax error: 预期是行的结尾，却找到“text”。 (-2741)\n"
+  },
+  "system_status": {
+    "system": {
+      "initialized": true,
+      "start_time": "2026-04-14T14:05:27.657228",
+      "uptime_seconds": 4.7403,
+      "mode": "mvp",
+      "output_dir": "./output/immediate_tasks_20260414_140527"
+    },
+    "components": {
+      "roma_maref": true,
+      "kdenlive": true,
+      "doubao_cli": true,
+      "github_workflow": false
+    },
+    "performance": {
+      "tasks_completed": 1,
+      "tasks_failed": 1,
+      "success_rate": 0.5
+    },
+    "content_layer": {
+      "current_focus": "L3",
+      "layer_config": {
+        "layer": {
+          "_value_": "L3",
+          "_name_": "L3_1_HOUR",
+          "__objclass__": "{'_generate_next_value_': <staticmethod(<function Enum._generate_next_value_ at 0x100fe33d0>)>, '__module__': 'config.layer_config', '__firstlineno__': 12, '__doc__': '八层传播内容层级', '__static_attributes__': (), '_new_member_': <built-in method __new__ of type object at 0x101ae45c8>, '_use_args_': False, '_member_names_': ['L1_5_SECONDS', 'L2_5_MINUTES', 'L3_1_HOUR', 'L4_1_DAY', 'L5_1_WEEK', 'L6_1_MONTH', 'L7_1_SEASON', 'L8_LIFETIME'], '_member_map_': {'L1_5_SECONDS': <ContentLayer.L1_5_SECONDS: 'L1'>, 'L2_5_MINUTES': <ContentLayer.L2_5_MINUTES: 'L2'>, 'L3_1_HOUR': <ContentLayer.L3_1_HOUR: 'L3'>, 'L4_1_DAY': <ContentLayer.L4_1_DAY: 'L4'>, 'L5_1_WEEK': <ContentLayer.L5_1_WEEK: 'L5'>, 'L6_1_MONTH': <ContentLayer.L6_1_MONTH: 'L6'>, 'L7_1_SEASON': <ContentLayer.L7_1_SEASON: 'L7'>, 'L8_LIFETIME': <ContentLayer.L8_LIFETIME: 'L8'>}, '_value2member_map_': {'L1': <ContentLayer.L1_5_SECONDS: 'L1'>, 'L2': <ContentLayer.L2_5_MINUTES: 'L2'>, 'L3': <ContentLayer.L3_1_HOUR: 'L3'>, 'L4': <ContentLayer.L4_1_DAY: 'L4'>, 'L5': <ContentLayer.L5_1_WEEK: 'L5'>, 'L6': <ContentLayer.L6_1_MONTH: 'L6'>, 'L7': <ContentLayer.L7_1_SEASON: 'L7'>, 'L8': <ContentLayer.L8_LIFETIME: 'L8'>}, '_hashable_values_': ['L1', 'L2', 'L3', 'L4', 'L5', 'L6', 'L7', 'L8'], '_unhashable_values_': [], '_unhashable_values_map_': {}, '_member_type_': <class 'object'>, '_value_repr_': None, 'L1_5_SECONDS': <ContentLayer.L1_5_SECONDS: 'L1'>, 'L2_5_MINUTES': <ContentLayer.L2_5_MINUTES: 'L2'>, 'L3_1_HOUR': <ContentLayer.L3_1_HOUR: 'L3'>, 'L4_1_DAY': <ContentLayer.L4_1_DAY: 'L4'>, 'L5_1_WEEK': <ContentLayer.L5_1_WEEK: 'L5'>, 'L6_1_MONTH': <ContentLayer.L6_1_MONTH: 'L6'>, 'L7_1_SEASON': <ContentLayer.L7_1_SEASON: 'L7'>, 'L8_LIFETIME': <ContentLayer.L8_LIFETIME: 'L8'>, '__new__': <function Enum.__new__ at 0x100fe31c0>}",
+          "_sort_order_": 2
+        },
+        "duration_seconds": 3600,
+        "content_type": "故事叙述视频",
+        "emotional_intensity": 0.6,
+        "cognitive_load": 0.5,
+        "production_time_min": 60
+      }
+    }
+  }
+}

@@ -1,0 +1,119 @@
+{
+  "bin": [
+    {
+      "duration": 60.0,
+      "id": "clip0",
+      "name": "bg_gradient",
+      "source": "color",
+      "type": "color"
+    },
+    {
+      "duration": 3.0,
+      "id": "clip1",
+      "name": "title_intro",
+      "source": "color",
+      "type": "title"
+    },
+    {
+      "duration": 5.0,
+      "id": "clip2",
+      "name": "product_shot",
+      "source": "color",
+      "type": "color"
+    },
+    {
+      "duration": 4.0,
+      "id": "clip3",
+      "name": "call_to_action",
+      "source": "color",
+      "type": "title"
+    }
+  ],
+  "guides": [],
+  "metadata": {
+    "created": "2026-04-14T13:42:51.525917",
+    "modified": "2026-04-14T13:42:51.708932",
+    "software": "kdenlive-cli 1.0"
+  },
+  "name": "Open_Human_Introduction_MVP",
+  "profile": {
+    "dar_den": 9,
+    "dar_num": 16,
+    "fps_den": 1,
+    "fps_num": 30,
+    "height": 1080,
+    "name": "custom",
+    "progressive": true,
+    "width": 1920
+  },
+  "tracks": [
+    {
+      "clips": [
+        {
+          "clip_id": "clip0",
+          "filters": [],
+          "in": 0.0,
+          "out": 60.0,
+          "position": 0.0
+        }
+      ],
+      "hide": false,
+      "id": 0,
+      "locked": false,
+      "mute": false,
+      "name": "V1",
+      "type": "video"
+    },
+    {
+      "clips": [
+        {
+          "clip_id": "clip1",
+          "filters": [],
+          "in": 0.0,
+          "out": 3.0,
+          "position": 0.0
+        },
+        {
+          "clip_id": "clip2",
+          "filters": [],
+          "in": 0.0,
+          "out": 5.0,
+          "position": 3.0
+        },
+        {
+          "clip_id": "clip3",
+          "filters": [],
+          "in": 0.0,
+          "out": 4.0,
+          "position": 8.0
+        }
+      ],
+      "hide": false,
+      "id": 1,
+      "locked": false,
+      "mute": false,
+      "name": "V2",
+      "type": "video"
+    },
+    {
+      "clips": [],
+      "hide": false,
+      "id": 2,
+      "locked": false,
+      "mute": false,
+      "name": "A1",
+      "type": "audio"
+    },
+    {
+      "clips": [],
+      "hide": false,
+      "id": 3,
+      "locked": false,
+      "mute": false,
+      "name": "A2",
+      "type": "audio"
+    }
+  ],
+  "transitions": [],
+  "version": "1.0"
+}

@@ -1,0 +1,323 @@
+{
+  "exploration_started": "2026-04-17 17:34:46",
+  "pages_explored": [
+    {
+      "page_name": "客户群聊",
+      "hash": "#/customer/group",
+      "explored_at": "2026-04-17 17:34:46",
+      "scan_results": {
+        "webhook_urls": [],
+        "robot_elements": [],
+        "athena_references": [],
+        "copy_buttons": [],
+        "input_fields": [],
+        "summary": {
+          "found_webhooks": 0,
+          "found_robots": 0,
+          "found_athena": 0,
+          "found_copy_buttons": 0,
+          "found_input_fields": 0
+        }
+      },
+      "page_info": {
+        "url": "https://work.weixin.qq.com/wework_admin/frame#/customer/group",
+        "hash": "#/customer/group",
+        "title": "企业微信",
+        "body_text_length": 9064,
+        "has_sidebar": false,
+        "has_content": true
+      },
+      "success": false
+    },
+    {
+      "page_name": "群聊管理",
+      "hash": "#/group",
+      "explored_at": "2026-04-17 17:34:52",
+      "scan_results": {
+        "webhook_urls": [],
+        "robot_elements": [],
+        "athena_references": [],
+        "copy_buttons": [],
+        "input_fields": [],
+        "summary": {
+          "found_webhooks": 0,
+          "found_robots": 0,
+          "found_athena": 0,
+          "found_copy_buttons": 0,
+          "found_input_fields": 0
+        }
+      },
+      "page_info": {
+        "url": "https://work.weixin.qq.com/wework_admin/frame#/group",
+        "hash": "#/group",
+        "title": "企业微信",
+        "body_text_length": 9177,
+        "has_sidebar": false,
+        "has_content": true
+      },
+      "success": false
+    },
+    {
+      "page_name": "群机器人",
+      "hash": "#/group/robot",
+      "explored_at": "2026-04-17 17:34:57",
+      "scan_results": {
+        "webhook_urls": [],
+        "robot_elements": [],
+        "athena_references": [],
+        "copy_buttons": [],
+        "input_fields": [],
+        "summary": {
+          "found_webhooks": 0,
+          "found_robots": 0,
+          "found_athena": 0,
+          "found_copy_buttons": 0,
+          "found_input_fields": 0
+        }
+      },
+      "page_info": {
+        "url": "https://work.weixin.qq.com/wework_admin/frame#/group/robot",
+        "hash": "#/group/robot",
+        "title": "企业微信",
+        "body_text_length": 9177,
+        "has_sidebar": false,
+        "has_content": true
+      },
+      "success": false
+    },
+    {
+      "page_name": "应用管理",
+      "hash": "#/apps",
+      "explored_at": "2026-04-17 17:35:02",
+      "scan_results": {
+        "webhook_urls": [],
+        "robot_elements": [
+          {
+            "selector": "*[class*=\"bot\"]",
+            "text": "消息推送",
+            "tagName": "A",
+            "className": "app_index_item app_index_item_Open js_appList_roomRobot",
+            "id": ""
+          }
+        ],
+        "athena_references": [],
+        "copy_buttons": [],
+        "input_fields": [],
+        "summary": {
+          "found_webhooks": 0,
+          "found_robots": 1,
+          "found_athena": 0,
+          "found_copy_buttons": 0,
+          "found_input_fields": 0
+        }
+      },
+      "page_info": {
+        "url": "https://work.weixin.qq.com/wework_admin/frame#/apps",
+        "hash": "#/apps",
+        "title": "企业微信",
+        "body_text_length": 9022,
+        "has_sidebar": false,
+        "has_content": true
+      },
+      "success": false
+    },
+    {
+      "page_name": "应用详情",
+      "hash": "#/app/manage",
+      "explored_at": "2026-04-17 17:35:08",
+      "scan_results": {
+        "webhook_urls": [],
+        "robot_elements": [],
+        "athena_references": [],
+        "copy_buttons": [],
+        "input_fields": [],
+        "summary": {
+          "found_webhooks": 0,
+          "found_robots": 0,
+          "found_athena": 0,
+          "found_copy_buttons": 0,
+          "found_input_fields": 0
+        }
+      },
+      "page_info": {
+        "url": "https://work.weixin.qq.com/wework_admin/frame#/app/manage",
+        "hash": "#/app/manage",
+        "title": "企业微信",
+        "body_text_length": 9177,
+        "has_sidebar": false,
+        "has_content": true
+      },
+      "success": false
+    },
+    {
+      "page_name": "应用列表",
+      "hash": "#/app/list",
+      "explored_at": "2026-04-17 17:35:13",
+      "scan_results": {
+        "webhook_urls": [],
+        "robot_elements": [],
+        "athena_references": [],
+        "copy_buttons": [],
+        "input_fields": [],
+        "summary": {
+          "found_webhooks": 0,
+          "found_robots": 0,
+          "found_athena": 0,
+          "found_copy_buttons": 0,
+          "found_input_fields": 0
+        }
+      },
+      "page_info": {
+        "url": "https://work.weixin.qq.com/wework_admin/frame#/app/list",
+        "hash": "#/app/list",
+        "title": "企业微信",
+        "body_text_length": 9177,
+        "has_sidebar": false,
+        "has_content": true
+      },
+      "success": false
+    },
+    {
+      "page_name": "机器人管理",
+      "hash": "#/robot",
+      "explored_at": "2026-04-17 17:35:18",
+      "scan_results": {
+        "webhook_urls": [],
+        "robot_elements": [],
+        "athena_references": [],
+        "copy_buttons": [],
+        "input_fields": [],
+        "summary": {
+          "found_webhooks": 0,
+          "found_robots": 0,
+          "found_athena": 0,
+          "found_copy_buttons": 0,
+          "found_input_fields": 0
+        }
+      },
+      "page_info": {
+        "url": "https://work.weixin.qq.com/wework_admin/frame#/robot",
+        "hash": "#/robot",
+        "title": "企业微信",
+        "body_text_length": 9177,
+        "has_sidebar": false,
+        "has_content": true
+      },
+      "success": false
+    },
+    {
+      "page_name": "Webhook设置",
+      "hash": "#/webhook",
+      "explored_at": "2026-04-17 17:35:24",
+      "scan_results": {
+        "webhook_urls": [],
+        "robot_elements": [],
+        "athena_references": [],
+        "copy_buttons": [],
+        "input_fields": [],
+        "summary": {
+          "found_webhooks": 0,
+          "found_robots": 0,
+          "found_athena": 0,
+          "found_copy_buttons": 0,
+          "found_input_fields": 0
+        }
+      },
+      "page_info": {
+        "url": "https://work.weixin.qq.com/wework_admin/frame#/webhook",
+        "hash": "#/webhook",
+        "title": "企业微信",
+        "body_text_length": 9177,
+        "has_sidebar": false,
+        "has_content": true
+      },
+      "success": false
+    },
+    {
+      "page_name": "机器人设置",
+      "hash": "#/robot/settings",
+      "explored_at": "2026-04-17 17:35:29",
+      "scan_results": {
+        "webhook_urls": [],
+        "robot_elements": [],
+        "athena_references": [],
+        "copy_buttons": [],
+        "input_fields": [],
+        "summary": {
+          "found_webhooks": 0,
+          "found_robots": 0,
+          "found_athena": 0,
+          "found_copy_buttons": 0,
+          "found_input_fields": 0
+        }
+      },
+      "page_info": {
+        "url": "https://work.weixin.qq.com/wework_admin/frame#/robot/settings",
+        "hash": "#/robot/settings",
+        "title": "企业微信",
+        "body_text_length": 9177,
+        "has_sidebar": false,
+        "has_content": true
+      },
+      "success": false
+    },
+    {
+      "page_name": "API管理",
+      "hash": "#/api",
+      "explored_at": "2026-04-17 17:35:35",
+      "scan_results": {
+        "webhook_urls": [],
+        "robot_elements": [],
+        "athena_references": [],
+        "copy_buttons": [],
+        "input_fields": [],
+        "summary": {
+          "found_webhooks": 0,
+          "found_robots": 0,
+          "found_athena": 0,
+          "found_copy_buttons": 0,
+          "found_input_fields": 0
+        }
+      },
+      "page_info": {
+        "url": "https://work.weixin.qq.com/wework_admin/frame#/api",
+        "hash": "#/api",
+        "title": "企业微信",
+        "body_text_length": 9177,
+        "has_sidebar": false,
+        "has_content": true
+      },
+      "success": false
+    },
+    {
+      "page_name": "客户联系",
+      "hash": "#/customer",
+      "explored_at": "2026-04-17 17:35:40",
+      "scan_results": {
+        "webhook_urls": [],
+        "robot_elements": [],
+        "athena_references": [],
+        "copy_buttons": [],
+        "input_fields": [],
+        "summary": {
+          "found_webhooks": 0,
+          "found_robots": 0,
+          "found_athena": 0,
+          "found_copy_buttons": 0,
+          "found_input_fields": 0
+        }
+      },
+      "page_info": {
+        "url": "https://work.weixin.qq.com/wework_admin/frame#/customer",
+        "hash": "#/customer",
+        "title": "企业微信",
+        "body_text_length": 8940,
+        "has_sidebar": false,
+        "has_content": true
+      },
+      "success": false
+    }
+  ],
+  "webhook_urls_found": [],
+  "errors": []
+}

@@ -1,0 +1,210 @@
+/* Athena 品牌色彩 - CSS变量定义
+ * 版本: v1.0
+ * 日期: 2026-04-16
+ * 设计理念: 硅基共生智慧体
+ */
+
+:root {
+  /* ===== 主色调 ===== */
+  /* 科技智慧蓝 - 代表专业、可靠、智能 */
+  --athena-primary-blue: #4A90E2;
+  --athena-primary-blue-rgb: 74, 144, 226;
+  --athena-primary-blue-dark: #3A70B2;
+  --athena-primary-blue-light: #6BA0FF;
+
+  /* 数据流动绿 - 代表成长、进化、活力 */
+  --athena-data-green: #00D4AA;
+  --athena-data-green-rgb: 0, 212, 170;
+  --athena-data-green-dark: #00A080;
+  --athena-data-green-light: #30FFD4;
+
+  /* ===== 辅助色 ===== */
+  /* 深空紫 - 代表神秘、无限、未来 */
+  --athena-space-purple: #7B61FF;
+  --athena-space-purple-rgb: 123, 97, 255;
+  --athena-space-purple-dark: #5B41DF;
+  --athena-space-purple-light: #9B81FF;
+
+  /* 能量橙 - 代表活力、警告、行动 */
+  --athena-energy-orange: #FF6B35;
+  --athena-energy-orange-rgb: 255, 107, 53;
+  --athena-energy-orange-dark: #DF4B15;
+  --athena-energy-orange-light: #FF8B55;
+
+  /* ===== 中性色 ===== */
+  /* 深空灰 - 背景、深度 */
+  --athena-dark-gray: #1A1A2E;
+  --athena-dark-gray-rgb: 26, 26, 46;
+  --athena-dark-gray-darker: #0A0A1E;
+  --athena-dark-gray-lighter: #2A2A3E;
+
+  /* 科技浅灰 - 前景、卡片 */
+  --athena-light-gray: #F5F7FA;
+  --athena-light-gray-rgb: 245, 247, 250;
+  --athena-light-gray-darker: #E5E7EA;
+  --athena-light-gray-lighter: #FFFFFF;
+
+  /* 中灰色 - 边框、分隔 */
+  --athena-medium-gray: #8A8AA3;
+  --athena-medium-gray-rgb: 138, 138, 163;
+
+  /* ===== 语义颜色 ===== */
+  /* 成功状态 */
+  --athena-success: var(--athena-data-green);
+  --athena-success-dark: var(--athena-data-green-dark);
+  --athena-success-light: var(--athena-data-green-light);
+
+  /* 警告状态 */
+  --athena-warning: var(--athena-energy-orange);
+  --athena-warning-dark: var(--athena-energy-orange-dark);
+  --athena-warning-light: var(--athena-energy-orange-light);
+
+  /* 信息状态 */
+  --athena-info: var(--athena-primary-blue);
+  --athena-info-dark: var(--athena-primary-blue-dark);
+  --athena-info-light: var(--athena-primary-blue-light);
+
+  /* 错误状态 */
+  --athena-error: #FF4757;
+  --athena-error-dark: #DF2737;
+  --athena-error-light: #FF6777;
+
+  /* ===== 渐变 ===== */
+  /* 主渐变 - 科技感 */
+  --athena-gradient-primary: linear-gradient(135deg, var(--athena-primary-blue), var(--athena-space-purple));
+
+  /* 数据渐变 - 流动感 */
+  --athena-gradient-data: linear-gradient(135deg, var(--athena-data-green), var(--athena-primary-blue));
+
+  /* 能量渐变 - 活力感 */
+  --athena-gradient-energy: linear-gradient(135deg, var(--athena-energy-orange), #FF9F35);
+
+  /* ===== 阴影 ===== */
+  /* 卡片阴影 */
+  --athena-shadow-card: 0 4px 20px rgba(var(--athena-dark-gray-rgb), 0.1);
+
+  /* 悬浮阴影 */
+  --athena-shadow-hover: 0 8px 30px rgba(var(--athena-dark-gray-rgb), 0.15);
+
+  /* 聚焦阴影 */
+  --athena-shadow-focus: 0 0 0 3px rgba(var(--athena-primary-blue-rgb), 0.3);
+
+  /* ===== 透明度 ===== */
+  /* 半透明覆盖 */
+  --athena-overlay-light: rgba(var(--athena-light-gray-rgb), 0.9);
+  --athena-overlay-dark: rgba(var(--athena-dark-gray-rgb), 0.8);
+
+  /* 玻璃态效果 */
+  --athena-glass-light: rgba(var(--athena-light-gray-rgb), 0.7);
+  --athena-glass-dark: rgba(var(--athena-dark-gray-rgb), 0.5);
+
+  /* ===== 动画 ===== */
+  /* 动画时长 */
+  --athena-transition-fast: 150ms;
+  --athena-transition-normal: 300ms;
+  --athena-transition-slow: 500ms;
+
+  /* 动画曲线 */
+  --athena-ease-in-out: cubic-bezier(0.4, 0, 0.2, 1);
+  --athena-ease-out: cubic-bezier(0, 0, 0.2, 1);
+  --athena-ease-in: cubic-bezier(0.4, 0, 1, 1);
+}
+
+/* ===== 深色模式 ===== */
+@media (prefers-color-scheme: dark) {
+  :root {
+    /* 调整中性色对比度 */
+    --athena-dark-gray: #0A0A1A;
+    --athena-dark-gray-rgb: 10, 10, 26;
+    --athena-dark-gray-darker: #000010;
+    --athena-dark-gray-lighter: #1A1A2A;
+
+    --athena-light-gray: #1E1E2E;
+    --athena-light-gray-rgb: 30, 30, 46;
+    --athena-light-gray-darker: #0E0E1E;
+    --athena-light-gray-lighter: #2E2E3E;
+
+    --athena-medium-gray: #6A6A83;
+
+    /* 调整主色调饱和度 */
+    --athena-primary-blue: #5A90F2;
+    --athena-data-green: #10E4BA;
+    --athena-space-purple: #8B71FF;
+    --athena-energy-orange: #FF7B45;
+
+    /* 调整阴影 */
+    --athena-shadow-card: 0 4px 20px rgba(0, 0, 0, 0.3);
+    --athena-shadow-hover: 0 8px 30px rgba(0, 0, 0, 0.4);
+
+    /* 调整覆盖层 */
+    --athena-overlay-light: rgba(30, 30, 46, 0.9);
+    --athena-overlay-dark: rgba(0, 0, 0, 0.8);
+  }
+}
+
+/* ===== 高对比度模式 ===== */
+@media (prefers-contrast: high) {
+  :root {
+    /* 增强对比度 */
+    --athena-primary-blue: #2A70D2;
+    --athena-data-green: #00B490;
+    --athena-space-purple: #5B41DF;
+    --athena-energy-orange: #DF4B15;
+
+    --athena-dark-gray: #000010;
+    --athena-light-gray: #FFFFFF;
+
+    /* 移除透明度 */
+    --athena-overlay-light: rgba(var(--athena-light-gray-rgb), 1);
+    --athena-overlay-dark: rgba(var(--athena-dark-gray-rgb), 1);
+    --athena-glass-light: rgba(var(--athena-light-gray-rgb), 1);
+    --athena-glass-dark: rgba(var(--athena-dark-gray-rgb), 1);
+  }
+}
+
+/* ===== 实用类 ===== */
+.athena-text-primary { color: var(--athena-primary-blue); }
+.athena-text-success { color: var(--athena-success); }
+.athena-text-warning { color: var(--athena-warning); }
+.athena-text-error { color: var(--athena-error); }
+
+.athena-bg-primary { background-color: var(--athena-primary-blue); }
+.athena-bg-success { background-color: var(--athena-success); }
+.athena-bg-warning { background-color: var(--athena-warning); }
+.athena-bg-error { background-color: var(--athena-error); }
+
+.athena-border-primary { border-color: var(--athena-primary-blue); }
+.athena-border-success { border-color: var(--athena-success); }
+.athena-border-warning { border-color: var(--athena-warning); }
+.athena-border-error { border-color: var(--athena-error); }
+
+.athena-gradient-primary { background: var(--athena-gradient-primary); }
+.athena-gradient-data { background: var(--athena-gradient-data); }
+.athena-gradient-energy { background: var(--athena-gradient-energy); }
+
+/* ===== 响应式工具 ===== */
+/* 移动端调整 */
+@media (max-width: 768px) {
+  :root {
+    --athena-shadow-card: 0 2px 10px rgba(var(--athena-dark-gray-rgb), 0.1);
+    --athena-shadow-hover: 0 4px 15px rgba(var(--athena-dark-gray-rgb), 0.15);
+  }
+}
+
+/* 打印优化 */
+@media print {
+  :root {
+    /* 优化打印颜色 */
+    --athena-primary-blue: #2A5AA0;
+    --athena-data-green: #008070;
+    --athena-dark-gray: #000000;
+    --athena-light-gray: #FFFFFF;
+
+    /* 移除阴影和渐变 */
+    --athena-shadow-card: none;
+    --athena-shadow-hover: none;
+    --athena-gradient-primary: var(--athena-primary-blue);
+    --athena-gradient-data: var(--athena-data-green);
+    --athena-gradient-energy: var(--athena-energy-orange);
+  }
+}

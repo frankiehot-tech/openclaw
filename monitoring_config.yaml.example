@@ -1,0 +1,88 @@
+# OpenClaw 监控系统配置示例
+# 复制此文件为 monitoring_config.yaml 并填写实际凭据
+# 或者使用环境变量进行配置（推荐生产环境使用环境变量）
+
+# 邮件通知配置（SMTP）
+email:
+  # SMTP服务器地址
+  smtp_server: "smtp.gmail.com"
+  # SMTP端口（TLS通常为587，SSL为465）
+  smtp_port: 587
+  # 发件人邮箱地址
+  from_email: "your-email@gmail.com"
+  # 收件人邮箱列表
+  to_emails:
+    - "team-lead@example.com"
+    - "dev-ops@example.com"
+  # SMTP用户名（通常是邮箱地址）
+  username: "your-email@gmail.com"
+  # SMTP密码（推荐使用应用专用密码而非账户密码）
+  password: "your-app-specific-password"
+  # 邮件主题前缀
+  subject_prefix: "[OpenClaw Alert] "
+  # 是否启用TLS（默认true）
+  use_tls: true
+
+# Slack通知配置
+slack:
+  # Slack Incoming Webhook URL
+  # 获取方式：Slack App -> Incoming Webhooks -> Add to Workspace
+  webhook_url: "https://hooks.slack.com/services/T00000000/B00000000/XXXXXXXXXXXXXXXXXXXXXXXX"
+  # 消息颜色（按告警级别）
+  colors:
+    critical: "#FF0000"  # 红色
+    warning: "#FFA500"   # 橙色
+    info: "#36A64F"      # 绿色
+  # 通知渠道（Webhook已包含默认渠道，此处可覆盖）
+  channel: "#alerts"
+  # 机器人用户名
+  username: "OpenClaw Monitor"
+  # 机器人图标（emoji或图片URL）
+  icon_emoji: ":warning:"
+
+# 告警阈值配置
+alert_thresholds:
+  # 队列任务积压阈值
+  queue_backlog:
+    warning: 10    # 警告阈值
+    critical: 30   # 严重阈值
+
+  # 内存使用率阈值（百分比）
+  memory_usage:
+    warning: 70    # 警告阈值
+    critical: 85   # 严重阈值
+
+  # CPU使用率阈值（百分比）
+  cpu_usage:
+    warning: 75    # 警告阈值
+    critical: 90   # 严重阈值
+
+  # 磁盘使用率阈值（百分比）
+  disk_usage:
+    warning: 80    # 警告阈值
+    critical: 95   # 严重阈值
+
+  # 队列年龄阈值（分钟）
+  queue_age:
+    warning: 60    # 警告阈值（1小时）
+    critical: 240  # 严重阈值（4小时）
+
+# 监控间隔配置
+monitoring:
+  # 监控间隔（秒）
+  check_interval: 300  # 5分钟
+  # 告警冷却时间（秒，避免重复告警）
+  alert_cooldown: 1800  # 30分钟
+  # 历史数据保留（条目数）
+  history_size: 100
+
+# 高级配置（可选）
+advanced:
+  # 是否启用详细日志
+  verbose_logging: false
+  # 是否生成HTML仪表板
+  generate_dashboard: true
+  # 仪表板输出路径
+  dashboard_output: ".openclaw/monitoring_dashboard.html"
+  # 告警日志路径
+  alert_log_path: ".openclaw/monitoring_logs/alerts.log"

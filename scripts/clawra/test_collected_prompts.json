@@ -1,0 +1,3122 @@
+[
+  {
+    "id": "Avaray_stable-diffusion-simple-wildcards_artists2.txt_0",
+    "category": "text_to_image",
+    "subcategory": "fantasy",
+    "prompt_text": "Aaron Horkey, fantasy, detailed, comics",
+    "parameters": {},
+    "model_compatibility": [
+      "stable-diffusion",
+      "midjourney",
+      "dall-e"
+    ],
+    "quality_score": 0.7,
+    "source": "Avaray/stable-diffusion-simple-wildcards",
+    "source_url": "https://github.com/Avaray/stable-diffusion-simple-wildcards",
+    "examples": [],
+    "tags": [],
+    "created_at": "2026-04-16T08:29:39.625040",
+    "updated_at": "2026-04-16T08:29:39.625049",
+    "verification_status": "automated"
+  },
+  {
+    "id": "Avaray_stable-diffusion-simple-wildcards_artists2.txt_1",
+    "category": "character_design",
+    "subcategory": "general",
+    "prompt_text": "Aaron Jasinski, surrealism, pop art, detailed, colorful, portrait",
+    "parameters": {},
+    "model_compatibility": [
+      "stable-diffusion",
+      "midjourney",
+      "dall-e"
+    ],
+    "quality_score": 0.7,
+    "source": "Avaray/stable-diffusion-simple-wildcards",
+    "source_url": "https://github.com/Avaray/stable-diffusion-simple-wildcards",
+    "examples": [],
+    "tags": [],
+    "created_at": "2026-04-16T08:29:39.625066",
+    "updated_at": "2026-04-16T08:29:39.625067",
+    "verification_status": "automated"
+  },
+  {
+    "id": "Avaray_stable-diffusion-simple-wildcards_artists2.txt_2",
+    "category": "text_to_image",
+    "subcategory": "general",
+    "prompt_text": "Adi Granov, comics, detailed, character",
+    "parameters": {},
+    "model_compatibility": [
+      "stable-diffusion",
+      "midjourney",
+      "dall-e"
+    ],
+    "quality_score": 0.7,
+    "source": "Avaray/stable-diffusion-simple-wildcards",
+    "source_url": "https://github.com/Avaray/stable-diffusion-simple-wildcards",
+    "examples": [],
+    "tags": [],
+    "created_at": "2026-04-16T08:29:39.625074",
+    "updated_at": "2026-04-16T08:29:39.625075",
+    "verification_status": "automated"
+  },
+  {
+    "id": "Avaray_stable-diffusion-simple-wildcards_artists2.txt_3",
+    "category": "text_to_image",
+    "subcategory": "general",
+    "prompt_text": "Adonna Khare, monochromatic, detailed, surrealism, animals",
+    "parameters": {},
+    "model_compatibility": [
+      "stable-diffusion",
+      "midjourney",
+      "dall-e"
+    ],
+    "quality_score": 0.7,
+    "source": "Avaray/stable-diffusion-simple-wildcards",
+    "source_url": "https://github.com/Avaray/stable-diffusion-simple-wildcards",
+    "examples": [],
+    "tags": [],
+    "created_at": "2026-04-16T08:29:39.625080",
+    "updated_at": "2026-04-16T08:29:39.625081",
+    "verification_status": "automated"
+  },
+  {
+    "id": "Avaray_stable-diffusion-simple-wildcards_artists2.txt_4",
+    "category": "environment",
+    "subcategory": "general",
+    "prompt_text": "Akos Major, landscape, light, detailed",
+    "parameters": {},
+    "model_compatibility": [
+      "stable-diffusion",
+      "midjourney",
+      "dall-e"
+    ],
+    "quality_score": 0.7,
+    "source": "Avaray/stable-diffusion-simple-wildcards",
+    "source_url": "https://github.com/Avaray/stable-diffusion-simple-wildcards",
+    "examples": [],
+    "tags": [],
+    "created_at": "2026-04-16T08:29:39.625085",
+    "updated_at": "2026-04-16T08:29:39.625086",
+    "verification_status": "automated"
+  },
+  {
+    "id": "Avaray_stable-diffusion-simple-wildcards_artists2.txt_5",
+    "category": "environment",
+    "subcategory": "general",
+    "prompt_text": "Al Feldstein, comics, detailed, scene",
+    "parameters": {},
+    "model_compatibility": [
+      "stable-diffusion",
+      "midjourney",
+      "dall-e"
+    ],
+    "quality_score": 0.7,
+    "source": "Avaray/stable-diffusion-simple-wildcards",
+    "source_url": "https://github.com/Avaray/stable-diffusion-simple-wildcards",
+    "examples": [],
+    "tags": [],
+    "created_at": "2026-04-16T08:29:39.625090",
+    "updated_at": "2026-04-16T08:29:39.625091",
+    "verification_status": "automated"
+  },
+  {
+    "id": "Avaray_stable-diffusion-simple-wildcards_artists2.txt_6",
+    "category": "environment",
+    "subcategory": "general",
+    "prompt_text": "Albrecht Dürer, renaissance, detailed, scene",
+    "parameters": {},
+    "model_compatibility": [
+      "stable-diffusion",
+      "midjourney",
+      "dall-e"
+    ],
+    "quality_score": 0.7,
+    "source": "Avaray/stable-diffusion-simple-wildcards",
+    "source_url": "https://github.com/Avaray/stable-diffusion-simple-wildcards",
+    "examples": [],
+    "tags": [],
+    "created_at": "2026-04-16T08:29:39.625096",
+    "updated_at": "2026-04-16T08:29:39.625097",
+    "verification_status": "automated"
+  },
+  {
+    "id": "Avaray_stable-diffusion-simple-wildcards_artists2.txt_7",
+    "category": "text_to_image",
+    "subcategory": "general",
+    "prompt_text": "Amanda Sage, psychedelic, vibrant, colorful, detailed",
+    "parameters": {},
+    "model_compatibility": [
+      "stable-diffusion",
+      "midjourney",
+      "dall-e"
+    ],
+    "quality_score": 0.7,
+    "source": "Avaray/stable-diffusion-simple-wildcards",
+    "source_url": "https://github.com/Avaray/stable-diffusion-simple-wildcards",
+    "examples": [],
+    "tags": [],
+    "created_at": "2026-04-16T08:29:39.625101",
+    "updated_at": "2026-04-16T08:29:39.625102",
+    "verification_status": "automated"
+  },
+  {
+    "id": "Avaray_stable-diffusion-simple-wildcards_artists2.txt_8",
+    "category": "text_to_image",
+    "subcategory": "fantasy",
+    "prompt_text": "Andrew Ferez, surrealism, fantasy, detailed",
+    "parameters": {},
+    "model_compatibility": [
+      "stable-diffusion",
+      "midjourney",
+      "dall-e"
+    ],
+    "quality_score": 0.7,
+    "source": "Avaray/stable-diffusion-simple-wildcards",
+    "source_url": "https://github.com/Avaray/stable-diffusion-simple-wildcards",
+    "examples": [],
+    "tags": [],
+    "created_at": "2026-04-16T08:29:39.625106",
+    "updated_at": "2026-04-16T08:29:39.625107",
+    "verification_status": "automated"
+  },
+  {
+    "id": "Avaray_stable-diffusion-simple-wildcards_artists2.txt_9",
+    "category": "environment",
+    "subcategory": "general",
+    "prompt_text": "Anton Pieck, whimsical, detailed, scene",
+    "parameters": {},
+    "model_compatibility": [
+      "stable-diffusion",
+      "midjourney",
+      "dall-e"
+    ],
+    "quality_score": 0.7,
+    "source": "Avaray/stable-diffusion-simple-wildcards",
+    "source_url": "https://github.com/Avaray/stable-diffusion-simple-wildcards",
+    "examples": [],
+    "tags": [],
+    "created_at": "2026-04-16T08:29:39.625110",
+    "updated_at": "2026-04-16T08:29:39.625111",
+    "verification_status": "automated"
+  },
+  {
+    "id": "Avaray_stable-diffusion-simple-wildcards_artists2.txt_10",
+    "category": "environment",
+    "subcategory": "anime",
+    "prompt_text": "Austin Briggs, cartoon, detailed, scene, impressionism",
+    "parameters": {},
+    "model_compatibility": [
+      "stable-diffusion",
+      "midjourney",
+      "dall-e"
+    ],
+    "quality_score": 0.7,
+    "source": "Avaray/stable-diffusion-simple-wildcards",
+    "source_url": "https://github.com/Avaray/stable-diffusion-simple-wildcards",
+    "examples": [],
+    "tags": [],
+    "created_at": "2026-04-16T08:29:39.625115",
+    "updated_at": "2026-04-16T08:29:39.625116",
+    "verification_status": "automated"
+  },
+  {
+    "id": "Avaray_stable-diffusion-simple-wildcards_artists2.txt_11",
+    "category": "text_to_image",
+    "subcategory": "general",
+    "prompt_text": "Ayami Kojima, monochromatic, dark, detailed, character",
+    "parameters": {},
+    "model_compatibility": [
+      "stable-diffusion",
+      "midjourney",
+      "dall-e"
+    ],
+    "quality_score": 0.7,
+    "source": "Avaray/stable-diffusion-simple-wildcards",
+    "source_url": "https://github.com/Avaray/stable-diffusion-simple-wildcards",
+    "examples": [],
+    "tags": [],
+    "created_at": "2026-04-16T08:29:39.625120",
+    "updated_at": "2026-04-16T08:29:39.625121",
+    "verification_status": "automated"
+  },
+  {
+    "id": "Avaray_stable-diffusion-simple-wildcards_artists2.txt_12",
+    "category": "environment",
+    "subcategory": "general",
+    "prompt_text": "Bob Byerley, detailed, whimsical, scene",
+    "parameters": {},
+    "model_compatibility": [
+      "stable-diffusion",
+      "midjourney",
+      "dall-e"
+    ],
+    "quality_score": 0.7,
+    "source": "Avaray/stable-diffusion-simple-wildcards",
+    "source_url": "https://github.com/Avaray/stable-diffusion-simple-wildcards",
+    "examples": [],
+    "tags": [],
+    "created_at": "2026-04-16T08:29:39.625125",
+    "updated_at": "2026-04-16T08:29:39.625126",
+    "verification_status": "automated"
+  },
+  {
+    "id": "Avaray_stable-diffusion-simple-wildcards_artists2.txt_13",
+    "category": "environment",
+    "subcategory": "general",
+    "prompt_text": "Carlos Schwabe, symbolism, detailed, scene",
+    "parameters": {},
+    "model_compatibility": [
+      "stable-diffusion",
+      "midjourney",
+      "dall-e"
+    ],
+    "quality_score": 0.7,
+    "source": "Avaray/stable-diffusion-simple-wildcards",
+    "source_url": "https://github.com/Avaray/stable-diffusion-simple-wildcards",
+    "examples": [],
+    "tags": [],
+    "created_at": "2026-04-16T08:29:39.625129",
+    "updated_at": "2026-04-16T08:29:39.625130",
+    "verification_status": "automated"
+  },
+  {
+    "id": "Avaray_stable-diffusion-simple-wildcards_artists2.txt_14",
+    "category": "text_to_image",
+    "subcategory": "general",
+    "prompt_text": "Carrie Ann Baade, detailed, surrealism, pop art",
+    "parameters": {},
+    "model_compatibility": [
+      "stable-diffusion",
+      "midjourney",
+      "dall-e"
+    ],
+    "quality_score": 0.7,
+    "source": "Avaray/stable-diffusion-simple-wildcards",
+    "source_url": "https://github.com/Avaray/stable-diffusion-simple-wildcards",
+    "examples": [],
+    "tags": [],
+    "created_at": "2026-04-16T08:29:39.625134",
+    "updated_at": "2026-04-16T08:29:39.625135",
+    "verification_status": "automated"
+  },
+  {
+    "id": "Avaray_stable-diffusion-simple-wildcards_artists2.txt_15",
+    "category": "text_to_image",
+    "subcategory": "general",
+    "prompt_text": "Casey Weldon, pop art, surrealism, detailed",
+    "parameters": {},
+    "model_compatibility": [
+      "stable-diffusion",
+      "midjourney",
+      "dall-e"
+    ],
+    "quality_score": 0.7,
+    "source": "Avaray/stable-diffusion-simple-wildcards",
+    "source_url": "https://github.com/Avaray/stable-diffusion-simple-wildcards",
+    "examples": [],
+    "tags": [],
+    "created_at": "2026-04-16T08:29:39.625139",
+    "updated_at": "2026-04-16T08:29:39.625140",
+    "verification_status": "automated"
+  },
+  {
+    "id": "Avaray_stable-diffusion-simple-wildcards_artists2.txt_16",
+    "category": "character_design",
+    "subcategory": "general",
+    "prompt_text": "Chie Yoshii, character, portrait, detailed",
+    "parameters": {},
+    "model_compatibility": [
+      "stable-diffusion",
+      "midjourney",
+      "dall-e"
+    ],
+    "quality_score": 0.7,
+    "source": "Avaray/stable-diffusion-simple-wildcards",
+    "source_url": "https://github.com/Avaray/stable-diffusion-simple-wildcards",
+    "examples": [],
+    "tags": [],
+    "created_at": "2026-04-16T08:29:39.625143",
+    "updated_at": "2026-04-16T08:29:39.625144",
+    "verification_status": "automated"
+  },
+  {
+    "id": "Avaray_stable-diffusion-simple-wildcards_artists2.txt_17",
+    "category": "text_to_image",
+    "subcategory": "fantasy",
+    "prompt_text": "Craig Mullins, dark, detailed, fantasy",
+    "parameters": {},
+    "model_compatibility": [
+      "stable-diffusion",
+      "midjourney",
+      "dall-e"
+    ],
+    "quality_score": 0.7,
+    "source": "Avaray/stable-diffusion-simple-wildcards",
+    "source_url": "https://github.com/Avaray/stable-diffusion-simple-wildcards",
+    "examples": [],
+    "tags": [],
+    "created_at": "2026-04-16T08:29:39.625147",
+    "updated_at": "2026-04-16T08:29:39.625148",
+    "verification_status": "automated"
+  },
+  {
+    "id": "Avaray_stable-diffusion-simple-wildcards_artists2.txt_18",
+    "category": "character_design",
+    "subcategory": "general",
+    "prompt_text": "Dan Hillier, detailed, monochromatic, high contrast, portrait",
+    "parameters": {},
+    "model_compatibility": [
+      "stable-diffusion",
+      "midjourney",
+      "dall-e"
+    ],
+    "quality_score": 0.7,
+    "source": "Avaray/stable-diffusion-simple-wildcards",
+    "source_url": "https://github.com/Avaray/stable-diffusion-simple-wildcards",
+    "examples": [],
+    "tags": [],
+    "created_at": "2026-04-16T08:29:39.625152",
+    "updated_at": "2026-04-16T08:29:39.625153",
+    "verification_status": "automated"
+  },
+  {
+    "id": "Avaray_stable-diffusion-simple-wildcards_artists2.txt_19",
+    "category": "text_to_image",
+    "subcategory": "fantasy",
+    "prompt_text": "David Finch, detailed, comics, fantasy",
+    "parameters": {},
+    "model_compatibility": [
+      "stable-diffusion",
+      "midjourney",
+      "dall-e"
+    ],
+    "quality_score": 0.7,
+    "source": "Avaray/stable-diffusion-simple-wildcards",
+    "source_url": "https://github.com/Avaray/stable-diffusion-simple-wildcards",
+    "examples": [],
+    "tags": [],
+    "created_at": "2026-04-16T08:29:39.625157",
+    "updated_at": "2026-04-16T08:29:39.625157",
+    "verification_status": "automated"
+  },
+  {
+    "id": "Avaray_stable-diffusion-simple-wildcards_artists2.txt_20",
+    "category": "text_to_image",
+    "subcategory": "general",
+    "prompt_text": "Denis Sarazhin, realism, impressionism, detailed, character",
+    "parameters": {},
+    "model_compatibility": [
+      "stable-diffusion",
+      "midjourney",
+      "dall-e"
+    ],
+    "quality_score": 0.7,
+    "source": "Avaray/stable-diffusion-simple-wildcards",
+    "source_url": "https://github.com/Avaray/stable-diffusion-simple-wildcards",
+    "examples": [],
+    "tags": [],
+    "created_at": "2026-04-16T08:29:39.625162",
+    "updated_at": "2026-04-16T08:29:39.625162",
+    "verification_status": "automated"
+  },
+  {
+    "id": "Avaray_stable-diffusion-simple-wildcards_artists2.txt_21",
+    "category": "text_to_image",
+    "subcategory": "fantasy",
+    "prompt_text": "Earl Norem, detailed, fantasy, dark",
+    "parameters": {},
+    "model_compatibility": [
+      "stable-diffusion",
+      "midjourney",
+      "dall-e"
+    ],
+    "quality_score": 0.7,
+    "source": "Avaray/stable-diffusion-simple-wildcards",
+    "source_url": "https://github.com/Avaray/stable-diffusion-simple-wildcards",
+    "examples": [],
+    "tags": [],
+    "created_at": "2026-04-16T08:29:39.625166",
+    "updated_at": "2026-04-16T08:29:39.625167",
+    "verification_status": "automated"
+  },
+  {
+    "id": "Avaray_stable-diffusion-simple-wildcards_artists2.txt_22",
+    "category": "environment",
+    "subcategory": "general",
+    "prompt_text": "Eddie Mendoza, digital, landscape, detailed, dark",
+    "parameters": {},
+    "model_compatibility": [
+      "stable-diffusion",
+      "midjourney",
+      "dall-e"
+    ],
+    "quality_score": 0.7,
+    "source": "Avaray/stable-diffusion-simple-wildcards",
+    "source_url": "https://github.com/Avaray/stable-diffusion-simple-wildcards",
+    "examples": [],
+    "tags": [],
+    "created_at": "2026-04-16T08:29:39.625170",
+    "updated_at": "2026-04-16T08:29:39.625171",
+    "verification_status": "automated"
+  },
+  {
+    "id": "Avaray_stable-diffusion-simple-wildcards_artists2.txt_23",
+    "category": "text_to_image",
+    "subcategory": "general",
+    "prompt_text": "Eleanor Vere Boyle, detailed, watercolor, whimsical",
+    "parameters": {},
+    "model_compatibility": [
+      "stable-diffusion",
+      "midjourney",
+      "dall-e"
+    ],
+    "quality_score": 0.7,
+    "source": "Avaray/stable-diffusion-simple-wildcards",
+    "source_url": "https://github.com/Avaray/stable-diffusion-simple-wildcards",
+    "examples": [],
+    "tags": [],
+    "created_at": "2026-04-16T08:29:39.625175",
+    "updated_at": "2026-04-16T08:29:39.625176",
+    "verification_status": "automated"
+  },
+  {
+    "id": "Avaray_stable-diffusion-simple-wildcards_artists2.txt_24",
+    "category": "text_to_image",
+    "subcategory": "general",
+    "prompt_text": "Emily Balivet, detailed, art nouveau, colorful",
+    "parameters": {},
+    "model_compatibility": [
+      "stable-diffusion",
+      "midjourney",
+      "dall-e"
+    ],
+    "quality_score": 0.7,
+    "source": "Avaray/stable-diffusion-simple-wildcards",
+    "source_url": "https://github.com/Avaray/stable-diffusion-simple-wildcards",
+    "examples": [],
+    "tags": [],
+    "created_at": "2026-04-16T08:29:39.625180",
+    "updated_at": "2026-04-16T08:29:39.625180",
+    "verification_status": "automated"
+  },
+  {
+    "id": "Avaray_stable-diffusion-simple-wildcards_artists2.txt_25",
+    "category": "environment",
+    "subcategory": "general",
+    "prompt_text": "Ferdinand Knab, landscape, architecture, detailed",
+    "parameters": {},
+    "model_compatibility": [
+      "stable-diffusion",
+      "midjourney",
+      "dall-e"
+    ],
+    "quality_score": 0.7,
+    "source": "Avaray/stable-diffusion-simple-wildcards",
+    "source_url": "https://github.com/Avaray/stable-diffusion-simple-wildcards",
+    "examples": [],
+    "tags": [],
+    "created_at": "2026-04-16T08:29:39.625184",
+    "updated_at": "2026-04-16T08:29:39.625185",
+    "verification_status": "automated"
+  },
+  {
+    "id": "Avaray_stable-diffusion-simple-wildcards_artists2.txt_26",
+    "category": "environment",
+    "subcategory": "general",
+    "prompt_text": "Francesco Solimena, baroque, detailed, scene",
+    "parameters": {},
+    "model_compatibility": [
+      "stable-diffusion",
+      "midjourney",
+      "dall-e"
+    ],
+    "quality_score": 0.7,
+    "source": "Avaray/stable-diffusion-simple-wildcards",
+    "source_url": "https://github.com/Avaray/stable-diffusion-simple-wildcards",
+    "examples": [],
+    "tags": [],
+    "created_at": "2026-04-16T08:29:39.625189",
+    "updated_at": "2026-04-16T08:29:39.625190",
+    "verification_status": "automated"
+  },
+  {
+    "id": "Avaray_stable-diffusion-simple-wildcards_artists2.txt_27",
+    "category": "text_to_image",
+    "subcategory": "general",
+    "prompt_text": "Franklin Booth, art nouveau, detailed",
+    "parameters": {},
+    "model_compatibility": [
+      "stable-diffusion",
+      "midjourney",
+      "dall-e"
+    ],
+    "quality_score": 0.7,
+    "source": "Avaray/stable-diffusion-simple-wildcards",
+    "source_url": "https://github.com/Avaray/stable-diffusion-simple-wildcards",
+    "examples": [],
+    "tags": [],
+    "created_at": "2026-04-16T08:29:39.625194",
+    "updated_at": "2026-04-16T08:29:39.625194",
+    "verification_status": "automated"
+  },
+  {
+    "id": "Avaray_stable-diffusion-simple-wildcards_artists2.txt_28",
+    "category": "text_to_image",
+    "subcategory": "general",
+    "prompt_text": "Giovanni Battista Piranesi, architecture, detailed, monochromatic",
+    "parameters": {},
+    "model_compatibility": [
+      "stable-diffusion",
+      "midjourney",
+      "dall-e"
+    ],
+    "quality_score": 0.7,
+    "source": "Avaray/stable-diffusion-simple-wildcards",
+    "source_url": "https://github.com/Avaray/stable-diffusion-simple-wildcards",
+    "examples": [],
+    "tags": [],
+    "created_at": "2026-04-16T08:29:39.625199",
+    "updated_at": "2026-04-16T08:29:39.625200",
+    "verification_status": "automated"
+  },
+  {
+    "id": "Avaray_stable-diffusion-simple-wildcards_artists2.txt_29",
+    "category": "text_to_image",
+    "subcategory": "general",
+    "prompt_text": "Grayson Perry, detailed, collage, pop art, pink",
+    "parameters": {},
+    "model_compatibility": [
+      "stable-diffusion",
+      "midjourney",
+      "dall-e"
+    ],
+    "quality_score": 0.7,
+    "source": "Avaray/stable-diffusion-simple-wildcards",
+    "source_url": "https://github.com/Avaray/stable-diffusion-simple-wildcards",
+    "examples": [],
+    "tags": [],
+    "created_at": "2026-04-16T08:29:39.625204",
+    "updated_at": "2026-04-16T08:29:39.625204",
+    "verification_status": "automated"
+  },
+  {
+    "id": "Avaray_stable-diffusion-simple-wildcards_artists2.txt_30",
+    "category": "environment",
+    "subcategory": "general",
+    "prompt_text": "Hal Foster, comics, clean, detailed, scene",
+    "parameters": {},
+    "model_compatibility": [
+      "stable-diffusion",
+      "midjourney",
+      "dall-e"
+    ],
+    "quality_score": 0.7,
+    "source": "Avaray/stable-diffusion-simple-wildcards",
+    "source_url": "https://github.com/Avaray/stable-diffusion-simple-wildcards",
+    "examples": [],
+    "tags": [],
+    "created_at": "2026-04-16T08:29:39.625208",
+    "updated_at": "2026-04-16T08:29:39.625209",
+    "verification_status": "automated"
+  },
+  {
+    "id": "Avaray_stable-diffusion-simple-wildcards_artists2.txt_31",
+    "category": "environment",
+    "subcategory": "general",
+    "prompt_text": "Hans Makart, scene, messy, detailed",
+    "parameters": {},
+    "model_compatibility": [
+      "stable-diffusion",
+      "midjourney",
+      "dall-e"
+    ],
+    "quality_score": 0.7,
+    "source": "Avaray/stable-diffusion-simple-wildcards",
+    "source_url": "https://github.com/Avaray/stable-diffusion-simple-wildcards",
+    "examples": [],
+    "tags": [],
+    "created_at": "2026-04-16T08:29:39.625212",
+    "updated_at": "2026-04-16T08:29:39.625213",
+    "verification_status": "automated"
+  },
+  {
+    "id": "Avaray_stable-diffusion-simple-wildcards_artists2.txt_32",
+    "category": "environment",
+    "subcategory": "general",
+    "prompt_text": "Hiroshi Yoshida, ukiyoe, landscape, detailed",
+    "parameters": {},
+    "model_compatibility": [
+      "stable-diffusion",
+      "midjourney",
+      "dall-e"
+    ],
+    "quality_score": 0.7,
+    "source": "Avaray/stable-diffusion-simple-wildcards",
+    "source_url": "https://github.com/Avaray/stable-diffusion-simple-wildcards",
+    "examples": [],
+    "tags": [],
+    "created_at": "2026-04-16T08:29:39.625217",
+    "updated_at": "2026-04-16T08:29:39.625218",
+    "verification_status": "automated"
+  },
+  {
+    "id": "Avaray_stable-diffusion-simple-wildcards_artists2.txt_33",
+    "category": "text_to_image",
+    "subcategory": "general",
+    "prompt_text": "Howard Arkley, architecture, vibrant, colorful, detailed",
+    "parameters": {},
+    "model_compatibility": [
+      "stable-diffusion",
+      "midjourney",
+      "dall-e"
+    ],
+    "quality_score": 0.7,
+    "source": "Avaray/stable-diffusion-simple-wildcards",
+    "source_url": "https://github.com/Avaray/stable-diffusion-simple-wildcards",
+    "examples": [],
+    "tags": [],
+    "created_at": "2026-04-16T08:29:39.625222",
+    "updated_at": "2026-04-16T08:29:39.625222",
+    "verification_status": "automated"
+  },
+  {
+    "id": "Avaray_stable-diffusion-simple-wildcards_artists2.txt_34",
+    "category": "environment",
+    "subcategory": "general",
+    "prompt_text": "J. J. Grandville, detailed, scene",
+    "parameters": {},
+    "model_compatibility": [
+      "stable-diffusion",
+      "midjourney",
+      "dall-e"
+    ],
+    "quality_score": 0.7,
+    "source": "Avaray/stable-diffusion-simple-wildcards",
+    "source_url": "https://github.com/Avaray/stable-diffusion-simple-wildcards",
+    "examples": [],
+    "tags": [],
+    "created_at": "2026-04-16T08:29:39.625226",
+    "updated_at": "2026-04-16T08:29:39.625227",
+    "verification_status": "automated"
+  },
+  {
+    "id": "Avaray_stable-diffusion-simple-wildcards_artists2.txt_35",
+    "category": "text_to_image",
+    "subcategory": "fantasy",
+    "prompt_text": "James C. Christensen, detailed, whimsical, fantasy",
+    "parameters": {},
+    "model_compatibility": [
+      "stable-diffusion",
+      "midjourney",
+      "dall-e"
+    ],
+    "quality_score": 0.7,
+    "source": "Avaray/stable-diffusion-simple-wildcards",
+    "source_url": "https://github.com/Avaray/stable-diffusion-simple-wildcards",
+    "examples": [],
+    "tags": [],
+    "created_at": "2026-04-16T08:29:39.625231",
+    "updated_at": "2026-04-16T08:29:39.625231",
+    "verification_status": "automated"
+  },
+  {
+    "id": "Avaray_stable-diffusion-simple-wildcards_artists2.txt_36",
+    "category": "text_to_image",
+    "subcategory": "fantasy",
+    "prompt_text": "Jean-Baptiste Monge, dark, fantasy, detailed",
+    "parameters": {},
+    "model_compatibility": [
+      "stable-diffusion",
+      "midjourney",
+      "dall-e"
+    ],
+    "quality_score": 0.7,
+    "source": "Avaray/stable-diffusion-simple-wildcards",
+    "source_url": "https://github.com/Avaray/stable-diffusion-simple-wildcards",
+    "examples": [],
+    "tags": [],
+    "created_at": "2026-04-16T08:29:39.625235",
+    "updated_at": "2026-04-16T08:29:39.625236",
+    "verification_status": "automated"
+  },
+  {
+    "id": "Avaray_stable-diffusion-simple-wildcards_artists2.txt_37",
+    "category": "text_to_image",
+    "subcategory": "general",
+    "prompt_text": "Jim Lee, comics, detailed, character",
+    "parameters": {},
+    "model_compatibility": [
+      "stable-diffusion",
+      "midjourney",
+      "dall-e"
+    ],
+    "quality_score": 0.7,
+    "source": "Avaray/stable-diffusion-simple-wildcards",
+    "source_url": "https://github.com/Avaray/stable-diffusion-simple-wildcards",
+    "examples": [],
+    "tags": [],
+    "created_at": "2026-04-16T08:29:39.625239",
+    "updated_at": "2026-04-16T08:29:39.625240",
+    "verification_status": "automated"
+  },
+  {
+    "id": "Avaray_stable-diffusion-simple-wildcards_artists2.txt_38",
+    "category": "text_to_image",
+    "subcategory": "fantasy",
+    "prompt_text": "Jody Bergsma, watercolor, fantasy, detailed, whimsical",
+    "parameters": {},
+    "model_compatibility": [
+      "stable-diffusion",
+      "midjourney",
+      "dall-e"
+    ],
+    "quality_score": 0.7,
+    "source": "Avaray/stable-diffusion-simple-wildcards",
+    "source_url": "https://github.com/Avaray/stable-diffusion-simple-wildcards",
+    "examples": [],
+    "tags": [],
+    "created_at": "2026-04-16T08:29:39.625244",
+    "updated_at": "2026-04-16T08:29:39.625245",
+    "verification_status": "automated"
+  },
+  {
+    "id": "Avaray_stable-diffusion-simple-wildcards_artists2.txt_39",
+    "category": "text_to_image",
+    "subcategory": "fantasy",
+    "prompt_text": "Joe Madureira, comics, detailed, fantasy",
+    "parameters": {},
+    "model_compatibility": [
+      "stable-diffusion",
+      "midjourney",
+      "dall-e"
+    ],
+    "quality_score": 0.7,
+    "source": "Avaray/stable-diffusion-simple-wildcards",
+    "source_url": "https://github.com/Avaray/stable-diffusion-simple-wildcards",
+    "examples": [],
+    "tags": [],
+    "created_at": "2026-04-16T08:29:39.625249",
+    "updated_at": "2026-04-16T08:29:39.625249",
+    "verification_status": "automated"
+  },
+  {
+    "id": "Avaray_stable-diffusion-simple-wildcards_artists2.txt_40",
+    "category": "environment",
+    "subcategory": "fantasy",
+    "prompt_text": "John Anster Fitzgerald, detailed, fantasy, whimsical, scene",
+    "parameters": {},
+    "model_compatibility": [
+      "stable-diffusion",
+      "midjourney",
+      "dall-e"
+    ],
+    "quality_score": 0.7,
+    "source": "Avaray/stable-diffusion-simple-wildcards",
+    "source_url": "https://github.com/Avaray/stable-diffusion-simple-wildcards",
+    "examples": [],
+    "tags": [],
+    "created_at": "2026-04-16T08:29:39.625253",
+    "updated_at": "2026-04-16T08:29:39.625254",
+    "verification_status": "automated"
+  },
+  {
+    "id": "Avaray_stable-diffusion-simple-wildcards_artists2.txt_41",
+    "category": "text_to_image",
+    "subcategory": "fantasy",
+    "prompt_text": "John Howe, fantasy, dark, detailed",
+    "parameters": {},
+    "model_compatibility": [
+      "stable-diffusion",
+      "midjourney",
+      "dall-e"
+    ],
+    "quality_score": 0.7,
+    "source": "Avaray/stable-diffusion-simple-wildcards",
+    "source_url": "https://github.com/Avaray/stable-diffusion-simple-wildcards",
+    "examples": [],
+    "tags": [],
+    "created_at": "2026-04-16T08:29:39.625257",
+    "updated_at": "2026-04-16T08:29:39.625258",
+    "verification_status": "automated"
+  },
+  {
+    "id": "Avaray_stable-diffusion-simple-wildcards_artists2.txt_42",
+    "category": "text_to_image",
+    "subcategory": "general",
+    "prompt_text": "John Tenniel, detailed, children's illustration",
+    "parameters": {},
+    "model_compatibility": [
+      "stable-diffusion",
+      "midjourney",
+      "dall-e"
+    ],
+    "quality_score": 0.7,
+    "source": "Avaray/stable-diffusion-simple-wildcards",
+    "source_url": "https://github.com/Avaray/stable-diffusion-simple-wildcards",
+    "examples": [],
+    "tags": [],
+    "created_at": "2026-04-16T08:29:39.625262",
+    "updated_at": "2026-04-16T08:29:39.625263",
+    "verification_status": "automated"
+  },
+  {
+    "id": "Avaray_stable-diffusion-simple-wildcards_artists2.txt_43",
+    "category": "character_design",
+    "subcategory": "anime",
+    "prompt_text": "Junji Ito, horror, manga, portrait, monochromatic, detailed",
+    "parameters": {},
+    "model_compatibility": [
+      "stable-diffusion",
+      "midjourney",
+      "dall-e"
+    ],
+    "quality_score": 0.7,
+    "source": "Avaray/stable-diffusion-simple-wildcards",
+    "source_url": "https://github.com/Avaray/stable-diffusion-simple-wildcards",
+    "examples": [],
+    "tags": [],
+    "created_at": "2026-04-16T08:29:39.625266",
+    "updated_at": "2026-04-16T08:29:39.625267",
+    "verification_status": "automated"
+  },
+  {
+    "id": "Avaray_stable-diffusion-simple-wildcards_artists2.txt_44",
+    "category": "text_to_image",
+    "subcategory": "fantasy",
+    "prompt_text": "Justin Gerard, fantasy, whimsical, detailed",
+    "parameters": {},
+    "model_compatibility": [
+      "stable-diffusion",
+      "midjourney",
+      "dall-e"
+    ],
+    "quality_score": 0.7,
+    "source": "Avaray/stable-diffusion-simple-wildcards",
+    "source_url": "https://github.com/Avaray/stable-diffusion-simple-wildcards",
+    "examples": [],
+    "tags": [],
+    "created_at": "2026-04-16T08:29:39.625270",
+    "updated_at": "2026-04-16T08:29:39.625271",
+    "verification_status": "automated"
+  },
+  {
+    "id": "Avaray_stable-diffusion-simple-wildcards_artists2.txt_45",
+    "category": "text_to_image",
+    "subcategory": "anime",
+    "prompt_text": "Katsuhiro Otomo, manga, anime, detailed",
+    "parameters": {},
+    "model_compatibility": [
+      "stable-diffusion",
+      "midjourney",
+      "dall-e"
+    ],
+    "quality_score": 0.7,
+    "source": "Avaray/stable-diffusion-simple-wildcards",
+    "source_url": "https://github.com/Avaray/stable-diffusion-simple-wildcards",
+    "examples": [],
+    "tags": [],
+    "created_at": "2026-04-16T08:29:39.625275",
+    "updated_at": "2026-04-16T08:29:39.625275",
+    "verification_status": "automated"
+  },
+  {
+    "id": "Avaray_stable-diffusion-simple-wildcards_artists2.txt_46",
+    "category": "text_to_image",
+    "subcategory": "general",
+    "prompt_text": "Kay Nielsen, art nouveau, detailed",
+    "parameters": {},
+    "model_compatibility": [
+      "stable-diffusion",
+      "midjourney",
+      "dall-e"
+    ],
+    "quality_score": 0.7,
+    "source": "Avaray/stable-diffusion-simple-wildcards",
+    "source_url": "https://github.com/Avaray/stable-diffusion-simple-wildcards",
+    "examples": [],
+    "tags": [],
+    "created_at": "2026-04-16T08:29:39.625279",
+    "updated_at": "2026-04-16T08:29:39.625280",
+    "verification_status": "automated"
+  },
+  {
+    "id": "Avaray_stable-diffusion-simple-wildcards_artists2.txt_47",
+    "category": "character_design",
+    "subcategory": "general",
+    "prompt_text": "Kehinde Wiley, melanin, photorealism, portrait, vibrant, colorful, detailed",
+    "parameters": {},
+    "model_compatibility": [
+      "stable-diffusion",
+      "midjourney",
+      "dall-e"
+    ],
+    "quality_score": 0.7,
+    "source": "Avaray/stable-diffusion-simple-wildcards",
+    "source_url": "https://github.com/Avaray/stable-diffusion-simple-wildcards",
+    "examples": [],
+    "tags": [],
+    "created_at": "2026-04-16T08:29:39.625284",
+    "updated_at": "2026-04-16T08:29:39.625284",
+    "verification_status": "automated"
+  },
+  {
+    "id": "Avaray_stable-diffusion-simple-wildcards_artists2.txt_48",
+    "category": "environment",
+    "subcategory": "fantasy",
+    "prompt_text": "Keith Parkinson, fantasy, scene, detailed",
+    "parameters": {},
+    "model_compatibility": [
+      "stable-diffusion",
+      "midjourney",
+      "dall-e"
+    ],
+    "quality_score": 0.7,
+    "source": "Avaray/stable-diffusion-simple-wildcards",
+    "source_url": "https://github.com/Avaray/stable-diffusion-simple-wildcards",
+    "examples": [],
+    "tags": [],
+    "created_at": "2026-04-16T08:29:39.625288",
+    "updated_at": "2026-04-16T08:29:39.625289",
+    "verification_status": "automated"
+  },
+  {
+    "id": "Avaray_stable-diffusion-simple-wildcards_artists2.txt_49",
+    "category": "text_to_image",
+    "subcategory": "general",
+    "prompt_text": "Kim Jung Gi, character, detailed, monochromatic",
+    "parameters": {},
+    "model_compatibility": [
+      "stable-diffusion",
+      "midjourney",
+      "dall-e"
+    ],
+    "quality_score": 0.7,
+    "source": "Avaray/stable-diffusion-simple-wildcards",
+    "source_url": "https://github.com/Avaray/stable-diffusion-simple-wildcards",
+    "examples": [],
+    "tags": [],
+    "created_at": "2026-04-16T08:29:39.625293",
+    "updated_at": "2026-04-16T08:29:39.625293",
+    "verification_status": "automated"
+  },
+  {
+    "id": "Avaray_stable-diffusion-simple-wildcards_artists2.txt_50",
+    "category": "text_to_image",
+    "subcategory": "general",
+    "prompt_text": "Louis Rhead, art nouveau, detailed",
+    "parameters": {},
+    "model_compatibility": [
+      "stable-diffusion",
+      "midjourney",
+      "dall-e"
+    ],
+    "quality_score": 0.7,
+    "source": "Avaray/stable-diffusion-simple-wildcards",
+    "source_url": "https://github.com/Avaray/stable-diffusion-simple-wildcards",
+    "examples": [],
+    "tags": [],
+    "created_at": "2026-04-16T08:29:39.625297",
+    "updated_at": "2026-04-16T08:29:39.625298",
+    "verification_status": "automated"
+  },
+  {
+    "id": "Avaray_stable-diffusion-simple-wildcards_artists2.txt_51",
+    "category": "text_to_image",
+    "subcategory": "fantasy",
+    "prompt_text": "M.W. Kaluta, detailed, fantasy, whimsical",
+    "parameters": {},
+    "model_compatibility": [
+      "stable-diffusion",
+      "midjourney",
+      "dall-e"
+    ],
+    "quality_score": 0.7,
+    "source": "Avaray/stable-diffusion-simple-wildcards",
+    "source_url": "https://github.com/Avaray/stable-diffusion-simple-wildcards",
+    "examples": [],
+    "tags": [],
+    "created_at": "2026-04-16T08:29:39.625301",
+    "updated_at": "2026-04-16T08:29:39.625302",
+    "verification_status": "automated"
+  },
+  {
+    "id": "Avaray_stable-diffusion-simple-wildcards_artists2.txt_52",
+    "category": "text_to_image",
+    "subcategory": "general",
+    "prompt_text": "Marie Severin, comics, character, detailed",
+    "parameters": {},
+    "model_compatibility": [
+      "stable-diffusion",
+      "midjourney",
+      "dall-e"
+    ],
+    "quality_score": 0.7,
+    "source": "Avaray/stable-diffusion-simple-wildcards",
+    "source_url": "https://github.com/Avaray/stable-diffusion-simple-wildcards",
+    "examples": [],
+    "tags": [],
+    "created_at": "2026-04-16T08:29:39.625306",
+    "updated_at": "2026-04-16T08:29:39.625306",
+    "verification_status": "automated"
+  },
+  {
+    "id": "Avaray_stable-diffusion-simple-wildcards_artists2.txt_53",
+    "category": "text_to_image",
+    "subcategory": "general",
+    "prompt_text": "Martin Ansin, detailed, high contrast",
+    "parameters": {},
+    "model_compatibility": [
+      "stable-diffusion",
+      "midjourney",
+      "dall-e"
+    ],
+    "quality_score": 0.7,
+    "source": "Avaray/stable-diffusion-simple-wildcards",
+    "source_url": "https://github.com/Avaray/stable-diffusion-simple-wildcards",
+    "examples": [],
+    "tags": [],
+    "created_at": "2026-04-16T08:29:39.625310",
+    "updated_at": "2026-04-16T08:29:39.625311",
+    "verification_status": "automated"
+  },
+  {
+    "id": "Avaray_stable-diffusion-simple-wildcards_artists2.txt_54",
+    "category": "environment",
+    "subcategory": "general",
+    "prompt_text": "Mort Künstler, scene, detailed, realism",
+    "parameters": {},
+    "model_compatibility": [
+      "stable-diffusion",
+      "midjourney",
+      "dall-e"
+    ],
+    "quality_score": 0.7,
+    "source": "Avaray/stable-diffusion-simple-wildcards",
+    "source_url": "https://github.com/Avaray/stable-diffusion-simple-wildcards",
+    "examples": [],
+    "tags": [],
+    "created_at": "2026-04-16T08:29:39.625315",
+    "updated_at": "2026-04-16T08:29:39.625316",
+    "verification_status": "automated"
+  },
+  {
+    "id": "Avaray_stable-diffusion-simple-wildcards_artists2.txt_55",
+    "category": "text_to_image",
+    "subcategory": "general",
+    "prompt_text": "N/A ROA, street art, graffiti, monochromatic, detailed",
+    "parameters": {},
+    "model_compatibility": [
+      "stable-diffusion",
+      "midjourney",
+      "dall-e"
+    ],
+    "quality_score": 0.7,
+    "source": "Avaray/stable-diffusion-simple-wildcards",
+    "source_url": "https://github.com/Avaray/stable-diffusion-simple-wildcards",
+    "examples": [],
+    "tags": [],
+    "created_at": "2026-04-16T08:29:39.625320",
+    "updated_at": "2026-04-16T08:29:39.625321",
+    "verification_status": "automated"
+  },
+  {
+    "id": "Avaray_stable-diffusion-simple-wildcards_artists2.txt_56",
+    "category": "text_to_image",
+    "subcategory": "fantasy",
+    "prompt_text": "Nicolas Delort, monochromatic, detailed, fantasy",
+    "parameters": {},
+    "model_compatibility": [
+      "stable-diffusion",
+      "midjourney",
+      "dall-e"
+    ],
+    "quality_score": 0.7,
+    "source": "Avaray/stable-diffusion-simple-wildcards",
+    "source_url": "https://github.com/Avaray/stable-diffusion-simple-wildcards",
+    "examples": [],
+    "tags": [],
+    "created_at": "2026-04-16T08:29:39.625324",
+    "updated_at": "2026-04-16T08:29:39.625325",
+    "verification_status": "automated"
+  },
+  {
+    "id": "Avaray_stable-diffusion-simple-wildcards_artists2.txt_57",
+    "category": "environment",
+    "subcategory": "general",
+    "prompt_text": "Njideka Akunyili Crosby, scene, detailed, melanin, collage",
+    "parameters": {},
+    "model_compatibility": [
+      "stable-diffusion",
+      "midjourney",
+      "dall-e"
+    ],
+    "quality_score": 0.7,
+    "source": "Avaray/stable-diffusion-simple-wildcards",
+    "source_url": "https://github.com/Avaray/stable-diffusion-simple-wildcards",
+    "examples": [],
+    "tags": [],
+    "created_at": "2026-04-16T08:29:39.625329",
+    "updated_at": "2026-04-16T08:29:39.625330",
+    "verification_status": "automated"
+  },
+  {
+    "id": "Avaray_stable-diffusion-simple-wildcards_artists2.txt_58",
+    "category": "text_to_image",
+    "subcategory": "fantasy",
+    "prompt_text": "Patrick Brown, fantasy, comics, detailed",
+    "parameters": {},
+    "model_compatibility": [
+      "stable-diffusion",
+      "midjourney",
+      "dall-e"
+    ],
+    "quality_score": 0.7,
+    "source": "Avaray/stable-diffusion-simple-wildcards",
+    "source_url": "https://github.com/Avaray/stable-diffusion-simple-wildcards",
+    "examples": [],
+    "tags": [],
+    "created_at": "2026-04-16T08:29:39.625334",
+    "updated_at": "2026-04-16T08:29:39.625334",
+    "verification_status": "automated"
+  },
+  {
+    "id": "Avaray_stable-diffusion-simple-wildcards_artists2.txt_59",
+    "category": "text_to_image",
+    "subcategory": "fantasy",
+    "prompt_text": "Peter Mohrbacher, detailed, surrealism, fantasy",
+    "parameters": {},
+    "model_compatibility": [
+      "stable-diffusion",
+      "midjourney",
+      "dall-e"
+    ],
+    "quality_score": 0.7,
+    "source": "Avaray/stable-diffusion-simple-wildcards",
+    "source_url": "https://github.com/Avaray/stable-diffusion-simple-wildcards",
+    "examples": [],
+    "tags": [],
+    "created_at": "2026-04-16T08:29:39.625338",
+    "updated_at": "2026-04-16T08:29:39.625339",
+    "verification_status": "automated"
+  },
+  {
+    "id": "Avaray_stable-diffusion-simple-wildcards_artists2.txt_60",
+    "category": "environment",
+    "subcategory": "general",
+    "prompt_text": "Pieter Aertsen, detailed, scene, renaissance",
+    "parameters": {},
+    "model_compatibility": [
+      "stable-diffusion",
+      "midjourney",
+      "dall-e"
+    ],
+    "quality_score": 0.7,
+    "source": "Avaray/stable-diffusion-simple-wildcards",
+    "source_url": "https://github.com/Avaray/stable-diffusion-simple-wildcards",
+    "examples": [],
+    "tags": [],
+    "created_at": "2026-04-16T08:29:39.625342",
+    "updated_at": "2026-04-16T08:29:39.625343",
+    "verification_status": "automated"
+  },
+  {
+    "id": "Avaray_stable-diffusion-simple-wildcards_artists2.txt_61",
+    "category": "environment",
+    "subcategory": "general",
+    "prompt_text": "PJ Crook, scene, detailed, surrealism",
+    "parameters": {},
+    "model_compatibility": [
+      "stable-diffusion",
+      "midjourney",
+      "dall-e"
+    ],
+    "quality_score": 0.7,
+    "source": "Avaray/stable-diffusion-simple-wildcards",
+    "source_url": "https://github.com/Avaray/stable-diffusion-simple-wildcards",
+    "examples": [],
+    "tags": [],
+    "created_at": "2026-04-16T08:29:39.625347",
+    "updated_at": "2026-04-16T08:29:39.625347",
+    "verification_status": "automated"
+  },
+  {
+    "id": "Avaray_stable-diffusion-simple-wildcards_artists2.txt_62",
+    "category": "environment",
+    "subcategory": "general",
+    "prompt_text": "Randolph Caldecott, children's illustration, scene, detailed",
+    "parameters": {},
+    "model_compatibility": [
+      "stable-diffusion",
+      "midjourney",
+      "dall-e"
+    ],
+    "quality_score": 0.7,
+    "source": "Avaray/stable-diffusion-simple-wildcards",
+    "source_url": "https://github.com/Avaray/stable-diffusion-simple-wildcards",
+    "examples": [],
+    "tags": [],
+    "created_at": "2026-04-16T08:29:39.625352",
+    "updated_at": "2026-04-16T08:29:39.625352",
+    "verification_status": "automated"
+  },
+  {
+    "id": "Avaray_stable-diffusion-simple-wildcards_artists2.txt_63",
+    "category": "environment",
+    "subcategory": "general",
+    "prompt_text": "Reginald Marsh, detailed, realism, scene, dark",
+    "parameters": {},
+    "model_compatibility": [
+      "stable-diffusion",
+      "midjourney",
+      "dall-e"
+    ],
+    "quality_score": 0.7,
+    "source": "Avaray/stable-diffusion-simple-wildcards",
+    "source_url": "https://github.com/Avaray/stable-diffusion-simple-wildcards",
+    "examples": [],
+    "tags": [],
+    "created_at": "2026-04-16T08:29:39.625356",
+    "updated_at": "2026-04-16T08:29:39.625357",
+    "verification_status": "automated"
+  },
+  {
+    "id": "Avaray_stable-diffusion-simple-wildcards_artists2.txt_64",
+    "category": "text_to_image",
+    "subcategory": "general",
+    "prompt_text": "Robert Crumb, detailed, comics, character",
+    "parameters": {},
+    "model_compatibility": [
+      "stable-diffusion",
+      "midjourney",
+      "dall-e"
+    ],
+    "quality_score": 0.7,
+    "source": "Avaray/stable-diffusion-simple-wildcards",
+    "source_url": "https://github.com/Avaray/stable-diffusion-simple-wildcards",
+    "examples": [],
+    "tags": [],
+    "created_at": "2026-04-16T08:29:39.625360",
+    "updated_at": "2026-04-16T08:29:39.625361",
+    "verification_status": "automated"
+  },
+  {
+    "id": "Avaray_stable-diffusion-simple-wildcards_artists2.txt_65",
+    "category": "environment",
+    "subcategory": "general",
+    "prompt_text": "Ron Embleton, comics, scene, detailed",
+    "parameters": {},
+    "model_compatibility": [
+      "stable-diffusion",
+      "midjourney",
+      "dall-e"
+    ],
+    "quality_score": 0.7,
+    "source": "Avaray/stable-diffusion-simple-wildcards",
+    "source_url": "https://github.com/Avaray/stable-diffusion-simple-wildcards",
+    "examples": [],
+    "tags": [],
+    "created_at": "2026-04-16T08:29:39.625365",
+    "updated_at": "2026-04-16T08:29:39.625365",
+    "verification_status": "automated"
+  },
+  {
+    "id": "Avaray_stable-diffusion-simple-wildcards_artists2.txt_66",
+    "category": "text_to_image",
+    "subcategory": "anime",
+    "prompt_text": "Sam Bosma, cartoon, detailed, comics, fantasy, character",
+    "parameters": {},
+    "model_compatibility": [
+      "stable-diffusion",
+      "midjourney",
+      "dall-e"
+    ],
+    "quality_score": 0.7,
+    "source": "Avaray/stable-diffusion-simple-wildcards",
+    "source_url": "https://github.com/Avaray/stable-diffusion-simple-wildcards",
+    "examples": [],
+    "tags": [],
+    "created_at": "2026-04-16T08:29:39.625369",
+    "updated_at": "2026-04-16T08:29:39.625370",
+    "verification_status": "automated"
+  },
+  {
+    "id": "Avaray_stable-diffusion-simple-wildcards_artists2.txt_67",
+    "category": "environment",
+    "subcategory": "general",
+    "prompt_text": "Scarlett Hooft Graafland, photography, landscape, high contrast, pink",
+    "parameters": {},
+    "model_compatibility": [
+      "stable-diffusion",
+      "midjourney",
+      "dall-e"
+    ],
+    "quality_score": 0.6,
+    "source": "Avaray/stable-diffusion-simple-wildcards",
+    "source_url": "https://github.com/Avaray/stable-diffusion-simple-wildcards",
+    "examples": [],
+    "tags": [],
+    "created_at": "2026-04-16T08:29:39.625374",
+    "updated_at": "2026-04-16T08:29:39.625375",
+    "verification_status": "automated"
+  },
+  {
+    "id": "Avaray_stable-diffusion-simple-wildcards_artists2.txt_68",
+    "category": "text_to_image",
+    "subcategory": "anime",
+    "prompt_text": "Sven Nordqvist, detailed, cartoon, children's illustration",
+    "parameters": {},
+    "model_compatibility": [
+      "stable-diffusion",
+      "midjourney",
+      "dall-e"
+    ],
+    "quality_score": 0.7,
+    "source": "Avaray/stable-diffusion-simple-wildcards",
+    "source_url": "https://github.com/Avaray/stable-diffusion-simple-wildcards",
+    "examples": [],
+    "tags": [],
+    "created_at": "2026-04-16T08:29:39.625379",
+    "updated_at": "2026-04-16T08:29:39.625380",
+    "verification_status": "automated"
+  },
+  {
+    "id": "Avaray_stable-diffusion-simple-wildcards_artists2.txt_69",
+    "category": "text_to_image",
+    "subcategory": "general",
+    "prompt_text": "Tiffany Bozic, nature, surrealism, animals, detailed",
+    "parameters": {},
+    "model_compatibility": [
+      "stable-diffusion",
+      "midjourney",
+      "dall-e"
+    ],
+    "quality_score": 0.7,
+    "source": "Avaray/stable-diffusion-simple-wildcards",
+    "source_url": "https://github.com/Avaray/stable-diffusion-simple-wildcards",
+    "examples": [],
+    "tags": [],
+    "created_at": "2026-04-16T08:29:39.625384",
+    "updated_at": "2026-04-16T08:29:39.625384",
+    "verification_status": "automated"
+  },
+  {
+    "id": "Avaray_stable-diffusion-simple-wildcards_artists2.txt_70",
+    "category": "text_to_image",
+    "subcategory": "general",
+    "prompt_text": "Todd Schorr, pop art, surrealism, detailed,",
+    "parameters": {},
+    "model_compatibility": [
+      "stable-diffusion",
+      "midjourney",
+      "dall-e"
+    ],
+    "quality_score": 0.7,
+    "source": "Avaray/stable-diffusion-simple-wildcards",
+    "source_url": "https://github.com/Avaray/stable-diffusion-simple-wildcards",
+    "examples": [],
+    "tags": [],
+    "created_at": "2026-04-16T08:29:39.625388",
+    "updated_at": "2026-04-16T08:29:39.625389",
+    "verification_status": "automated"
+  },
+  {
+    "id": "Avaray_stable-diffusion-simple-wildcards_artists2.txt_71",
+    "category": "environment",
+    "subcategory": "fantasy",
+    "prompt_text": "Valentin Rekunenko, scene, detailed, fantasy, surrealism",
+    "parameters": {},
+    "model_compatibility": [
+      "stable-diffusion",
+      "midjourney",
+      "dall-e"
+    ],
+    "quality_score": 0.7,
+    "source": "Avaray/stable-diffusion-simple-wildcards",
+    "source_url": "https://github.com/Avaray/stable-diffusion-simple-wildcards",
+    "examples": [],
+    "tags": [],
+    "created_at": "2026-04-16T08:29:39.625392",
+    "updated_at": "2026-04-16T08:29:39.625393",
+    "verification_status": "automated"
+  },
+  {
+    "id": "Avaray_stable-diffusion-simple-wildcards_artists2.txt_72",
+    "category": "text_to_image",
+    "subcategory": "general",
+    "prompt_text": "Victo Ngai, detailed, vibrant, children's illustration, surrealism",
+    "parameters": {},
+    "model_compatibility": [
+      "stable-diffusion",
+      "midjourney",
+      "dall-e"
+    ],
+    "quality_score": 0.7,
+    "source": "Avaray/stable-diffusion-simple-wildcards",
+    "source_url": "https://github.com/Avaray/stable-diffusion-simple-wildcards",
+    "examples": [],
+    "tags": [],
+    "created_at": "2026-04-16T08:29:39.625398",
+    "updated_at": "2026-04-16T08:29:39.625398",
+    "verification_status": "automated"
+  },
+  {
+    "id": "Avaray_stable-diffusion-simple-wildcards_artists2.txt_73",
+    "category": "text_to_image",
+    "subcategory": "general",
+    "prompt_text": "Walter Crane, detailed, art nouveau,",
+    "parameters": {},
+    "model_compatibility": [
+      "stable-diffusion",
+      "midjourney",
+      "dall-e"
+    ],
+    "quality_score": 0.7,
+    "source": "Avaray/stable-diffusion-simple-wildcards",
+    "source_url": "https://github.com/Avaray/stable-diffusion-simple-wildcards",
+    "examples": [],
+    "tags": [],
+    "created_at": "2026-04-16T08:29:39.625402",
+    "updated_at": "2026-04-16T08:29:39.625403",
+    "verification_status": "automated"
+  },
+  {
+    "id": "Avaray_stable-diffusion-simple-wildcards_artists2.txt_74",
+    "category": "text_to_image",
+    "subcategory": "general",
+    "prompt_text": "William Morris, textile, detailed, art nouveau",
+    "parameters": {},
+    "model_compatibility": [
+      "stable-diffusion",
+      "midjourney",
+      "dall-e"
+    ],
+    "quality_score": 0.7,
+    "source": "Avaray/stable-diffusion-simple-wildcards",
+    "source_url": "https://github.com/Avaray/stable-diffusion-simple-wildcards",
+    "examples": [],
+    "tags": [],
+    "created_at": "2026-04-16T08:29:39.625407",
+    "updated_at": "2026-04-16T08:29:39.625407",
+    "verification_status": "automated"
+  },
+  {
+    "id": "Avaray_stable-diffusion-simple-wildcards_artists2.txt_75",
+    "category": "text_to_image",
+    "subcategory": "fantasy",
+    "prompt_text": "William Stout, detailed, dark, fantasy",
+    "parameters": {},
+    "model_compatibility": [
+      "stable-diffusion",
+      "midjourney",
+      "dall-e"
+    ],
+    "quality_score": 0.7,
+    "source": "Avaray/stable-diffusion-simple-wildcards",
+    "source_url": "https://github.com/Avaray/stable-diffusion-simple-wildcards",
+    "examples": [],
+    "tags": [],
+    "created_at": "2026-04-16T08:29:39.625411",
+    "updated_at": "2026-04-16T08:29:39.625412",
+    "verification_status": "automated"
+  },
+  {
+    "id": "Avaray_stable-diffusion-simple-wildcards_artists2.txt_76",
+    "category": "text_to_image",
+    "subcategory": "fantasy",
+    "prompt_text": "Yoann Lossel, fantasy, illustration, whimsical, detailed, magic realism",
+    "parameters": {},
+    "model_compatibility": [
+      "stable-diffusion",
+      "midjourney",
+      "dall-e"
+    ],
+    "quality_score": 0.7,
+    "source": "Avaray/stable-diffusion-simple-wildcards",
+    "source_url": "https://github.com/Avaray/stable-diffusion-simple-wildcards",
+    "examples": [],
+    "tags": [],
+    "created_at": "2026-04-16T08:29:39.625416",
+    "updated_at": "2026-04-16T08:29:39.625417",
+    "verification_status": "automated"
+  },
+  {
+    "id": "Avaray_stable-diffusion-simple-wildcards_artists2.txt_77",
+    "category": "text_to_image",
+    "subcategory": "general",
+    "prompt_text": "Yoji Shinkawa, character, comics, monochromatic, messy, high contrast",
+    "parameters": {},
+    "model_compatibility": [
+      "stable-diffusion",
+      "midjourney",
+      "dall-e"
+    ],
+    "quality_score": 0.6,
+    "source": "Avaray/stable-diffusion-simple-wildcards",
+    "source_url": "https://github.com/Avaray/stable-diffusion-simple-wildcards",
+    "examples": [],
+    "tags": [],
+    "created_at": "2026-04-16T08:29:39.625421",
+    "updated_at": "2026-04-16T08:29:39.625422",
+    "verification_status": "automated"
+  },
+  {
+    "id": "Avaray_stable-diffusion-simple-wildcards_artists2_tagged.txt_0",
+    "category": "text_to_image",
+    "subcategory": "fantasy",
+    "prompt_text": "Aaron Horkey, fantasy, detailed, comics",
+    "parameters": {},
+    "model_compatibility": [
+      "stable-diffusion",
+      "midjourney",
+      "dall-e"
+    ],
+    "quality_score": 0.7,
+    "source": "Avaray/stable-diffusion-simple-wildcards",
+    "source_url": "https://github.com/Avaray/stable-diffusion-simple-wildcards",
+    "examples": [],
+    "tags": [],
+    "created_at": "2026-04-16T08:29:40.950954",
+    "updated_at": "2026-04-16T08:29:40.950961",
+    "verification_status": "automated"
+  },
+  {
+    "id": "Avaray_stable-diffusion-simple-wildcards_artists2_tagged.txt_1",
+    "category": "character_design",
+    "subcategory": "general",
+    "prompt_text": "Aaron Jasinski, surrealism, pop art, detailed, colorful, portrait",
+    "parameters": {},
+    "model_compatibility": [
+      "stable-diffusion",
+      "midjourney",
+      "dall-e"
+    ],
+    "quality_score": 0.7,
+    "source": "Avaray/stable-diffusion-simple-wildcards",
+    "source_url": "https://github.com/Avaray/stable-diffusion-simple-wildcards",
+    "examples": [],
+    "tags": [],
+    "created_at": "2026-04-16T08:29:40.950970",
+    "updated_at": "2026-04-16T08:29:40.950971",
+    "verification_status": "automated"
+  },
+  {
+    "id": "Avaray_stable-diffusion-simple-wildcards_artists2_tagged.txt_2",
+    "category": "text_to_image",
+    "subcategory": "general",
+    "prompt_text": "Adi Granov, comics, detailed, character",
+    "parameters": {},
+    "model_compatibility": [
+      "stable-diffusion",
+      "midjourney",
+      "dall-e"
+    ],
+    "quality_score": 0.7,
+    "source": "Avaray/stable-diffusion-simple-wildcards",
+    "source_url": "https://github.com/Avaray/stable-diffusion-simple-wildcards",
+    "examples": [],
+    "tags": [],
+    "created_at": "2026-04-16T08:29:40.950975",
+    "updated_at": "2026-04-16T08:29:40.950976",
+    "verification_status": "automated"
+  },
+  {
+    "id": "Avaray_stable-diffusion-simple-wildcards_artists2_tagged.txt_3",
+    "category": "text_to_image",
+    "subcategory": "general",
+    "prompt_text": "Adonna Khare, monochromatic, detailed, surrealism, animals",
+    "parameters": {},
+    "model_compatibility": [
+      "stable-diffusion",
+      "midjourney",
+      "dall-e"
+    ],
+    "quality_score": 0.7,
+    "source": "Avaray/stable-diffusion-simple-wildcards",
+    "source_url": "https://github.com/Avaray/stable-diffusion-simple-wildcards",
+    "examples": [],
+    "tags": [],
+    "created_at": "2026-04-16T08:29:40.950979",
+    "updated_at": "2026-04-16T08:29:40.950980",
+    "verification_status": "automated"
+  },
+  {
+    "id": "Avaray_stable-diffusion-simple-wildcards_artists2_tagged.txt_4",
+    "category": "environment",
+    "subcategory": "general",
+    "prompt_text": "Akos Major, landscape, light, detailed",
+    "parameters": {},
+    "model_compatibility": [
+      "stable-diffusion",
+      "midjourney",
+      "dall-e"
+    ],
+    "quality_score": 0.7,
+    "source": "Avaray/stable-diffusion-simple-wildcards",
+    "source_url": "https://github.com/Avaray/stable-diffusion-simple-wildcards",
+    "examples": [],
+    "tags": [],
+    "created_at": "2026-04-16T08:29:40.950983",
+    "updated_at": "2026-04-16T08:29:40.950983",
+    "verification_status": "automated"
+  },
+  {
+    "id": "Avaray_stable-diffusion-simple-wildcards_artists2_tagged.txt_5",
+    "category": "environment",
+    "subcategory": "general",
+    "prompt_text": "Al Feldstein, comics, detailed, scene",
+    "parameters": {},
+    "model_compatibility": [
+      "stable-diffusion",
+      "midjourney",
+      "dall-e"
+    ],
+    "quality_score": 0.7,
+    "source": "Avaray/stable-diffusion-simple-wildcards",
+    "source_url": "https://github.com/Avaray/stable-diffusion-simple-wildcards",
+    "examples": [],
+    "tags": [],
+    "created_at": "2026-04-16T08:29:40.950987",
+    "updated_at": "2026-04-16T08:29:40.950987",
+    "verification_status": "automated"
+  },
+  {
+    "id": "Avaray_stable-diffusion-simple-wildcards_artists2_tagged.txt_6",
+    "category": "environment",
+    "subcategory": "general",
+    "prompt_text": "Albrecht Dürer, renaissance, detailed, scene",
+    "parameters": {},
+    "model_compatibility": [
+      "stable-diffusion",
+      "midjourney",
+      "dall-e"
+    ],
+    "quality_score": 0.7,
+    "source": "Avaray/stable-diffusion-simple-wildcards",
+    "source_url": "https://github.com/Avaray/stable-diffusion-simple-wildcards",
+    "examples": [],
+    "tags": [],
+    "created_at": "2026-04-16T08:29:40.950991",
+    "updated_at": "2026-04-16T08:29:40.950992",
+    "verification_status": "automated"
+  },
+  {
+    "id": "Avaray_stable-diffusion-simple-wildcards_artists2_tagged.txt_7",
+    "category": "text_to_image",
+    "subcategory": "general",
+    "prompt_text": "Amanda Sage, psychedelic, vibrant, colorful, detailed",
+    "parameters": {},
+    "model_compatibility": [
+      "stable-diffusion",
+      "midjourney",
+      "dall-e"
+    ],
+    "quality_score": 0.7,
+    "source": "Avaray/stable-diffusion-simple-wildcards",
+    "source_url": "https://github.com/Avaray/stable-diffusion-simple-wildcards",
+    "examples": [],
+    "tags": [],
+    "created_at": "2026-04-16T08:29:40.950995",
+    "updated_at": "2026-04-16T08:29:40.950996",
+    "verification_status": "automated"
+  },
+  {
+    "id": "Avaray_stable-diffusion-simple-wildcards_artists2_tagged.txt_8",
+    "category": "text_to_image",
+    "subcategory": "fantasy",
+    "prompt_text": "Andrew Ferez, surrealism, fantasy, detailed",
+    "parameters": {},
+    "model_compatibility": [
+      "stable-diffusion",
+      "midjourney",
+      "dall-e"
+    ],
+    "quality_score": 0.7,
+    "source": "Avaray/stable-diffusion-simple-wildcards",
+    "source_url": "https://github.com/Avaray/stable-diffusion-simple-wildcards",
+    "examples": [],
+    "tags": [],
+    "created_at": "2026-04-16T08:29:40.950999",
+    "updated_at": "2026-04-16T08:29:40.951000",
+    "verification_status": "automated"
+  },
+  {
+    "id": "Avaray_stable-diffusion-simple-wildcards_artists2_tagged.txt_9",
+    "category": "environment",
+    "subcategory": "general",
+    "prompt_text": "Anton Pieck, whimsical, detailed, scene",
+    "parameters": {},
+    "model_compatibility": [
+      "stable-diffusion",
+      "midjourney",
+      "dall-e"
+    ],
+    "quality_score": 0.7,
+    "source": "Avaray/stable-diffusion-simple-wildcards",
+    "source_url": "https://github.com/Avaray/stable-diffusion-simple-wildcards",
+    "examples": [],
+    "tags": [],
+    "created_at": "2026-04-16T08:29:40.951002",
+    "updated_at": "2026-04-16T08:29:40.951003",
+    "verification_status": "automated"
+  },
+  {
+    "id": "Avaray_stable-diffusion-simple-wildcards_artists2_tagged.txt_10",
+    "category": "environment",
+    "subcategory": "anime",
+    "prompt_text": "Austin Briggs, cartoon, detailed, scene, impressionism",
+    "parameters": {},
+    "model_compatibility": [
+      "stable-diffusion",
+      "midjourney",
+      "dall-e"
+    ],
+    "quality_score": 0.7,
+    "source": "Avaray/stable-diffusion-simple-wildcards",
+    "source_url": "https://github.com/Avaray/stable-diffusion-simple-wildcards",
+    "examples": [],
+    "tags": [],
+    "created_at": "2026-04-16T08:29:40.951006",
+    "updated_at": "2026-04-16T08:29:40.951007",
+    "verification_status": "automated"
+  },
+  {
+    "id": "Avaray_stable-diffusion-simple-wildcards_artists2_tagged.txt_11",
+    "category": "text_to_image",
+    "subcategory": "general",
+    "prompt_text": "Ayami Kojima, monochromatic, dark, detailed, character",
+    "parameters": {},
+    "model_compatibility": [
+      "stable-diffusion",
+      "midjourney",
+      "dall-e"
+    ],
+    "quality_score": 0.7,
+    "source": "Avaray/stable-diffusion-simple-wildcards",
+    "source_url": "https://github.com/Avaray/stable-diffusion-simple-wildcards",
+    "examples": [],
+    "tags": [],
+    "created_at": "2026-04-16T08:29:40.951010",
+    "updated_at": "2026-04-16T08:29:40.951011",
+    "verification_status": "automated"
+  },
+  {
+    "id": "Avaray_stable-diffusion-simple-wildcards_artists2_tagged.txt_12",
+    "category": "environment",
+    "subcategory": "general",
+    "prompt_text": "Bob Byerley, detailed, whimsical, scene",
+    "parameters": {},
+    "model_compatibility": [
+      "stable-diffusion",
+      "midjourney",
+      "dall-e"
+    ],
+    "quality_score": 0.7,
+    "source": "Avaray/stable-diffusion-simple-wildcards",
+    "source_url": "https://github.com/Avaray/stable-diffusion-simple-wildcards",
+    "examples": [],
+    "tags": [],
+    "created_at": "2026-04-16T08:29:40.951013",
+    "updated_at": "2026-04-16T08:29:40.951014",
+    "verification_status": "automated"
+  },
+  {
+    "id": "Avaray_stable-diffusion-simple-wildcards_artists2_tagged.txt_13",
+    "category": "environment",
+    "subcategory": "general",
+    "prompt_text": "Carlos Schwabe, symbolism, detailed, scene",
+    "parameters": {},
+    "model_compatibility": [
+      "stable-diffusion",
+      "midjourney",
+      "dall-e"
+    ],
+    "quality_score": 0.7,
+    "source": "Avaray/stable-diffusion-simple-wildcards",
+    "source_url": "https://github.com/Avaray/stable-diffusion-simple-wildcards",
+    "examples": [],
+    "tags": [],
+    "created_at": "2026-04-16T08:29:40.951017",
+    "updated_at": "2026-04-16T08:29:40.951018",
+    "verification_status": "automated"
+  },
+  {
+    "id": "Avaray_stable-diffusion-simple-wildcards_artists2_tagged.txt_14",
+    "category": "text_to_image",
+    "subcategory": "general",
+    "prompt_text": "Carrie Ann Baade, detailed, surrealism, pop art",
+    "parameters": {},
+    "model_compatibility": [
+      "stable-diffusion",
+      "midjourney",
+      "dall-e"
+    ],
+    "quality_score": 0.7,
+    "source": "Avaray/stable-diffusion-simple-wildcards",
+    "source_url": "https://github.com/Avaray/stable-diffusion-simple-wildcards",
+    "examples": [],
+    "tags": [],
+    "created_at": "2026-04-16T08:29:40.951021",
+    "updated_at": "2026-04-16T08:29:40.951021",
+    "verification_status": "automated"
+  },
+  {
+    "id": "Avaray_stable-diffusion-simple-wildcards_artists2_tagged.txt_15",
+    "category": "text_to_image",
+    "subcategory": "general",
+    "prompt_text": "Casey Weldon, pop art, surrealism, detailed",
+    "parameters": {},
+    "model_compatibility": [
+      "stable-diffusion",
+      "midjourney",
+      "dall-e"
+    ],
+    "quality_score": 0.7,
+    "source": "Avaray/stable-diffusion-simple-wildcards",
+    "source_url": "https://github.com/Avaray/stable-diffusion-simple-wildcards",
+    "examples": [],
+    "tags": [],
+    "created_at": "2026-04-16T08:29:40.951024",
+    "updated_at": "2026-04-16T08:29:40.951025",
+    "verification_status": "automated"
+  },
+  {
+    "id": "Avaray_stable-diffusion-simple-wildcards_artists2_tagged.txt_16",
+    "category": "character_design",
+    "subcategory": "general",
+    "prompt_text": "Chie Yoshii, character, portrait, detailed",
+    "parameters": {},
+    "model_compatibility": [
+      "stable-diffusion",
+      "midjourney",
+      "dall-e"
+    ],
+    "quality_score": 0.7,
+    "source": "Avaray/stable-diffusion-simple-wildcards",
+    "source_url": "https://github.com/Avaray/stable-diffusion-simple-wildcards",
+    "examples": [],
+    "tags": [],
+    "created_at": "2026-04-16T08:29:40.951028",
+    "updated_at": "2026-04-16T08:29:40.951028",
+    "verification_status": "automated"
+  },
+  {
+    "id": "Avaray_stable-diffusion-simple-wildcards_artists2_tagged.txt_17",
+    "category": "text_to_image",
+    "subcategory": "fantasy",
+    "prompt_text": "Craig Mullins, dark, detailed, fantasy",
+    "parameters": {},
+    "model_compatibility": [
+      "stable-diffusion",
+      "midjourney",
+      "dall-e"
+    ],
+    "quality_score": 0.7,
+    "source": "Avaray/stable-diffusion-simple-wildcards",
+    "source_url": "https://github.com/Avaray/stable-diffusion-simple-wildcards",
+    "examples": [],
+    "tags": [],
+    "created_at": "2026-04-16T08:29:40.951031",
+    "updated_at": "2026-04-16T08:29:40.951032",
+    "verification_status": "automated"
+  },
+  {
+    "id": "Avaray_stable-diffusion-simple-wildcards_artists2_tagged.txt_18",
+    "category": "character_design",
+    "subcategory": "general",
+    "prompt_text": "Dan Hillier, detailed, monochromatic, high contrast, portrait",
+    "parameters": {},
+    "model_compatibility": [
+      "stable-diffusion",
+      "midjourney",
+      "dall-e"
+    ],
+    "quality_score": 0.7,
+    "source": "Avaray/stable-diffusion-simple-wildcards",
+    "source_url": "https://github.com/Avaray/stable-diffusion-simple-wildcards",
+    "examples": [],
+    "tags": [],
+    "created_at": "2026-04-16T08:29:40.951035",
+    "updated_at": "2026-04-16T08:29:40.951036",
+    "verification_status": "automated"
+  },
+  {
+    "id": "Avaray_stable-diffusion-simple-wildcards_artists2_tagged.txt_19",
+    "category": "text_to_image",
+    "subcategory": "fantasy",
+    "prompt_text": "David Finch, detailed, comics, fantasy",
+    "parameters": {},
+    "model_compatibility": [
+      "stable-diffusion",
+      "midjourney",
+      "dall-e"
+    ],
+    "quality_score": 0.7,
+    "source": "Avaray/stable-diffusion-simple-wildcards",
+    "source_url": "https://github.com/Avaray/stable-diffusion-simple-wildcards",
+    "examples": [],
+    "tags": [],
+    "created_at": "2026-04-16T08:29:40.951038",
+    "updated_at": "2026-04-16T08:29:40.951039",
+    "verification_status": "automated"
+  },
+  {
+    "id": "Avaray_stable-diffusion-simple-wildcards_artists2_tagged.txt_20",
+    "category": "text_to_image",
+    "subcategory": "general",
+    "prompt_text": "Denis Sarazhin, realism, impressionism, detailed, character",
+    "parameters": {},
+    "model_compatibility": [
+      "stable-diffusion",
+      "midjourney",
+      "dall-e"
+    ],
+    "quality_score": 0.7,
+    "source": "Avaray/stable-diffusion-simple-wildcards",
+    "source_url": "https://github.com/Avaray/stable-diffusion-simple-wildcards",
+    "examples": [],
+    "tags": [],
+    "created_at": "2026-04-16T08:29:40.951042",
+    "updated_at": "2026-04-16T08:29:40.951043",
+    "verification_status": "automated"
+  },
+  {
+    "id": "Avaray_stable-diffusion-simple-wildcards_artists2_tagged.txt_21",
+    "category": "text_to_image",
+    "subcategory": "fantasy",
+    "prompt_text": "Earl Norem, detailed, fantasy, dark",
+    "parameters": {},
+    "model_compatibility": [
+      "stable-diffusion",
+      "midjourney",
+      "dall-e"
+    ],
+    "quality_score": 0.7,
+    "source": "Avaray/stable-diffusion-simple-wildcards",
+    "source_url": "https://github.com/Avaray/stable-diffusion-simple-wildcards",
+    "examples": [],
+    "tags": [],
+    "created_at": "2026-04-16T08:29:40.951046",
+    "updated_at": "2026-04-16T08:29:40.951046",
+    "verification_status": "automated"
+  },
+  {
+    "id": "Avaray_stable-diffusion-simple-wildcards_artists2_tagged.txt_22",
+    "category": "environment",
+    "subcategory": "general",
+    "prompt_text": "Eddie Mendoza, digital, landscape, detailed, dark",
+    "parameters": {},
+    "model_compatibility": [
+      "stable-diffusion",
+      "midjourney",
+      "dall-e"
+    ],
+    "quality_score": 0.7,
+    "source": "Avaray/stable-diffusion-simple-wildcards",
+    "source_url": "https://github.com/Avaray/stable-diffusion-simple-wildcards",
+    "examples": [],
+    "tags": [],
+    "created_at": "2026-04-16T08:29:40.951049",
+    "updated_at": "2026-04-16T08:29:40.951050",
+    "verification_status": "automated"
+  },
+  {
+    "id": "Avaray_stable-diffusion-simple-wildcards_artists2_tagged.txt_23",
+    "category": "text_to_image",
+    "subcategory": "general",
+    "prompt_text": "Eleanor Vere Boyle, detailed, watercolor, whimsical",
+    "parameters": {},
+    "model_compatibility": [
+      "stable-diffusion",
+      "midjourney",
+      "dall-e"
+    ],
+    "quality_score": 0.7,
+    "source": "Avaray/stable-diffusion-simple-wildcards",
+    "source_url": "https://github.com/Avaray/stable-diffusion-simple-wildcards",
+    "examples": [],
+    "tags": [],
+    "created_at": "2026-04-16T08:29:40.951053",
+    "updated_at": "2026-04-16T08:29:40.951053",
+    "verification_status": "automated"
+  },
+  {
+    "id": "Avaray_stable-diffusion-simple-wildcards_artists2_tagged.txt_24",
+    "category": "text_to_image",
+    "subcategory": "general",
+    "prompt_text": "Emily Balivet, detailed, art nouveau, colorful",
+    "parameters": {},
+    "model_compatibility": [
+      "stable-diffusion",
+      "midjourney",
+      "dall-e"
+    ],
+    "quality_score": 0.7,
+    "source": "Avaray/stable-diffusion-simple-wildcards",
+    "source_url": "https://github.com/Avaray/stable-diffusion-simple-wildcards",
+    "examples": [],
+    "tags": [],
+    "created_at": "2026-04-16T08:29:40.951056",
+    "updated_at": "2026-04-16T08:29:40.951057",
+    "verification_status": "automated"
+  },
+  {
+    "id": "Avaray_stable-diffusion-simple-wildcards_artists2_tagged.txt_25",
+    "category": "environment",
+    "subcategory": "general",
+    "prompt_text": "Ferdinand Knab, landscape, architecture, detailed",
+    "parameters": {},
+    "model_compatibility": [
+      "stable-diffusion",
+      "midjourney",
+      "dall-e"
+    ],
+    "quality_score": 0.7,
+    "source": "Avaray/stable-diffusion-simple-wildcards",
+    "source_url": "https://github.com/Avaray/stable-diffusion-simple-wildcards",
+    "examples": [],
+    "tags": [],
+    "created_at": "2026-04-16T08:29:40.951060",
+    "updated_at": "2026-04-16T08:29:40.951060",
+    "verification_status": "automated"
+  },
+  {
+    "id": "Avaray_stable-diffusion-simple-wildcards_artists2_tagged.txt_26",
+    "category": "environment",
+    "subcategory": "general",
+    "prompt_text": "Francesco Solimena, baroque, detailed, scene",
+    "parameters": {},
+    "model_compatibility": [
+      "stable-diffusion",
+      "midjourney",
+      "dall-e"
+    ],
+    "quality_score": 0.7,
+    "source": "Avaray/stable-diffusion-simple-wildcards",
+    "source_url": "https://github.com/Avaray/stable-diffusion-simple-wildcards",
+    "examples": [],
+    "tags": [],
+    "created_at": "2026-04-16T08:29:40.951063",
+    "updated_at": "2026-04-16T08:29:40.951064",
+    "verification_status": "automated"
+  },
+  {
+    "id": "Avaray_stable-diffusion-simple-wildcards_artists2_tagged.txt_27",
+    "category": "text_to_image",
+    "subcategory": "general",
+    "prompt_text": "Franklin Booth, art nouveau, detailed",
+    "parameters": {},
+    "model_compatibility": [
+      "stable-diffusion",
+      "midjourney",
+      "dall-e"
+    ],
+    "quality_score": 0.7,
+    "source": "Avaray/stable-diffusion-simple-wildcards",
+    "source_url": "https://github.com/Avaray/stable-diffusion-simple-wildcards",
+    "examples": [],
+    "tags": [],
+    "created_at": "2026-04-16T08:29:40.951067",
+    "updated_at": "2026-04-16T08:29:40.951068",
+    "verification_status": "automated"
+  },
+  {
+    "id": "Avaray_stable-diffusion-simple-wildcards_artists2_tagged.txt_28",
+    "category": "text_to_image",
+    "subcategory": "general",
+    "prompt_text": "Giovanni Battista Piranesi, architecture, detailed, monochromatic",
+    "parameters": {},
+    "model_compatibility": [
+      "stable-diffusion",
+      "midjourney",
+      "dall-e"
+    ],
+    "quality_score": 0.7,
+    "source": "Avaray/stable-diffusion-simple-wildcards",
+    "source_url": "https://github.com/Avaray/stable-diffusion-simple-wildcards",
+    "examples": [],
+    "tags": [],
+    "created_at": "2026-04-16T08:29:40.951071",
+    "updated_at": "2026-04-16T08:29:40.951072",
+    "verification_status": "automated"
+  },
+  {
+    "id": "Avaray_stable-diffusion-simple-wildcards_artists2_tagged.txt_29",
+    "category": "text_to_image",
+    "subcategory": "general",
+    "prompt_text": "Grayson Perry, detailed, collage, pop art, pink",
+    "parameters": {},
+    "model_compatibility": [
+      "stable-diffusion",
+      "midjourney",
+      "dall-e"
+    ],
+    "quality_score": 0.7,
+    "source": "Avaray/stable-diffusion-simple-wildcards",
+    "source_url": "https://github.com/Avaray/stable-diffusion-simple-wildcards",
+    "examples": [],
+    "tags": [],
+    "created_at": "2026-04-16T08:29:40.951075",
+    "updated_at": "2026-04-16T08:29:40.951075",
+    "verification_status": "automated"
+  },
+  {
+    "id": "Avaray_stable-diffusion-simple-wildcards_artists2_tagged.txt_30",
+    "category": "environment",
+    "subcategory": "general",
+    "prompt_text": "Hal Foster, comics, clean, detailed, scene",
+    "parameters": {},
+    "model_compatibility": [
+      "stable-diffusion",
+      "midjourney",
+      "dall-e"
+    ],
+    "quality_score": 0.7,
+    "source": "Avaray/stable-diffusion-simple-wildcards",
+    "source_url": "https://github.com/Avaray/stable-diffusion-simple-wildcards",
+    "examples": [],
+    "tags": [],
+    "created_at": "2026-04-16T08:29:40.951078",
+    "updated_at": "2026-04-16T08:29:40.951079",
+    "verification_status": "automated"
+  },
+  {
+    "id": "Avaray_stable-diffusion-simple-wildcards_artists2_tagged.txt_31",
+    "category": "environment",
+    "subcategory": "general",
+    "prompt_text": "Hans Makart, scene, messy, detailed",
+    "parameters": {},
+    "model_compatibility": [
+      "stable-diffusion",
+      "midjourney",
+      "dall-e"
+    ],
+    "quality_score": 0.7,
+    "source": "Avaray/stable-diffusion-simple-wildcards",
+    "source_url": "https://github.com/Avaray/stable-diffusion-simple-wildcards",
+    "examples": [],
+    "tags": [],
+    "created_at": "2026-04-16T08:29:40.951081",
+    "updated_at": "2026-04-16T08:29:40.951082",
+    "verification_status": "automated"
+  },
+  {
+    "id": "Avaray_stable-diffusion-simple-wildcards_artists2_tagged.txt_32",
+    "category": "environment",
+    "subcategory": "general",
+    "prompt_text": "Hiroshi Yoshida, ukiyoe, landscape, detailed",
+    "parameters": {},
+    "model_compatibility": [
+      "stable-diffusion",
+      "midjourney",
+      "dall-e"
+    ],
+    "quality_score": 0.7,
+    "source": "Avaray/stable-diffusion-simple-wildcards",
+    "source_url": "https://github.com/Avaray/stable-diffusion-simple-wildcards",
+    "examples": [],
+    "tags": [],
+    "created_at": "2026-04-16T08:29:40.951085",
+    "updated_at": "2026-04-16T08:29:40.951085",
+    "verification_status": "automated"
+  },
+  {
+    "id": "Avaray_stable-diffusion-simple-wildcards_artists2_tagged.txt_33",
+    "category": "text_to_image",
+    "subcategory": "general",
+    "prompt_text": "Howard Arkley, architecture, vibrant, colorful, detailed",
+    "parameters": {},
+    "model_compatibility": [
+      "stable-diffusion",
+      "midjourney",
+      "dall-e"
+    ],
+    "quality_score": 0.7,
+    "source": "Avaray/stable-diffusion-simple-wildcards",
+    "source_url": "https://github.com/Avaray/stable-diffusion-simple-wildcards",
+    "examples": [],
+    "tags": [],
+    "created_at": "2026-04-16T08:29:40.951088",
+    "updated_at": "2026-04-16T08:29:40.951089",
+    "verification_status": "automated"
+  },
+  {
+    "id": "Avaray_stable-diffusion-simple-wildcards_artists2_tagged.txt_34",
+    "category": "environment",
+    "subcategory": "general",
+    "prompt_text": "J. J. Grandville, detailed, scene",
+    "parameters": {},
+    "model_compatibility": [
+      "stable-diffusion",
+      "midjourney",
+      "dall-e"
+    ],
+    "quality_score": 0.7,
+    "source": "Avaray/stable-diffusion-simple-wildcards",
+    "source_url": "https://github.com/Avaray/stable-diffusion-simple-wildcards",
+    "examples": [],
+    "tags": [],
+    "created_at": "2026-04-16T08:29:40.951092",
+    "updated_at": "2026-04-16T08:29:40.951092",
+    "verification_status": "automated"
+  },
+  {
+    "id": "Avaray_stable-diffusion-simple-wildcards_artists2_tagged.txt_35",
+    "category": "text_to_image",
+    "subcategory": "fantasy",
+    "prompt_text": "James C. Christensen, detailed, whimsical, fantasy",
+    "parameters": {},
+    "model_compatibility": [
+      "stable-diffusion",
+      "midjourney",
+      "dall-e"
+    ],
+    "quality_score": 0.7,
+    "source": "Avaray/stable-diffusion-simple-wildcards",
+    "source_url": "https://github.com/Avaray/stable-diffusion-simple-wildcards",
+    "examples": [],
+    "tags": [],
+    "created_at": "2026-04-16T08:29:40.951095",
+    "updated_at": "2026-04-16T08:29:40.951096",
+    "verification_status": "automated"
+  },
+  {
+    "id": "Avaray_stable-diffusion-simple-wildcards_artists2_tagged.txt_36",
+    "category": "text_to_image",
+    "subcategory": "fantasy",
+    "prompt_text": "Jean-Baptiste Monge, dark, fantasy, detailed",
+    "parameters": {},
+    "model_compatibility": [
+      "stable-diffusion",
+      "midjourney",
+      "dall-e"
+    ],
+    "quality_score": 0.7,
+    "source": "Avaray/stable-diffusion-simple-wildcards",
+    "source_url": "https://github.com/Avaray/stable-diffusion-simple-wildcards",
+    "examples": [],
+    "tags": [],
+    "created_at": "2026-04-16T08:29:40.951099",
+    "updated_at": "2026-04-16T08:29:40.951099",
+    "verification_status": "automated"
+  },
+  {
+    "id": "Avaray_stable-diffusion-simple-wildcards_artists2_tagged.txt_37",
+    "category": "text_to_image",
+    "subcategory": "general",
+    "prompt_text": "Jim Lee, comics, detailed, character",
+    "parameters": {},
+    "model_compatibility": [
+      "stable-diffusion",
+      "midjourney",
+      "dall-e"
+    ],
+    "quality_score": 0.7,
+    "source": "Avaray/stable-diffusion-simple-wildcards",
+    "source_url": "https://github.com/Avaray/stable-diffusion-simple-wildcards",
+    "examples": [],
+    "tags": [],
+    "created_at": "2026-04-16T08:29:40.951102",
+    "updated_at": "2026-04-16T08:29:40.951103",
+    "verification_status": "automated"
+  },
+  {
+    "id": "Avaray_stable-diffusion-simple-wildcards_artists2_tagged.txt_38",
+    "category": "text_to_image",
+    "subcategory": "fantasy",
+    "prompt_text": "Jody Bergsma, watercolor, fantasy, detailed, whimsical",
+    "parameters": {},
+    "model_compatibility": [
+      "stable-diffusion",
+      "midjourney",
+      "dall-e"
+    ],
+    "quality_score": 0.7,
+    "source": "Avaray/stable-diffusion-simple-wildcards",
+    "source_url": "https://github.com/Avaray/stable-diffusion-simple-wildcards",
+    "examples": [],
+    "tags": [],
+    "created_at": "2026-04-16T08:29:40.951106",
+    "updated_at": "2026-04-16T08:29:40.951106",
+    "verification_status": "automated"
+  },
+  {
+    "id": "Avaray_stable-diffusion-simple-wildcards_artists2_tagged.txt_39",
+    "category": "text_to_image",
+    "subcategory": "fantasy",
+    "prompt_text": "Joe Madureira, comics, detailed, fantasy",
+    "parameters": {},
+    "model_compatibility": [
+      "stable-diffusion",
+      "midjourney",
+      "dall-e"
+    ],
+    "quality_score": 0.7,
+    "source": "Avaray/stable-diffusion-simple-wildcards",
+    "source_url": "https://github.com/Avaray/stable-diffusion-simple-wildcards",
+    "examples": [],
+    "tags": [],
+    "created_at": "2026-04-16T08:29:40.951109",
+    "updated_at": "2026-04-16T08:29:40.951110",
+    "verification_status": "automated"
+  },
+  {
+    "id": "Avaray_stable-diffusion-simple-wildcards_artists2_tagged.txt_40",
+    "category": "environment",
+    "subcategory": "fantasy",
+    "prompt_text": "John Anster Fitzgerald, detailed, fantasy, whimsical, scene",
+    "parameters": {},
+    "model_compatibility": [
+      "stable-diffusion",
+      "midjourney",
+      "dall-e"
+    ],
+    "quality_score": 0.7,
+    "source": "Avaray/stable-diffusion-simple-wildcards",
+    "source_url": "https://github.com/Avaray/stable-diffusion-simple-wildcards",
+    "examples": [],
+    "tags": [],
+    "created_at": "2026-04-16T08:29:40.951113",
+    "updated_at": "2026-04-16T08:29:40.951113",
+    "verification_status": "automated"
+  },
+  {
+    "id": "Avaray_stable-diffusion-simple-wildcards_artists2_tagged.txt_41",
+    "category": "text_to_image",
+    "subcategory": "fantasy",
+    "prompt_text": "John Howe, fantasy, dark, detailed",
+    "parameters": {},
+    "model_compatibility": [
+      "stable-diffusion",
+      "midjourney",
+      "dall-e"
+    ],
+    "quality_score": 0.7,
+    "source": "Avaray/stable-diffusion-simple-wildcards",
+    "source_url": "https://github.com/Avaray/stable-diffusion-simple-wildcards",
+    "examples": [],
+    "tags": [],
+    "created_at": "2026-04-16T08:29:40.951116",
+    "updated_at": "2026-04-16T08:29:40.951117",
+    "verification_status": "automated"
+  },
+  {
+    "id": "Avaray_stable-diffusion-simple-wildcards_artists2_tagged.txt_42",
+    "category": "text_to_image",
+    "subcategory": "general",
+    "prompt_text": "John Tenniel, detailed, children's illustration",
+    "parameters": {},
+    "model_compatibility": [
+      "stable-diffusion",
+      "midjourney",
+      "dall-e"
+    ],
+    "quality_score": 0.7,
+    "source": "Avaray/stable-diffusion-simple-wildcards",
+    "source_url": "https://github.com/Avaray/stable-diffusion-simple-wildcards",
+    "examples": [],
+    "tags": [],
+    "created_at": "2026-04-16T08:29:40.951120",
+    "updated_at": "2026-04-16T08:29:40.951121",
+    "verification_status": "automated"
+  },
+  {
+    "id": "Avaray_stable-diffusion-simple-wildcards_artists2_tagged.txt_43",
+    "category": "character_design",
+    "subcategory": "anime",
+    "prompt_text": "Junji Ito, horror, manga, portrait, monochromatic, detailed",
+    "parameters": {},
+    "model_compatibility": [
+      "stable-diffusion",
+      "midjourney",
+      "dall-e"
+    ],
+    "quality_score": 0.7,
+    "source": "Avaray/stable-diffusion-simple-wildcards",
+    "source_url": "https://github.com/Avaray/stable-diffusion-simple-wildcards",
+    "examples": [],
+    "tags": [],
+    "created_at": "2026-04-16T08:29:40.951124",
+    "updated_at": "2026-04-16T08:29:40.951125",
+    "verification_status": "automated"
+  },
+  {
+    "id": "Avaray_stable-diffusion-simple-wildcards_artists2_tagged.txt_44",
+    "category": "text_to_image",
+    "subcategory": "fantasy",
+    "prompt_text": "Justin Gerard, fantasy, whimsical, detailed",
+    "parameters": {},
+    "model_compatibility": [
+      "stable-diffusion",
+      "midjourney",
+      "dall-e"
+    ],
+    "quality_score": 0.7,
+    "source": "Avaray/stable-diffusion-simple-wildcards",
+    "source_url": "https://github.com/Avaray/stable-diffusion-simple-wildcards",
+    "examples": [],
+    "tags": [],
+    "created_at": "2026-04-16T08:29:40.951127",
+    "updated_at": "2026-04-16T08:29:40.951128",
+    "verification_status": "automated"
+  },
+  {
+    "id": "Avaray_stable-diffusion-simple-wildcards_artists2_tagged.txt_45",
+    "category": "text_to_image",
+    "subcategory": "anime",
+    "prompt_text": "Katsuhiro Otomo, manga, anime, detailed",
+    "parameters": {},
+    "model_compatibility": [
+      "stable-diffusion",
+      "midjourney",
+      "dall-e"
+    ],
+    "quality_score": 0.7,
+    "source": "Avaray/stable-diffusion-simple-wildcards",
+    "source_url": "https://github.com/Avaray/stable-diffusion-simple-wildcards",
+    "examples": [],
+    "tags": [],
+    "created_at": "2026-04-16T08:29:40.951131",
+    "updated_at": "2026-04-16T08:29:40.951131",
+    "verification_status": "automated"
+  },
+  {
+    "id": "Avaray_stable-diffusion-simple-wildcards_artists2_tagged.txt_46",
+    "category": "text_to_image",
+    "subcategory": "general",
+    "prompt_text": "Kay Nielsen, art nouveau, detailed",
+    "parameters": {},
+    "model_compatibility": [
+      "stable-diffusion",
+      "midjourney",
+      "dall-e"
+    ],
+    "quality_score": 0.7,
+    "source": "Avaray/stable-diffusion-simple-wildcards",
+    "source_url": "https://github.com/Avaray/stable-diffusion-simple-wildcards",
+    "examples": [],
+    "tags": [],
+    "created_at": "2026-04-16T08:29:40.951134",
+    "updated_at": "2026-04-16T08:29:40.951134",
+    "verification_status": "automated"
+  },
+  {
+    "id": "Avaray_stable-diffusion-simple-wildcards_artists2_tagged.txt_47",
+    "category": "character_design",
+    "subcategory": "general",
+    "prompt_text": "Kehinde Wiley, melanin, photorealism, portrait, vibrant, colorful, detailed",
+    "parameters": {},
+    "model_compatibility": [
+      "stable-diffusion",
+      "midjourney",
+      "dall-e"
+    ],
+    "quality_score": 0.7,
+    "source": "Avaray/stable-diffusion-simple-wildcards",
+    "source_url": "https://github.com/Avaray/stable-diffusion-simple-wildcards",
+    "examples": [],
+    "tags": [],
+    "created_at": "2026-04-16T08:29:40.951137",
+    "updated_at": "2026-04-16T08:29:40.951138",
+    "verification_status": "automated"
+  },
+  {
+    "id": "Avaray_stable-diffusion-simple-wildcards_artists2_tagged.txt_48",
+    "category": "environment",
+    "subcategory": "fantasy",
+    "prompt_text": "Keith Parkinson, fantasy, scene, detailed",
+    "parameters": {},
+    "model_compatibility": [
+      "stable-diffusion",
+      "midjourney",
+      "dall-e"
+    ],
+    "quality_score": 0.7,
+    "source": "Avaray/stable-diffusion-simple-wildcards",
+    "source_url": "https://github.com/Avaray/stable-diffusion-simple-wildcards",
+    "examples": [],
+    "tags": [],
+    "created_at": "2026-04-16T08:29:40.951141",
+    "updated_at": "2026-04-16T08:29:40.951141",
+    "verification_status": "automated"
+  },
+  {
+    "id": "Avaray_stable-diffusion-simple-wildcards_artists2_tagged.txt_49",
+    "category": "text_to_image",
+    "subcategory": "general",
+    "prompt_text": "Kim Jung Gi, character, detailed, monochromatic",
+    "parameters": {},
+    "model_compatibility": [
+      "stable-diffusion",
+      "midjourney",
+      "dall-e"
+    ],
+    "quality_score": 0.7,
+    "source": "Avaray/stable-diffusion-simple-wildcards",
+    "source_url": "https://github.com/Avaray/stable-diffusion-simple-wildcards",
+    "examples": [],
+    "tags": [],
+    "created_at": "2026-04-16T08:29:40.951144",
+    "updated_at": "2026-04-16T08:29:40.951145",
+    "verification_status": "automated"
+  },
+  {
+    "id": "Avaray_stable-diffusion-simple-wildcards_artists2_tagged.txt_50",
+    "category": "text_to_image",
+    "subcategory": "general",
+    "prompt_text": "Louis Rhead, art nouveau, detailed",
+    "parameters": {},
+    "model_compatibility": [
+      "stable-diffusion",
+      "midjourney",
+      "dall-e"
+    ],
+    "quality_score": 0.7,
+    "source": "Avaray/stable-diffusion-simple-wildcards",
+    "source_url": "https://github.com/Avaray/stable-diffusion-simple-wildcards",
+    "examples": [],
+    "tags": [],
+    "created_at": "2026-04-16T08:29:40.951148",
+    "updated_at": "2026-04-16T08:29:40.951148",
+    "verification_status": "automated"
+  },
+  {
+    "id": "Avaray_stable-diffusion-simple-wildcards_artists2_tagged.txt_51",
+    "category": "text_to_image",
+    "subcategory": "fantasy",
+    "prompt_text": "M.W. Kaluta, detailed, fantasy, whimsical",
+    "parameters": {},
+    "model_compatibility": [
+      "stable-diffusion",
+      "midjourney",
+      "dall-e"
+    ],
+    "quality_score": 0.7,
+    "source": "Avaray/stable-diffusion-simple-wildcards",
+    "source_url": "https://github.com/Avaray/stable-diffusion-simple-wildcards",
+    "examples": [],
+    "tags": [],
+    "created_at": "2026-04-16T08:29:40.951151",
+    "updated_at": "2026-04-16T08:29:40.951152",
+    "verification_status": "automated"
+  },
+  {
+    "id": "Avaray_stable-diffusion-simple-wildcards_artists2_tagged.txt_52",
+    "category": "text_to_image",
+    "subcategory": "general",
+    "prompt_text": "Marie Severin, comics, character, detailed",
+    "parameters": {},
+    "model_compatibility": [
+      "stable-diffusion",
+      "midjourney",
+      "dall-e"
+    ],
+    "quality_score": 0.7,
+    "source": "Avaray/stable-diffusion-simple-wildcards",
+    "source_url": "https://github.com/Avaray/stable-diffusion-simple-wildcards",
+    "examples": [],
+    "tags": [],
+    "created_at": "2026-04-16T08:29:40.951154",
+    "updated_at": "2026-04-16T08:29:40.951155",
+    "verification_status": "automated"
+  },
+  {
+    "id": "Avaray_stable-diffusion-simple-wildcards_artists2_tagged.txt_53",
+    "category": "text_to_image",
+    "subcategory": "general",
+    "prompt_text": "Martin Ansin, detailed, high contrast",
+    "parameters": {},
+    "model_compatibility": [
+      "stable-diffusion",
+      "midjourney",
+      "dall-e"
+    ],
+    "quality_score": 0.7,
+    "source": "Avaray/stable-diffusion-simple-wildcards",
+    "source_url": "https://github.com/Avaray/stable-diffusion-simple-wildcards",
+    "examples": [],
+    "tags": [],
+    "created_at": "2026-04-16T08:29:40.951158",
+    "updated_at": "2026-04-16T08:29:40.951158",
+    "verification_status": "automated"
+  },
+  {
+    "id": "Avaray_stable-diffusion-simple-wildcards_artists2_tagged.txt_54",
+    "category": "environment",
+    "subcategory": "general",
+    "prompt_text": "Mort Künstler, scene, detailed, realism",
+    "parameters": {},
+    "model_compatibility": [
+      "stable-diffusion",
+      "midjourney",
+      "dall-e"
+    ],
+    "quality_score": 0.7,
+    "source": "Avaray/stable-diffusion-simple-wildcards",
+    "source_url": "https://github.com/Avaray/stable-diffusion-simple-wildcards",
+    "examples": [],
+    "tags": [],
+    "created_at": "2026-04-16T08:29:40.951161",
+    "updated_at": "2026-04-16T08:29:40.951162",
+    "verification_status": "automated"
+  },
+  {
+    "id": "Avaray_stable-diffusion-simple-wildcards_artists2_tagged.txt_55",
+    "category": "text_to_image",
+    "subcategory": "general",
+    "prompt_text": "N/A ROA, street art, graffiti, monochromatic, detailed",
+    "parameters": {},
+    "model_compatibility": [
+      "stable-diffusion",
+      "midjourney",
+      "dall-e"
+    ],
+    "quality_score": 0.7,
+    "source": "Avaray/stable-diffusion-simple-wildcards",
+    "source_url": "https://github.com/Avaray/stable-diffusion-simple-wildcards",
+    "examples": [],
+    "tags": [],
+    "created_at": "2026-04-16T08:29:40.951165",
+    "updated_at": "2026-04-16T08:29:40.951166",
+    "verification_status": "automated"
+  },
+  {
+    "id": "Avaray_stable-diffusion-simple-wildcards_artists2_tagged.txt_56",
+    "category": "text_to_image",
+    "subcategory": "fantasy",
+    "prompt_text": "Nicolas Delort, monochromatic, detailed, fantasy",
+    "parameters": {},
+    "model_compatibility": [
+      "stable-diffusion",
+      "midjourney",
+      "dall-e"
+    ],
+    "quality_score": 0.7,
+    "source": "Avaray/stable-diffusion-simple-wildcards",
+    "source_url": "https://github.com/Avaray/stable-diffusion-simple-wildcards",
+    "examples": [],
+    "tags": [],
+    "created_at": "2026-04-16T08:29:40.951169",
+    "updated_at": "2026-04-16T08:29:40.951169",
+    "verification_status": "automated"
+  },
+  {
+    "id": "Avaray_stable-diffusion-simple-wildcards_artists2_tagged.txt_57",
+    "category": "environment",
+    "subcategory": "general",
+    "prompt_text": "Njideka Akunyili Crosby, scene, detailed, melanin, collage",
+    "parameters": {},
+    "model_compatibility": [
+      "stable-diffusion",
+      "midjourney",
+      "dall-e"
+    ],
+    "quality_score": 0.7,
+    "source": "Avaray/stable-diffusion-simple-wildcards",
+    "source_url": "https://github.com/Avaray/stable-diffusion-simple-wildcards",
+    "examples": [],
+    "tags": [],
+    "created_at": "2026-04-16T08:29:40.951172",
+    "updated_at": "2026-04-16T08:29:40.951173",
+    "verification_status": "automated"
+  },
+  {
+    "id": "Avaray_stable-diffusion-simple-wildcards_artists2_tagged.txt_58",
+    "category": "text_to_image",
+    "subcategory": "fantasy",
+    "prompt_text": "Patrick Brown, fantasy, comics, detailed",
+    "parameters": {},
+    "model_compatibility": [
+      "stable-diffusion",
+      "midjourney",
+      "dall-e"
+    ],
+    "quality_score": 0.7,
+    "source": "Avaray/stable-diffusion-simple-wildcards",
+    "source_url": "https://github.com/Avaray/stable-diffusion-simple-wildcards",
+    "examples": [],
+    "tags": [],
+    "created_at": "2026-04-16T08:29:40.951175",
+    "updated_at": "2026-04-16T08:29:40.951176",
+    "verification_status": "automated"
+  },
+  {
+    "id": "Avaray_stable-diffusion-simple-wildcards_artists2_tagged.txt_59",
+    "category": "text_to_image",
+    "subcategory": "fantasy",
+    "prompt_text": "Peter Mohrbacher, detailed, surrealism, fantasy",
+    "parameters": {},
+    "model_compatibility": [
+      "stable-diffusion",
+      "midjourney",
+      "dall-e"
+    ],
+    "quality_score": 0.7,
+    "source": "Avaray/stable-diffusion-simple-wildcards",
+    "source_url": "https://github.com/Avaray/stable-diffusion-simple-wildcards",
+    "examples": [],
+    "tags": [],
+    "created_at": "2026-04-16T08:29:40.951179",
+    "updated_at": "2026-04-16T08:29:40.951179",
+    "verification_status": "automated"
+  },
+  {
+    "id": "Avaray_stable-diffusion-simple-wildcards_artists2_tagged.txt_60",
+    "category": "environment",
+    "subcategory": "general",
+    "prompt_text": "Pieter Aertsen, detailed, scene, renaissance",
+    "parameters": {},
+    "model_compatibility": [
+      "stable-diffusion",
+      "midjourney",
+      "dall-e"
+    ],
+    "quality_score": 0.7,
+    "source": "Avaray/stable-diffusion-simple-wildcards",
+    "source_url": "https://github.com/Avaray/stable-diffusion-simple-wildcards",
+    "examples": [],
+    "tags": [],
+    "created_at": "2026-04-16T08:29:40.951182",
+    "updated_at": "2026-04-16T08:29:40.951183",
+    "verification_status": "automated"
+  },
+  {
+    "id": "Avaray_stable-diffusion-simple-wildcards_artists2_tagged.txt_61",
+    "category": "environment",
+    "subcategory": "general",
+    "prompt_text": "PJ Crook, scene, detailed, surrealism",
+    "parameters": {},
+    "model_compatibility": [
+      "stable-diffusion",
+      "midjourney",
+      "dall-e"
+    ],
+    "quality_score": 0.7,
+    "source": "Avaray/stable-diffusion-simple-wildcards",
+    "source_url": "https://github.com/Avaray/stable-diffusion-simple-wildcards",
+    "examples": [],
+    "tags": [],
+    "created_at": "2026-04-16T08:29:40.951186",
+    "updated_at": "2026-04-16T08:29:40.951186",
+    "verification_status": "automated"
+  },
+  {
+    "id": "Avaray_stable-diffusion-simple-wildcards_artists2_tagged.txt_62",
+    "category": "environment",
+    "subcategory": "general",
+    "prompt_text": "Randolph Caldecott, children's illustration, scene, detailed",
+    "parameters": {},
+    "model_compatibility": [
+      "stable-diffusion",
+      "midjourney",
+      "dall-e"
+    ],
+    "quality_score": 0.7,
+    "source": "Avaray/stable-diffusion-simple-wildcards",
+    "source_url": "https://github.com/Avaray/stable-diffusion-simple-wildcards",
+    "examples": [],
+    "tags": [],
+    "created_at": "2026-04-16T08:29:40.951189",
+    "updated_at": "2026-04-16T08:29:40.951190",
+    "verification_status": "automated"
+  },
+  {
+    "id": "Avaray_stable-diffusion-simple-wildcards_artists2_tagged.txt_63",
+    "category": "environment",
+    "subcategory": "general",
+    "prompt_text": "Reginald Marsh, detailed, realism, scene, dark",
+    "parameters": {},
+    "model_compatibility": [
+      "stable-diffusion",
+      "midjourney",
+      "dall-e"
+    ],
+    "quality_score": 0.7,
+    "source": "Avaray/stable-diffusion-simple-wildcards",
+    "source_url": "https://github.com/Avaray/stable-diffusion-simple-wildcards",
+    "examples": [],
+    "tags": [],
+    "created_at": "2026-04-16T08:29:40.951193",
+    "updated_at": "2026-04-16T08:29:40.951193",
+    "verification_status": "automated"
+  },
+  {
+    "id": "Avaray_stable-diffusion-simple-wildcards_artists2_tagged.txt_64",
+    "category": "text_to_image",
+    "subcategory": "general",
+    "prompt_text": "Robert Crumb, detailed, comics, character",
+    "parameters": {},
+    "model_compatibility": [
+      "stable-diffusion",
+      "midjourney",
+      "dall-e"
+    ],
+    "quality_score": 0.7,
+    "source": "Avaray/stable-diffusion-simple-wildcards",
+    "source_url": "https://github.com/Avaray/stable-diffusion-simple-wildcards",
+    "examples": [],
+    "tags": [],
+    "created_at": "2026-04-16T08:29:40.951196",
+    "updated_at": "2026-04-16T08:29:40.951197",
+    "verification_status": "automated"
+  },
+  {
+    "id": "Avaray_stable-diffusion-simple-wildcards_artists2_tagged.txt_65",
+    "category": "environment",
+    "subcategory": "general",
+    "prompt_text": "Ron Embleton, comics, scene, detailed",
+    "parameters": {},
+    "model_compatibility": [
+      "stable-diffusion",
+      "midjourney",
+      "dall-e"
+    ],
+    "quality_score": 0.7,
+    "source": "Avaray/stable-diffusion-simple-wildcards",
+    "source_url": "https://github.com/Avaray/stable-diffusion-simple-wildcards",
+    "examples": [],
+    "tags": [],
+    "created_at": "2026-04-16T08:29:40.951199",
+    "updated_at": "2026-04-16T08:29:40.951200",
+    "verification_status": "automated"
+  },
+  {
+    "id": "Avaray_stable-diffusion-simple-wildcards_artists2_tagged.txt_66",
+    "category": "text_to_image",
+    "subcategory": "anime",
+    "prompt_text": "Sam Bosma, cartoon, detailed, comics, fantasy, character",
+    "parameters": {},
+    "model_compatibility": [
+      "stable-diffusion",
+      "midjourney",
+      "dall-e"
+    ],
+    "quality_score": 0.7,
+    "source": "Avaray/stable-diffusion-simple-wildcards",
+    "source_url": "https://github.com/Avaray/stable-diffusion-simple-wildcards",
+    "examples": [],
+    "tags": [],
+    "created_at": "2026-04-16T08:29:40.951203",
+    "updated_at": "2026-04-16T08:29:40.951204",
+    "verification_status": "automated"
+  },
+  {
+    "id": "Avaray_stable-diffusion-simple-wildcards_artists2_tagged.txt_67",
+    "category": "environment",
+    "subcategory": "general",
+    "prompt_text": "Scarlett Hooft Graafland, photography, landscape, high contrast, pink",
+    "parameters": {},
+    "model_compatibility": [
+      "stable-diffusion",
+      "midjourney",
+      "dall-e"
+    ],
+    "quality_score": 0.6,
+    "source": "Avaray/stable-diffusion-simple-wildcards",
+    "source_url": "https://github.com/Avaray/stable-diffusion-simple-wildcards",
+    "examples": [],
+    "tags": [],
+    "created_at": "2026-04-16T08:29:40.951207",
+    "updated_at": "2026-04-16T08:29:40.951207",
+    "verification_status": "automated"
+  },
+  {
+    "id": "Avaray_stable-diffusion-simple-wildcards_artists2_tagged.txt_68",
+    "category": "text_to_image",
+    "subcategory": "anime",
+    "prompt_text": "Sven Nordqvist, detailed, cartoon, children's illustration",
+    "parameters": {},
+    "model_compatibility": [
+      "stable-diffusion",
+      "midjourney",
+      "dall-e"
+    ],
+    "quality_score": 0.7,
+    "source": "Avaray/stable-diffusion-simple-wildcards",
+    "source_url": "https://github.com/Avaray/stable-diffusion-simple-wildcards",
+    "examples": [],
+    "tags": [],
+    "created_at": "2026-04-16T08:29:40.951210",
+    "updated_at": "2026-04-16T08:29:40.951211",
+    "verification_status": "automated"
+  },
+  {
+    "id": "Avaray_stable-diffusion-simple-wildcards_artists2_tagged.txt_69",
+    "category": "text_to_image",
+    "subcategory": "general",
+    "prompt_text": "Tiffany Bozic, nature, surrealism, animals, detailed",
+    "parameters": {},
+    "model_compatibility": [
+      "stable-diffusion",
+      "midjourney",
+      "dall-e"
+    ],
+    "quality_score": 0.7,
+    "source": "Avaray/stable-diffusion-simple-wildcards",
+    "source_url": "https://github.com/Avaray/stable-diffusion-simple-wildcards",
+    "examples": [],
+    "tags": [],
+    "created_at": "2026-04-16T08:29:40.951214",
+    "updated_at": "2026-04-16T08:29:40.951214",
+    "verification_status": "automated"
+  },
+  {
+    "id": "Avaray_stable-diffusion-simple-wildcards_artists2_tagged.txt_70",
+    "category": "text_to_image",
+    "subcategory": "general",
+    "prompt_text": "Todd Schorr, pop art, surrealism, detailed,",
+    "parameters": {},
+    "model_compatibility": [
+      "stable-diffusion",
+      "midjourney",
+      "dall-e"
+    ],
+    "quality_score": 0.7,
+    "source": "Avaray/stable-diffusion-simple-wildcards",
+    "source_url": "https://github.com/Avaray/stable-diffusion-simple-wildcards",
+    "examples": [],
+    "tags": [],
+    "created_at": "2026-04-16T08:29:40.951217",
+    "updated_at": "2026-04-16T08:29:40.951218",
+    "verification_status": "automated"
+  },
+  {
+    "id": "Avaray_stable-diffusion-simple-wildcards_artists2_tagged.txt_71",
+    "category": "environment",
+    "subcategory": "fantasy",
+    "prompt_text": "Valentin Rekunenko, scene, detailed, fantasy, surrealism",
+    "parameters": {},
+    "model_compatibility": [
+      "stable-diffusion",
+      "midjourney",
+      "dall-e"
+    ],
+    "quality_score": 0.7,
+    "source": "Avaray/stable-diffusion-simple-wildcards",
+    "source_url": "https://github.com/Avaray/stable-diffusion-simple-wildcards",
+    "examples": [],
+    "tags": [],
+    "created_at": "2026-04-16T08:29:40.951221",
+    "updated_at": "2026-04-16T08:29:40.951221",
+    "verification_status": "automated"
+  },
+  {
+    "id": "Avaray_stable-diffusion-simple-wildcards_artists2_tagged.txt_72",
+    "category": "text_to_image",
+    "subcategory": "general",
+    "prompt_text": "Victo Ngai, detailed, vibrant, children's illustration, surrealism",
+    "parameters": {},
+    "model_compatibility": [
+      "stable-diffusion",
+      "midjourney",
+      "dall-e"
+    ],
+    "quality_score": 0.7,
+    "source": "Avaray/stable-diffusion-simple-wildcards",
+    "source_url": "https://github.com/Avaray/stable-diffusion-simple-wildcards",
+    "examples": [],
+    "tags": [],
+    "created_at": "2026-04-16T08:29:40.951225",
+    "updated_at": "2026-04-16T08:29:40.951225",
+    "verification_status": "automated"
+  },
+  {
+    "id": "Avaray_stable-diffusion-simple-wildcards_artists2_tagged.txt_73",
+    "category": "text_to_image",
+    "subcategory": "general",
+    "prompt_text": "Walter Crane, detailed, art nouveau,",
+    "parameters": {},
+    "model_compatibility": [
+      "stable-diffusion",
+      "midjourney",
+      "dall-e"
+    ],
+    "quality_score": 0.7,
+    "source": "Avaray/stable-diffusion-simple-wildcards",
+    "source_url": "https://github.com/Avaray/stable-diffusion-simple-wildcards",
+    "examples": [],
+    "tags": [],
+    "created_at": "2026-04-16T08:29:40.951228",
+    "updated_at": "2026-04-16T08:29:40.951229",
+    "verification_status": "automated"
+  },
+  {
+    "id": "Avaray_stable-diffusion-simple-wildcards_artists2_tagged.txt_74",
+    "category": "text_to_image",
+    "subcategory": "general",
+    "prompt_text": "William Morris, textile, detailed, art nouveau",
+    "parameters": {},
+    "model_compatibility": [
+      "stable-diffusion",
+      "midjourney",
+      "dall-e"
+    ],
+    "quality_score": 0.7,
+    "source": "Avaray/stable-diffusion-simple-wildcards",
+    "source_url": "https://github.com/Avaray/stable-diffusion-simple-wildcards",
+    "examples": [],
+    "tags": [],
+    "created_at": "2026-04-16T08:29:40.951232",
+    "updated_at": "2026-04-16T08:29:40.951232",
+    "verification_status": "automated"
+  },
+  {
+    "id": "Avaray_stable-diffusion-simple-wildcards_artists2_tagged.txt_75",
+    "category": "text_to_image",
+    "subcategory": "fantasy",
+    "prompt_text": "William Stout, detailed, dark, fantasy",
+    "parameters": {},
+    "model_compatibility": [
+      "stable-diffusion",
+      "midjourney",
+      "dall-e"
+    ],
+    "quality_score": 0.7,
+    "source": "Avaray/stable-diffusion-simple-wildcards",
+    "source_url": "https://github.com/Avaray/stable-diffusion-simple-wildcards",
+    "examples": [],
+    "tags": [],
+    "created_at": "2026-04-16T08:29:40.951235",
+    "updated_at": "2026-04-16T08:29:40.951236",
+    "verification_status": "automated"
+  },
+  {
+    "id": "Avaray_stable-diffusion-simple-wildcards_artists2_tagged.txt_76",
+    "category": "text_to_image",
+    "subcategory": "fantasy",
+    "prompt_text": "Yoann Lossel, fantasy, illustration, whimsical, detailed, magic realism",
+    "parameters": {},
+    "model_compatibility": [
+      "stable-diffusion",
+      "midjourney",
+      "dall-e"
+    ],
+    "quality_score": 0.7,
+    "source": "Avaray/stable-diffusion-simple-wildcards",
+    "source_url": "https://github.com/Avaray/stable-diffusion-simple-wildcards",
+    "examples": [],
+    "tags": [],
+    "created_at": "2026-04-16T08:29:40.951239",
+    "updated_at": "2026-04-16T08:29:40.951239",
+    "verification_status": "automated"
+  },
+  {
+    "id": "Avaray_stable-diffusion-simple-wildcards_artists2_tagged.txt_77",
+    "category": "text_to_image",
+    "subcategory": "general",
+    "prompt_text": "Yoji Shinkawa, character, comics, monochromatic, messy, high contrast",
+    "parameters": {},
+    "model_compatibility": [
+      "stable-diffusion",
+      "midjourney",
+      "dall-e"
+    ],
+    "quality_score": 0.6,
+    "source": "Avaray/stable-diffusion-simple-wildcards",
+    "source_url": "https://github.com/Avaray/stable-diffusion-simple-wildcards",
+    "examples": [],
+    "tags": [],
+    "created_at": "2026-04-16T08:29:40.951243",
+    "updated_at": "2026-04-16T08:29:40.951244",
+    "verification_status": "automated"
+  }
+]

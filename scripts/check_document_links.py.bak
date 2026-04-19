@@ -1,0 +1,359 @@
+#!/usr/bin/env python3
+"""
+文档链接检查工具
+检查Markdown文档中的链接有效性，支持相对链接和绝对链接验证
+"""
+
+import argparse
+import os
+import re
+import sys
+from pathlib import Path
+from urllib.parse import urlparse
+
+
+def find_markdown_files(directory):
+    """查找目录中的所有Markdown文件"""
+    exclude_dirs = {'.', '__pycache__', 'node_modules', 'vendor'}
+    md_files = []
+
+    for root, dirs, files in os.walk(directory):
+        # 过滤要遍历的目录：跳过隐藏目录和排除目录
+        dirs[:] = [d for d in dirs
+                  if not d.startswith('.')
+                  and d not in exclude_dirs
+                  and not any(excluded in os.path.join(root, d) for excluded in ['/vendor/', '/node_modules/'])]
+
+        # 检查当前目录是否在排除路径中
+        if any(excluded in root for excluded in ['/vendor/', '/node_modules/']):
+            continue
+
+        for file in files:
+            if file.endswith('.md'):
+                md_files.append(os.path.join(root, file))
+
+    return md_files
+
+def extract_links_from_markdown(file_path):
+    """从Markdown文件中提取所有链接"""
+    with open(file_path, 'r', encoding='utf-8') as f:
+        content = f.read()
+
+    links = []
+
+    # 1. 标准Markdown链接: [text](url) 或 [text](url "title")
+    # 使用更严格的正则表达式，避免匹配代码片段
+    std_link_pattern = r'\[([^\]]+)\]\(([^)\s]+)(?:\s+"[^"]*")?\)'
+    for match in re.finditer(std_link_pattern, content):
+        link_text = match.group(1)
+        link_url = match.group(2)
+
+        # 跳过锚点链接和邮件链接
+        if link_url.startswith('#') or link_url.startswith('mailto:'):
+            continue
+
+        # 跳过看起来像代码片段的链接（包含尖括号、逗号等特殊字符）
+        # 真正的Markdown链接URL通常不会包含<,>,{,}等字符
+        if re.search(r'[<>{}]', link_url):
+            continue
+
+        # 跳过非常短的文本（可能是代码中的方括号）
+        if len(link_text.strip()) < 2:
+            continue
+
+        links.append({
+            'url': link_url,
+            'text': link_text,
+            'file': file_path,
+            'line': None
+        })
+
+    # 2. 自动链接: <url> 格式
+    auto_link_pattern = r'<([^>\s]+)>'
+    for match in re.finditer(auto_link_pattern, content):
+        link_url = match.group(1)
+
+        # 跳过邮件链接
+        if link_url.startswith('mailto:'):
+            continue
+
+        # 检查是否为有效的URL（包含://或看起来像URL）
+        if not (':' in link_url and '//' in link_url):
+            # 如果不是明显的URL，可能不是真正的自动链接
+            continue
+
+        links.append({
+            'url': link_url,
+            'text': '',
+            'file': file_path,
+            'line': None
+        })
+
+    # 3. 引用链接: [text][ref] 格式（可选）
+    # 注意：引用链接需要上下文来解析，这里只提取引用标记
+    ref_link_pattern = r'\[([^\]]+)\]\[([^\]]+)\]'
+    for match in re.finditer(ref_link_pattern, content):
+        link_text = match.group(1)
+        ref_id = match.group(2)
+
+        # 跳过空的引用ID
+        if not ref_id.strip():
+            continue
+
+        links.append({
+            'url': f'[ref:{ref_id}]',  # 特殊标记表示引用链接
+            'text': link_text,
+            'file': file_path,
+            'line': None
+        })
+
+    return links
+
+def check_link_validity(link, base_dir):
+    """检查链接是否有效"""
+    url = link['url']
+
+    # 检查是否为引用链接标记
+    if url.startswith('[ref:'):
+        # 引用链接，需要额外的上下文来验证
+        # 暂时标记为有效，因为需要检查引用定义
+        return {
+            'link': link,
+            'type': 'reference',
+            'is_valid': True,  # 暂时设为有效，避免误报
+            'resolution': 'reference_link',
+            'suggested_fix': None
+        }
+
+    # 解析URL
+    parsed = urlparse(url)
+
+    # 判断链接类型
+    if parsed.scheme:  # 绝对URL (http, https, ftp等)
+        link_type = 'external'
+        is_valid = True  # 外部链接暂不检查，返回有效
+        resolution = None
+
+    else:  # 相对路径或文件路径
+        link_type = 'internal'
+
+        # 获取链接所在的文件目录
+        link_file_dir = os.path.dirname(link['file'])
+
+        # 尝试解析相对路径
+        if url.startswith('/'):
+            # 相对于项目根目录
+            target_path = os.path.join(base_dir, url.lstrip('/'))
+        else:
+            # 相对于当前文件目录
+            target_path = os.path.join(link_file_dir, url)
+
+        # 清理路径中的锚点部分
+        target_path = target_path.split('#')[0]
+
+        # 检查文件是否存在
+        if os.path.exists(target_path):
+            is_valid = True
+            resolution = os.path.relpath(target_path, base_dir)
+        else:
+            # 尝试添加.md扩展名
+            if not target_path.endswith('.md'):
+                md_path = target_path + '.md'
+                if os.path.exists(md_path):
+                    is_valid = True
+                    resolution = os.path.relpath(md_path, base_dir)
+                else:
+                    is_valid = False
+                    resolution = None
+            else:
+                is_valid = False
+                resolution = None
+
+    return {
+        'link': link,
+        'type': link_type,
+        'is_valid': is_valid,
+        'resolution': resolution,
+        'suggested_fix': None if is_valid else f"找不到文件: {url}"
+    }
+
+def check_document_links(directory, repair=False, output_file=None):
+    """检查目录中文档的链接"""
+    print(f"🔍 检查文档链接: {directory}")
+
+    base_dir = os.path.abspath(directory)
+    md_files = find_markdown_files(directory)
+
+    if not md_files:
+        print("❌ 未找到Markdown文件")
+        return []
+
+    print(f"📄 找到 {len(md_files)} 个Markdown文件")
+
+    all_links = []
+    broken_links = []
+
+    # 提取所有链接
+    for md_file in md_files:
+        links = extract_links_from_markdown(md_file)
+        all_links.extend(links)
+
+    print(f"🔗 找到 {len(all_links)} 个链接")
+
+    # 检查链接有效性
+    for i, link in enumerate(all_links):
+        result = check_link_validity(link, base_dir)
+
+        if not result['is_valid']:
+            broken_links.append(result)
+
+        # 进度显示
+        if (i + 1) % 50 == 0:
+            print(f"  已检查 {i+1}/{len(all_links)} 个链接...")
+
+    # 输出结果
+    if broken_links:
+        print(f"❌ 发现 {len(broken_links)} 个无效链接:")
+        for result in broken_links:
+            link = result['link']
+            print(f"  - 文件: {os.path.relpath(link['file'], base_dir)}")
+            print(f"    链接: {link['url']}")
+            print(f"    描述: {link['text']}")
+            if result['suggested_fix']:
+                print(f"    建议: {result['suggested_fix']}")
+            print()
+    else:
+        print("✅ 所有链接有效!")
+
+    # 生成修复建议
+    if repair and broken_links:
+        print("🛠️  生成修复建议...")
+        repair_suggestions = generate_repair_suggestions(broken_links, base_dir)
+
+        if output_file:
+            save_repair_suggestions(repair_suggestions, output_file)
+            print(f"📝 修复建议已保存到: {output_file}")
+        else:
+            print_repair_suggestions(repair_suggestions)
+
+    return broken_links
+
+def generate_repair_suggestions(broken_links, base_dir):
+    """生成修复建议"""
+    suggestions = []
+
+    for result in broken_links:
+        link = result['link']
+        url = link['url']
+
+        # 尝试查找可能的正确路径
+        possible_fixes = find_possible_fixes(url, base_dir)
+
+        suggestion = {
+            'file': os.path.relpath(link['file'], base_dir),
+            'original_url': url,
+            'description': link['text'],
+            'possible_fixes': possible_fixes,
+            'best_fix': possible_fixes[0] if possible_fixes else None
+        }
+        suggestions.append(suggestion)
+
+    return suggestions
+
+def find_possible_fixes(url, base_dir):
+    """查找可能的修复路径"""
+    possible_fixes = []
+
+    # 如果URL以/开头，尝试在docs目录中查找
+    if url.startswith('/'):
+        target_name = os.path.basename(url)
+        if not target_name.endswith('.md'):
+            target_name += '.md'
+
+        # 在docs目录中搜索同名文件
+        for root, dirs, files in os.walk(os.path.join(base_dir, 'docs')):
+            for file in files:
+                if file == target_name:
+                    rel_path = os.path.relpath(os.path.join(root, file), base_dir)
+                    possible_fixes.append(f"/{rel_path}")
+
+    return possible_fixes
+
+def save_repair_suggestions(suggestions, output_file):
+    """保存修复建议到文件"""
+    with open(output_file, 'w', encoding='utf-8') as f:
+        f.write("# 文档链接修复建议\n\n")
+        f.write(f"## 摘要\n")
+        f.write(f"- 发现 {len(suggestions)} 个需要修复的链接\n")
+        f.write(f"- 生成时间: {os.path.basename(__file__)}\n\n")
+
+        f.write("## 修复建议\n\n")
+        for i, suggestion in enumerate(suggestions, 1):
+            f.write(f"### {i}. {suggestion['file']}\n")
+            f.write(f"- **原始链接**: `{suggestion['original_url']}`\n")
+            if suggestion['description']:
+                f.write(f"- **描述**: {suggestion['description']}\n")
+
+            if suggestion['possible_fixes']:
+                f.write("- **可能的修复**:\n")
+                for fix in suggestion['possible_fixes']:
+                    f.write(f"  - `{fix}`\n")
+
+            if suggestion['best_fix']:
+                f.write(f"- **推荐修复**: `{suggestion['best_fix']}`\n")
+
+            f.write("\n")
+
+def print_repair_suggestions(suggestions):
+    """打印修复建议"""
+    print("\n" + "="*80)
+    print("修复建议:")
+    print("="*80)
+
+    for i, suggestion in enumerate(suggestions, 1):
+        print(f"\n{i}. 文件: {suggestion['file']}")
+        print(f"   原始链接: {suggestion['original_url']}")
+        if suggestion['description']:
+            print(f"   描述: {suggestion['description']}")
+
+        if suggestion['possible_fixes']:
+            print(f"   可能的修复:")
+            for fix in suggestion['possible_fixes']:
+                print(f"     - {fix}")
+
+        if suggestion['best_fix']:
+            print(f"   推荐修复: {suggestion['best_fix']}")
+
+def main():
+    parser = argparse.ArgumentParser(description='检查文档链接有效性')
+    parser.add_argument('--directory', '-d', default='docs/',
+                       help='要检查的目录 (默认: docs/)')
+    parser.add_argument('--repair', '-r', action='store_true',
+                       help='生成修复建议')
+    parser.add_argument('--output', '-o',
+                       help='修复建议输出文件')
+    parser.add_argument('--verbose', '-v', action='store_true',
+                       help='显示详细信息')
+
+    args = parser.parse_args()
+
+    # 检查目录是否存在
+    if not os.path.exists(args.directory):
+        print(f"❌ 目录不存在: {args.directory}")
+        sys.exit(1)
+
+    # 运行链接检查
+    broken_links = check_document_links(
+        args.directory,
+        repair=args.repair,
+        output_file=args.output
+    )
+
+    # 如果有无效链接，返回错误码
+    if broken_links:
+        sys.exit(1)
+    else:
+        sys.exit(0)
+
+if __name__ == '__main__':
+    main()

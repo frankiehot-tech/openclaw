@@ -1,0 +1,26 @@
+{
+  "timestamp": "2026-04-14 18:43:19",
+  "total_tests": 3,
+  "passed_tests": 2,
+  "failed_tests": 1,
+  "details": [
+    {
+      "test_name": "启动和基础检查",
+      "passed": true,
+      "message": "有输入框",
+      "timestamp": "18:43:19"
+    },
+    {
+      "test_name": "消息发送测试",
+      "passed": true,
+      "message": "AI已响应",
+      "timestamp": "18:43:19"
+    },
+    {
+      "test_name": "AI创作界面",
+      "passed": false,
+      "message": "检查失败: missing_value",
+      "timestamp": "18:43:19"
+    }
+  ]
+}

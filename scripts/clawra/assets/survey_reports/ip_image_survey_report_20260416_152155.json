@@ -1,0 +1,73 @@
+{
+  "report_id": "analysis_20260416_152155",
+  "generated_at": "2026-04-16T15:21:55.822086",
+  "analysis_period": "2026-04-16",
+  "summary": {
+    "total_responses": 14,
+    "completion_rate": 1.0,
+    "overall_score": 4.142857142857143
+  },
+  "dimension_scores": {
+    "visual_style": 4.285714285714286,
+    "narrative_style": 3.7857142857142856,
+    "theme_alignment": 3.7857142857142856,
+    "audience_fit": 4.071428571428572,
+    "emotional_impact": 3.642857142857143,
+    "overall_impression": 4.142857142857143
+  },
+  "segment_analysis": {
+    "80后": {
+      "visual_style": 4.25,
+      "narrative_style": 4.0,
+      "theme_alignment": 4.5,
+      "audience_fit": 4.0,
+      "emotional_impact": 3.5,
+      "overall_impression": 4.0
+    },
+    "90后": {
+      "visual_style": 4.500000000000001,
+      "narrative_style": 4.0,
+      "theme_alignment": 4.0,
+      "audience_fit": 4.5,
+      "emotional_impact": 4.0,
+      "overall_impression": 4.0
+    },
+    "70后": {
+      "visual_style": 3.4999999999999996,
+      "narrative_style": 4.0,
+      "theme_alignment": 4.0,
+      "audience_fit": 3.5000000000000004,
+      "emotional_impact": 3.0,
+      "overall_impression": 3.5000000000000004
+    },
+    "10后": {
+      "visual_style": 4.75,
+      "narrative_style": 3.25,
+      "theme_alignment": 3.0,
+      "audience_fit": 4.25,
+      "emotional_impact": 4.0,
+      "overall_impression": 4.75
+    },
+    "其他": {
+      "visual_style": 4.0,
+      "narrative_style": 4.0,
+      "theme_alignment": 3.5,
+      "audience_fit": 4.0,
+      "emotional_impact": 3.5,
+      "overall_impression": 4.0
+    }
+  },
+  "key_insights": [
+    "总体印象非常好（4.14/5），IP形象受到用户认可",
+    "80后用户对IP形象满意度高（4.00/5）",
+    "90后用户对IP形象满意度高（4.00/5）",
+    "10后用户对IP形象满意度高（4.75/5）",
+    "其他用户对IP形象满意度高（4.00/5）",
+    "共收集到14份有效调查响应"
+  ],
+  "recommendations": [
+    "保持当前设计水准，考虑扩展更多IP形象变体",
+    "探索新的视觉风格和叙事方式，丰富IP形象层次",
+    "定期进行用户调查，持续收集反馈并优化"
+  ]
+}

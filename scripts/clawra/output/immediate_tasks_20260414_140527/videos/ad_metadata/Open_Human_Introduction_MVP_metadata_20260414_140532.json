@@ -1,0 +1,25 @@
+{
+  "project_name": "Open_Human_Introduction_MVP",
+  "generated_at": "2026-04-14T14:05:32.397193",
+  "engine_version": "KdenliveEnhancedVideoGenerationEngine 1.0",
+  "result": {
+    "success": true,
+    "project_name": "Open_Human_Introduction_MVP",
+    "template_used": "openhuman_intro",
+    "project_file": "./output/immediate_tasks_20260414_140527/kdenlive_projects/Open_Human_Introduction_MVP.kdenlive-cli.json",
+    "xml_file": "./output/immediate_tasks_20260414_140527/kdenlive_projects/Open_Human_Introduction_MVP.xml",
+    "render_cmd": "melt ./output/immediate_tasks_20260414_140527/kdenlive_projects/Open_Human_Introduction_MVP.xml -consumer avformat:./output/immediate_tasks_20260414_140527/kdenlive_projects/Open_Human_Introduction_MVP.mp4 vcodec=libx264 crf=18 preset=slow acodec=aac ab=192k",
+    "summary": "项目名称: Open_Human_Introduction_MVP\n分辨率: 1920x1080\n帧率: 30/1\n轨道数: 4\n素材库剪辑数: 4\n轨道详情:\n  [0] V1 (video): 1 个剪辑\n  [1] V2 (video): 3 个剪辑\n  [2] A1 (audio): 0 个剪辑\n  [3] A2 (audio): 0 个剪辑",
+    "output_files": {
+      "Open_Human_Introduction_MVP.xml": "./output/immediate_tasks_20260414_140527/kdenlive_projects/Open_Human_Introduction_MVP.xml",
+      "Open_Human_Introduction_MVP.kdenlive-cli.json": "./output/immediate_tasks_20260414_140527/kdenlive_projects/Open_Human_Introduction_MVP.kdenlive-cli.json"
+    },
+    "output_file_count": 2,
+    "documentation": "已生成，见文档文件"
+  },
+  "system_info": {
+    "output_dir": "./output/immediate_tasks_20260414_140527/videos",
+    "kdenlive_output_dir": "./output/immediate_tasks_20260414_140527/kdenlive_projects",
+    "dalle_integration": "enabled"
+  }
+}

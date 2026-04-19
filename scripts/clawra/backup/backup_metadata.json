@@ -1,0 +1,12 @@
+{
+  "backups": [
+    {
+      "timestamp": "20260417_102543",
+      "mode": "daily",
+      "database_file": "./backup/maref_memory_20260417_102543_daily.db",
+      "config_file": "./backup/maref_config_20260417_102543.tar.gz",
+      "size_mb": 0.3984375,
+      "integrity_checked": true
+    }
+  ]
+}

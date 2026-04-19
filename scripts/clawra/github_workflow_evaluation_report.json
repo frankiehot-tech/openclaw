@@ -1,0 +1,476 @@
+{
+  "timestamp": "2026-04-14T19:15:21.166005",
+  "stats": {
+    "total_evaluated": 12,
+    "by_category": {
+      "video_generation": 4,
+      "ai_content_generation": 4,
+      "media_asset_management": 4
+    },
+    "rating_distribution": {
+      "A": 0,
+      "B": 0,
+      "C": 1,
+      "D": 2,
+      "F": 9
+    },
+    "top_projects": [
+      {
+        "full_name": "harry0703/MoneyPrinterTurbo",
+        "description": "利用AI大模型，一键生成高清短视频 Generate short videos with one click using AI LLM.",
+        "stars": 55672,
+        "updated_at": "2026-04-14T11:10:41Z",
+        "category": "video_generation",
+        "scores": {
+          "code_quality": 0.36904761904761907,
+          "maintenance": 1.0,
+          "integration_friendly": 0.5,
+          "function_value": 0.31666666666666665,
+          "community": 1.0,
+          "total": 0.6082142857142857
+        },
+        "rating": "C",
+        "url": "https://github.com/harry0703/MoneyPrinterTurbo"
+      },
+      {
+        "full_name": "AUTOMATIC1111/stable-diffusion-webui",
+        "description": "Stable Diffusion web UI",
+        "stars": 162362,
+        "updated_at": "2026-04-14T10:26:08Z",
+        "category": "ai_content_generation",
+        "scores": {
+          "code_quality": 0.3892018779342723,
+          "maintenance": 0.7012053033346726,
+          "integration_friendly": 0.5,
+          "function_value": 0.31666666666666665,
+          "community": 1.0,
+          "total": 0.5395618892139498
+        },
+        "rating": "D",
+        "url": "https://github.com/AUTOMATIC1111/stable-diffusion-webui"
+      },
+      {
+        "full_name": "jxxghp/MoviePilot",
+        "description": "NAS媒体库自动化管理工具",
+        "stars": 10882,
+        "updated_at": "2026-04-14T10:10:30Z",
+        "category": "media_asset_management",
+        "scores": {
+          "code_quality": 0.5127576403695807,
+          "maintenance": 0.5277777777777778,
+          "integration_friendly": 0.6,
+          "function_value": 0.15,
+          "community": 0.7999999999999999,
+          "total": 0.5082717365553187
+        },
+        "rating": "D",
+        "url": "https://github.com/jxxghp/MoviePilot"
+      },
+      {
+        "full_name": "Yuukiy/JavSP",
+        "description": "汇总多站点数据的AV元数据刮削器",
+        "stars": 4933,
+        "updated_at": "2026-04-14T08:52:57Z",
+        "category": "media_asset_management",
+        "scores": {
+          "code_quality": 0.3072327044025157,
+          "maintenance": 0.7201342281879195,
+          "integration_friendly": 0.5,
+          "function_value": 0.15,
+          "community": 1.0,
+          "total": 0.49470336836773465
+        },
+        "rating": "F",
+        "url": "https://github.com/Yuukiy/JavSP"
+      },
+      {
+        "full_name": "borisdayma/dalle-mini",
+        "description": "DALL·E Mini - Generate images from a text prompt",
+        "stars": 14771,
+        "updated_at": "2026-04-14T09:28:42Z",
+        "category": "ai_content_generation",
+        "scores": {
+          "code_quality": 0.36666666666666664,
+          "maintenance": 0.6272727272727273,
+          "integration_friendly": 0.5,
+          "function_value": 0.31666666666666665,
+          "community": 0.7999999999999999,
+          "total": 0.4943181818181818
+        },
+        "rating": "F",
+        "url": "https://github.com/borisdayma/dalle-mini"
+      },
+      {
+        "full_name": "cxfksword/jellyfin-plugin-metashark",
+        "description": "jellyfin电影元数据插件",
+        "stars": 2053,
+        "updated_at": "2026-04-14T08:36:18Z",
+        "category": "media_asset_management",
+        "scores": {
+          "code_quality": 0.06666666666666667,
+          "maintenance": 0.9307692307692308,
+          "integration_friendly": 0.30000000000000004,
+          "function_value": 0.15,
+          "community": 0.8,
+          "total": 0.41519230769230775
+        },
+        "rating": "F",
+        "url": "https://github.com/cxfksword/jellyfin-plugin-metashark"
+      },
+      {
+        "full_name": "mabeijianxi/small-video-record",
+        "description": "利用FFmpeg视频录制微信小视频与其压缩处理",
+        "stars": 3453,
+        "updated_at": "2026-03-17T06:22:09Z",
+        "category": "video_generation",
+        "scores": {
+          "code_quality": 0.06666666666666667,
+          "maintenance": 0.714354066985646,
+          "integration_friendly": 0.30000000000000004,
+          "function_value": 0.4833333333333333,
+          "community": 0.6,
+          "total": 0.3910885167464115
+        },
+        "rating": "F",
+        "url": "https://github.com/mabeijianxi/small-video-record"
+      },
+      {
+        "full_name": "openai/DALL-E",
+        "description": "PyTorch package for the discrete VAE used for DALL·E.",
+        "stars": 10867,
+        "updated_at": "2026-04-13T15:07:57Z",
+        "category": "ai_content_generation",
+        "scores": {
+          "code_quality": 0.06666666666666667,
+          "maintenance": 0.5352941176470588,
+          "integration_friendly": 0.6,
+          "function_value": 0.31666666666666665,
+          "community": 0.6,
+          "total": 0.3813235294117647
+        },
+        "rating": "F",
+        "url": "https://github.com/openai/DALL-E"
+      },
+      {
+        "full_name": "JefferyHcool/BiliNote",
+        "description": "AI 视频笔记生成工具 让 AI 为你的视频做笔记",
+        "stars": 5637,
+        "updated_at": "2026-04-14T11:11:17Z",
+        "category": "video_generation",
+        "scores": {
+          "code_quality": 0.10519877675840979,
+          "maintenance": 0.7198675496688742,
+          "integration_friendly": 0.30000000000000004,
+          "function_value": 0.15,
+          "community": 0.7999999999999999,
+          "total": 0.37402652044474155
+        },
+        "rating": "F",
+        "url": "https://github.com/JefferyHcool/BiliNote"
+      },
+      {
+        "full_name": "CompVis/stable-diffusion",
+        "description": "A latent text-to-image diffusion model",
+        "stars": 72880,
+        "updated_at": "2026-04-14T10:52:28Z",
+        "category": "ai_content_generation",
+        "scores": {
+          "code_quality": 0.08062015503875969,
+          "maintenance": 0.5048076923076923,
+          "integration_friendly": 0.5,
+          "function_value": 0.15,
+          "community": 0.7999999999999999,
+          "total": 0.352887969588551
+        },
+        "rating": "F",
+        "url": "https://github.com/CompVis/stable-diffusion"
+      }
+    ]
+  },
+  "evaluations": [
+    {
+      "full_name": "harry0703/MoneyPrinterTurbo",
+      "description": "利用AI大模型，一键生成高清短视频 Generate short videos with one click using AI LLM.",
+      "stars": 55672,
+      "updated_at": "2026-04-14T11:10:41Z",
+      "category": "video_generation",
+      "scores": {
+        "code_quality": 0.36904761904761907,
+        "maintenance": 1.0,
+        "integration_friendly": 0.5,
+        "function_value": 0.31666666666666665,
+        "community": 1.0,
+        "total": 0.6082142857142857
+      },
+      "rating": "C",
+      "url": "https://github.com/harry0703/MoneyPrinterTurbo"
+    },
+    {
+      "full_name": "AUTOMATIC1111/stable-diffusion-webui",
+      "description": "Stable Diffusion web UI",
+      "stars": 162362,
+      "updated_at": "2026-04-14T10:26:08Z",
+      "category": "ai_content_generation",
+      "scores": {
+        "code_quality": 0.3892018779342723,
+        "maintenance": 0.7012053033346726,
+        "integration_friendly": 0.5,
+        "function_value": 0.31666666666666665,
+        "community": 1.0,
+        "total": 0.5395618892139498
+      },
+      "rating": "D",
+      "url": "https://github.com/AUTOMATIC1111/stable-diffusion-webui"
+    },
+    {
+      "full_name": "jxxghp/MoviePilot",
+      "description": "NAS媒体库自动化管理工具",
+      "stars": 10882,
+      "updated_at": "2026-04-14T10:10:30Z",
+      "category": "media_asset_management",
+      "scores": {
+        "code_quality": 0.5127576403695807,
+        "maintenance": 0.5277777777777778,
+        "integration_friendly": 0.6,
+        "function_value": 0.15,
+        "community": 0.7999999999999999,
+        "total": 0.5082717365553187
+      },
+      "rating": "D",
+      "url": "https://github.com/jxxghp/MoviePilot"
+    },
+    {
+      "full_name": "Yuukiy/JavSP",
+      "description": "汇总多站点数据的AV元数据刮削器",
+      "stars": 4933,
+      "updated_at": "2026-04-14T08:52:57Z",
+      "category": "media_asset_management",
+      "scores": {
+        "code_quality": 0.3072327044025157,
+        "maintenance": 0.7201342281879195,
+        "integration_friendly": 0.5,
+        "function_value": 0.15,
+        "community": 1.0,
+        "total": 0.49470336836773465
+      },
+      "rating": "F",
+      "url": "https://github.com/Yuukiy/JavSP"
+    },
+    {
+      "full_name": "borisdayma/dalle-mini",
+      "description": "DALL·E Mini - Generate images from a text prompt",
+      "stars": 14771,
+      "updated_at": "2026-04-14T09:28:42Z",
+      "category": "ai_content_generation",
+      "scores": {
+        "code_quality": 0.36666666666666664,
+        "maintenance": 0.6272727272727273,
+        "integration_friendly": 0.5,
+        "function_value": 0.31666666666666665,
+        "community": 0.7999999999999999,
+        "total": 0.4943181818181818
+      },
+      "rating": "F",
+      "url": "https://github.com/borisdayma/dalle-mini"
+    },
+    {
+      "full_name": "cxfksword/jellyfin-plugin-metashark",
+      "description": "jellyfin电影元数据插件",
+      "stars": 2053,
+      "updated_at": "2026-04-14T08:36:18Z",
+      "category": "media_asset_management",
+      "scores": {
+        "code_quality": 0.06666666666666667,
+        "maintenance": 0.9307692307692308,
+        "integration_friendly": 0.30000000000000004,
+        "function_value": 0.15,
+        "community": 0.8,
+        "total": 0.41519230769230775
+      },
+      "rating": "F",
+      "url": "https://github.com/cxfksword/jellyfin-plugin-metashark"
+    },
+    {
+      "full_name": "mabeijianxi/small-video-record",
+      "description": "利用FFmpeg视频录制微信小视频与其压缩处理",
+      "stars": 3453,
+      "updated_at": "2026-03-17T06:22:09Z",
+      "category": "video_generation",
+      "scores": {
+        "code_quality": 0.06666666666666667,
+        "maintenance": 0.714354066985646,
+        "integration_friendly": 0.30000000000000004,
+        "function_value": 0.4833333333333333,
+        "community": 0.6,
+        "total": 0.3910885167464115
+      },
+      "rating": "F",
+      "url": "https://github.com/mabeijianxi/small-video-record"
+    },
+    {
+      "full_name": "openai/DALL-E",
+      "description": "PyTorch package for the discrete VAE used for DALL·E.",
+      "stars": 10867,
+      "updated_at": "2026-04-13T15:07:57Z",
+      "category": "ai_content_generation",
+      "scores": {
+        "code_quality": 0.06666666666666667,
+        "maintenance": 0.5352941176470588,
+        "integration_friendly": 0.6,
+        "function_value": 0.31666666666666665,
+        "community": 0.6,
+        "total": 0.3813235294117647
+      },
+      "rating": "F",
+      "url": "https://github.com/openai/DALL-E"
+    },
+    {
+      "full_name": "JefferyHcool/BiliNote",
+      "description": "AI 视频笔记生成工具 让 AI 为你的视频做笔记",
+      "stars": 5637,
+      "updated_at": "2026-04-14T11:11:17Z",
+      "category": "video_generation",
+      "scores": {
+        "code_quality": 0.10519877675840979,
+        "maintenance": 0.7198675496688742,
+        "integration_friendly": 0.30000000000000004,
+        "function_value": 0.15,
+        "community": 0.7999999999999999,
+        "total": 0.37402652044474155
+      },
+      "rating": "F",
+      "url": "https://github.com/JefferyHcool/BiliNote"
+    },
+    {
+      "full_name": "CompVis/stable-diffusion",
+      "description": "A latent text-to-image diffusion model",
+      "stars": 72880,
+      "updated_at": "2026-04-14T10:52:28Z",
+      "category": "ai_content_generation",
+      "scores": {
+        "code_quality": 0.08062015503875969,
+        "maintenance": 0.5048076923076923,
+        "integration_friendly": 0.5,
+        "function_value": 0.15,
+        "community": 0.7999999999999999,
+        "total": 0.352887969588551
+      },
+      "rating": "F",
+      "url": "https://github.com/CompVis/stable-diffusion"
+    },
+    {
+      "full_name": "NAStool/nas-tools",
+      "description": "NAS媒体库管理工具",
+      "stars": 9077,
+      "updated_at": "2026-04-14T08:36:08Z",
+      "category": "media_asset_management",
+      "scores": {
+        "code_quality": 0.06666666666666667,
+        "maintenance": 0.5166666666666667,
+        "integration_friendly": 0.5,
+        "function_value": 0.15,
+        "community": 0.8,
+        "total": 0.3516666666666667
+      },
+      "rating": "F",
+      "url": "https://github.com/NAStool/nas-tools"
+    },
+    {
+      "full_name": "aespresso/a_journey_into_math_of_ml",
+      "description": "汉语自然语言处理视频教程-开源学习资料",
+      "stars": 1725,
+      "updated_at": "2026-03-29T15:53:15Z",
+      "category": "video_generation",
+      "scores": {
+        "code_quality": 0.06666666666666667,
+        "maintenance": 0.611111111111111,
+        "integration_friendly": 0.30000000000000004,
+        "function_value": 0.15,
+        "community": 0.6,
+        "total": 0.31527777777777777
+      },
+      "rating": "F",
+      "url": "https://github.com/aespresso/a_journey_into_math_of_ml"
+    }
+  ],
+  "recommendations": [
+    {
+      "category": "video_generation",
+      "top_projects": [
+        {
+          "name": "harry0703/MoneyPrinterTurbo",
+          "score": 0.6082142857142857,
+          "rating": "C",
+          "url": "https://github.com/harry0703/MoneyPrinterTurbo",
+          "reason": "代码质量: 0.37, 维护状态: 1.00"
+        },
+        {
+          "name": "mabeijianxi/small-video-record",
+          "score": 0.3910885167464115,
+          "rating": "F",
+          "url": "https://github.com/mabeijianxi/small-video-record",
+          "reason": "代码质量: 0.07, 维护状态: 0.71"
+        },
+        {
+          "name": "JefferyHcool/BiliNote",
+          "score": 0.37402652044474155,
+          "rating": "F",
+          "url": "https://github.com/JefferyHcool/BiliNote",
+          "reason": "代码质量: 0.11, 维护状态: 0.72"
+        }
+      ]
+    },
+    {
+      "category": "ai_content_generation",
+      "top_projects": [
+        {
+          "name": "AUTOMATIC1111/stable-diffusion-webui",
+          "score": 0.5395618892139498,
+          "rating": "D",
+          "url": "https://github.com/AUTOMATIC1111/stable-diffusion-webui",
+          "reason": "代码质量: 0.39, 维护状态: 0.70"
+        },
+        {
+          "name": "borisdayma/dalle-mini",
+          "score": 0.4943181818181818,
+          "rating": "F",
+          "url": "https://github.com/borisdayma/dalle-mini",
+          "reason": "代码质量: 0.37, 维护状态: 0.63"
+        },
+        {
+          "name": "openai/DALL-E",
+          "score": 0.3813235294117647,
+          "rating": "F",
+          "url": "https://github.com/openai/DALL-E",
+          "reason": "代码质量: 0.07, 维护状态: 0.54"
+        }
+      ]
+    },
+    {
+      "category": "media_asset_management",
+      "top_projects": [
+        {
+          "name": "jxxghp/MoviePilot",
+          "score": 0.5082717365553187,
+          "rating": "D",
+          "url": "https://github.com/jxxghp/MoviePilot",
+          "reason": "代码质量: 0.51, 维护状态: 0.53"
+        },
+        {
+          "name": "Yuukiy/JavSP",
+          "score": 0.49470336836773465,
+          "rating": "F",
+          "url": "https://github.com/Yuukiy/JavSP",
+          "reason": "代码质量: 0.31, 维护状态: 0.72"
+        },
+        {
+          "name": "cxfksword/jellyfin-plugin-metashark",
+          "score": 0.41519230769230775,
+          "rating": "F",
+          "url": "https://github.com/cxfksword/jellyfin-plugin-metashark",
+          "reason": "代码质量: 0.07, 维护状态: 0.93"
+        }
+      ]
+    }
+  ]
+}

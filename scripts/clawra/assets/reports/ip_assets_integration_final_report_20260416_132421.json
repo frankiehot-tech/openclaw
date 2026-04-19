@@ -1,0 +1,58 @@
+{
+  "timestamp": "2026-04-16T13:24:21.888631",
+  "total_tests": 4,
+  "passed_tests": 3,
+  "success_rate": 75.0,
+  "test_results": [
+    {
+      "name": "IP数字资产管理器独立功能",
+      "passed": true,
+      "details": {
+        "asset_load": true,
+        "css_generation": true,
+        "template_retrieval": true,
+        "content_generation": true,
+        "integration_test": true,
+        "overall": true
+      }
+    },
+    {
+      "name": "生产系统集成验证",
+      "passed": false,
+      "details": {
+        "error": "Object of type ContentLayer is not JSON serializable"
+      }
+    },
+    {
+      "name": "品牌化内容工作流",
+      "passed": true,
+      "details": {
+        "has_github_profile": true,
+        "has_brand_info": true,
+        "principles_match": true,
+        "content_structure_valid": true,
+        "branded_content_example": "/Volumes/1TB-M2/openclaw/scripts/clawra/assets/reports/branded_content_example.json"
+      }
+    },
+    {
+      "name": "MVP聚焦验证",
+      "passed": true,
+      "details": {
+        "mvp_core_valid": true,
+        "brand_colors_count": 6,
+        "content_templates_count": 2,
+        "visual_identities_count": 2,
+        "brand_guidelines_count": 2
+      }
+    }
+  ],
+  "summary": {
+    "ip_assets_integration_complete": false,
+    "mvp_ready": false,
+    "recommendations": [
+      "修复失败的测试用例",
+      "重新验证集成逻辑",
+      "确保资产目录结构完整"
+    ]
+  }
+}

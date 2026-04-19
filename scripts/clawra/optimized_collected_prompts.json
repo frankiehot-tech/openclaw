@@ -1,0 +1,53 @@
+[
+  {
+    "id": "saharmor_dalle-playground_text_to_image_68",
+    "category": "text_to_image",
+    "subcategory": "general",
+    "prompt_text": "The original reposistory used  @borisdayma's DALL-E Mini.",
+    "parameters": {},
+    "model_compatibility": [
+      "stable-diffusion"
+    ],
+    "quality_score": 0.7,
+    "source": "saharmor/dalle-playground",
+    "source_url": "https://github.com/saharmor/dalle-playground",
+    "examples": [],
+    "tags": [],
+    "created_at": "2026-04-15T07:16:52.097253",
+    "updated_at": "2026-04-15T07:16:52.097277"
+  },
+  {
+    "id": "saharmor_dalle-playground_browserslist_2",
+    "category": "browserslist",
+    "subcategory": "general",
+    "prompt_text": "not ie <= 11",
+    "parameters": {},
+    "model_compatibility": [
+      "stable-diffusion"
+    ],
+    "quality_score": 0.5,
+    "source": "saharmor/dalle-playground",
+    "source_url": "https://github.com/saharmor/dalle-playground",
+    "examples": [],
+    "tags": [],
+    "created_at": "2026-04-15T07:16:59.162610",
+    "updated_at": "2026-04-15T07:16:59.162630"
+  },
+  {
+    "id": "saharmor_dalle-playground_browserslist_3",
+    "category": "browserslist",
+    "subcategory": "general",
+    "prompt_text": "not op_mini all",
+    "parameters": {},
+    "model_compatibility": [
+      "stable-diffusion"
+    ],
+    "quality_score": 0.5,
+    "source": "saharmor/dalle-playground",
+    "source_url": "https://github.com/saharmor/dalle-playground",
+    "examples": [],
+    "tags": [],
+    "created_at": "2026-04-15T07:16:59.162654",
+    "updated_at": "2026-04-15T07:16:59.162656"
+  }
+]

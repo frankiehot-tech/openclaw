@@ -1,0 +1,23 @@
+{
+  "task_type": "doubao_content_generation",
+  "task_name": "Open Human项目介绍 - 碳硅共生开源框架",
+  "timestamp": "2026-04-14T14:08:14.763955",
+  "result_summary": {
+    "success": true,
+    "output_files_count": 0,
+    "project_file": null,
+    "error": null
+  },
+  "system_state": {
+    "initialized": true,
+    "start_time": "2026-04-14T14:08:06.381332",
+    "component_status": {
+      "roma_maref": true,
+      "kdenlive": true,
+      "doubao_cli": true,
+      "github_workflow": false
+    },
+    "tasks_completed": 1,
+    "tasks_failed": 0
+  }
+}

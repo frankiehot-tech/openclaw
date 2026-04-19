@@ -1,0 +1,101 @@
+{
+  "timestamp": "2026-04-14 18:46:19",
+  "summary": {
+    "buttons_found": 0,
+    "visible_buttons": 0,
+    "ai_buttons": 0,
+    "inputs_found": 0,
+    "chat_inputs": 0,
+    "messages_found": 0,
+    "ai_messages": 0,
+    "creation_sections": 38
+  },
+  "button_details": null,
+  "input_details": null,
+  "message_details": null,
+  "creation_details": {
+    "totalSections": 38,
+    "sections": [
+      {
+        "keyword": "创作",
+        "text": "豆包\n新对话\nAI 创作\n云盘\n更多\n历史对话\n手机版对话\n假如全世界的智商降低N倍😜\n智能体（已私密）\n生成卡通猫咪图片\nMAREF的含义\n50万车3年车贷利息计算\n豆包AppleScript JavaScript执行功能启用指南（第3步操作）\n启用豆包AppleScript JavaScript功能\n香港大学开源CLI项目名称\n阿里云安全白名单添加操作\n男人拿捏富豪救兰博基尼\n提取视频文案\nClaude防封指南源码相关\nINTJ性格介绍\nClaude账号封禁验证与处理\n八卦与玄学的区别及宇宙代码解读\n自动coding运行长任务的秘诀\n一周AI大事盘点（4月5日）\n本地运行谷歌Gemma4",
+        "elementText": "豆包\n新对话\nAI 创作\n云盘\n更多\n历史对话\n手机版对话\n假如全世界的智商降低N倍😜\n智能体（已私密）\n生成卡通猫咪图片\nMAREF的含义\n50万车3年车贷利息计算\n豆包AppleScript J",
+        "className": "",
+        "tagName": "HTML",
+        "childrenCount": 2
+      },
+      {
+        "keyword": "创作",
+        "text": "AI 创作\n云盘\n更多\n历史对话\n手机版对话\n假如全世界的智商降低N倍😜\n智能体（已私密）\n生成卡通猫咪图片\nMAREF的含义\n50万车3年车贷利息计算\n豆包AppleScript JavaScript执行功能启用指南（第3步操作）\n启用豆包AppleScript JavaScript功能\n香港大学开源CLI项目名称\n阿里云安全白名单添加操作\n男人拿捏富豪救兰博基尼\n提取视频文案\nClaude防封指南源码相关\nINTJ性格介绍\nClaude账号封禁验证与处理\n八卦与玄学的区别及宇宙代码解读\n自动coding运行长任务的秘诀\n一周AI大事盘点（4月5日）\n本地运行谷歌Gemma4大模型\n中国A",
+        "elementText": "AI 创作",
+        "className": "\n            relative -mr-9 flow-scrollbar min-h-0",
+        "tagName": "DIV",
+        "childrenCount": 2
+      },
+      {
+        "keyword": "创作",
+        "text": "AI 创作\n云盘\n更多",
+        "elementText": "AI 创作",
+        "className": "mb-22 flex w-full flex-col gap-3",
+        "tagName": "DIV",
+        "childrenCount": 5
+      },
+      {
+        "keyword": "创作",
+        "text": "AI 创作",
+        "elementText": "AI 创作",
+        "className": "\n        relative\n        empty:hidden\n      ",
+        "tagName": "DIV",
+        "childrenCount": 1
+      },
+      {
+        "keyword": "生成",
+        "text": "历史对话\n手机版对话\n假如全世界的智商降低N倍😜\n智能体（已私密）\n生成卡通猫咪图片\nMAREF的含义\n50万车3年车贷利息计算\n豆包AppleScript JavaScript执行功能启用指南（第3步操作）\n启用豆包AppleScript JavaScript功能\n香港大学开源CLI项目名称\n阿里云安全白名单添加操作\n男人拿捏富豪救兰博基尼\n提取视频文案\nClaude防封指南源码相关\nINTJ性格介绍\nClaude账号封禁验证与处理\n八卦与玄学的区别及宇宙代码解读\n自动coding运行长任务的秘诀\n一周AI大事盘点（4月5日）\n本地运行谷歌Gemma4大模型\n中国AI发展格局分析",
+        "elementText": "生成卡通猫咪图片",
+        "className": "flex flex-col flex-nowrap gap-2",
+        "tagName": "DIV",
+        "childrenCount": 3
+      },
+      {
+        "keyword": "生成",
+        "text": "手机版对话\n假如全世界的智商降低N倍😜\n智能体（已私密）\n生成卡通猫咪图片\nMAREF的含义\n50万车3年车贷利息计算\n豆包AppleScript JavaScript执行功能启用指南（第3步操作）\n启用豆包AppleScript JavaScript功能\n香港大学开源CLI项目名称\n阿里云安全白名单添加操作\n男人拿捏富豪救兰博基尼\n提取视频文案\nClaude防封指南源码相关\nINTJ性格介绍\nClaude账号封禁验证与处理\n八卦与玄学的区别及宇宙代码解读\n自动coding运行长任务的秘诀\n一周AI大事盘点（4月5日）\n本地运行谷歌Gemma4大模型\n中国AI发展格局分析",
+        "elementText": "生成卡通猫咪图片",
+        "className": "flex flex-col gap-2",
+        "tagName": "DIV",
+        "childrenCount": 20
+      },
+      {
+        "keyword": "生成",
+        "text": "生成卡通猫咪图片",
+        "elementText": "生成卡通猫咪图片",
+        "className": "",
+        "tagName": "DIV",
+        "childrenCount": 1
+      },
+      {
+        "keyword": "生成",
+        "text": "新对话\n内容由豆包 AI 生成\n晚上好，香山传奇\n深度思考\n编程\n深入研究\n帮我写作\n图像生成\n音乐生成\n视频生成\n更多",
+        "elementText": "新对话\n内容由豆包 AI 生成",
+        "className": "flex-1 min-w-0 flex items-stretch relative center-",
+        "tagName": "MAIN",
+        "childrenCount": 1
+      },
+      {
+        "keyword": "生成",
+        "text": "新对话\n内容由豆包 AI 生成",
+        "elementText": "新对话\n内容由豆包 AI 生成",
+        "className": "\n        relative z-30 flex-row flex h-[var(--head",
+        "tagName": "DIV",
+        "childrenCount": 3
+      },
+      {
+        "keyword": "AI",
+        "text": "一周AI大事盘点（4月5日）",
+        "elementText": "一周AI大事盘点（4月5日）",
+        "className": "",
+        "tagName": "DIV",
+        "childrenCount": 1
+      }
+    ]
+  }
+}

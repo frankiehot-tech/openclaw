@@ -1,0 +1,22 @@
+{
+  "success": true,
+  "prompt": "一只可爱的卡通猫，蓝色眼睛，简单背景",
+  "style": "cartoon",
+  "size": "1024x1024",
+  "num_images": 1,
+  "generated_images": [
+    "https://p11-flow-imagex-sign.byteimg.com/ocean-cloud-tos/FileBizType.BIZ_BOT_ICON/1102137949424476_1739085656854311616.jpg~tplv-a9rns2rl98-image-qvalue.jpeg?lk3s=a16ed425&lrcfp=e440b5d2&rcl=202604141937429BC2342D2BD18284B8A8&x-expires=1807789063&x-signature=8X4jq8yyJpEDDMkgnqECMg%2FFCJ8%3D",
+    "https://p5-flow-imagex-sign.byteimg.com/tos-cn-i-a9rns2rl98/rc_gen_image/269291f558da4e51b3c9bb2d02b38778.jpeg~tplv-a9rns2rl98-downsize_watermark_1_5_b.png?lk3s=8e244e95&rcl=20260414194543B8FC71E22A1FF8F0F3B6&rrcfp=ddbb2dc7&x-expires=2091527155&x-signature=xIBhDfzOX8kn9X4Iq5y3ZtbI2X8%3D",
+    "https://p5-flow-imagex-sign.byteimg.com/tos-cn-i-a9rns2rl98/rc_gen_image/1a6ef21f184e4a8298cd961cfc748578.jpeg~tplv-a9rns2rl98-downsize_watermark_1_5_b.png?lk3s=8e244e95&rcl=20260414194543B8FC71E22A1FF8F0F3B6&rrcfp=ddbb2dc7&x-expires=2091527153&x-signature=dSO8v2v1D78VMPZqaUFfCPWLR3s%3D",
+    "https://p5-flow-imagex-sign.byteimg.com/tos-cn-i-a9rns2rl98/rc_gen_image/54477d58cdee4a0fabccc78e1f44a6d3.jpeg~tplv-a9rns2rl98-downsize_watermark_1_5_b.png?lk3s=8e244e95&rcl=20260414194543B8FC71E22A1FF8F0F3B6&rrcfp=ddbb2dc7&x-expires=2091527154&x-signature=auWX4QcpBMdxUUgMt9fDJhzDwAI%3D",
+    "https://p5-flow-imagex-sign.byteimg.com/tos-cn-i-a9rns2rl98/rc_gen_image/f36d49a13e1d4e19af7e544829407a50.jpeg~tplv-a9rns2rl98-downsize_watermark_1_5_b.png?lk3s=8e244e95&rcl=20260414194543B8FC71E22A1FF8F0F3B6&rrcfp=ddbb2dc7&x-expires=2091527156&x-signature=jC5Rj3e79ACheFo81h0AZxmjJFo%3D"
+  ],
+  "metadata": {
+    "full_prompt": "一只可爱的卡通猫，蓝色眼睛，简单背景，卡通风格，简洁线条，色彩鲜艳，尺寸1024x1024，可爱卡通风格质量",
+    "size": "1024x1024",
+    "quality": "可爱卡通风格",
+    "num_requested": 1,
+    "num_generated": 5,
+    "generation_time_seconds": 60
+  },
+  "timestamp": 

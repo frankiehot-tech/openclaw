@@ -1,0 +1,27 @@
+name: github-platform
+version: 1.0.0
+description: GitHub平台集成技能包 - 仓库管理、代码提交、Issue/PR管理、自动化工作流
+type: platform_integration
+source: claude_code_setup
+created_at: 2026-04-12T16:00:00+08:00
+status: 已验证通过
+
+capabilities:
+  - repository_management
+  - code_commit_push
+  - issue_pr_management
+  - github_actions_workflow
+  - security_configuration
+  - project_analysis
+  - github_cli_integration
+
+dependencies:
+  - gh_cli_installed
+  - git_configured
+
+config:
+  github_username: frankiehot-tech
+  github_email: frankiehot@hotmail.com
+  default_workflow_enabled: true
+  smart_commit_enabled: true
+  diagnostic_tools: github-diagnose.sh

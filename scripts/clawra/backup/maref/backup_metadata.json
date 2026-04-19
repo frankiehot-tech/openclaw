@@ -1,0 +1,20 @@
+{
+  "backups": [
+    {
+      "timestamp": "20260416_112336",
+      "mode": "daily",
+      "database_file": "./backup/maref/maref_memory_20260416_112336_daily.db",
+      "config_file": "./backup/maref/maref_config_20260416_112336.tar.gz",
+      "size_mb": 0.37890625,
+      "integrity_checked": true
+    },
+    {
+      "timestamp": "20260415_082105",
+      "mode": "daily",
+      "database_file": "./backup/maref/maref_memory_20260415_082105_daily.db",
+      "config_file": "./backup/maref/maref_config_20260415_082105.tar.gz",
+      "size_mb": 0.37890625,
+      "integrity_checked": true
+    }
+  ]
+}

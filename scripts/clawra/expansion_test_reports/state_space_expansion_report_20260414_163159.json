@@ -1,0 +1,527 @@
+{
+  "summary": {
+    "total_tests": 69,
+    "successful_tests": 50,
+    "success_rate": 0.7246376811594203,
+    "initial_state": "000000",
+    "final_state": "001111",
+    "visited_states_count": 39,
+    "state_space_coverage": 60.9375,
+    "unique_transitions": 38,
+    "transition_diversity": 76.0,
+    "average_hamming_distance": 1.3333333333333333,
+    "generation_timestamp": 1776155519.056279
+  },
+  "state_space_analysis": {
+    "visited_states": [
+      "001001",
+      "011000",
+      "000101",
+      "000011",
+      "110000",
+      "101100",
+      "001111",
+      "011111",
+      "100101",
+      "001000",
+      "010001",
+      "010000",
+      "000110",
+      "110101",
+      "000100",
+      "000010",
+      "010111",
+      "010110",
+      "111100",
+      "011010",
+      "010101",
+      "011011",
+      "011001",
+      "100000",
+      "001011",
+      "110011",
+      "000111",
+      "111111",
+      "111000",
+      "001010",
+      "010011",
+      "110001",
+      "000000",
+      "001100",
+      "001101",
+      "101101",
+      "011110",
+      "000001",
+      "111110"
+    ],
+    "total_possible_states": 64,
+    "coverage_percentage": 60.9375,
+    "remaining_states": 25
+  },
+  "test_results_summary": {
+    "neighbor_expansion_tests": 20,
+    "priority_expansion_tests": 43,
+    "path_expansion_tests": 6,
+    "by_success_rate": {
+      "neighbor": 0.05,
+      "priority": 1.0,
+      "path": 1.0
+    }
+  },
+  "detailed_results": [
+    {
+      "success": false,
+      "from_state": "100000",
+      "to_state": "001000",
+      "distance": 2,
+      "reason": "邻居扩展测试: 000000 → 001000",
+      "error": "汉明距离不为1: 2",
+      "execution_time": 6.67572021484375e-05
+    },
+    {
+      "success": true,
+      "from_state": "110000",
+      "to_state": "110000",
+      "distance": 1,
+      "reason": "优先级扩展步骤 1/5: 100000 → 110000",
+      "error": null,
+      "execution_time": 6.4849853515625e-05
+    },
+    {
+      "success": true,
+      "from_state": "111000",
+      "to_state": "111000",
+      "distance": 1,
+      "reason": "优先级扩展步骤 2/5: 110000 → 111000",
+      "error": null,
+      "execution_time": 7.605552673339844e-05
+    },
+    {
+      "success": true,
+      "from_state": "111100",
+      "to_state": "111100",
+      "distance": 1,
+      "reason": "优先级扩展步骤 3/5: 111000 → 111100",
+      "error": null,
+      "execution_time": 6.198883056640625e-05
+    },
+    {
+      "success": true,
+      "from_state": "111110",
+      "to_state": "111110",
+      "distance": 1,
+      "reason": "优先级扩展步骤 4/5: 111100 → 111110",
+      "error": null,
+      "execution_time": 4.887580871582031e-05
+    },
+    {
+      "success": true,
+      "from_state": "111111",
+      "to_state": "111111",
+      "distance": 1,
+      "reason": "优先级扩展步骤 5/5: 111110 → 111111",
+      "error": null,
+      "execution_time": 8.821487426757812e-05
+    },
+    {
+      "success": true,
+      "from_state": "011111",
+      "to_state": "011111",
+      "distance": 1,
+      "reason": "优先级扩展步骤 1/3: 111111 → 011111",
+      "error": null,
+      "execution_time": 4.1961669921875e-05
+    },
+    {
+      "success": true,
+      "from_state": "010111",
+      "to_state": "010111",
+      "distance": 1,
+      "reason": "优先级扩展步骤 2/3: 011111 → 010111",
+      "error": null,
+      "execution_time": 7.700920104980469e-05
+    },
+    {
+      "success": true,
+      "from_state": "010101",
+      "to_state": "010101",
+      "distance": 1,
+      "reason": "优先级扩展步骤 3/3: 010111 → 010101",
+      "error": null,
+      "execution_time": 6.127357482910156e-05
+    },
+    {
+      "success": true,
+      "from_state": "000101",
+      "to_state": "000101",
+      "distance": 1,
+      "reason": "优先级扩展步骤 1/4: 010101 → 000101",
+      "error": null,
+      "execution_time": 2.7179718017578125e-05
+    },
+    {
+      "success": true,
+      "from_state": "001101",
+      "to_state": "001101",
+      "distance": 1,
+      "reason": "优先级扩展步骤 2/4: 000101 → 001101",
+      "error": null,
+      "execution_time": 3.409385681152344e-05
+    },
+    {
+      "success": true,
+      "from_state": "001001",
+      "to_state": "001001",
+      "distance": 1,
+      "reason": "优先级扩展步骤 3/4: 001101 → 001001",
+      "error": null,
+      "execution_time": 7.605552673339844e-05
+    },
+    {
+      "success": true,
+      "from_state": "001000",
+      "to_state": "001000",
+      "distance": 1,
+      "reason": "优先级扩展步骤 4/4: 001001 → 001000",
+      "error": null,
+      "execution_time": 5.91278076171875e-05
+    },
+    {
+      "success": true,
+      "from_state": "011000",
+      "to_state": "011000",
+      "distance": 1,
+      "reason": "优先级扩展步骤 1/2: 001000 → 011000",
+      "error": null,
+      "execution_time": 4.00543212890625e-05
+    },
+    {
+      "success": true,
+      "from_state": "010000",
+      "to_state": "010000",
+      "distance": 1,
+      "reason": "优先级扩展步骤 2/2: 011000 → 010000",
+      "error": null,
+      "execution_time": 7.414817810058594e-05
+    },
+    {
+      "success": true,
+      "from_state": "110000",
+      "to_state": "110000",
+      "distance": 1,
+      "reason": "优先级扩展步骤 1/2: 010000 → 110000",
+      "error": null,
+      "execution_time": 4.38690185546875e-05
+    },
+    {
+      "success": true,
+      "from_state": "100000",
+      "to_state": "100000",
+      "distance": 1,
+      "reason": "优先级扩展步骤 2/2: 110000 → 100000",
+      "error": null,
+      "execution_time": 2.2172927856445312e-05
+    },
+    {
+      "success": true,
+      "from_state": "000000",
+      "to_state": "000000",
+      "distance": 1,
+      "reason": "优先级扩展步骤 1/3: 100000 → 000000",
+      "error": null,
+      "execution_time": 2.7894973754882812e-05
+    },
+    {
+      "success": true,
+      "from_state": "001000",
+      "to_state": "001000",
+      "distance": 1,
+      "reason": "优先级扩展步骤 2/3: 000000 → 001000",
+      "error": null,
+      "execution_time": 8.177757263183594e-05
+    },
+    {
+      "success": true,
+      "from_state": "001100",
+      "to_state": "001100",
+      "distance": 1,
+      "reason": "优先级扩展步骤 3/3: 001000 → 001100",
+      "error": null,
+      "execution_time": 7.009506225585938e-05
+    },
+    {
+      "success": true,
+      "from_state": "101100",
+      "to_state": "101100",
+      "distance": 1,
+      "reason": "优先级扩展步骤 1/2: 001100 → 101100",
+      "error": null,
+      "execution_time": 3.981590270996094e-05
+    },
+    {
+      "success": true,
+      "from_state": "101101",
+      "to_state": "101101",
+      "distance": 1,
+      "reason": "优先级扩展步骤 2/2: 101100 → 101101",
+      "error": null,
+      "execution_time": 6.604194641113281e-05
+    },
+    {
+      "success": true,
+      "from_state": "001101",
+      "to_state": "001101",
+      "distance": 1,
+      "reason": "优先级扩展步骤 1/2: 101101 → 001101",
+      "error": null,
+      "execution_time": 5.0067901611328125e-05
+    },
+    {
+      "success": true,
+      "from_state": "000101",
+      "to_state": "000101",
+      "distance": 1,
+      "reason": "优先级扩展步骤 2/2: 001101 → 000101",
+      "error": null,
+      "execution_time": 7.510185241699219e-05
+    },
+    {
+      "success": true,
+      "from_state": "100101",
+      "to_state": "100101",
+      "distance": 1,
+      "reason": "优先级扩展步骤 1/4: 000101 → 100101",
+      "error": null,
+      "execution_time": 4.410743713378906e-05
+    },
+    {
+      "success": true,
+      "from_state": "110101",
+      "to_state": "110101",
+      "distance": 1,
+      "reason": "优先级扩展步骤 2/4: 100101 → 110101",
+      "error": null,
+      "execution_time": 7.700920104980469e-05
+    },
+    {
+      "success": true,
+      "from_state": "110001",
+      "to_state": "110001",
+      "distance": 1,
+      "reason": "优先级扩展步骤 3/4: 110101 → 110001",
+      "error": null,
+      "execution_time": 8.511543273925781e-05
+    },
+    {
+      "success": true,
+      "from_state": "110011",
+      "to_state": "110011",
+      "distance": 1,
+      "reason": "优先级扩展步骤 4/4: 110001 → 110011",
+      "error": null,
+      "execution_time": 9.417533874511719e-05
+    },
+    {
+      "success": true,
+      "from_state": "010011",
+      "to_state": "010011",
+      "distance": 1,
+      "reason": "优先级扩展步骤 1/4: 110011 → 010011",
+      "error": null,
+      "execution_time": 1.6927719116210938e-05
+    },
+    {
+      "success": true,
+      "from_state": "000011",
+      "to_state": "000011",
+      "distance": 1,
+      "reason": "优先级扩展步骤 2/4: 010011 → 000011",
+      "error": null,
+      "execution_time": 5.507469177246094e-05
+    },
+    {
+      "success": true,
+      "from_state": "000111",
+      "to_state": "000111",
+      "distance": 1,
+      "reason": "优先级扩展步骤 3/4: 000011 → 000111",
+      "error": null,
+      "execution_time": 9.083747863769531e-05
+    },
+    {
+      "success": true,
+      "from_state": "000110",
+      "to_state": "000110",
+      "distance": 1,
+      "reason": "优先级扩展步骤 4/4: 000111 → 000110",
+      "error": null,
+      "execution_time": 7.987022399902344e-05
+    },
+    {
+      "success": true,
+      "from_state": "010110",
+      "to_state": "010110",
+      "distance": 1,
+      "reason": "优先级扩展步骤 1/4: 000110 → 010110",
+      "error": null,
+      "execution_time": 3.695487976074219e-05
+    },
+    {
+      "success": true,
+      "from_state": "011110",
+      "to_state": "011110",
+      "distance": 1,
+      "reason": "优先级扩展步骤 2/4: 010110 → 011110",
+      "error": null,
+      "execution_time": 4.00543212890625e-05
+    },
+    {
+      "success": true,
+      "from_state": "011010",
+      "to_state": "011010",
+      "distance": 1,
+      "reason": "优先级扩展步骤 3/4: 011110 → 011010",
+      "error": null,
+      "execution_time": 6.29425048828125e-05
+    },
+    {
+      "success": true,
+      "from_state": "011011",
+      "to_state": "011011",
+      "distance": 1,
+      "reason": "优先级扩展步骤 4/4: 011010 → 011011",
+      "error": null,
+      "execution_time": 4.601478576660156e-05
+    },
+    {
+      "success": true,
+      "from_state": "001011",
+      "to_state": "001011",
+      "distance": 1,
+      "reason": "优先级扩展步骤 1/2: 011011 → 001011",
+      "error": null,
+      "execution_time": 2.8848648071289062e-05
+    },
+    {
+      "success": true,
+      "from_state": "001001",
+      "to_state": "001001",
+      "distance": 1,
+      "reason": "优先级扩展步骤 2/2: 001011 → 001001",
+      "error": null,
+      "execution_time": 5.078315734863281e-05
+    },
+    {
+      "success": true,
+      "from_state": "011001",
+      "to_state": "011001",
+      "distance": 1,
+      "reason": "优先级扩展步骤 1/2: 001001 → 011001",
+      "error": null,
+      "execution_time": 2.9087066650390625e-05
+    },
+    {
+      "success": true,
+      "from_state": "010001",
+      "to_state": "010001",
+      "distance": 1,
+      "reason": "优先级扩展步骤 2/2: 011001 → 010001",
+      "error": null,
+      "execution_time": 3.3855438232421875e-05
+    },
+    {
+      "success": true,
+      "from_state": "000001",
+      "to_state": "000001",
+      "distance": 1,
+      "reason": "优先级扩展步骤 1/4: 010001 → 000001",
+      "error": null,
+      "execution_time": 4.100799560546875e-05
+    },
+    {
+      "success": true,
+      "from_state": "001001",
+      "to_state": "001001",
+      "distance": 1,
+      "reason": "优先级扩展步骤 2/4: 000001 → 001001",
+      "error": null,
+      "execution_time": 4.8160552978515625e-05
+    },
+    {
+      "success": true,
+      "from_state": "001011",
+      "to_state": "001011",
+      "distance": 1,
+      "reason": "优先级扩展步骤 3/4: 001001 → 001011",
+      "error": null,
+      "execution_time": 5.0067901611328125e-05
+    },
+    {
+      "success": true,
+      "from_state": "001010",
+      "to_state": "001010",
+      "distance": 1,
+      "reason": "优先级扩展步骤 4/4: 001011 → 001010",
+      "error": null,
+      "execution_time": 5.507469177246094e-05
+    },
+    {
+      "success": true,
+      "from_state": "000010",
+      "to_state": "000010",
+      "distance": 1,
+      "reason": "路径1调整: 001010 → 000010",
+      "error": null,
+      "execution_time": 2.9087066650390625e-05
+    },
+    {
+      "success": true,
+      "from_state": "000000",
+      "to_state": "000000",
+      "distance": 1,
+      "reason": "路径1调整: 000010 → 000000",
+      "error": null,
+      "execution_time": 1.4066696166992188e-05
+    },
+    {
+      "success": true,
+      "from_state": "001000",
+      "to_state": "001000",
+      "distance": 1,
+      "reason": "路径1步骤1: 000000 → 001000",
+      "error": null,
+      "execution_time": 1.4066696166992188e-05
+    },
+    {
+      "success": true,
+      "from_state": "001001",
+      "to_state": "001001",
+      "distance": 1,
+      "reason": "路径1步骤2: 001000 → 001001",
+      "error": null,
+      "execution_time": 5.078315734863281e-05
+    },
+    {
+      "success": true,
+      "from_state": "001011",
+      "to_state": "001011",
+      "distance": 1,
+      "reason": "路径1步骤3: 001001 → 001011",
+      "error": null,
+      "execution_time": 5.412101745605469e-05
+    },
+    {
+      "success": true,
+      "from_state": "001111",
+      "to_state": "001111",
+      "distance": 1,
+      "reason": "路径1步骤4: 001011 → 001111",
+      "error": null,
+      "execution_time": 5.2928924560546875e-05
+    }
+  ],
+  "recommendations": [
+    "状态空间覆盖率良好 (≥25%)，建议进行复杂路径和智能体集成测试",
+    "测试成功率较低 (72.5%)，建议检查状态转换逻辑和错误处理"
+  ]
+}

@@ -1,0 +1,224 @@
+{
+  "report_date": "2026-04-14T16:50:02.241374",
+  "test_summary": {
+    "total_tests": 3,
+    "completed_tests": 0,
+    "failed_tests": 3,
+    "success_rate": 0.0,
+    "test_duration": "N/A"
+  },
+  "state_space_coverage": {
+    "unique_states_visited": 0,
+    "total_possible_states": 64,
+    "coverage_percentage": 0.0,
+    "unique_state_list": [],
+    "total_transitions": 0,
+    "unique_transitions": 0
+  },
+  "agent_activities": {
+    "guardian": {
+      "decisions_made": 0,
+      "notifications_received": 0
+    },
+    "communicator": {
+      "decisions_made": 0,
+      "notifications_received": 0
+    },
+    "learner": {
+      "decisions_made": 0,
+      "notifications_received": 0
+    },
+    "explorer": {
+      "decisions_made": 0,
+      "notifications_received": 0
+    }
+  },
+  "collaboration_metrics": {
+    "state_changes_notified": 0,
+    "collaborative_decisions": 0,
+    "average_decision_confidence": 0.0
+  },
+  "test_results": {
+    "SCENE-01": {
+      "scenario_id": "SCENE-01",
+      "scenario_name": "基本协同状态转换测试",
+      "start_time": "2026-04-14T16:50:02.241067",
+      "initial_state": "000000",
+      "steps": [
+        {
+          "step_index": 0,
+          "step_type": "state_transition",
+          "description": "从初始状态转换到邻居状态",
+          "start_time": "2026-04-14T16:50:02.241080",
+          "success": false,
+          "action": "state_transition",
+          "target_state": "000001",
+          "message": "状态转换执行失败: 'HexagramStateManager' object has no attribute 'transition_to'",
+          "details": {
+            "agent_decisions": {
+              "guardian": {
+                "decision": "allow",
+                "reason": "默认允许（方法未实现）",
+                "confidence": 0.5,
+                "details": {
+                  "method_not_implemented": true
+                }
+              },
+              "communicator": {
+                "decision": "allow",
+                "reason": "默认允许（方法未实现）",
+                "confidence": 0.5,
+                "details": {
+                  "method_not_implemented": true
+                }
+              },
+              "learner": {
+                "decision": "allow",
+                "reason": "默认允许（方法未实现）",
+                "confidence": 0.5,
+                "details": {
+                  "method_not_implemented": true
+                }
+              },
+              "explorer": {
+                "decision": "allow",
+                "reason": "默认允许（方法未实现）",
+                "confidence": 0.5,
+                "details": {
+                  "method_not_implemented": true
+                }
+              }
+            }
+          },
+          "end_time": "2026-04-14T16:50:02.241157"
+        }
+      ],
+      "agent_interactions": [],
+      "status": "failed",
+      "failure_reason": "步骤执行失败",
+      "end_time": "2026-04-14T16:50:02.241159",
+      "final_state": "000000"
+    },
+    "SCENE-02": {
+      "scenario_id": "SCENE-02",
+      "scenario_name": "复杂路径转换测试",
+      "start_time": "2026-04-14T16:50:02.241180",
+      "initial_state": "000000",
+      "steps": [
+        {
+          "step_index": 0,
+          "step_type": "state_transition",
+          "description": "转换到001000",
+          "start_time": "2026-04-14T16:50:02.241192",
+          "success": false,
+          "action": "state_transition",
+          "target_state": "001000",
+          "message": "状态转换执行失败: 'HexagramStateManager' object has no attribute 'transition_to'",
+          "details": {
+            "agent_decisions": {
+              "guardian": {
+                "decision": "allow",
+                "reason": "默认允许（方法未实现）",
+                "confidence": 0.5,
+                "details": {
+                  "method_not_implemented": true
+                }
+              },
+              "communicator": {
+                "decision": "allow",
+                "reason": "默认允许（方法未实现）",
+                "confidence": 0.5,
+                "details": {
+                  "method_not_implemented": true
+                }
+              },
+              "learner": {
+                "decision": "allow",
+                "reason": "默认允许（方法未实现）",
+                "confidence": 0.5,
+                "details": {
+                  "method_not_implemented": true
+                }
+              },
+              "explorer": {
+                "decision": "allow",
+                "reason": "默认允许（方法未实现）",
+                "confidence": 0.5,
+                "details": {
+                  "method_not_implemented": true
+                }
+              }
+            }
+          },
+          "end_time": "2026-04-14T16:50:02.241260"
+        }
+      ],
+      "agent_interactions": [],
+      "status": "failed",
+      "failure_reason": "步骤执行失败",
+      "end_time": "2026-04-14T16:50:02.241262",
+      "final_state": "000000"
+    },
+    "SCENE-03": {
+      "scenario_id": "SCENE-03",
+      "scenario_name": "边界状态测试",
+      "start_time": "2026-04-14T16:50:02.241283",
+      "initial_state": "000000",
+      "steps": [
+        {
+          "step_index": 0,
+          "step_type": "state_transition",
+          "description": "第一步转换",
+          "start_time": "2026-04-14T16:50:02.241294",
+          "success": false,
+          "action": "state_transition",
+          "target_state": "000001",
+          "message": "状态转换执行失败: 'HexagramStateManager' object has no attribute 'transition_to'",
+          "details": {
+            "agent_decisions": {
+              "guardian": {
+                "decision": "allow",
+                "reason": "默认允许（方法未实现）",
+                "confidence": 0.5,
+                "details": {
+                  "method_not_implemented": true
+                }
+              },
+              "communicator": {
+                "decision": "allow",
+                "reason": "默认允许（方法未实现）",
+                "confidence": 0.5,
+                "details": {
+                  "method_not_implemented": true
+                }
+              },
+              "learner": {
+                "decision": "allow",
+                "reason": "默认允许（方法未实现）",
+                "confidence": 0.5,
+                "details": {
+                  "method_not_implemented": true
+                }
+              },
+              "explorer": {
+                "decision": "allow",
+                "reason": "默认允许（方法未实现）",
+                "confidence": 0.5,
+                "details": {
+                  "method_not_implemented": true
+                }
+              }
+            }
+          },
+          "end_time": "2026-04-14T16:50:02.241359"
+        }
+      ],
+      "agent_interactions": [],
+      "status": "failed",
+      "failure_reason": "步骤执行失败",
+      "end_time": "2026-04-14T16:50:02.241360",
+      "final_state": "000000"
+    }
+  },
+  "state_history_summary": []
+}

@@ -1,0 +1,84 @@
+{
+  "version": "1.0",
+  "created_at": "2026-04-05T12:50:49.725393",
+  "description": "Athena/Open Human基因管理Agent工程实施方案队列配置",
+  "tasks": [
+    {
+      "id": "gene_mgmt_g0_infrastructure",
+      "title": "OpenHuman-Athena-基因管理系统G0阶段基础设施搭建-VSCode执行指令",
+      "instruction_path": "/Volumes/1TB-M2/openclaw/OpenHuman-Athena-OpenHuman基因管理Agent工程实施方案-VSCode执行指令.md",
+      "entry_stage": "build",
+      "risk_level": "low",
+      "unattended_allowed": true,
+      "metadata": {
+        "priority": "S0",
+        "lane": "build_auto",
+        "epic": "gene_management",
+        "category": "infrastructure",
+        "rationale": "基因管理系统的基础设施搭建是后续演进的前提",
+        "phase": "G0",
+        "estimated_duration": "30分钟"
+      }
+    },
+    {
+      "id": "gene_mgmt_g1_cli_implementation",
+      "title": "OpenHuman-Athena-基因管理系统G1阶段CLI命令实现-VSCode执行指令",
+      "instruction_path": "/Volumes/1TB-M2/openclaw/OpenHuman-Athena-OpenHuman基因管理Agent工程实施方案-VSCode执行指令.md",
+      "entry_stage": "build",
+      "risk_level": "low",
+      "unattended_allowed": true,
+      "metadata": {
+        "priority": "S0",
+        "lane": "build_auto",
+        "epic": "gene_management",
+        "category": "cli_implementation",
+        "rationale": "CLI命令是基因管理系统的主要操作界面",
+        "depends_on": [
+          "gene_mgmt_g0_infrastructure"
+        ],
+        "phase": "G1",
+        "estimated_duration": "1小时"
+      }
+    },
+    {
+      "id": "gene_mgmt_g2_queue_integration",
+      "title": "OpenHuman-Athena-基因管理系统G2阶段队列集成-VSCode执行指令",
+      "instruction_path": "/Volumes/1TB-M2/openclaw/OpenHuman-Athena-OpenHuman基因管理Agent工程实施方案-VSCode执行指令.md",
+      "entry_stage": "build",
+      "risk_level": "medium",
+      "unattended_allowed": true,
+      "metadata": {
+        "priority": "S1",
+        "lane": "build_auto",
+        "epic": "gene_management",
+        "category": "queue_integration",
+        "rationale": "队列集成确保基因管理系统与现有AI Plan工作流无缝对接",
+        "depends_on": [
+          "gene_mgmt_g1_cli_implementation"
+        ],
+        "phase": "G2",
+        "estimated_duration": "45分钟"
+      }
+    },
+    {
+      "id": "gene_mgmt_audit",
+      "title": "OpenHuman-Athena-基因管理系统实施审计-Codex审计指令",
+      "instruction_path": "/Volumes/1TB-M2/openclaw/OpenHuman-Athena-OpenHuman基因管理Agent工程实施方案-VSCode执行指令.md",
+      "entry_stage": "review",
+      "risk_level": "low",
+      "unattended_allowed": false,
+      "metadata": {
+        "priority": "R1",
+        "lane": "review_auto",
+        "epic": "gene_management",
+        "category": "implementation_audit",
+        "rationale": "审计基因管理系统实施效果",
+        "depends_on": [
+          "gene_mgmt_g2_queue_integration"
+        ],
+        "phase": "Audit",
+        "estimated_duration": "30分钟"
+      }
+    }
+  ]
+}

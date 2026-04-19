@@ -1,0 +1,88 @@
+{
+  "generated_at": "2026-04-16 18:16:26",
+  "total_generated": 10,
+  "successful": 0,
+  "failed": 10,
+  "results": [
+    {
+      "variant_id": 1,
+      "variant_name": "classical_athena",
+      "success": false,
+      "generation_time": 0,
+      "image_urls": [],
+      "error_message": "实际图像生成测试失败，豆包CLI无法生成图像"
+    },
+    {
+      "variant_id": 2,
+      "variant_name": "data_wisdom",
+      "success": false,
+      "generation_time": 0,
+      "image_urls": [],
+      "error_message": "实际图像生成测试失败，豆包CLI无法生成图像"
+    },
+    {
+      "variant_id": 3,
+      "variant_name": "cyberpunk_athena",
+      "success": false,
+      "generation_time": 0,
+      "image_urls": [],
+      "error_message": "实际图像生成测试失败，豆包CLI无法生成图像"
+    },
+    {
+      "variant_id": 4,
+      "variant_name": "minimalist_athena",
+      "success": false,
+      "generation_time": 0,
+      "image_urls": [],
+      "error_message": "实际图像生成测试失败，豆包CLI无法生成图像"
+    },
+    {
+      "variant_id": 5,
+      "variant_name": "futuristic_athena",
+      "success": false,
+      "generation_time": 0,
+      "image_urls": [],
+      "error_message": "实际图像生成测试失败，豆包CLI无法生成图像"
+    },
+    {
+      "variant_id": 6,
+      "variant_name": "silicon_symbiosis",
+      "success": false,
+      "generation_time": 0,
+      "image_urls": [],
+      "error_message": "实际图像生成测试失败，豆包CLI无法生成图像"
+    },
+    {
+      "variant_id": 7,
+      "variant_name": "marvel_superhero",
+      "success": false,
+      "generation_time": 0,
+      "image_urls": [],
+      "error_message": "实际图像生成测试失败，豆包CLI无法生成图像"
+    },
+    {
+      "variant_id": 8,
+      "variant_name": "three_body_dark_forest",
+      "success": false,
+      "generation_time": 0,
+      "image_urls": [],
+      "error_message": "实际图像生成测试失败，豆包CLI无法生成图像"
+    },
+    {
+      "variant_id": 9,
+      "variant_name": "tech_goddess",
+      "success": false,
+      "generation_time": 0,
+      "image_urls": [],
+      "error_message": "实际图像生成测试失败，豆包CLI无法生成图像"
+    },
+    {
+      "variant_id": 10,
+      "variant_name": "digital_prophet",
+      "success": false,
+      "generation_time": 0,
+      "image_urls": [],
+      "error_message": "实际图像生成测试失败，豆包CLI无法生成图像"
+    }
+  ]
+}

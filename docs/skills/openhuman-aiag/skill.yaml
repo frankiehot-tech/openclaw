@@ -1,0 +1,23 @@
+name: openhuman-aiag
+version: 1.0.0
+description: AIAG (AI Authentication Gateway) 身份网关 - 基于 OpenHuman 协议的认证授权组件
+type: skill_nft
+source: generator_pattern_reverse_engineering
+created_at: 2026-03-25T16:40:00+08:00
+status: 逆向补全
+
+capabilities:
+  - otp_generation
+  - otp_verification
+  - jwt_issuance
+  - skill_match_auth
+  - rbac_permission
+
+dependencies:
+  - openhuman-skill-matcher
+
+config:
+  otp_ttl: 300
+  jwt_expiry: 3600
+  rate_limit: 10
+  skill_matcher_endpoint: "http://localhost:8080"

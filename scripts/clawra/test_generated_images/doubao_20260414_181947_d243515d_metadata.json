@@ -1,0 +1,18 @@
+{
+  "success": true,
+  "image_urls": [
+    "https://p26-flow-imagex-sign.byteimg.com/ocean-cloud-tos/FileBizType.BIZ_BOT_ICON/1102137949424476_1739085656854311616.jpg~tplv-a9rns2rl98-image-qvalue.jpeg?lk3s=a16ed425&lrcfp=e440b5d2&rcl=2026041417315616C5E71E9547456C760C&x-expires=1807781516&x-signature=VX6YDjklr30MjizEYt9rIBGCEZs%3D"
+  ],
+  "prompt": "一只简单的红色猫，卡通风格",
+  "style": "cartoon",
+  "timestamp": "2026-04-14T18:19:47.124167",
+  "error_message": null,
+  "metadata": {
+    "full_prompt": "一只简单的红色猫，卡通风格，卡通风格，简洁线条，色彩鲜艳，尺寸512x512，standard质量",
+    "size": "512x512",
+    "quality": "standard",
+    "num_requested": 1,
+    "num_generated": 1,
+    "generation_time_seconds": 30
+  }
+}

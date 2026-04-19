@@ -1,0 +1,48 @@
+{
+  "timestamp": "2026-04-13T16:30:47.595194",
+  "video_path": "/Volumes/1TB-M2/openclaw/scripts/clawra/output/videos/clawra_enhanced_L3_open human_20260413_163028.mp4",
+  "enhancement_type": "DALL-E 3图像集成",
+  "story_theme": "open human：开放的智慧项目",
+  "sections_enhanced": 4,
+  "images_generated": 0,
+  "images_cached": 4,
+  "api_status": "configured",
+  "section_details": [
+    {
+      "index": 0,
+      "title": "使命",
+      "visual_type": "mission",
+      "has_image": true,
+      "image_source": "simulated",
+      "image_file": "open human_mission_0_使命_simulated.jpg",
+      "image_size": 119462
+    },
+    {
+      "index": 1,
+      "title": "架构",
+      "visual_type": "architecture",
+      "has_image": true,
+      "image_source": "simulated",
+      "image_file": "open human_architecture_1_架构_simulated.jpg",
+      "image_size": 121341
+    },
+    {
+      "index": 2,
+      "title": "工作流",
+      "visual_type": "workflow",
+      "has_image": true,
+      "image_source": "simulated",
+      "image_file": "open human_workflow_2_工作流_simulated.jpg",
+      "image_size": 119818
+    },
+    {
+      "index": 3,
+      "title": "开源",
+      "visual_type": "open_source",
+      "has_image": true,
+      "image_source": "simulated",
+      "image_file": "open human_open_source_3_开源_simulated.jpg",
+      "image_size": 121288
+    }
+  ]
+}

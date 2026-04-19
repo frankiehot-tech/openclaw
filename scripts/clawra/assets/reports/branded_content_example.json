@@ -1,0 +1,126 @@
+{
+  "template_id": "product_demo_001",
+  "applied_content": {
+    "title": "Clawra开源项目发布：重新定义AI内容创作",
+    "description": "面向80/90后技术开发者的开源AI内容生成平台，采用漫威视觉风格和三体叙事结构，实现硅基共生智慧体网络。",
+    "technical_focus": [
+      "多模态生成",
+      "智能工作流",
+      "开源协作"
+    ],
+    "visual_style": "漫威电影风格",
+    "narrative_structure": "三体式叙事",
+    "target_audience": [
+      "80后技术专家",
+      "90后开发者",
+      "开源贡献者"
+    ],
+    "value_proposition": "民主化AI内容创作，赋能每个创造者"
+  },
+  "structure_guide": {
+    "opening_impact": [
+      "开场震撼：数据流汇聚成雅典娜智慧之眼",
+      "核心主张：人工智能与人类智慧的共生进化"
+    ],
+    "narrative_structure": "三体式结构",
+    "visual_style": "漫威电影开场风格"
+  },
+  "visual_references": {
+    "color_scheme": "深空紫渐变 + 能量橙冲击",
+    "animation": "数据智能体从分散到协作的网络构建过程"
+  },
+  "brand_info": {
+    "visual_style": "data_wisdom",
+    "brand_colors": [
+      {
+        "name": "科技蓝",
+        "hex_code": "#4A90E2",
+        "rgb": [
+          74,
+          144,
+          226
+        ],
+        "description": "主品牌色，代表科技和创新",
+        "usage": "primary"
+      },
+      {
+        "name": "数据绿",
+        "hex_code": "#00D4AA",
+        "rgb": [
+          0,
+          212,
+          170
+        ],
+        "description": "辅助色，代表数据和智能",
+        "usage": "secondary"
+      },
+      {
+        "name": "能量橙",
+        "hex_code": "#FF6B35",
+        "rgb": [
+          255,
+          107,
+          53
+        ],
+        "description": "强调色，代表能量和行动",
+        "usage": "accent"
+      },
+      {
+        "name": "深空紫",
+        "hex_code": "#7B61FF",
+        "rgb": [
+          123,
+          97,
+          255
+        ],
+        "description": "科技感背景色",
+        "usage": "background"
+      },
+      {
+        "name": "深灰背景",
+        "hex_code": "#1A1A2E",
+        "rgb": [
+          26,
+          26,
+          46
+        ],
+        "description": "深色背景",
+        "usage": "background"
+      },
+      {
+        "name": "浅灰背景",
+        "hex_code": "#F5F7FA",
+        "rgb": [
+          245,
+          247,
+          250
+        ],
+        "description": "浅色背景",
+        "usage": "background"
+      }
+    ],
+    "design_principles": [
+      "硅基共生",
+      "漫威视觉",
+      "三体叙事"
+    ],
+    "target_audience": [
+      "技术决策者",
+      "投资者",
+      "开发者社区"
+    ]
+  },
+  "github_user_profile": {
+    "primary_audience": [
+      "80后",
+      "90后"
+    ],
+    "secondary_audience": [
+      "70后",
+      "10后"
+    ],
+    "visual_preference": "漫威电影风格",
+    "narrative_preference": "三体风格",
+    "thematic_focus": "硅基共生智慧体"
+  }
+}

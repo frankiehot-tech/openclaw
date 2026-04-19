@@ -1,0 +1,25 @@
+{
+  "project_name": "Open_Human_Project_Introduction",
+  "generated_at": "2026-04-14T11:54:57.301737",
+  "engine_version": "KdenliveEnhancedVideoGenerationEngine 1.0",
+  "result": {
+    "success": true,
+    "project_name": "Open_Human_Project_Introduction",
+    "template_used": "openhuman_intro",
+    "project_file": "/var/folders/2r/wzdc95jn04j2d4fp5422rtj40000gn/T/clawra_kdenlive_i0scvfqo/Open_Human_Project_Introduction.kdenlive-cli.json",
+    "xml_file": "/var/folders/2r/wzdc95jn04j2d4fp5422rtj40000gn/T/clawra_kdenlive_i0scvfqo/Open_Human_Project_Introduction.xml",
+    "render_cmd": "melt /var/folders/2r/wzdc95jn04j2d4fp5422rtj40000gn/T/clawra_kdenlive_i0scvfqo/Open_Human_Project_Introduction.xml -consumer avformat:/var/folders/2r/wzdc95jn04j2d4fp5422rtj40000gn/T/clawra_kdenlive_i0scvfqo/Open_Human_Project_Introduction.mp4 vcodec=libx264 crf=18 preset=slow acodec=aac ab=192k",
+    "summary": "项目名称: Open_Human_Project_Introduction\n分辨率: 1920x1080\n帧率: 30/1\n轨道数: 4\n素材库剪辑数: 4\n轨道详情:\n  [0] V1 (video): 1 个剪辑\n  [1] V2 (video): 3 个剪辑\n  [2] A1 (audio): 0 个剪辑\n  [3] A2 (audio): 0 个剪辑",
+    "output_files": {
+      "Open_Human_Project_Introduction.kdenlive-cli.json": "/var/folders/2r/wzdc95jn04j2d4fp5422rtj40000gn/T/clawra_kdenlive_i0scvfqo/Open_Human_Project_Introduction.kdenlive-cli.json",
+      "Open_Human_Project_Introduction.xml": "/var/folders/2r/wzdc95jn04j2d4fp5422rtj40000gn/T/clawra_kdenlive_i0scvfqo/Open_Human_Project_Introduction.xml"
+    },
+    "output_file_count": 2,
+    "documentation": "已生成，见文档文件"
+  },
+  "system_info": {
+    "output_dir": "/Volumes/1TB-M2/openclaw/scripts/clawra/output/videos",
+    "kdenlive_output_dir": "/var/folders/2r/wzdc95jn04j2d4fp5422rtj40000gn/T/clawra_kdenlive_i0scvfqo",
+    "dalle_integration": "enabled"
+  }
+}

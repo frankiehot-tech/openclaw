@@ -1,0 +1,41 @@
+{
+  "timestamp": "2026-04-16T13:24:21.885411",
+  "component_status": {
+    "roma_maref": false,
+    "kdenlive": false,
+    "doubao_cli": false,
+    "doubao_image_generator": false,
+    "prompt_knowledge_base": true,
+    "ip_digital_assets": true,
+    "github_workflow": false
+  },
+  "ip_assets_available": true,
+  "ip_assets_instance_valid": true,
+  "css_generation_available": true,
+  "template_access_available": true,
+  "system_status": {
+    "system": {
+      "initialized": true,
+      "start_time": "2026-04-16T13:24:21.885376",
+      "uptime_seconds": 1.9e-05,
+      "mode": "mvp",
+      "output_dir": "./output/production_mvp_20260416_132421"
+    },
+    "components": {
+      "roma_maref": false,
+      "kdenlive": false,
+      "doubao_cli": false,
+      "doubao_image_generator": false,
+      "prompt_knowledge_base": true,
+      "ip_digital_assets": true,
+      "github_workflow": false
+    },
+    "performance": {
+      "tasks_completed": 0,
+      "tasks_failed": 0,
+      "success_rate": 0.0
+    },
+    "content_layer": {
+      "current_focus": "L3",
+      "layer_config": {
+        "layer": 

@@ -1,0 +1,155 @@
+[
+  {
+    "id": "saharmor_dalle-playground_text_to_image_3",
+    "category": "text_to_image",
+    "subcategory": "general",
+    "prompt_text": "<h2 align=\"center\">Text-to-image Playground (fka DALL-E Playground)</h2>",
+    "parameters": {},
+    "model_compatibility": [
+      "stable-diffusion"
+    ],
+    "quality_score": 0.7,
+    "source": "saharmor/dalle-playground",
+    "source_url": "https://github.com/saharmor/dalle-playground",
+    "examples": [],
+    "tags": [],
+    "created_at": "2026-04-15T06:46:27.572703",
+    "updated_at": "2026-04-15T06:46:27.572719"
+  },
+  {
+    "id": "saharmor_dalle-playground_text_to_image_6",
+    "category": "text_to_image",
+    "subcategory": "general",
+    "prompt_text": "A playground for text-to-image enthusiasts using [Stable Diffusion V2](https://stability.ai/blog/stable-diffusion-v2-release).",
+    "parameters": {},
+    "model_compatibility": [
+      "stable-diffusion"
+    ],
+    "quality_score": 0.7,
+    "source": "saharmor/dalle-playground",
+    "source_url": "https://github.com/saharmor/dalle-playground",
+    "examples": [],
+    "tags": [],
+    "created_at": "2026-04-15T06:46:27.572760",
+    "updated_at": "2026-04-15T06:46:27.572763"
+  },
+  {
+    "id": "saharmor_dalle-playground_text_to_image_9",
+    "category": "text_to_image",
+    "subcategory": "general",
+    "prompt_text": "The original version of this repository used [DALL-E Mini](https://github.com/borisdayma/dalle-mini). With the recent release of Stable Diffusion (SD) V2 and the ease of implementation - this repository has moved to use SD over DALL-E Mini.",
+    "parameters": {},
+    "model_compatibility": [
+      "stable-diffusion"
+    ],
+    "quality_score": 0.7,
+    "source": "saharmor/dalle-playground",
+    "source_url": "https://github.com/saharmor/dalle-playground",
+    "examples": [],
+    "tags": [],
+    "created_at": "2026-04-15T06:46:27.572799",
+    "updated_at": "2026-04-15T06:46:27.572801"
+  },
+  {
+    "id": "saharmor_dalle-playground_text_to_image_18",
+    "category": "text_to_image",
+    "subcategory": "general",
+    "prompt_text": "You can tinker with the DALL-E playground using a Github-hosted frontend. Follow these steps:",
+    "parameters": {},
+    "model_compatibility": [
+      "stable-diffusion"
+    ],
+    "quality_score": 0.7,
+    "source": "saharmor/dalle-playground",
+    "source_url": "https://github.com/saharmor/dalle-playground",
+    "examples": [],
+    "tags": [],
+    "created_at": "2026-04-15T06:46:27.572834",
+    "updated_at": "2026-04-15T06:46:27.572836"
+  },
+  {
+    "id": "saharmor_dalle-playground_text_to_image_20",
+    "category": "text_to_image",
+    "subcategory": "general",
+    "prompt_text": "1. Run the DALL-E backend using Google Colab [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/saharmor/dalle-playground/blob/main/backend/dalle_playground_backend.ipynb)",
+    "parameters": {},
+    "model_compatibility": [
+      "stable-diffusion"
+    ],
+    "quality_score": 0.7,
+    "source": "saharmor/dalle-playground",
+    "source_url": "https://github.com/saharmor/dalle-playground",
+    "examples": [],
+    "tags": [],
+    "created_at": "2026-04-15T06:46:27.572860",
+    "updated_at": "2026-04-15T06:46:27.572862"
+  },
+  {
+    "id": "saharmor_dalle-playground_text_to_image_30",
+    "category": "text_to_image",
+    "subcategory": "general",
+    "prompt_text": "Follow these steps in case you'd like to clone and run the DALL-E Playground locally:",
+    "parameters": {},
+    "model_compatibility": [
+      "stable-diffusion"
+    ],
+    "quality_score": 0.7,
+    "source": "saharmor/dalle-playground",
+    "source_url": "https://github.com/saharmor/dalle-playground",
+    "examples": [],
+    "tags": [],
+    "created_at": "2026-04-15T06:46:27.572909",
+    "updated_at": "2026-04-15T06:46:27.572911"
+  },
+  {
+    "id": "saharmor_dalle-playground_text_to_image_68",
+    "category": "text_to_image",
+    "subcategory": "general",
+    "prompt_text": "The original reposistory used  @borisdayma's DALL-E Mini.",
+    "parameters": {},
+    "model_compatibility": [
+      "stable-diffusion"
+    ],
+    "quality_score": 0.7,
+    "source": "saharmor/dalle-playground",
+    "source_url": "https://github.com/saharmor/dalle-playground",
+    "examples": [],
+    "tags": [],
+    "created_at": "2026-04-15T06:46:27.573075",
+    "updated_at": "2026-04-15T06:46:27.573077"
+  },
+  {
+    "id": "saharmor_dalle-playground_browserslist_2",
+    "category": "browserslist",
+    "subcategory": "general",
+    "prompt_text": "not ie <= 11",
+    "parameters": {},
+    "model_compatibility": [
+      "stable-diffusion"
+    ],
+    "quality_score": 0.5,
+    "source": "saharmor/dalle-playground",
+    "source_url": "https://github.com/saharmor/dalle-playground",
+    "examples": [],
+    "tags": [],
+    "created_at": "2026-04-15T06:46:35.687718",
+    "updated_at": "2026-04-15T06:46:35.687732"
+  },
+  {
+    "id": "saharmor_dalle-playground_browserslist_3",
+    "category": "browserslist",
+    "subcategory": "general",
+    "prompt_text": "not op_mini all",
+    "parameters": {},
+    "model_compatibility": [
+      "stable-diffusion"
+    ],
+    "quality_score": 0.5,
+    "source": "saharmor/dalle-playground",
+    "source_url": "https://github.com/saharmor/dalle-playground",
+    "examples": [],
+    "tags": [],
+    "created_at": "2026-04-15T06:46:35.687749",
+    "updated_at": "2026-04-15T06:46:35.687751"
+  }
+]

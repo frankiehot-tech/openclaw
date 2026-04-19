@@ -1,0 +1,175 @@
+{
+  "template_id": "product_demo_001",
+  "applied_content": {
+    "title": "Athena v2.0：硅基共生智慧体网络正式发布",
+    "subtitle": "重新定义人工智能与人类智慧的协作边界",
+    "date": "2026年04月16日",
+    "author": "Athena技术团队",
+    "sections": [
+      {
+        "title": "开场震撼：数据智能体的视觉交响曲",
+        "content": "演示开场将展示数据流如何汇聚成雅典娜的智慧之眼，象征AI与人类智慧的共生进化。",
+        "visual_elements": [
+          "深空紫渐变为科技蓝的动态数据流",
+          "能量橙点缀的关键技术突破点",
+          "三体式叙事结构：提出问题 → 展示解决方案 → 揭示未来愿景"
+        ],
+        "duration_seconds": 45
+      },
+      {
+        "title": "核心技术：硅基共生架构解析",
+        "content": "深入讲解Athena的分布式智慧体网络如何实现人类意图与AI能力的无缝协作。",
+        "visual_elements": [
+          "交互式架构图展示智慧体协作网络",
+          "实时数据流可视化演示",
+          "对比传统AI系统的性能优势图表"
+        ],
+        "duration_seconds": 90
+      },
+      {
+        "title": "实际应用：Clawra生产系统演示",
+        "content": "现场演示Clawra如何自动化内容生成流程，从提示词优化到品牌化内容输出。",
+        "visual_elements": [
+          "实时内容生成演示",
+          "品牌一致性对比展示",
+          "生成效率数据可视化"
+        ],
+        "duration_seconds": 120
+      },
+      {
+        "title": "未来愿景：硅基共生的新纪元",
+        "content": "展望Athena生态系统如何赋能开发者社区，推动AI技术的民主化进程。",
+        "visual_elements": [
+          "生态系统扩展路线图",
+          "开发者工具套件预览",
+          "社区贡献者增长预测"
+        ],
+        "duration_seconds": 60
+      }
+    ],
+    "target_audience": [
+      "CTO/技术决策者",
+      "投资者",
+      "开发者社区领袖",
+      "技术布道者"
+    ],
+    "key_messages": [
+      "Athena不是替代人类的AI，而是增强人类智慧的共生伙伴",
+      "硅基共生架构实现了意图与能力的最优匹配",
+      "Clawra证明了Athena在实际生产环境中的价值",
+      "开源生态将加速AI技术的民主化进程"
+    ],
+    "success_metrics": [
+      "现场互动率 > 30%",
+      "技术深度评分 > 4.5/5",
+      "行动号召转化率 > 15%",
+      "社交媒体提及增长 > 200%"
+    ]
+  },
+  "structure_guide": {
+    "opening_impact": [
+      "开场震撼：数据流汇聚成雅典娜智慧之眼",
+      "核心主张：人工智能与人类智慧的共生进化"
+    ],
+    "narrative_structure": "三体式结构",
+    "visual_style": "漫威电影开场风格"
+  },
+  "visual_references": {
+    "color_scheme": "深空紫渐变 + 能量橙冲击",
+    "animation": "数据智能体从分散到协作的网络构建过程"
+  },
+  "brand_info": {
+    "visual_style": "data_wisdom",
+    "brand_colors": [
+      {
+        "name": "科技蓝",
+        "hex_code": "#4A90E2",
+        "rgb": [
+          74,
+          144,
+          226
+        ],
+        "description": "主品牌色，代表科技和创新",
+        "usage": "primary"
+      },
+      {
+        "name": "数据绿",
+        "hex_code": "#00D4AA",
+        "rgb": [
+          0,
+          212,
+          170
+        ],
+        "description": "辅助色，代表数据和智能",
+        "usage": "secondary"
+      },
+      {
+        "name": "能量橙",
+        "hex_code": "#FF6B35",
+        "rgb": [
+          255,
+          107,
+          53
+        ],
+        "description": "强调色，代表能量和行动",
+        "usage": "accent"
+      },
+      {
+        "name": "深空紫",
+        "hex_code": "#7B61FF",
+        "rgb": [
+          123,
+          97,
+          255
+        ],
+        "description": "科技感背景色",
+        "usage": "background"
+      },
+      {
+        "name": "深灰背景",
+        "hex_code": "#1A1A2E",
+        "rgb": [
+          26,
+          26,
+          46
+        ],
+        "description": "深色背景",
+        "usage": "background"
+      },
+      {
+        "name": "浅灰背景",
+        "hex_code": "#F5F7FA",
+        "rgb": [
+          245,
+          247,
+          250
+        ],
+        "description": "浅色背景",
+        "usage": "background"
+      }
+    ],
+    "design_principles": [
+      "硅基共生",
+      "漫威视觉",
+      "三体叙事"
+    ],
+    "target_audience": [
+      "技术决策者",
+      "投资者",
+      "开发者社区"
+    ]
+  },
+  "github_user_profile": {
+    "primary_audience": [
+      "80后",
+      "90后"
+    ],
+    "secondary_audience": [
+      "70后",
+      "10后"
+    ],
+    "visual_preference": "漫威电影风格",
+    "narrative_preference": "三体风格",
+    "thematic_focus": "硅基共生智慧体"
+  }
+}

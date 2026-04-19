@@ -1,0 +1,131 @@
+{
+  "metadata": {
+    "analysis_timestamp": "2026-04-02T08:55:13.751985",
+    "analyzer_version": "v1.0-simulated",
+    "research_phase": "Phase 1 - 发现与提取"
+  },
+  "codebase_structure": {
+    "total_files": 1900,
+    "total_lines": 512000,
+    "file_types": {
+      "TypeScript": 1500,
+      "JavaScript": 200,
+      "JSON": 100,
+      "YAML": 50,
+      "Markdown": 50
+    },
+    "largest_modules": [
+      {
+        "module": "tests",
+        "lines": 120000,
+        "files": 3
+      },
+      {
+        "module": "config",
+        "lines": 5000,
+        "files": 3
+      }
+    ],
+    "main_language": "TypeScript"
+  },
+  "feature_flags": {
+    "bun_bundle": [
+      "PROACTIVE",
+      "VOICE",
+      "UNDERCOVER",
+      "ANTI_DISTILL",
+      "BUDDY",
+      "KAIROS"
+    ],
+    "macro_patterns": [
+      "MACRO.PROACTIVE_SUGGEST",
+      "MACRO.VOICE_INTERACTION",
+      "MACRO.UNDERCOVER_MODE"
+    ],
+    "runtime_flags": [
+      "ENABLE_CACHING",
+      "ENABLE_COMPRESSION",
+      "ENABLE_LOGGING"
+    ]
+  },
+  "hidden_subsystems": {
+    "kairos_system": {
+      "files": [
+        "src/services/kairos/DreamAlgorithm.ts",
+        "src/services/kairos/MemoryConsolidation.ts"
+      ],
+      "estimated_lines": 4000,
+      "description": "KAIROS梦境算法系统，实现记忆巩固和预测性预加载",
+      "entry_points": [
+        "src/services/kairos/DreamAlgorithm.ts"
+      ]
+    },
+    "buddy_system": {
+      "files": [
+        "src/services/buddy/GachaSystem.ts",
+        "src/services/buddy/AchievementTracker.ts"
+      ],
+      "estimated_lines": 4000,
+      "description": "BUDDY游戏化系统，包含抽卡养成和成就追踪",
+      "entry_points": [
+        "src/services/buddy/GachaSystem.ts"
+      ]
+    },
+    "undercover_mode": {
+      "files": [
+        "src/services/undercover_mode/FingerprintExtractor.ts"
+      ],
+      "estimated_lines": 2000,
+      "description": "Undercover Mode身份伪装系统，实现动态身份切换",
+      "entry_points": [
+        "src/services/undercover_mode/FingerprintExtractor.ts"
+      ]
+    },
+    "anti_distillation": {
+      "files": [
+        "src/services/anti_distillation/FakeToolGenerator.ts"
+      ],
+      "estimated_lines": 2000,
+      "description": "Anti-Distillation反蒸馏系统，防止模型训练数据泄露",
+      "entry_points": [
+        "src/services/anti_distillation/FakeToolGenerator.ts"
+      ]
+    }
+  },
+  "query_engine_analysis": {
+    "total_lines": 46000,
+    "error_handling_lines": 27600,
+    "complexity_score": 8.7,
+    "defensive_programming_ratio": 0.6
+  },
+  "key_findings": {
+    "defensive_programming_ratio": 0.6,
+    "security_coupling_ratio": 0.6,
+    "total_codebase_size": 512000,
+    "file_type_distribution": {
+      "TypeScript": 1500,
+      "JavaScript": 200,
+      "JSON": 100
+    },
+    "hidden_subsystem_count": 4,
+    "feature_flag_count": 12,
+    "largest_module": "query_engine",
+    "complexity_metrics": {
+      "query_engine_complexity": 8.7,
+      "tool_system_complexity": 7.2
+    }
+  },
+  "recommendations": [
+    "QueryEngine中错误处理代码占比过高（60%），建议重构为更简洁的错误处理策略",
+    "Tool系统中权限检查与业务逻辑深度耦合，建议分离关注点",
+    "发现4个隐藏子系统，建议进行深度机制分析",
+    "特性标志系统复杂（12个标志），建议建立统一的特性管理策略",
+    "代码库规模庞大（512K行），建议采用模块化重构策略"
+  ],
+  "next_steps": [
+    "Week 1-2: 完成1900个文件的详细目录结构映射",
+    "Week 3-4: 提取所有bun:bundle特性标志的完整矩阵",
+    "Week 5-6: 识别18个隐藏子系统的具体入口点和功能",
+    "Week 7-8: 定位Undercover Mode触发逻辑和Anti-Distillation检测启发式"
+  ]
+}

@@ -1,0 +1,360 @@
+{
+  "current_state": {
+    "primary_emotion": "curiosity",
+    "secondary_emotions": [
+      "interest",
+      "optimism",
+      "gratitude"
+    ],
+    "intensity": 0.6947551605459431,
+    "timestamp": "2026-04-13T13:12:05.906327",
+    "context": "general_interaction",
+    "energy_level": 0.7
+  },
+  "state_history": [
+    {
+      "primary_emotion": "calm",
+      "secondary_emotions": [
+        "curiosity",
+        "interest"
+      ],
+      "intensity": 0.6,
+      "timestamp": "2026-04-13T13:12:05.906197",
+      "context": "系统初始化",
+      "energy_level": 0.5
+    },
+    {
+      "primary_emotion": "calm",
+      "secondary_emotions": [
+        "interest",
+        "optimism",
+        "gratitude"
+      ],
+      "intensity": 0.8,
+      "timestamp": "2026-04-13T13:12:05.906214",
+      "context": "positive_feedback",
+      "energy_level": 0.5
+    },
+    {
+      "primary_emotion": "calm",
+      "secondary_emotions": [
+        "interest",
+        "optimism",
+        "gratitude"
+      ],
+      "intensity": 0.9500000000000001,
+      "timestamp": "2026-04-13T13:12:05.906230",
+      "context": "technical_challenge",
+      "energy_level": 0.5
+    },
+    {
+      "primary_emotion": "curiosity",
+      "secondary_emotions": [
+        "interest",
+        "optimism",
+        "gratitude"
+      ],
+      "intensity": 0.6947551605459431,
+      "timestamp": "2026-04-13T13:12:05.906243",
+      "context": "community_interaction",
+      "energy_level": 0.7
+    },
+    {
+      "primary_emotion": "curiosity",
+      "secondary_emotions": [
+        "interest",
+        "optimism",
+        "gratitude"
+      ],
+      "intensity": 0.6947551605459431,
+      "timestamp": "2026-04-13T13:12:05.906266",
+      "context": "general_interaction",
+      "energy_level": 0.7
+    },
+    {
+      "primary_emotion": "curiosity",
+      "secondary_emotions": [
+        "interest",
+        "optimism",
+        "gratitude"
+      ],
+      "intensity": 0.6947551605459431,
+      "timestamp": "2026-04-13T13:12:05.906295",
+      "context": "general_interaction",
+      "energy_level": 0.7
+    },
+    {
+      "primary_emotion": "curiosity",
+      "secondary_emotions": [
+        "interest",
+        "optimism",
+        "gratitude"
+      ],
+      "intensity": 0.6947551605459431,
+      "timestamp": "2026-04-13T13:12:05.906313",
+      "context": "general_interaction",
+      "energy_level": 0.7
+    }
+  ],
+  "emotional_memory": [
+    {
+      "timestamp": "2026-04-13T13:12:05.906224",
+      "event": "positive_feedback",
+      "previous_state": {
+        "primary_emotion": "calm",
+        "secondary_emotions": [
+          "curiosity",
+          "interest"
+        ],
+        "intensity": 0.6,
+        "timestamp": "2026-04-13T13:12:05.906197",
+        "context": "系统初始化",
+        "energy_level": 0.5
+      },
+      "new_state": {
+        "primary_emotion": "calm",
+        "secondary_emotions": [
+          "interest",
+          "optimism",
+          "gratitude"
+        ],
+        "intensity": 0.8,
+        "timestamp": "2026-04-13T13:12:05.906214",
+        "context": "positive_feedback",
+        "energy_level": 0.5
+      },
+      "event_data": {
+        "importance": 0.8,
+        "source": "community"
+      }
+    },
+    {
+      "timestamp": "2026-04-13T13:12:05.906232",
+      "event": "technical_challenge",
+      "previous_state": {
+        "primary_emotion": "calm",
+        "secondary_emotions": [
+          "interest",
+          "optimism",
+          "gratitude"
+        ],
+        "intensity": 0.8,
+        "timestamp": "2026-04-13T13:12:05.906214",
+        "context": "positive_feedback",
+        "energy_level": 0.5
+      },
+      "new_state": {
+        "primary_emotion": "calm",
+        "secondary_emotions": [
+          "interest",
+          "optimism",
+          "gratitude"
+        ],
+        "intensity": 0.9500000000000001,
+        "timestamp": "2026-04-13T13:12:05.906230",
+        "context": "technical_challenge",
+        "energy_level": 0.5
+      },
+      "event_data": {
+        "complexity": 0.7,
+        "topic": "video_generation"
+      }
+    },
+    {
+      "timestamp": "2026-04-13T13:12:05.906245",
+      "event": "community_interaction",
+      "previous_state": {
+        "primary_emotion": "calm",
+        "secondary_emotions": [
+          "interest",
+          "optimism",
+          "gratitude"
+        ],
+        "intensity": 0.9500000000000001,
+        "timestamp": "2026-04-13T13:12:05.906230",
+        "context": "technical_challenge",
+        "energy_level": 0.5
+      },
+      "new_state": {
+        "primary_emotion": "curiosity",
+        "secondary_emotions": [
+          "interest",
+          "optimism",
+          "gratitude"
+        ],
+        "intensity": 0.6947551605459431,
+        "timestamp": "2026-04-13T13:12:05.906243",
+        "context": "community_interaction",
+        "energy_level": 0.7
+      },
+      "event_data": {
+        "engagement_level": 0.9,
+        "user_count": 3
+      }
+    },
+    {
+      "timestamp": "2026-04-13T13:12:05.906267",
+      "event": "general_interaction",
+      "previous_state": {
+        "primary_emotion": "curiosity",
+        "secondary_emotions": [
+          "interest",
+          "optimism",
+          "gratitude"
+        ],
+        "intensity": 0.6947551605459431,
+        "timestamp": "2026-04-13T13:12:05.906243",
+        "context": "community_interaction",
+        "energy_level": 0.7
+      },
+      "new_state": {
+        "primary_emotion": "curiosity",
+        "secondary_emotions": [
+          "interest",
+          "optimism",
+          "gratitude"
+        ],
+        "intensity": 0.6947551605459431,
+        "timestamp": "2026-04-13T13:12:05.906266",
+        "context": "general_interaction",
+        "energy_level": 0.7
+      },
+      "event_data": {
+        "original": "你好Athena！open human项目进展如何？",
+        "length": 26,
+        "has_question": false,
+        "sentiment": 0.0,
+        "topics": [
+          "greeting",
+          "project_inquiry",
+          "project_inquiry"
+        ],
+        "message_type": "technical",
+        "urgency": 0.5,
+        "interaction_value": 0.338
+      }
+    },
+    {
+      "timestamp": "2026-04-13T13:12:05.906297",
+      "event": "general_interaction",
+      "previous_state": {
+        "primary_emotion": "curiosity",
+        "secondary_emotions": [
+          "interest",
+          "optimism",
+          "gratitude"
+        ],
+        "intensity": 0.6947551605459431,
+        "timestamp": "2026-04-13T13:12:05.906266",
+        "context": "general_interaction",
+        "energy_level": 0.7
+      },
+      "new_state": {
+        "primary_emotion": "curiosity",
+        "secondary_emotions": [
+          "interest",
+          "optimism",
+          "gratitude"
+        ],
+        "intensity": 0.6947551605459431,
+        "timestamp": "2026-04-13T13:12:05.906295",
+        "context": "general_interaction",
+        "energy_level": 0.7
+      },
+      "event_data": {
+        "original": "碳硅共生这个概念很有意思，能详细介绍一下吗？",
+        "length": 22,
+        "has_question": false,
+        "sentiment": 0.0,
+        "topics": [
+          "project_inquiry"
+        ],
+        "message_type": "technical",
+        "urgency": 0.5,
+        "interaction_value": 0.326
+      }
+    },
+    {
+      "timestamp": "2026-04-13T13:12:05.906314",
+      "event": "general_interaction",
+      "previous_state": {
+        "primary_emotion": "curiosity",
+        "secondary_emotions": [
+          "interest",
+          "optimism",
+          "gratitude"
+        ],
+        "intensity": 0.6947551605459431,
+        "timestamp": "2026-04-13T13:12:05.906295",
+        "context": "general_interaction",
+        "energy_level": 0.7
+      },
+      "new_state": {
+        "primary_emotion": "curiosity",
+        "secondary_emotions": [
+          "interest",
+          "optimism",
+          "gratitude"
+        ],
+        "intensity": 0.6947551605459431,
+        "timestamp": "2026-04-13T13:12:05.906313",
+        "context": "general_interaction",
+        "energy_level": 0.7
+      },
+      "event_data": {
+        "original": "你们的技术架构是怎么设计的？",
+        "length": 14,
+        "has_question": false,
+        "sentiment": 0.0,
+        "topics": [
+          "technical_question"
+        ],
+        "message_type": "technical",
+        "urgency": 0.5,
+        "interaction_value": 0.30200000000000005
+      }
+    },
+    {
+      "timestamp": "2026-04-13T13:12:05.906328",
+      "event": "general_interaction",
+      "previous_state": {
+        "primary_emotion": "curiosity",
+        "secondary_emotions": [
+          "interest",
+          "optimism",
+          "gratitude"
+        ],
+        "intensity": 0.6947551605459431,
+        "timestamp": "2026-04-13T13:12:05.906313",
+        "context": "general_interaction",
+        "energy_level": 0.7
+      },
+      "new_state": {
+        "primary_emotion": "curiosity",
+        "secondary_emotions": [
+          "interest",
+          "optimism",
+          "gratitude"
+        ],
+        "intensity": 0.6947551605459431,
+        "timestamp": "2026-04-13T13:12:05.906327",
+        "context": "general_interaction",
+        "energy_level": 0.7
+      },
+      "event_data": {
+        "original": "太棒了！这个项目很有前瞻性！",
+        "length": 14,
+        "has_question": false,
+        "sentiment": 0.0,
+        "topics": [
+          "project_inquiry"
+        ],
+        "message_type": "technical",
+        "urgency": 0.5,
+        "interaction_value": 0.30200000000000005
+      }
+    }
+  ],
+  "saved_at": "2026-04-13T13:12:05.906440",
+  "persona_name": "Athena"
+}

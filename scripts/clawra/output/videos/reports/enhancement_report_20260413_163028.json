@@ -1,0 +1,48 @@
+{
+  "timestamp": "2026-04-13T16:30:28.427048",
+  "video_path": "/Volumes/1TB-M2/openclaw/scripts/clawra/output/videos/clawra_enhanced_L3_碳硅共生_20260413_163010.mp4",
+  "enhancement_type": "DALL-E 3图像集成",
+  "story_theme": "碳硅共生：开启智慧新纪元",
+  "sections_enhanced": 4,
+  "images_generated": 0,
+  "images_cached": 4,
+  "api_status": "configured",
+  "section_details": [
+    {
+      "index": 0,
+      "title": "起源",
+      "visual_type": "evolution",
+      "has_image": true,
+      "image_source": "simulated",
+      "image_file": "碳硅共生_evolution_0_起源_simulated.jpg",
+      "image_size": 286131
+    },
+    {
+      "index": 1,
+      "title": "融合",
+      "visual_type": "fusion",
+      "has_image": true,
+      "image_source": "simulated",
+      "image_file": "碳硅共生_fusion_1_融合_simulated.jpg",
+      "image_size": 84045
+    },
+    {
+      "index": 2,
+      "title": "进化",
+      "visual_type": "growth",
+      "has_image": true,
+      "image_source": "simulated",
+      "image_file": "碳硅共生_growth_2_进化_simulated.jpg",
+      "image_size": 84218
+    },
+    {
+      "index": 3,
+      "title": "未来",
+      "visual_type": "future",
+      "has_image": true,
+      "image_source": "simulated",
+      "image_file": "碳硅共生_future_3_未来_simulated.jpg",
+      "image_size": 118683
+    }
+  ]
+}

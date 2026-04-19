@@ -1,0 +1,1 @@
+{"timestamp": "2026-04-17T20:03:17.958812", "event": "migration_phase_started", "phase_number": 1, "target_percentage": 0.1, "duration_hours": 48, "trigger": "manual", "checkpoints": ["严格质量监控", "详细日志记录"]}

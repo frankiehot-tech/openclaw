@@ -1,0 +1,44 @@
+email:
+  smtp_server: smtp.qq.com
+  smtp_port: 587
+  from_email: Athenabot@qq.com
+  to_emails:
+  - 87909004@qq.com
+  username: Athenabot@qq.com
+  password: 'REDACTED_QQ_PASSWORD'  # QQ邮箱授权码，非登录密码
+  subject_prefix: '[OpenClaw Alert] '
+  use_tls: true
+slack:
+  webhook_url: https://hooks.slack.com/services/T00000000/B00000000/XXXXXXXXXXXXXXXXXXXXXXXX
+  colors:
+    critical: '#FF0000'
+    warning: '#FFA500'
+    info: '#36A64F'
+  channel: '#alerts'
+  username: OpenClaw Monitor
+  icon_emoji: ':warning:'
+alert_thresholds:
+  queue_backlog:
+    warning: 10
+    critical: 30
+  memory_usage:
+    warning: 70
+    critical: 85
+  cpu_usage:
+    warning: 75
+    critical: 90
+  disk_usage:
+    warning: 80
+    critical: 95
+  queue_age:
+    warning: 60
+    critical: 240
+monitoring:
+  check_interval: 300
+  alert_cooldown: 1800
+  history_size: 100
+advanced:
+  verbose_logging: false
+  generate_dashboard: true
+  dashboard_output: .openclaw/monitoring_dashboard.html
+  alert_log_path: .openclaw/monitoring_logs/alerts.log

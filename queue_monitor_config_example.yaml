@@ -1,0 +1,65 @@
+# 队列监控系统配置文件示例
+# 将此文件复制为 queue_monitor_config.yaml 并根据实际情况修改配置
+
+monitoring_interval: 60  # 监控间隔(秒)
+
+performance_thresholds:
+  cpu_percent: 80  # CPU使用率告警阈值
+  memory_percent: 85  # 内存使用率告警阈值
+  queue_age_minutes: 30  # 队列未更新告警阈值(分钟)
+  error_count_threshold: 3  # 错误计数阈值
+  queue_stuck_threshold_minutes: 60  # 队列卡住阈值
+  empty_queue_with_pending_threshold: 1  # empty状态但有pending任务的阈值
+
+# 告警通道列表
+# 可用选项: console, log, email, slack, webhook
+alert_channels:
+  - "console"
+  - "log"
+  # - "email"    # 如需邮件告警，取消注释并配置下面的email
+  # - "slack"    # 如需Slack告警，取消注释并配置下面的slack
+  # - "webhook"  # 如需Webhook告警，取消注释并配置下面的webhook
+
+alert_configs:
+  email:
+    enabled: false  # 设为 true 启用邮件告警
+    smtp_server: "smtp.gmail.com"  # SMTP服务器地址
+    smtp_port: 587  # SMTP端口
+    smtp_username: "your-email@gmail.com"  # SMTP用户名
+    smtp_password: "your-app-password"  # SMTP密码（使用应用专用密码）
+    sender_email: "your-email@gmail.com"  # 发件人邮箱
+    recipient_emails:  # 收件人列表
+      - "admin@example.com"
+      - "team@example.com"
+
+  slack:
+    enabled: false  # 设为 true 启用Slack告警
+    webhook_url: "https://hooks.slack.com/services/TXXXXX/BXXXXX/XXXXXX"  # Slack Webhook URL
+
+  webhook:
+    enabled: false  # 设为 true 启用Webhook告警
+    url: "https://your-webhook.example.com/alerts"  # Webhook URL
+    headers:  # 自定义请求头
+      Authorization: "Bearer your-token-here"
+      Content-Type: "application/json"
+    timeout: 10  # 请求超时(秒)
+
+# 高级配置（可选）
+logging:
+  level: "INFO"  # 日志级别：DEBUG, INFO, WARNING, ERROR
+  file_path: "logs/queue_monitoring.log"  # 日志文件路径
+
+notifications:
+  summary_report_interval: 3600  # 摘要报告间隔(秒)，默认1小时
+  alert_cooldown_minutes: 5  # 相同告警冷却时间(分钟)，防止重复告警
+
+# 队列特定配置（可选）
+queues:
+  # 可以配置特定队列的阈值覆盖
+  openhuman_aiplan_gene_management_20260405:
+    queue_age_minutes: 120  # 该队列的未更新阈值设为2小时
+
+  # 其他队列配置示例
+  # codex_queue:
+  #   queue_age_minutes: 60
+  #   error_count_threshold: 5

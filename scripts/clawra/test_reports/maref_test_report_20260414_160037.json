@@ -1,0 +1,82 @@
+{
+  "test_run": {
+    "start_time": "2026-04-14T16:00:37.284991",
+    "end_time": "2026-04-14T16:00:43.826094",
+    "total_duration_seconds": 6.541,
+    "test_count": 7
+  },
+  "test_results": [
+    {
+      "module": "test_state_transition_scenarios",
+      "description": "状态转换测试场景",
+      "start_time": "2026-04-14T16:00:37.286525",
+      "status": "passed",
+      "success": true,
+      "end_time": "2026-04-14T16:00:37.288689",
+      "duration_seconds": 0.002
+    },
+    {
+      "module": "health_calculator",
+      "description": "健康度计算器测试",
+      "start_time": "2026-04-14T16:00:37.291792",
+      "status": "passed",
+      "success": true,
+      "end_time": "2026-04-14T16:00:37.292125",
+      "duration_seconds": 0.0
+    },
+    {
+      "module": "test_health_integration",
+      "description": "健康度计算器集成测试",
+      "start_time": "2026-04-14T16:00:37.293429",
+      "status": "passed",
+      "success": true,
+      "end_time": "2026-04-14T16:00:37.298022",
+      "duration_seconds": 0.005
+    },
+    {
+      "module": "maref_memory_manager",
+      "description": "内存管理器测试",
+      "start_time": "2026-04-14T16:00:37.308192",
+      "status": "passed",
+      "success": true,
+      "end_time": "2026-04-14T16:00:37.328534",
+      "duration_seconds": 0.02
+    },
+    {
+      "module": "maref_memory_integration",
+      "description": "内存集成测试",
+      "start_time": "2026-04-14T16:00:37.328702",
+      "status": "passed",
+      "success": true,
+      "end_time": "2026-04-14T16:00:37.338383",
+      "duration_seconds": 0.01
+    },
+    {
+      "module": "maref_monitor",
+      "description": "监控器测试",
+      "start_time": "2026-04-14T16:00:37.338389",
+      "status": "passed",
+      "success": true,
+      "end_time": "2026-04-14T16:00:37.654861",
+      "duration_seconds": 0.316
+    },
+    {
+      "module": "test_maref_fix",
+      "description": "生产系统集成测试",
+      "start_time": "2026-04-14T16:00:41.649134",
+      "status": "passed",
+      "success": true,
+      "end_time": "2026-04-14T16:00:43.826032",
+      "duration_seconds": 2.177
+    }
+  ],
+  "summary": {
+    "passed": 7,
+    "failed": 0,
+    "errors": 0,
+    "skipped": 0,
+    "total": 7,
+    "success_rate": 1.0,
+    "all_passed": true
+  }
+}

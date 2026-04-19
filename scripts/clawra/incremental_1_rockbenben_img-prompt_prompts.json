@@ -1,0 +1,1802 @@
+[
+  {
+    "id": "rockbenben_img-prompt_prompt-ar.json_0",
+    "category": "text_to_image",
+    "subcategory": "general",
+    "prompt_text": "\"displayName\": \"beautiful detailed glow,floating ashes,beautiful and detailed explosion,red moon,fire,fire cloud,wings on fire,a cloudy sky,smoke of gunpowder,burning,black dress,dove of peace,(floating cloud:1.2)\",",
+    "parameters": {},
+    "model_compatibility": [
+      "stable-diffusion",
+      "midjourney",
+      "dall-e"
+    ],
+    "quality_score": 0.9999999999999999,
+    "source": "rockbenben/img-prompt",
+    "source_url": "https://github.com/rockbenben/img-prompt",
+    "examples": [],
+    "tags": [],
+    "created_at": "2026-04-16T09:01:14.626367",
+    "updated_at": "2026-04-16T09:01:14.626374",
+    "verification_status": "automated"
+  },
+  {
+    "id": "rockbenben_img-prompt_prompt-ar.json_1",
+    "category": "text_to_image",
+    "subcategory": "general",
+    "prompt_text": "\"displayName\": \"(starry tornado:1.4),starry Nebula,beautiful detailed sky\",",
+    "parameters": {},
+    "model_compatibility": [
+      "stable-diffusion",
+      "midjourney",
+      "dall-e"
+    ],
+    "quality_score": 0.7999999999999999,
+    "source": "rockbenben/img-prompt",
+    "source_url": "https://github.com/rockbenben/img-prompt",
+    "examples": [],
+    "tags": [],
+    "created_at": "2026-04-16T09:01:14.626388",
+    "updated_at": "2026-04-16T09:01:14.626389",
+    "verification_status": "automated"
+  },
+  {
+    "id": "rockbenben_img-prompt_prompt-ar.json_2",
+    "category": "text_to_image",
+    "subcategory": "general",
+    "prompt_text": "\"displayName\": \"beautiful detailed glow,detailed ice,beautiful detailed water,(cold full moon),snowflake,(floating cloud:1.2)\",",
+    "parameters": {},
+    "model_compatibility": [
+      "stable-diffusion",
+      "midjourney",
+      "dall-e"
+    ],
+    "quality_score": 0.9999999999999999,
+    "source": "rockbenben/img-prompt",
+    "source_url": "https://github.com/rockbenben/img-prompt",
+    "examples": [],
+    "tags": [],
+    "created_at": "2026-04-16T09:01:14.626396",
+    "updated_at": "2026-04-16T09:01:14.626397",
+    "verification_status": "automated"
+  },
+  {
+    "id": "rockbenben_img-prompt_prompt-ar.json_3",
+    "category": "text_to_image",
+    "subcategory": "general",
+    "prompt_text": "\"displayName\": \"Floating black ashes,Beautiful and detailed black,red moon,((The black clouds)),(black Wings) ,a black cloudy sky,burning,black dress,((Black fog)),Red eyes,(black smoke),((Black feathers floating in the air)),bat,(floating black cloud:1.5),\",",
+    "parameters": {},
+    "model_compatibility": [
+      "stable-diffusion",
+      "midjourney",
+      "dall-e"
+    ],
+    "quality_score": 0.7999999999999999,
+    "source": "rockbenben/img-prompt",
+    "source_url": "https://github.com/rockbenben/img-prompt",
+    "examples": [],
+    "tags": [],
+    "created_at": "2026-04-16T09:01:14.626405",
+    "updated_at": "2026-04-16T09:01:14.626405",
+    "verification_status": "automated"
+  },
+  {
+    "id": "rockbenben_img-prompt_prompt-ar.json_4",
+    "category": "text_to_image",
+    "subcategory": "general",
+    "prompt_text": "\"displayName\": \"dynamic angle,detailed wet clothes,blank stare,overexplosure,floating,black long straight,red eyes,aqua eyes,gradient eyes,((blood)),white dress,frills,((expressionless)),extremely beautiful detailed water,((lying on the lake)),(bloodred water:1.5),(red background:1.3)\",",
+    "parameters": {},
+    "model_compatibility": [
+      "stable-diffusion",
+      "midjourney",
+      "dall-e"
+    ],
+    "quality_score": 0.9999999999999999,
+    "source": "rockbenben/img-prompt",
+    "source_url": "https://github.com/rockbenben/img-prompt",
+    "examples": [],
+    "tags": [],
+    "created_at": "2026-04-16T09:01:14.626413",
+    "updated_at": "2026-04-16T09:01:14.626414",
+    "verification_status": "automated"
+  },
+  {
+    "id": "rockbenben_img-prompt_prompt-bn.json_0",
+    "category": "text_to_image",
+    "subcategory": "general",
+    "prompt_text": "\"displayName\": \"beautiful detailed glow,floating ashes,beautiful and detailed explosion,red moon,fire,fire cloud,wings on fire,a cloudy sky,smoke of gunpowder,burning,black dress,dove of peace,(floating cloud:1.2)\",",
+    "parameters": {},
+    "model_compatibility": [
+      "stable-diffusion",
+      "midjourney",
+      "dall-e"
+    ],
+    "quality_score": 0.9999999999999999,
+    "source": "rockbenben/img-prompt",
+    "source_url": "https://github.com/rockbenben/img-prompt",
+    "examples": [],
+    "tags": [],
+    "created_at": "2026-04-16T09:01:16.670590",
+    "updated_at": "2026-04-16T09:01:16.670597",
+    "verification_status": "automated"
+  },
+  {
+    "id": "rockbenben_img-prompt_prompt-bn.json_1",
+    "category": "text_to_image",
+    "subcategory": "general",
+    "prompt_text": "\"displayName\": \"(starry tornado:1.4),starry Nebula,beautiful detailed sky\",",
+    "parameters": {},
+    "model_compatibility": [
+      "stable-diffusion",
+      "midjourney",
+      "dall-e"
+    ],
+    "quality_score": 0.7999999999999999,
+    "source": "rockbenben/img-prompt",
+    "source_url": "https://github.com/rockbenben/img-prompt",
+    "examples": [],
+    "tags": [],
+    "created_at": "2026-04-16T09:01:16.670607",
+    "updated_at": "2026-04-16T09:01:16.670608",
+    "verification_status": "automated"
+  },
+  {
+    "id": "rockbenben_img-prompt_prompt-bn.json_2",
+    "category": "text_to_image",
+    "subcategory": "general",
+    "prompt_text": "\"displayName\": \"beautiful detailed glow,detailed ice,beautiful detailed water,(cold full moon),snowflake,(floating cloud:1.2)\",",
+    "parameters": {},
+    "model_compatibility": [
+      "stable-diffusion",
+      "midjourney",
+      "dall-e"
+    ],
+    "quality_score": 0.9999999999999999,
+    "source": "rockbenben/img-prompt",
+    "source_url": "https://github.com/rockbenben/img-prompt",
+    "examples": [],
+    "tags": [],
+    "created_at": "2026-04-16T09:01:16.670614",
+    "updated_at": "2026-04-16T09:01:16.670615",
+    "verification_status": "automated"
+  },
+  {
+    "id": "rockbenben_img-prompt_prompt-bn.json_3",
+    "category": "text_to_image",
+    "subcategory": "general",
+    "prompt_text": "\"displayName\": \"Floating black ashes,Beautiful and detailed black,red moon,((The black clouds)),(black Wings) ,a black cloudy sky,burning,black dress,((Black fog)),Red eyes,(black smoke),((Black feathers floating in the air)),bat,(floating black cloud:1.5),\",",
+    "parameters": {},
+    "model_compatibility": [
+      "stable-diffusion",
+      "midjourney",
+      "dall-e"
+    ],
+    "quality_score": 0.7999999999999999,
+    "source": "rockbenben/img-prompt",
+    "source_url": "https://github.com/rockbenben/img-prompt",
+    "examples": [],
+    "tags": [],
+    "created_at": "2026-04-16T09:01:16.670622",
+    "updated_at": "2026-04-16T09:01:16.670622",
+    "verification_status": "automated"
+  },
+  {
+    "id": "rockbenben_img-prompt_prompt-bn.json_4",
+    "category": "text_to_image",
+    "subcategory": "general",
+    "prompt_text": "\"displayName\": \"dynamic angle,detailed wet clothes,blank stare,overexplosure,floating,black long straight,red eyes,aqua eyes,gradient eyes,((blood)),white dress,frills,((expressionless)),extremely beautiful detailed water,((lying on the lake)),(bloodred water:1.5),(red background:1.3)\",",
+    "parameters": {},
+    "model_compatibility": [
+      "stable-diffusion",
+      "midjourney",
+      "dall-e"
+    ],
+    "quality_score": 0.9999999999999999,
+    "source": "rockbenben/img-prompt",
+    "source_url": "https://github.com/rockbenben/img-prompt",
+    "examples": [],
+    "tags": [],
+    "created_at": "2026-04-16T09:01:16.670630",
+    "updated_at": "2026-04-16T09:01:16.670630",
+    "verification_status": "automated"
+  },
+  {
+    "id": "rockbenben_img-prompt_prompt-de.json_0",
+    "category": "text_to_image",
+    "subcategory": "general",
+    "prompt_text": "\"displayName\": \"beautiful detailed glow,floating ashes,beautiful and detailed explosion,red moon,fire,fire cloud,wings on fire,a cloudy sky,smoke of gunpowder,burning,black dress,dove of peace,(floating cloud:1.2)\",",
+    "parameters": {},
+    "model_compatibility": [
+      "stable-diffusion",
+      "midjourney",
+      "dall-e"
+    ],
+    "quality_score": 0.9999999999999999,
+    "source": "rockbenben/img-prompt",
+    "source_url": "https://github.com/rockbenben/img-prompt",
+    "examples": [],
+    "tags": [],
+    "created_at": "2026-04-16T09:01:18.823561",
+    "updated_at": "2026-04-16T09:01:18.823568",
+    "verification_status": "automated"
+  },
+  {
+    "id": "rockbenben_img-prompt_prompt-de.json_1",
+    "category": "text_to_image",
+    "subcategory": "general",
+    "prompt_text": "\"displayName\": \"(starry tornado:1.4),starry Nebula,beautiful detailed sky\",",
+    "parameters": {},
+    "model_compatibility": [
+      "stable-diffusion",
+      "midjourney",
+      "dall-e"
+    ],
+    "quality_score": 0.7999999999999999,
+    "source": "rockbenben/img-prompt",
+    "source_url": "https://github.com/rockbenben/img-prompt",
+    "examples": [],
+    "tags": [],
+    "created_at": "2026-04-16T09:01:18.823579",
+    "updated_at": "2026-04-16T09:01:18.823579",
+    "verification_status": "automated"
+  },
+  {
+    "id": "rockbenben_img-prompt_prompt-de.json_2",
+    "category": "text_to_image",
+    "subcategory": "general",
+    "prompt_text": "\"displayName\": \"beautiful detailed glow,detailed ice,beautiful detailed water,(cold full moon),snowflake,(floating cloud:1.2)\",",
+    "parameters": {},
+    "model_compatibility": [
+      "stable-diffusion",
+      "midjourney",
+      "dall-e"
+    ],
+    "quality_score": 0.9999999999999999,
+    "source": "rockbenben/img-prompt",
+    "source_url": "https://github.com/rockbenben/img-prompt",
+    "examples": [],
+    "tags": [],
+    "created_at": "2026-04-16T09:01:18.823585",
+    "updated_at": "2026-04-16T09:01:18.823586",
+    "verification_status": "automated"
+  },
+  {
+    "id": "rockbenben_img-prompt_prompt-de.json_3",
+    "category": "text_to_image",
+    "subcategory": "general",
+    "prompt_text": "\"displayName\": \"Floating black ashes,Beautiful and detailed black,red moon,((The black clouds)),(black Wings) ,a black cloudy sky,burning,black dress,((Black fog)),Red eyes,(black smoke),((Black feathers floating in the air)),bat,(floating black cloud:1.5),\",",
+    "parameters": {},
+    "model_compatibility": [
+      "stable-diffusion",
+      "midjourney",
+      "dall-e"
+    ],
+    "quality_score": 0.7999999999999999,
+    "source": "rockbenben/img-prompt",
+    "source_url": "https://github.com/rockbenben/img-prompt",
+    "examples": [],
+    "tags": [],
+    "created_at": "2026-04-16T09:01:18.823592",
+    "updated_at": "2026-04-16T09:01:18.823593",
+    "verification_status": "automated"
+  },
+  {
+    "id": "rockbenben_img-prompt_prompt-de.json_4",
+    "category": "text_to_image",
+    "subcategory": "general",
+    "prompt_text": "\"displayName\": \"dynamic angle,detailed wet clothes,blank stare,overexplosure,floating,black long straight,red eyes,aqua eyes,gradient eyes,((blood)),white dress,frills,((expressionless)),extremely beautiful detailed water,((lying on the lake)),(bloodred water:1.5),(red background:1.3)\",",
+    "parameters": {},
+    "model_compatibility": [
+      "stable-diffusion",
+      "midjourney",
+      "dall-e"
+    ],
+    "quality_score": 0.9999999999999999,
+    "source": "rockbenben/img-prompt",
+    "source_url": "https://github.com/rockbenben/img-prompt",
+    "examples": [],
+    "tags": [],
+    "created_at": "2026-04-16T09:01:18.823599",
+    "updated_at": "2026-04-16T09:01:18.823600",
+    "verification_status": "automated"
+  },
+  {
+    "id": "rockbenben_img-prompt_prompt-en.json_0",
+    "category": "text_to_image",
+    "subcategory": "general",
+    "prompt_text": "\"displayName\": \"beautiful detailed glow,floating ashes,beautiful and detailed explosion,red moon,fire,fire cloud,wings on fire,a cloudy sky,smoke of gunpowder,burning,black dress,dove of peace,(floating cloud:1.2)\",",
+    "parameters": {},
+    "model_compatibility": [
+      "stable-diffusion",
+      "midjourney",
+      "dall-e"
+    ],
+    "quality_score": 0.9999999999999999,
+    "source": "rockbenben/img-prompt",
+    "source_url": "https://github.com/rockbenben/img-prompt",
+    "examples": [],
+    "tags": [],
+    "created_at": "2026-04-16T09:01:20.932297",
+    "updated_at": "2026-04-16T09:01:20.932304",
+    "verification_status": "automated"
+  },
+  {
+    "id": "rockbenben_img-prompt_prompt-en.json_1",
+    "category": "text_to_image",
+    "subcategory": "general",
+    "prompt_text": "\"displayName\": \"(starry tornado:1.4),starry Nebula,beautiful detailed sky\",",
+    "parameters": {},
+    "model_compatibility": [
+      "stable-diffusion",
+      "midjourney",
+      "dall-e"
+    ],
+    "quality_score": 0.7999999999999999,
+    "source": "rockbenben/img-prompt",
+    "source_url": "https://github.com/rockbenben/img-prompt",
+    "examples": [],
+    "tags": [],
+    "created_at": "2026-04-16T09:01:20.932314",
+    "updated_at": "2026-04-16T09:01:20.932314",
+    "verification_status": "automated"
+  },
+  {
+    "id": "rockbenben_img-prompt_prompt-en.json_2",
+    "category": "text_to_image",
+    "subcategory": "general",
+    "prompt_text": "\"displayName\": \"beautiful detailed glow,detailed ice,beautiful detailed water,(cold full moon),snowflake,(floating cloud:1.2)\",",
+    "parameters": {},
+    "model_compatibility": [
+      "stable-diffusion",
+      "midjourney",
+      "dall-e"
+    ],
+    "quality_score": 0.9999999999999999,
+    "source": "rockbenben/img-prompt",
+    "source_url": "https://github.com/rockbenben/img-prompt",
+    "examples": [],
+    "tags": [],
+    "created_at": "2026-04-16T09:01:20.932319",
+    "updated_at": "2026-04-16T09:01:20.932320",
+    "verification_status": "automated"
+  },
+  {
+    "id": "rockbenben_img-prompt_prompt-en.json_3",
+    "category": "text_to_image",
+    "subcategory": "general",
+    "prompt_text": "\"displayName\": \"Floating black ashes,Beautiful and detailed black,red moon,((The black clouds)),(black Wings) ,a black cloudy sky,burning,black dress,((Black fog)),Red eyes,(black smoke),((Black feathers floating in the air)),bat,(floating black cloud:1.5),\",",
+    "parameters": {},
+    "model_compatibility": [
+      "stable-diffusion",
+      "midjourney",
+      "dall-e"
+    ],
+    "quality_score": 0.7999999999999999,
+    "source": "rockbenben/img-prompt",
+    "source_url": "https://github.com/rockbenben/img-prompt",
+    "examples": [],
+    "tags": [],
+    "created_at": "2026-04-16T09:01:20.932326",
+    "updated_at": "2026-04-16T09:01:20.932327",
+    "verification_status": "automated"
+  },
+  {
+    "id": "rockbenben_img-prompt_prompt-en.json_4",
+    "category": "text_to_image",
+    "subcategory": "general",
+    "prompt_text": "\"displayName\": \"dynamic angle,detailed wet clothes,blank stare,overexplosure,floating,black long straight,red eyes,aqua eyes,gradient eyes,((blood)),white dress,frills,((expressionless)),extremely beautiful detailed water,((lying on the lake)),(bloodred water:1.5),(red background:1.3)\",",
+    "parameters": {},
+    "model_compatibility": [
+      "stable-diffusion",
+      "midjourney",
+      "dall-e"
+    ],
+    "quality_score": 0.9999999999999999,
+    "source": "rockbenben/img-prompt",
+    "source_url": "https://github.com/rockbenben/img-prompt",
+    "examples": [],
+    "tags": [],
+    "created_at": "2026-04-16T09:01:20.932334",
+    "updated_at": "2026-04-16T09:01:20.932334",
+    "verification_status": "automated"
+  },
+  {
+    "id": "rockbenben_img-prompt_prompt-es.json_0",
+    "category": "text_to_image",
+    "subcategory": "general",
+    "prompt_text": "\"displayName\": \"beautiful detailed glow,floating ashes,beautiful and detailed explosion,red moon,fire,fire cloud,wings on fire,a cloudy sky,smoke of gunpowder,burning,black dress,dove of peace,(floating cloud:1.2)\",",
+    "parameters": {},
+    "model_compatibility": [
+      "stable-diffusion",
+      "midjourney",
+      "dall-e"
+    ],
+    "quality_score": 0.9999999999999999,
+    "source": "rockbenben/img-prompt",
+    "source_url": "https://github.com/rockbenben/img-prompt",
+    "examples": [],
+    "tags": [],
+    "created_at": "2026-04-16T09:01:23.048493",
+    "updated_at": "2026-04-16T09:01:23.048500",
+    "verification_status": "automated"
+  },
+  {
+    "id": "rockbenben_img-prompt_prompt-es.json_1",
+    "category": "text_to_image",
+    "subcategory": "general",
+    "prompt_text": "\"displayName\": \"(starry tornado:1.4),starry Nebula,beautiful detailed sky\",",
+    "parameters": {},
+    "model_compatibility": [
+      "stable-diffusion",
+      "midjourney",
+      "dall-e"
+    ],
+    "quality_score": 0.7999999999999999,
+    "source": "rockbenben/img-prompt",
+    "source_url": "https://github.com/rockbenben/img-prompt",
+    "examples": [],
+    "tags": [],
+    "created_at": "2026-04-16T09:01:23.048510",
+    "updated_at": "2026-04-16T09:01:23.048511",
+    "verification_status": "automated"
+  },
+  {
+    "id": "rockbenben_img-prompt_prompt-es.json_2",
+    "category": "text_to_image",
+    "subcategory": "general",
+    "prompt_text": "\"displayName\": \"beautiful detailed glow,detailed ice,beautiful detailed water,(cold full moon),snowflake,(floating cloud:1.2)\",",
+    "parameters": {},
+    "model_compatibility": [
+      "stable-diffusion",
+      "midjourney",
+      "dall-e"
+    ],
+    "quality_score": 0.9999999999999999,
+    "source": "rockbenben/img-prompt",
+    "source_url": "https://github.com/rockbenben/img-prompt",
+    "examples": [],
+    "tags": [],
+    "created_at": "2026-04-16T09:01:23.048516",
+    "updated_at": "2026-04-16T09:01:23.048517",
+    "verification_status": "automated"
+  },
+  {
+    "id": "rockbenben_img-prompt_prompt-es.json_3",
+    "category": "text_to_image",
+    "subcategory": "general",
+    "prompt_text": "\"displayName\": \"Floating black ashes,Beautiful and detailed black,red moon,((The black clouds)),(black Wings) ,a black cloudy sky,burning,black dress,((Black fog)),Red eyes,(black smoke),((Black feathers floating in the air)),bat,(floating black cloud:1.5),\",",
+    "parameters": {},
+    "model_compatibility": [
+      "stable-diffusion",
+      "midjourney",
+      "dall-e"
+    ],
+    "quality_score": 0.7999999999999999,
+    "source": "rockbenben/img-prompt",
+    "source_url": "https://github.com/rockbenben/img-prompt",
+    "examples": [],
+    "tags": [],
+    "created_at": "2026-04-16T09:01:23.048523",
+    "updated_at": "2026-04-16T09:01:23.048524",
+    "verification_status": "automated"
+  },
+  {
+    "id": "rockbenben_img-prompt_prompt-es.json_4",
+    "category": "text_to_image",
+    "subcategory": "general",
+    "prompt_text": "\"displayName\": \"dynamic angle,detailed wet clothes,blank stare,overexplosure,floating,black long straight,red eyes,aqua eyes,gradient eyes,((blood)),white dress,frills,((expressionless)),extremely beautiful detailed water,((lying on the lake)),(bloodred water:1.5),(red background:1.3)\",",
+    "parameters": {},
+    "model_compatibility": [
+      "stable-diffusion",
+      "midjourney",
+      "dall-e"
+    ],
+    "quality_score": 0.9999999999999999,
+    "source": "rockbenben/img-prompt",
+    "source_url": "https://github.com/rockbenben/img-prompt",
+    "examples": [],
+    "tags": [],
+    "created_at": "2026-04-16T09:01:23.048530",
+    "updated_at": "2026-04-16T09:01:23.048531",
+    "verification_status": "automated"
+  },
+  {
+    "id": "rockbenben_img-prompt_prompt-fr.json_0",
+    "category": "text_to_image",
+    "subcategory": "general",
+    "prompt_text": "\"displayName\": \"beautiful detailed glow,floating ashes,beautiful and detailed explosion,red moon,fire,fire cloud,wings on fire,a cloudy sky,smoke of gunpowder,burning,black dress,dove of peace,(floating cloud:1.2)\",",
+    "parameters": {},
+    "model_compatibility": [
+      "stable-diffusion",
+      "midjourney",
+      "dall-e"
+    ],
+    "quality_score": 0.9999999999999999,
+    "source": "rockbenben/img-prompt",
+    "source_url": "https://github.com/rockbenben/img-prompt",
+    "examples": [],
+    "tags": [],
+    "created_at": "2026-04-16T09:01:25.028527",
+    "updated_at": "2026-04-16T09:01:25.028534",
+    "verification_status": "automated"
+  },
+  {
+    "id": "rockbenben_img-prompt_prompt-fr.json_1",
+    "category": "text_to_image",
+    "subcategory": "general",
+    "prompt_text": "\"displayName\": \"(starry tornado:1.4),starry Nebula,beautiful detailed sky\",",
+    "parameters": {},
+    "model_compatibility": [
+      "stable-diffusion",
+      "midjourney",
+      "dall-e"
+    ],
+    "quality_score": 0.7999999999999999,
+    "source": "rockbenben/img-prompt",
+    "source_url": "https://github.com/rockbenben/img-prompt",
+    "examples": [],
+    "tags": [],
+    "created_at": "2026-04-16T09:01:25.028549",
+    "updated_at": "2026-04-16T09:01:25.028550",
+    "verification_status": "automated"
+  },
+  {
+    "id": "rockbenben_img-prompt_prompt-fr.json_2",
+    "category": "text_to_image",
+    "subcategory": "general",
+    "prompt_text": "\"displayName\": \"beautiful detailed glow,detailed ice,beautiful detailed water,(cold full moon),snowflake,(floating cloud:1.2)\",",
+    "parameters": {},
+    "model_compatibility": [
+      "stable-diffusion",
+      "midjourney",
+      "dall-e"
+    ],
+    "quality_score": 0.9999999999999999,
+    "source": "rockbenben/img-prompt",
+    "source_url": "https://github.com/rockbenben/img-prompt",
+    "examples": [],
+    "tags": [],
+    "created_at": "2026-04-16T09:01:25.028556",
+    "updated_at": "2026-04-16T09:01:25.028557",
+    "verification_status": "automated"
+  },
+  {
+    "id": "rockbenben_img-prompt_prompt-fr.json_3",
+    "category": "text_to_image",
+    "subcategory": "general",
+    "prompt_text": "\"displayName\": \"Floating black ashes,Beautiful and detailed black,red moon,((The black clouds)),(black Wings) ,a black cloudy sky,burning,black dress,((Black fog)),Red eyes,(black smoke),((Black feathers floating in the air)),bat,(floating black cloud:1.5),\",",
+    "parameters": {},
+    "model_compatibility": [
+      "stable-diffusion",
+      "midjourney",
+      "dall-e"
+    ],
+    "quality_score": 0.7999999999999999,
+    "source": "rockbenben/img-prompt",
+    "source_url": "https://github.com/rockbenben/img-prompt",
+    "examples": [],
+    "tags": [],
+    "created_at": "2026-04-16T09:01:25.028564",
+    "updated_at": "2026-04-16T09:01:25.028564",
+    "verification_status": "automated"
+  },
+  {
+    "id": "rockbenben_img-prompt_prompt-fr.json_4",
+    "category": "text_to_image",
+    "subcategory": "general",
+    "prompt_text": "\"displayName\": \"dynamic angle,detailed wet clothes,blank stare,overexplosure,floating,black long straight,red eyes,aqua eyes,gradient eyes,((blood)),white dress,frills,((expressionless)),extremely beautiful detailed water,((lying on the lake)),(bloodred water:1.5),(red background:1.3)\",",
+    "parameters": {},
+    "model_compatibility": [
+      "stable-diffusion",
+      "midjourney",
+      "dall-e"
+    ],
+    "quality_score": 0.9999999999999999,
+    "source": "rockbenben/img-prompt",
+    "source_url": "https://github.com/rockbenben/img-prompt",
+    "examples": [],
+    "tags": [],
+    "created_at": "2026-04-16T09:01:25.028572",
+    "updated_at": "2026-04-16T09:01:25.028573",
+    "verification_status": "automated"
+  },
+  {
+    "id": "rockbenben_img-prompt_prompt-hi.json_0",
+    "category": "text_to_image",
+    "subcategory": "general",
+    "prompt_text": "\"displayName\": \"beautiful detailed glow,floating ashes,beautiful and detailed explosion,red moon,fire,fire cloud,wings on fire,a cloudy sky,smoke of gunpowder,burning,black dress,dove of peace,(floating cloud:1.2)\",",
+    "parameters": {},
+    "model_compatibility": [
+      "stable-diffusion",
+      "midjourney",
+      "dall-e"
+    ],
+    "quality_score": 0.9999999999999999,
+    "source": "rockbenben/img-prompt",
+    "source_url": "https://github.com/rockbenben/img-prompt",
+    "examples": [],
+    "tags": [],
+    "created_at": "2026-04-16T09:01:27.234730",
+    "updated_at": "2026-04-16T09:01:27.234738",
+    "verification_status": "automated"
+  },
+  {
+    "id": "rockbenben_img-prompt_prompt-hi.json_1",
+    "category": "text_to_image",
+    "subcategory": "general",
+    "prompt_text": "\"displayName\": \"(starry tornado:1.4),starry Nebula,beautiful detailed sky\",",
+    "parameters": {},
+    "model_compatibility": [
+      "stable-diffusion",
+      "midjourney",
+      "dall-e"
+    ],
+    "quality_score": 0.7999999999999999,
+    "source": "rockbenben/img-prompt",
+    "source_url": "https://github.com/rockbenben/img-prompt",
+    "examples": [],
+    "tags": [],
+    "created_at": "2026-04-16T09:01:27.234750",
+    "updated_at": "2026-04-16T09:01:27.234750",
+    "verification_status": "automated"
+  },
+  {
+    "id": "rockbenben_img-prompt_prompt-hi.json_2",
+    "category": "text_to_image",
+    "subcategory": "general",
+    "prompt_text": "\"displayName\": \"beautiful detailed glow,detailed ice,beautiful detailed water,(cold full moon),snowflake,(floating cloud:1.2)\",",
+    "parameters": {},
+    "model_compatibility": [
+      "stable-diffusion",
+      "midjourney",
+      "dall-e"
+    ],
+    "quality_score": 0.9999999999999999,
+    "source": "rockbenben/img-prompt",
+    "source_url": "https://github.com/rockbenben/img-prompt",
+    "examples": [],
+    "tags": [],
+    "created_at": "2026-04-16T09:01:27.234756",
+    "updated_at": "2026-04-16T09:01:27.234757",
+    "verification_status": "automated"
+  },
+  {
+    "id": "rockbenben_img-prompt_prompt-hi.json_3",
+    "category": "text_to_image",
+    "subcategory": "general",
+    "prompt_text": "\"displayName\": \"Floating black ashes,Beautiful and detailed black,red moon,((The black clouds)),(black Wings) ,a black cloudy sky,burning,black dress,((Black fog)),Red eyes,(black smoke),((Black feathers floating in the air)),bat,(floating black cloud:1.5),\",",
+    "parameters": {},
+    "model_compatibility": [
+      "stable-diffusion",
+      "midjourney",
+      "dall-e"
+    ],
+    "quality_score": 0.7999999999999999,
+    "source": "rockbenben/img-prompt",
+    "source_url": "https://github.com/rockbenben/img-prompt",
+    "examples": [],
+    "tags": [],
+    "created_at": "2026-04-16T09:01:27.234764",
+    "updated_at": "2026-04-16T09:01:27.234764",
+    "verification_status": "automated"
+  },
+  {
+    "id": "rockbenben_img-prompt_prompt-hi.json_4",
+    "category": "text_to_image",
+    "subcategory": "general",
+    "prompt_text": "\"displayName\": \"dynamic angle,detailed wet clothes,blank stare,overexplosure,floating,black long straight,red eyes,aqua eyes,gradient eyes,((blood)),white dress,frills,((expressionless)),extremely beautiful detailed water,((lying on the lake)),(bloodred water:1.5),(red background:1.3)\",",
+    "parameters": {},
+    "model_compatibility": [
+      "stable-diffusion",
+      "midjourney",
+      "dall-e"
+    ],
+    "quality_score": 0.9999999999999999,
+    "source": "rockbenben/img-prompt",
+    "source_url": "https://github.com/rockbenben/img-prompt",
+    "examples": [],
+    "tags": [],
+    "created_at": "2026-04-16T09:01:27.234772",
+    "updated_at": "2026-04-16T09:01:27.234772",
+    "verification_status": "automated"
+  },
+  {
+    "id": "rockbenben_img-prompt_prompt-id.json_0",
+    "category": "text_to_image",
+    "subcategory": "general",
+    "prompt_text": "\"displayName\": \"beautiful detailed glow,floating ashes,beautiful and detailed explosion,red moon,fire,fire cloud,wings on fire,a cloudy sky,smoke of gunpowder,burning,black dress,dove of peace,(floating cloud:1.2)\",",
+    "parameters": {},
+    "model_compatibility": [
+      "stable-diffusion",
+      "midjourney",
+      "dall-e"
+    ],
+    "quality_score": 0.9999999999999999,
+    "source": "rockbenben/img-prompt",
+    "source_url": "https://github.com/rockbenben/img-prompt",
+    "examples": [],
+    "tags": [],
+    "created_at": "2026-04-16T09:01:29.310288",
+    "updated_at": "2026-04-16T09:01:29.310295",
+    "verification_status": "automated"
+  },
+  {
+    "id": "rockbenben_img-prompt_prompt-id.json_1",
+    "category": "text_to_image",
+    "subcategory": "general",
+    "prompt_text": "\"displayName\": \"(starry tornado:1.4),starry Nebula,beautiful detailed sky\",",
+    "parameters": {},
+    "model_compatibility": [
+      "stable-diffusion",
+      "midjourney",
+      "dall-e"
+    ],
+    "quality_score": 0.7999999999999999,
+    "source": "rockbenben/img-prompt",
+    "source_url": "https://github.com/rockbenben/img-prompt",
+    "examples": [],
+    "tags": [],
+    "created_at": "2026-04-16T09:01:29.310307",
+    "updated_at": "2026-04-16T09:01:29.310308",
+    "verification_status": "automated"
+  },
+  {
+    "id": "rockbenben_img-prompt_prompt-id.json_2",
+    "category": "text_to_image",
+    "subcategory": "general",
+    "prompt_text": "\"displayName\": \"beautiful detailed glow,detailed ice,beautiful detailed water,(cold full moon),snowflake,(floating cloud:1.2)\",",
+    "parameters": {},
+    "model_compatibility": [
+      "stable-diffusion",
+      "midjourney",
+      "dall-e"
+    ],
+    "quality_score": 0.9999999999999999,
+    "source": "rockbenben/img-prompt",
+    "source_url": "https://github.com/rockbenben/img-prompt",
+    "examples": [],
+    "tags": [],
+    "created_at": "2026-04-16T09:01:29.310313",
+    "updated_at": "2026-04-16T09:01:29.310314",
+    "verification_status": "automated"
+  },
+  {
+    "id": "rockbenben_img-prompt_prompt-id.json_3",
+    "category": "text_to_image",
+    "subcategory": "general",
+    "prompt_text": "\"displayName\": \"Floating black ashes,Beautiful and detailed black,red moon,((The black clouds)),(black Wings) ,a black cloudy sky,burning,black dress,((Black fog)),Red eyes,(black smoke),((Black feathers floating in the air)),bat,(floating black cloud:1.5),\",",
+    "parameters": {},
+    "model_compatibility": [
+      "stable-diffusion",
+      "midjourney",
+      "dall-e"
+    ],
+    "quality_score": 0.7999999999999999,
+    "source": "rockbenben/img-prompt",
+    "source_url": "https://github.com/rockbenben/img-prompt",
+    "examples": [],
+    "tags": [],
+    "created_at": "2026-04-16T09:01:29.310321",
+    "updated_at": "2026-04-16T09:01:29.310322",
+    "verification_status": "automated"
+  },
+  {
+    "id": "rockbenben_img-prompt_prompt-id.json_4",
+    "category": "text_to_image",
+    "subcategory": "general",
+    "prompt_text": "\"displayName\": \"dynamic angle,detailed wet clothes,blank stare,overexplosure,floating,black long straight,red eyes,aqua eyes,gradient eyes,((blood)),white dress,frills,((expressionless)),extremely beautiful detailed water,((lying on the lake)),(bloodred water:1.5),(red background:1.3)\",",
+    "parameters": {},
+    "model_compatibility": [
+      "stable-diffusion",
+      "midjourney",
+      "dall-e"
+    ],
+    "quality_score": 0.9999999999999999,
+    "source": "rockbenben/img-prompt",
+    "source_url": "https://github.com/rockbenben/img-prompt",
+    "examples": [],
+    "tags": [],
+    "created_at": "2026-04-16T09:01:29.310329",
+    "updated_at": "2026-04-16T09:01:29.310330",
+    "verification_status": "automated"
+  },
+  {
+    "id": "rockbenben_img-prompt_prompt-it.json_0",
+    "category": "text_to_image",
+    "subcategory": "general",
+    "prompt_text": "\"displayName\": \"beautiful detailed glow,floating ashes,beautiful and detailed explosion,red moon,fire,fire cloud,wings on fire,a cloudy sky,smoke of gunpowder,burning,black dress,dove of peace,(floating cloud:1.2)\",",
+    "parameters": {},
+    "model_compatibility": [
+      "stable-diffusion",
+      "midjourney",
+      "dall-e"
+    ],
+    "quality_score": 0.9999999999999999,
+    "source": "rockbenben/img-prompt",
+    "source_url": "https://github.com/rockbenben/img-prompt",
+    "examples": [],
+    "tags": [],
+    "created_at": "2026-04-16T09:01:31.376196",
+    "updated_at": "2026-04-16T09:01:31.376204",
+    "verification_status": "automated"
+  },
+  {
+    "id": "rockbenben_img-prompt_prompt-it.json_1",
+    "category": "text_to_image",
+    "subcategory": "general",
+    "prompt_text": "\"displayName\": \"(starry tornado:1.4),starry Nebula,beautiful detailed sky\",",
+    "parameters": {},
+    "model_compatibility": [
+      "stable-diffusion",
+      "midjourney",
+      "dall-e"
+    ],
+    "quality_score": 0.7999999999999999,
+    "source": "rockbenben/img-prompt",
+    "source_url": "https://github.com/rockbenben/img-prompt",
+    "examples": [],
+    "tags": [],
+    "created_at": "2026-04-16T09:01:31.376216",
+    "updated_at": "2026-04-16T09:01:31.376217",
+    "verification_status": "automated"
+  },
+  {
+    "id": "rockbenben_img-prompt_prompt-it.json_2",
+    "category": "text_to_image",
+    "subcategory": "general",
+    "prompt_text": "\"displayName\": \"beautiful detailed glow,detailed ice,beautiful detailed water,(cold full moon),snowflake,(floating cloud:1.2)\",",
+    "parameters": {},
+    "model_compatibility": [
+      "stable-diffusion",
+      "midjourney",
+      "dall-e"
+    ],
+    "quality_score": 0.9999999999999999,
+    "source": "rockbenben/img-prompt",
+    "source_url": "https://github.com/rockbenben/img-prompt",
+    "examples": [],
+    "tags": [],
+    "created_at": "2026-04-16T09:01:31.376223",
+    "updated_at": "2026-04-16T09:01:31.376224",
+    "verification_status": "automated"
+  },
+  {
+    "id": "rockbenben_img-prompt_prompt-it.json_3",
+    "category": "text_to_image",
+    "subcategory": "general",
+    "prompt_text": "\"displayName\": \"Floating black ashes,Beautiful and detailed black,red moon,((The black clouds)),(black Wings) ,a black cloudy sky,burning,black dress,((Black fog)),Red eyes,(black smoke),((Black feathers floating in the air)),bat,(floating black cloud:1.5),\",",
+    "parameters": {},
+    "model_compatibility": [
+      "stable-diffusion",
+      "midjourney",
+      "dall-e"
+    ],
+    "quality_score": 0.7999999999999999,
+    "source": "rockbenben/img-prompt",
+    "source_url": "https://github.com/rockbenben/img-prompt",
+    "examples": [],
+    "tags": [],
+    "created_at": "2026-04-16T09:01:31.376231",
+    "updated_at": "2026-04-16T09:01:31.376232",
+    "verification_status": "automated"
+  },
+  {
+    "id": "rockbenben_img-prompt_prompt-it.json_4",
+    "category": "text_to_image",
+    "subcategory": "general",
+    "prompt_text": "\"displayName\": \"dynamic angle,detailed wet clothes,blank stare,overexplosure,floating,black long straight,red eyes,aqua eyes,gradient eyes,((blood)),white dress,frills,((expressionless)),extremely beautiful detailed water,((lying on the lake)),(bloodred water:1.5),(red background:1.3)\",",
+    "parameters": {},
+    "model_compatibility": [
+      "stable-diffusion",
+      "midjourney",
+      "dall-e"
+    ],
+    "quality_score": 0.9999999999999999,
+    "source": "rockbenben/img-prompt",
+    "source_url": "https://github.com/rockbenben/img-prompt",
+    "examples": [],
+    "tags": [],
+    "created_at": "2026-04-16T09:01:31.376239",
+    "updated_at": "2026-04-16T09:01:31.376240",
+    "verification_status": "automated"
+  },
+  {
+    "id": "rockbenben_img-prompt_prompt-ja.json_0",
+    "category": "text_to_image",
+    "subcategory": "general",
+    "prompt_text": "\"displayName\": \"beautiful detailed glow,floating ashes,beautiful and detailed explosion,red moon,fire,fire cloud,wings on fire,a cloudy sky,smoke of gunpowder,burning,black dress,dove of peace,(floating cloud:1.2)\",",
+    "parameters": {},
+    "model_compatibility": [
+      "stable-diffusion",
+      "midjourney",
+      "dall-e"
+    ],
+    "quality_score": 0.9999999999999999,
+    "source": "rockbenben/img-prompt",
+    "source_url": "https://github.com/rockbenben/img-prompt",
+    "examples": [],
+    "tags": [],
+    "created_at": "2026-04-16T09:01:33.269425",
+    "updated_at": "2026-04-16T09:01:33.269432",
+    "verification_status": "automated"
+  },
+  {
+    "id": "rockbenben_img-prompt_prompt-ja.json_1",
+    "category": "text_to_image",
+    "subcategory": "general",
+    "prompt_text": "\"displayName\": \"(starry tornado:1.4),starry Nebula,beautiful detailed sky\",",
+    "parameters": {},
+    "model_compatibility": [
+      "stable-diffusion",
+      "midjourney",
+      "dall-e"
+    ],
+    "quality_score": 0.7999999999999999,
+    "source": "rockbenben/img-prompt",
+    "source_url": "https://github.com/rockbenben/img-prompt",
+    "examples": [],
+    "tags": [],
+    "created_at": "2026-04-16T09:01:33.269443",
+    "updated_at": "2026-04-16T09:01:33.269443",
+    "verification_status": "automated"
+  },
+  {
+    "id": "rockbenben_img-prompt_prompt-ja.json_2",
+    "category": "text_to_image",
+    "subcategory": "general",
+    "prompt_text": "\"displayName\": \"beautiful detailed glow,detailed ice,beautiful detailed water,(cold full moon),snowflake,(floating cloud:1.2)\",",
+    "parameters": {},
+    "model_compatibility": [
+      "stable-diffusion",
+      "midjourney",
+      "dall-e"
+    ],
+    "quality_score": 0.9999999999999999,
+    "source": "rockbenben/img-prompt",
+    "source_url": "https://github.com/rockbenben/img-prompt",
+    "examples": [],
+    "tags": [],
+    "created_at": "2026-04-16T09:01:33.269449",
+    "updated_at": "2026-04-16T09:01:33.269449",
+    "verification_status": "automated"
+  },
+  {
+    "id": "rockbenben_img-prompt_prompt-ja.json_3",
+    "category": "text_to_image",
+    "subcategory": "general",
+    "prompt_text": "\"displayName\": \"Floating black ashes,Beautiful and detailed black,red moon,((The black clouds)),(black Wings) ,a black cloudy sky,burning,black dress,((Black fog)),Red eyes,(black smoke),((Black feathers floating in the air)),bat,(floating black cloud:1.5),\",",
+    "parameters": {},
+    "model_compatibility": [
+      "stable-diffusion",
+      "midjourney",
+      "dall-e"
+    ],
+    "quality_score": 0.7999999999999999,
+    "source": "rockbenben/img-prompt",
+    "source_url": "https://github.com/rockbenben/img-prompt",
+    "examples": [],
+    "tags": [],
+    "created_at": "2026-04-16T09:01:33.269455",
+    "updated_at": "2026-04-16T09:01:33.269456",
+    "verification_status": "automated"
+  },
+  {
+    "id": "rockbenben_img-prompt_prompt-ja.json_4",
+    "category": "text_to_image",
+    "subcategory": "general",
+    "prompt_text": "\"displayName\": \"dynamic angle,detailed wet clothes,blank stare,overexplosure,floating,black long straight,red eyes,aqua eyes,gradient eyes,((blood)),white dress,frills,((expressionless)),extremely beautiful detailed water,((lying on the lake)),(bloodred water:1.5),(red background:1.3)\",",
+    "parameters": {},
+    "model_compatibility": [
+      "stable-diffusion",
+      "midjourney",
+      "dall-e"
+    ],
+    "quality_score": 0.9999999999999999,
+    "source": "rockbenben/img-prompt",
+    "source_url": "https://github.com/rockbenben/img-prompt",
+    "examples": [],
+    "tags": [],
+    "created_at": "2026-04-16T09:01:33.269463",
+    "updated_at": "2026-04-16T09:01:33.269463",
+    "verification_status": "automated"
+  },
+  {
+    "id": "rockbenben_img-prompt_prompt-ko.json_0",
+    "category": "text_to_image",
+    "subcategory": "general",
+    "prompt_text": "\"displayName\": \"beautiful detailed glow,floating ashes,beautiful and detailed explosion,red moon,fire,fire cloud,wings on fire,a cloudy sky,smoke of gunpowder,burning,black dress,dove of peace,(floating cloud:1.2)\",",
+    "parameters": {},
+    "model_compatibility": [
+      "stable-diffusion",
+      "midjourney",
+      "dall-e"
+    ],
+    "quality_score": 0.9999999999999999,
+    "source": "rockbenben/img-prompt",
+    "source_url": "https://github.com/rockbenben/img-prompt",
+    "examples": [],
+    "tags": [],
+    "created_at": "2026-04-16T09:01:35.173391",
+    "updated_at": "2026-04-16T09:01:35.173398",
+    "verification_status": "automated"
+  },
+  {
+    "id": "rockbenben_img-prompt_prompt-ko.json_1",
+    "category": "text_to_image",
+    "subcategory": "general",
+    "prompt_text": "\"displayName\": \"(starry tornado:1.4),starry Nebula,beautiful detailed sky\",",
+    "parameters": {},
+    "model_compatibility": [
+      "stable-diffusion",
+      "midjourney",
+      "dall-e"
+    ],
+    "quality_score": 0.7999999999999999,
+    "source": "rockbenben/img-prompt",
+    "source_url": "https://github.com/rockbenben/img-prompt",
+    "examples": [],
+    "tags": [],
+    "created_at": "2026-04-16T09:01:35.173409",
+    "updated_at": "2026-04-16T09:01:35.173410",
+    "verification_status": "automated"
+  },
+  {
+    "id": "rockbenben_img-prompt_prompt-ko.json_2",
+    "category": "text_to_image",
+    "subcategory": "general",
+    "prompt_text": "\"displayName\": \"beautiful detailed glow,detailed ice,beautiful detailed water,(cold full moon),snowflake,(floating cloud:1.2)\",",
+    "parameters": {},
+    "model_compatibility": [
+      "stable-diffusion",
+      "midjourney",
+      "dall-e"
+    ],
+    "quality_score": 0.9999999999999999,
+    "source": "rockbenben/img-prompt",
+    "source_url": "https://github.com/rockbenben/img-prompt",
+    "examples": [],
+    "tags": [],
+    "created_at": "2026-04-16T09:01:35.173415",
+    "updated_at": "2026-04-16T09:01:35.173416",
+    "verification_status": "automated"
+  },
+  {
+    "id": "rockbenben_img-prompt_prompt-ko.json_3",
+    "category": "text_to_image",
+    "subcategory": "general",
+    "prompt_text": "\"displayName\": \"Floating black ashes,Beautiful and detailed black,red moon,((The black clouds)),(black Wings) ,a black cloudy sky,burning,black dress,((Black fog)),Red eyes,(black smoke),((Black feathers floating in the air)),bat,(floating black cloud:1.5),\",",
+    "parameters": {},
+    "model_compatibility": [
+      "stable-diffusion",
+      "midjourney",
+      "dall-e"
+    ],
+    "quality_score": 0.7999999999999999,
+    "source": "rockbenben/img-prompt",
+    "source_url": "https://github.com/rockbenben/img-prompt",
+    "examples": [],
+    "tags": [],
+    "created_at": "2026-04-16T09:01:35.173424",
+    "updated_at": "2026-04-16T09:01:35.173424",
+    "verification_status": "automated"
+  },
+  {
+    "id": "rockbenben_img-prompt_prompt-ko.json_4",
+    "category": "text_to_image",
+    "subcategory": "general",
+    "prompt_text": "\"displayName\": \"dynamic angle,detailed wet clothes,blank stare,overexplosure,floating,black long straight,red eyes,aqua eyes,gradient eyes,((blood)),white dress,frills,((expressionless)),extremely beautiful detailed water,((lying on the lake)),(bloodred water:1.5),(red background:1.3)\",",
+    "parameters": {},
+    "model_compatibility": [
+      "stable-diffusion",
+      "midjourney",
+      "dall-e"
+    ],
+    "quality_score": 0.9999999999999999,
+    "source": "rockbenben/img-prompt",
+    "source_url": "https://github.com/rockbenben/img-prompt",
+    "examples": [],
+    "tags": [],
+    "created_at": "2026-04-16T09:01:35.173432",
+    "updated_at": "2026-04-16T09:01:35.173432",
+    "verification_status": "automated"
+  },
+  {
+    "id": "rockbenben_img-prompt_prompt-pt.json_0",
+    "category": "text_to_image",
+    "subcategory": "general",
+    "prompt_text": "\"displayName\": \"beautiful detailed glow,floating ashes,beautiful and detailed explosion,red moon,fire,fire cloud,wings on fire,a cloudy sky,smoke of gunpowder,burning,black dress,dove of peace,(floating cloud:1.2)\",",
+    "parameters": {},
+    "model_compatibility": [
+      "stable-diffusion",
+      "midjourney",
+      "dall-e"
+    ],
+    "quality_score": 0.9999999999999999,
+    "source": "rockbenben/img-prompt",
+    "source_url": "https://github.com/rockbenben/img-prompt",
+    "examples": [],
+    "tags": [],
+    "created_at": "2026-04-16T09:01:37.075339",
+    "updated_at": "2026-04-16T09:01:37.075347",
+    "verification_status": "automated"
+  },
+  {
+    "id": "rockbenben_img-prompt_prompt-pt.json_1",
+    "category": "text_to_image",
+    "subcategory": "general",
+    "prompt_text": "\"displayName\": \"(starry tornado:1.4),starry Nebula,beautiful detailed sky\",",
+    "parameters": {},
+    "model_compatibility": [
+      "stable-diffusion",
+      "midjourney",
+      "dall-e"
+    ],
+    "quality_score": 0.7999999999999999,
+    "source": "rockbenben/img-prompt",
+    "source_url": "https://github.com/rockbenben/img-prompt",
+    "examples": [],
+    "tags": [],
+    "created_at": "2026-04-16T09:01:37.075358",
+    "updated_at": "2026-04-16T09:01:37.075359",
+    "verification_status": "automated"
+  },
+  {
+    "id": "rockbenben_img-prompt_prompt-pt.json_2",
+    "category": "text_to_image",
+    "subcategory": "general",
+    "prompt_text": "\"displayName\": \"beautiful detailed glow,detailed ice,beautiful detailed water,(cold full moon),snowflake,(floating cloud:1.2)\",",
+    "parameters": {},
+    "model_compatibility": [
+      "stable-diffusion",
+      "midjourney",
+      "dall-e"
+    ],
+    "quality_score": 0.9999999999999999,
+    "source": "rockbenben/img-prompt",
+    "source_url": "https://github.com/rockbenben/img-prompt",
+    "examples": [],
+    "tags": [],
+    "created_at": "2026-04-16T09:01:37.075365",
+    "updated_at": "2026-04-16T09:01:37.075366",
+    "verification_status": "automated"
+  },
+  {
+    "id": "rockbenben_img-prompt_prompt-pt.json_3",
+    "category": "text_to_image",
+    "subcategory": "general",
+    "prompt_text": "\"displayName\": \"Floating black ashes,Beautiful and detailed black,red moon,((The black clouds)),(black Wings) ,a black cloudy sky,burning,black dress,((Black fog)),Red eyes,(black smoke),((Black feathers floating in the air)),bat,(floating black cloud:1.5),\",",
+    "parameters": {},
+    "model_compatibility": [
+      "stable-diffusion",
+      "midjourney",
+      "dall-e"
+    ],
+    "quality_score": 0.7999999999999999,
+    "source": "rockbenben/img-prompt",
+    "source_url": "https://github.com/rockbenben/img-prompt",
+    "examples": [],
+    "tags": [],
+    "created_at": "2026-04-16T09:01:37.075373",
+    "updated_at": "2026-04-16T09:01:37.075374",
+    "verification_status": "automated"
+  },
+  {
+    "id": "rockbenben_img-prompt_prompt-pt.json_4",
+    "category": "text_to_image",
+    "subcategory": "general",
+    "prompt_text": "\"displayName\": \"dynamic angle,detailed wet clothes,blank stare,overexplosure,floating,black long straight,red eyes,aqua eyes,gradient eyes,((blood)),white dress,frills,((expressionless)),extremely beautiful detailed water,((lying on the lake)),(bloodred water:1.5),(red background:1.3)\",",
+    "parameters": {},
+    "model_compatibility": [
+      "stable-diffusion",
+      "midjourney",
+      "dall-e"
+    ],
+    "quality_score": 0.9999999999999999,
+    "source": "rockbenben/img-prompt",
+    "source_url": "https://github.com/rockbenben/img-prompt",
+    "examples": [],
+    "tags": [],
+    "created_at": "2026-04-16T09:01:37.075381",
+    "updated_at": "2026-04-16T09:01:37.075382",
+    "verification_status": "automated"
+  },
+  {
+    "id": "rockbenben_img-prompt_prompt-ru.json_0",
+    "category": "text_to_image",
+    "subcategory": "general",
+    "prompt_text": "\"displayName\": \"beautiful detailed glow,floating ashes,beautiful and detailed explosion,red moon,fire,fire cloud,wings on fire,a cloudy sky,smoke of gunpowder,burning,black dress,dove of peace,(floating cloud:1.2)\",",
+    "parameters": {},
+    "model_compatibility": [
+      "stable-diffusion",
+      "midjourney",
+      "dall-e"
+    ],
+    "quality_score": 0.9999999999999999,
+    "source": "rockbenben/img-prompt",
+    "source_url": "https://github.com/rockbenben/img-prompt",
+    "examples": [],
+    "tags": [],
+    "created_at": "2026-04-16T09:01:39.250250",
+    "updated_at": "2026-04-16T09:01:39.250257",
+    "verification_status": "automated"
+  },
+  {
+    "id": "rockbenben_img-prompt_prompt-ru.json_1",
+    "category": "text_to_image",
+    "subcategory": "general",
+    "prompt_text": "\"displayName\": \"(starry tornado:1.4),starry Nebula,beautiful detailed sky\",",
+    "parameters": {},
+    "model_compatibility": [
+      "stable-diffusion",
+      "midjourney",
+      "dall-e"
+    ],
+    "quality_score": 0.7999999999999999,
+    "source": "rockbenben/img-prompt",
+    "source_url": "https://github.com/rockbenben/img-prompt",
+    "examples": [],
+    "tags": [],
+    "created_at": "2026-04-16T09:01:39.250268",
+    "updated_at": "2026-04-16T09:01:39.250269",
+    "verification_status": "automated"
+  },
+  {
+    "id": "rockbenben_img-prompt_prompt-ru.json_2",
+    "category": "text_to_image",
+    "subcategory": "general",
+    "prompt_text": "\"displayName\": \"beautiful detailed glow,detailed ice,beautiful detailed water,(cold full moon),snowflake,(floating cloud:1.2)\",",
+    "parameters": {},
+    "model_compatibility": [
+      "stable-diffusion",
+      "midjourney",
+      "dall-e"
+    ],
+    "quality_score": 0.9999999999999999,
+    "source": "rockbenben/img-prompt",
+    "source_url": "https://github.com/rockbenben/img-prompt",
+    "examples": [],
+    "tags": [],
+    "created_at": "2026-04-16T09:01:39.250274",
+    "updated_at": "2026-04-16T09:01:39.250275",
+    "verification_status": "automated"
+  },
+  {
+    "id": "rockbenben_img-prompt_prompt-ru.json_3",
+    "category": "text_to_image",
+    "subcategory": "general",
+    "prompt_text": "\"displayName\": \"Floating black ashes,Beautiful and detailed black,red moon,((The black clouds)),(black Wings) ,a black cloudy sky,burning,black dress,((Black fog)),Red eyes,(black smoke),((Black feathers floating in the air)),bat,(floating black cloud:1.5),\",",
+    "parameters": {},
+    "model_compatibility": [
+      "stable-diffusion",
+      "midjourney",
+      "dall-e"
+    ],
+    "quality_score": 0.7999999999999999,
+    "source": "rockbenben/img-prompt",
+    "source_url": "https://github.com/rockbenben/img-prompt",
+    "examples": [],
+    "tags": [],
+    "created_at": "2026-04-16T09:01:39.250282",
+    "updated_at": "2026-04-16T09:01:39.250283",
+    "verification_status": "automated"
+  },
+  {
+    "id": "rockbenben_img-prompt_prompt-ru.json_4",
+    "category": "text_to_image",
+    "subcategory": "general",
+    "prompt_text": "\"displayName\": \"dynamic angle,detailed wet clothes,blank stare,overexplosure,floating,black long straight,red eyes,aqua eyes,gradient eyes,((blood)),white dress,frills,((expressionless)),extremely beautiful detailed water,((lying on the lake)),(bloodred water:1.5),(red background:1.3)\",",
+    "parameters": {},
+    "model_compatibility": [
+      "stable-diffusion",
+      "midjourney",
+      "dall-e"
+    ],
+    "quality_score": 0.9999999999999999,
+    "source": "rockbenben/img-prompt",
+    "source_url": "https://github.com/rockbenben/img-prompt",
+    "examples": [],
+    "tags": [],
+    "created_at": "2026-04-16T09:01:39.250291",
+    "updated_at": "2026-04-16T09:01:39.250292",
+    "verification_status": "automated"
+  },
+  {
+    "id": "rockbenben_img-prompt_prompt-th.json_0",
+    "category": "text_to_image",
+    "subcategory": "general",
+    "prompt_text": "\"displayName\": \"beautiful detailed glow,floating ashes,beautiful and detailed explosion,red moon,fire,fire cloud,wings on fire,a cloudy sky,smoke of gunpowder,burning,black dress,dove of peace,(floating cloud:1.2)\",",
+    "parameters": {},
+    "model_compatibility": [
+      "stable-diffusion",
+      "midjourney",
+      "dall-e"
+    ],
+    "quality_score": 0.9999999999999999,
+    "source": "rockbenben/img-prompt",
+    "source_url": "https://github.com/rockbenben/img-prompt",
+    "examples": [],
+    "tags": [],
+    "created_at": "2026-04-16T09:01:41.138986",
+    "updated_at": "2026-04-16T09:01:41.138993",
+    "verification_status": "automated"
+  },
+  {
+    "id": "rockbenben_img-prompt_prompt-th.json_1",
+    "category": "text_to_image",
+    "subcategory": "general",
+    "prompt_text": "\"displayName\": \"(starry tornado:1.4),starry Nebula,beautiful detailed sky\",",
+    "parameters": {},
+    "model_compatibility": [
+      "stable-diffusion",
+      "midjourney",
+      "dall-e"
+    ],
+    "quality_score": 0.7999999999999999,
+    "source": "rockbenben/img-prompt",
+    "source_url": "https://github.com/rockbenben/img-prompt",
+    "examples": [],
+    "tags": [],
+    "created_at": "2026-04-16T09:01:41.139004",
+    "updated_at": "2026-04-16T09:01:41.139005",
+    "verification_status": "automated"
+  },
+  {
+    "id": "rockbenben_img-prompt_prompt-th.json_2",
+    "category": "text_to_image",
+    "subcategory": "general",
+    "prompt_text": "\"displayName\": \"beautiful detailed glow,detailed ice,beautiful detailed water,(cold full moon),snowflake,(floating cloud:1.2)\",",
+    "parameters": {},
+    "model_compatibility": [
+      "stable-diffusion",
+      "midjourney",
+      "dall-e"
+    ],
+    "quality_score": 0.9999999999999999,
+    "source": "rockbenben/img-prompt",
+    "source_url": "https://github.com/rockbenben/img-prompt",
+    "examples": [],
+    "tags": [],
+    "created_at": "2026-04-16T09:01:41.139010",
+    "updated_at": "2026-04-16T09:01:41.139011",
+    "verification_status": "automated"
+  },
+  {
+    "id": "rockbenben_img-prompt_prompt-th.json_3",
+    "category": "text_to_image",
+    "subcategory": "general",
+    "prompt_text": "\"displayName\": \"Floating black ashes,Beautiful and detailed black,red moon,((The black clouds)),(black Wings) ,a black cloudy sky,burning,black dress,((Black fog)),Red eyes,(black smoke),((Black feathers floating in the air)),bat,(floating black cloud:1.5),\",",
+    "parameters": {},
+    "model_compatibility": [
+      "stable-diffusion",
+      "midjourney",
+      "dall-e"
+    ],
+    "quality_score": 0.7999999999999999,
+    "source": "rockbenben/img-prompt",
+    "source_url": "https://github.com/rockbenben/img-prompt",
+    "examples": [],
+    "tags": [],
+    "created_at": "2026-04-16T09:01:41.139018",
+    "updated_at": "2026-04-16T09:01:41.139019",
+    "verification_status": "automated"
+  },
+  {
+    "id": "rockbenben_img-prompt_prompt-th.json_4",
+    "category": "text_to_image",
+    "subcategory": "general",
+    "prompt_text": "\"displayName\": \"dynamic angle,detailed wet clothes,blank stare,overexplosure,floating,black long straight,red eyes,aqua eyes,gradient eyes,((blood)),white dress,frills,((expressionless)),extremely beautiful detailed water,((lying on the lake)),(bloodred water:1.5),(red background:1.3)\",",
+    "parameters": {},
+    "model_compatibility": [
+      "stable-diffusion",
+      "midjourney",
+      "dall-e"
+    ],
+    "quality_score": 0.9999999999999999,
+    "source": "rockbenben/img-prompt",
+    "source_url": "https://github.com/rockbenben/img-prompt",
+    "examples": [],
+    "tags": [],
+    "created_at": "2026-04-16T09:01:41.139026",
+    "updated_at": "2026-04-16T09:01:41.139027",
+    "verification_status": "automated"
+  },
+  {
+    "id": "rockbenben_img-prompt_prompt-tr.json_0",
+    "category": "text_to_image",
+    "subcategory": "general",
+    "prompt_text": "\"displayName\": \"beautiful detailed glow,floating ashes,beautiful and detailed explosion,red moon,fire,fire cloud,wings on fire,a cloudy sky,smoke of gunpowder,burning,black dress,dove of peace,(floating cloud:1.2)\",",
+    "parameters": {},
+    "model_compatibility": [
+      "stable-diffusion",
+      "midjourney",
+      "dall-e"
+    ],
+    "quality_score": 0.9999999999999999,
+    "source": "rockbenben/img-prompt",
+    "source_url": "https://github.com/rockbenben/img-prompt",
+    "examples": [],
+    "tags": [],
+    "created_at": "2026-04-16T09:01:43.181062",
+    "updated_at": "2026-04-16T09:01:43.181068",
+    "verification_status": "automated"
+  },
+  {
+    "id": "rockbenben_img-prompt_prompt-tr.json_1",
+    "category": "text_to_image",
+    "subcategory": "general",
+    "prompt_text": "\"displayName\": \"(starry tornado:1.4),starry Nebula,beautiful detailed sky\",",
+    "parameters": {},
+    "model_compatibility": [
+      "stable-diffusion",
+      "midjourney",
+      "dall-e"
+    ],
+    "quality_score": 0.7999999999999999,
+    "source": "rockbenben/img-prompt",
+    "source_url": "https://github.com/rockbenben/img-prompt",
+    "examples": [],
+    "tags": [],
+    "created_at": "2026-04-16T09:01:43.181079",
+    "updated_at": "2026-04-16T09:01:43.181080",
+    "verification_status": "automated"
+  },
+  {
+    "id": "rockbenben_img-prompt_prompt-tr.json_2",
+    "category": "text_to_image",
+    "subcategory": "general",
+    "prompt_text": "\"displayName\": \"beautiful detailed glow,detailed ice,beautiful detailed water,(cold full moon),snowflake,(floating cloud:1.2)\",",
+    "parameters": {},
+    "model_compatibility": [
+      "stable-diffusion",
+      "midjourney",
+      "dall-e"
+    ],
+    "quality_score": 0.9999999999999999,
+    "source": "rockbenben/img-prompt",
+    "source_url": "https://github.com/rockbenben/img-prompt",
+    "examples": [],
+    "tags": [],
+    "created_at": "2026-04-16T09:01:43.181085",
+    "updated_at": "2026-04-16T09:01:43.181086",
+    "verification_status": "automated"
+  },
+  {
+    "id": "rockbenben_img-prompt_prompt-tr.json_3",
+    "category": "text_to_image",
+    "subcategory": "general",
+    "prompt_text": "\"displayName\": \"Floating black ashes,Beautiful and detailed black,red moon,((The black clouds)),(black Wings) ,a black cloudy sky,burning,black dress,((Black fog)),Red eyes,(black smoke),((Black feathers floating in the air)),bat,(floating black cloud:1.5),\",",
+    "parameters": {},
+    "model_compatibility": [
+      "stable-diffusion",
+      "midjourney",
+      "dall-e"
+    ],
+    "quality_score": 0.7999999999999999,
+    "source": "rockbenben/img-prompt",
+    "source_url": "https://github.com/rockbenben/img-prompt",
+    "examples": [],
+    "tags": [],
+    "created_at": "2026-04-16T09:01:43.181093",
+    "updated_at": "2026-04-16T09:01:43.181094",
+    "verification_status": "automated"
+  },
+  {
+    "id": "rockbenben_img-prompt_prompt-tr.json_4",
+    "category": "text_to_image",
+    "subcategory": "general",
+    "prompt_text": "\"displayName\": \"dynamic angle,detailed wet clothes,blank stare,overexplosure,floating,black long straight,red eyes,aqua eyes,gradient eyes,((blood)),white dress,frills,((expressionless)),extremely beautiful detailed water,((lying on the lake)),(bloodred water:1.5),(red background:1.3)\",",
+    "parameters": {},
+    "model_compatibility": [
+      "stable-diffusion",
+      "midjourney",
+      "dall-e"
+    ],
+    "quality_score": 0.9999999999999999,
+    "source": "rockbenben/img-prompt",
+    "source_url": "https://github.com/rockbenben/img-prompt",
+    "examples": [],
+    "tags": [],
+    "created_at": "2026-04-16T09:01:43.181101",
+    "updated_at": "2026-04-16T09:01:43.181102",
+    "verification_status": "automated"
+  },
+  {
+    "id": "rockbenben_img-prompt_prompt-vi.json_0",
+    "category": "text_to_image",
+    "subcategory": "general",
+    "prompt_text": "\"displayName\": \"beautiful detailed glow,floating ashes,beautiful and detailed explosion,red moon,fire,fire cloud,wings on fire,a cloudy sky,smoke of gunpowder,burning,black dress,dove of peace,(floating cloud:1.2)\",",
+    "parameters": {},
+    "model_compatibility": [
+      "stable-diffusion",
+      "midjourney",
+      "dall-e"
+    ],
+    "quality_score": 0.9999999999999999,
+    "source": "rockbenben/img-prompt",
+    "source_url": "https://github.com/rockbenben/img-prompt",
+    "examples": [],
+    "tags": [],
+    "created_at": "2026-04-16T09:01:45.322314",
+    "updated_at": "2026-04-16T09:01:45.322321",
+    "verification_status": "automated"
+  },
+  {
+    "id": "rockbenben_img-prompt_prompt-vi.json_1",
+    "category": "text_to_image",
+    "subcategory": "general",
+    "prompt_text": "\"displayName\": \"(starry tornado:1.4),starry Nebula,beautiful detailed sky\",",
+    "parameters": {},
+    "model_compatibility": [
+      "stable-diffusion",
+      "midjourney",
+      "dall-e"
+    ],
+    "quality_score": 0.7999999999999999,
+    "source": "rockbenben/img-prompt",
+    "source_url": "https://github.com/rockbenben/img-prompt",
+    "examples": [],
+    "tags": [],
+    "created_at": "2026-04-16T09:01:45.322332",
+    "updated_at": "2026-04-16T09:01:45.322333",
+    "verification_status": "automated"
+  },
+  {
+    "id": "rockbenben_img-prompt_prompt-vi.json_2",
+    "category": "text_to_image",
+    "subcategory": "general",
+    "prompt_text": "\"displayName\": \"beautiful detailed glow,detailed ice,beautiful detailed water,(cold full moon),snowflake,(floating cloud:1.2)\",",
+    "parameters": {},
+    "model_compatibility": [
+      "stable-diffusion",
+      "midjourney",
+      "dall-e"
+    ],
+    "quality_score": 0.9999999999999999,
+    "source": "rockbenben/img-prompt",
+    "source_url": "https://github.com/rockbenben/img-prompt",
+    "examples": [],
+    "tags": [],
+    "created_at": "2026-04-16T09:01:45.322338",
+    "updated_at": "2026-04-16T09:01:45.322339",
+    "verification_status": "automated"
+  },
+  {
+    "id": "rockbenben_img-prompt_prompt-vi.json_3",
+    "category": "text_to_image",
+    "subcategory": "general",
+    "prompt_text": "\"displayName\": \"Floating black ashes,Beautiful and detailed black,red moon,((The black clouds)),(black Wings) ,a black cloudy sky,burning,black dress,((Black fog)),Red eyes,(black smoke),((Black feathers floating in the air)),bat,(floating black cloud:1.5),\",",
+    "parameters": {},
+    "model_compatibility": [
+      "stable-diffusion",
+      "midjourney",
+      "dall-e"
+    ],
+    "quality_score": 0.7999999999999999,
+    "source": "rockbenben/img-prompt",
+    "source_url": "https://github.com/rockbenben/img-prompt",
+    "examples": [],
+    "tags": [],
+    "created_at": "2026-04-16T09:01:45.322346",
+    "updated_at": "2026-04-16T09:01:45.322347",
+    "verification_status": "automated"
+  },
+  {
+    "id": "rockbenben_img-prompt_prompt-vi.json_4",
+    "category": "text_to_image",
+    "subcategory": "general",
+    "prompt_text": "\"displayName\": \"dynamic angle,detailed wet clothes,blank stare,overexplosure,floating,black long straight,red eyes,aqua eyes,gradient eyes,((blood)),white dress,frills,((expressionless)),extremely beautiful detailed water,((lying on the lake)),(bloodred water:1.5),(red background:1.3)\",",
+    "parameters": {},
+    "model_compatibility": [
+      "stable-diffusion",
+      "midjourney",
+      "dall-e"
+    ],
+    "quality_score": 0.9999999999999999,
+    "source": "rockbenben/img-prompt",
+    "source_url": "https://github.com/rockbenben/img-prompt",
+    "examples": [],
+    "tags": [],
+    "created_at": "2026-04-16T09:01:45.322354",
+    "updated_at": "2026-04-16T09:01:45.322355",
+    "verification_status": "automated"
+  },
+  {
+    "id": "rockbenben_img-prompt_prompt-zh-hant.json_0",
+    "category": "text_to_image",
+    "subcategory": "general",
+    "prompt_text": "\"displayName\": \"beautiful detailed glow,floating ashes,beautiful and detailed explosion,red moon,fire,fire cloud,wings on fire,a cloudy sky,smoke of gunpowder,burning,black dress,dove of peace,(floating cloud:1.2)\",",
+    "parameters": {},
+    "model_compatibility": [
+      "stable-diffusion",
+      "midjourney",
+      "dall-e"
+    ],
+    "quality_score": 0.9999999999999999,
+    "source": "rockbenben/img-prompt",
+    "source_url": "https://github.com/rockbenben/img-prompt",
+    "examples": [],
+    "tags": [],
+    "created_at": "2026-04-16T09:01:47.173724",
+    "updated_at": "2026-04-16T09:01:47.173731",
+    "verification_status": "automated"
+  },
+  {
+    "id": "rockbenben_img-prompt_prompt-zh-hant.json_1",
+    "category": "text_to_image",
+    "subcategory": "general",
+    "prompt_text": "\"displayName\": \"(starry tornado:1.4),starry Nebula,beautiful detailed sky\",",
+    "parameters": {},
+    "model_compatibility": [
+      "stable-diffusion",
+      "midjourney",
+      "dall-e"
+    ],
+    "quality_score": 0.7999999999999999,
+    "source": "rockbenben/img-prompt",
+    "source_url": "https://github.com/rockbenben/img-prompt",
+    "examples": [],
+    "tags": [],
+    "created_at": "2026-04-16T09:01:47.173740",
+    "updated_at": "2026-04-16T09:01:47.173741",
+    "verification_status": "automated"
+  },
+  {
+    "id": "rockbenben_img-prompt_prompt-zh-hant.json_2",
+    "category": "text_to_image",
+    "subcategory": "general",
+    "prompt_text": "\"displayName\": \"beautiful detailed glow,detailed ice,beautiful detailed water,(cold full moon),snowflake,(floating cloud:1.2)\",",
+    "parameters": {},
+    "model_compatibility": [
+      "stable-diffusion",
+      "midjourney",
+      "dall-e"
+    ],
+    "quality_score": 0.9999999999999999,
+    "source": "rockbenben/img-prompt",
+    "source_url": "https://github.com/rockbenben/img-prompt",
+    "examples": [],
+    "tags": [],
+    "created_at": "2026-04-16T09:01:47.173746",
+    "updated_at": "2026-04-16T09:01:47.173747",
+    "verification_status": "automated"
+  },
+  {
+    "id": "rockbenben_img-prompt_prompt-zh-hant.json_3",
+    "category": "text_to_image",
+    "subcategory": "general",
+    "prompt_text": "\"displayName\": \"Floating black ashes,Beautiful and detailed black,red moon,((The black clouds)),(black Wings) ,a black cloudy sky,burning,black dress,((Black fog)),Red eyes,(black smoke),((Black feathers floating in the air)),bat,(floating black cloud:1.5),\",",
+    "parameters": {},
+    "model_compatibility": [
+      "stable-diffusion",
+      "midjourney",
+      "dall-e"
+    ],
+    "quality_score": 0.7999999999999999,
+    "source": "rockbenben/img-prompt",
+    "source_url": "https://github.com/rockbenben/img-prompt",
+    "examples": [],
+    "tags": [],
+    "created_at": "2026-04-16T09:01:47.173753",
+    "updated_at": "2026-04-16T09:01:47.173754",
+    "verification_status": "automated"
+  },
+  {
+    "id": "rockbenben_img-prompt_prompt-zh-hant.json_4",
+    "category": "text_to_image",
+    "subcategory": "general",
+    "prompt_text": "\"displayName\": \"dynamic angle,detailed wet clothes,blank stare,overexplosure,floating,black long straight,red eyes,aqua eyes,gradient eyes,((blood)),white dress,frills,((expressionless)),extremely beautiful detailed water,((lying on the lake)),(bloodred water:1.5),(red background:1.3)\",",
+    "parameters": {},
+    "model_compatibility": [
+      "stable-diffusion",
+      "midjourney",
+      "dall-e"
+    ],
+    "quality_score": 0.9999999999999999,
+    "source": "rockbenben/img-prompt",
+    "source_url": "https://github.com/rockbenben/img-prompt",
+    "examples": [],
+    "tags": [],
+    "created_at": "2026-04-16T09:01:47.173760",
+    "updated_at": "2026-04-16T09:01:47.173761",
+    "verification_status": "automated"
+  },
+  {
+    "id": "rockbenben_img-prompt_prompt-zh.json_0",
+    "category": "text_to_image",
+    "subcategory": "general",
+    "prompt_text": "\"displayName\": \"beautiful detailed glow,floating ashes,beautiful and detailed explosion,red moon,fire,fire cloud,wings on fire,a cloudy sky,smoke of gunpowder,burning,black dress,dove of peace,(floating cloud:1.2)\",",
+    "parameters": {},
+    "model_compatibility": [
+      "stable-diffusion",
+      "midjourney",
+      "dall-e"
+    ],
+    "quality_score": 0.9999999999999999,
+    "source": "rockbenben/img-prompt",
+    "source_url": "https://github.com/rockbenben/img-prompt",
+    "examples": [],
+    "tags": [],
+    "created_at": "2026-04-16T09:01:49.196794",
+    "updated_at": "2026-04-16T09:01:49.196803",
+    "verification_status": "automated"
+  },
+  {
+    "id": "rockbenben_img-prompt_prompt-zh.json_1",
+    "category": "text_to_image",
+    "subcategory": "general",
+    "prompt_text": "\"displayName\": \"(starry tornado:1.4),starry Nebula,beautiful detailed sky\",",
+    "parameters": {},
+    "model_compatibility": [
+      "stable-diffusion",
+      "midjourney",
+      "dall-e"
+    ],
+    "quality_score": 0.7999999999999999,
+    "source": "rockbenben/img-prompt",
+    "source_url": "https://github.com/rockbenben/img-prompt",
+    "examples": [],
+    "tags": [],
+    "created_at": "2026-04-16T09:01:49.196815",
+    "updated_at": "2026-04-16T09:01:49.196816",
+    "verification_status": "automated"
+  },
+  {
+    "id": "rockbenben_img-prompt_prompt-zh.json_2",
+    "category": "text_to_image",
+    "subcategory": "general",
+    "prompt_text": "\"displayName\": \"beautiful detailed glow,detailed ice,beautiful detailed water,(cold full moon),snowflake,(floating cloud:1.2)\",",
+    "parameters": {},
+    "model_compatibility": [
+      "stable-diffusion",
+      "midjourney",
+      "dall-e"
+    ],
+    "quality_score": 0.9999999999999999,
+    "source": "rockbenben/img-prompt",
+    "source_url": "https://github.com/rockbenben/img-prompt",
+    "examples": [],
+    "tags": [],
+    "created_at": "2026-04-16T09:01:49.196821",
+    "updated_at": "2026-04-16T09:01:49.196822",
+    "verification_status": "automated"
+  },
+  {
+    "id": "rockbenben_img-prompt_prompt-zh.json_3",
+    "category": "text_to_image",
+    "subcategory": "general",
+    "prompt_text": "\"displayName\": \"Floating black ashes,Beautiful and detailed black,red moon,((The black clouds)),(black Wings) ,a black cloudy sky,burning,black dress,((Black fog)),Red eyes,(black smoke),((Black feathers floating in the air)),bat,(floating black cloud:1.5),\",",
+    "parameters": {},
+    "model_compatibility": [
+      "stable-diffusion",
+      "midjourney",
+      "dall-e"
+    ],
+    "quality_score": 0.7999999999999999,
+    "source": "rockbenben/img-prompt",
+    "source_url": "https://github.com/rockbenben/img-prompt",
+    "examples": [],
+    "tags": [],
+    "created_at": "2026-04-16T09:01:49.196829",
+    "updated_at": "2026-04-16T09:01:49.196830",
+    "verification_status": "automated"
+  },
+  {
+    "id": "rockbenben_img-prompt_prompt-zh.json_4",
+    "category": "text_to_image",
+    "subcategory": "general",
+    "prompt_text": "\"displayName\": \"dynamic angle,detailed wet clothes,blank stare,overexplosure,floating,black long straight,red eyes,aqua eyes,gradient eyes,((blood)),white dress,frills,((expressionless)),extremely beautiful detailed water,((lying on the lake)),(bloodred water:1.5),(red background:1.3)\",",
+    "parameters": {},
+    "model_compatibility": [
+      "stable-diffusion",
+      "midjourney",
+      "dall-e"
+    ],
+    "quality_score": 0.9999999999999999,
+    "source": "rockbenben/img-prompt",
+    "source_url": "https://github.com/rockbenben/img-prompt",
+    "examples": [],
+    "tags": [],
+    "created_at": "2026-04-16T09:01:49.196837",
+    "updated_at": "2026-04-16T09:01:49.196838",
+    "verification_status": "automated"
+  }
+]

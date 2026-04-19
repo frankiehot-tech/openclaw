@@ -1,0 +1,404 @@
+{
+  "inputs": [
+    {
+      "index": 0,
+      "tagName": "TEXTAREA",
+      "type": "textarea",
+      "placeholder": "发消息或输入“/”选择技能",
+      "id": "",
+      "className": "semi-input-textarea semi-input",
+      "value": "生成一张日式动漫风格的猫咪图片，可爱，大眼睛，背景是樱花树",
+      "name": "",
+      "isVisible": true,
+      "selector": "div.w-full.h-full.flex.overflow-hidden.bg-s-color-bg-body > div.flex-1.flex.relative.main-with-nav-qPJ0z0 > main.flex-1.min-w-0.flex.items-stretch.relative.center-bg-uIUvUP > div.flex.min-w-0.flex-grow.flex-col > div.-mt-[var(--header-height)].flex.w-full.flex-grow.flex-col.items-center.px-16 > div.relative.flex.flex-col.w-full.min-h-(--input-guidance-input-container-min-height).max-h-(--input-guidance-input-container-max-height).max-w-(--content-max-width) > div.relative.flex.flex-col.flex-1.justify-between.min-h-0 > div.flex.flex-col-reverse > div.input-content-container-qGGCGi > div.container-gaxn1L > div.editor-container-FvjPyp > div.editor-wrapper-aTMAEc > div.container-kxxSU4.editor-A1E_5W.textarea-BnKyIt.custom-scrollbar-stmEIo.semi-input-textarea-wrapper > textarea.semi-input-textarea.semi-input-textarea-autosize"
+    }
+  ],
+  "buttons": [
+    {
+      "index": 0,
+      "tagName": "DIV",
+      "text": "AI 创作",
+      "id": "",
+      "className": "\n        relative\n        empt",
+      "type": "",
+      "isVisible": true,
+      "selector": "div.relative.p-12.sm:fixed.overflow-hidden.pointer-events-auto.w-[var(--sidebar-width)].flex.shrink-0.flex-col.bg-dbx-bg-base-web.border-r.border-[0.5px].border-s-color-border-tertiary/80.transition-[transform].duration-[var(--transition-duration-slow)].ease-[var(--ease-in-out)].transform.transform.h-full > div.relative.-mr-9.flow-scrollbar.min-h-0.flex-1.overflow-y-auto.pr-[calc(9px-var(--scrollbar-width))] > div.mb-22.flex.w-full.flex-col.gap-3 > div.relative.empty:hidden:nth-child(1)",
+      "hasClickHandler": false
+    },
+    {
+      "index": 1,
+      "tagName": "DIV",
+      "text": "云盘",
+      "id": "",
+      "className": "\n        relative\n        empt",
+      "type": "",
+      "isVisible": true,
+      "selector": "div.relative.p-12.sm:fixed.overflow-hidden.pointer-events-auto.w-[var(--sidebar-width)].flex.shrink-0.flex-col.bg-dbx-bg-base-web.border-r.border-[0.5px].border-s-color-border-tertiary/80.transition-[transform].duration-[var(--transition-duration-slow)].ease-[var(--ease-in-out)].transform.transform.h-full > div.relative.-mr-9.flow-scrollbar.min-h-0.flex-1.overflow-y-auto.pr-[calc(9px-var(--scrollbar-width))] > div.mb-22.flex.w-full.flex-col.gap-3 > div.relative.empty:hidden:nth-child(2)",
+      "hasClickHandler": false
+    },
+    {
+      "index": 2,
+      "tagName": "DIV",
+      "text": "更多",
+      "id": "",
+      "className": "\n        relative\n        empt",
+      "type": "",
+      "isVisible": true,
+      "selector": "div.relative.p-12.sm:fixed.overflow-hidden.pointer-events-auto.w-[var(--sidebar-width)].flex.shrink-0.flex-col.bg-dbx-bg-base-web.border-r.border-[0.5px].border-s-color-border-tertiary/80.transition-[transform].duration-[var(--transition-duration-slow)].ease-[var(--ease-in-out)].transform.transform.h-full > div.relative.-mr-9.flow-scrollbar.min-h-0.flex-1.overflow-y-auto.pr-[calc(9px-var(--scrollbar-width))] > div.mb-22.flex.w-full.flex-col.gap-3 > div.relative.empty:hidden:nth-child(3)",
+      "hasClickHandler": false
+    },
+    {
+      "index": 43,
+      "tagName": "BUTTON",
+      "text": "",
+      "id": "",
+      "className": "flex shrink-0 items-center jus",
+      "type": "submit",
+      "isVisible": true,
+      "selector": "div.w-full.h-full.flex.overflow-hidden.bg-s-color-bg-body > div.flex-1.flex.relative.main-with-nav-qPJ0z0 > main.flex-1.min-w-0.flex.items-stretch.relative.center-bg-uIUvUP > div.flex.min-w-0.flex-grow.flex-col > div.relative.z-30.flex-row.flex.h-[var(--header-height)].w-full.flex-none.items-center.border-b.border-b-[var(--dbx-line-7)].px-16 > div.flex-row.flex.min-w-0.flex-1.gap-8.overflow-hidden > button.flex.shrink-0.items-center.justify-center.font-[400].whitespace-nowrap.select-none.[&_svg]:shrink-0.text-[16px].leading-[24px].gap-[4px].rounded-dbx-sm.p-[4px].transition-colors.duration-150.ease-out.bg-transparent.hover:bg-dbx-fill-trans-20-hover.[&:is(:where(:is([aria-haspopup=\"dialog\"],[aria-haspopup=\"menu\"])[data-state=\"open\"]:not([data-slot=\"alert-dialog-trigger\"])),:where(:is([aria-haspopup=\"dialog\"],[aria-haspopup=\"menu\"])[data-state=\"open\"]:not([data-slot=\"alert-dialog-trigger\"])_*))]:bg-dbx-fill-trans-20-hover.outline-transparent.outline-none.[&_svg:not([class*=\"size-\"])]:size-[18px].[&_svg[data-dbx-name=button-caret]:not([class*=\"size-\"])]:size-[12px].relative.h-fit.cursor-pointer.text-(--dbx-text-primary)",
+      "hasClickHandler": false
+    },
+    {
+      "index": 44,
+      "tagName": "BUTTON",
+      "text": "",
+      "id": "radix-:rn:",
+      "className": "",
+      "type": "button",
+      "isVisible": true,
+      "selector": "#radix-:rn:",
+      "hasClickHandler": false
+    },
+    {
+      "index": 45,
+      "tagName": "BUTTON",
+      "text": "",
+      "id": "",
+      "className": "semi-button semi-button-primar",
+      "type": "button",
+      "isVisible": true,
+      "selector": "button > div > button.semi-button.semi-button-primary.samantha-button-BghSMg.tertiary-o1h39p.medium-VC3b8a.icon-hKywyK.icon-only-BL0gii.button-EWcT9p.semi-button-with-icon.semi-button-with-icon-only",
+      "hasClickHandler": false
+    },
+    {
+      "index": 47,
+      "tagName": "BUTTON",
+      "text": "深度思考",
+      "id": "",
+      "className": "shrink-0 items-center justify-",
+      "type": "submit",
+      "isVisible": true,
+      "selector": "div.w-full.h-full.flex.overflow-hidden.bg-s-color-bg-body > div.flex-1.flex.relative.main-with-nav-qPJ0z0 > main.flex-1.min-w-0.flex.items-stretch.relative.center-bg-uIUvUP > div.flex.min-w-0.flex-grow.flex-col > div.-mt-[var(--header-height)].flex.w-full.flex-grow.flex-col.items-center.px-16 > div.relative.flex.flex-col.w-full.min-h-(--input-guidance-input-container-min-height).max-h-(--input-guidance-input-container-max-height).max-w-(--content-max-width) > div.relative.flex.flex-col.flex-1.justify-between.min-h-0 > div.flex.flex-col-reverse > div.input-content-container-qGGCGi > div.container-gaxn1L > div.editor-container-FvjPyp > div.bottom-wrapper-HSqF30 > div.left-tools-wrapper-OPMrTB > div.bp5-overflow-list.overflow-list-TcIun0 > div.action-item-kihiq2 > button.shrink-0.items-center.justify-center.whitespace-nowrap.select-none.[&_svg]:shrink-0.text-[14px].leading-[22px].gap-[4px].rounded-dbx-lg.transition-colors.duration-150.ease-out.text-dbx-text-primary.hover:bg-dbx-fill-trans-20-hover.[&:is(:where(:is([aria-haspopup=\"dialog\"],[aria-haspopup=\"menu\"])[data-state=\"open\"]:not([data-slot=\"alert-dialog-trigger\"])),:where(:is([aria-haspopup=\"dialog\"],[aria-haspopup=\"menu\"])[data-state=\"open\"]:not([data-slot=\"alert-dialog-trigger\"])_*))]:bg-dbx-fill-trans-20-hover.outline-transparent.outline-none.[&_svg:not([class*=\"size-\"])]:size-[16px].[&_svg[data-dbx-name=button-caret]:not([class*=\"size-\"])]:size-[12px].relative.cursor-pointer.flex.box-border.font-medium.bg-transparent.border-1.border-[var(--s-color-border-tertiary)].rounded-(--s-radius-xs).py-7.px-12.h-36.!text-[var(--s-color-brand-primary-default)].!bg-[var(--s-color-system-info-lighten)].!border-[var(--s-color-brand-primary-transparent-3)]",
+      "hasClickHandler": false
+    },
+    {
+      "index": 48,
+      "tagName": "BUTTON",
+      "text": "",
+      "id": "flow-end-msg-send",
+      "className": "semi-button semi-button-primar",
+      "type": "button",
+      "isVisible": true,
+      "selector": "#flow-end-msg-send",
+      "hasClickHandler": false
+    }
+  ],
+  "images": [
+    {
+      "index": 0,
+      "tagName": "IMG",
+      "src": "https://lf-flow-web-cdn.doubao.com/obj/flow-doubao/samantha/logo-icon-white-bg.png",
+      "alt": "logo",
+      "className": "h-36 w-36",
+      "isVisible": true,
+      "selector": "div.relative.p-12.sm:fixed.overflow-hidden.pointer-events-auto.w-[var(--sidebar-width)].flex.shrink-0.flex-col.bg-dbx-bg-base-web.border-r.border-[0.5px].border-s-color-border-tertiary/80.transition-[transform].duration-[var(--transition-duration-slow)].ease-[var(--ease-in-out)].transform.transform.h-full > div.mb-16.flex-row.flex.w-full.items-center.justify-between > div.flex.items-center.gap-8.text-s-color-text-secondary.s-font-base-em > div.flex-row.flex.h-36.cursor-pointer.items-center.gap-8 > img.h-36.w-36"
+    },
+    {
+      "index": 1,
+      "tagName": "IMG",
+      "src": "https://p11-flow-imagex-sign.byteimg.com/ocean-cloud-tos/FileBizType.BIZ_BOT_ICON/1102137949424476_1739085656854311616.jpg~tplv-a9rns2rl98-image-qvalue.jpeg?lk3s=a16ed425&lrcfp=e440b5d2&rcl=202604141405339E6DE13D0D35D0E1FB4B&x-expires=1807769133&x-signature=b125B0w0tsQvhc3HFcwx%2FP%2FAqyQ%3D",
+      "alt": "avatar",
+      "className": "mr-7 inline-block size-20 flex",
+      "isVisible": true,
+      "selector": "a.cursor-pointer.flex.items-center.rounded-dbx-lg.h-36.hover:bg-dbx-fill-trans-10-hover.chat-item-r3aVVV.chat-item-new-icon-rqGUVU.!pl-8.plain-WkoVsS.no-select.desktop-section-item-gWi1R3 > div.wrapper-Xy3kj9 > div.content-pWK1u_ > img.mr-7.inline-block.size-20.flex-none.rounded-full"
+    }
+  ],
+  "iframes": [],
+  "sections": [
+    {
+      "index": 0,
+      "tagName": "DIV",
+      "id": "root",
+      "className": "",
+      "text": "豆包新对话AI 创作云盘更多\n    To pick up a draggable item, press the space bar.\n    While dragging, use the arrow keys to move the item.\n    Press space again to drop the item in its new position, or press escap",
+      "isVisible": true,
+      "selector": "#root"
+    },
+    {
+      "index": 1,
+      "tagName": "DIV",
+      "id": "chat-route-layout",
+      "className": "w-full h-full flex overflow-hi",
+      "text": "豆包新对话AI 创作云盘更多\n    To pick up a draggable item, press the space bar.\n    While dragging, use the arrow keys to move the item.\n    Press space again to drop the item in its new position, or press escap",
+      "isVisible": true,
+      "selector": "#chat-route-layout"
+    },
+    {
+      "index": 2,
+      "tagName": "DIV",
+      "id": "",
+      "className": "flex-1 flex relative main-with",
+      "text": "豆包新对话AI 创作云盘更多\n    To pick up a draggable item, press the space bar.\n    While dragging, use the arrow keys to move the item.\n    Press space again to drop the item in its new position, or press escap",
+      "isVisible": true,
+      "selector": "div.w-full.h-full.flex.overflow-hidden.bg-s-color-bg-body > div.flex-1.flex.relative.main-with-nav-qPJ0z0"
+    },
+    {
+      "index": 3,
+      "tagName": "DIV",
+      "id": "flow_chat_sidebar",
+      "className": "relative p-12 sm:fixed overflo",
+      "text": "豆包新对话AI 创作云盘更多\n    To pick up a draggable item, press the space bar.\n    While dragging, use the arrow keys to move the item.\n    Press space again to drop the item in its new position, or press escap",
+      "isVisible": true,
+      "selector": "#flow_chat_sidebar"
+    },
+    {
+      "index": 9,
+      "tagName": "DIV",
+      "id": "",
+      "className": "\n            relative -mr-9 fl",
+      "text": "AI 创作云盘更多\n    To pick up a draggable item, press the space bar.\n    While dragging, use the arrow keys to move the item.\n    Press space again to drop the item in its new position, or press escape to ",
+      "isVisible": true,
+      "selector": "div.relative.p-12.sm:fixed.overflow-hidden.pointer-events-auto.w-[var(--sidebar-width)].flex.shrink-0.flex-col.bg-dbx-bg-base-web.border-r.border-[0.5px].border-s-color-border-tertiary/80.transition-[transform].duration-[var(--transition-duration-slow)].ease-[var(--ease-in-out)].transform.transform.h-full > div.relative.-mr-9.flow-scrollbar.min-h-0.flex-1.overflow-y-auto.pr-[calc(9px-var(--scrollbar-width))]"
+    },
+    {
+      "index": 10,
+      "tagName": "DIV",
+      "id": "",
+      "className": "mb-22 flex w-full flex-col gap",
+      "text": "AI 创作云盘更多\n    To pick up a draggable item, press the space bar.\n    While dragging, use the arrow keys to move the item.\n    Press space again to drop the item in its new position, or press escape to ",
+      "isVisible": true,
+      "selector": "div.relative.p-12.sm:fixed.overflow-hidden.pointer-events-auto.w-[var(--sidebar-width)].flex.shrink-0.flex-col.bg-dbx-bg-base-web.border-r.border-[0.5px].border-s-color-border-tertiary/80.transition-[transform].duration-[var(--transition-duration-slow)].ease-[var(--ease-in-out)].transform.transform.h-full > div.relative.-mr-9.flow-scrollbar.min-h-0.flex-1.overflow-y-auto.pr-[calc(9px-var(--scrollbar-width))] > div.mb-22.flex.w-full.flex-col.gap-3"
+    },
+    {
+      "index": 11,
+      "tagName": "DIV",
+      "id": "",
+      "className": "\n        relative\n        empt",
+      "text": "AI 创作",
+      "isVisible": true,
+      "selector": "div.relative.p-12.sm:fixed.overflow-hidden.pointer-events-auto.w-[var(--sidebar-width)].flex.shrink-0.flex-col.bg-dbx-bg-base-web.border-r.border-[0.5px].border-s-color-border-tertiary/80.transition-[transform].duration-[var(--transition-duration-slow)].ease-[var(--ease-in-out)].transform.transform.h-full > div.relative.-mr-9.flow-scrollbar.min-h-0.flex-1.overflow-y-auto.pr-[calc(9px-var(--scrollbar-width))] > div.mb-22.flex.w-full.flex-col.gap-3 > div.relative.empty:hidden:nth-child(1)"
+    },
+    {
+      "index": 12,
+      "tagName": "DIV",
+      "id": "",
+      "className": "",
+      "text": "AI 创作",
+      "isVisible": true,
+      "selector": "div.relative.p-12.sm:fixed.overflow-hidden.pointer-events-auto.w-[var(--sidebar-width)].flex.shrink-0.flex-col.bg-dbx-bg-base-web.border-r.border-[0.5px].border-s-color-border-tertiary/80.transition-[transform].duration-[var(--transition-duration-slow)].ease-[var(--ease-in-out)].transform.transform.h-full > div.relative.-mr-9.flow-scrollbar.min-h-0.flex-1.overflow-y-auto.pr-[calc(9px-var(--scrollbar-width))] > div.mb-22.flex.w-full.flex-col.gap-3 > div.relative.empty:hidden:nth-child(1) > div"
+    },
+    {
+      "index": 13,
+      "tagName": "DIV",
+      "id": "",
+      "className": "flex w-full items-center justi",
+      "text": "AI 创作",
+      "isVisible": true,
+      "selector": "div.relative.p-12.sm:fixed.overflow-hidden.pointer-events-auto.w-[var(--sidebar-width)].flex.shrink-0.flex-col.bg-dbx-bg-base-web.border-r.border-[0.5px].border-s-color-border-tertiary/80.transition-[transform].duration-[var(--transition-duration-slow)].ease-[var(--ease-in-out)].transform.transform.h-full > div.relative.-mr-9.flow-scrollbar.min-h-0.flex-1.overflow-y-auto.pr-[calc(9px-var(--scrollbar-width))] > div.mb-22.flex.w-full.flex-col.gap-3 > div.relative.empty:hidden:nth-child(1) > div > a.group/sidebar_nav_item.cursor-pointer.flex.items-center.px-8.rounded-dbx-lg.h-36.text-dbx-text-primary.hover:bg-dbx-fill-trans-10-hover.nav-link-IkIer0 > div.flex.w-full.items-center.justify-between"
+    },
+    {
+      "index": 14,
+      "tagName": "DIV",
+      "id": "",
+      "className": "truncate ml-[8px] flex-1 min-w",
+      "text": "AI 创作",
+      "isVisible": true,
+      "selector": "div.relative.p-12.sm:fixed.overflow-hidden.pointer-events-auto.w-[var(--sidebar-width)].flex.shrink-0.flex-col.bg-dbx-bg-base-web.border-r.border-[0.5px].border-s-color-border-tertiary/80.transition-[transform].duration-[var(--transition-duration-slow)].ease-[var(--ease-in-out)].transform.transform.h-full > div.relative.-mr-9.flow-scrollbar.min-h-0.flex-1.overflow-y-auto.pr-[calc(9px-var(--scrollbar-width))] > div.mb-22.flex.w-full.flex-col.gap-3 > div.relative.empty:hidden:nth-child(1) > div > a.group/sidebar_nav_item.cursor-pointer.flex.items-center.px-8.rounded-dbx-lg.h-36.text-dbx-text-primary.hover:bg-dbx-fill-trans-10-hover.nav-link-IkIer0 > div.flex.w-full.items-center.justify-between > div.truncate.ml-[8px].flex-1.min-w-0.s-font-small.flex.items-center"
+    },
+    {
+      "index": 311,
+      "tagName": "MAIN",
+      "id": "",
+      "className": "flex-1 min-w-0 flex items-stre",
+      "text": "新对话内容由豆包 AI 生成下午好，香山传奇生成一张日式动漫风格的猫咪图片，可爱，大眼睛，背景是樱花树深度思考编程深入研究帮我写作图像生成音乐生成视频生成更多在此处拖放文件文件数量：最多 50 个, 文件类型：pdf, txt, csv, docx, doc, xlsx, xls, pptx, ppt, md, mobi, epub",
+      "isVisible": true,
+      "selector": "div.w-full.h-full.flex.overflow-hidden.bg-s-color-bg-body > div.flex-1.flex.relative.main-with-nav-qPJ0z0 > main.flex-1.min-w-0.flex.items-stretch.relative.center-bg-uIUvUP"
+    },
+    {
+      "index": 312,
+      "tagName": "DIV",
+      "id": "",
+      "className": "flex min-w-0 flex-grow flex-co",
+      "text": "新对话内容由豆包 AI 生成下午好，香山传奇生成一张日式动漫风格的猫咪图片，可爱，大眼睛，背景是樱花树深度思考编程深入研究帮我写作图像生成音乐生成视频生成更多在此处拖放文件文件数量：最多 50 个, 文件类型：pdf, txt, csv, docx, doc, xlsx, xls, pptx, ppt, md, mobi, epub",
+      "isVisible": true,
+      "selector": "div.w-full.h-full.flex.overflow-hidden.bg-s-color-bg-body > div.flex-1.flex.relative.main-with-nav-qPJ0z0 > main.flex-1.min-w-0.flex.items-stretch.relative.center-bg-uIUvUP > div.flex.min-w-0.flex-grow.flex-col"
+    },
+    {
+      "index": 313,
+      "tagName": "DIV",
+      "id": "",
+      "className": "\n        relative z-30 flex-ro",
+      "text": "新对话内容由豆包 AI 生成",
+      "isVisible": true,
+      "selector": "div.w-full.h-full.flex.overflow-hidden.bg-s-color-bg-body > div.flex-1.flex.relative.main-with-nav-qPJ0z0 > main.flex-1.min-w-0.flex.items-stretch.relative.center-bg-uIUvUP > div.flex.min-w-0.flex-grow.flex-col > div.relative.z-30.flex-row.flex.h-[var(--header-height)].w-full.flex-none.items-center.border-b.border-b-[var(--dbx-line-7)].px-16"
+    },
+    {
+      "index": 317,
+      "tagName": "DIV",
+      "id": "",
+      "className": "flex-row flex flex-1 justify-c",
+      "text": "新对话内容由豆包 AI 生成",
+      "isVisible": true,
+      "selector": "div.w-full.h-full.flex.overflow-hidden.bg-s-color-bg-body > div.flex-1.flex.relative.main-with-nav-qPJ0z0 > main.flex-1.min-w-0.flex.items-stretch.relative.center-bg-uIUvUP > div.flex.min-w-0.flex-grow.flex-col > div.relative.z-30.flex-row.flex.h-[var(--header-height)].w-full.flex-none.items-center.border-b.border-b-[var(--dbx-line-7)].px-16 > div.flex-row.flex.flex-1.justify-center.gap-8"
+    },
+    {
+      "index": 318,
+      "tagName": "DIV",
+      "id": "",
+      "className": "",
+      "text": "新对话内容由豆包 AI 生成",
+      "isVisible": true,
+      "selector": "div.w-full.h-full.flex.overflow-hidden.bg-s-color-bg-body > div.flex-1.flex.relative.main-with-nav-qPJ0z0 > main.flex-1.min-w-0.flex.items-stretch.relative.center-bg-uIUvUP > div.flex.min-w-0.flex-grow.flex-col > div.relative.z-30.flex-row.flex.h-[var(--header-height)].w-full.flex-none.items-center.border-b.border-b-[var(--dbx-line-7)].px-16 > div.flex-row.flex.flex-1.justify-center.gap-8 > div"
+    },
+    {
+      "index": 319,
+      "tagName": "DIV",
+      "id": "",
+      "className": "flex h-full w-full flex-col ju",
+      "text": "新对话内容由豆包 AI 生成",
+      "isVisible": true,
+      "selector": "div.w-full.h-full.flex.overflow-hidden.bg-s-color-bg-body > div.flex-1.flex.relative.main-with-nav-qPJ0z0 > main.flex-1.min-w-0.flex.items-stretch.relative.center-bg-uIUvUP > div.flex.min-w-0.flex-grow.flex-col > div.relative.z-30.flex-row.flex.h-[var(--header-height)].w-full.flex-none.items-center.border-b.border-b-[var(--dbx-line-7)].px-16 > div.flex-row.flex.flex-1.justify-center.gap-8 > div > div.flex.h-full.w-full.flex-col.justify-center"
+    },
+    {
+      "index": 324,
+      "tagName": "DIV",
+      "id": "",
+      "className": "\n            flex w-full items",
+      "text": "内容由豆包 AI 生成",
+      "isVisible": true,
+      "selector": "div.w-full.h-full.flex.overflow-hidden.bg-s-color-bg-body > div.flex-1.flex.relative.main-with-nav-qPJ0z0 > main.flex-1.min-w-0.flex.items-stretch.relative.center-bg-uIUvUP > div.flex.min-w-0.flex-grow.flex-col > div.relative.z-30.flex-row.flex.h-[var(--header-height)].w-full.flex-none.items-center.border-b.border-b-[var(--dbx-line-7)].px-16 > div.flex-row.flex.flex-1.justify-center.gap-8 > div > div.flex.h-full.w-full.flex-col.justify-center > div.flex.w-full.items-center.justify-center.truncate.!text-[10px].text-(--dbx-text-disable).s-font-xxs"
+    },
+    {
+      "index": 326,
+      "tagName": "DIV",
+      "id": "",
+      "className": "\n          -mt-[var(--header-h",
+      "text": "下午好，香山传奇生成一张日式动漫风格的猫咪图片，可爱，大眼睛，背景是樱花树深度思考编程深入研究帮我写作图像生成音乐生成视频生成更多",
+      "isVisible": true,
+      "selector": "div.w-full.h-full.flex.overflow-hidden.bg-s-color-bg-body > div.flex-1.flex.relative.main-with-nav-qPJ0z0 > main.flex-1.min-w-0.flex.items-stretch.relative.center-bg-uIUvUP > div.flex.min-w-0.flex-grow.flex-col > div.-mt-[var(--header-height)].flex.w-full.flex-grow.flex-col.items-center.px-16"
+    },
+    {
+      "index": 329,
+      "tagName": "DIV",
+      "id": "",
+      "className": "relative flex flex-col w-full ",
+      "text": "生成一张日式动漫风格的猫咪图片，可爱，大眼睛，背景是樱花树深度思考",
+      "isVisible": true,
+      "selector": "div.w-full.h-full.flex.overflow-hidden.bg-s-color-bg-body > div.flex-1.flex.relative.main-with-nav-qPJ0z0 > main.flex-1.min-w-0.flex.items-stretch.relative.center-bg-uIUvUP > div.flex.min-w-0.flex-grow.flex-col > div.-mt-[var(--header-height)].flex.w-full.flex-grow.flex-col.items-center.px-16 > div.relative.flex.flex-col.w-full.min-h-(--input-guidance-input-container-min-height).max-h-(--input-guidance-input-container-max-height).max-w-(--content-max-width)"
+    },
+    {
+      "index": 330,
+      "tagName": "DIV",
+      "id": "",
+      "className": "relative flex flex-col flex-1 ",
+      "text": "生成一张日式动漫风格的猫咪图片，可爱，大眼睛，背景是樱花树深度思考",
+      "isVisible": true,
+      "selector": "div.w-full.h-full.flex.overflow-hidden.bg-s-color-bg-body > div.flex-1.flex.relative.main-with-nav-qPJ0z0 > main.flex-1.min-w-0.flex.items-stretch.relative.center-bg-uIUvUP > div.flex.min-w-0.flex-grow.flex-col > div.-mt-[var(--header-height)].flex.w-full.flex-grow.flex-col.items-center.px-16 > div.relative.flex.flex-col.w-full.min-h-(--input-guidance-input-container-min-height).max-h-(--input-guidance-input-container-max-height).max-w-(--content-max-width) > div.relative.flex.flex-col.flex-1.justify-between.min-h-0"
+    },
+    {
+      "index": 332,
+      "tagName": "DIV",
+      "id": "",
+      "className": "flex flex-col-reverse",
+      "text": "生成一张日式动漫风格的猫咪图片，可爱，大眼睛，背景是樱花树深度思考",
+      "isVisible": true,
+      "selector": "div.w-full.h-full.flex.overflow-hidden.bg-s-color-bg-body > div.flex-1.flex.relative.main-with-nav-qPJ0z0 > main.flex-1.min-w-0.flex.items-stretch.relative.center-bg-uIUvUP > div.flex.min-w-0.flex-grow.flex-col > div.-mt-[var(--header-height)].flex.w-full.flex-grow.flex-col.items-center.px-16 > div.relative.flex.flex-col.w-full.min-h-(--input-guidance-input-container-min-height).max-h-(--input-guidance-input-container-max-height).max-w-(--content-max-width) > div.relative.flex.flex-col.flex-1.justify-between.min-h-0 > div.flex.flex-col-reverse"
+    },
+    {
+      "index": 333,
+      "tagName": "DIV",
+      "id": "",
+      "className": "input-content-container-qGGCGi",
+      "text": "生成一张日式动漫风格的猫咪图片，可爱，大眼睛，背景是樱花树深度思考",
+      "isVisible": true,
+      "selector": "div.w-full.h-full.flex.overflow-hidden.bg-s-color-bg-body > div.flex-1.flex.relative.main-with-nav-qPJ0z0 > main.flex-1.min-w-0.flex.items-stretch.relative.center-bg-uIUvUP > div.flex.min-w-0.flex-grow.flex-col > div.-mt-[var(--header-height)].flex.w-full.flex-grow.flex-col.items-center.px-16 > div.relative.flex.flex-col.w-full.min-h-(--input-guidance-input-container-min-height).max-h-(--input-guidance-input-container-max-height).max-w-(--content-max-width) > div.relative.flex.flex-col.flex-1.justify-between.min-h-0 > div.flex.flex-col-reverse > div.input-content-container-qGGCGi"
+    },
+    {
+      "index": 335,
+      "tagName": "DIV",
+      "id": "",
+      "className": "container-gaxn1L",
+      "text": "生成一张日式动漫风格的猫咪图片，可爱，大眼睛，背景是樱花树深度思考",
+      "isVisible": true,
+      "selector": "div.w-full.h-full.flex.overflow-hidden.bg-s-color-bg-body > div.flex-1.flex.relative.main-with-nav-qPJ0z0 > main.flex-1.min-w-0.flex.items-stretch.relative.center-bg-uIUvUP > div.flex.min-w-0.flex-grow.flex-col > div.-mt-[var(--header-height)].flex.w-full.flex-grow.flex-col.items-center.px-16 > div.relative.flex.flex-col.w-full.min-h-(--input-guidance-input-container-min-height).max-h-(--input-guidance-input-container-max-height).max-w-(--content-max-width) > div.relative.flex.flex-col.flex-1.justify-between.min-h-0 > div.flex.flex-col-reverse > div.input-content-container-qGGCGi > div.container-gaxn1L"
+    },
+    {
+      "index": 338,
+      "tagName": "DIV",
+      "id": "",
+      "className": "editor-container-FvjPyp",
+      "text": "生成一张日式动漫风格的猫咪图片，可爱，大眼睛，背景是樱花树深度思考",
+      "isVisible": true,
+      "selector": "div.w-full.h-full.flex.overflow-hidden.bg-s-color-bg-body > div.flex-1.flex.relative.main-with-nav-qPJ0z0 > main.flex-1.min-w-0.flex.items-stretch.relative.center-bg-uIUvUP > div.flex.min-w-0.flex-grow.flex-col > div.-mt-[var(--header-height)].flex.w-full.flex-grow.flex-col.items-center.px-16 > div.relative.flex.flex-col.w-full.min-h-(--input-guidance-input-container-min-height).max-h-(--input-guidance-input-container-max-height).max-w-(--content-max-width) > div.relative.flex.flex-col.flex-1.justify-between.min-h-0 > div.flex.flex-col-reverse > div.input-content-container-qGGCGi > div.container-gaxn1L > div.editor-container-FvjPyp"
+    },
+    {
+      "index": 339,
+      "tagName": "DIV",
+      "id": "",
+      "className": "editor-wrapper-aTMAEc",
+      "text": "生成一张日式动漫风格的猫咪图片，可爱，大眼睛，背景是樱花树",
+      "isVisible": true,
+      "selector": "div.w-full.h-full.flex.overflow-hidden.bg-s-color-bg-body > div.flex-1.flex.relative.main-with-nav-qPJ0z0 > main.flex-1.min-w-0.flex.items-stretch.relative.center-bg-uIUvUP > div.flex.min-w-0.flex-grow.flex-col > div.-mt-[var(--header-height)].flex.w-full.flex-grow.flex-col.items-center.px-16 > div.relative.flex.flex-col.w-full.min-h-(--input-guidance-input-container-min-height).max-h-(--input-guidance-input-container-max-height).max-w-(--content-max-width) > div.relative.flex.flex-col.flex-1.justify-between.min-h-0 > div.flex.flex-col-reverse > div.input-content-container-qGGCGi > div.container-gaxn1L > div.editor-container-FvjPyp > div.editor-wrapper-aTMAEc"
+    },
+    {
+      "index": 342,
+      "tagName": "DIV",
+      "id": "",
+      "className": "container-kxxSU4 editor-A1E_5W",
+      "text": "生成一张日式动漫风格的猫咪图片，可爱，大眼睛，背景是樱花树",
+      "isVisible": true,
+      "selector": "div.w-full.h-full.flex.overflow-hidden.bg-s-color-bg-body > div.flex-1.flex.relative.main-with-nav-qPJ0z0 > main.flex-1.min-w-0.flex.items-stretch.relative.center-bg-uIUvUP > div.flex.min-w-0.flex-grow.flex-col > div.-mt-[var(--header-height)].flex.w-full.flex-grow.flex-col.items-center.px-16 > div.relative.flex.flex-col.w-full.min-h-(--input-guidance-input-container-min-height).max-h-(--input-guidance-input-container-max-height).max-w-(--content-max-width) > div.relative.flex.flex-col.flex-1.justify-between.min-h-0 > div.flex.flex-col-reverse > div.input-content-container-qGGCGi > div.container-gaxn1L > div.editor-container-FvjPyp > div.editor-wrapper-aTMAEc > div.container-kxxSU4.editor-A1E_5W.textarea-BnKyIt.custom-scrollbar-stmEIo.semi-input-textarea-wrapper"
+    },
+    {
+      "index": 367,
+      "tagName": "DIV",
+      "id": "",
+      "className": "flex flex-row justify-center !",
+      "text": "编程深入研究帮我写作图像生成音乐生成视频生成更多",
+      "isVisible": true,
+      "selector": "div.w-full.h-full.flex.overflow-hidden.bg-s-color-bg-body > div.flex-1.flex.relative.main-with-nav-qPJ0z0 > main.flex-1.min-w-0.flex.items-stretch.relative.center-bg-uIUvUP > div.flex.min-w-0.flex-grow.flex-col > div.-mt-[var(--header-height)].flex.w-full.flex-grow.flex-col.items-center.px-16 > div.flex.flex-row.justify-center.!items-start.max-w-[var(--content-max-width)].w-full.!flex-nowrap.opacity-100.mt-28"
+    },
+    {
+      "index": 371,
+      "tagName": "DIV",
+      "id": "",
+      "className": "relative flex flex-0 min-w-fit",
+      "text": "图像生成",
+      "isVisible": true,
+      "selector": "div.w-full.h-full.flex.overflow-hidden.bg-s-color-bg-body > div.flex-1.flex.relative.main-with-nav-qPJ0z0 > main.flex-1.min-w-0.flex.items-stretch.relative.center-bg-uIUvUP > div.flex.min-w-0.flex-grow.flex-col > div.-mt-[var(--header-height)].flex.w-full.flex-grow.flex-col.items-center.px-16 > div.flex.flex-row.justify-center.!items-start.max-w-[var(--content-max-width)].w-full.!flex-nowrap.opacity-100.mt-28 > div.relative.flex.flex-0.min-w-fit.items-center.gap-4.py-10.px-15.text-sm.w-max.h-fit.font-medium.cursor-pointer.text-[var(--s-color-text-secondary)].border.border-solid.border-[var(--s-color-border-tertiary)].rounded-[var(--s-radius-xxl)].hover:bg-[var(--s-color-bg-trans)].group.skill-bar-button:nth-child(4)"
+    },
+    {
+      "index": 372,
+      "tagName": "DIV",
+      "id": "",
+      "className": "relative flex flex-0 min-w-fit",
+      "text": "音乐生成",
+      "isVisible": true,
+      "selector": "div.w-full.h-full.flex.overflow-hidden.bg-s-color-bg-body > div.flex-1.flex.relative.main-with-nav-qPJ0z0 > main.flex-1.min-w-0.flex.items-stretch.relative.center-bg-uIUvUP > div.flex.min-w-0.flex-grow.flex-col > div.-mt-[var(--header-height)].flex.w-full.flex-grow.flex-col.items-center.px-16 > div.flex.flex-row.justify-center.!items-start.max-w-[var(--content-max-width)].w-full.!flex-nowrap.opacity-100.mt-28 > div.relative.flex.flex-0.min-w-fit.items-center.gap-4.py-10.px-15.text-sm.w-max.h-fit.font-medium.cursor-pointer.text-[var(--s-color-text-secondary)].border.border-solid.border-[var(--s-color-border-tertiary)].rounded-[var(--s-radius-xxl)].hover:bg-[var(--s-color-bg-trans)].group.skill-bar-button:nth-child(5)"
+    },
+    {
+      "index": 373,
+      "tagName": "DIV",
+      "id": "",
+      "className": "relative flex flex-0 min-w-fit",
+      "text": "视频生成",
+      "isVisible": true,
+      "selector": "div.w-full.h-full.flex.overflow-hidden.bg-s-color-bg-body > div.flex-1.flex.relative.main-with-nav-qPJ0z0 > main.flex-1.min-w-0.flex.items-stretch.relative.center-bg-uIUvUP > div.flex.min-w-0.flex-grow.flex-col > div.-mt-[var(--header-height)].flex.w-full.flex-grow.flex-col.items-center.px-16 > div.flex.flex-row.justify-center.!items-start.max-w-[var(--content-max-width)].w-full.!flex-nowrap.opacity-100.mt-28 > div.relative.flex.flex-0.min-w-fit.items-center.gap-4.py-10.px-15.text-sm.w-max.h-fit.font-medium.cursor-pointer.text-[var(--s-color-text-secondary)].border.border-solid.border-[var(--s-color-border-tertiary)].rounded-[var(--s-radius-xxl)].hover:bg-[var(--s-color-bg-trans)].group.skill-bar-button:nth-child(6)"
+    }
+  ],
+  "specialElements": [],
+  "pageTitle": "豆包 - 字节跳动旗下 AI 智能助手",
+  "pageURL": "https://www.doubao.com/chat/",
+  "viewportWidth": 1301,
+  "viewportHeight": 677
+}

@@ -1,0 +1,21 @@
+{
+  "timestamp": "2026-04-13T13:02:04.781930",
+  "engine": "VideoGenerationEngine",
+  "tests": [
+    {
+      "theme": "碳硅共生",
+      "video_path": "/Volumes/1TB-M2/openclaw/scripts/clawra/output/videos/clawra_L3_碳硅共生_20260413_125935.mp4",
+      "status": "success"
+    },
+    {
+      "theme": "open human",
+      "video_path": "/Volumes/1TB-M2/openclaw/scripts/clawra/output/videos/clawra_L3_open human_20260413_130150.mp4",
+      "status": "success"
+    }
+  ],
+  "environment": {
+    "opencv_version": "4.13.0",
+    "numpy_version": "2.4.3",
+    "output_dir": "/Volumes/1TB-M2/openclaw/scripts/clawra/output/videos"
+  }
+}

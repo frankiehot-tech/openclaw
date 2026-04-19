@@ -1,0 +1,607 @@
+# 混沌测试场景配置文件
+# 基于《多Agent系统24小时压力测试问题修复实施方案》第二阶段设计
+# 用于定义和执行四层故障注入测试场景
+
+version: "1.0"
+description: "四层混沌测试场景定义 - 第二阶段实施"
+created_at: "2026-04-06"
+updated_at: "2026-04-06"
+engine_version: "1.0"
+
+# ==================== 测试环境配置 ====================
+test_environment:
+  mode: "safe_simulation"  # 安全模式：模拟故障，不实际破坏
+  target_system: "athena_ai_plan_runner"
+  max_duration_minutes: 30
+  monitoring:
+    checkpoint_interval_seconds: 30
+    metrics_collection: true
+    alerting_enabled: true
+  safety_limits:
+    max_concurrent_faults: 2
+    recovery_timeout_seconds: 300
+    auto_recovery_enabled: true
+
+# ==================== 单层故障测试场景 ====================
+single_layer_scenarios:
+  description: "单层故障注入测试场景 - 每层3个场景"
+  
+  network_layer:
+    description: "网络层故障测试场景"
+    scenarios:
+      
+      # 场景1: 轻微网络延迟
+      network_latency_low:
+        name: "轻微网络延迟注入"
+        fault_type: "network_latency"
+        severity: "low"
+        parameters:
+          delay_ms: 50
+          duration_seconds: 60
+          jitter_ms: 10
+        expected_impact:
+          task_completion_time_increase: "10-20%"
+          system_availability: ">99.9%"
+          error_rate_increase: "<1%"
+        validation_metrics:
+          - metric: "avg_response_time"
+            baseline: "参考基线值"
+            threshold: "增加<30%"
+          - metric: "task_success_rate"
+            baseline: ">99%"
+            threshold: ">98%"
+        
+      # 场景2: 中等网络丢包
+      network_packet_loss_medium:
+        name: "中等网络丢包注入"
+        fault_type: "network_packet_loss"
+        severity: "medium"
+        parameters:
+          loss_percentage: 5
+          duration_seconds: 45
+          correlation_percentage: 25
+        expected_impact:
+          task_retry_rate: "5-10%"
+          timeout_errors: "轻微增加"
+          system_stability: "保持稳定"
+        validation_metrics:
+          - metric: "packet_loss_detected"
+            baseline: "0%"
+            threshold: "~5%"
+          - metric: "retry_success_rate"
+            baseline: ">95%"
+            threshold: ">90%"
+        
+      # 场景3: 严重网络分区
+      network_partition_high:
+        name: "严重网络分区注入"
+        fault_type: "network_partition"
+        severity: "high"
+        parameters:
+          partition_type: "partial"
+          blocked_ports: ["8080", "3000"]
+          duration_seconds: 30
+        expected_impact:
+          connectivity_loss: "部分端口不可达"
+          failover_activation: "期望触发"
+          data_consistency: "保持"
+        validation_metrics:
+          - metric: "port_connectivity"
+            baseline: "100%"
+            threshold: "部分失败"
+          - metric: "failover_time"
+            baseline: "N/A"
+            threshold: "<30秒"
+
+  agent_layer:
+    description: "Agent层故障测试场景"
+    scenarios:
+      
+      # 场景1: Agent进程随机终止
+      agent_crash_medium:
+        name: "Agent进程随机终止"
+        fault_type: "agent_crash"
+        severity: "medium"
+        parameters:
+          target_agents: ["athena_ai_plan_runner"]
+          kill_count: 1
+          duration_seconds: 10
+        expected_impact:
+          process_recovery: "自动重启"
+          task_continuity: "任务重试"
+          state_persistence: "保持"
+        validation_metrics:
+          - metric: "process_recovery_time"
+            baseline: "N/A"
+            threshold: "<10秒"
+          - metric: "task_resume_rate"
+            baseline: "100%"
+            threshold: ">95%"
+        
+      # 场景2: Agent内存压力测试
+      agent_memory_pressure_low:
+        name: "Agent内存压力测试"
+        fault_type: "agent_memory_pressure"
+        severity: "low"
+        parameters:
+          memory_mb: 100
+          duration_seconds: 60
+          pressure_type: "gradual"
+        expected_impact:
+          memory_usage_increase: "100MB"
+          performance_degradation: "轻微"
+          oom_prevention: "期望触发"
+        validation_metrics:
+          - metric: "memory_usage"
+            baseline: "参考基线值"
+            threshold: "增加<150MB"
+          - metric: "response_time_degradation"
+            baseline: "参考基线值"
+            threshold: "<20%"
+        
+      # 场景3: Agent CPU饱和测试
+      agent_cpu_pressure_high:
+        name: "Agent CPU饱和测试"
+        fault_type: "agent_cpu_pressure"
+        severity: "high"
+        parameters:
+          cpu_percentage: 95
+          duration_seconds: 30
+          cores_affected: 1
+        expected_impact:
+          cpu_saturation: "95%使用率"
+          throughput_reduction: "显著"
+          priority_inversion: "可能发生"
+        validation_metrics:
+          - metric: "cpu_utilization"
+            baseline: "参考基线值"
+            threshold: ">90%"
+          - metric: "throughput"
+            baseline: "参考基线值"
+            threshold: "下降<50%"
+
+  tool_layer:
+    description: "工具层故障测试场景"
+    scenarios:
+      
+      # 场景1: API速率限制错误
+      tool_rate_limit_medium:
+        name: "API速率限制错误"
+        fault_type: "tool_rate_limit"
+        severity: "medium"
+        parameters:
+          error_code: 429
+          retry_after_seconds: 30
+          duration_seconds: 60
+        expected_impact:
+          rate_limit_handling: "期望触发"
+          exponential_backoff: "期望生效"
+          graceful_degradation: "期望实现"
+        validation_metrics:
+          - metric: "rate_limit_errors"
+            baseline: "0"
+            threshold: ">0"
+          - metric: "retry_success_rate"
+            baseline: "N/A"
+            threshold: ">80%"
+        
+      # 场景2: 工具服务不可用
+      tool_service_unavailable_high:
+        name: "工具服务不可用"
+        fault_type: "tool_service_unavailable"
+        severity: "high"
+        parameters:
+          error_code: 503
+          duration_seconds: 45
+          failover_strategy: "circuit_breaker"
+        expected_impact:
+          circuit_breaker_trip: "期望触发"
+          alternative_tools: "期望切换"
+          user_experience: "降级但不中断"
+        validation_metrics:
+          - metric: "circuit_breaker_state"
+            baseline: "closed"
+            threshold: "open"
+          - metric: "fallback_success_rate"
+            baseline: "N/A"
+            threshold: ">70%"
+        
+      # 场景3: 工具响应延迟
+      tool_response_delay_low:
+        name: "工具响应延迟"
+        fault_type: "tool_response_delay"
+        severity: "low"
+        parameters:
+          delay_seconds: 2
+          duration_seconds: 90
+          random_jitter: true
+        expected_impact:
+          response_time_increase: "2秒"
+          timeout_handling: "期望正确处理"
+          user_perception: "轻微延迟"
+        validation_metrics:
+          - metric: "avg_tool_response_time"
+            baseline: "参考基线值"
+            threshold: "增加~2秒"
+          - metric: "timeout_errors"
+            baseline: "参考基线值"
+            threshold: "轻微增加"
+
+  model_layer:
+    description: "模型层故障测试场景"
+    scenarios:
+      
+      # 场景1: 模型响应延迟
+      model_response_delay_medium:
+        name: "模型响应延迟"
+        fault_type: "model_response_delay"
+        severity: "medium"
+        parameters:
+          delay_seconds: 5
+          duration_seconds: 60
+          affected_percentage: 50
+        expected_impact:
+          latency_increase: "5秒"
+          throughput_reduction: "50%"
+          queue_backlog: "可能积累"
+        validation_metrics:
+          - metric: "model_latency_p95"
+            baseline: "参考基线值"
+            threshold: "增加<6秒"
+          - metric: "queue_length"
+            baseline: "参考基线值"
+            threshold: "增加<100%"
+        
+      # 场景2: 模型输出质量劣化
+      model_output_degradation_low:
+        name: "模型输出质量劣化"
+        fault_type: "model_output_degradation"
+        severity: "low"
+        parameters:
+          degradation_level: "noise"
+          noise_percentage: 10
+          duration_seconds: 45
+        expected_impact:
+          output_quality: "轻微下降"
+          error_correction: "期望触发"
+          human_fallback: "可能触发"
+        validation_metrics:
+          - metric: "output_quality_score"
+            baseline: "参考基线值"
+            threshold: "下降<15%"
+          - metric: "correction_rate"
+            baseline: "N/A"
+            threshold: ">0%"
+        
+      # 场景3: 模型幻觉生成
+      model_hallucination_high:
+        name: "模型幻觉生成测试"
+        fault_type: "model_hallucination"
+        severity: "high"
+        parameters:
+          hallucination_type: "fabrication"
+          probability: 0.3
+          duration_seconds: 30
+        expected_impact:
+          hallucination_detection: "期望触发"
+          safety_guardrails: "期望生效"
+          human_intervention: "可能触发"
+        validation_metrics:
+          - metric: "hallucination_detection_rate"
+            baseline: "N/A"
+            threshold: ">80%"
+          - metric: "safety_block_rate"
+            baseline: "N/A"
+            threshold: ">90%"
+
+# ==================== 混合故障测试场景 ====================
+mixed_fault_scenarios:
+  description: "混合故障测试场景 - 组合故障测试"
+  
+  # 场景1: 网络延迟 + Agent崩溃
+  network_agent_combination:
+    name: "网络延迟与Agent崩溃组合测试"
+    description: "模拟网络延迟环境下Agent进程崩溃的场景"
+    sequence:
+      - step: 1
+        fault: "network_latency"
+        severity: "medium"
+        duration_seconds: 30
+      - step: 2
+        fault: "agent_crash"
+        severity: "medium"
+        start_delay_seconds: 15
+        duration_seconds: 10
+    expected_impact:
+      combined_effect: "网络延迟加剧Agent恢复难度"
+      recovery_time: "可能延长"
+      data_integrity: "必须保持"
+    validation_metrics:
+      - metric: "total_recovery_time"
+        threshold: "<45秒"
+      - metric: "data_integrity_score"
+        threshold: "100%"
+  
+  # 场景2: 工具API错误 + 模型响应延迟
+  tool_model_combination:
+    name: "工具API错误与模型延迟组合测试"
+    description: "模拟工具层故障时模型层也出现问题的场景"
+    sequence:
+      - step: 1
+        fault: "tool_rate_limit"
+        severity: "high"
+        duration_seconds: 40
+      - step: 2
+        fault: "model_response_delay"
+        severity: "medium"
+        start_delay_seconds: 10
+        duration_seconds: 30
+    expected_impact:
+      cascading_failure: "可能触发级联故障"
+      graceful_degradation: "期望实现"
+      user_experience: "显著下降但可接受"
+    validation_metrics:
+      - metric: "cascading_failure_prevention"
+        threshold: "成功阻止"
+      - metric: "degradation_gracefulness_score"
+        threshold: ">7/10"
+  
+  # 场景3: 渐进式故障升级
+  progressive_fault_escalation:
+    name: "渐进式故障升级测试"
+    description: "从轻微故障逐步升级到严重故障"
+    sequence:
+      - step: 1
+        fault: "network_latency"
+        severity: "low"
+        duration_seconds: 20
+      - step: 2
+        fault: "tool_response_delay"
+        severity: "medium"
+        start_delay_seconds: 10
+        duration_seconds: 20
+      - step: 3
+        fault: "agent_memory_pressure"
+        severity: "high"
+        start_delay_seconds: 15
+        duration_seconds: 15
+    expected_impact:
+      system_resilience: "全面测试"
+      recovery_capability: "极限测试"
+      monitoring_effectiveness: "验证告警"
+    validation_metrics:
+      - metric: "system_availability"
+        threshold: ">95%"
+      - metric: "recovery_success_rate"
+        threshold: ">90%"
+
+# ==================== 自愈验证场景 ====================
+self_healing_validation_scenarios:
+  description: "系统自愈能力验证场景"
+  
+  # 场景1: 单点故障恢复测试
+  single_point_failure_recovery:
+    name: "单点故障恢复测试"
+    fault_type: "agent_crash"
+    severity: "high"
+    parameters:
+      target_agents: ["primary_runner"]
+      kill_count: 1
+    validation_criteria:
+      recovery_time: "<30秒"
+      data_integrity: "100%"
+      task_resume_rate: ">95%"
+    monitoring_points:
+      - time: "fault_injection"
+        check: "进程状态"
+      - time: "t+10s"
+        check: "重启尝试"
+      - time: "t+20s"
+        check: "服务恢复"
+      - time: "t+30s"
+        check: "任务恢复"
+  
+  # 场景2: 多点故障恢复测试
+  multi_point_failure_recovery:
+    name: "多点故障恢复测试"
+    faults:
+      - type: "network_packet_loss"
+        severity: "medium"
+      - type: "tool_service_unavailable"
+        severity: "high"
+    validation_criteria:
+      recovery_time: "<60秒"
+      component_isolation: "成功隔离"
+      degraded_mode: "正常进入"
+    monitoring_points:
+      - time: "fault_injection"
+        check: "故障检测"
+      - time: "t+20s"
+        check: "隔离生效"
+      - time: "t+40s"
+        check: "降级模式"
+      - time: "t+60s"
+        check: "稳定运行"
+  
+  # 场景3: 级联故障恢复测试
+  cascading_failure_recovery:
+    name: "级联故障恢复测试"
+    description: "测试系统阻止和恢复级联故障的能力"
+    cascade_trigger: "network_partition"
+    cascade_components: ["agent", "tool", "model"]
+    validation_criteria:
+      cascade_prevention: "成功阻止"
+      recovery_time: "<90秒"
+      data_consistency: "100%"
+    monitoring_points:
+      - time: "trigger"
+        check: "级联检测"
+      - time: "t+30s"
+        check: "扩散阻止"
+      - time: "t+60s"
+        check: "恢复启动"
+      - time: "t+90s"
+        check: "完全恢复"
+
+# ==================== 执行计划 ====================
+execution_plan:
+  phase_1_single_layer:
+    description: "单层故障测试 - 第1周"
+    scenarios:
+      - "network_latency_low"
+      - "agent_crash_medium"
+      - "tool_rate_limit_medium"
+      - "model_response_delay_medium"
+    schedule: "sequential"
+    concurrency: 1
+  
+  phase_2_mixed_faults:
+    description: "混合故障测试 - 第2周"
+    scenarios:
+      - "network_agent_combination"
+      - "tool_model_combination"
+    schedule: "sequential"
+    concurrency: 1
+    pre_requisites: ["phase_1_single_layer"]
+  
+  phase_3_self_healing:
+    description: "自愈能力验证 - 第3周"
+    scenarios:
+      - "single_point_failure_recovery"
+      - "multi_point_failure_recovery"
+    schedule: "sequential"
+    concurrency: 1
+    pre_requisites: ["phase_2_mixed_faults"]
+  
+  phase_4_progressive:
+    description: "渐进式故障测试 - 第4周"
+    scenarios:
+      - "progressive_fault_escalation"
+      - "cascading_failure_recovery"
+    schedule: "sequential"
+    concurrency: 1
+    pre_requisites: ["phase_3_self_healing"]
+
+# ==================== 监控与报告 ====================
+monitoring_and_reporting:
+  metrics_collection:
+    system_metrics:
+      - "cpu_usage"
+      - "memory_usage"
+      - "disk_io"
+      - "network_throughput"
+    
+    application_metrics:
+      - "task_success_rate"
+      - "error_rate"
+      - "response_time_p95"
+      - "queue_length"
+      - "recovery_time"
+    
+    business_metrics:
+      - "system_availability"
+      - "data_integrity_score"
+      - "user_experience_score"
+  
+  alerting_thresholds:
+    critical:
+      - "system_availability < 95%"
+      - "data_integrity < 99.9%"
+      - "recovery_time > 120s"
+    
+    warning:
+      - "error_rate > 5%"
+      - "response_time_degradation > 50%"
+      - "queue_length > 200% baseline"
+  
+  reporting:
+    per_scenario_report: true
+    daily_summary: true
+    weekly_consolidated: true
+    format: ["json", "markdown", "html"]
+
+# ==================== 验收标准 ====================
+acceptance_criteria:
+  system_level:
+    - criterion: "系统可用性"
+      requirement: ">99.9%"
+      measurement: "24小时监控"
+    
+    - criterion: "错误率"
+      requirement: "<5%"
+      measurement: "任务错误统计"
+    
+    - criterion: "恢复时间"
+      requirement: "<30秒"
+      measurement: "平均恢复时间(MTTR)"
+  
+  resilience_level:
+    - criterion: "故障检测时间"
+      requirement: "<10秒"
+      measurement: "故障注入到检测时间"
+    
+    - criterion: "自愈成功率"
+      requirement: ">95%"
+      measurement: "自动恢复成功比例"
+    
+    - criterion: "数据完整性"
+      requirement: "100%"
+      measurement: "故障前后数据一致性"
+  
+  performance_level:
+    - criterion: "吞吐量影响"
+      requirement: "<30%下降"
+      measurement: "故障期间vs正常期间"
+    
+    - criterion: "响应时间"
+      requirement: "<50%增加"
+      measurement: "P95响应时间变化"
+    
+    - criterion: "资源使用"
+      requirement: "<20%异常增加"
+      measurement: "CPU/内存使用率"
+
+# ==================== 风险控制 ====================
+risk_control:
+  safety_measures:
+    - measure: "安全模式"
+      description: "默认启用模拟模式，不实际破坏系统"
+      activation: "always"
+    
+    - measure: "时间限制"
+      description: "每个故障注入有最大持续时间"
+      default: "300秒"
+    
+    - measure: "自动恢复"
+      description: "故障结束后自动恢复系统状态"
+      enabled: true
+    
+    - measure: "监控覆盖"
+      description: "实时监控系统健康状态"
+      coverage: "100%关键指标"
+  
+  rollback_procedures:
+    - procedure: "立即停止"
+      trigger: "系统可用性<90%"
+      action: "停止所有故障注入"
+    
+    - procedure: "强制恢复"
+      trigger: "数据完整性风险"
+      action: "强制恢复所有故障"
+    
+    - procedure: "系统重启"
+      trigger: "级联故障检测"
+      action: "安全重启受影响组件"
+  
+  contingency_plan:
+    - scenario: "测试环境污染"
+      action: "环境隔离和清理"
+      responsibility: "测试负责人"
+    
+    - scenario: "生产环境影响"
+      action: "立即隔离和通知"
+      responsibility: "SRE团队"
+    
+    - scenario: "数据丢失风险"
+      action: "备份恢复流程"
+      responsibility: "数据管理员"

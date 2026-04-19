@@ -1,0 +1,75 @@
+{
+  "plan_id": "deepseek_migration_2026_phase1",
+  "task_kind": "coding_plan",
+  "source_provider": "dashscope",
+  "target_provider": "deepseek",
+  "total_volume": 1000,
+  "phases": [
+    {
+      "phase_number": 1,
+      "target_percentage": 0.1,
+      "duration_hours": 48,
+      "checkpoints": [
+        "严格质量监控",
+        "详细日志记录"
+      ],
+      "start_time": "2026-04-17 20:03:17.952440",
+      "end_time": null,
+      "status": "MigrationPhaseStatus.IN_PROGRESS",
+      "metrics": null,
+      "issues": []
+    },
+    {
+      "phase_number": 2,
+      "target_percentage": 0.25,
+      "duration_hours": 72,
+      "checkpoints": [
+        "成本效益分析",
+        "风险重新评估"
+      ],
+      "start_time": null,
+      "end_time": null,
+      "status": "MigrationPhaseStatus.PENDING",
+      "metrics": null,
+      "issues": null
+    },
+    {
+      "phase_number": 3,
+      "target_percentage": 0.5,
+      "duration_hours": 96,
+      "checkpoints": [
+        "中期评估",
+        "决策是否继续"
+      ],
+      "start_time": null,
+      "end_time": null,
+      "status": "MigrationPhaseStatus.PENDING",
+      "metrics": null,
+      "issues": null
+    }
+  ],
+  "current_phase_index": 0,
+  "rollback_plan": {
+    "trigger_conditions": [
+      "质量下降 > 10%",
+      "错误率 > 5%",
+      "用户投诉增加",
+      "成本异常波动"
+    ],
+    "rollback_steps": [
+      "立即切换回原provider",
+      "分析问题原因",
+      "制定修复方案",
+      "重新评估迁移条件"
+    ],
+    "estimated_downtime": "5-15分钟"
+  },
+  "success_criteria": {
+    "cost_savings": ">=70%",
+    "quality_retention": ">=90%",
+    "error_rate": "< 2%",
+    "user_satisfaction": "无负面反馈"
+  },
+  "created_at": "2026-04-17 20:03:17.951048",
+  "updated_at": "2026-04-17 20:03:17.958810"
+}

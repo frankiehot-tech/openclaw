@@ -1,0 +1,207 @@
+{
+  "summary": {
+    "total_transitions": 46,
+    "compliant_transitions": 46,
+    "non_compliant_transitions": 0,
+    "compliance_rate": 1.0,
+    "all_compliant": true,
+    "verification_timestamp": "2026-04-14T16:05:04.059753"
+  },
+  "agent_statistics": {
+    "coordinator": {
+      "total": 19,
+      "compliant": 19,
+      "non_compliant": 0
+    },
+    "executor": {
+      "total": 7,
+      "compliant": 7,
+      "non_compliant": 0
+    },
+    "guardian": {
+      "total": 7,
+      "compliant": 7,
+      "non_compliant": 0
+    },
+    "explorer": {
+      "total": 7,
+      "compliant": 7,
+      "non_compliant": 0
+    },
+    "test_agent": {
+      "total": 1,
+      "compliant": 1,
+      "non_compliant": 0
+    },
+    "test_agent2": {
+      "total": 1,
+      "compliant": 1,
+      "non_compliant": 0
+    },
+    "test_direct": {
+      "total": 2,
+      "compliant": 2,
+      "non_compliant": 0
+    },
+    "wrapper_test": {
+      "total": 2,
+      "compliant": 2,
+      "non_compliant": 0
+    }
+  },
+  "trend_analysis": [
+    {
+      "window_start": 0,
+      "window_end": 9,
+      "start_time": "2026-04-14T11:45:52.378468",
+      "end_time": "2026-04-14T14:32:25.274360",
+      "total_transitions": 10,
+      "compliant_transitions": 10,
+      "compliance_rate": 1.0,
+      "non_compliant_transitions": 0
+    },
+    {
+      "window_start": 5,
+      "window_end": 14,
+      "start_time": "2026-04-14T11:51:41.804116",
+      "end_time": "2026-04-14T14:32:28.629081",
+      "total_transitions": 10,
+      "compliant_transitions": 10,
+      "compliance_rate": 1.0,
+      "non_compliant_transitions": 0
+    },
+    {
+      "window_start": 10,
+      "window_end": 19,
+      "start_time": "2026-04-14T14:32:25.384827",
+      "end_time": "2026-04-14T14:36:19.195408",
+      "total_transitions": 10,
+      "compliant_transitions": 10,
+      "compliance_rate": 1.0,
+      "non_compliant_transitions": 0
+    },
+    {
+      "window_start": 15,
+      "window_end": 24,
+      "start_time": "2026-04-14T14:32:28.742989",
+      "end_time": "2026-04-14T14:38:41.043620",
+      "total_transitions": 10,
+      "compliant_transitions": 10,
+      "compliance_rate": 1.0,
+      "non_compliant_transitions": 0
+    },
+    {
+      "window_start": 20,
+      "window_end": 29,
+      "start_time": "2026-04-14T14:36:19.309741",
+      "end_time": "2026-04-14T14:39:50.201208",
+      "total_transitions": 10,
+      "compliant_transitions": 10,
+      "compliance_rate": 1.0,
+      "non_compliant_transitions": 0
+    },
+    {
+      "window_start": 25,
+      "window_end": 34,
+      "start_time": "2026-04-14T14:38:41.157930",
+      "end_time": "2026-04-14T14:41:47.255378",
+      "total_transitions": 10,
+      "compliant_transitions": 10,
+      "compliance_rate": 1.0,
+      "non_compliant_transitions": 0
+    },
+    {
+      "window_start": 30,
+      "window_end": 39,
+      "start_time": "2026-04-14T14:39:50.315339",
+      "end_time": "2026-04-14T15:30:16.655094",
+      "total_transitions": 10,
+      "compliant_transitions": 10,
+      "compliance_rate": 1.0,
+      "non_compliant_transitions": 0
+    },
+    {
+      "window_start": 35,
+      "window_end": 44,
+      "start_time": "2026-04-14T14:41:47.369443",
+      "end_time": "2026-04-14T16:00:37.308997",
+      "total_transitions": 10,
+      "compliant_transitions": 10,
+      "compliance_rate": 1.0,
+      "non_compliant_transitions": 0
+    }
+  ],
+  "non_compliant_transitions": [],
+  "recent_compliant_transitions": [
+    {
+      "timestamp": "2026-04-14T14:41:47.480043",
+      "from_state": "000010",
+      "to_state": "000000",
+      "distance": 1,
+      "agent_id": "guardian"
+    },
+    {
+      "timestamp": "2026-04-14T14:41:47.593007",
+      "from_state": "000000",
+      "to_state": "000100",
+      "distance": 1,
+      "agent_id": "explorer"
+    },
+    {
+      "timestamp": "2026-04-14T15:30:16.650486",
+      "from_state": "000000",
+      "to_state": "000001",
+      "distance": 1,
+      "agent_id": "test_agent"
+    },
+    {
+      "timestamp": "2026-04-14T15:30:16.655094",
+      "from_state": "000001",
+      "to_state": "000011",
+      "distance": 1,
+      "agent_id": "test_agent2"
+    },
+    {
+      "timestamp": "2026-04-14T15:31:15.846888",
+      "from_state": "000000",
+      "to_state": "000001",
+      "distance": 1,
+      "agent_id": "test_direct"
+    },
+    {
+      "timestamp": "2026-04-14T15:31:15.853588",
+      "from_state": "000000",
+      "to_state": "000010",
+      "distance": 1,
+      "agent_id": "wrapper_test"
+    },
+    {
+      "timestamp": "2026-04-14T15:32:12.353627",
+      "from_state": "000000",
+      "to_state": "000001",
+      "distance": 1,
+      "agent_id": "test_direct"
+    },
+    {
+      "timestamp": "2026-04-14T15:32:12.357512",
+      "from_state": "000000",
+      "to_state": "000010",
+      "distance": 1,
+      "agent_id": "wrapper_test"
+    },
+    {
+      "timestamp": "2026-04-14T16:00:37.308997",
+      "from_state": "000000",
+      "to_state": "000001",
+      "distance": 1,
+      "agent_id": "coordinator"
+    },
+    {
+      "timestamp": "2026-04-14T16:00:37.328891",
+      "from_state": "000000",
+      "to_state": "000001",
+      "distance": 1,
+      "agent_id": "coordinator"
+    }
+  ]
+}

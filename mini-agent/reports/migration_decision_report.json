@@ -1,0 +1,77 @@
+{
+  "recommendation": "MigrationRecommendation.PARTIAL_MIGRATION",
+  "confidence": 0.6950000000000001,
+  "rationale": "DeepSeek节省成本87.9%，质量相同，但有2个风险需要管理，建议分阶段迁移",
+  "expected_savings": 87.9,
+  "expected_quality_impact": "无变化",
+  "risks": [
+    "DeepSeek可能变更定价策略或服务质量",
+    "迁移后发现问题时回滚可能影响业务连续性"
+  ],
+  "mitigation_strategies": [
+    "保持DashScope作为fallback，建立多provider监控",
+    "制定详细回滚计划，保持原provider配置可用"
+  ],
+  "migration_plan": {
+    "task_kind": "coding_plan",
+    "total_volume": 1000,
+    "recommendation": "partial_migration",
+    "risk_level": "medium",
+    "phases": [
+      {
+        "phase": 1,
+        "percentage": 10,
+        "duration_hours": 48,
+        "checkpoints": [
+          "严格质量监控",
+          "详细日志记录"
+        ]
+      },
+      {
+        "phase": 2,
+        "percentage": 25,
+        "duration_hours": 72,
+        "checkpoints": [
+          "成本效益分析",
+          "风险重新评估"
+        ]
+      },
+      {
+        "phase": 3,
+        "percentage": 50,
+        "duration_hours": 96,
+        "checkpoints": [
+          "中期评估",
+          "决策是否继续"
+        ]
+      }
+    ],
+    "rollback_plan": {
+      "trigger_conditions": [
+        "质量下降 > 10%",
+        "错误率 > 5%",
+        "用户投诉增加",
+        "成本异常波动"
+      ],
+      "rollback_steps": [
+        "立即切换回原provider",
+        "分析问题原因",
+        "制定修复方案",
+        "重新评估迁移条件"
+      ],
+      "estimated_downtime": "5-15分钟"
+    },
+    "success_criteria": {
+      "cost_savings": ">=70%",
+      "quality_retention": ">=90%",
+      "error_rate": "< 2%",
+      "user_satisfaction": "无负面反馈"
+    }
+  },
+  "monitoring_requirements": [
+    "实时监控coding_plan任务的成本变化",
+    "跟踪coding_plan任务的质量评分",
+    "监控错误率和异常响应",
+    "记录用户反馈和满意度"
+  ]
+}

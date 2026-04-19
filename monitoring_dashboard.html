@@ -1,0 +1,187 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OpenClaw 队列健康度监控</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+               background: #f5f7fa; color: #333; line-height: 1.6; padding: 20px; }
+        .container { max-width: 1200px; margin: 0 auto; }
+        header { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+                color: white; padding: 2rem; border-radius: 10px; margin-bottom: 2rem; }
+        h1 { font-size: 2.5rem; margin-bottom: 0.5rem; }
+        .subtitle { opacity: 0.9; font-size: 1.1rem; }
+        .timestamp { margin-top: 1rem; font-size: 0.9rem; opacity: 0.8; }
+        .dashboard-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+                         gap: 1.5rem; margin-bottom: 2rem; }
+        .card { background: white; border-radius: 10px; padding: 1.5rem; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
+        .card-header { display: flex; justify-content: space-between; align-items: center;
+                      margin-bottom: 1rem; padding-bottom: 0.5rem; border-bottom: 2px solid #f0f0f0; }
+        .card-title { font-size: 1.2rem; font-weight: 600; color: #2d3748; }
+        .health-score { font-size: 2rem; font-weight: bold; }
+        .health-good { color: #10b981; }
+        .health-warning { color: #f59e0b; }
+        .health-critical { color: #ef4444; }
+        .metric-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem; }
+        .metric { text-align: center; }
+        .metric-value { font-size: 1.5rem; font-weight: bold; color: #4f46e5; }
+        .metric-label { font-size: 0.9rem; color: #6b7280; margin-top: 0.25rem; }
+        .status-badges { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 1rem; }
+        .badge { padding: 0.25rem 0.75rem; border-radius: 20px; font-size: 0.85rem; font-weight: 500; }
+        .badge-pending { background: #fef3c7; color: #92400e; }
+        .badge-running { background: #dbeafe; color: #1e40af; }
+        .badge-completed { background: #d1fae5; color: #065f46; }
+        .badge-failed { background: #fee2e2; color: #991b1b; }
+        .system-metrics { margin-top: 2rem; }
+        .alert-section { margin-top: 2rem; }
+        .alert { background: #fef3c7; border-left: 4px solid #f59e0b; padding: 1rem; margin-bottom: 1rem;
+                border-radius: 0 5px 5px 0; }
+        .alert-critical { background: #fee2e2; border-left-color: #ef4444; }
+        .history-chart { height: 200px; margin-top: 1rem; }
+        footer { text-align: center; margin-top: 3rem; color: #6b7280; font-size: 0.9rem; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>📊 OpenClaw 队列健康度监控</h1>
+            <div class="subtitle">实时队列状态、系统资源和性能指标</div>
+            <div class="timestamp">最后更新: 2026-04-19T17:36:00.429320</div>
+        </header>
+
+        <div class="dashboard-grid">
+            <!-- 队列健康度卡片 -->
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-title">🏗️ openhuman_aiplan_build_priority_20260328.json 队列健康度</div>
+                    <div class="health-score health-good">100/100</div>
+                </div>
+
+                <div class="metric-grid">
+                    <div class="metric">
+                        <div class="metric-value">114</div>
+                        <div class="metric-label">总任务数</div>
+                    </div>
+                    <div class="metric">
+                        <div class="metric-value">0</div>
+                        <div class="metric-label">待处理</div>
+                    </div>
+                    <div class="metric">
+                        <div class="metric-value">0</div>
+                        <div class="metric-label">进行中</div>
+                    </div>
+                    <div class="metric">
+                        <div class="metric-value">114</div>
+                        <div class="metric-label">已完成</div>
+                    </div>
+                </div>
+
+                <div class="status-badges">
+                    {% for status, count in status_counts.items() %}
+                    <div class="badge badge-{{status}}">{{status}}: {{count}}</div>
+                    {% endfor %}
+                </div>
+
+                <div style="margin-top: 1rem;">
+                    <div>⏱️ 平均处理时间: 0.0秒</div>
+                    <div>📈 处理速率: 0 任务/小时</div>
+                </div>
+            </div>
+
+            <!-- 系统资源卡片 -->
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-title">🖥️ 系统资源</div>
+                </div>
+
+                <div class="metric-grid">
+                    <div class="metric">
+                        <div class="metric-value">11.2%</div>
+                        <div class="metric-label">CPU使用率</div>
+                    </div>
+                    <div class="metric">
+                        <div class="metric-value">61.1%</div>
+                        <div class="metric-label">内存使用率</div>
+                    </div>
+                    <div class="metric">
+                        <div class="metric-value">9.3 GB</div>
+                        <div class="metric-label">可用内存</div>
+                    </div>
+                    <div class="metric">
+                        <div class="metric-value">22.7%</div>
+                        <div class="metric-label">磁盘使用率</div>
+                    </div>
+                </div>
+
+                <div style="margin-top: 1rem;">
+                    <div>💾 磁盘剩余: 35.8 GB</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 告警部分 -->
+        <div class="alert-section">
+            <h2>⚠️ 系统告警</h2>
+            {% for alert in alerts %}
+            <div class="alert {{'alert-critical' if alert.level == 'critical' else ''}}">
+                <strong>{{alert.title}}</strong>: {{alert.message}}
+            </div>
+            {% else %}
+            <div style="padding: 1rem; background: #d1fae5; border-radius: 5px;">
+                ✅ 所有系统运行正常，无告警
+            </div>
+            {% endfor %}
+        </div>
+
+        <!-- 历史趋势（简化） -->
+        <div class="card">
+            <div class="card-header">
+                <div class="card-title">📈 健康度趋势（最近36次检测）</div>
+            </div>
+            <div class="history-chart">
+                <!-- 简单的文本图表 -->
+                <pre>  0 | ░░░░░░░░░░░░░░░░░░░░
+  0 | ░░░░░░░░░░░░░░░░░░░░
+  0 | ░░░░░░░░░░░░░░░░░░░░
+  0 | ░░░░░░░░░░░░░░░░░░░░
+  0 | ░░░░░░░░░░░░░░░░░░░░
+  0 | ░░░░░░░░░░░░░░░░░░░░
+  0 | ░░░░░░░░░░░░░░░░░░░░
+  0 | ░░░░░░░░░░░░░░░░░░░░
+  0 | ░░░░░░░░░░░░░░░░░░░░
+  0 | ░░░░░░░░░░░░░░░░░░░░
+</pre>
+            </div>
+        </div>
+
+        <footer>
+            <p>OpenClaw 监控系统 | 版本: 基础监控 v1.0 | 数据更新频率: 5分钟</p>
+            <p>根据 next_phase_engineering_plan_20260419.md 行动项4创建</p>
+        </footer>
+    </div>
+
+    <script>
+        // 自动刷新页面（每5分钟）
+        setTimeout(function() {
+            location.reload();
+        }, 300000); // 5分钟
+
+        // 简单的健康度颜色更新
+        document.addEventListener('DOMContentLoaded', function() {
+            const healthScore = document.querySelector('.health-score');
+            const score = parseInt(healthScore.textContent);
+            if (score >= 80) {
+                healthScore.classList.add('health-good');
+            } else if (score >= 60) {
+                healthScore.classList.add('health-warning');
+            } else {
+                healthScore.classList.add('health-critical');
+            }
+        });
+    </script>
+</body>
+</html>
+    

@@ -1,0 +1,25 @@
+{
+  "project_name": "Test_Video_Generation",
+  "generated_at": "2026-04-14T13:18:56.729976",
+  "engine_version": "KdenliveEnhancedVideoGenerationEngine 1.0",
+  "result": {
+    "success": true,
+    "project_name": "Test_Video_Generation",
+    "template_used": "product_showcase",
+    "project_file": "./output/production_mvp_20260414_131856/kdenlive_projects/Test_Video_Generation.kdenlive-cli.json",
+    "xml_file": "./output/production_mvp_20260414_131856/kdenlive_projects/Test_Video_Generation.xml",
+    "render_cmd": "melt ./output/production_mvp_20260414_131856/kdenlive_projects/Test_Video_Generation.xml -consumer avformat:./output/production_mvp_20260414_131856/kdenlive_projects/Test_Video_Generation.mp4 vcodec=libx264 crf=18 preset=slow acodec=aac ab=192k",
+    "summary": "项目名称: Test_Video_Generation\n分辨率: 720x1280\n帧率: 30/1\n轨道数: 4\n素材库剪辑数: 4\n轨道详情:\n  [0] V1 (video): 1 个剪辑\n  [1] V2 (video): 3 个剪辑\n  [2] A1 (audio): 0 个剪辑\n  [3] A2 (audio): 0 个剪辑",
+    "output_files": {
+      "Test_Video_Generation.kdenlive-cli.json": "./output/production_mvp_20260414_131856/kdenlive_projects/Test_Video_Generation.kdenlive-cli.json",
+      "Test_Video_Generation.xml": "./output/production_mvp_20260414_131856/kdenlive_projects/Test_Video_Generation.xml"
+    },
+    "output_file_count": 2,
+    "documentation": "已生成，见文档文件"
+  },
+  "system_info": {
+    "output_dir": "./output/production_mvp_20260414_131856/videos",
+    "kdenlive_output_dir": "./output/production_mvp_20260414_131856/kdenlive_projects",
+    "dalle_integration": "enabled"
+  }
+}

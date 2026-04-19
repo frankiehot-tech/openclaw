@@ -1,0 +1,188 @@
+{
+  "timestamp": "2026-04-19T15:51:40.964528",
+  "summary": {
+    "total_files_analyzed": 10,
+    "checks_performed": [
+      "format_check",
+      "link_check",
+      "completeness_check",
+      "readability_analysis"
+    ],
+    "overall_status": "⚠️  良好",
+    "check_results": [
+      {
+        "check": "format_check",
+        "status": "✅ 通过",
+        "exit_code": 0
+      },
+      {
+        "check": "link_check",
+        "status": "✅ 通过",
+        "exit_code": 0
+      },
+      {
+        "check": "completeness_check",
+        "status": "✅ 通过",
+        "exit_code": 0
+      },
+      {
+        "check": "readability_analysis",
+        "status": "⚠️  警告",
+        "exit_code": 1
+      }
+    ],
+    "passed_checks": 3,
+    "total_checks": 4,
+    "pass_rate": 75.0
+  },
+  "files": {
+    "README.md": {
+      "line_count": 77,
+      "char_count": 1423,
+      "has_title": true,
+      "has_metadata": true,
+      "has_links": true,
+      "has_code_blocks": false,
+      "has_tables": false,
+      "non_empty_line_count": 54
+    },
+    "user/documentation-tools-tutorial.md": {
+      "line_count": 442,
+      "char_count": 9058,
+      "has_title": true,
+      "has_metadata": true,
+      "has_links": false,
+      "has_code_blocks": true,
+      "has_tables": true,
+      "non_empty_line_count": 354
+    },
+    "user/identity.md": {
+      "line_count": 24,
+      "char_count": 634,
+      "has_title": true,
+      "has_metadata": false,
+      "has_links": false,
+      "has_code_blocks": false,
+      "has_tables": false,
+      "non_empty_line_count": 17
+    },
+    "user/documentation-writing-guide.md": {
+      "line_count": 241,
+      "char_count": 3622,
+      "has_title": true,
+      "has_metadata": true,
+      "has_links": true,
+      "has_code_blocks": true,
+      "has_tables": true,
+      "non_empty_line_count": 186
+    },
+    "user/notification-setup-guide.md": {
+      "line_count": 250,
+      "char_count": 4460,
+      "has_title": true,
+      "has_metadata": false,
+      "has_links": false,
+      "has_code_blocks": true,
+      "has_tables": false,
+      "non_empty_line_count": 194
+    },
+    "user/压力测试问题修复实施方案.md": {
+      "line_count": 1027,
+      "char_count": 28228,
+      "has_title": true,
+      "has_metadata": false,
+      "has_links": false,
+      "has_code_blocks": true,
+      "has_tables": true,
+      "non_empty_line_count": 836
+    },
+    "user/claude-code-config.md": {
+      "line_count": 948,
+      "char_count": 19254,
+      "has_title": true,
+      "has_metadata": true,
+      "has_links": true,
+      "has_code_blocks": true,
+      "has_tables": true,
+      "non_empty_line_count": 751
+    },
+    "user/heartbeat.md": {
+      "line_count": 6,
+      "char_count": 168,
+      "has_title": true,
+      "has_metadata": false,
+      "has_links": false,
+      "has_code_blocks": false,
+      "has_tables": false,
+      "non_empty_line_count": 3
+    },
+    "user/claude-code-research-phase3.md": {
+      "line_count": 552,
+      "char_count": 12949,
+      "has_title": true,
+      "has_metadata": false,
+      "has_links": false,
+      "has_code_blocks": true,
+      "has_tables": true,
+      "non_empty_line_count": 426
+    },
+    "user/getting-started.md": {
+      "line_count": 225,
+      "char_count": 4625,
+      "has_title": true,
+      "has_metadata": true,
+      "has_links": true,
+      "has_code_blocks": true,
+      "has_tables": true,
+      "non_empty_line_count": 174
+    }
+  },
+  "issues_by_category": {},
+  "metrics": {
+    "format_check": {
+      "exit_code": 0,
+      "output_summary": {
+        "count_info": "📄 找到 1093 个Markdown文件",
+        "pass_info": "✅ 通过: 110/1093",
+        "fail_info": "❌ 失败: 983/1093",
+        "issues_info": "⚠️  问题: 4366 个"
+      }
+    },
+    "link_check": {
+      "exit_code": 0,
+      "broken_links": 0,
+      "output_summary": {
+        "count_info": "🔗 找到 98 个链接"
+      }
+    },
+    "completeness_check": {
+      "exit_code": 0,
+      "metrics": {},
+      "output_summary": {
+        "count_info": "📄 找到 1093 个Markdown文件",
+        "pass_info": "⚠️  部分通过: 3/1093"
+      }
+    },
+    "readability_analysis": {
+      "exit_code": 1,
+      "data": {},
+      "output_summary": {
+        "count_info": "📄 找到 1093 个Markdown文件"
+      }
+    }
+  },
+  "recommendations": [
+    {
+      "priority": "medium",
+      "category": "文档完整性",
+      "action": "提升文档完整性分数",
+      "details": "当前平均完整性分数 0.0/100，建议补充元数据和结构"
+    },
+    {
+      "priority": "medium",
+      "category": "文档元数据",
+      "action": "为 5 个文档添加最后更新日期",
+      "details": "建议在文档末尾添加\"最后更新: YYYY-MM-DD\"元数据"
+    }
+  ]
+}

@@ -1,0 +1,53 @@
+{
+  "timestamp": "2026-04-17T20:27:41.885014",
+  "alerts": [
+    {
+      "alert_id": "cost_savings_1776428861",
+      "level": "MigrationAlertLevel.CRITICAL",
+      "metric": "MigrationMetric.COST_SAVINGS",
+      "message": "严重: 成本节省: 0.0% 超出临界阈值",
+      "value": 0.0,
+      "threshold": 0.5,
+      "timestamp": "2026-04-17 20:27:41.884934",
+      "experiment_id": "coding_plan_deepseek_coder_ab",
+      "phase_number": 1,
+      "resolved": false,
+      "resolution": null
+    },
+    {
+      "alert_id": "quality_consistency_1776428861",
+      "level": "MigrationAlertLevel.CRITICAL",
+      "metric": "MigrationMetric.QUALITY_CONSISTENCY",
+      "message": "严重: 质量一致性: 0.000 超出临界阈值",
+      "value": 0.0,
+      "threshold": 0.85,
+      "timestamp": "2026-04-17 20:27:41.884973",
+      "experiment_id": "coding_plan_deepseek_coder_ab",
+      "phase_number": 1,
+      "resolved": false,
+      "resolution": null
+    }
+  ],
+  "metrics_count": 1,
+  "last_metrics": {
+    "timestamp": "2026-04-17 20:27:41.884924",
+    "experiment_id": "coding_plan_deepseek_coder_ab",
+    "phase_number": 1,
+    "total_requests": 0,
+    "dashscope_requests": 0,
+    "deepseek_requests": 0,
+    "dashscope_cost": 0.0,
+    "deepseek_cost": 0.0,
+    "cost_savings_percent": 0.0,
+    "dashscope_quality_avg": 0.0,
+    "deepseek_quality_avg": 0.0,
+    "quality_consistency": 0.0,
+    "dashscope_error_rate": 0.0,
+    "deepseek_error_rate": 0.0,
+    "error_rate_diff": 0.0,
+    "dashscope_response_time_avg": 0.0,
+    "deepseek_response_time_avg": 0.0,
+    "response_time_diff_percent": 0.0,
+    "monitoring_window_minutes": 1440
+  }
+}

@@ -1,0 +1,965 @@
+{
+  "report_date": "2026-04-14T16:56:29.469152",
+  "test_summary": {
+    "total_tests": 3,
+    "completed_tests": 2,
+    "failed_tests": 1,
+    "success_rate": 0.6666666666666666,
+    "test_duration": "N/A"
+  },
+  "state_space_coverage": {
+    "unique_states_visited": 7,
+    "total_possible_states": 64,
+    "coverage_percentage": 10.9375,
+    "unique_state_list": [
+      "000000",
+      "000001",
+      "000011",
+      "000111",
+      "001111",
+      "011111",
+      "111111"
+    ],
+    "total_transitions": 8,
+    "unique_transitions": 7
+  },
+  "agent_activities": {
+    "guardian": {
+      "decisions_made": 0,
+      "notifications_received": 0
+    },
+    "communicator": {
+      "decisions_made": 0,
+      "notifications_received": 0
+    },
+    "learner": {
+      "decisions_made": 0,
+      "notifications_received": 0
+    },
+    "explorer": {
+      "decisions_made": 0,
+      "notifications_received": 0
+    }
+  },
+  "collaboration_metrics": {
+    "state_changes_notified": 8,
+    "collaborative_decisions": 0,
+    "average_decision_confidence": 0.0
+  },
+  "test_results": {
+    "SCENE-01": {
+      "scenario_id": "SCENE-01",
+      "scenario_name": "基本协同状态转换测试",
+      "start_time": "2026-04-14T16:56:29.468215",
+      "initial_state": "000000",
+      "steps": [
+        {
+          "step_index": 0,
+          "step_type": "state_transition",
+          "description": "从初始状态转换到邻居状态",
+          "start_time": "2026-04-14T16:56:29.468225",
+          "success": true,
+          "action": "state_transition",
+          "target_state": "000001",
+          "message": "状态转换成功",
+          "details": {
+            "success": true,
+            "old_state": "000000",
+            "new_state": "000001",
+            "hamming_distance": 1,
+            "agent_decisions": {
+              "guardian": {
+                "decision": "allow",
+                "reason": "默认允许（方法未实现）",
+                "confidence": 0.5,
+                "details": {
+                  "method_not_implemented": true
+                }
+              },
+              "communicator": {
+                "decision": "allow",
+                "reason": "默认允许（方法未实现）",
+                "confidence": 0.5,
+                "details": {
+                  "method_not_implemented": true
+                }
+              },
+              "learner": {
+                "decision": "allow",
+                "reason": "默认允许（方法未实现）",
+                "confidence": 0.5,
+                "details": {
+                  "method_not_implemented": true
+                }
+              },
+              "explorer": {
+                "decision": "allow",
+                "reason": "默认允许（方法未实现）",
+                "confidence": 0.5,
+                "details": {
+                  "method_not_implemented": true
+                }
+              }
+            },
+            "decision_analysis": {
+              "can_proceed": true,
+              "decision_summary": "多数智能体允许 (4/4)",
+              "allow_count": 4,
+              "block_count": 0,
+              "total_agents": 4,
+              "avg_confidence": 0.5,
+              "guardian_veto": false,
+              "agent_decisions_summary": {
+                "guardian": "allow",
+                "communicator": "allow",
+                "learner": "allow",
+                "explorer": "allow"
+              }
+            },
+            "state_record": {
+              "timestamp": "2026-04-14T16:56:29.468284",
+              "old_state": "000000",
+              "new_state": "000001",
+              "reason": "协同决策",
+              "agents_notified": [
+                {
+                  "agent": "guardian",
+                  "action": "security_recorded",
+                  "result": {
+                    "allowed": true,
+                    "reason": "简化测试模式"
+                  }
+                },
+                {
+                  "agent": "communicator",
+                  "action": "notification_sent",
+                  "result": true,
+                  "message": "msg_000001"
+                },
+                {
+                  "agent": "learner",
+                  "action": "performance_recorded",
+                  "result": true,
+                  "metric": "state_transition_time"
+                },
+                {
+                  "agent": "explorer",
+                  "action": "state_exploration",
+                  "discoveries_found": 1
+                }
+              ]
+            },
+            "timestamp": "2026-04-14T16:56:29.468347"
+          },
+          "end_time": "2026-04-14T16:56:29.468356"
+        },
+        {
+          "step_index": 1,
+          "step_type": "state_transition",
+          "description": "继续转换到下一个邻居状态",
+          "start_time": "2026-04-14T16:56:29.468365",
+          "success": true,
+          "action": "state_transition",
+          "target_state": "000011",
+          "message": "状态转换成功",
+          "details": {
+            "success": true,
+            "old_state": "000001",
+            "new_state": "000011",
+            "hamming_distance": 1,
+            "agent_decisions": {
+              "guardian": {
+                "decision": "allow",
+                "reason": "默认允许（方法未实现）",
+                "confidence": 0.5,
+                "details": {
+                  "method_not_implemented": true
+                }
+              },
+              "communicator": {
+                "decision": "allow",
+                "reason": "默认允许（方法未实现）",
+                "confidence": 0.5,
+                "details": {
+                  "method_not_implemented": true
+                }
+              },
+              "learner": {
+                "decision": "allow",
+                "reason": "默认允许（方法未实现）",
+                "confidence": 0.5,
+                "details": {
+                  "method_not_implemented": true
+                }
+              },
+              "explorer": {
+                "decision": "allow",
+                "reason": "默认允许（方法未实现）",
+                "confidence": 0.5,
+                "details": {
+                  "method_not_implemented": true
+                }
+              }
+            },
+            "decision_analysis": {
+              "can_proceed": true,
+              "decision_summary": "多数智能体允许 (4/4)",
+              "allow_count": 4,
+              "block_count": 0,
+              "total_agents": 4,
+              "avg_confidence": 0.5,
+              "guardian_veto": false,
+              "agent_decisions_summary": {
+                "guardian": "allow",
+                "communicator": "allow",
+                "learner": "allow",
+                "explorer": "allow"
+              }
+            },
+            "state_record": {
+              "timestamp": "2026-04-14T16:56:29.468419",
+              "old_state": "000001",
+              "new_state": "000011",
+              "reason": "协同决策",
+              "agents_notified": [
+                {
+                  "agent": "guardian",
+                  "action": "security_recorded",
+                  "result": {
+                    "allowed": true,
+                    "reason": "简化测试模式"
+                  }
+                },
+                {
+                  "agent": "communicator",
+                  "action": "notification_sent",
+                  "result": true,
+                  "message": "msg_000002"
+                },
+                {
+                  "agent": "learner",
+                  "action": "performance_recorded",
+                  "result": true,
+                  "metric": "state_transition_time"
+                },
+                {
+                  "agent": "explorer",
+                  "action": "state_exploration",
+                  "discoveries_found": 1
+                }
+              ]
+            },
+            "timestamp": "2026-04-14T16:56:29.468466"
+          },
+          "end_time": "2026-04-14T16:56:29.468474"
+        },
+        {
+          "step_index": 2,
+          "step_type": "agent_interaction",
+          "description": "Learner记录性能指标",
+          "start_time": "2026-04-14T16:56:29.468483",
+          "success": true,
+          "action": "agent_interaction",
+          "agent": "learner",
+          "action_type": "update_performance",
+          "result": {
+            "success": true,
+            "message": "collaboration_success_rate正常",
+            "metric_name": "collaboration_success_rate",
+            "value": 0.95
+          },
+          "details": {
+            "success": true,
+            "message": "collaboration_success_rate正常",
+            "metric_name": "collaboration_success_rate",
+            "value": 0.95
+          },
+          "end_time": "2026-04-14T16:56:29.468495"
+        }
+      ],
+      "agent_interactions": [],
+      "status": "completed",
+      "end_time": "2026-04-14T16:56:29.468496",
+      "final_state": "000011"
+    },
+    "SCENE-02": {
+      "scenario_id": "SCENE-02",
+      "scenario_name": "复杂路径转换测试",
+      "start_time": "2026-04-14T16:56:29.468512",
+      "initial_state": "000011",
+      "steps": [
+        {
+          "step_index": 0,
+          "step_type": "state_transition",
+          "description": "转换到001000",
+          "start_time": "2026-04-14T16:56:29.468520",
+          "success": false,
+          "action": "state_transition",
+          "target_state": "001000",
+          "message": "汉明距离为 3，不符合格雷编码要求（必须为1）",
+          "details": {},
+          "end_time": "2026-04-14T16:56:29.468529"
+        }
+      ],
+      "agent_interactions": [],
+      "status": "failed",
+      "failure_reason": "步骤执行失败",
+      "end_time": "2026-04-14T16:56:29.468530",
+      "final_state": "000011"
+    },
+    "SCENE-03": {
+      "scenario_id": "SCENE-03",
+      "scenario_name": "边界状态测试",
+      "start_time": "2026-04-14T16:56:29.468545",
+      "initial_state": "000011",
+      "steps": [
+        {
+          "step_index": 0,
+          "step_type": "state_transition",
+          "description": "第一步转换",
+          "start_time": "2026-04-14T16:56:29.468553",
+          "success": true,
+          "action": "state_transition",
+          "target_state": "000001",
+          "message": "状态转换成功",
+          "details": {
+            "success": true,
+            "old_state": "000011",
+            "new_state": "000001",
+            "hamming_distance": 1,
+            "agent_decisions": {
+              "guardian": {
+                "decision": "allow",
+                "reason": "默认允许（方法未实现）",
+                "confidence": 0.5,
+                "details": {
+                  "method_not_implemented": true
+                }
+              },
+              "communicator": {
+                "decision": "allow",
+                "reason": "默认允许（方法未实现）",
+                "confidence": 0.5,
+                "details": {
+                  "method_not_implemented": true
+                }
+              },
+              "learner": {
+                "decision": "allow",
+                "reason": "默认允许（方法未实现）",
+                "confidence": 0.5,
+                "details": {
+                  "method_not_implemented": true
+                }
+              },
+              "explorer": {
+                "decision": "allow",
+                "reason": "默认允许（方法未实现）",
+                "confidence": 0.5,
+                "details": {
+                  "method_not_implemented": true
+                }
+              }
+            },
+            "decision_analysis": {
+              "can_proceed": true,
+              "decision_summary": "多数智能体允许 (4/4)",
+              "allow_count": 4,
+              "block_count": 0,
+              "total_agents": 4,
+              "avg_confidence": 0.5,
+              "guardian_veto": false,
+              "agent_decisions_summary": {
+                "guardian": "allow",
+                "communicator": "allow",
+                "learner": "allow",
+                "explorer": "allow"
+              }
+            },
+            "state_record": {
+              "timestamp": "2026-04-14T16:56:29.468603",
+              "old_state": "000011",
+              "new_state": "000001",
+              "reason": "协同决策",
+              "agents_notified": [
+                {
+                  "agent": "guardian",
+                  "action": "security_recorded",
+                  "result": {
+                    "allowed": true,
+                    "reason": "简化测试模式"
+                  }
+                },
+                {
+                  "agent": "communicator",
+                  "action": "notification_sent",
+                  "result": true,
+                  "message": "msg_000003"
+                },
+                {
+                  "agent": "learner",
+                  "action": "performance_recorded",
+                  "result": true,
+                  "metric": "state_transition_time"
+                },
+                {
+                  "agent": "explorer",
+                  "action": "state_exploration",
+                  "discoveries_found": 1
+                }
+              ]
+            },
+            "timestamp": "2026-04-14T16:56:29.468645"
+          },
+          "end_time": "2026-04-14T16:56:29.468654"
+        },
+        {
+          "step_index": 1,
+          "step_type": "state_transition",
+          "description": "第二步转换",
+          "start_time": "2026-04-14T16:56:29.468661",
+          "success": true,
+          "action": "state_transition",
+          "target_state": "000011",
+          "message": "状态转换成功",
+          "details": {
+            "success": true,
+            "old_state": "000001",
+            "new_state": "000011",
+            "hamming_distance": 1,
+            "agent_decisions": {
+              "guardian": {
+                "decision": "allow",
+                "reason": "默认允许（方法未实现）",
+                "confidence": 0.5,
+                "details": {
+                  "method_not_implemented": true
+                }
+              },
+              "communicator": {
+                "decision": "allow",
+                "reason": "默认允许（方法未实现）",
+                "confidence": 0.5,
+                "details": {
+                  "method_not_implemented": true
+                }
+              },
+              "learner": {
+                "decision": "allow",
+                "reason": "默认允许（方法未实现）",
+                "confidence": 0.5,
+                "details": {
+                  "method_not_implemented": true
+                }
+              },
+              "explorer": {
+                "decision": "allow",
+                "reason": "默认允许（方法未实现）",
+                "confidence": 0.5,
+                "details": {
+                  "method_not_implemented": true
+                }
+              }
+            },
+            "decision_analysis": {
+              "can_proceed": true,
+              "decision_summary": "多数智能体允许 (4/4)",
+              "allow_count": 4,
+              "block_count": 0,
+              "total_agents": 4,
+              "avg_confidence": 0.5,
+              "guardian_veto": false,
+              "agent_decisions_summary": {
+                "guardian": "allow",
+                "communicator": "allow",
+                "learner": "allow",
+                "explorer": "allow"
+              }
+            },
+            "state_record": {
+              "timestamp": "2026-04-14T16:56:29.468706",
+              "old_state": "000001",
+              "new_state": "000011",
+              "reason": "协同决策",
+              "agents_notified": [
+                {
+                  "agent": "guardian",
+                  "action": "security_recorded",
+                  "result": {
+                    "allowed": true,
+                    "reason": "简化测试模式"
+                  }
+                },
+                {
+                  "agent": "communicator",
+                  "action": "notification_sent",
+                  "result": true,
+                  "message": "msg_000004"
+                },
+                {
+                  "agent": "learner",
+                  "action": "performance_recorded",
+                  "result": true,
+                  "metric": "state_transition_time"
+                },
+                {
+                  "agent": "explorer",
+                  "action": "state_exploration",
+                  "discoveries_found": 1
+                }
+              ]
+            },
+            "timestamp": "2026-04-14T16:56:29.468744"
+          },
+          "end_time": "2026-04-14T16:56:29.468751"
+        },
+        {
+          "step_index": 2,
+          "step_type": "state_transition",
+          "description": "第三步转换",
+          "start_time": "2026-04-14T16:56:29.468759",
+          "success": true,
+          "action": "state_transition",
+          "target_state": "000111",
+          "message": "状态转换成功",
+          "details": {
+            "success": true,
+            "old_state": "000011",
+            "new_state": "000111",
+            "hamming_distance": 1,
+            "agent_decisions": {
+              "guardian": {
+                "decision": "allow",
+                "reason": "默认允许（方法未实现）",
+                "confidence": 0.5,
+                "details": {
+                  "method_not_implemented": true
+                }
+              },
+              "communicator": {
+                "decision": "allow",
+                "reason": "默认允许（方法未实现）",
+                "confidence": 0.5,
+                "details": {
+                  "method_not_implemented": true
+                }
+              },
+              "learner": {
+                "decision": "allow",
+                "reason": "默认允许（方法未实现）",
+                "confidence": 0.5,
+                "details": {
+                  "method_not_implemented": true
+                }
+              },
+              "explorer": {
+                "decision": "allow",
+                "reason": "默认允许（方法未实现）",
+                "confidence": 0.5,
+                "details": {
+                  "method_not_implemented": true
+                }
+              }
+            },
+            "decision_analysis": {
+              "can_proceed": true,
+              "decision_summary": "多数智能体允许 (4/4)",
+              "allow_count": 4,
+              "block_count": 0,
+              "total_agents": 4,
+              "avg_confidence": 0.5,
+              "guardian_veto": false,
+              "agent_decisions_summary": {
+                "guardian": "allow",
+                "communicator": "allow",
+                "learner": "allow",
+                "explorer": "allow"
+              }
+            },
+            "state_record": {
+              "timestamp": "2026-04-14T16:56:29.468803",
+              "old_state": "000011",
+              "new_state": "000111",
+              "reason": "协同决策",
+              "agents_notified": [
+                {
+                  "agent": "guardian",
+                  "action": "security_recorded",
+                  "result": {
+                    "allowed": true,
+                    "reason": "简化测试模式"
+                  }
+                },
+                {
+                  "agent": "communicator",
+                  "action": "notification_sent",
+                  "result": true,
+                  "message": "msg_000005"
+                },
+                {
+                  "agent": "learner",
+                  "action": "performance_recorded",
+                  "result": true,
+                  "metric": "state_transition_time"
+                },
+                {
+                  "agent": "explorer",
+                  "action": "state_exploration",
+                  "discoveries_found": 1
+                }
+              ]
+            },
+            "timestamp": "2026-04-14T16:56:29.468840"
+          },
+          "end_time": "2026-04-14T16:56:29.468848"
+        },
+        {
+          "step_index": 3,
+          "step_type": "state_transition",
+          "description": "第四步转换",
+          "start_time": "2026-04-14T16:56:29.468855",
+          "success": true,
+          "action": "state_transition",
+          "target_state": "001111",
+          "message": "状态转换成功",
+          "details": {
+            "success": true,
+            "old_state": "000111",
+            "new_state": "001111",
+            "hamming_distance": 1,
+            "agent_decisions": {
+              "guardian": {
+                "decision": "allow",
+                "reason": "默认允许（方法未实现）",
+                "confidence": 0.5,
+                "details": {
+                  "method_not_implemented": true
+                }
+              },
+              "communicator": {
+                "decision": "allow",
+                "reason": "默认允许（方法未实现）",
+                "confidence": 0.5,
+                "details": {
+                  "method_not_implemented": true
+                }
+              },
+              "learner": {
+                "decision": "allow",
+                "reason": "默认允许（方法未实现）",
+                "confidence": 0.5,
+                "details": {
+                  "method_not_implemented": true
+                }
+              },
+              "explorer": {
+                "decision": "allow",
+                "reason": "默认允许（方法未实现）",
+                "confidence": 0.5,
+                "details": {
+                  "method_not_implemented": true
+                }
+              }
+            },
+            "decision_analysis": {
+              "can_proceed": true,
+              "decision_summary": "多数智能体允许 (4/4)",
+              "allow_count": 4,
+              "block_count": 0,
+              "total_agents": 4,
+              "avg_confidence": 0.5,
+              "guardian_veto": false,
+              "agent_decisions_summary": {
+                "guardian": "allow",
+                "communicator": "allow",
+                "learner": "allow",
+                "explorer": "allow"
+              }
+            },
+            "state_record": {
+              "timestamp": "2026-04-14T16:56:29.468899",
+              "old_state": "000111",
+              "new_state": "001111",
+              "reason": "协同决策",
+              "agents_notified": [
+                {
+                  "agent": "guardian",
+                  "action": "security_recorded",
+                  "result": {
+                    "allowed": true,
+                    "reason": "简化测试模式"
+                  }
+                },
+                {
+                  "agent": "communicator",
+                  "action": "notification_sent",
+                  "result": true,
+                  "message": "msg_000006"
+                },
+                {
+                  "agent": "learner",
+                  "action": "performance_recorded",
+                  "result": true,
+                  "metric": "state_transition_time"
+                },
+                {
+                  "agent": "explorer",
+                  "action": "state_exploration",
+                  "discoveries_found": 1
+                }
+              ]
+            },
+            "timestamp": "2026-04-14T16:56:29.468936"
+          },
+          "end_time": "2026-04-14T16:56:29.468944"
+        },
+        {
+          "step_index": 4,
+          "step_type": "state_transition",
+          "description": "第五步转换",
+          "start_time": "2026-04-14T16:56:29.468951",
+          "success": true,
+          "action": "state_transition",
+          "target_state": "011111",
+          "message": "状态转换成功",
+          "details": {
+            "success": true,
+            "old_state": "001111",
+            "new_state": "011111",
+            "hamming_distance": 1,
+            "agent_decisions": {
+              "guardian": {
+                "decision": "allow",
+                "reason": "默认允许（方法未实现）",
+                "confidence": 0.5,
+                "details": {
+                  "method_not_implemented": true
+                }
+              },
+              "communicator": {
+                "decision": "allow",
+                "reason": "默认允许（方法未实现）",
+                "confidence": 0.5,
+                "details": {
+                  "method_not_implemented": true
+                }
+              },
+              "learner": {
+                "decision": "allow",
+                "reason": "默认允许（方法未实现）",
+                "confidence": 0.5,
+                "details": {
+                  "method_not_implemented": true
+                }
+              },
+              "explorer": {
+                "decision": "allow",
+                "reason": "默认允许（方法未实现）",
+                "confidence": 0.5,
+                "details": {
+                  "method_not_implemented": true
+                }
+              }
+            },
+            "decision_analysis": {
+              "can_proceed": true,
+              "decision_summary": "多数智能体允许 (4/4)",
+              "allow_count": 4,
+              "block_count": 0,
+              "total_agents": 4,
+              "avg_confidence": 0.5,
+              "guardian_veto": false,
+              "agent_decisions_summary": {
+                "guardian": "allow",
+                "communicator": "allow",
+                "learner": "allow",
+                "explorer": "allow"
+              }
+            },
+            "state_record": {
+              "timestamp": "2026-04-14T16:56:29.468995",
+              "old_state": "001111",
+              "new_state": "011111",
+              "reason": "协同决策",
+              "agents_notified": [
+                {
+                  "agent": "guardian",
+                  "action": "security_recorded",
+                  "result": {
+                    "allowed": true,
+                    "reason": "简化测试模式"
+                  }
+                },
+                {
+                  "agent": "communicator",
+                  "action": "notification_sent",
+                  "result": true,
+                  "message": "msg_000007"
+                },
+                {
+                  "agent": "learner",
+                  "action": "performance_recorded",
+                  "result": true,
+                  "metric": "state_transition_time"
+                },
+                {
+                  "agent": "explorer",
+                  "action": "state_exploration",
+                  "discoveries_found": 1
+                }
+              ]
+            },
+            "timestamp": "2026-04-14T16:56:29.469032"
+          },
+          "end_time": "2026-04-14T16:56:29.469039"
+        },
+        {
+          "step_index": 5,
+          "step_type": "state_transition",
+          "description": "最终转换到全阳爻",
+          "start_time": "2026-04-14T16:56:29.469047",
+          "success": true,
+          "action": "state_transition",
+          "target_state": "111111",
+          "message": "状态转换成功",
+          "details": {
+            "success": true,
+            "old_state": "011111",
+            "new_state": "111111",
+            "hamming_distance": 1,
+            "agent_decisions": {
+              "guardian": {
+                "decision": "allow",
+                "reason": "默认允许（方法未实现）",
+                "confidence": 0.5,
+                "details": {
+                  "method_not_implemented": true
+                }
+              },
+              "communicator": {
+                "decision": "allow",
+                "reason": "默认允许（方法未实现）",
+                "confidence": 0.5,
+                "details": {
+                  "method_not_implemented": true
+                }
+              },
+              "learner": {
+                "decision": "allow",
+                "reason": "默认允许（方法未实现）",
+                "confidence": 0.5,
+                "details": {
+                  "method_not_implemented": true
+                }
+              },
+              "explorer": {
+                "decision": "allow",
+                "reason": "默认允许（方法未实现）",
+                "confidence": 0.5,
+                "details": {
+                  "method_not_implemented": true
+                }
+              }
+            },
+            "decision_analysis": {
+              "can_proceed": true,
+              "decision_summary": "多数智能体允许 (4/4)",
+              "allow_count": 4,
+              "block_count": 0,
+              "total_agents": 4,
+              "avg_confidence": 0.5,
+              "guardian_veto": false,
+              "agent_decisions_summary": {
+                "guardian": "allow",
+                "communicator": "allow",
+                "learner": "allow",
+                "explorer": "allow"
+              }
+            },
+            "state_record": {
+              "timestamp": "2026-04-14T16:56:29.469092",
+              "old_state": "011111",
+              "new_state": "111111",
+              "reason": "协同决策",
+              "agents_notified": [
+                {
+                  "agent": "guardian",
+                  "action": "security_recorded",
+                  "result": {
+                    "allowed": true,
+                    "reason": "简化测试模式"
+                  }
+                },
+                {
+                  "agent": "communicator",
+                  "action": "notification_sent",
+                  "result": true,
+                  "message": "msg_000008"
+                },
+                {
+                  "agent": "learner",
+                  "action": "performance_recorded",
+                  "result": true,
+                  "metric": "state_transition_time"
+                },
+                {
+                  "agent": "explorer",
+                  "action": "state_exploration",
+                  "discoveries_found": 1
+                }
+              ]
+            },
+            "timestamp": "2026-04-14T16:56:29.469129"
+          },
+          "end_time": "2026-04-14T16:56:29.469137"
+        }
+      ],
+      "agent_interactions": [],
+      "status": "completed",
+      "end_time": "2026-04-14T16:56:29.469138",
+      "final_state": "111111"
+    }
+  },
+  "state_history_summary": [
+    {
+      "transition": "000000→000001",
+      "timestamp": "2026-04-14T16:56:29.468284",
+      "agents_notified": 4
+    },
+    {
+      "transition": "000001→000011",
+      "timestamp": "2026-04-14T16:56:29.468419",
+      "agents_notified": 4
+    },
+    {
+      "transition": "000011→000001",
+      "timestamp": "2026-04-14T16:56:29.468603",
+      "agents_notified": 4
+    },
+    {
+      "transition": "000001→000011",
+      "timestamp": "2026-04-14T16:56:29.468706",
+      "agents_notified": 4
+    },
+    {
+      "transition": "000011→000111",
+      "timestamp": "2026-04-14T16:56:29.468803",
+      "agents_notified": 4
+    },
+    {
+      "transition": "000111→001111",
+      "timestamp": "2026-04-14T16:56:29.468899",
+      "agents_notified": 4
+    },
+    {
+      "transition": "001111→011111",
+      "timestamp": "2026-04-14T16:56:29.468995",
+      "agents_notified": 4
+    },
+    {
+      "transition": "011111→111111",
+      "timestamp": "2026-04-14T16:56:29.469092",
+      "agents_notified": 4
+    }
+  ]
+}

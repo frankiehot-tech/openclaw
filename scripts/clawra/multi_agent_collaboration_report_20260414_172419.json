@@ -1,0 +1,1201 @@
+{
+  "report_date": "2026-04-14T17:24:19.344284",
+  "test_summary": {
+    "total_tests": 3,
+    "completed_tests": 2,
+    "failed_tests": 1,
+    "success_rate": 0.6666666666666666,
+    "test_duration": "N/A"
+  },
+  "state_space_coverage": {
+    "unique_states_visited": 5,
+    "total_possible_states": 64,
+    "coverage_percentage": 7.8125,
+    "unique_state_list": [
+      "000000",
+      "000001",
+      "000011",
+      "000111",
+      "001111"
+    ],
+    "total_transitions": 6,
+    "unique_transitions": 5
+  },
+  "agent_activities": {
+    "guardian": {
+      "decisions_made": 0,
+      "notifications_received": 0
+    },
+    "communicator": {
+      "decisions_made": 0,
+      "notifications_received": 0
+    },
+    "learner": {
+      "decisions_made": 0,
+      "notifications_received": 0
+    },
+    "explorer": {
+      "decisions_made": 0,
+      "notifications_received": 0
+    }
+  },
+  "collaboration_metrics": {
+    "state_changes_notified": 6,
+    "collaborative_decisions": 0,
+    "average_decision_confidence": 0.0
+  },
+  "test_results": {
+    "SCENE-01": {
+      "scenario_id": "SCENE-01",
+      "scenario_name": "基本协同状态转换测试",
+      "start_time": "2026-04-14T17:24:19.338230",
+      "initial_state": "000000",
+      "steps": [
+        {
+          "step_index": 0,
+          "step_type": "state_transition",
+          "description": "从初始状态转换到邻居状态",
+          "start_time": "2026-04-14T17:24:19.338241",
+          "success": true,
+          "action": "state_transition",
+          "target_state": "000001",
+          "message": "状态转换成功",
+          "details": {
+            "success": true,
+            "old_state": "000000",
+            "new_state": "000001",
+            "hamming_distance": 1,
+            "agent_decisions": {
+              "guardian": {
+                "decision": "allow",
+                "reason": "状态转换存在警告但允许继续: 1 个警告",
+                "confidence": 0.7,
+                "details": {
+                  "allowed": true,
+                  "reason": "状态转换存在警告但允许继续: 1 个警告",
+                  "confidence": 0.7,
+                  "violations": [
+                    "从对称模式转换到非对称模式"
+                  ],
+                  "constraints_checked": [
+                    "状态格式验证",
+                    "目标状态格式验证",
+                    "汉明距离检查",
+                    "危险模式检查"
+                  ],
+                  "hamming_distance": 1,
+                  "security_level": "medium",
+                  "current_state": "000000",
+                  "target_state": "000001"
+                }
+              },
+              "communicator": {
+                "decision": "allow",
+                "reason": "默认允许（方法未实现）",
+                "confidence": 0.5,
+                "details": {
+                  "method_not_implemented": true
+                }
+              },
+              "learner": {
+                "decision": "allow",
+                "reason": "无状态转换历史知识库，默认允许",
+                "confidence": 0.33,
+                "details": {
+                  "recommendation": "allow",
+                  "reason": "无状态转换历史知识库，默认允许",
+                  "confidence": 0.33,
+                  "learning_insights": [
+                    "状态转换历史知识库未初始化",
+                    "转换符合格雷编码（汉明距离=1）",
+                    "涉及 1 个关键位变化；模式变化: 全0 → 阴多"
+                  ],
+                  "historical_data": {},
+                  "hamming_distance": 1,
+                  "current_state": "000000",
+                  "target_state": "000001"
+                }
+              },
+              "explorer": {
+                "decision": "allow",
+                "reason": "中等探索价值，可考虑但非优先",
+                "confidence": 0.9053333333333334,
+                "details": {
+                  "exploration_value": 0.527,
+                  "value_category": "familiar",
+                  "novelty_score": 0.167,
+                  "utility_score": 0.9,
+                  "risk_score": 0.5,
+                  "recommendation": "neutral",
+                  "reason": "中等探索价值，可考虑但非优先",
+                  "confidence": 0.9053333333333334,
+                  "insights": [
+                    "状态转换汉明距离: 1 (1/6)",
+                    "合规的格雷编码转换（汉明距离=1）",
+                    "中等探索价值：平衡了风险和收益",
+                    "正向转换：从阴到阳的趋势"
+                  ],
+                  "alternative_paths": [],
+                  "hamming_distance": 1,
+                  "state_pair": "000000->000001"
+                }
+              }
+            },
+            "decision_analysis": {
+              "can_proceed": true,
+              "decision_summary": "加权决策允许（得分: 1.000 ≥ 0.5）",
+              "decision_method": "weighted_majority",
+              "weighted_score": 0.6100666666666666,
+              "normalized_score": 1.0,
+              "allow_count": 4,
+              "block_count": 0,
+              "total_agents": 4,
+              "avg_confidence": 0.6088333333333333,
+              "guardian_veto": false,
+              "guardian_confidence": 0.7,
+              "agent_decisions_summary": {
+                "guardian": {
+                  "decision": "allow",
+                  "reason": "状态转换存在警告但允许继续: 1 个警告",
+                  "confidence": 0.7,
+                  "weight": 0.4
+                },
+                "communicator": {
+                  "decision": "allow",
+                  "reason": "默认允许（方法未实现）",
+                  "confidence": 0.5,
+                  "weight": 0.1
+                },
+                "learner": {
+                  "decision": "allow",
+                  "reason": "无状态转换历史知识库，默认允许",
+                  "confidence": 0.33,
+                  "weight": 0.3
+                },
+                "explorer": {
+                  "decision": "allow",
+                  "reason": "中等探索价值，可考虑但非优先",
+                  "confidence": 0.9053333333333334,
+                  "weight": 0.2
+                }
+              },
+              "priority_weights": {
+                "guardian": 0.4,
+                "learner": 0.3,
+                "explorer": 0.2,
+                "communicator": 0.1
+              },
+              "decision_threshold": 0.5
+            },
+            "state_record": {
+              "timestamp": "2026-04-14T17:24:19.338417",
+              "old_state": "000000",
+              "new_state": "000001",
+              "reason": "协同决策",
+              "agents_notified": [
+                {
+                  "agent": "guardian",
+                  "action": "security_recorded",
+                  "result": {
+                    "allowed": true,
+                    "reason": "简化测试模式"
+                  }
+                },
+                {
+                  "agent": "communicator",
+                  "action": "notification_sent",
+                  "result": true,
+                  "message": "msg_000001"
+                },
+                {
+                  "agent": "learner",
+                  "action": "performance_recorded",
+                  "result": true,
+                  "metric": "state_transition_time"
+                },
+                {
+                  "agent": "explorer",
+                  "action": "state_exploration",
+                  "discoveries_found": 1
+                }
+              ]
+            },
+            "timestamp": "2026-04-14T17:24:19.338491"
+          },
+          "end_time": "2026-04-14T17:24:19.338501"
+        },
+        {
+          "step_index": 1,
+          "step_type": "state_transition",
+          "description": "继续转换到下一个邻居状态",
+          "start_time": "2026-04-14T17:24:19.338511",
+          "success": true,
+          "action": "state_transition",
+          "target_state": "000011",
+          "message": "状态转换成功",
+          "details": {
+            "success": true,
+            "old_state": "000001",
+            "new_state": "000011",
+            "hamming_distance": 1,
+            "agent_decisions": {
+              "guardian": {
+                "decision": "allow",
+                "reason": "状态转换安全检查通过",
+                "confidence": 1.0,
+                "details": {
+                  "allowed": true,
+                  "reason": "状态转换安全检查通过",
+                  "confidence": 1.0,
+                  "violations": [],
+                  "constraints_checked": [
+                    "状态格式验证",
+                    "目标状态格式验证",
+                    "汉明距离检查",
+                    "危险模式检查"
+                  ],
+                  "hamming_distance": 1,
+                  "security_level": "medium",
+                  "current_state": "000001",
+                  "target_state": "000011"
+                }
+              },
+              "communicator": {
+                "decision": "allow",
+                "reason": "默认允许（方法未实现）",
+                "confidence": 0.5,
+                "details": {
+                  "method_not_implemented": true
+                }
+              },
+              "learner": {
+                "decision": "allow",
+                "reason": "无历史记录，探索性允许",
+                "confidence": 0.44000000000000006,
+                "details": {
+                  "recommendation": "allow",
+                  "reason": "无历史记录，探索性允许",
+                  "confidence": 0.44000000000000006,
+                  "learning_insights": [
+                    "此转换无历史记录，需要探索",
+                    "转换符合格雷编码（汉明距离=1）"
+                  ],
+                  "historical_data": {},
+                  "hamming_distance": 1,
+                  "current_state": "000001",
+                  "target_state": "000011"
+                }
+              },
+              "explorer": {
+                "decision": "allow",
+                "reason": "中等探索价值，可考虑但非优先",
+                "confidence": 0.9133333333333333,
+                "details": {
+                  "exploration_value": 0.567,
+                  "value_category": "familiar",
+                  "novelty_score": 0.167,
+                  "utility_score": 0.9,
+                  "risk_score": 0.3,
+                  "recommendation": "neutral",
+                  "reason": "中等探索价值，可考虑但非优先",
+                  "confidence": 0.9133333333333333,
+                  "insights": [
+                    "状态转换汉明距离: 1 (1/6)",
+                    "合规的格雷编码转换（汉明距离=1）",
+                    "中等探索价值：平衡了风险和收益",
+                    "正向转换：从阴到阳的趋势"
+                  ],
+                  "alternative_paths": [],
+                  "hamming_distance": 1,
+                  "state_pair": "000001->000011"
+                }
+              }
+            },
+            "decision_analysis": {
+              "can_proceed": true,
+              "decision_summary": "加权决策允许（得分: 1.000 ≥ 0.5）",
+              "decision_method": "weighted_majority",
+              "weighted_score": 0.7646666666666667,
+              "normalized_score": 1.0,
+              "allow_count": 4,
+              "block_count": 0,
+              "total_agents": 4,
+              "avg_confidence": 0.7133333333333334,
+              "guardian_veto": false,
+              "guardian_confidence": 1.0,
+              "agent_decisions_summary": {
+                "guardian": {
+                  "decision": "allow",
+                  "reason": "状态转换安全检查通过",
+                  "confidence": 1.0,
+                  "weight": 0.4
+                },
+                "communicator": {
+                  "decision": "allow",
+                  "reason": "默认允许（方法未实现）",
+                  "confidence": 0.5,
+                  "weight": 0.1
+                },
+                "learner": {
+                  "decision": "allow",
+                  "reason": "无历史记录，探索性允许",
+                  "confidence": 0.44000000000000006,
+                  "weight": 0.3
+                },
+                "explorer": {
+                  "decision": "allow",
+                  "reason": "中等探索价值，可考虑但非优先",
+                  "confidence": 0.9133333333333333,
+                  "weight": 0.2
+                }
+              },
+              "priority_weights": {
+                "guardian": 0.4,
+                "learner": 0.3,
+                "explorer": 0.2,
+                "communicator": 0.1
+              },
+              "decision_threshold": 0.5
+            },
+            "state_record": {
+              "timestamp": "2026-04-14T17:24:19.338635",
+              "old_state": "000001",
+              "new_state": "000011",
+              "reason": "协同决策",
+              "agents_notified": [
+                {
+                  "agent": "guardian",
+                  "action": "security_recorded",
+                  "result": {
+                    "allowed": true,
+                    "reason": "简化测试模式"
+                  }
+                },
+                {
+                  "agent": "communicator",
+                  "action": "notification_sent",
+                  "result": true,
+                  "message": "msg_000002"
+                },
+                {
+                  "agent": "learner",
+                  "action": "performance_recorded",
+                  "result": true,
+                  "metric": "state_transition_time"
+                },
+                {
+                  "agent": "explorer",
+                  "action": "state_exploration",
+                  "discoveries_found": 1
+                }
+              ]
+            },
+            "timestamp": "2026-04-14T17:24:19.338686"
+          },
+          "end_time": "2026-04-14T17:24:19.338695"
+        },
+        {
+          "step_index": 2,
+          "step_type": "agent_interaction",
+          "description": "Learner记录性能指标",
+          "start_time": "2026-04-14T17:24:19.338704",
+          "success": true,
+          "action": "agent_interaction",
+          "agent": "learner",
+          "action_type": "update_performance",
+          "result": {
+            "success": true,
+            "message": "collaboration_success_rate正常",
+            "metric_name": "collaboration_success_rate",
+            "value": 0.95
+          },
+          "details": {
+            "success": true,
+            "message": "collaboration_success_rate正常",
+            "metric_name": "collaboration_success_rate",
+            "value": 0.95
+          },
+          "end_time": "2026-04-14T17:24:19.338717"
+        }
+      ],
+      "agent_interactions": [],
+      "status": "completed",
+      "end_time": "2026-04-14T17:24:19.338719",
+      "final_state": "000011"
+    },
+    "SCENE-02": {
+      "scenario_id": "SCENE-02",
+      "scenario_name": "复杂路径转换测试",
+      "start_time": "2026-04-14T17:24:19.338737",
+      "initial_state": "000011",
+      "steps": [
+        {
+          "step_index": 0,
+          "step_type": "state_transition",
+          "description": "第一步：转换到000001",
+          "start_time": "2026-04-14T17:24:19.338746",
+          "success": true,
+          "action": "state_transition",
+          "target_state": "000001",
+          "message": "状态转换成功",
+          "details": {
+            "success": true,
+            "old_state": "000011",
+            "new_state": "000001",
+            "hamming_distance": 1,
+            "agent_decisions": {
+              "guardian": {
+                "decision": "allow",
+                "reason": "状态转换安全检查通过",
+                "confidence": 1.0,
+                "details": {
+                  "allowed": true,
+                  "reason": "状态转换安全检查通过",
+                  "confidence": 1.0,
+                  "violations": [],
+                  "constraints_checked": [
+                    "状态格式验证",
+                    "目标状态格式验证",
+                    "汉明距离检查",
+                    "危险模式检查"
+                  ],
+                  "hamming_distance": 1,
+                  "security_level": "medium",
+                  "current_state": "000011",
+                  "target_state": "000001"
+                }
+              },
+              "communicator": {
+                "decision": "allow",
+                "reason": "默认允许（方法未实现）",
+                "confidence": 0.5,
+                "details": {
+                  "method_not_implemented": true
+                }
+              },
+              "learner": {
+                "decision": "allow",
+                "reason": "无历史记录，探索性允许",
+                "confidence": 0.44000000000000006,
+                "details": {
+                  "recommendation": "allow",
+                  "reason": "无历史记录，探索性允许",
+                  "confidence": 0.44000000000000006,
+                  "learning_insights": [
+                    "此转换无历史记录，需要探索",
+                    "转换符合格雷编码（汉明距离=1）"
+                  ],
+                  "historical_data": {},
+                  "hamming_distance": 1,
+                  "current_state": "000011",
+                  "target_state": "000001"
+                }
+              },
+              "explorer": {
+                "decision": "block",
+                "reason": "决策收集失败: maximum recursion depth exceeded",
+                "confidence": 0.0,
+                "details": {
+                  "error": "maximum recursion depth exceeded"
+                }
+              }
+            },
+            "decision_analysis": {
+              "can_proceed": true,
+              "decision_summary": "加权决策允许（得分: 1.000 ≥ 0.5）",
+              "decision_method": "weighted_majority",
+              "weighted_score": 0.5820000000000001,
+              "normalized_score": 1.0,
+              "allow_count": 3,
+              "block_count": 1,
+              "total_agents": 4,
+              "avg_confidence": 0.485,
+              "guardian_veto": false,
+              "guardian_confidence": 1.0,
+              "agent_decisions_summary": {
+                "guardian": {
+                  "decision": "allow",
+                  "reason": "状态转换安全检查通过",
+                  "confidence": 1.0,
+                  "weight": 0.4
+                },
+                "communicator": {
+                  "decision": "allow",
+                  "reason": "默认允许（方法未实现）",
+                  "confidence": 0.5,
+                  "weight": 0.1
+                },
+                "learner": {
+                  "decision": "allow",
+                  "reason": "无历史记录，探索性允许",
+                  "confidence": 0.44000000000000006,
+                  "weight": 0.3
+                },
+                "explorer": {
+                  "decision": "block",
+                  "reason": "决策收集失败: maximum recursion depth exceeded",
+                  "confidence": 0.0,
+                  "weight": 0.2
+                }
+              },
+              "priority_weights": {
+                "guardian": 0.4,
+                "learner": 0.3,
+                "explorer": 0.2,
+                "communicator": 0.1
+              },
+              "decision_threshold": 0.5
+            },
+            "state_record": {
+              "timestamp": "2026-04-14T17:24:19.343652",
+              "old_state": "000011",
+              "new_state": "000001",
+              "reason": "协同决策",
+              "agents_notified": [
+                {
+                  "agent": "guardian",
+                  "action": "security_recorded",
+                  "result": {
+                    "allowed": true,
+                    "reason": "简化测试模式"
+                  }
+                },
+                {
+                  "agent": "communicator",
+                  "action": "notification_sent",
+                  "result": true,
+                  "message": "msg_000003"
+                },
+                {
+                  "agent": "learner",
+                  "action": "performance_recorded",
+                  "result": true,
+                  "metric": "state_transition_time"
+                },
+                {
+                  "agent": "explorer",
+                  "action": "state_exploration",
+                  "discoveries_found": 1
+                }
+              ]
+            },
+            "timestamp": "2026-04-14T17:24:19.343698"
+          },
+          "end_time": "2026-04-14T17:24:19.343707"
+        },
+        {
+          "step_index": 1,
+          "step_type": "state_transition",
+          "description": "第二步：转换到000011",
+          "start_time": "2026-04-14T17:24:19.343716",
+          "success": true,
+          "action": "state_transition",
+          "target_state": "000011",
+          "message": "状态转换成功",
+          "details": {
+            "success": true,
+            "old_state": "000001",
+            "new_state": "000011",
+            "hamming_distance": 1,
+            "agent_decisions": {
+              "guardian": {
+                "decision": "allow",
+                "reason": "状态转换安全检查通过",
+                "confidence": 1.0,
+                "details": {
+                  "allowed": true,
+                  "reason": "状态转换安全检查通过",
+                  "confidence": 1.0,
+                  "violations": [],
+                  "constraints_checked": [
+                    "状态格式验证",
+                    "目标状态格式验证",
+                    "汉明距离检查",
+                    "危险模式检查"
+                  ],
+                  "hamming_distance": 1,
+                  "security_level": "medium",
+                  "current_state": "000001",
+                  "target_state": "000011"
+                }
+              },
+              "communicator": {
+                "decision": "allow",
+                "reason": "默认允许（方法未实现）",
+                "confidence": 0.5,
+                "details": {
+                  "method_not_implemented": true
+                }
+              },
+              "learner": {
+                "decision": "allow",
+                "reason": "历史成功率 100.00% (1次)",
+                "confidence": 0.8800000000000001,
+                "details": {
+                  "recommendation": "allow",
+                  "reason": "历史成功率 100.00% (1次)",
+                  "confidence": 0.8800000000000001,
+                  "learning_insights": [
+                    "此转换历史表现一般: 100.00% 成功率",
+                    "转换符合格雷编码（汉明距离=1）"
+                  ],
+                  "historical_data": {
+                    "count": 1,
+                    "success_count": 1,
+                    "failure_count": 0,
+                    "total_time": 0.1,
+                    "success_rate": 1.0,
+                    "avg_time": 0.1,
+                    "last_updated": "2026-04-14T17:24:19.338570"
+                  },
+                  "hamming_distance": 1,
+                  "current_state": "000001",
+                  "target_state": "000011"
+                }
+              },
+              "explorer": {
+                "decision": "allow",
+                "reason": "中等探索价值，可考虑但非优先",
+                "confidence": 0.9133333333333333,
+                "details": {
+                  "exploration_value": 0.567,
+                  "value_category": "familiar",
+                  "novelty_score": 0.167,
+                  "utility_score": 0.9,
+                  "risk_score": 0.3,
+                  "recommendation": "neutral",
+                  "reason": "中等探索价值，可考虑但非优先",
+                  "confidence": 0.9133333333333333,
+                  "insights": [
+                    "状态转换汉明距离: 1 (1/6)",
+                    "合规的格雷编码转换（汉明距离=1）",
+                    "中等探索价值：平衡了风险和收益",
+                    "正向转换：从阴到阳的趋势"
+                  ],
+                  "alternative_paths": [],
+                  "hamming_distance": 1,
+                  "state_pair": "000001->000011"
+                }
+              }
+            },
+            "decision_analysis": {
+              "can_proceed": true,
+              "decision_summary": "加权决策允许（得分: 1.000 ≥ 0.5）",
+              "decision_method": "weighted_majority",
+              "weighted_score": 0.8966666666666666,
+              "normalized_score": 1.0,
+              "allow_count": 4,
+              "block_count": 0,
+              "total_agents": 4,
+              "avg_confidence": 0.8233333333333334,
+              "guardian_veto": false,
+              "guardian_confidence": 1.0,
+              "agent_decisions_summary": {
+                "guardian": {
+                  "decision": "allow",
+                  "reason": "状态转换安全检查通过",
+                  "confidence": 1.0,
+                  "weight": 0.4
+                },
+                "communicator": {
+                  "decision": "allow",
+                  "reason": "默认允许（方法未实现）",
+                  "confidence": 0.5,
+                  "weight": 0.1
+                },
+                "learner": {
+                  "decision": "allow",
+                  "reason": "历史成功率 100.00% (1次)",
+                  "confidence": 0.8800000000000001,
+                  "weight": 0.3
+                },
+                "explorer": {
+                  "decision": "allow",
+                  "reason": "中等探索价值，可考虑但非优先",
+                  "confidence": 0.9133333333333333,
+                  "weight": 0.2
+                }
+              },
+              "priority_weights": {
+                "guardian": 0.4,
+                "learner": 0.3,
+                "explorer": 0.2,
+                "communicator": 0.1
+              },
+              "decision_threshold": 0.5
+            },
+            "state_record": {
+              "timestamp": "2026-04-14T17:24:19.343819",
+              "old_state": "000001",
+              "new_state": "000011",
+              "reason": "协同决策",
+              "agents_notified": [
+                {
+                  "agent": "guardian",
+                  "action": "security_recorded",
+                  "result": {
+                    "allowed": true,
+                    "reason": "简化测试模式"
+                  }
+                },
+                {
+                  "agent": "communicator",
+                  "action": "notification_sent",
+                  "result": true,
+                  "message": "msg_000004"
+                },
+                {
+                  "agent": "learner",
+                  "action": "performance_recorded",
+                  "result": true,
+                  "metric": "state_transition_time"
+                },
+                {
+                  "agent": "explorer",
+                  "action": "state_exploration",
+                  "discoveries_found": 1
+                }
+              ]
+            },
+            "timestamp": "2026-04-14T17:24:19.343862"
+          },
+          "end_time": "2026-04-14T17:24:19.343871"
+        },
+        {
+          "step_index": 2,
+          "step_type": "state_transition",
+          "description": "第三步：转换到000111",
+          "start_time": "2026-04-14T17:24:19.343882",
+          "success": true,
+          "action": "state_transition",
+          "target_state": "000111",
+          "message": "状态转换成功",
+          "details": {
+            "success": true,
+            "old_state": "000011",
+            "new_state": "000111",
+            "hamming_distance": 1,
+            "agent_decisions": {
+              "guardian": {
+                "decision": "allow",
+                "reason": "状态转换安全检查通过",
+                "confidence": 1.0,
+                "details": {
+                  "allowed": true,
+                  "reason": "状态转换安全检查通过",
+                  "confidence": 1.0,
+                  "violations": [],
+                  "constraints_checked": [
+                    "状态格式验证",
+                    "目标状态格式验证",
+                    "汉明距离检查",
+                    "危险模式检查"
+                  ],
+                  "hamming_distance": 1,
+                  "security_level": "medium",
+                  "current_state": "000011",
+                  "target_state": "000111"
+                }
+              },
+              "communicator": {
+                "decision": "allow",
+                "reason": "默认允许（方法未实现）",
+                "confidence": 0.5,
+                "details": {
+                  "method_not_implemented": true
+                }
+              },
+              "learner": {
+                "decision": "allow",
+                "reason": "无历史记录，探索性允许",
+                "confidence": 0.44000000000000006,
+                "details": {
+                  "recommendation": "allow",
+                  "reason": "无历史记录，探索性允许",
+                  "confidence": 0.44000000000000006,
+                  "learning_insights": [
+                    "此转换无历史记录，需要探索",
+                    "转换符合格雷编码（汉明距离=1）",
+                    "模式变化: 阴多 → 混合模式"
+                  ],
+                  "historical_data": {},
+                  "hamming_distance": 1,
+                  "current_state": "000011",
+                  "target_state": "000111"
+                }
+              },
+              "explorer": {
+                "decision": "allow",
+                "reason": "中等探索价值，可考虑但非优先",
+                "confidence": 0.9013333333333334,
+                "details": {
+                  "exploration_value": 0.507,
+                  "value_category": "familiar",
+                  "novelty_score": 0.167,
+                  "utility_score": 0.75,
+                  "risk_score": 0.3,
+                  "recommendation": "neutral",
+                  "reason": "中等探索价值，可考虑但非优先",
+                  "confidence": 0.9013333333333334,
+                  "insights": [
+                    "状态转换汉明距离: 1 (1/6)",
+                    "合规的格雷编码转换（汉明距离=1）",
+                    "中等探索价值：平衡了风险和收益",
+                    "正向转换：从阴到阳的趋势"
+                  ],
+                  "alternative_paths": [],
+                  "hamming_distance": 1,
+                  "state_pair": "000011->000111"
+                }
+              }
+            },
+            "decision_analysis": {
+              "can_proceed": true,
+              "decision_summary": "加权决策允许（得分: 1.000 ≥ 0.5）",
+              "decision_method": "weighted_majority",
+              "weighted_score": 0.7622666666666668,
+              "normalized_score": 1.0,
+              "allow_count": 4,
+              "block_count": 0,
+              "total_agents": 4,
+              "avg_confidence": 0.7103333333333334,
+              "guardian_veto": false,
+              "guardian_confidence": 1.0,
+              "agent_decisions_summary": {
+                "guardian": {
+                  "decision": "allow",
+                  "reason": "状态转换安全检查通过",
+                  "confidence": 1.0,
+                  "weight": 0.4
+                },
+                "communicator": {
+                  "decision": "allow",
+                  "reason": "默认允许（方法未实现）",
+                  "confidence": 0.5,
+                  "weight": 0.1
+                },
+                "learner": {
+                  "decision": "allow",
+                  "reason": "无历史记录，探索性允许",
+                  "confidence": 0.44000000000000006,
+                  "weight": 0.3
+                },
+                "explorer": {
+                  "decision": "allow",
+                  "reason": "中等探索价值，可考虑但非优先",
+                  "confidence": 0.9013333333333334,
+                  "weight": 0.2
+                }
+              },
+              "priority_weights": {
+                "guardian": 0.4,
+                "learner": 0.3,
+                "explorer": 0.2,
+                "communicator": 0.1
+              },
+              "decision_threshold": 0.5
+            },
+            "state_record": {
+              "timestamp": "2026-04-14T17:24:19.343985",
+              "old_state": "000011",
+              "new_state": "000111",
+              "reason": "协同决策",
+              "agents_notified": [
+                {
+                  "agent": "guardian",
+                  "action": "security_recorded",
+                  "result": {
+                    "allowed": true,
+                    "reason": "简化测试模式"
+                  }
+                },
+                {
+                  "agent": "communicator",
+                  "action": "notification_sent",
+                  "result": true,
+                  "message": "msg_000005"
+                },
+                {
+                  "agent": "learner",
+                  "action": "performance_recorded",
+                  "result": true,
+                  "metric": "state_transition_time"
+                },
+                {
+                  "agent": "explorer",
+                  "action": "state_exploration",
+                  "discoveries_found": 1
+                }
+              ]
+            },
+            "timestamp": "2026-04-14T17:24:19.344029"
+          },
+          "end_time": "2026-04-14T17:24:19.344038"
+        },
+        {
+          "step_index": 3,
+          "step_type": "state_transition",
+          "description": "第四步：转换到001111",
+          "start_time": "2026-04-14T17:24:19.344046",
+          "success": true,
+          "action": "state_transition",
+          "target_state": "001111",
+          "message": "状态转换成功",
+          "details": {
+            "success": true,
+            "old_state": "000111",
+            "new_state": "001111",
+            "hamming_distance": 1,
+            "agent_decisions": {
+              "guardian": {
+                "decision": "allow",
+                "reason": "状态转换安全检查通过",
+                "confidence": 1.0,
+                "details": {
+                  "allowed": true,
+                  "reason": "状态转换安全检查通过",
+                  "confidence": 1.0,
+                  "violations": [],
+                  "constraints_checked": [
+                    "状态格式验证",
+                    "目标状态格式验证",
+                    "汉明距离检查",
+                    "危险模式检查"
+                  ],
+                  "hamming_distance": 1,
+                  "security_level": "medium",
+                  "current_state": "000111",
+                  "target_state": "001111"
+                }
+              },
+              "communicator": {
+                "decision": "allow",
+                "reason": "默认允许（方法未实现）",
+                "confidence": 0.5,
+                "details": {
+                  "method_not_implemented": true
+                }
+              },
+              "learner": {
+                "decision": "allow",
+                "reason": "无历史记录，探索性允许",
+                "confidence": 0.44000000000000006,
+                "details": {
+                  "recommendation": "allow",
+                  "reason": "无历史记录，探索性允许",
+                  "confidence": 0.44000000000000006,
+                  "learning_insights": [
+                    "此转换无历史记录，需要探索",
+                    "转换符合格雷编码（汉明距离=1）",
+                    "模式变化: 混合模式 → 阳多"
+                  ],
+                  "historical_data": {},
+                  "hamming_distance": 1,
+                  "current_state": "000111",
+                  "target_state": "001111"
+                }
+              },
+              "explorer": {
+                "decision": "allow",
+                "reason": "中等探索价值，可考虑但非优先",
+                "confidence": 0.9133333333333333,
+                "details": {
+                  "exploration_value": 0.567,
+                  "value_category": "familiar",
+                  "novelty_score": 0.167,
+                  "utility_score": 0.9,
+                  "risk_score": 0.3,
+                  "recommendation": "neutral",
+                  "reason": "中等探索价值，可考虑但非优先",
+                  "confidence": 0.9133333333333333,
+                  "insights": [
+                    "状态转换汉明距离: 1 (1/6)",
+                    "合规的格雷编码转换（汉明距离=1）",
+                    "中等探索价值：平衡了风险和收益",
+                    "正向转换：从阴到阳的趋势"
+                  ],
+                  "alternative_paths": [],
+                  "hamming_distance": 1,
+                  "state_pair": "000111->001111"
+                }
+              }
+            },
+            "decision_analysis": {
+              "can_proceed": true,
+              "decision_summary": "加权决策允许（得分: 1.000 ≥ 0.5）",
+              "decision_method": "weighted_majority",
+              "weighted_score": 0.7646666666666667,
+              "normalized_score": 1.0,
+              "allow_count": 4,
+              "block_count": 0,
+              "total_agents": 4,
+              "avg_confidence": 0.7133333333333334,
+              "guardian_veto": false,
+              "guardian_confidence": 1.0,
+              "agent_decisions_summary": {
+                "guardian": {
+                  "decision": "allow",
+                  "reason": "状态转换安全检查通过",
+                  "confidence": 1.0,
+                  "weight": 0.4
+                },
+                "communicator": {
+                  "decision": "allow",
+                  "reason": "默认允许（方法未实现）",
+                  "confidence": 0.5,
+                  "weight": 0.1
+                },
+                "learner": {
+                  "decision": "allow",
+                  "reason": "无历史记录，探索性允许",
+                  "confidence": 0.44000000000000006,
+                  "weight": 0.3
+                },
+                "explorer": {
+                  "decision": "allow",
+                  "reason": "中等探索价值，可考虑但非优先",
+                  "confidence": 0.9133333333333333,
+                  "weight": 0.2
+                }
+              },
+              "priority_weights": {
+                "guardian": 0.4,
+                "learner": 0.3,
+                "explorer": 0.2,
+                "communicator": 0.1
+              },
+              "decision_threshold": 0.5
+            },
+            "state_record": {
+              "timestamp": "2026-04-14T17:24:19.344147",
+              "old_state": "000111",
+              "new_state": "001111",
+              "reason": "协同决策",
+              "agents_notified": [
+                {
+                  "agent": "guardian",
+                  "action": "security_recorded",
+                  "result": {
+                    "allowed": true,
+                    "reason": "简化测试模式"
+                  }
+                },
+                {
+                  "agent": "communicator",
+                  "action": "notification_sent",
+                  "result": true,
+                  "message": "msg_000006"
+                },
+                {
+                  "agent": "learner",
+                  "action": "performance_recorded",
+                  "result": true,
+                  "metric": "state_transition_time"
+                },
+                {
+                  "agent": "explorer",
+                  "action": "state_exploration",
+                  "discoveries_found": 1
+                }
+              ]
+            },
+            "timestamp": "2026-04-14T17:24:19.344190"
+          },
+          "end_time": "2026-04-14T17:24:19.344198"
+        },
+        {
+          "step_index": 4,
+          "step_type": "agent_interaction",
+          "description": "Explorer探索相关解决方案",
+          "start_time": "2026-04-14T17:24:19.344206",
+          "success": true,
+          "action": "agent_interaction",
+          "agent": "explorer",
+          "action_type": "explore_solutions",
+          "result": {
+            "success": true,
+            "solutions_found": 1,
+            "solutions": [
+              {
+                "title": "知识资源：如何优化状态转换路径...",
+                "type": "knowledge"
+              }
+            ]
+          },
+          "details": {
+            "success": true,
+            "solutions_found": 1,
+            "solutions": [
+              {
+                "title": "知识资源：如何优化状态转换路径...",
+                "type": "knowledge"
+              }
+            ]
+          },
+          "end_time": "2026-04-14T17:24:19.344230"
+        }
+      ],
+      "agent_interactions": [],
+      "status": "completed",
+      "end_time": "2026-04-14T17:24:19.344231",
+      "final_state": "001111"
+    },
+    "SCENE-03": {
+      "scenario_id": "SCENE-03",
+      "scenario_name": "边界状态测试",
+      "start_time": "2026-04-14T17:24:19.344251",
+      "initial_state": "001111",
+      "steps": [
+        {
+          "step_index": 0,
+          "step_type": "state_transition",
+          "description": "第一步转换",
+          "start_time": "2026-04-14T17:24:19.344259",
+          "success": false,
+          "action": "state_transition",
+          "target_state": "000001",
+          "message": "汉明距离为 3，不符合格雷编码要求（必须为1）",
+          "details": {},
+          "end_time": "2026-04-14T17:24:19.344268"
+        }
+      ],
+      "agent_interactions": [],
+      "status": "failed",
+      "failure_reason": "步骤执行失败",
+      "end_time": "2026-04-14T17:24:19.344270",
+      "final_state": "001111"
+    }
+  },
+  "state_history_summary": [
+    {
+      "transition": "000000→000001",
+      "timestamp": "2026-04-14T17:24:19.338417",
+      "agents_notified": 4
+    },
+    {
+      "transition": "000001→000011",
+      "timestamp": "2026-04-14T17:24:19.338635",
+      "agents_notified": 4
+    },
+    {
+      "transition": "000011→000001",
+      "timestamp": "2026-04-14T17:24:19.343652",
+      "agents_notified": 4
+    },
+    {
+      "transition": "000001→000011",
+      "timestamp": "2026-04-14T17:24:19.343819",
+      "agents_notified": 4
+    },
+    {
+      "transition": "000011→000111",
+      "timestamp": "2026-04-14T17:24:19.343985",
+      "agents_notified": 4
+    },
+    {
+      "transition": "000111→001111",
+      "timestamp": "2026-04-14T17:24:19.344147",
+      "agents_notified": 4
+    }
+  ]
+}

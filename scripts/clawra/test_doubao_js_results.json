@@ -1,0 +1,114 @@
+{
+  "tested_at": "2026-04-16 18:21:00",
+  "total_tests": 15,
+  "successful": 15,
+  "failed": 0,
+  "missing_value_count": 2,
+  "results": [
+    {
+      "description": "获取页面标题",
+      "js_code": "document.title",
+      "success": true,
+      "output": "豆包 - 字节跳动旗下 AI 智能助手",
+      "error": ""
+    },
+    {
+      "description": "获取标题长度",
+      "js_code": "document.title.length",
+      "success": true,
+      "output": "19",
+      "error": ""
+    },
+    {
+      "description": "检查document类型",
+      "js_code": "typeof document",
+      "success": true,
+      "output": "object",
+      "error": ""
+    },
+    {
+      "description": "获取当前URL",
+      "js_code": "window.location.href",
+      "success": true,
+      "output": "https://www.doubao.com/ai",
+      "error": ""
+    },
+    {
+      "description": "获取页面元素总数",
+      "js_code": "document.querySelectorAll('*').length",
+      "success": true,
+      "output": "207",
+      "error": ""
+    },
+    {
+      "description": "获取按钮数量",
+      "js_code": "document.querySelectorAll('button').length",
+      "success": true,
+      "output": "2",
+      "error": ""
+    },
+    {
+      "description": "获取文本框数量",
+      "js_code": "document.querySelectorAll('textarea').length",
+      "success": true,
+      "output": "0",
+      "error": ""
+    },
+    {
+      "description": "测试JSON.stringify",
+      "js_code": "JSON.stringify({test: 'value'})",
+      "success": true,
+      "output": "{\"test\":\"value\"}",
+      "error": ""
+    },
+    {
+      "description": "返回简单字符串",
+      "js_code": "'test string'",
+      "success": true,
+      "output": "test string",
+      "error": ""
+    },
+    {
+      "description": "返回数字",
+      "js_code": "42",
+      "success": true,
+      "output": "42",
+      "error": ""
+    },
+    {
+      "description": "返回null",
+      "js_code": "null",
+      "success": true,
+      "output": "missing value",
+      "error": ""
+    },
+    {
+      "description": "返回undefined",
+      "js_code": "undefined",
+      "success": true,
+      "output": "missing value",
+      "error": ""
+    },
+    {
+      "description": "立即执行函数",
+      "js_code": "(function() { return 'function return'; })()",
+      "success": true,
+      "output": "function return",
+      "error": ""
+    },
+    {
+      "description": "try-catch测试",
+      "js_code": "try { document.title } catch(e) { 'error: ' + e }",
+      "success": true,
+      "output": "豆包 - 字节跳动旗下 AI 智能助手",
+      "error": ""
+    },
+    {
+      "description": "console.log后返回",
+      "js_code": "console.log('test'); 'after console'",
+      "success": true,
+      "output": "after console",
+      "error": ""
+    }
+  ]
+}

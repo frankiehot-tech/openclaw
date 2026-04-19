@@ -1,0 +1,71 @@
+# Athena队列监控系统配置
+# 优先级P0修复 - 短期监控配置
+
+# 监控配置
+monitoring_interval: 60  # 检查间隔（秒）
+alert_channels:
+  - console  # 控制台输出
+  - log      # 日志文件
+  # - email   # 邮件告警（需配置）
+  # - slack   # Slack告警（需配置）
+  # - webhook # Webhook告警（需配置）
+
+# 性能阈值配置
+performance_thresholds:
+  cpu_percent: 80          # CPU使用率阈值（%）
+  memory_percent: 85       # 内存使用率阈值（%）
+  queue_age_minutes: 60    # 队列更新最大时间（分钟）
+  error_count_threshold: 3 # 连续错误计数阈值
+  queue_stuck_threshold_minutes: 120  # 队列卡住时间阈值（分钟）
+  empty_queue_with_pending_threshold: 5  # 空队列但有pending任务的阈值数量
+
+# 队列特定配置
+queue_specific_rules:
+  # 基因管理队列 - P0修复后需重点监控
+  openhuman_aiplan_gene_management_20260405:
+    queue_age_minutes: 30    # 更严格的监控间隔
+    alert_channels: [console, log]
+    auto_fix_attempts: true  # 允许自动尝试修复
+
+  # 历史队列 - 放宽监控
+  openhuman_aiplan_plan_manual_20260328:
+    queue_age_minutes: 180   # 较旧的队列，放宽监控
+    alert_channels: [log]    # 只记录到日志
+
+  openhuman_aiplan_build_priority_20260328:
+    queue_age_minutes: 240   # 放宽监控
+    alert_channels: [log]
+
+  openhuman_aiplan_codex_audit_20260328:
+    queue_age_minutes: 240
+    alert_channels: [log]
+
+  openhuman_athena_upgrade_20260326:
+    queue_age_minutes: 240
+    alert_channels: [log]
+
+# 告警配置
+alert_configs:
+  email:
+    enabled: false
+    smtp_server: "smtp.gmail.com"
+    smtp_port: 587
+    smtp_username: ""
+    smtp_password: ""
+    sender_email: ""
+    recipient_emails: []
+
+  slack:
+    enabled: false
+    webhook_url: ""
+
+  webhook:
+    enabled: false
+    url: ""
+    headers: {}
+    timeout: 10
+
+# 监控模式配置
+monitoring_mode: "active"  # active: 主动监控, passive: 被动记录
+auto_restart_queues: false  # 是否自动重启卡住的队列（谨慎启用）
+alert_escalation_threshold: 3  # 同一告警重复次数达到此阈值后升级处理

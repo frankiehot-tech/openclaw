@@ -1,0 +1,282 @@
+[
+  {
+    "id": "Data-Advantage_VibeReference_PRODUCT.md_0",
+    "category": "text_to_image",
+    "subcategory": "general",
+    "prompt_text": "The informational hub for solo founders navigating tech suppliers. Curated prompts, vendor comparisons, and guides to take a product from concept to launch using AI coding tools.",
+    "parameters": {},
+    "model_compatibility": [
+      "stable-diffusion",
+      "midjourney",
+      "dall-e"
+    ],
+    "quality_score": 0.6,
+    "source": "Data-Advantage/VibeReference",
+    "source_url": "https://github.com/Data-Advantage/VibeReference",
+    "examples": [],
+    "tags": [],
+    "created_at": "2026-04-15T07:53:22.892845",
+    "updated_at": "2026-04-15T07:53:22.892865",
+    "verification_status": "automated"
+  },
+  {
+    "id": "Data-Advantage_VibeReference_PRODUCT.md_2",
+    "category": "text_to_image",
+    "subcategory": "general",
+    "prompt_text": "best [tool] for solo founders",
+    "parameters": {},
+    "model_compatibility": [
+      "stable-diffusion",
+      "midjourney",
+      "dall-e"
+    ],
+    "quality_score": 0.5,
+    "source": "Data-Advantage/VibeReference",
+    "source_url": "https://github.com/Data-Advantage/VibeReference",
+    "examples": [],
+    "tags": [],
+    "created_at": "2026-04-15T07:53:22.892908",
+    "updated_at": "2026-04-15T07:53:22.892910",
+    "verification_status": "automated"
+  },
+  {
+    "id": "Data-Advantage_VibeReference_package-lock.json_26",
+    "category": "text_to_image",
+    "subcategory": "general",
+    "prompt_text": "^18.17.0 || ^20.3.0 || >=21.0.0",
+    "parameters": {},
+    "model_compatibility": [
+      "stable-diffusion",
+      "midjourney",
+      "dall-e"
+    ],
+    "quality_score": 0.5,
+    "source": "Data-Advantage/VibeReference",
+    "source_url": "https://github.com/Data-Advantage/VibeReference",
+    "examples": [],
+    "tags": [],
+    "created_at": "2026-04-15T07:53:25.416569",
+    "updated_at": "2026-04-15T07:53:25.416570",
+    "verification_status": "automated"
+  },
+  {
+    "id": "Data-Advantage_VibeReference_package-lock.json_115",
+    "category": "text_to_image",
+    "subcategory": "general",
+    "prompt_text": "Apache-2.0 AND LGPL-3.0-or-later AND MIT",
+    "parameters": {},
+    "model_compatibility": [
+      "stable-diffusion",
+      "midjourney",
+      "dall-e"
+    ],
+    "quality_score": 0.5,
+    "source": "Data-Advantage/VibeReference",
+    "source_url": "https://github.com/Data-Advantage/VibeReference",
+    "examples": [],
+    "tags": [],
+    "created_at": "2026-04-15T07:53:25.417716",
+    "updated_at": "2026-04-15T07:53:25.417717",
+    "verification_status": "automated"
+  },
+  {
+    "id": "Data-Advantage_VibeReference_package-lock.json_121",
+    "category": "text_to_image",
+    "subcategory": "general",
+    "prompt_text": "Apache-2.0 AND LGPL-3.0-or-later",
+    "parameters": {},
+    "model_compatibility": [
+      "stable-diffusion",
+      "midjourney",
+      "dall-e"
+    ],
+    "quality_score": 0.5,
+    "source": "Data-Advantage/VibeReference",
+    "source_url": "https://github.com/Data-Advantage/VibeReference",
+    "examples": [],
+    "tags": [],
+    "created_at": "2026-04-15T07:53:25.417749",
+    "updated_at": "2026-04-15T07:53:25.417750",
+    "verification_status": "automated"
+  },
+  {
+    "id": "Data-Advantage_VibeReference_package-lock.json_217",
+    "category": "text_to_image",
+    "subcategory": "general",
+    "prompt_text": "^18 || ^19 || ^19.0.0-rc",
+    "parameters": {},
+    "model_compatibility": [
+      "stable-diffusion",
+      "midjourney",
+      "dall-e"
+    ],
+    "quality_score": 0.5,
+    "source": "Data-Advantage/VibeReference",
+    "source_url": "https://github.com/Data-Advantage/VibeReference",
+    "examples": [],
+    "tags": [],
+    "created_at": "2026-04-15T07:53:25.418298",
+    "updated_at": "2026-04-15T07:53:25.418299",
+    "verification_status": "automated"
+  },
+  {
+    "id": "Data-Advantage_VibeReference_package-lock.json_362",
+    "category": "text_to_image",
+    "subcategory": "general",
+    "prompt_text": "^8.16.0 || ^10.6.0 || >=11.0.0",
+    "parameters": {},
+    "model_compatibility": [
+      "stable-diffusion",
+      "midjourney",
+      "dall-e"
+    ],
+    "quality_score": 0.5,
+    "source": "Data-Advantage/VibeReference",
+    "source_url": "https://github.com/Data-Advantage/VibeReference",
+    "examples": [],
+    "tags": [],
+    "created_at": "2026-04-15T07:53:25.419102",
+    "updated_at": "2026-04-15T07:53:25.419103",
+    "verification_status": "automated"
+  },
+  {
+    "id": "Data-Advantage_VibeReference_package-lock.json_811",
+    "category": "text_to_image",
+    "subcategory": "general",
+    "prompt_text": "^18.2.0 || 19.0.0-rc-de68d2f4-20241204 || ^19.0.0",
+    "parameters": {},
+    "model_compatibility": [
+      "stable-diffusion",
+      "midjourney",
+      "dall-e"
+    ],
+    "quality_score": 0.5,
+    "source": "Data-Advantage/VibeReference",
+    "source_url": "https://github.com/Data-Advantage/VibeReference",
+    "examples": [],
+    "tags": [],
+    "created_at": "2026-04-15T07:53:25.423347",
+    "updated_at": "2026-04-15T07:53:25.423348",
+    "verification_status": "automated"
+  },
+  {
+    "id": "Data-Advantage_VibeReference_package.json_1",
+    "category": "text_to_image",
+    "subcategory": "general",
+    "prompt_text": "NODE_ENV=production next build",
+    "parameters": {},
+    "model_compatibility": [
+      "stable-diffusion",
+      "midjourney",
+      "dall-e"
+    ],
+    "quality_score": 0.5,
+    "source": "Data-Advantage/VibeReference",
+    "source_url": "https://github.com/Data-Advantage/VibeReference",
+    "examples": [],
+    "tags": [],
+    "created_at": "2026-04-15T07:53:26.632341",
+    "updated_at": "2026-04-15T07:53:26.632343",
+    "verification_status": "automated"
+  },
+  {
+    "id": "AICMO_AiCMO-Marketing-Prompt-Collection_QUICK_START_GUIDE.md_0",
+    "category": "text_to_image",
+    "subcategory": "general",
+    "prompt_text": "I Need Results Right Now",
+    "parameters": {},
+    "model_compatibility": [
+      "stable-diffusion",
+      "midjourney",
+      "dall-e"
+    ],
+    "quality_score": 0.5,
+    "source": "AICMO/AiCMO-Marketing-Prompt-Collection",
+    "source_url": "https://github.com/AICMO/AiCMO-Marketing-Prompt-Collection",
+    "examples": [],
+    "tags": [],
+    "created_at": "2026-04-15T07:53:36.313868",
+    "updated_at": "2026-04-15T07:53:36.313887",
+    "verification_status": "automated"
+  },
+  {
+    "id": "AICMO_AiCMO-Marketing-Prompt-Collection_QUICK_START_GUIDE.md_4",
+    "category": "text_to_image",
+    "subcategory": "general",
+    "prompt_text": "Why successful people never check email in the morning",
+    "parameters": {},
+    "model_compatibility": [
+      "stable-diffusion",
+      "midjourney",
+      "dall-e"
+    ],
+    "quality_score": 0.5,
+    "source": "AICMO/AiCMO-Marketing-Prompt-Collection",
+    "source_url": "https://github.com/AICMO/AiCMO-Marketing-Prompt-Collection",
+    "examples": [],
+    "tags": [],
+    "created_at": "2026-04-15T07:53:36.313930",
+    "updated_at": "2026-04-15T07:53:36.313932",
+    "verification_status": "automated"
+  },
+  {
+    "id": "AICMO_AiCMO-Marketing-Prompt-Collection_QUICK_START_GUIDE.md_8",
+    "category": "text_to_image",
+    "subcategory": "general",
+    "prompt_text": "[Brief description of what you offer]",
+    "parameters": {},
+    "model_compatibility": [
+      "stable-diffusion",
+      "midjourney",
+      "dall-e"
+    ],
+    "quality_score": 0.5,
+    "source": "AICMO/AiCMO-Marketing-Prompt-Collection",
+    "source_url": "https://github.com/AICMO/AiCMO-Marketing-Prompt-Collection",
+    "examples": [],
+    "tags": [],
+    "created_at": "2026-04-15T07:53:36.313963",
+    "updated_at": "2026-04-15T07:53:36.313964",
+    "verification_status": "automated"
+  },
+  {
+    "id": "AICMO_AiCMO-Marketing-Prompt-Collection_QUICK_START_GUIDE.md_10",
+    "category": "text_to_image",
+    "subcategory": "general",
+    "prompt_text": "help me with marketing",
+    "parameters": {},
+    "model_compatibility": [
+      "stable-diffusion",
+      "midjourney",
+      "dall-e"
+    ],
+    "quality_score": 0.5,
+    "source": "AICMO/AiCMO-Marketing-Prompt-Collection",
+    "source_url": "https://github.com/AICMO/AiCMO-Marketing-Prompt-Collection",
+    "examples": [],
+    "tags": [],
+    "created_at": "2026-04-15T07:53:36.313978",
+    "updated_at": "2026-04-15T07:53:36.313979",
+    "verification_status": "automated"
+  },
+  {
+    "id": "AICMO_AiCMO-Marketing-Prompt-Collection_QUICK_START_GUIDE.md_11",
+    "category": "text_to_image",
+    "subcategory": "general",
+    "prompt_text": "Make this more specific",
+    "parameters": {},
+    "model_compatibility": [
+      "stable-diffusion",
+      "midjourney",
+      "dall-e"
+    ],
+    "quality_score": 0.5,
+    "source": "AICMO/AiCMO-Marketing-Prompt-Collection",
+    "source_url": "https://github.com/AICMO/AiCMO-Marketing-Prompt-Collection",
+    "examples": [],
+    "tags": [],
+    "created_at": "2026-04-15T07:53:36.313985",
+    "updated_at": "2026-04-15T07:53:36.313986",
+    "verification_status": "automated"
+  }
+]

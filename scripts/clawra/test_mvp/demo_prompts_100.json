@@ -1,0 +1,4587 @@
+[
+  {
+    "id": "demo-000",
+    "prompt_text": "Artistic portrait of a young woman with detailed clothing, anime, high contrast",
+    "category": "text_to_image",
+    "subcategory": "portrait",
+    "model_compatibility": [
+      "midjourney",
+      "leonardo.ai"
+    ],
+    "parameters": {
+      "model": "playground-ai",
+      "steps": 31,
+      "cfg_scale": 7.4,
+      "size": "1024x1024"
+    },
+    "base_quality_score": 0.87,
+    "quality_level": 5,
+    "source": "generated",
+    "source_url": "",
+    "author": null,
+    "examples": [
+      {
+        "description": "Sample output 0",
+        "quality_rating": 4.5
+      }
+    ],
+    "references": [],
+    "metadata": {
+      "created_at": "2026-04-14T16:05:55.067920",
+      "updated_at": "2026-04-14T16:05:55.067920",
+      "usage_count": 14,
+      "success_count": 13,
+      "avg_quality_score": 0.93,
+      "user_ratings": {},
+      "last_used": "2026-04-14T16:05:55.067915",
+      "tags": [
+        "character",
+        "person",
+        "cinematic",
+        "portrait"
+      ]
+    },
+    "language": "en",
+    "version": "1.0",
+    "is_active": true
+  },
+  {
+    "id": "demo-001",
+    "prompt_text": "Professional portrait of a old man with expressive eyes, anime, shallow depth of field",
+    "category": "text_to_image",
+    "subcategory": "portrait",
+    "model_compatibility": [
+      "dall-e-3",
+      "leonardo.ai",
+      "midjourney"
+    ],
+    "parameters": {
+      "model": "stable-diffusion",
+      "steps": 48,
+      "cfg_scale": 6.3,
+      "size": "512x512"
+    },
+    "base_quality_score": 0.91,
+    "quality_level": 5,
+    "source": "generated",
+    "source_url": "",
+    "author": null,
+    "examples": [
+      {
+        "description": "Sample output 1",
+        "quality_rating": 4.7
+      }
+    ],
+    "references": [],
+    "metadata": {
+      "created_at": "2026-04-14T16:05:55.067944",
+      "updated_at": "2026-04-14T16:05:55.067945",
+      "usage_count": 2,
+      "success_count": 3,
+      "avg_quality_score": 0.88,
+      "user_ratings": {},
+      "last_used": "2026-04-14T16:05:55.067942",
+      "tags": [
+        "character",
+        "person",
+        "detailed",
+        "portrait"
+      ]
+    },
+    "language": "en",
+    "version": "1.0",
+    "is_active": true
+  },
+  {
+    "id": "demo-002",
+    "prompt_text": "A breathtaking city skyline at sunrise, natural lighting, oil painting, 8k resolution",
+    "category": "text_to_image",
+    "subcategory": "general",
+    "model_compatibility": [
+      "stable-diffusion",
+      "midjourney"
+    ],
+    "parameters": {
+      "model": "midjourney",
+      "steps": 45,
+      "cfg_scale": 6.9,
+      "size": "512x512"
+    },
+    "base_quality_score": 0.67,
+    "quality_level": 4,
+    "source": "generated",
+    "source_url": "",
+    "author": null,
+    "examples": [
+      {
+        "description": "Sample output 2",
+        "quality_rating": 4.7
+      }
+    ],
+    "references": [],
+    "metadata": {
+      "created_at": "2026-04-14T16:05:55.067961",
+      "updated_at": "2026-04-14T16:05:55.067961",
+      "usage_count": 9,
+      "success_count": 6,
+      "avg_quality_score": 0.65,
+      "user_ratings": {},
+      "last_used": "2026-04-14T16:05:55.067960",
+      "tags": [
+        "general",
+        "artistic",
+        "art"
+      ]
+    },
+    "language": "en",
+    "version": "1.0",
+    "is_active": true
+  },
+  {
+    "id": "demo-003",
+    "prompt_text": "Artistic portrait of a cyborg with detailed clothing, comic book style, cinematic composition",
+    "category": "text_to_image",
+    "subcategory": "portrait",
+    "model_compatibility": [
+      "leonardo.ai"
+    ],
+    "parameters": {
+      "model": "leonardo.ai",
+      "steps": 43,
+      "cfg_scale": 6.4,
+      "size": "1024x768"
+    },
+    "base_quality_score": 0.87,
+    "quality_level": 5,
+    "source": "generated",
+    "source_url": "",
+    "author": null,
+    "examples": [
+      {
+        "description": "Sample output 3",
+        "quality_rating": 3.9
+      }
+    ],
+    "references": [],
+    "metadata": {
+      "created_at": "2026-04-14T16:05:55.067972",
+      "updated_at": "2026-04-14T16:05:55.067972",
+      "usage_count": 6,
+      "success_count": 8,
+      "avg_quality_score": 0.62,
+      "user_ratings": {},
+      "last_used": null,
+      "tags": [
+        "character",
+        "artistic",
+        "person",
+        "portrait"
+      ]
+    },
+    "language": "en",
+    "version": "1.0",
+    "is_active": true
+  },
+  {
+    "id": "demo-004",
+    "prompt_text": "A breathtaking forest path at golden hour, soft lighting, impressionist, professional photography",
+    "category": "text_to_image",
+    "subcategory": "landscape",
+    "model_compatibility": [
+      "stable-diffusion"
+    ],
+    "parameters": {
+      "model": "leonardo.ai",
+      "steps": 31,
+      "cfg_scale": 8.8,
+      "size": "1024x768"
+    },
+    "base_quality_score": 0.95,
+    "quality_level": 5,
+    "source": "generated",
+    "source_url": "",
+    "author": null,
+    "examples": [
+      {
+        "description": "Sample output 4",
+        "quality_rating": 3.8
+      }
+    ],
+    "references": [],
+    "metadata": {
+      "created_at": "2026-04-14T16:05:55.067983",
+      "updated_at": "2026-04-14T16:05:55.067983",
+      "usage_count": 3,
+      "success_count": 5,
+      "avg_quality_score": 0.73,
+      "user_ratings": {},
+      "last_used": null,
+      "tags": [
+        "scenery",
+        "landscape",
+        "cinematic",
+        "nature"
+      ]
+    },
+    "language": "en",
+    "version": "1.0",
+    "is_active": true
+  },
+  {
+    "id": "demo-005",
+    "prompt_text": "Professional portrait of a scientist with expressive eyes, photorealistic, cinematic composition",
+    "category": "text_to_image",
+    "subcategory": "portrait",
+    "model_compatibility": [
+      "playground-ai"
+    ],
+    "parameters": {
+      "model": "stable-diffusion",
+      "steps": 34,
+      "cfg_scale": 8.6,
+      "size": "1024x768"
+    },
+    "base_quality_score": 0.95,
+    "quality_level": 5,
+    "source": "generated",
+    "source_url": "",
+    "author": null,
+    "examples": [
+      {
+        "description": "Sample output 5",
+        "quality_rating": 4.7
+      }
+    ],
+    "references": [],
+    "metadata": {
+      "created_at": "2026-04-14T16:05:55.067993",
+      "updated_at": "2026-04-14T16:05:55.067993",
+      "usage_count": 4,
+      "success_count": 9,
+      "avg_quality_score": 0.82,
+      "user_ratings": {},
+      "last_used": "2026-04-14T16:05:55.067993",
+      "tags": [
+        "character",
+        "person",
+        "detailed",
+        "portrait"
+      ]
+    },
+    "language": "en",
+    "version": "1.0",
+    "is_active": true
+  },
+  {
+    "id": "demo-006",
+    "prompt_text": "Fantasy portrait of a cyborg with unique hairstyle, Renaissance painting, shallow depth of field",
+    "category": "text_to_image",
+    "subcategory": "portrait",
+    "model_compatibility": [
+      "dall-e-3",
+      "playground-ai",
+      "midjourney"
+    ],
+    "parameters": {
+      "model": "stable-diffusion",
+      "steps": 46,
+      "cfg_scale": 7.8,
+      "size": "512x512"
+    },
+    "base_quality_score": 0.75,
+    "quality_level": 4,
+    "source": "generated",
+    "source_url": "",
+    "author": null,
+    "examples": [
+      {
+        "description": "Sample output 6",
+        "quality_rating": 3.8
+      }
+    ],
+    "references": [],
+    "metadata": {
+      "created_at": "2026-04-14T16:05:55.068003",
+      "updated_at": "2026-04-14T16:05:55.068004",
+      "usage_count": 10,
+      "success_count": 9,
+      "avg_quality_score": 0.71,
+      "user_ratings": {},
+      "last_used": "2026-04-14T16:05:55.068003",
+      "tags": [
+        "character",
+        "person",
+        "cinematic",
+        "portrait"
+      ]
+    },
+    "language": "en",
+    "version": "1.0",
+    "is_active": true
+  },
+  {
+    "id": "demo-007",
+    "prompt_text": "A breathtaking desert sunset at night, natural lighting, digital art, highly detailed",
+    "category": "text_to_image",
+    "subcategory": "general",
+    "model_compatibility": [
+      "stable-diffusion",
+      "midjourney",
+      "dall-e-3"
+    ],
+    "parameters": {
+      "model": "midjourney",
+      "steps": 50,
+      "cfg_scale": 7.5,
+      "size": "512x512"
+    },
+    "base_quality_score": 1.0,
+    "quality_level": 5,
+    "source": "generated",
+    "source_url": "",
+    "author": null,
+    "examples": [
+      {
+        "description": "Sample output 7",
+        "quality_rating": 4.3
+      }
+    ],
+    "references": [],
+    "metadata": {
+      "created_at": "2026-04-14T16:05:55.068013",
+      "updated_at": "2026-04-14T16:05:55.068014",
+      "usage_count": 1,
+      "success_count": 13,
+      "avg_quality_score": 0.87,
+      "user_ratings": {},
+      "last_used": null,
+      "tags": [
+        "general",
+        "art",
+        "detailed"
+      ]
+    },
+    "language": "en",
+    "version": "1.0",
+    "is_active": true
+  },
+  {
+    "id": "demo-008",
+    "prompt_text": "A breathtaking mountain landscape at midday, soft lighting, digital art, intricate textures",
+    "category": "text_to_image",
+    "subcategory": "landscape",
+    "model_compatibility": [
+      "leonardo.ai",
+      "midjourney"
+    ],
+    "parameters": {
+      "model": "leonardo.ai",
+      "steps": 33,
+      "cfg_scale": 5.8,
+      "size": "1024x1024"
+    },
+    "base_quality_score": 0.9,
+    "quality_level": 5,
+    "source": "generated",
+    "source_url": "",
+    "author": null,
+    "examples": [
+      {
+        "description": "Sample output 8",
+        "quality_rating": 4.2
+      }
+    ],
+    "references": [],
+    "metadata": {
+      "created_at": "2026-04-14T16:05:55.068022",
+      "updated_at": "2026-04-14T16:05:55.068022",
+      "usage_count": 10,
+      "success_count": 0,
+      "avg_quality_score": 0.61,
+      "user_ratings": {},
+      "last_used": "2026-04-14T16:05:55.068022",
+      "tags": [
+        "scenery",
+        "photorealistic",
+        "landscape",
+        "nature"
+      ]
+    },
+    "language": "en",
+    "version": "1.0",
+    "is_active": true
+  },
+  {
+    "id": "demo-009",
+    "prompt_text": "smartphone product photography, minimalist background, professional lighting, commercial photography, focus on details",
+    "category": "text_to_image",
+    "subcategory": "product",
+    "model_compatibility": [
+      "midjourney",
+      "stable-diffusion",
+      "dall-e-3"
+    ],
+    "parameters": {
+      "model": "leonardo.ai",
+      "steps": 49,
+      "cfg_scale": 8.5,
+      "size": "1024x1024"
+    },
+    "base_quality_score": 0.86,
+    "quality_level": 5,
+    "source": "generated",
+    "source_url": "",
+    "author": null,
+    "examples": [
+      {
+        "description": "Sample output 9",
+        "quality_rating": 3.7
+      }
+    ],
+    "references": [],
+    "metadata": {
+      "created_at": "2026-04-14T16:05:55.068033",
+      "updated_at": "2026-04-14T16:05:55.068033",
+      "usage_count": 20,
+      "success_count": 11,
+      "avg_quality_score": 0.67,
+      "user_ratings": {},
+      "last_used": "2026-04-14T16:05:55.068032",
+      "tags": [
+        "product",
+        "photography",
+        "photorealistic",
+        "commercial"
+      ]
+    },
+    "language": "en",
+    "version": "1.0",
+    "is_active": true
+  },
+  {
+    "id": "demo-010",
+    "prompt_text": "Professional portrait of a warrior with intricate facial features, photorealistic, cinematic composition",
+    "category": "text_to_image",
+    "subcategory": "portrait",
+    "model_compatibility": [
+      "leonardo.ai",
+      "midjourney"
+    ],
+    "parameters": {
+      "model": "midjourney",
+      "steps": 44,
+      "cfg_scale": 6.9,
+      "size": "512x512"
+    },
+    "base_quality_score": 1.0,
+    "quality_level": 5,
+    "source": "generated",
+    "source_url": "",
+    "author": null,
+    "examples": [
+      {
+        "description": "Sample output 10",
+        "quality_rating": 4.0
+      }
+    ],
+    "references": [],
+    "metadata": {
+      "created_at": "2026-04-14T16:05:55.068044",
+      "updated_at": "2026-04-14T16:05:55.068045",
+      "usage_count": 14,
+      "success_count": 7,
+      "avg_quality_score": 0.7,
+      "user_ratings": {},
+      "last_used": "2026-04-14T16:05:55.068044",
+      "tags": [
+        "character",
+        "person",
+        "detailed",
+        "portrait"
+      ]
+    },
+    "language": "en",
+    "version": "1.0",
+    "is_active": true
+  },
+  {
+    "id": "demo-011",
+    "prompt_text": "A breathtaking ocean view at midday, dramatic lighting, digital art, highly detailed",
+    "category": "text_to_image",
+    "subcategory": "general",
+    "model_compatibility": [
+      "leonardo.ai"
+    ],
+    "parameters": {
+      "model": "dall-e-3",
+      "steps": 44,
+      "cfg_scale": 5.0,
+      "size": "768x768"
+    },
+    "base_quality_score": 1.0,
+    "quality_level": 5,
+    "source": "generated",
+    "source_url": "",
+    "author": null,
+    "examples": [
+      {
+        "description": "Sample output 11",
+        "quality_rating": 4.1
+      }
+    ],
+    "references": [],
+    "metadata": {
+      "created_at": "2026-04-14T16:05:55.068054",
+      "updated_at": "2026-04-14T16:05:55.068054",
+      "usage_count": 8,
+      "success_count": 11,
+      "avg_quality_score": 0.7,
+      "user_ratings": {},
+      "last_used": "2026-04-14T16:05:55.068053",
+      "tags": [
+        "general",
+        "artistic",
+        "art"
+      ]
+    },
+    "language": "en",
+    "version": "1.0",
+    "is_active": true
+  },
+  {
+    "id": "demo-012",
+    "prompt_text": "A breathtaking city skyline at golden hour, soft lighting, anime style, professional photography",
+    "category": "text_to_image",
+    "subcategory": "general",
+    "model_compatibility": [
+      "midjourney"
+    ],
+    "parameters": {
+      "model": "playground-ai",
+      "steps": 23,
+      "cfg_scale": 8.4,
+      "size": "1024x1024"
+    },
+    "base_quality_score": 0.92,
+    "quality_level": 5,
+    "source": "generated",
+    "source_url": "",
+    "author": null,
+    "examples": [
+      {
+        "description": "Sample output 12",
+        "quality_rating": 3.6
+      }
+    ],
+    "references": [],
+    "metadata": {
+      "created_at": "2026-04-14T16:05:55.068063",
+      "updated_at": "2026-04-14T16:05:55.068063",
+      "usage_count": 1,
+      "success_count": 11,
+      "avg_quality_score": 0.65,
+      "user_ratings": {},
+      "last_used": null,
+      "tags": [
+        "general",
+        "artistic",
+        "art"
+      ]
+    },
+    "language": "en",
+    "version": "1.0",
+    "is_active": true
+  },
+  {
+    "id": "demo-013",
+    "prompt_text": "A breathtaking mountain landscape at night, cinematic lighting, photorealistic, intricate textures",
+    "category": "text_to_image",
+    "subcategory": "landscape",
+    "model_compatibility": [
+      "stable-diffusion",
+      "leonardo.ai"
+    ],
+    "parameters": {
+      "model": "dall-e-3",
+      "steps": 22,
+      "cfg_scale": 6.6,
+      "size": "1024x1024"
+    },
+    "base_quality_score": 1.0,
+    "quality_level": 5,
+    "source": "generated",
+    "source_url": "",
+    "author": null,
+    "examples": [
+      {
+        "description": "Sample output 13",
+        "quality_rating": 4.9
+      }
+    ],
+    "references": [],
+    "metadata": {
+      "created_at": "2026-04-14T16:05:55.068072",
+      "updated_at": "2026-04-14T16:05:55.068072",
+      "usage_count": 18,
+      "success_count": 2,
+      "avg_quality_score": 0.79,
+      "user_ratings": {},
+      "last_used": "2026-04-14T16:05:55.068071",
+      "tags": [
+        "scenery",
+        "artistic",
+        "landscape",
+        "nature"
+      ]
+    },
+    "language": "en",
+    "version": "1.0",
+    "is_active": true
+  },
+  {
+    "id": "demo-014",
+    "prompt_text": "watch product photography, minimalist background, dramatic shadows, commercial photography, focus on details",
+    "category": "text_to_image",
+    "subcategory": "product",
+    "model_compatibility": [
+      "leonardo.ai"
+    ],
+    "parameters": {
+      "model": "stable-diffusion",
+      "steps": 30,
+      "cfg_scale": 5.9,
+      "size": "1024x1024"
+    },
+    "base_quality_score": 0.77,
+    "quality_level": 4,
+    "source": "generated",
+    "source_url": "",
+    "author": null,
+    "examples": [
+      {
+        "description": "Sample output 14",
+        "quality_rating": 3.8
+      }
+    ],
+    "references": [],
+    "metadata": {
+      "created_at": "2026-04-14T16:05:55.068083",
+      "updated_at": "2026-04-14T16:05:55.068083",
+      "usage_count": 7,
+      "success_count": 7,
+      "avg_quality_score": 0.83,
+      "user_ratings": {},
+      "last_used": "2026-04-14T16:05:55.068082",
+      "tags": [
+        "product",
+        "photography",
+        "detailed",
+        "commercial"
+      ]
+    },
+    "language": "en",
+    "version": "1.0",
+    "is_active": true
+  },
+  {
+    "id": "demo-015",
+    "prompt_text": "A breathtaking city skyline at sunset, natural lighting, photorealistic, professional photography",
+    "category": "text_to_image",
+    "subcategory": "general",
+    "model_compatibility": [
+      "stable-diffusion",
+      "leonardo.ai",
+      "midjourney"
+    ],
+    "parameters": {
+      "model": "stable-diffusion",
+      "steps": 26,
+      "cfg_scale": 5.3,
+      "size": "1024x768"
+    },
+    "base_quality_score": 0.91,
+    "quality_level": 5,
+    "source": "generated",
+    "source_url": "",
+    "author": null,
+    "examples": [
+      {
+        "description": "Sample output 15",
+        "quality_rating": 4.4
+      }
+    ],
+    "references": [],
+    "metadata": {
+      "created_at": "2026-04-14T16:05:55.068092",
+      "updated_at": "2026-04-14T16:05:55.068093",
+      "usage_count": 3,
+      "success_count": 12,
+      "avg_quality_score": 0.82,
+      "user_ratings": {},
+      "last_used": "2026-04-14T16:05:55.068092",
+      "tags": [
+        "general",
+        "artistic",
+        "art"
+      ]
+    },
+    "language": "en",
+    "version": "1.0",
+    "is_active": true
+  },
+  {
+    "id": "demo-016",
+    "prompt_text": "A breathtaking forest path at golden hour, dramatic lighting, photorealistic, highly detailed",
+    "category": "text_to_image",
+    "subcategory": "landscape",
+    "model_compatibility": [
+      "leonardo.ai"
+    ],
+    "parameters": {
+      "model": "leonardo.ai",
+      "steps": 39,
+      "cfg_scale": 6.4,
+      "size": "1024x768"
+    },
+    "base_quality_score": 0.9,
+    "quality_level": 5,
+    "source": "generated",
+    "source_url": "",
+    "author": null,
+    "examples": [
+      {
+        "description": "Sample output 16",
+        "quality_rating": 4.7
+      }
+    ],
+    "references": [],
+    "metadata": {
+      "created_at": "2026-04-14T16:05:55.068101",
+      "updated_at": "2026-04-14T16:05:55.068101",
+      "usage_count": 10,
+      "success_count": 0,
+      "avg_quality_score": 0.63,
+      "user_ratings": {},
+      "last_used": "2026-04-14T16:05:55.068100",
+      "tags": [
+        "scenery",
+        "artistic",
+        "landscape",
+        "nature"
+      ]
+    },
+    "language": "en",
+    "version": "1.0",
+    "is_active": true
+  },
+  {
+    "id": "demo-017",
+    "prompt_text": "A breathtaking city skyline at golden hour, dramatic lighting, impressionist, intricate textures",
+    "category": "text_to_image",
+    "subcategory": "general",
+    "model_compatibility": [
+      "playground-ai"
+    ],
+    "parameters": {
+      "model": "leonardo.ai",
+      "steps": 35,
+      "cfg_scale": 5.7,
+      "size": "512x512"
+    },
+    "base_quality_score": 0.93,
+    "quality_level": 5,
+    "source": "generated",
+    "source_url": "",
+    "author": null,
+    "examples": [
+      {
+        "description": "Sample output 17",
+        "quality_rating": 4.3
+      }
+    ],
+    "references": [],
+    "metadata": {
+      "created_at": "2026-04-14T16:05:55.068109",
+      "updated_at": "2026-04-14T16:05:55.068110",
+      "usage_count": 0,
+      "success_count": 9,
+      "avg_quality_score": 0.81,
+      "user_ratings": {},
+      "last_used": null,
+      "tags": [
+        "general",
+        "artistic",
+        "art"
+      ]
+    },
+    "language": "en",
+    "version": "1.0",
+    "is_active": true
+  },
+  {
+    "id": "demo-018",
+    "prompt_text": "cosmetic product photography, natural environment, natural light, minimalist, brand aesthetic",
+    "category": "text_to_image",
+    "subcategory": "product",
+    "model_compatibility": [
+      "dall-e-3",
+      "stable-diffusion"
+    ],
+    "parameters": {
+      "model": "dall-e-3",
+      "steps": 46,
+      "cfg_scale": 6.5,
+      "size": "512x512"
+    },
+    "base_quality_score": 0.66,
+    "quality_level": 4,
+    "source": "generated",
+    "source_url": "",
+    "author": null,
+    "examples": [
+      {
+        "description": "Sample output 18",
+        "quality_rating": 4.0
+      }
+    ],
+    "references": [],
+    "metadata": {
+      "created_at": "2026-04-14T16:05:55.068119",
+      "updated_at": "2026-04-14T16:05:55.068119",
+      "usage_count": 7,
+      "success_count": 8,
+      "avg_quality_score": 0.65,
+      "user_ratings": {},
+      "last_used": "2026-04-14T16:05:55.068119",
+      "tags": [
+        "product",
+        "photography",
+        "detailed",
+        "commercial"
+      ]
+    },
+    "language": "en",
+    "version": "1.0",
+    "is_active": true
+  },
+  {
+    "id": "demo-019",
+    "prompt_text": "Artistic portrait of a young woman with detailed clothing, photorealistic, studio lighting",
+    "category": "text_to_image",
+    "subcategory": "portrait",
+    "model_compatibility": [
+      "midjourney",
+      "dall-e-3",
+      "playground-ai"
+    ],
+    "parameters": {
+      "model": "leonardo.ai",
+      "steps": 40,
+      "cfg_scale": 7.4,
+      "size": "1024x1024"
+    },
+    "base_quality_score": 1.0,
+    "quality_level": 5,
+    "source": "generated",
+    "source_url": "",
+    "author": null,
+    "examples": [
+      {
+        "description": "Sample output 19",
+        "quality_rating": 4.4
+      }
+    ],
+    "references": [],
+    "metadata": {
+      "created_at": "2026-04-14T16:05:55.068128",
+      "updated_at": "2026-04-14T16:05:55.068128",
+      "usage_count": 13,
+      "success_count": 3,
+      "avg_quality_score": 0.79,
+      "user_ratings": {},
+      "last_used": "2026-04-14T16:05:55.068127",
+      "tags": [
+        "character",
+        "artistic",
+        "person",
+        "portrait"
+      ]
+    },
+    "language": "en",
+    "version": "1.0",
+    "is_active": true
+  },
+  {
+    "id": "demo-020",
+    "prompt_text": "A breathtaking city skyline at sunrise, soft lighting, oil painting, 8k resolution",
+    "category": "text_to_image",
+    "subcategory": "general",
+    "model_compatibility": [
+      "midjourney",
+      "dall-e-3",
+      "leonardo.ai"
+    ],
+    "parameters": {
+      "model": "playground-ai",
+      "steps": 42,
+      "cfg_scale": 8.6,
+      "size": "512x512"
+    },
+    "base_quality_score": 0.69,
+    "quality_level": 4,
+    "source": "generated",
+    "source_url": "",
+    "author": null,
+    "examples": [
+      {
+        "description": "Sample output 20",
+        "quality_rating": 4.4
+      }
+    ],
+    "references": [],
+    "metadata": {
+      "created_at": "2026-04-14T16:05:55.068137",
+      "updated_at": "2026-04-14T16:05:55.068137",
+      "usage_count": 4,
+      "success_count": 0,
+      "avg_quality_score": 0.85,
+      "user_ratings": {},
+      "last_used": "2026-04-14T16:05:55.068137",
+      "tags": [
+        "general",
+        "art",
+        "detailed"
+      ]
+    },
+    "language": "en",
+    "version": "1.0",
+    "is_active": true
+  },
+  {
+    "id": "demo-021",
+    "prompt_text": "smartphone product photography, studio setting, professional lighting, minimalist, focus on details",
+    "category": "text_to_image",
+    "subcategory": "product",
+    "model_compatibility": [
+      "midjourney",
+      "playground-ai",
+      "dall-e-3"
+    ],
+    "parameters": {
+      "model": "stable-diffusion",
+      "steps": 39,
+      "cfg_scale": 5.5,
+      "size": "1024x768"
+    },
+    "base_quality_score": 0.88,
+    "quality_level": 5,
+    "source": "generated",
+    "source_url": "",
+    "author": null,
+    "examples": [
+      {
+        "description": "Sample output 21",
+        "quality_rating": 3.5
+      }
+    ],
+    "references": [],
+    "metadata": {
+      "created_at": "2026-04-14T16:05:55.068146",
+      "updated_at": "2026-04-14T16:05:55.068147",
+      "usage_count": 11,
+      "success_count": 3,
+      "avg_quality_score": 0.79,
+      "user_ratings": {},
+      "last_used": null,
+      "tags": [
+        "product",
+        "photography",
+        "cinematic",
+        "commercial"
+      ]
+    },
+    "language": "en",
+    "version": "1.0",
+    "is_active": true
+  },
+  {
+    "id": "demo-022",
+    "prompt_text": "Professional portrait of a elf with detailed clothing, Renaissance painting, shallow depth of field",
+    "category": "text_to_image",
+    "subcategory": "portrait",
+    "model_compatibility": [
+      "dall-e-3"
+    ],
+    "parameters": {
+      "model": "midjourney",
+      "steps": 21,
+      "cfg_scale": 8.4,
+      "size": "512x512"
+    },
+    "base_quality_score": 0.92,
+    "quality_level": 5,
+    "source": "generated",
+    "source_url": "",
+    "author": null,
+    "examples": [
+      {
+        "description": "Sample output 22",
+        "quality_rating": 4.3
+      }
+    ],
+    "references": [],
+    "metadata": {
+      "created_at": "2026-04-14T16:05:55.068155",
+      "updated_at": "2026-04-14T16:05:55.068155",
+      "usage_count": 8,
+      "success_count": 3,
+      "avg_quality_score": 0.69,
+      "user_ratings": {},
+      "last_used": "2026-04-14T16:05:55.068154",
+      "tags": [
+        "character",
+        "artistic",
+        "person",
+        "portrait"
+      ]
+    },
+    "language": "en",
+    "version": "1.0",
+    "is_active": true
+  },
+  {
+    "id": "demo-023",
+    "prompt_text": "Artistic portrait of a cyborg with detailed clothing, anime, high contrast",
+    "category": "text_to_image",
+    "subcategory": "portrait",
+    "model_compatibility": [
+      "dall-e-3",
+      "midjourney",
+      "leonardo.ai"
+    ],
+    "parameters": {
+      "model": "dall-e-3",
+      "steps": 47,
+      "cfg_scale": 7.1,
+      "size": "1024x768"
+    },
+    "base_quality_score": 0.97,
+    "quality_level": 5,
+    "source": "generated",
+    "source_url": "",
+    "author": null,
+    "examples": [
+      {
+        "description": "Sample output 23",
+        "quality_rating": 4.1
+      }
+    ],
+    "references": [],
+    "metadata": {
+      "created_at": "2026-04-14T16:05:55.068163",
+      "updated_at": "2026-04-14T16:05:55.068164",
+      "usage_count": 19,
+      "success_count": 5,
+      "avg_quality_score": 0.72,
+      "user_ratings": {},
+      "last_used": null,
+      "tags": [
+        "character",
+        "artistic",
+        "person",
+        "portrait"
+      ]
+    },
+    "language": "en",
+    "version": "1.0",
+    "is_active": true
+  },
+  {
+    "id": "demo-024",
+    "prompt_text": "A breathtaking city skyline at sunrise, natural lighting, anime style, professional photography",
+    "category": "text_to_image",
+    "subcategory": "general",
+    "model_compatibility": [
+      "playground-ai",
+      "stable-diffusion"
+    ],
+    "parameters": {
+      "model": "dall-e-3",
+      "steps": 44,
+      "cfg_scale": 7.2,
+      "size": "768x768"
+    },
+    "base_quality_score": 0.99,
+    "quality_level": 5,
+    "source": "generated",
+    "source_url": "",
+    "author": null,
+    "examples": [
+      {
+        "description": "Sample output 24",
+        "quality_rating": 4.9
+      }
+    ],
+    "references": [],
+    "metadata": {
+      "created_at": "2026-04-14T16:05:55.068173",
+      "updated_at": "2026-04-14T16:05:55.068173",
+      "usage_count": 13,
+      "success_count": 7,
+      "avg_quality_score": 0.6,
+      "user_ratings": {},
+      "last_used": "2026-04-14T16:05:55.068172",
+      "tags": [
+        "general",
+        "artistic",
+        "art"
+      ]
+    },
+    "language": "en",
+    "version": "1.0",
+    "is_active": true
+  },
+  {
+    "id": "demo-025",
+    "prompt_text": "furniture product photography, studio setting, dramatic shadows, minimalist, focus on details",
+    "category": "text_to_image",
+    "subcategory": "product",
+    "model_compatibility": [
+      "midjourney",
+      "leonardo.ai",
+      "dall-e-3"
+    ],
+    "parameters": {
+      "model": "dall-e-3",
+      "steps": 35,
+      "cfg_scale": 7.7,
+      "size": "1024x768"
+    },
+    "base_quality_score": 0.68,
+    "quality_level": 4,
+    "source": "generated",
+    "source_url": "",
+    "author": null,
+    "examples": [
+      {
+        "description": "Sample output 25",
+        "quality_rating": 5.0
+      }
+    ],
+    "references": [],
+    "metadata": {
+      "created_at": "2026-04-14T16:05:55.068182",
+      "updated_at": "2026-04-14T16:05:55.068182",
+      "usage_count": 17,
+      "success_count": 4,
+      "avg_quality_score": 0.9,
+      "user_ratings": {},
+      "last_used": "2026-04-14T16:05:55.068182",
+      "tags": [
+        "product",
+        "photography",
+        "photorealistic",
+        "commercial"
+      ]
+    },
+    "language": "en",
+    "version": "1.0",
+    "is_active": true
+  },
+  {
+    "id": "demo-026",
+    "prompt_text": "Professional portrait of a elf with intricate facial features, concept art, high contrast",
+    "category": "text_to_image",
+    "subcategory": "portrait",
+    "model_compatibility": [
+      "stable-diffusion",
+      "leonardo.ai",
+      "midjourney"
+    ],
+    "parameters": {
+      "model": "midjourney",
+      "steps": 47,
+      "cfg_scale": 8.3,
+      "size": "512x512"
+    },
+    "base_quality_score": 1.0,
+    "quality_level": 5,
+    "source": "generated",
+    "source_url": "",
+    "author": null,
+    "examples": [
+      {
+        "description": "Sample output 26",
+        "quality_rating": 3.7
+      }
+    ],
+    "references": [],
+    "metadata": {
+      "created_at": "2026-04-14T16:05:55.068191",
+      "updated_at": "2026-04-14T16:05:55.068191",
+      "usage_count": 8,
+      "success_count": 13,
+      "avg_quality_score": 0.91,
+      "user_ratings": {},
+      "last_used": "2026-04-14T16:05:55.068191",
+      "tags": [
+        "character",
+        "photorealistic",
+        "person",
+        "portrait"
+      ]
+    },
+    "language": "en",
+    "version": "1.0",
+    "is_active": true
+  },
+  {
+    "id": "demo-027",
+    "prompt_text": "A breathtaking ocean view at sunset, dramatic lighting, impressionist, professional photography",
+    "category": "text_to_image",
+    "subcategory": "general",
+    "model_compatibility": [
+      "midjourney"
+    ],
+    "parameters": {
+      "model": "playground-ai",
+      "steps": 21,
+      "cfg_scale": 6.9,
+      "size": "512x512"
+    },
+    "base_quality_score": 0.85,
+    "quality_level": 5,
+    "source": "generated",
+    "source_url": "",
+    "author": null,
+    "examples": [
+      {
+        "description": "Sample output 27",
+        "quality_rating": 4.1
+      }
+    ],
+    "references": [],
+    "metadata": {
+      "created_at": "2026-04-14T16:05:55.068200",
+      "updated_at": "2026-04-14T16:05:55.068200",
+      "usage_count": 0,
+      "success_count": 3,
+      "avg_quality_score": 0.65,
+      "user_ratings": {},
+      "last_used": "2026-04-14T16:05:55.068200",
+      "tags": [
+        "general",
+        "art",
+        "cinematic"
+      ]
+    },
+    "language": "en",
+    "version": "1.0",
+    "is_active": true
+  },
+  {
+    "id": "demo-028",
+    "prompt_text": "A breathtaking mountain landscape at sunrise, soft lighting, oil painting, highly detailed",
+    "category": "text_to_image",
+    "subcategory": "landscape",
+    "model_compatibility": [
+      "leonardo.ai",
+      "playground-ai",
+      "stable-diffusion"
+    ],
+    "parameters": {
+      "model": "stable-diffusion",
+      "steps": 31,
+      "cfg_scale": 7.8,
+      "size": "1024x768"
+    },
+    "base_quality_score": 0.94,
+    "quality_level": 5,
+    "source": "generated",
+    "source_url": "",
+    "author": null,
+    "examples": [
+      {
+        "description": "Sample output 28",
+        "quality_rating": 4.0
+      }
+    ],
+    "references": [],
+    "metadata": {
+      "created_at": "2026-04-14T16:05:55.068208",
+      "updated_at": "2026-04-14T16:05:55.068208",
+      "usage_count": 18,
+      "success_count": 5,
+      "avg_quality_score": 0.84,
+      "user_ratings": {},
+      "last_used": null,
+      "tags": [
+        "scenery",
+        "artistic",
+        "landscape",
+        "nature"
+      ]
+    },
+    "language": "en",
+    "version": "1.0",
+    "is_active": true
+  },
+  {
+    "id": "demo-029",
+    "prompt_text": "car product photography, lifestyle context, natural light, commercial photography, focus on details",
+    "category": "text_to_image",
+    "subcategory": "product",
+    "model_compatibility": [
+      "playground-ai",
+      "dall-e-3",
+      "leonardo.ai"
+    ],
+    "parameters": {
+      "model": "midjourney",
+      "steps": 48,
+      "cfg_scale": 7.9,
+      "size": "768x768"
+    },
+    "base_quality_score": 0.69,
+    "quality_level": 4,
+    "source": "generated",
+    "source_url": "",
+    "author": null,
+    "examples": [
+      {
+        "description": "Sample output 29",
+        "quality_rating": 4.0
+      }
+    ],
+    "references": [],
+    "metadata": {
+      "created_at": "2026-04-14T16:05:55.068218",
+      "updated_at": "2026-04-14T16:05:55.068218",
+      "usage_count": 15,
+      "success_count": 10,
+      "avg_quality_score": 0.75,
+      "user_ratings": {},
+      "last_used": null,
+      "tags": [
+        "product",
+        "photography",
+        "photorealistic",
+        "commercial"
+      ]
+    },
+    "language": "en",
+    "version": "1.0",
+    "is_active": true
+  },
+  {
+    "id": "demo-030",
+    "prompt_text": "cosmetic product photography, minimalist background, softbox lighting, commercial photography, brand aesthetic",
+    "category": "text_to_image",
+    "subcategory": "product",
+    "model_compatibility": [
+      "leonardo.ai",
+      "playground-ai"
+    ],
+    "parameters": {
+      "model": "midjourney",
+      "steps": 37,
+      "cfg_scale": 5.9,
+      "size": "512x512"
+    },
+    "base_quality_score": 0.7,
+    "quality_level": 4,
+    "source": "generated",
+    "source_url": "",
+    "author": null,
+    "examples": [
+      {
+        "description": "Sample output 30",
+        "quality_rating": 4.0
+      }
+    ],
+    "references": [],
+    "metadata": {
+      "created_at": "2026-04-14T16:05:55.068227",
+      "updated_at": "2026-04-14T16:05:55.068227",
+      "usage_count": 2,
+      "success_count": 13,
+      "avg_quality_score": 0.91,
+      "user_ratings": {},
+      "last_used": null,
+      "tags": [
+        "product",
+        "photography",
+        "cinematic",
+        "commercial"
+      ]
+    },
+    "language": "en",
+    "version": "1.0",
+    "is_active": true
+  },
+  {
+    "id": "demo-031",
+    "prompt_text": "A breathtaking desert sunset at sunrise, dramatic lighting, oil painting, 8k resolution",
+    "category": "text_to_image",
+    "subcategory": "general",
+    "model_compatibility": [
+      "midjourney"
+    ],
+    "parameters": {
+      "model": "stable-diffusion",
+      "steps": 24,
+      "cfg_scale": 5.1,
+      "size": "1024x1024"
+    },
+    "base_quality_score": 0.77,
+    "quality_level": 4,
+    "source": "generated",
+    "source_url": "",
+    "author": null,
+    "examples": [
+      {
+        "description": "Sample output 31",
+        "quality_rating": 3.7
+      }
+    ],
+    "references": [],
+    "metadata": {
+      "created_at": "2026-04-14T16:05:55.068236",
+      "updated_at": "2026-04-14T16:05:55.068236",
+      "usage_count": 14,
+      "success_count": 3,
+      "avg_quality_score": 0.66,
+      "user_ratings": {},
+      "last_used": "2026-04-14T16:05:55.068236",
+      "tags": [
+        "general",
+        "art",
+        "cinematic"
+      ]
+    },
+    "language": "en",
+    "version": "1.0",
+    "is_active": true
+  },
+  {
+    "id": "demo-032",
+    "prompt_text": "Professional portrait of a cyborg with unique hairstyle, comic book style, high contrast",
+    "category": "text_to_image",
+    "subcategory": "portrait",
+    "model_compatibility": [
+      "midjourney"
+    ],
+    "parameters": {
+      "model": "midjourney",
+      "steps": 32,
+      "cfg_scale": 7.9,
+      "size": "1024x1024"
+    },
+    "base_quality_score": 0.91,
+    "quality_level": 5,
+    "source": "generated",
+    "source_url": "",
+    "author": null,
+    "examples": [
+      {
+        "description": "Sample output 32",
+        "quality_rating": 4.5
+      }
+    ],
+    "references": [],
+    "metadata": {
+      "created_at": "2026-04-14T16:05:55.068245",
+      "updated_at": "2026-04-14T16:05:55.068245",
+      "usage_count": 3,
+      "success_count": 14,
+      "avg_quality_score": 0.68,
+      "user_ratings": {},
+      "last_used": "2026-04-14T16:05:55.068245",
+      "tags": [
+        "character",
+        "person",
+        "detailed",
+        "portrait"
+      ]
+    },
+    "language": "en",
+    "version": "1.0",
+    "is_active": true
+  },
+  {
+    "id": "demo-033",
+    "prompt_text": "Professional portrait of a old man with intricate facial features, anime, cinematic composition",
+    "category": "text_to_image",
+    "subcategory": "portrait",
+    "model_compatibility": [
+      "stable-diffusion",
+      "dall-e-3",
+      "playground-ai"
+    ],
+    "parameters": {
+      "model": "stable-diffusion",
+      "steps": 44,
+      "cfg_scale": 5.8,
+      "size": "1024x1024"
+    },
+    "base_quality_score": 1.0,
+    "quality_level": 5,
+    "source": "generated",
+    "source_url": "",
+    "author": null,
+    "examples": [
+      {
+        "description": "Sample output 33",
+        "quality_rating": 4.0
+      }
+    ],
+    "references": [],
+    "metadata": {
+      "created_at": "2026-04-14T16:05:55.068254",
+      "updated_at": "2026-04-14T16:05:55.068254",
+      "usage_count": 8,
+      "success_count": 8,
+      "avg_quality_score": 0.78,
+      "user_ratings": {},
+      "last_used": "2026-04-14T16:05:55.068253",
+      "tags": [
+        "character",
+        "person",
+        "detailed",
+        "portrait"
+      ]
+    },
+    "language": "en",
+    "version": "1.0",
+    "is_active": true
+  },
+  {
+    "id": "demo-034",
+    "prompt_text": "Professional portrait of a old man with unique hairstyle, photorealistic, high contrast",
+    "category": "text_to_image",
+    "subcategory": "portrait",
+    "model_compatibility": [
+      "leonardo.ai",
+      "dall-e-3",
+      "playground-ai"
+    ],
+    "parameters": {
+      "model": "leonardo.ai",
+      "steps": 32,
+      "cfg_scale": 7.5,
+      "size": "768x768"
+    },
+    "base_quality_score": 0.91,
+    "quality_level": 5,
+    "source": "generated",
+    "source_url": "",
+    "author": null,
+    "examples": [
+      {
+        "description": "Sample output 34",
+        "quality_rating": 3.6
+      }
+    ],
+    "references": [],
+    "metadata": {
+      "created_at": "2026-04-14T16:05:55.068263",
+      "updated_at": "2026-04-14T16:05:55.068263",
+      "usage_count": 0,
+      "success_count": 3,
+      "avg_quality_score": 0.67,
+      "user_ratings": {},
+      "last_used": "2026-04-14T16:05:55.068262",
+      "tags": [
+        "character",
+        "person",
+        "detailed",
+        "portrait"
+      ]
+    },
+    "language": "en",
+    "version": "1.0",
+    "is_active": true
+  },
+  {
+    "id": "demo-035",
+    "prompt_text": "Historical portrait of a warrior with detailed clothing, comic book style, high contrast",
+    "category": "text_to_image",
+    "subcategory": "portrait",
+    "model_compatibility": [
+      "leonardo.ai",
+      "stable-diffusion"
+    ],
+    "parameters": {
+      "model": "playground-ai",
+      "steps": 24,
+      "cfg_scale": 5.2,
+      "size": "768x768"
+    },
+    "base_quality_score": 1.0,
+    "quality_level": 5,
+    "source": "generated",
+    "source_url": "",
+    "author": null,
+    "examples": [
+      {
+        "description": "Sample output 35",
+        "quality_rating": 4.1
+      }
+    ],
+    "references": [],
+    "metadata": {
+      "created_at": "2026-04-14T16:05:55.068273",
+      "updated_at": "2026-04-14T16:05:55.068273",
+      "usage_count": 4,
+      "success_count": 12,
+      "avg_quality_score": 0.71,
+      "user_ratings": {},
+      "last_used": null,
+      "tags": [
+        "character",
+        "person",
+        "detailed",
+        "portrait"
+      ]
+    },
+    "language": "en",
+    "version": "1.0",
+    "is_active": true
+  },
+  {
+    "id": "demo-036",
+    "prompt_text": "A breathtaking mountain landscape at midday, soft lighting, photorealistic, professional photography",
+    "category": "text_to_image",
+    "subcategory": "landscape",
+    "model_compatibility": [
+      "midjourney",
+      "leonardo.ai"
+    ],
+    "parameters": {
+      "model": "stable-diffusion",
+      "steps": 23,
+      "cfg_scale": 8.8,
+      "size": "768x768"
+    },
+    "base_quality_score": 0.99,
+    "quality_level": 5,
+    "source": "generated",
+    "source_url": "",
+    "author": null,
+    "examples": [
+      {
+        "description": "Sample output 36",
+        "quality_rating": 4.2
+      }
+    ],
+    "references": [],
+    "metadata": {
+      "created_at": "2026-04-14T16:05:55.068281",
+      "updated_at": "2026-04-14T16:05:55.068281",
+      "usage_count": 7,
+      "success_count": 5,
+      "avg_quality_score": 0.9,
+      "user_ratings": {},
+      "last_used": "2026-04-14T16:05:55.068280",
+      "tags": [
+        "scenery",
+        "landscape",
+        "cinematic",
+        "nature"
+      ]
+    },
+    "language": "en",
+    "version": "1.0",
+    "is_active": true
+  },
+  {
+    "id": "demo-037",
+    "prompt_text": "Fantasy portrait of a old man with unique hairstyle, concept art, high contrast",
+    "category": "text_to_image",
+    "subcategory": "portrait",
+    "model_compatibility": [
+      "leonardo.ai"
+    ],
+    "parameters": {
+      "model": "midjourney",
+      "steps": 42,
+      "cfg_scale": 7.0,
+      "size": "1024x1024"
+    },
+    "base_quality_score": 0.81,
+    "quality_level": 5,
+    "source": "generated",
+    "source_url": "",
+    "author": null,
+    "examples": [
+      {
+        "description": "Sample output 37",
+        "quality_rating": 4.1
+      }
+    ],
+    "references": [],
+    "metadata": {
+      "created_at": "2026-04-14T16:05:55.068290",
+      "updated_at": "2026-04-14T16:05:55.068290",
+      "usage_count": 19,
+      "success_count": 7,
+      "avg_quality_score": 0.82,
+      "user_ratings": {},
+      "last_used": null,
+      "tags": [
+        "character",
+        "person",
+        "detailed",
+        "portrait"
+      ]
+    },
+    "language": "en",
+    "version": "1.0",
+    "is_active": true
+  },
+  {
+    "id": "demo-038",
+    "prompt_text": "cosmetic product photography, lifestyle context, softbox lighting, advertisement style, brand aesthetic",
+    "category": "text_to_image",
+    "subcategory": "product",
+    "model_compatibility": [
+      "midjourney",
+      "dall-e-3"
+    ],
+    "parameters": {
+      "model": "leonardo.ai",
+      "steps": 43,
+      "cfg_scale": 8.2,
+      "size": "512x512"
+    },
+    "base_quality_score": 0.81,
+    "quality_level": 5,
+    "source": "generated",
+    "source_url": "",
+    "author": null,
+    "examples": [
+      {
+        "description": "Sample output 38",
+        "quality_rating": 5.0
+      }
+    ],
+    "references": [],
+    "metadata": {
+      "created_at": "2026-04-14T16:05:55.068299",
+      "updated_at": "2026-04-14T16:05:55.068299",
+      "usage_count": 1,
+      "success_count": 15,
+      "avg_quality_score": 0.81,
+      "user_ratings": {},
+      "last_used": null,
+      "tags": [
+        "product",
+        "photography",
+        "detailed",
+        "commercial"
+      ]
+    },
+    "language": "en",
+    "version": "1.0",
+    "is_active": true
+  },
+  {
+    "id": "demo-039",
+    "prompt_text": "Historical portrait of a young woman with detailed clothing, photorealistic, cinematic composition",
+    "category": "text_to_image",
+    "subcategory": "portrait",
+    "model_compatibility": [
+      "stable-diffusion"
+    ],
+    "parameters": {
+      "model": "dall-e-3",
+      "steps": 48,
+      "cfg_scale": 5.8,
+      "size": "1024x1024"
+    },
+    "base_quality_score": 1.0,
+    "quality_level": 5,
+    "source": "generated",
+    "source_url": "",
+    "author": null,
+    "examples": [
+      {
+        "description": "Sample output 39",
+        "quality_rating": 4.8
+      }
+    ],
+    "references": [],
+    "metadata": {
+      "created_at": "2026-04-14T16:05:55.068307",
+      "updated_at": "2026-04-14T16:05:55.068308",
+      "usage_count": 14,
+      "success_count": 5,
+      "avg_quality_score": 0.7,
+      "user_ratings": {},
+      "last_used": "2026-04-14T16:05:55.068307",
+      "tags": [
+        "character",
+        "photorealistic",
+        "person",
+        "portrait"
+      ]
+    },
+    "language": "en",
+    "version": "1.0",
+    "is_active": true
+  },
+  {
+    "id": "demo-040",
+    "prompt_text": "Character portrait of a young woman with expressive eyes, anime, shallow depth of field",
+    "category": "text_to_image",
+    "subcategory": "portrait",
+    "model_compatibility": [
+      "midjourney",
+      "playground-ai",
+      "stable-diffusion"
+    ],
+    "parameters": {
+      "model": "leonardo.ai",
+      "steps": 21,
+      "cfg_scale": 7.4,
+      "size": "1024x1024"
+    },
+    "base_quality_score": 0.81,
+    "quality_level": 5,
+    "source": "generated",
+    "source_url": "",
+    "author": null,
+    "examples": [
+      {
+        "description": "Sample output 40",
+        "quality_rating": 4.2
+      }
+    ],
+    "references": [],
+    "metadata": {
+      "created_at": "2026-04-14T16:05:55.068316",
+      "updated_at": "2026-04-14T16:05:55.068317",
+      "usage_count": 0,
+      "success_count": 13,
+      "avg_quality_score": 0.83,
+      "user_ratings": {},
+      "last_used": "2026-04-14T16:05:55.068316",
+      "tags": [
+        "character",
+        "photorealistic",
+        "person",
+        "portrait"
+      ]
+    },
+    "language": "en",
+    "version": "1.0",
+    "is_active": true
+  },
+  {
+    "id": "demo-041",
+    "prompt_text": "watch product photography, minimalist background, professional lighting, advertisement style, high-end product shot",
+    "category": "text_to_image",
+    "subcategory": "product",
+    "model_compatibility": [
+      "stable-diffusion",
+      "dall-e-3",
+      "playground-ai"
+    ],
+    "parameters": {
+      "model": "playground-ai",
+      "steps": 22,
+      "cfg_scale": 7.0,
+      "size": "768x768"
+    },
+    "base_quality_score": 1.0,
+    "quality_level": 5,
+    "source": "generated",
+    "source_url": "",
+    "author": null,
+    "examples": [
+      {
+        "description": "Sample output 41",
+        "quality_rating": 4.8
+      }
+    ],
+    "references": [],
+    "metadata": {
+      "created_at": "2026-04-14T16:05:55.068328",
+      "updated_at": "2026-04-14T16:05:55.068328",
+      "usage_count": 10,
+      "success_count": 5,
+      "avg_quality_score": 0.89,
+      "user_ratings": {},
+      "last_used": null,
+      "tags": [
+        "product",
+        "photography",
+        "cinematic",
+        "commercial"
+      ]
+    },
+    "language": "en",
+    "version": "1.0",
+    "is_active": true
+  },
+  {
+    "id": "demo-042",
+    "prompt_text": "Artistic portrait of a elf with unique hairstyle, anime, cinematic composition",
+    "category": "text_to_image",
+    "subcategory": "portrait",
+    "model_compatibility": [
+      "playground-ai"
+    ],
+    "parameters": {
+      "model": "midjourney",
+      "steps": 30,
+      "cfg_scale": 5.8,
+      "size": "1024x768"
+    },
+    "base_quality_score": 0.79,
+    "quality_level": 4,
+    "source": "generated",
+    "source_url": "",
+    "author": null,
+    "examples": [
+      {
+        "description": "Sample output 42",
+        "quality_rating": 4.3
+      }
+    ],
+    "references": [],
+    "metadata": {
+      "created_at": "2026-04-14T16:05:55.068337",
+      "updated_at": "2026-04-14T16:05:55.068337",
+      "usage_count": 20,
+      "success_count": 3,
+      "avg_quality_score": 0.88,
+      "user_ratings": {},
+      "last_used": "2026-04-14T16:05:55.068336",
+      "tags": [
+        "character",
+        "photorealistic",
+        "person",
+        "portrait"
+      ]
+    },
+    "language": "en",
+    "version": "1.0",
+    "is_active": true
+  },
+  {
+    "id": "demo-043",
+    "prompt_text": "Fantasy portrait of a young woman with unique hairstyle, Renaissance painting, shallow depth of field",
+    "category": "text_to_image",
+    "subcategory": "portrait",
+    "model_compatibility": [
+      "leonardo.ai",
+      "playground-ai",
+      "stable-diffusion"
+    ],
+    "parameters": {
+      "model": "playground-ai",
+      "steps": 39,
+      "cfg_scale": 6.1,
+      "size": "1024x1024"
+    },
+    "base_quality_score": 0.78,
+    "quality_level": 4,
+    "source": "generated",
+    "source_url": "",
+    "author": null,
+    "examples": [
+      {
+        "description": "Sample output 43",
+        "quality_rating": 4.1
+      }
+    ],
+    "references": [],
+    "metadata": {
+      "created_at": "2026-04-14T16:05:55.068346",
+      "updated_at": "2026-04-14T16:05:55.068346",
+      "usage_count": 4,
+      "success_count": 3,
+      "avg_quality_score": 0.94,
+      "user_ratings": {},
+      "last_used": "2026-04-14T16:05:55.068346",
+      "tags": [
+        "character",
+        "photorealistic",
+        "person",
+        "portrait"
+      ]
+    },
+    "language": "en",
+    "version": "1.0",
+    "is_active": true
+  },
+  {
+    "id": "demo-044",
+    "prompt_text": "A breathtaking mountain landscape at sunrise, dramatic lighting, digital art, 8k resolution",
+    "category": "text_to_image",
+    "subcategory": "landscape",
+    "model_compatibility": [
+      "dall-e-3"
+    ],
+    "parameters": {
+      "model": "playground-ai",
+      "steps": 37,
+      "cfg_scale": 7.9,
+      "size": "512x512"
+    },
+    "base_quality_score": 0.69,
+    "quality_level": 4,
+    "source": "generated",
+    "source_url": "",
+    "author": null,
+    "examples": [
+      {
+        "description": "Sample output 44",
+        "quality_rating": 4.8
+      }
+    ],
+    "references": [],
+    "metadata": {
+      "created_at": "2026-04-14T16:05:55.068354",
+      "updated_at": "2026-04-14T16:05:55.068354",
+      "usage_count": 0,
+      "success_count": 0,
+      "avg_quality_score": 0.7,
+      "user_ratings": {},
+      "last_used": null,
+      "tags": [
+        "scenery",
+        "landscape",
+        "cinematic",
+        "nature"
+      ]
+    },
+    "language": "en",
+    "version": "1.0",
+    "is_active": true
+  },
+  {
+    "id": "demo-045",
+    "prompt_text": "Artistic portrait of a cyborg with unique hairstyle, anime, studio lighting",
+    "category": "text_to_image",
+    "subcategory": "portrait",
+    "model_compatibility": [
+      "midjourney"
+    ],
+    "parameters": {
+      "model": "midjourney",
+      "steps": 42,
+      "cfg_scale": 7.0,
+      "size": "1024x768"
+    },
+    "base_quality_score": 0.64,
+    "quality_level": 4,
+    "source": "generated",
+    "source_url": "",
+    "author": null,
+    "examples": [
+      {
+        "description": "Sample output 45",
+        "quality_rating": 4.1
+      }
+    ],
+    "references": [],
+    "metadata": {
+      "created_at": "2026-04-14T16:05:55.068363",
+      "updated_at": "2026-04-14T16:05:55.068363",
+      "usage_count": 13,
+      "success_count": 14,
+      "avg_quality_score": 0.71,
+      "user_ratings": {},
+      "last_used": null,
+      "tags": [
+        "character",
+        "photorealistic",
+        "person",
+        "portrait"
+      ]
+    },
+    "language": "en",
+    "version": "1.0",
+    "is_active": true
+  },
+  {
+    "id": "demo-046",
+    "prompt_text": "Fantasy portrait of a elf with detailed clothing, Renaissance painting, shallow depth of field",
+    "category": "text_to_image",
+    "subcategory": "portrait",
+    "model_compatibility": [
+      "leonardo.ai",
+      "stable-diffusion",
+      "dall-e-3"
+    ],
+    "parameters": {
+      "model": "midjourney",
+      "steps": 36,
+      "cfg_scale": 6.6,
+      "size": "768x768"
+    },
+    "base_quality_score": 0.99,
+    "quality_level": 5,
+    "source": "generated",
+    "source_url": "",
+    "author": null,
+    "examples": [
+      {
+        "description": "Sample output 46",
+        "quality_rating": 3.8
+      }
+    ],
+    "references": [],
+    "metadata": {
+      "created_at": "2026-04-14T16:05:55.068373",
+      "updated_at": "2026-04-14T16:05:55.068373",
+      "usage_count": 12,
+      "success_count": 9,
+      "avg_quality_score": 0.65,
+      "user_ratings": {},
+      "last_used": "2026-04-14T16:05:55.068372",
+      "tags": [
+        "character",
+        "person",
+        "cinematic",
+        "portrait"
+      ]
+    },
+    "language": "en",
+    "version": "1.0",
+    "is_active": true
+  },
+  {
+    "id": "demo-047",
+    "prompt_text": "Historical portrait of a elf with expressive eyes, comic book style, studio lighting",
+    "category": "text_to_image",
+    "subcategory": "portrait",
+    "model_compatibility": [
+      "midjourney",
+      "stable-diffusion",
+      "leonardo.ai"
+    ],
+    "parameters": {
+      "model": "dall-e-3",
+      "steps": 22,
+      "cfg_scale": 6.9,
+      "size": "512x512"
+    },
+    "base_quality_score": 0.83,
+    "quality_level": 5,
+    "source": "generated",
+    "source_url": "",
+    "author": null,
+    "examples": [
+      {
+        "description": "Sample output 47",
+        "quality_rating": 4.6
+      }
+    ],
+    "references": [],
+    "metadata": {
+      "created_at": "2026-04-14T16:05:55.068382",
+      "updated_at": "2026-04-14T16:05:55.068382",
+      "usage_count": 8,
+      "success_count": 9,
+      "avg_quality_score": 0.85,
+      "user_ratings": {},
+      "last_used": "2026-04-14T16:05:55.068381",
+      "tags": [
+        "character",
+        "photorealistic",
+        "person",
+        "portrait"
+      ]
+    },
+    "language": "en",
+    "version": "1.0",
+    "is_active": true
+  },
+  {
+    "id": "demo-048",
+    "prompt_text": "Fantasy portrait of a young woman with expressive eyes, concept art, studio lighting",
+    "category": "text_to_image",
+    "subcategory": "portrait",
+    "model_compatibility": [
+      "leonardo.ai",
+      "midjourney",
+      "dall-e-3"
+    ],
+    "parameters": {
+      "model": "midjourney",
+      "steps": 31,
+      "cfg_scale": 8.5,
+      "size": "768x768"
+    },
+    "base_quality_score": 0.72,
+    "quality_level": 4,
+    "source": "generated",
+    "source_url": "",
+    "author": null,
+    "examples": [
+      {
+        "description": "Sample output 48",
+        "quality_rating": 4.6
+      }
+    ],
+    "references": [],
+    "metadata": {
+      "created_at": "2026-04-14T16:05:55.068390",
+      "updated_at": "2026-04-14T16:05:55.068391",
+      "usage_count": 8,
+      "success_count": 14,
+      "avg_quality_score": 0.82,
+      "user_ratings": {},
+      "last_used": "2026-04-14T16:05:55.068390",
+      "tags": [
+        "character",
+        "person",
+        "cinematic",
+        "portrait"
+      ]
+    },
+    "language": "en",
+    "version": "1.0",
+    "is_active": true
+  },
+  {
+    "id": "demo-049",
+    "prompt_text": "A breathtaking mountain landscape at sunset, natural lighting, impressionist, professional photography",
+    "category": "text_to_image",
+    "subcategory": "landscape",
+    "model_compatibility": [
+      "leonardo.ai",
+      "playground-ai",
+      "midjourney"
+    ],
+    "parameters": {
+      "model": "playground-ai",
+      "steps": 31,
+      "cfg_scale": 7.0,
+      "size": "768x768"
+    },
+    "base_quality_score": 0.96,
+    "quality_level": 5,
+    "source": "generated",
+    "source_url": "",
+    "author": null,
+    "examples": [
+      {
+        "description": "Sample output 49",
+        "quality_rating": 3.7
+      }
+    ],
+    "references": [],
+    "metadata": {
+      "created_at": "2026-04-14T16:05:55.068399",
+      "updated_at": "2026-04-14T16:05:55.068399",
+      "usage_count": 15,
+      "success_count": 8,
+      "avg_quality_score": 0.83,
+      "user_ratings": {},
+      "last_used": "2026-04-14T16:05:55.068398",
+      "tags": [
+        "scenery",
+        "artistic",
+        "landscape",
+        "nature"
+      ]
+    },
+    "language": "en",
+    "version": "1.0",
+    "is_active": true
+  },
+  {
+    "id": "demo-050",
+    "prompt_text": "Fantasy portrait of a old man with expressive eyes, photorealistic, high contrast",
+    "category": "text_to_image",
+    "subcategory": "portrait",
+    "model_compatibility": [
+      "leonardo.ai",
+      "dall-e-3"
+    ],
+    "parameters": {
+      "model": "leonardo.ai",
+      "steps": 37,
+      "cfg_scale": 5.8,
+      "size": "1024x1024"
+    },
+    "base_quality_score": 0.82,
+    "quality_level": 5,
+    "source": "generated",
+    "source_url": "",
+    "author": null,
+    "examples": [
+      {
+        "description": "Sample output 50",
+        "quality_rating": 3.9
+      }
+    ],
+    "references": [],
+    "metadata": {
+      "created_at": "2026-04-14T16:05:55.068408",
+      "updated_at": "2026-04-14T16:05:55.068408",
+      "usage_count": 3,
+      "success_count": 13,
+      "avg_quality_score": 0.67,
+      "user_ratings": {},
+      "last_used": "2026-04-14T16:05:55.068407",
+      "tags": [
+        "character",
+        "artistic",
+        "person",
+        "portrait"
+      ]
+    },
+    "language": "en",
+    "version": "1.0",
+    "is_active": true
+  },
+  {
+    "id": "demo-051",
+    "prompt_text": "Historical portrait of a elf with expressive eyes, anime, shallow depth of field",
+    "category": "text_to_image",
+    "subcategory": "portrait",
+    "model_compatibility": [
+      "dall-e-3",
+      "midjourney"
+    ],
+    "parameters": {
+      "model": "midjourney",
+      "steps": 30,
+      "cfg_scale": 7.7,
+      "size": "768x768"
+    },
+    "base_quality_score": 0.75,
+    "quality_level": 4,
+    "source": "generated",
+    "source_url": "",
+    "author": null,
+    "examples": [
+      {
+        "description": "Sample output 51",
+        "quality_rating": 4.1
+      }
+    ],
+    "references": [],
+    "metadata": {
+      "created_at": "2026-04-14T16:05:55.068416",
+      "updated_at": "2026-04-14T16:05:55.068416",
+      "usage_count": 15,
+      "success_count": 12,
+      "avg_quality_score": 0.64,
+      "user_ratings": {},
+      "last_used": null,
+      "tags": [
+        "character",
+        "artistic",
+        "person",
+        "portrait"
+      ]
+    },
+    "language": "en",
+    "version": "1.0",
+    "is_active": true
+  },
+  {
+    "id": "demo-052",
+    "prompt_text": "smartphone product photography, lifestyle context, dramatic shadows, advertisement style, focus on details",
+    "category": "text_to_image",
+    "subcategory": "product",
+    "model_compatibility": [
+      "dall-e-3"
+    ],
+    "parameters": {
+      "model": "playground-ai",
+      "steps": 20,
+      "cfg_scale": 6.1,
+      "size": "512x512"
+    },
+    "base_quality_score": 0.73,
+    "quality_level": 4,
+    "source": "generated",
+    "source_url": "",
+    "author": null,
+    "examples": [
+      {
+        "description": "Sample output 52",
+        "quality_rating": 4.0
+      }
+    ],
+    "references": [],
+    "metadata": {
+      "created_at": "2026-04-14T16:05:55.068425",
+      "updated_at": "2026-04-14T16:05:55.068426",
+      "usage_count": 8,
+      "success_count": 5,
+      "avg_quality_score": 0.68,
+      "user_ratings": {},
+      "last_used": null,
+      "tags": [
+        "product",
+        "photography",
+        "detailed",
+        "commercial"
+      ]
+    },
+    "language": "en",
+    "version": "1.0",
+    "is_active": true
+  },
+  {
+    "id": "demo-053",
+    "prompt_text": "A breathtaking ocean view at night, soft lighting, anime style, 8k resolution",
+    "category": "text_to_image",
+    "subcategory": "general",
+    "model_compatibility": [
+      "midjourney",
+      "dall-e-3"
+    ],
+    "parameters": {
+      "model": "leonardo.ai",
+      "steps": 20,
+      "cfg_scale": 6.5,
+      "size": "512x512"
+    },
+    "base_quality_score": 0.71,
+    "quality_level": 4,
+    "source": "generated",
+    "source_url": "",
+    "author": null,
+    "examples": [
+      {
+        "description": "Sample output 53",
+        "quality_rating": 3.6
+      }
+    ],
+    "references": [],
+    "metadata": {
+      "created_at": "2026-04-14T16:05:55.068435",
+      "updated_at": "2026-04-14T16:05:55.068435",
+      "usage_count": 8,
+      "success_count": 11,
+      "avg_quality_score": 0.88,
+      "user_ratings": {},
+      "last_used": null,
+      "tags": [
+        "general",
+        "art",
+        "cinematic"
+      ]
+    },
+    "language": "en",
+    "version": "1.0",
+    "is_active": true
+  },
+  {
+    "id": "demo-054",
+    "prompt_text": "cosmetic product photography, natural environment, professional lighting, editorial, high-end product shot",
+    "category": "text_to_image",
+    "subcategory": "product",
+    "model_compatibility": [
+      "playground-ai",
+      "midjourney",
+      "dall-e-3"
+    ],
+    "parameters": {
+      "model": "midjourney",
+      "steps": 43,
+      "cfg_scale": 6.3,
+      "size": "1024x768"
+    },
+    "base_quality_score": 0.84,
+    "quality_level": 5,
+    "source": "generated",
+    "source_url": "",
+    "author": null,
+    "examples": [
+      {
+        "description": "Sample output 54",
+        "quality_rating": 4.4
+      }
+    ],
+    "references": [],
+    "metadata": {
+      "created_at": "2026-04-14T16:05:55.068444",
+      "updated_at": "2026-04-14T16:05:55.068444",
+      "usage_count": 1,
+      "success_count": 4,
+      "avg_quality_score": 0.69,
+      "user_ratings": {},
+      "last_used": null,
+      "tags": [
+        "product",
+        "photography",
+        "photorealistic",
+        "commercial"
+      ]
+    },
+    "language": "en",
+    "version": "1.0",
+    "is_active": true
+  },
+  {
+    "id": "demo-055",
+    "prompt_text": "A breathtaking desert sunset at midday, natural lighting, oil painting, 8k resolution",
+    "category": "text_to_image",
+    "subcategory": "general",
+    "model_compatibility": [
+      "dall-e-3"
+    ],
+    "parameters": {
+      "model": "leonardo.ai",
+      "steps": 50,
+      "cfg_scale": 5.8,
+      "size": "1024x1024"
+    },
+    "base_quality_score": 0.8,
+    "quality_level": 5,
+    "source": "generated",
+    "source_url": "",
+    "author": null,
+    "examples": [
+      {
+        "description": "Sample output 55",
+        "quality_rating": 4.5
+      }
+    ],
+    "references": [],
+    "metadata": {
+      "created_at": "2026-04-14T16:05:55.068453",
+      "updated_at": "2026-04-14T16:05:55.068453",
+      "usage_count": 19,
+      "success_count": 7,
+      "avg_quality_score": 0.74,
+      "user_ratings": {},
+      "last_used": "2026-04-14T16:05:55.068452",
+      "tags": [
+        "general",
+        "art",
+        "detailed"
+      ]
+    },
+    "language": "en",
+    "version": "1.0",
+    "is_active": true
+  },
+  {
+    "id": "demo-056",
+    "prompt_text": "watch product photography, lifestyle context, softbox lighting, editorial, high-end product shot",
+    "category": "text_to_image",
+    "subcategory": "product",
+    "model_compatibility": [
+      "midjourney",
+      "dall-e-3"
+    ],
+    "parameters": {
+      "model": "stable-diffusion",
+      "steps": 41,
+      "cfg_scale": 6.6,
+      "size": "768x768"
+    },
+    "base_quality_score": 0.73,
+    "quality_level": 4,
+    "source": "generated",
+    "source_url": "",
+    "author": null,
+    "examples": [
+      {
+        "description": "Sample output 56",
+        "quality_rating": 4.6
+      }
+    ],
+    "references": [],
+    "metadata": {
+      "created_at": "2026-04-14T16:05:55.068462",
+      "updated_at": "2026-04-14T16:05:55.068462",
+      "usage_count": 10,
+      "success_count": 9,
+      "avg_quality_score": 0.67,
+      "user_ratings": {},
+      "last_used": null,
+      "tags": [
+        "product",
+        "photography",
+        "photorealistic",
+        "commercial"
+      ]
+    },
+    "language": "en",
+    "version": "1.0",
+    "is_active": true
+  },
+  {
+    "id": "demo-057",
+    "prompt_text": "Character portrait of a warrior with unique hairstyle, anime, studio lighting",
+    "category": "text_to_image",
+    "subcategory": "portrait",
+    "model_compatibility": [
+      "playground-ai"
+    ],
+    "parameters": {
+      "model": "leonardo.ai",
+      "steps": 49,
+      "cfg_scale": 8.3,
+      "size": "768x768"
+    },
+    "base_quality_score": 0.79,
+    "quality_level": 4,
+    "source": "generated",
+    "source_url": "",
+    "author": null,
+    "examples": [
+      {
+        "description": "Sample output 57",
+        "quality_rating": 3.8
+      }
+    ],
+    "references": [],
+    "metadata": {
+      "created_at": "2026-04-14T16:05:55.068471",
+      "updated_at": "2026-04-14T16:05:55.068471",
+      "usage_count": 0,
+      "success_count": 6,
+      "avg_quality_score": 0.64,
+      "user_ratings": {},
+      "last_used": "2026-04-14T16:05:55.068470",
+      "tags": [
+        "character",
+        "artistic",
+        "person",
+        "portrait"
+      ]
+    },
+    "language": "en",
+    "version": "1.0",
+    "is_active": true
+  },
+  {
+    "id": "demo-058",
+    "prompt_text": "cosmetic product photography, natural environment, professional lighting, commercial photography, clean composition",
+    "category": "text_to_image",
+    "subcategory": "product",
+    "model_compatibility": [
+      "midjourney",
+      "playground-ai",
+      "stable-diffusion"
+    ],
+    "parameters": {
+      "model": "playground-ai",
+      "steps": 29,
+      "cfg_scale": 8.0,
+      "size": "1024x768"
+    },
+    "base_quality_score": 0.93,
+    "quality_level": 5,
+    "source": "generated",
+    "source_url": "",
+    "author": null,
+    "examples": [
+      {
+        "description": "Sample output 58",
+        "quality_rating": 4.7
+      }
+    ],
+    "references": [],
+    "metadata": {
+      "created_at": "2026-04-14T16:05:55.068480",
+      "updated_at": "2026-04-14T16:05:55.068480",
+      "usage_count": 10,
+      "success_count": 0,
+      "avg_quality_score": 0.7,
+      "user_ratings": {},
+      "last_used": null,
+      "tags": [
+        "artistic",
+        "product",
+        "photography",
+        "commercial"
+      ]
+    },
+    "language": "en",
+    "version": "1.0",
+    "is_active": true
+  },
+  {
+    "id": "demo-059",
+    "prompt_text": "A breathtaking forest path at sunrise, cinematic lighting, impressionist, professional photography",
+    "category": "text_to_image",
+    "subcategory": "landscape",
+    "model_compatibility": [
+      "leonardo.ai",
+      "stable-diffusion",
+      "playground-ai"
+    ],
+    "parameters": {
+      "model": "stable-diffusion",
+      "steps": 22,
+      "cfg_scale": 5.4,
+      "size": "1024x768"
+    },
+    "base_quality_score": 0.9,
+    "quality_level": 5,
+    "source": "generated",
+    "source_url": "",
+    "author": null,
+    "examples": [
+      {
+        "description": "Sample output 59",
+        "quality_rating": 4.8
+      }
+    ],
+    "references": [],
+    "metadata": {
+      "created_at": "2026-04-14T16:05:55.068488",
+      "updated_at": "2026-04-14T16:05:55.068488",
+      "usage_count": 12,
+      "success_count": 13,
+      "avg_quality_score": 0.84,
+      "user_ratings": {},
+      "last_used": null,
+      "tags": [
+        "scenery",
+        "landscape",
+        "cinematic",
+        "nature"
+      ]
+    },
+    "language": "en",
+    "version": "1.0",
+    "is_active": true
+  },
+  {
+    "id": "demo-060",
+    "prompt_text": "food product photography, minimalist background, dramatic shadows, commercial photography, high-end product shot",
+    "category": "text_to_image",
+    "subcategory": "product",
+    "model_compatibility": [
+      "leonardo.ai"
+    ],
+    "parameters": {
+      "model": "leonardo.ai",
+      "steps": 29,
+      "cfg_scale": 6.4,
+      "size": "1024x768"
+    },
+    "base_quality_score": 0.71,
+    "quality_level": 4,
+    "source": "generated",
+    "source_url": "",
+    "author": null,
+    "examples": [
+      {
+        "description": "Sample output 60",
+        "quality_rating": 5.0
+      }
+    ],
+    "references": [],
+    "metadata": {
+      "created_at": "2026-04-14T16:05:55.068497",
+      "updated_at": "2026-04-14T16:05:55.068497",
+      "usage_count": 2,
+      "success_count": 12,
+      "avg_quality_score": 0.61,
+      "user_ratings": {},
+      "last_used": null,
+      "tags": [
+        "product",
+        "photography",
+        "detailed",
+        "commercial"
+      ]
+    },
+    "language": "en",
+    "version": "1.0",
+    "is_active": true
+  },
+  {
+    "id": "demo-061",
+    "prompt_text": "food product photography, lifestyle context, natural light, advertisement style, clean composition",
+    "category": "text_to_image",
+    "subcategory": "product",
+    "model_compatibility": [
+      "dall-e-3",
+      "playground-ai",
+      "midjourney"
+    ],
+    "parameters": {
+      "model": "midjourney",
+      "steps": 36,
+      "cfg_scale": 7.0,
+      "size": "1024x1024"
+    },
+    "base_quality_score": 0.77,
+    "quality_level": 4,
+    "source": "generated",
+    "source_url": "",
+    "author": null,
+    "examples": [
+      {
+        "description": "Sample output 61",
+        "quality_rating": 4.0
+      }
+    ],
+    "references": [],
+    "metadata": {
+      "created_at": "2026-04-14T16:05:55.068506",
+      "updated_at": "2026-04-14T16:05:55.068507",
+      "usage_count": 13,
+      "success_count": 10,
+      "avg_quality_score": 0.79,
+      "user_ratings": {},
+      "last_used": null,
+      "tags": [
+        "product",
+        "photography",
+        "cinematic",
+        "commercial"
+      ]
+    },
+    "language": "en",
+    "version": "1.0",
+    "is_active": true
+  },
+  {
+    "id": "demo-062",
+    "prompt_text": "Character portrait of a cyborg with unique hairstyle, comic book style, high contrast",
+    "category": "text_to_image",
+    "subcategory": "portrait",
+    "model_compatibility": [
+      "midjourney"
+    ],
+    "parameters": {
+      "model": "playground-ai",
+      "steps": 28,
+      "cfg_scale": 8.9,
+      "size": "512x512"
+    },
+    "base_quality_score": 0.7,
+    "quality_level": 4,
+    "source": "generated",
+    "source_url": "",
+    "author": null,
+    "examples": [
+      {
+        "description": "Sample output 62",
+        "quality_rating": 4.4
+      }
+    ],
+    "references": [],
+    "metadata": {
+      "created_at": "2026-04-14T16:05:55.068515",
+      "updated_at": "2026-04-14T16:05:55.068515",
+      "usage_count": 4,
+      "success_count": 11,
+      "avg_quality_score": 0.78,
+      "user_ratings": {},
+      "last_used": null,
+      "tags": [
+        "character",
+        "artistic",
+        "person",
+        "portrait"
+      ]
+    },
+    "language": "en",
+    "version": "1.0",
+    "is_active": true
+  },
+  {
+    "id": "demo-063",
+    "prompt_text": "Artistic portrait of a scientist with detailed clothing, photorealistic, studio lighting",
+    "category": "text_to_image",
+    "subcategory": "portrait",
+    "model_compatibility": [
+      "dall-e-3",
+      "stable-diffusion"
+    ],
+    "parameters": {
+      "model": "stable-diffusion",
+      "steps": 30,
+      "cfg_scale": 6.7,
+      "size": "768x768"
+    },
+    "base_quality_score": 0.94,
+    "quality_level": 5,
+    "source": "generated",
+    "source_url": "",
+    "author": null,
+    "examples": [
+      {
+        "description": "Sample output 63",
+        "quality_rating": 4.2
+      }
+    ],
+    "references": [],
+    "metadata": {
+      "created_at": "2026-04-14T16:05:55.068524",
+      "updated_at": "2026-04-14T16:05:55.068524",
+      "usage_count": 0,
+      "success_count": 11,
+      "avg_quality_score": 0.69,
+      "user_ratings": {},
+      "last_used": null,
+      "tags": [
+        "character",
+        "photorealistic",
+        "person",
+        "portrait"
+      ]
+    },
+    "language": "en",
+    "version": "1.0",
+    "is_active": true
+  },
+  {
+    "id": "demo-064",
+    "prompt_text": "Artistic portrait of a cyborg with unique hairstyle, photorealistic, shallow depth of field",
+    "category": "text_to_image",
+    "subcategory": "portrait",
+    "model_compatibility": [
+      "dall-e-3",
+      "leonardo.ai",
+      "midjourney"
+    ],
+    "parameters": {
+      "model": "dall-e-3",
+      "steps": 35,
+      "cfg_scale": 5.6,
+      "size": "768x768"
+    },
+    "base_quality_score": 0.7,
+    "quality_level": 4,
+    "source": "generated",
+    "source_url": "",
+    "author": null,
+    "examples": [
+      {
+        "description": "Sample output 64",
+        "quality_rating": 4.5
+      }
+    ],
+    "references": [],
+    "metadata": {
+      "created_at": "2026-04-14T16:05:55.068532",
+      "updated_at": "2026-04-14T16:05:55.068533",
+      "usage_count": 4,
+      "success_count": 5,
+      "avg_quality_score": 0.71,
+      "user_ratings": {},
+      "last_used": "2026-04-14T16:05:55.068532",
+      "tags": [
+        "character",
+        "person",
+        "cinematic",
+        "portrait"
+      ]
+    },
+    "language": "en",
+    "version": "1.0",
+    "is_active": true
+  },
+  {
+    "id": "demo-065",
+    "prompt_text": "Character portrait of a scientist with unique hairstyle, photorealistic, high contrast",
+    "category": "text_to_image",
+    "subcategory": "portrait",
+    "model_compatibility": [
+      "midjourney",
+      "stable-diffusion"
+    ],
+    "parameters": {
+      "model": "dall-e-3",
+      "steps": 40,
+      "cfg_scale": 6.9,
+      "size": "1024x768"
+    },
+    "base_quality_score": 0.79,
+    "quality_level": 4,
+    "source": "generated",
+    "source_url": "",
+    "author": null,
+    "examples": [
+      {
+        "description": "Sample output 65",
+        "quality_rating": 4.3
+      }
+    ],
+    "references": [],
+    "metadata": {
+      "created_at": "2026-04-14T16:05:55.068542",
+      "updated_at": "2026-04-14T16:05:55.068542",
+      "usage_count": 13,
+      "success_count": 9,
+      "avg_quality_score": 0.72,
+      "user_ratings": {},
+      "last_used": "2026-04-14T16:05:55.068541",
+      "tags": [
+        "character",
+        "artistic",
+        "person",
+        "portrait"
+      ]
+    },
+    "language": "en",
+    "version": "1.0",
+    "is_active": true
+  },
+  {
+    "id": "demo-066",
+    "prompt_text": "A breathtaking desert sunset at sunrise, natural lighting, anime style, professional photography",
+    "category": "text_to_image",
+    "subcategory": "general",
+    "model_compatibility": [
+      "playground-ai",
+      "leonardo.ai"
+    ],
+    "parameters": {
+      "model": "playground-ai",
+      "steps": 46,
+      "cfg_scale": 6.7,
+      "size": "768x768"
+    },
+    "base_quality_score": 0.96,
+    "quality_level": 5,
+    "source": "generated",
+    "source_url": "",
+    "author": null,
+    "examples": [
+      {
+        "description": "Sample output 66",
+        "quality_rating": 3.8
+      }
+    ],
+    "references": [],
+    "metadata": {
+      "created_at": "2026-04-14T16:05:55.068551",
+      "updated_at": "2026-04-14T16:05:55.068551",
+      "usage_count": 17,
+      "success_count": 8,
+      "avg_quality_score": 0.74,
+      "user_ratings": {},
+      "last_used": "2026-04-14T16:05:55.068550",
+      "tags": [
+        "general",
+        "photorealistic",
+        "art"
+      ]
+    },
+    "language": "en",
+    "version": "1.0",
+    "is_active": true
+  },
+  {
+    "id": "demo-067",
+    "prompt_text": "A breathtaking mountain landscape at golden hour, soft lighting, impressionist, 8k resolution",
+    "category": "text_to_image",
+    "subcategory": "landscape",
+    "model_compatibility": [
+      "midjourney"
+    ],
+    "parameters": {
+      "model": "stable-diffusion",
+      "steps": 47,
+      "cfg_scale": 7.8,
+      "size": "1024x768"
+    },
+    "base_quality_score": 0.75,
+    "quality_level": 4,
+    "source": "generated",
+    "source_url": "",
+    "author": null,
+    "examples": [
+      {
+        "description": "Sample output 67",
+        "quality_rating": 4.2
+      }
+    ],
+    "references": [],
+    "metadata": {
+      "created_at": "2026-04-14T16:05:55.068560",
+      "updated_at": "2026-04-14T16:05:55.068560",
+      "usage_count": 7,
+      "success_count": 1,
+      "avg_quality_score": 0.94,
+      "user_ratings": {},
+      "last_used": null,
+      "tags": [
+        "scenery",
+        "landscape",
+        "cinematic",
+        "nature"
+      ]
+    },
+    "language": "en",
+    "version": "1.0",
+    "is_active": true
+  },
+  {
+    "id": "demo-068",
+    "prompt_text": "A breathtaking city skyline at night, natural lighting, impressionist, professional photography",
+    "category": "text_to_image",
+    "subcategory": "general",
+    "model_compatibility": [
+      "dall-e-3"
+    ],
+    "parameters": {
+      "model": "playground-ai",
+      "steps": 42,
+      "cfg_scale": 7.4,
+      "size": "1024x1024"
+    },
+    "base_quality_score": 0.87,
+    "quality_level": 5,
+    "source": "generated",
+    "source_url": "",
+    "author": null,
+    "examples": [
+      {
+        "description": "Sample output 68",
+        "quality_rating": 4.9
+      }
+    ],
+    "references": [],
+    "metadata": {
+      "created_at": "2026-04-14T16:05:55.068569",
+      "updated_at": "2026-04-14T16:05:55.068569",
+      "usage_count": 5,
+      "success_count": 14,
+      "avg_quality_score": 0.76,
+      "user_ratings": {},
+      "last_used": null,
+      "tags": [
+        "general",
+        "artistic",
+        "art"
+      ]
+    },
+    "language": "en",
+    "version": "1.0",
+    "is_active": true
+  },
+  {
+    "id": "demo-069",
+    "prompt_text": "watch product photography, natural environment, professional lighting, editorial, clean composition",
+    "category": "text_to_image",
+    "subcategory": "product",
+    "model_compatibility": [
+      "playground-ai",
+      "dall-e-3",
+      "midjourney"
+    ],
+    "parameters": {
+      "model": "playground-ai",
+      "steps": 32,
+      "cfg_scale": 6.2,
+      "size": "1024x1024"
+    },
+    "base_quality_score": 0.91,
+    "quality_level": 5,
+    "source": "generated",
+    "source_url": "",
+    "author": null,
+    "examples": [
+      {
+        "description": "Sample output 69",
+        "quality_rating": 3.8
+      }
+    ],
+    "references": [],
+    "metadata": {
+      "created_at": "2026-04-14T16:05:55.068579",
+      "updated_at": "2026-04-14T16:05:55.068579",
+      "usage_count": 0,
+      "success_count": 9,
+      "avg_quality_score": 0.74,
+      "user_ratings": {},
+      "last_used": "2026-04-14T16:05:55.068578",
+      "tags": [
+        "product",
+        "photography",
+        "detailed",
+        "commercial"
+      ]
+    },
+    "language": "en",
+    "version": "1.0",
+    "is_active": true
+  },
+  {
+    "id": "demo-070",
+    "prompt_text": "A breathtaking ocean view at midday, cinematic lighting, anime style, professional photography",
+    "category": "text_to_image",
+    "subcategory": "general",
+    "model_compatibility": [
+      "dall-e-3"
+    ],
+    "parameters": {
+      "model": "midjourney",
+      "steps": 47,
+      "cfg_scale": 8.1,
+      "size": "1024x768"
+    },
+    "base_quality_score": 1.0,
+    "quality_level": 5,
+    "source": "generated",
+    "source_url": "",
+    "author": null,
+    "examples": [
+      {
+        "description": "Sample output 70",
+        "quality_rating": 4.2
+      }
+    ],
+    "references": [],
+    "metadata": {
+      "created_at": "2026-04-14T16:05:55.068587",
+      "updated_at": "2026-04-14T16:05:55.068588",
+      "usage_count": 6,
+      "success_count": 4,
+      "avg_quality_score": 0.77,
+      "user_ratings": {},
+      "last_used": "2026-04-14T16:05:55.068587",
+      "tags": [
+        "general",
+        "art",
+        "cinematic"
+      ]
+    },
+    "language": "en",
+    "version": "1.0",
+    "is_active": true
+  },
+  {
+    "id": "demo-071",
+    "prompt_text": "A breathtaking desert sunset at sunset, natural lighting, impressionist, 8k resolution",
+    "category": "text_to_image",
+    "subcategory": "general",
+    "model_compatibility": [
+      "midjourney",
+      "leonardo.ai",
+      "stable-diffusion"
+    ],
+    "parameters": {
+      "model": "leonardo.ai",
+      "steps": 27,
+      "cfg_scale": 8.0,
+      "size": "512x512"
+    },
+    "base_quality_score": 0.67,
+    "quality_level": 4,
+    "source": "generated",
+    "source_url": "",
+    "author": null,
+    "examples": [
+      {
+        "description": "Sample output 71",
+        "quality_rating": 4.9
+      }
+    ],
+    "references": [],
+    "metadata": {
+      "created_at": "2026-04-14T16:05:55.068598",
+      "updated_at": "2026-04-14T16:05:55.068598",
+      "usage_count": 7,
+      "success_count": 2,
+      "avg_quality_score": 0.77,
+      "user_ratings": {},
+      "last_used": "2026-04-14T16:05:55.068596",
+      "tags": [
+        "general",
+        "art",
+        "detailed"
+      ]
+    },
+    "language": "en",
+    "version": "1.0",
+    "is_active": true
+  },
+  {
+    "id": "demo-072",
+    "prompt_text": "smartphone product photography, minimalist background, softbox lighting, commercial photography, focus on details",
+    "category": "text_to_image",
+    "subcategory": "product",
+    "model_compatibility": [
+      "dall-e-3",
+      "stable-diffusion"
+    ],
+    "parameters": {
+      "model": "leonardo.ai",
+      "steps": 38,
+      "cfg_scale": 6.0,
+      "size": "1024x1024"
+    },
+    "base_quality_score": 0.67,
+    "quality_level": 4,
+    "source": "generated",
+    "source_url": "",
+    "author": null,
+    "examples": [
+      {
+        "description": "Sample output 72",
+        "quality_rating": 4.3
+      }
+    ],
+    "references": [],
+    "metadata": {
+      "created_at": "2026-04-14T16:05:55.068607",
+      "updated_at": "2026-04-14T16:05:55.068607",
+      "usage_count": 16,
+      "success_count": 1,
+      "avg_quality_score": 0.64,
+      "user_ratings": {},
+      "last_used": null,
+      "tags": [
+        "product",
+        "photography",
+        "photorealistic",
+        "commercial"
+      ]
+    },
+    "language": "en",
+    "version": "1.0",
+    "is_active": true
+  },
+  {
+    "id": "demo-073",
+    "prompt_text": "watch product photography, studio setting, softbox lighting, commercial photography, high-end product shot",
+    "category": "text_to_image",
+    "subcategory": "product",
+    "model_compatibility": [
+      "midjourney"
+    ],
+    "parameters": {
+      "model": "midjourney",
+      "steps": 37,
+      "cfg_scale": 7.4,
+      "size": "768x768"
+    },
+    "base_quality_score": 0.68,
+    "quality_level": 4,
+    "source": "generated",
+    "source_url": "",
+    "author": null,
+    "examples": [
+      {
+        "description": "Sample output 73",
+        "quality_rating": 4.6
+      }
+    ],
+    "references": [],
+    "metadata": {
+      "created_at": "2026-04-14T16:05:55.068616",
+      "updated_at": "2026-04-14T16:05:55.068616",
+      "usage_count": 8,
+      "success_count": 8,
+      "avg_quality_score": 0.73,
+      "user_ratings": {},
+      "last_used": "2026-04-14T16:05:55.068616",
+      "tags": [
+        "product",
+        "photography",
+        "detailed",
+        "commercial"
+      ]
+    },
+    "language": "en",
+    "version": "1.0",
+    "is_active": true
+  },
+  {
+    "id": "demo-074",
+    "prompt_text": "A breathtaking mountain landscape at sunset, natural lighting, impressionist, professional photography",
+    "category": "text_to_image",
+    "subcategory": "landscape",
+    "model_compatibility": [
+      "playground-ai",
+      "leonardo.ai",
+      "midjourney"
+    ],
+    "parameters": {
+      "model": "playground-ai",
+      "steps": 44,
+      "cfg_scale": 7.2,
+      "size": "512x512"
+    },
+    "base_quality_score": 0.96,
+    "quality_level": 5,
+    "source": "generated",
+    "source_url": "",
+    "author": null,
+    "examples": [
+      {
+        "description": "Sample output 74",
+        "quality_rating": 4.3
+      }
+    ],
+    "references": [],
+    "metadata": {
+      "created_at": "2026-04-14T16:05:55.068625",
+      "updated_at": "2026-04-14T16:05:55.068625",
+      "usage_count": 8,
+      "success_count": 0,
+      "avg_quality_score": 0.69,
+      "user_ratings": {},
+      "last_used": "2026-04-14T16:05:55.068624",
+      "tags": [
+        "scenery",
+        "artistic",
+        "landscape",
+        "nature"
+      ]
+    },
+    "language": "en",
+    "version": "1.0",
+    "is_active": true
+  },
+  {
+    "id": "demo-075",
+    "prompt_text": "Fantasy portrait of a elf with expressive eyes, anime, high contrast",
+    "category": "text_to_image",
+    "subcategory": "portrait",
+    "model_compatibility": [
+      "dall-e-3",
+      "leonardo.ai"
+    ],
+    "parameters": {
+      "model": "dall-e-3",
+      "steps": 42,
+      "cfg_scale": 7.0,
+      "size": "1024x768"
+    },
+    "base_quality_score": 0.63,
+    "quality_level": 4,
+    "source": "generated",
+    "source_url": "",
+    "author": null,
+    "examples": [
+      {
+        "description": "Sample output 75",
+        "quality_rating": 4.3
+      }
+    ],
+    "references": [],
+    "metadata": {
+      "created_at": "2026-04-14T16:05:55.068633",
+      "updated_at": "2026-04-14T16:05:55.068633",
+      "usage_count": 11,
+      "success_count": 13,
+      "avg_quality_score": 0.71,
+      "user_ratings": {},
+      "last_used": null,
+      "tags": [
+        "character",
+        "photorealistic",
+        "person",
+        "portrait"
+      ]
+    },
+    "language": "en",
+    "version": "1.0",
+    "is_active": true
+  },
+  {
+    "id": "demo-076",
+    "prompt_text": "Artistic portrait of a elf with unique hairstyle, Renaissance painting, cinematic composition",
+    "category": "text_to_image",
+    "subcategory": "portrait",
+    "model_compatibility": [
+      "leonardo.ai"
+    ],
+    "parameters": {
+      "model": "dall-e-3",
+      "steps": 50,
+      "cfg_scale": 5.1,
+      "size": "768x768"
+    },
+    "base_quality_score": 0.78,
+    "quality_level": 4,
+    "source": "generated",
+    "source_url": "",
+    "author": null,
+    "examples": [
+      {
+        "description": "Sample output 76",
+        "quality_rating": 4.5
+      }
+    ],
+    "references": [],
+    "metadata": {
+      "created_at": "2026-04-14T16:05:55.068642",
+      "updated_at": "2026-04-14T16:05:55.068642",
+      "usage_count": 11,
+      "success_count": 14,
+      "avg_quality_score": 0.88,
+      "user_ratings": {},
+      "last_used": "2026-04-14T16:05:55.068641",
+      "tags": [
+        "character",
+        "artistic",
+        "person",
+        "portrait"
+      ]
+    },
+    "language": "en",
+    "version": "1.0",
+    "is_active": true
+  },
+  {
+    "id": "demo-077",
+    "prompt_text": "Fantasy portrait of a elf with unique hairstyle, photorealistic, shallow depth of field",
+    "category": "text_to_image",
+    "subcategory": "portrait",
+    "model_compatibility": [
+      "leonardo.ai"
+    ],
+    "parameters": {
+      "model": "midjourney",
+      "steps": 50,
+      "cfg_scale": 6.9,
+      "size": "1024x1024"
+    },
+    "base_quality_score": 0.79,
+    "quality_level": 4,
+    "source": "generated",
+    "source_url": "",
+    "author": null,
+    "examples": [
+      {
+        "description": "Sample output 77",
+        "quality_rating": 4.1
+      }
+    ],
+    "references": [],
+    "metadata": {
+      "created_at": "2026-04-14T16:05:55.068651",
+      "updated_at": "2026-04-14T16:05:55.068651",
+      "usage_count": 15,
+      "success_count": 12,
+      "avg_quality_score": 0.7,
+      "user_ratings": {},
+      "last_used": null,
+      "tags": [
+        "character",
+        "artistic",
+        "person",
+        "portrait"
+      ]
+    },
+    "language": "en",
+    "version": "1.0",
+    "is_active": true
+  },
+  {
+    "id": "demo-078",
+    "prompt_text": "A breathtaking forest path at midday, natural lighting, oil painting, professional photography",
+    "category": "text_to_image",
+    "subcategory": "landscape",
+    "model_compatibility": [
+      "dall-e-3",
+      "stable-diffusion",
+      "leonardo.ai"
+    ],
+    "parameters": {
+      "model": "stable-diffusion",
+      "steps": 23,
+      "cfg_scale": 5.1,
+      "size": "1024x1024"
+    },
+    "base_quality_score": 0.95,
+    "quality_level": 5,
+    "source": "generated",
+    "source_url": "",
+    "author": null,
+    "examples": [
+      {
+        "description": "Sample output 78",
+        "quality_rating": 5.0
+      }
+    ],
+    "references": [],
+    "metadata": {
+      "created_at": "2026-04-14T16:05:55.068660",
+      "updated_at": "2026-04-14T16:05:55.068660",
+      "usage_count": 6,
+      "success_count": 13,
+      "avg_quality_score": 0.9,
+      "user_ratings": {},
+      "last_used": "2026-04-14T16:05:55.068659",
+      "tags": [
+        "scenery",
+        "landscape",
+        "cinematic",
+        "nature"
+      ]
+    },
+    "language": "en",
+    "version": "1.0",
+    "is_active": true
+  },
+  {
+    "id": "demo-079",
+    "prompt_text": "Historical portrait of a old man with expressive eyes, anime, shallow depth of field",
+    "category": "text_to_image",
+    "subcategory": "portrait",
+    "model_compatibility": [
+      "playground-ai"
+    ],
+    "parameters": {
+      "model": "leonardo.ai",
+      "steps": 20,
+      "cfg_scale": 8.7,
+      "size": "1024x768"
+    },
+    "base_quality_score": 0.86,
+    "quality_level": 5,
+    "source": "generated",
+    "source_url": "",
+    "author": null,
+    "examples": [
+      {
+        "description": "Sample output 79",
+        "quality_rating": 4.8
+      }
+    ],
+    "references": [],
+    "metadata": {
+      "created_at": "2026-04-14T16:05:55.068668",
+      "updated_at": "2026-04-14T16:05:55.068669",
+      "usage_count": 11,
+      "success_count": 8,
+      "avg_quality_score": 0.86,
+      "user_ratings": {},
+      "last_used": null,
+      "tags": [
+        "character",
+        "person",
+        "cinematic",
+        "portrait"
+      ]
+    },
+    "language": "en",
+    "version": "1.0",
+    "is_active": true
+  },
+  {
+    "id": "demo-080",
+    "prompt_text": "A breathtaking mountain landscape at sunrise, natural lighting, impressionist, 8k resolution",
+    "category": "text_to_image",
+    "subcategory": "landscape",
+    "model_compatibility": [
+      "stable-diffusion",
+      "leonardo.ai"
+    ],
+    "parameters": {
+      "model": "midjourney",
+      "steps": 41,
+      "cfg_scale": 7.7,
+      "size": "1024x768"
+    },
+    "base_quality_score": 0.82,
+    "quality_level": 5,
+    "source": "generated",
+    "source_url": "",
+    "author": null,
+    "examples": [
+      {
+        "description": "Sample output 80",
+        "quality_rating": 4.0
+      }
+    ],
+    "references": [],
+    "metadata": {
+      "created_at": "2026-04-14T16:05:55.068677",
+      "updated_at": "2026-04-14T16:05:55.068678",
+      "usage_count": 4,
+      "success_count": 8,
+      "avg_quality_score": 0.67,
+      "user_ratings": {},
+      "last_used": "2026-04-14T16:05:55.068677",
+      "tags": [
+        "scenery",
+        "landscape",
+        "detailed",
+        "nature"
+      ]
+    },
+    "language": "en",
+    "version": "1.0",
+    "is_active": true
+  },
+  {
+    "id": "demo-081",
+    "prompt_text": "Professional portrait of a scientist with intricate facial features, concept art, high contrast",
+    "category": "text_to_image",
+    "subcategory": "portrait",
+    "model_compatibility": [
+      "dall-e-3",
+      "stable-diffusion",
+      "leonardo.ai"
+    ],
+    "parameters": {
+      "model": "leonardo.ai",
+      "steps": 31,
+      "cfg_scale": 7.0,
+      "size": "512x512"
+    },
+    "base_quality_score": 1.0,
+    "quality_level": 5,
+    "source": "generated",
+    "source_url": "",
+    "author": null,
+    "examples": [
+      {
+        "description": "Sample output 81",
+        "quality_rating": 4.9
+      }
+    ],
+    "references": [],
+    "metadata": {
+      "created_at": "2026-04-14T16:05:55.068685",
+      "updated_at": "2026-04-14T16:05:55.068685",
+      "usage_count": 10,
+      "success_count": 14,
+      "avg_quality_score": 0.65,
+      "user_ratings": {},
+      "last_used": null,
+      "tags": [
+        "character",
+        "photorealistic",
+        "person",
+        "portrait"
+      ]
+    },
+    "language": "en",
+    "version": "1.0",
+    "is_active": true
+  },
+  {
+    "id": "demo-082",
+    "prompt_text": "car product photography, minimalist background, dramatic shadows, advertisement style, high-end product shot",
+    "category": "text_to_image",
+    "subcategory": "product",
+    "model_compatibility": [
+      "dall-e-3",
+      "midjourney"
+    ],
+    "parameters": {
+      "model": "stable-diffusion",
+      "steps": 45,
+      "cfg_scale": 6.6,
+      "size": "768x768"
+    },
+    "base_quality_score": 0.72,
+    "quality_level": 4,
+    "source": "generated",
+    "source_url": "",
+    "author": null,
+    "examples": [
+      {
+        "description": "Sample output 82",
+        "quality_rating": 4.9
+      }
+    ],
+    "references": [],
+    "metadata": {
+      "created_at": "2026-04-14T16:05:55.068696",
+      "updated_at": "2026-04-14T16:05:55.068696",
+      "usage_count": 0,
+      "success_count": 4,
+      "avg_quality_score": 0.87,
+      "user_ratings": {},
+      "last_used": "2026-04-14T16:05:55.068695",
+      "tags": [
+        "product",
+        "photography",
+        "cinematic",
+        "commercial"
+      ]
+    },
+    "language": "en",
+    "version": "1.0",
+    "is_active": true
+  },
+  {
+    "id": "demo-083",
+    "prompt_text": "Character portrait of a old man with unique hairstyle, concept art, studio lighting",
+    "category": "text_to_image",
+    "subcategory": "portrait",
+    "model_compatibility": [
+      "dall-e-3"
+    ],
+    "parameters": {
+      "model": "playground-ai",
+      "steps": 22,
+      "cfg_scale": 7.5,
+      "size": "512x512"
+    },
+    "base_quality_score": 0.77,
+    "quality_level": 4,
+    "source": "generated",
+    "source_url": "",
+    "author": null,
+    "examples": [
+      {
+        "description": "Sample output 83",
+        "quality_rating": 4.9
+      }
+    ],
+    "references": [],
+    "metadata": {
+      "created_at": "2026-04-14T16:05:55.068705",
+      "updated_at": "2026-04-14T16:05:55.068705",
+      "usage_count": 20,
+      "success_count": 10,
+      "avg_quality_score": 0.89,
+      "user_ratings": {},
+      "last_used": null,
+      "tags": [
+        "character",
+        "person",
+        "detailed",
+        "portrait"
+      ]
+    },
+    "language": "en",
+    "version": "1.0",
+    "is_active": true
+  },
+  {
+    "id": "demo-084",
+    "prompt_text": "A breathtaking forest path at night, natural lighting, anime style, professional photography",
+    "category": "text_to_image",
+    "subcategory": "landscape",
+    "model_compatibility": [
+      "playground-ai"
+    ],
+    "parameters": {
+      "model": "leonardo.ai",
+      "steps": 20,
+      "cfg_scale": 6.3,
+      "size": "1024x768"
+    },
+    "base_quality_score": 1.0,
+    "quality_level": 5,
+    "source": "generated",
+    "source_url": "",
+    "author": null,
+    "examples": [
+      {
+        "description": "Sample output 84",
+        "quality_rating": 3.6
+      }
+    ],
+    "references": [],
+    "metadata": {
+      "created_at": "2026-04-14T16:05:55.068713",
+      "updated_at": "2026-04-14T16:05:55.068713",
+      "usage_count": 7,
+      "success_count": 1,
+      "avg_quality_score": 0.71,
+      "user_ratings": {},
+      "last_used": null,
+      "tags": [
+        "scenery",
+        "photorealistic",
+        "landscape",
+        "nature"
+      ]
+    },
+    "language": "en",
+    "version": "1.0",
+    "is_active": true
+  },
+  {
+    "id": "demo-085",
+    "prompt_text": "Fantasy portrait of a scientist with unique hairstyle, anime, shallow depth of field",
+    "category": "text_to_image",
+    "subcategory": "portrait",
+    "model_compatibility": [
+      "midjourney"
+    ],
+    "parameters": {
+      "model": "dall-e-3",
+      "steps": 49,
+      "cfg_scale": 6.0,
+      "size": "1024x1024"
+    },
+    "base_quality_score": 0.84,
+    "quality_level": 5,
+    "source": "generated",
+    "source_url": "",
+    "author": null,
+    "examples": [
+      {
+        "description": "Sample output 85",
+        "quality_rating": 3.7
+      }
+    ],
+    "references": [],
+    "metadata": {
+      "created_at": "2026-04-14T16:05:55.068722",
+      "updated_at": "2026-04-14T16:05:55.068722",
+      "usage_count": 5,
+      "success_count": 9,
+      "avg_quality_score": 0.73,
+      "user_ratings": {},
+      "last_used": null,
+      "tags": [
+        "character",
+        "artistic",
+        "person",
+        "portrait"
+      ]
+    },
+    "language": "en",
+    "version": "1.0",
+    "is_active": true
+  },
+  {
+    "id": "demo-086",
+    "prompt_text": "A breathtaking mountain landscape at midday, dramatic lighting, oil painting, professional photography",
+    "category": "text_to_image",
+    "subcategory": "landscape",
+    "model_compatibility": [
+      "midjourney"
+    ],
+    "parameters": {
+      "model": "stable-diffusion",
+      "steps": 38,
+      "cfg_scale": 5.2,
+      "size": "512x512"
+    },
+    "base_quality_score": 1.0,
+    "quality_level": 5,
+    "source": "generated",
+    "source_url": "",
+    "author": null,
+    "examples": [
+      {
+        "description": "Sample output 86",
+        "quality_rating": 3.9
+      }
+    ],
+    "references": [],
+    "metadata": {
+      "created_at": "2026-04-14T16:05:55.068730",
+      "updated_at": "2026-04-14T16:05:55.068731",
+      "usage_count": 6,
+      "success_count": 11,
+      "avg_quality_score": 0.86,
+      "user_ratings": {},
+      "last_used": null,
+      "tags": [
+        "scenery",
+        "photorealistic",
+        "landscape",
+        "nature"
+      ]
+    },
+    "language": "en",
+    "version": "1.0",
+    "is_active": true
+  },
+  {
+    "id": "demo-087",
+    "prompt_text": "Character portrait of a cyborg with unique hairstyle, comic book style, shallow depth of field",
+    "category": "text_to_image",
+    "subcategory": "portrait",
+    "model_compatibility": [
+      "stable-diffusion",
+      "dall-e-3"
+    ],
+    "parameters": {
+      "model": "stable-diffusion",
+      "steps": 36,
+      "cfg_scale": 8.0,
+      "size": "1024x768"
+    },
+    "base_quality_score": 0.75,
+    "quality_level": 4,
+    "source": "generated",
+    "source_url": "",
+    "author": null,
+    "examples": [
+      {
+        "description": "Sample output 87",
+        "quality_rating": 4.4
+      }
+    ],
+    "references": [],
+    "metadata": {
+      "created_at": "2026-04-14T16:05:55.068740",
+      "updated_at": "2026-04-14T16:05:55.068740",
+      "usage_count": 5,
+      "success_count": 5,
+      "avg_quality_score": 0.63,
+      "user_ratings": {},
+      "last_used": "2026-04-14T16:05:55.068739",
+      "tags": [
+        "character",
+        "photorealistic",
+        "person",
+        "portrait"
+      ]
+    },
+    "language": "en",
+    "version": "1.0",
+    "is_active": true
+  },
+  {
+    "id": "demo-088",
+    "prompt_text": "A breathtaking city skyline at golden hour, soft lighting, digital art, professional photography",
+    "category": "text_to_image",
+    "subcategory": "general",
+    "model_compatibility": [
+      "stable-diffusion",
+      "midjourney",
+      "playground-ai"
+    ],
+    "parameters": {
+      "model": "leonardo.ai",
+      "steps": 42,
+      "cfg_scale": 5.0,
+      "size": "1024x1024"
+    },
+    "base_quality_score": 0.9,
+    "quality_level": 5,
+    "source": "generated",
+    "source_url": "",
+    "author": null,
+    "examples": [
+      {
+        "description": "Sample output 88",
+        "quality_rating": 3.8
+      }
+    ],
+    "references": [],
+    "metadata": {
+      "created_at": "2026-04-14T16:05:55.068749",
+      "updated_at": "2026-04-14T16:05:55.068749",
+      "usage_count": 17,
+      "success_count": 3,
+      "avg_quality_score": 0.84,
+      "user_ratings": {},
+      "last_used": "2026-04-14T16:05:55.068749",
+      "tags": [
+        "general",
+        "art",
+        "detailed"
+      ]
+    },
+    "language": "en",
+    "version": "1.0",
+    "is_active": true
+  },
+  {
+    "id": "demo-089",
+    "prompt_text": "Historical portrait of a old man with unique hairstyle, photorealistic, high contrast",
+    "category": "text_to_image",
+    "subcategory": "portrait",
+    "model_compatibility": [
+      "midjourney",
+      "playground-ai"
+    ],
+    "parameters": {
+      "model": "stable-diffusion",
+      "steps": 26,
+      "cfg_scale": 7.1,
+      "size": "1024x1024"
+    },
+    "base_quality_score": 0.74,
+    "quality_level": 4,
+    "source": "generated",
+    "source_url": "",
+    "author": null,
+    "examples": [
+      {
+        "description": "Sample output 89",
+        "quality_rating": 3.5
+      }
+    ],
+    "references": [],
+    "metadata": {
+      "created_at": "2026-04-14T16:05:55.068758",
+      "updated_at": "2026-04-14T16:05:55.068758",
+      "usage_count": 17,
+      "success_count": 12,
+      "avg_quality_score": 0.66,
+      "user_ratings": {},
+      "last_used": null,
+      "tags": [
+        "character",
+        "person",
+        "cinematic",
+        "portrait"
+      ]
+    },
+    "language": "en",
+    "version": "1.0",
+    "is_active": true
+  },
+  {
+    "id": "demo-090",
+    "prompt_text": "A breathtaking mountain landscape at sunset, cinematic lighting, impressionist, highly detailed",
+    "category": "text_to_image",
+    "subcategory": "landscape",
+    "model_compatibility": [
+      "stable-diffusion"
+    ],
+    "parameters": {
+      "model": "dall-e-3",
+      "steps": 31,
+      "cfg_scale": 6.2,
+      "size": "1024x768"
+    },
+    "base_quality_score": 0.97,
+    "quality_level": 5,
+    "source": "generated",
+    "source_url": "",
+    "author": null,
+    "examples": [
+      {
+        "description": "Sample output 90",
+        "quality_rating": 4.3
+      }
+    ],
+    "references": [],
+    "metadata": {
+      "created_at": "2026-04-14T16:05:55.068765",
+      "updated_at": "2026-04-14T16:05:55.068765",
+      "usage_count": 17,
+      "success_count": 1,
+      "avg_quality_score": 0.93,
+      "user_ratings": {},
+      "last_used": null,
+      "tags": [
+        "scenery",
+        "artistic",
+        "landscape",
+        "nature"
+      ]
+    },
+    "language": "en",
+    "version": "1.0",
+    "is_active": true
+  },
+  {
+    "id": "demo-091",
+    "prompt_text": "car product photography, lifestyle context, professional lighting, editorial, brand aesthetic",
+    "category": "text_to_image",
+    "subcategory": "product",
+    "model_compatibility": [
+      "dall-e-3",
+      "stable-diffusion"
+    ],
+    "parameters": {
+      "model": "midjourney",
+      "steps": 43,
+      "cfg_scale": 8.3,
+      "size": "768x768"
+    },
+    "base_quality_score": 0.92,
+    "quality_level": 5,
+    "source": "generated",
+    "source_url": "",
+    "author": null,
+    "examples": [
+      {
+        "description": "Sample output 91",
+        "quality_rating": 4.1
+      }
+    ],
+    "references": [],
+    "metadata": {
+      "created_at": "2026-04-14T16:05:55.068774",
+      "updated_at": "2026-04-14T16:05:55.068774",
+      "usage_count": 11,
+      "success_count": 2,
+      "avg_quality_score": 0.92,
+      "user_ratings": {},
+      "last_used": "2026-04-14T16:05:55.068774",
+      "tags": [
+        "artistic",
+        "product",
+        "photography",
+        "commercial"
+      ]
+    },
+    "language": "en",
+    "version": "1.0",
+    "is_active": true
+  },
+  {
+    "id": "demo-092",
+    "prompt_text": "Historical portrait of a young woman with expressive eyes, Renaissance painting, high contrast",
+    "category": "text_to_image",
+    "subcategory": "portrait",
+    "model_compatibility": [
+      "playground-ai",
+      "midjourney"
+    ],
+    "parameters": {
+      "model": "playground-ai",
+      "steps": 32,
+      "cfg_scale": 6.2,
+      "size": "768x768"
+    },
+    "base_quality_score": 0.74,
+    "quality_level": 4,
+    "source": "generated",
+    "source_url": "",
+    "author": null,
+    "examples": [
+      {
+        "description": "Sample output 92",
+        "quality_rating": 3.7
+      }
+    ],
+    "references": [],
+    "metadata": {
+      "created_at": "2026-04-14T16:05:55.068783",
+      "updated_at": "2026-04-14T16:05:55.068784",
+      "usage_count": 15,
+      "success_count": 14,
+      "avg_quality_score": 0.67,
+      "user_ratings": {},
+      "last_used": "2026-04-14T16:05:55.068783",
+      "tags": [
+        "character",
+        "photorealistic",
+        "person",
+        "portrait"
+      ]
+    },
+    "language": "en",
+    "version": "1.0",
+    "is_active": true
+  },
+  {
+    "id": "demo-093",
+    "prompt_text": "furniture product photography, natural environment, professional lighting, advertisement style, brand aesthetic",
+    "category": "text_to_image",
+    "subcategory": "product",
+    "model_compatibility": [
+      "playground-ai",
+      "stable-diffusion",
+      "dall-e-3"
+    ],
+    "parameters": {
+      "model": "stable-diffusion",
+      "steps": 30,
+      "cfg_scale": 5.1,
+      "size": "768x768"
+    },
+    "base_quality_score": 0.97,
+    "quality_level": 5,
+    "source": "generated",
+    "source_url": "",
+    "author": null,
+    "examples": [
+      {
+        "description": "Sample output 93",
+        "quality_rating": 4.6
+      }
+    ],
+    "references": [],
+    "metadata": {
+      "created_at": "2026-04-14T16:05:55.068793",
+      "updated_at": "2026-04-14T16:05:55.068793",
+      "usage_count": 2,
+      "success_count": 7,
+      "avg_quality_score": 0.63,
+      "user_ratings": {},
+      "last_used": "2026-04-14T16:05:55.068792",
+      "tags": [
+        "product",
+        "photography",
+        "cinematic",
+        "commercial"
+      ]
+    },
+    "language": "en",
+    "version": "1.0",
+    "is_active": true
+  },
+  {
+    "id": "demo-094",
+    "prompt_text": "watch product photography, natural environment, natural light, advertisement style, clean composition",
+    "category": "text_to_image",
+    "subcategory": "product",
+    "model_compatibility": [
+      "leonardo.ai",
+      "playground-ai"
+    ],
+    "parameters": {
+      "model": "dall-e-3",
+      "steps": 50,
+      "cfg_scale": 5.3,
+      "size": "1024x1024"
+    },
+    "base_quality_score": 0.63,
+    "quality_level": 4,
+    "source": "generated",
+    "source_url": "",
+    "author": null,
+    "examples": [
+      {
+        "description": "Sample output 94",
+        "quality_rating": 3.9
+      }
+    ],
+    "references": [],
+    "metadata": {
+      "created_at": "2026-04-14T16:05:55.068801",
+      "updated_at": "2026-04-14T16:05:55.068802",
+      "usage_count": 20,
+      "success_count": 11,
+      "avg_quality_score": 0.63,
+      "user_ratings": {},
+      "last_used": null,
+      "tags": [
+        "product",
+        "photography",
+        "photorealistic",
+        "commercial"
+      ]
+    },
+    "language": "en",
+    "version": "1.0",
+    "is_active": true
+  },
+  {
+    "id": "demo-095",
+    "prompt_text": "A breathtaking forest path at night, cinematic lighting, digital art, intricate textures",
+    "category": "text_to_image",
+    "subcategory": "landscape",
+    "model_compatibility": [
+      "midjourney"
+    ],
+    "parameters": {
+      "model": "stable-diffusion",
+      "steps": 39,
+      "cfg_scale": 7.2,
+      "size": "512x512"
+    },
+    "base_quality_score": 0.92,
+    "quality_level": 5,
+    "source": "generated",
+    "source_url": "",
+    "author": null,
+    "examples": [
+      {
+        "description": "Sample output 95",
+        "quality_rating": 4.0
+      }
+    ],
+    "references": [],
+    "metadata": {
+      "created_at": "2026-04-14T16:05:55.068809",
+      "updated_at": "2026-04-14T16:05:55.068810",
+      "usage_count": 6,
+      "success_count": 10,
+      "avg_quality_score": 0.74,
+      "user_ratings": {},
+      "last_used": "2026-04-14T16:05:55.068809",
+      "tags": [
+        "scenery",
+        "landscape",
+        "cinematic",
+        "nature"
+      ]
+    },
+    "language": "en",
+    "version": "1.0",
+    "is_active": true
+  },
+  {
+    "id": "demo-096",
+    "prompt_text": "cosmetic product photography, lifestyle context, softbox lighting, advertisement style, clean composition",
+    "category": "text_to_image",
+    "subcategory": "product",
+    "model_compatibility": [
+      "midjourney",
+      "stable-diffusion",
+      "leonardo.ai"
+    ],
+    "parameters": {
+      "model": "dall-e-3",
+      "steps": 29,
+      "cfg_scale": 8.1,
+      "size": "1024x1024"
+    },
+    "base_quality_score": 0.74,
+    "quality_level": 4,
+    "source": "generated",
+    "source_url": "",
+    "author": null,
+    "examples": [
+      {
+        "description": "Sample output 96",
+        "quality_rating": 4.9
+      }
+    ],
+    "references": [],
+    "metadata": {
+      "created_at": "2026-04-14T16:05:55.068820",
+      "updated_at": "2026-04-14T16:05:55.068820",
+      "usage_count": 20,
+      "success_count": 5,
+      "avg_quality_score": 0.86,
+      "user_ratings": {},
+      "last_used": "2026-04-14T16:05:55.068819",
+      "tags": [
+        "product",
+        "photography",
+        "cinematic",
+        "commercial"
+      ]
+    },
+    "language": "en",
+    "version": "1.0",
+    "is_active": true
+  },
+  {
+    "id": "demo-097",
+    "prompt_text": "smartphone product photography, studio setting, natural light, editorial, brand aesthetic",
+    "category": "text_to_image",
+    "subcategory": "product",
+    "model_compatibility": [
+      "dall-e-3",
+      "stable-diffusion",
+      "midjourney"
+    ],
+    "parameters": {
+      "model": "dall-e-3",
+      "steps": 50,
+      "cfg_scale": 8.1,
+      "size": "768x768"
+    },
+    "base_quality_score": 0.76,
+    "quality_level": 4,
+    "source": "generated",
+    "source_url": "",
+    "author": null,
+    "examples": [
+      {
+        "description": "Sample output 97",
+        "quality_rating": 3.9
+      }
+    ],
+    "references": [],
+    "metadata": {
+      "created_at": "2026-04-14T16:05:55.068830",
+      "updated_at": "2026-04-14T16:05:55.068830",
+      "usage_count": 0,
+      "success_count": 11,
+      "avg_quality_score": 0.71,
+      "user_ratings": {},
+      "last_used": "2026-04-14T16:05:55.068829",
+      "tags": [
+        "product",
+        "photography",
+        "detailed",
+        "commercial"
+      ]
+    },
+    "language": "en",
+    "version": "1.0",
+    "is_active": true
+  },
+  {
+    "id": "demo-098",
+    "prompt_text": "A breathtaking forest path at sunrise, natural lighting, digital art, intricate textures",
+    "category": "text_to_image",
+    "subcategory": "landscape",
+    "model_compatibility": [
+      "stable-diffusion",
+      "playground-ai"
+    ],
+    "parameters": {
+      "model": "playground-ai",
+      "steps": 35,
+      "cfg_scale": 8.7,
+      "size": "1024x1024"
+    },
+    "base_quality_score": 0.88,
+    "quality_level": 5,
+    "source": "generated",
+    "source_url": "",
+    "author": null,
+    "examples": [
+      {
+        "description": "Sample output 98",
+        "quality_rating": 4.8
+      }
+    ],
+    "references": [],
+    "metadata": {
+      "created_at": "2026-04-14T16:05:55.068838",
+      "updated_at": "2026-04-14T16:05:55.068838",
+      "usage_count": 3,
+      "success_count": 7,
+      "avg_quality_score": 0.6,
+      "user_ratings": {},
+      "last_used": null,
+      "tags": [
+        "scenery",
+        "landscape",
+        "detailed",
+        "nature"
+      ]
+    },
+    "language": "en",
+    "version": "1.0",
+    "is_active": true
+  },
+  {
+    "id": "demo-099",
+    "prompt_text": "Fantasy portrait of a elf with intricate facial features, anime, studio lighting",
+    "category": "text_to_image",
+    "subcategory": "portrait",
+    "model_compatibility": [
+      "playground-ai",
+      "midjourney",
+      "stable-diffusion"
+    ],
+    "parameters": {
+      "model": "dall-e-3",
+      "steps": 34,
+      "cfg_scale": 6.3,
+      "size": "768x768"
+    },
+    "base_quality_score": 0.97,
+    "quality_level": 5,
+    "source": "generated",
+    "source_url": "",
+    "author": null,
+    "examples": [
+      {
+        "description": "Sample output 99",
+        "quality_rating": 4.3
+      }
+    ],
+    "references": [],
+    "metadata": {
+      "created_at": "2026-04-14T16:05:55.068847",
+      "updated_at": "2026-04-14T16:05:55.068847",
+      "usage_count": 3,
+      "success_count": 7,
+      "avg_quality_score": 0.9,
+      "user_ratings": {},
+      "last_used": null,
+      "tags": [
+        "character",
+        "person",
+        "detailed",
+        "portrait"
+      ]
+    },
+    "language": "en",
+    "version": "1.0",
+    "is_active": true
+  }
+]

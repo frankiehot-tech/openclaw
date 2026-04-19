@@ -1,0 +1,5174 @@
+{
+  "current_batch": 5,
+  "start_time": "2026-04-17T12:13:59.898743",
+  "batches": [
+    {
+      "name": "批次1: 测试队列迁移",
+      "target_percentage": 10,
+      "duration_minutes": 2
+    },
+    {
+      "name": "批次2: 关键业务队列迁移",
+      "target_percentage": 30,
+      "duration_minutes": 4
+    },
+    {
+      "name": "批次3: 主要业务队列迁移",
+      "target_percentage": 50,
+      "duration_minutes": 6
+    },
+    {
+      "name": "批次4: 全部队列迁移",
+      "target_percentage": 80,
+      "duration_minutes": 8
+    },
+    {
+      "name": "批次5: 完全切换",
+      "target_percentage": 100,
+      "duration_minutes": 10
+    }
+  ],
+  "completed_batches": [
+    {
+      "batch_index": 0,
+      "batch_name": "批次1: 测试队列迁移",
+      "target_percentage": 10,
+      "start_time": "2026-04-17T12:14:00.964345",
+      "baseline_status": {
+        "queue_runner_running": true,
+        "queue_statuses": [
+          {
+            "file": "openhuman_aiplan_priority_execution_20260414.backup_20260414_172347.json",
+            "status": "running",
+            "pending": 0,
+            "running": 0,
+            "completed": 0,
+            "failed": 0
+          },
+          {
+            "file": "openhuman_aiplan_priority_execution_20260414_deduplicated_deduplication_report.json",
+            "status": "unknown",
+            "pending": 0,
+            "running": 0,
+            "completed": 0,
+            "failed": 0
+          },
+          {
+            "file": "openhuman_aiplan_priority_execution_20260414.json",
+            "status": "unknown",
+            "pending": 0,
+            "running": 0,
+            "completed": 0,
+            "failed": 0
+          }
+        ],
+        "web_dashboard_running": true,
+        "monitor_dashboard_running": true,
+        "system_resources": {
+          "cpu_percent": 24.3,
+          "memory_percent": 75.3,
+          "memory_available_mb": 6065.46875,
+          "disk_usage_percent": 1.8,
+          "disk_free_gb": 936.2418632507324
+        },
+        "timestamp": "2026-04-17T12:14:02.037088"
+      },
+      "monitoring_data": [
+        {
+          "queue_runner_running": true,
+          "queue_statuses": [
+            {
+              "file": "openhuman_aiplan_priority_execution_20260414.backup_20260414_172347.json",
+              "status": "running",
+              "pending": 0,
+              "running": 0,
+              "completed": 0,
+              "failed": 0
+            },
+            {
+              "file": "openhuman_aiplan_priority_execution_20260414_deduplicated_deduplication_report.json",
+              "status": "unknown",
+              "pending": 0,
+              "running": 0,
+              "completed": 0,
+              "failed": 0
+            },
+            {
+              "file": "openhuman_aiplan_priority_execution_20260414.json",
+              "status": "unknown",
+              "pending": 0,
+              "running": 0,
+              "completed": 0,
+              "failed": 0
+            }
+          ],
+          "web_dashboard_running": true,
+          "monitor_dashboard_running": true,
+          "system_resources": {
+            "cpu_percent": 19.2,
+            "memory_percent": 75.3,
+            "memory_available_mb": 6065.3125,
+            "disk_usage_percent": 1.8,
+            "disk_free_gb": 936.2418632507324
+          },
+          "timestamp": "2026-04-17T12:14:03.104955"
+        },
+        {
+          "queue_runner_running": true,
+          "queue_statuses": [
+            {
+              "file": "openhuman_aiplan_priority_execution_20260414.backup_20260414_172347.json",
+              "status": "running",
+              "pending": 0,
+              "running": 0,
+              "completed": 0,
+              "failed": 0
+            },
+            {
+              "file": "openhuman_aiplan_priority_execution_20260414_deduplicated_deduplication_report.json",
+              "status": "unknown",
+              "pending": 0,
+              "running": 0,
+              "completed": 0,
+              "failed": 0
+            },
+            {
+              "file": "openhuman_aiplan_priority_execution_20260414.json",
+              "status": "unknown",
+              "pending": 0,
+              "running": 0,
+              "completed": 0,
+              "failed": 0
+            }
+          ],
+          "web_dashboard_running": true,
+          "monitor_dashboard_running": true,
+          "system_resources": {
+            "cpu_percent": 24.7,
+            "memory_percent": 76.3,
+            "memory_available_mb": 5826.421875,
+            "disk_usage_percent": 1.8,
+            "disk_free_gb": 936.2418556213379
+          },
+          "timestamp": "2026-04-17T12:14:34.172905"
+        },
+        {
+          "queue_runner_running": true,
+          "queue_statuses": [
+            {
+              "file": "openhuman_aiplan_priority_execution_20260414.backup_20260414_172347.json",
+              "status": "running",
+              "pending": 0,
+              "running": 0,
+              "completed": 0,
+              "failed": 0
+            },
+            {
+              "file": "openhuman_aiplan_priority_execution_20260414_deduplicated_deduplication_report.json",
+              "status": "unknown",
+              "pending": 0,
+              "running": 0,
+              "completed": 0,
+              "failed": 0
+            },
+            {
+              "file": "openhuman_aiplan_priority_execution_20260414.json",
+              "status": "unknown",
+              "pending": 0,
+              "running": 0,
+              "completed": 0,
+              "failed": 0
+            }
+          ],
+          "web_dashboard_running": true,
+          "monitor_dashboard_running": true,
+          "system_resources": {
+            "cpu_percent": 22.0,
+            "memory_percent": 75.2,
+            "memory_available_mb": 6095.125,
+            "disk_usage_percent": 1.8,
+            "disk_free_gb": 936.2418518066406
+          },
+          "timestamp": "2026-04-17T12:15:05.249187"
+        },
+        {
+          "queue_runner_running": true,
+          "queue_statuses": [
+            {
+              "file": "openhuman_aiplan_priority_execution_20260414.backup_20260414_172347.json",
+              "status": "running",
+              "pending": 0,
+              "running": 0,
+              "completed": 0,
+              "failed": 0
+            },
+            {
+              "file": "openhuman_aiplan_priority_execution_20260414_deduplicated_deduplication_report.json",
+              "status": "unknown",
+              "pending": 0,
+              "running": 0,
+              "completed": 0,
+              "failed": 0
+            },
+            {
+              "file": "openhuman_aiplan_priority_execution_20260414.json",
+              "status": "unknown",
+              "pending": 0,
+              "running": 0,
+              "completed": 0,
+              "failed": 0
+            }
+          ],
+          "web_dashboard_running": true,
+          "monitor_dashboard_running": true,
+          "system_resources": {
+            "cpu_percent": 19.9,
+            "memory_percent": 75.5,
+            "memory_available_mb": 6014.09375,
+            "disk_usage_percent": 1.8,
+            "disk_free_gb": 936.2418479919434
+          },
+          "timestamp": "2026-04-17T12:15:36.313863"
+        }
+      ],
+      "health_checks": [
+        {
+          "timestamp": "2026-04-17T12:14:03.104955",
+          "healthy": true,
+          "issues": [],
+          "queue_runner": true,
+          "queue_statuses": [
+            {
+              "file": "openhuman_aiplan_priority_execution_20260414.backup_20260414_172347.json",
+              "status": "running",
+              "pending": 0,
+              "running": 0,
+              "completed": 0,
+              "failed": 0
+            },
+            {
+              "file": "openhuman_aiplan_priority_execution_20260414_deduplicated_deduplication_report.json",
+              "status": "unknown",
+              "pending": 0,
+              "running": 0,
+              "completed": 0,
+              "failed": 0
+            },
+            {
+              "file": "openhuman_aiplan_priority_execution_20260414.json",
+              "status": "unknown",
+              "pending": 0,
+              "running": 0,
+              "completed": 0,
+              "failed": 0
+            }
+          ],
+          "system_resources": {
+            "cpu_percent": 19.2,
+            "memory_percent": 75.3,
+            "memory_available_mb": 6065.3125,
+            "disk_usage_percent": 1.8,
+            "disk_free_gb": 936.2418632507324
+          }
+        },
+        {
+          "timestamp": "2026-04-17T12:14:34.172905",
+          "healthy": true,
+          "issues": [],
+          "queue_runner": true,
+          "queue_statuses": [
+            {
+              "file": "openhuman_aiplan_priority_execution_20260414.backup_20260414_172347.json",
+              "status": "running",
+              "pending": 0,
+              "running": 0,
+              "completed": 0,
+              "failed": 0
+            },
+            {
+              "file": "openhuman_aiplan_priority_execution_20260414_deduplicated_deduplication_report.json",
+              "status": "unknown",
+              "pending": 0,
+              "running": 0,
+              "completed": 0,
+              "failed": 0
+            },
+            {
+              "file": "openhuman_aiplan_priority_execution_20260414.json",
+              "status": "unknown",
+              "pending": 0,
+              "running": 0,
+              "completed": 0,
+              "failed": 0
+            }
+          ],
+          "system_resources": {
+            "cpu_percent": 24.7,
+            "memory_percent": 76.3,
+            "memory_available_mb": 5826.421875,
+            "disk_usage_percent": 1.8,
+            "disk_free_gb": 936.2418556213379
+          }
+        },
+        {
+          "timestamp": "2026-04-17T12:15:05.249187",
+          "healthy": true,
+          "issues": [],
+          "queue_runner": true,
+          "queue_statuses": [
+            {
+              "file": "openhuman_aiplan_priority_execution_20260414.backup_20260414_172347.json",
+              "status": "running",
+              "pending": 0,
+              "running": 0,
+              "completed": 0,
+              "failed": 0
+            },
+            {
+              "file": "openhuman_aiplan_priority_execution_20260414_deduplicated_deduplication_report.json",
+              "status": "unknown",
+              "pending": 0,
+              "running": 0,
+              "completed": 0,
+              "failed": 0
+            },
+            {
+              "file": "openhuman_aiplan_priority_execution_20260414.json",
+              "status": "unknown",
+              "pending": 0,
+              "running": 0,
+              "completed": 0,
+              "failed": 0
+            }
+          ],
+          "system_resources": {
+            "cpu_percent": 22.0,
+            "memory_percent": 75.2,
+            "memory_available_mb": 6095.125,
+            "disk_usage_percent": 1.8,
+            "disk_free_gb": 936.2418518066406
+          }
+        },
+        {
+          "timestamp": "2026-04-17T12:15:36.313863",
+          "healthy": true,
+          "issues": [],
+          "queue_runner": true,
+          "queue_statuses": [
+            {
+              "file": "openhuman_aiplan_priority_execution_20260414.backup_20260414_172347.json",
+              "status": "running",
+              "pending": 0,
+              "running": 0,
+              "completed": 0,
+              "failed": 0
+            },
+            {
+              "file": "openhuman_aiplan_priority_execution_20260414_deduplicated_deduplication_report.json",
+              "status": "unknown",
+              "pending": 0,
+              "running": 0,
+              "completed": 0,
+              "failed": 0
+            },
+            {
+              "file": "openhuman_aiplan_priority_execution_20260414.json",
+              "status": "unknown",
+              "pending": 0,
+              "running": 0,
+              "completed": 0,
+              "failed": 0
+            }
+          ],
+          "system_resources": {
+            "cpu_percent": 19.9,
+            "memory_percent": 75.5,
+            "memory_available_mb": 6014.09375,
+            "disk_usage_percent": 1.8,
+            "disk_free_gb": 936.2418479919434
+          }
+        }
+      ],
+      "end_time": "2026-04-17T12:15:36.314969",
+      "duration_seconds": 95.350624,
+      "final_status": {
+        "queue_runner_running": true,
+        "queue_statuses": [
+          {
+            "file": "openhuman_aiplan_priority_execution_20260414.backup_20260414_172347.json",
+            "status": "running",
+            "pending": 0,
+            "running": 0,
+            "completed": 0,
+            "failed": 0
+          },
+          {
+            "file": "openhuman_aiplan_priority_execution_20260414_deduplicated_deduplication_report.json",
+            "status": "unknown",
+            "pending": 0,
+            "running": 0,
+            "completed": 0,
+            "failed": 0
+          },
+          {
+            "file": "openhuman_aiplan_priority_execution_20260414.json",
+            "status": "unknown",
+            "pending": 0,
+            "running": 0,
+            "completed": 0,
+            "failed": 0
+          }
+        ],
+        "web_dashboard_running": true,
+        "monitor_dashboard_running": true,
+        "system_resources": {
+          "cpu_percent": 22.0,
+          "memory_percent": 75.4,
+          "memory_available_mb": 6035.765625,
+          "disk_usage_percent": 1.8,
+          "disk_free_gb": 936.2418479919434
+        },
+        "timestamp": "2026-04-17T12:15:37.386695"
+      },
+      "success": true,
+      "summary_issues": []
+    },
+    {
+      "batch_index": 1,
+      "batch_name": "批次2: 关键业务队列迁移",
+      "target_percentage": 30,
+      "start_time": "2026-04-17T12:15:37.394555",
+      "baseline_status": {
+        "queue_runner_running": true,
+        "queue_statuses": [
+          {
+            "file": "openhuman_aiplan_priority_execution_20260414.backup_20260414_172347.json",
+            "status": "running",
+            "pending": 0,
+            "running": 0,
+            "completed": 0,
+            "failed": 0
+          },
+          {
+            "file": "openhuman_aiplan_priority_execution_20260414_deduplicated_deduplication_report.json",
+            "status": "unknown",
+            "pending": 0,
+            "running": 0,
+            "completed": 0,
+            "failed": 0
+          },
+          {
+            "file": "openhuman_aiplan_priority_execution_20260414.json",
+            "status": "unknown",
+            "pending": 0,
+            "running": 0,
+            "completed": 0,
+            "failed": 0
+          }
+        ],
+        "web_dashboard_running": true,
+        "monitor_dashboard_running": true,
+        "system_resources": {
+          "cpu_percent": 21.6,
+          "memory_percent": 75.4,
+          "memory_available_mb": 6049.765625,
+          "disk_usage_percent": 1.8,
+          "disk_free_gb": 936.2418365478516
+        },
+        "timestamp": "2026-04-17T12:15:38.474180"
+      },
+      "monitoring_data": [
+        {
+          "queue_runner_running": true,
+          "queue_statuses": [
+            {
+              "file": "openhuman_aiplan_priority_execution_20260414.backup_20260414_172347.json",
+              "status": "running",
+              "pending": 0,
+              "running": 0,
+              "completed": 0,
+              "failed": 0
+            },
+            {
+              "file": "openhuman_aiplan_priority_execution_20260414_deduplicated_deduplication_report.json",
+              "status": "unknown",
+              "pending": 0,
+              "running": 0,
+              "completed": 0,
+              "failed": 0
+            },
+            {
+              "file": "openhuman_aiplan_priority_execution_20260414.json",
+              "status": "unknown",
+              "pending": 0,
+              "running": 0,
+              "completed": 0,
+              "failed": 0
+            }
+          ],
+          "web_dashboard_running": true,
+          "monitor_dashboard_running": true,
+          "system_resources": {
+            "cpu_percent": 25.8,
+            "memory_percent": 75.5,
+            "memory_available_mb": 6018.65625,
+            "disk_usage_percent": 1.8,
+            "disk_free_gb": 936.2418365478516
+          },
+          "timestamp": "2026-04-17T12:15:39.535614"
+        },
+        {
+          "queue_runner_running": true,
+          "queue_statuses": [
+            {
+              "file": "openhuman_aiplan_priority_execution_20260414.backup_20260414_172347.json",
+              "status": "running",
+              "pending": 0,
+              "running": 0,
+              "completed": 0,
+              "failed": 0
+            },
+            {
+              "file": "openhuman_aiplan_priority_execution_20260414_deduplicated_deduplication_report.json",
+              "status": "unknown",
+              "pending": 0,
+              "running": 0,
+              "completed": 0,
+              "failed": 0
+            },
+            {
+              "file": "openhuman_aiplan_priority_execution_20260414.json",
+              "status": "unknown",
+              "pending": 0,
+              "running": 0,
+              "completed": 0,
+              "failed": 0
+            }
+          ],
+          "web_dashboard_running": true,
+          "monitor_dashboard_running": true,
+          "system_resources": {
+            "cpu_percent": 28.5,
+            "memory_percent": 75.8,
+            "memory_available_mb": 5941.796875,
+            "disk_usage_percent": 1.8,
+            "disk_free_gb": 936.2418403625488
+          },
+          "timestamp": "2026-04-17T12:16:10.610655"
+        },
+        {
+          "queue_runner_running": true,
+          "queue_statuses": [
+            {
+              "file": "openhuman_aiplan_priority_execution_20260414.backup_20260414_172347.json",
+              "status": "running",
+              "pending": 0,
+              "running": 0,
+              "completed": 0,
+              "failed": 0
+            },
+            {
+              "file": "openhuman_aiplan_priority_execution_20260414_deduplicated_deduplication_report.json",
+              "status": "unknown",
+              "pending": 0,
+              "running": 0,
+              "completed": 0,
+              "failed": 0
+            },
+            {
+              "file": "openhuman_aiplan_priority_execution_20260414.json",
+              "status": "unknown",
+              "pending": 0,
+              "running": 0,
+              "completed": 0,
+              "failed": 0
+            }
+          ],
+          "web_dashboard_running": true,
+          "monitor_dashboard_running": true,
+          "system_resources": {
+            "cpu_percent": 21.0,
+            "memory_percent": 75.6,
+            "memory_available_mb": 5986.53125,
+            "disk_usage_percent": 1.8,
+            "disk_free_gb": 936.2418403625488
+          },
+          "timestamp": "2026-04-17T12:16:41.701454"
+        },
+        {
+          "queue_runner_running": true,
+          "queue_statuses": [
+            {
+              "file": "openhuman_aiplan_priority_execution_20260414.backup_20260414_172347.json",
+              "status": "running",
+              "pending": 0,
+              "running": 0,
+              "completed": 0,
+              "failed": 0
+            },
+            {
+              "file": "openhuman_aiplan_priority_execution_20260414_deduplicated_deduplication_report.json",
+              "status": "unknown",
+              "pending": 0,
+              "running": 0,
+              "completed": 0,
+              "failed": 0
+            },
+            {
+              "file": "openhuman_aiplan_priority_execution_20260414.json",
+              "status": "unknown",
+              "pending": 0,
+              "running": 0,
+              "completed": 0,
+              "failed": 0
+            }
+          ],
+          "web_dashboard_running": true,
+          "monitor_dashboard_running": true,
+          "system_resources": {
+            "cpu_percent": 19.7,
+            "memory_percent": 76.2,
+            "memory_available_mb": 5859.484375,
+            "disk_usage_percent": 1.8,
+            "disk_free_gb": 936.2418327331543
+          },
+          "timestamp": "2026-04-17T12:17:12.787524"
+        },
+        {
+          "queue_runner_running": true,
+          "queue_statuses": [
+            {
+              "file": "openhuman_aiplan_priority_execution_20260414.backup_20260414_172347.json",
+              "status": "running",
+              "pending": 0,
+              "running": 0,
+              "completed": 0,
+              "failed": 0
+            },
+            {
+              "file": "openhuman_aiplan_priority_execution_20260414_deduplicated_deduplication_report.json",
+              "status": "unknown",
+              "pending": 0,
+              "running": 0,
+              "completed": 0,
+              "failed": 0
+            },
+            {
+              "file": "openhuman_aiplan_priority_execution_20260414.json",
+              "status": "unknown",
+              "pending": 0,
+              "running": 0,
+              "completed": 0,
+              "failed": 0
+            }
+          ],
+          "web_dashboard_running": true,
+          "monitor_dashboard_running": true,
+          "system_resources": {
+            "cpu_percent": 29.1,
+            "memory_percent": 75.8,
+            "memory_available_mb": 5946.4375,
+            "disk_usage_percent": 1.8,
+            "disk_free_gb": 936.2418327331543
+          },
+          "timestamp": "2026-04-17T12:17:43.882844"
+        },
+        {
+          "queue_runner_running": true,
+          "queue_statuses": [
+            {
+              "file": "openhuman_aiplan_priority_execution_20260414.backup_20260414_172347.json",
+              "status": "running",
+              "pending": 0,
+              "running": 0,
+              "completed": 0,
+              "failed": 0
+            },
+            {
+              "file": "openhuman_aiplan_priority_execution_20260414_deduplicated_deduplication_report.json",
+              "status": "unknown",
+              "pending": 0,
+              "running": 0,
+              "completed": 0,
+              "failed": 0
+            },
+            {
+              "file": "openhuman_aiplan_priority_execution_20260414.json",
+              "status": "unknown",
+              "pending": 0,
+              "running": 0,
+              "completed": 0,
+              "failed": 0
+            }
+          ],
+          "web_dashboard_running": true,
+          "monitor_dashboard_running": true,
+          "system_resources": {
+            "cpu_percent": 19.3,
+            "memory_percent": 77.9,
+            "memory_available_mb": 5441.4375,
+            "disk_usage_percent": 1.8,
+            "disk_free_gb": 936.241828918457
+          },
+          "timestamp": "2026-04-17T12:18:14.977564"
+        },
+        {
+          "queue_runner_running": true,
+          "queue_statuses": [
+            {
+              "file": "openhuman_aiplan_priority_execution_20260414.backup_20260414_172347.json",
+              "status": "running",
+              "pending": 0,
+              "running": 0,
+              "completed": 0,
+              "failed": 0
+            },
+            {
+              "file": "openhuman_aiplan_priority_execution_20260414_deduplicated_deduplication_report.json",
+              "status": "unknown",
+              "pending": 0,
+              "running": 0,
+              "completed": 0,
+              "failed": 0
+            },
+            {
+              "file": "openhuman_aiplan_priority_execution_20260414.json",
+              "status": "unknown",
+              "pending": 0,
+              "running": 0,
+              "completed": 0,
+              "failed": 0
+            }
+          ],
+          "web_dashboard_running": true,
+          "monitor_dashboard_running": true,
+          "system_resources": {
+            "cpu_percent": 23.0,
+            "memory_percent": 76.8,
+            "memory_available_mb": 5691.0625,
+            "disk_usage_percent": 1.8,
+            "disk_free_gb": 936.2418251037598
+          },
+          "timestamp": "2026-04-17T12:18:46.044683"
+        },
+        {
+          "queue_runner_running": true,
+          "queue_statuses": [
+            {
+              "file": "openhuman_aiplan_priority_execution_20260414.backup_20260414_172347.json",
+              "status": "running",
+              "pending": 0,
+              "running": 0,
+              "completed": 0,
+              "failed": 0
+            },
+            {
+              "file": "openhuman_aiplan_priority_execution_20260414_deduplicated_deduplication_report.json",
+              "status": "unknown",
+              "pending": 0,
+              "running": 0,
+              "completed": 0,
+              "failed": 0
+            },
+            {
+              "file": "openhuman_aiplan_priority_execution_20260414.json",
+              "status": "unknown",
+              "pending": 0,
+              "running": 0,
+              "completed": 0,
+              "failed": 0
+            }
+          ],
+          "web_dashboard_running": true,
+          "monitor_dashboard_running": true,
+          "system_resources": {
+            "cpu_percent": 21.3,
+            "memory_percent": 77.2,
+            "memory_available_mb": 5607.09375,
+            "disk_usage_percent": 1.8,
+            "disk_free_gb": 936.2418632507324
+          },
+          "timestamp": "2026-04-17T12:19:17.112246"
+        }
+      ],
+      "health_checks": [
+        {
+          "timestamp": "2026-04-17T12:15:39.535614",
+          "healthy": true,
+          "issues": [],
+          "queue_runner": true,
+          "queue_statuses": [
+            {
+              "file": "openhuman_aiplan_priority_execution_20260414.backup_20260414_172347.json",
+              "status": "running",
+              "pending": 0,
+              "running": 0,
+              "completed": 0,
+              "failed": 0
+            },
+            {
+              "file": "openhuman_aiplan_priority_execution_20260414_deduplicated_deduplication_report.json",
+              "status": "unknown",
+              "pending": 0,
+              "running": 0,
+              "completed": 0,
+              "failed": 0
+            },
+            {
+              "file": "openhuman_aiplan_priority_execution_20260414.json",
+              "status": "unknown",
+              "pending": 0,
+              "running": 0,
+              "completed": 0,
+              "failed": 0
+            }
+          ],
+          "system_resources": {
+            "cpu_percent": 25.8,
+            "memory_percent": 75.5,
+            "memory_available_mb": 6018.65625,
+            "disk_usage_percent": 1.8,
+            "disk_free_gb": 936.2418365478516
+          }
+        },
+        {
+          "timestamp": "2026-04-17T12:16:10.610655",
+          "healthy": true,
+          "issues": [],
+          "queue_runner": true,
+          "queue_statuses": [
+            {
+              "file": "openhuman_aiplan_priority_execution_20260414.backup_20260414_172347.json",
+              "status": "running",
+              "pending": 0,
+              "running": 0,
+              "completed": 0,
+              "failed": 0
+            },
+            {
+              "file": "openhuman_aiplan_priority_execution_20260414_deduplicated_deduplication_report.json",
+              "status": "unknown",
+              "pending": 0,
+              "running": 0,
+              "completed": 0,
+              "failed": 0
+            },
+            {
+              "file": "openhuman_aiplan_priority_execution_20260414.json",
+              "status": "unknown",
+              "pending": 0,
+              "running": 0,
+              "completed": 0,
+              "failed": 0
+            }
+          ],
+          "system_resources": {
+            "cpu_percent": 28.5,
+            "memory_percent": 75.8,
+            "memory_available_mb": 5941.796875,
+            "disk_usage_percent": 1.8,
+            "disk_free_gb": 936.2418403625488
+          }
+        },
+        {
+          "timestamp": "2026-04-17T12:16:41.701454",
+          "healthy": true,
+          "issues": [],
+          "queue_runner": true,
+          "queue_statuses": [
+            {
+              "file": "openhuman_aiplan_priority_execution_20260414.backup_20260414_172347.json",
+              "status": "running",
+              "pending": 0,
+              "running": 0,
+              "completed": 0,
+              "failed": 0
+            },
+            {
+              "file": "openhuman_aiplan_priority_execution_20260414_deduplicated_deduplication_report.json",
+              "status": "unknown",
+              "pending": 0,
+              "running": 0,
+              "completed": 0,
+              "failed": 0
+            },
+            {
+              "file": "openhuman_aiplan_priority_execution_20260414.json",
+              "status": "unknown",
+              "pending": 0,
+              "running": 0,
+              "completed": 0,
+              "failed": 0
+            }
+          ],
+          "system_resources": {
+            "cpu_percent": 21.0,
+            "memory_percent": 75.6,
+            "memory_available_mb": 5986.53125,
+            "disk_usage_percent": 1.8,
+            "disk_free_gb": 936.2418403625488
+          }
+        },
+        {
+          "timestamp": "2026-04-17T12:17:12.787524",
+          "healthy": true,
+          "issues": [],
+          "queue_runner": true,
+          "queue_statuses": [
+            {
+              "file": "openhuman_aiplan_priority_execution_20260414.backup_20260414_172347.json",
+              "status": "running",
+              "pending": 0,
+              "running": 0,
+              "completed": 0,
+              "failed": 0
+            },
+            {
+              "file": "openhuman_aiplan_priority_execution_20260414_deduplicated_deduplication_report.json",
+              "status": "unknown",
+              "pending": 0,
+              "running": 0,
+              "completed": 0,
+              "failed": 0
+            },
+            {
+              "file": "openhuman_aiplan_priority_execution_20260414.json",
+              "status": "unknown",
+              "pending": 0,
+              "running": 0,
+              "completed": 0,
+              "failed": 0
+            }
+          ],
+          "system_resources": {
+            "cpu_percent": 19.7,
+            "memory_percent": 76.2,
+            "memory_available_mb": 5859.484375,
+            "disk_usage_percent": 1.8,
+            "disk_free_gb": 936.2418327331543
+          }
+        },
+        {
+          "timestamp": "2026-04-17T12:17:43.882844",
+          "healthy": true,
+          "issues": [],
+          "queue_runner": true,
+          "queue_statuses": [
+            {
+              "file": "openhuman_aiplan_priority_execution_20260414.backup_20260414_172347.json",
+              "status": "running",
+              "pending": 0,
+              "running": 0,
+              "completed": 0,
+              "failed": 0
+            },
+            {
+              "file": "openhuman_aiplan_priority_execution_20260414_deduplicated_deduplication_report.json",
+              "status": "unknown",
+              "pending": 0,
+              "running": 0,
+              "completed": 0,
+              "failed": 0
+            },
+            {
+              "file": "openhuman_aiplan_priority_execution_20260414.json",
+              "status": "unknown",
+              "pending": 0,
+              "running": 0,
+              "completed": 0,
+              "failed": 0
+            }
+          ],
+          "system_resources": {
+            "cpu_percent": 29.1,
+            "memory_percent": 75.8,
+            "memory_available_mb": 5946.4375,
+            "disk_usage_percent": 1.8,
+            "disk_free_gb": 936.2418327331543
+          }
+        },
+        {
+          "timestamp": "2026-04-17T12:18:14.977564",
+          "healthy": true,
+          "issues": [],
+          "queue_runner": true,
+          "queue_statuses": [
+            {
+              "file": "openhuman_aiplan_priority_execution_20260414.backup_20260414_172347.json",
+              "status": "running",
+              "pending": 0,
+              "running": 0,
+              "completed": 0,
+              "failed": 0
+            },
+            {
+              "file": "openhuman_aiplan_priority_execution_20260414_deduplicated_deduplication_report.json",
+              "status": "unknown",
+              "pending": 0,
+              "running": 0,
+              "completed": 0,
+              "failed": 0
+            },
+            {
+              "file": "openhuman_aiplan_priority_execution_20260414.json",
+              "status": "unknown",
+              "pending": 0,
+              "running": 0,
+              "completed": 0,
+              "failed": 0
+            }
+          ],
+          "system_resources": {
+            "cpu_percent": 19.3,
+            "memory_percent": 77.9,
+            "memory_available_mb": 5441.4375,
+            "disk_usage_percent": 1.8,
+            "disk_free_gb": 936.241828918457
+          }
+        },
+        {
+          "timestamp": "2026-04-17T12:18:46.044683",
+          "healthy": true,
+          "issues": [],
+          "queue_runner": true,
+          "queue_statuses": [
+            {
+              "file": "openhuman_aiplan_priority_execution_20260414.backup_20260414_172347.json",
+              "status": "running",
+              "pending": 0,
+              "running": 0,
+              "completed": 0,
+              "failed": 0
+            },
+            {
+              "file": "openhuman_aiplan_priority_execution_20260414_deduplicated_deduplication_report.json",
+              "status": "unknown",
+              "pending": 0,
+              "running": 0,
+              "completed": 0,
+              "failed": 0
+            },
+            {
+              "file": "openhuman_aiplan_priority_execution_20260414.json",
+              "status": "unknown",
+              "pending": 0,
+              "running": 0,
+              "completed": 0,
+              "failed": 0
+            }
+          ],
+          "system_resources": {
+            "cpu_percent": 23.0,
+            "memory_percent": 76.8,
+            "memory_available_mb": 5691.0625,
+            "disk_usage_percent": 1.8,
+            "disk_free_gb": 936.2418251037598
+          }
+        },
+        {
+          "timestamp": "2026-04-17T12:19:17.112246",
+          "healthy": true,
+          "issues": [],
+          "queue_runner": true,
+          "queue_statuses": [
+            {
+              "file": "openhuman_aiplan_priority_execution_20260414.backup_20260414_172347.json",
+              "status": "running",
+              "pending": 0,
+              "running": 0,
+              "completed": 0,
+              "failed": 0
+            },
+            {
+              "file": "openhuman_aiplan_priority_execution_20260414_deduplicated_deduplication_report.json",
+              "status": "unknown",
+              "pending": 0,
+              "running": 0,
+              "completed": 0,
+              "failed": 0
+            },
+            {
+              "file": "openhuman_aiplan_priority_execution_20260414.json",
+              "status": "unknown",
+              "pending": 0,
+              "running": 0,
+              "completed": 0,
+              "failed": 0
+            }
+          ],
+          "system_resources": {
+            "cpu_percent": 21.3,
+            "memory_percent": 77.2,
+            "memory_available_mb": 5607.09375,
+            "disk_usage_percent": 1.8,
+            "disk_free_gb": 936.2418632507324
+          }
+        }
+      ],
+      "end_time": "2026-04-17T12:19:17.115486",
+      "duration_seconds": 219.720931,
+      "final_status": {
+        "queue_runner_running": true,
+        "queue_statuses": [
+          {
+            "file": "openhuman_aiplan_priority_execution_20260414.backup_20260414_172347.json",
+            "status": "running",
+            "pending": 0,
+            "running": 0,
+            "completed": 0,
+            "failed": 0
+          },
+          {
+            "file": "openhuman_aiplan_priority_execution_20260414_deduplicated_deduplication_report.json",
+            "status": "unknown",
+            "pending": 0,
+            "running": 0,
+            "completed": 0,
+            "failed": 0
+          },
+          {
+            "file": "openhuman_aiplan_priority_execution_20260414.json",
+            "status": "unknown",
+            "pending": 0,
+            "running": 0,
+            "completed": 0,
+            "failed": 0
+          }
+        ],
+        "web_dashboard_running": true,
+        "monitor_dashboard_running": true,
+        "system_resources": {
+          "cpu_percent": 24.7,
+          "memory_percent": 77.1,
+          "memory_available_mb": 5639.796875,
+          "disk_usage_percent": 1.8,
+          "disk_free_gb": 936.2418594360352
+        },
+        "timestamp": "2026-04-17T12:19:18.192506"
+      },
+      "success": true,
+      "summary_issues": []
+    },
+    {
+      "batch_index": 2,
+      "batch_name": "批次3: 主要业务队列迁移",
+      "target_percentage": 50,
+      "start_time": "2026-04-17T12:19:18.199654",
+      "baseline_status": {
+        "queue_runner_running": true,
+        "queue_statuses": [
+          {
+            "file": "openhuman_aiplan_priority_execution_20260414.backup_20260414_172347.json",
+            "status": "running",
+            "pending": 0,
+            "running": 0,
+            "completed": 0,
+            "failed": 0
+          },
+          {
+            "file": "openhuman_aiplan_priority_execution_20260414_deduplicated_deduplication_report.json",
+            "status": "unknown",
+            "pending": 0,
+            "running": 0,
+            "completed": 0,
+            "failed": 0
+          },
+          {
+            "file": "openhuman_aiplan_priority_execution_20260414.json",
+            "status": "unknown",
+            "pending": 0,
+            "running": 0,
+            "completed": 0,
+            "failed": 0
+          }
+        ],
+        "web_dashboard_running": true,
+        "monitor_dashboard_running": true,
+        "system_resources": {
+          "cpu_percent": 32.5,
+          "memory_percent": 77.1,
+          "memory_available_mb": 5635.171875,
+          "disk_usage_percent": 1.8,
+          "disk_free_gb": 936.2418365478516
+        },
+        "timestamp": "2026-04-17T12:19:19.267932"
+      },
+      "monitoring_data": [
+        {
+          "queue_runner_running": true,
+          "queue_statuses": [
+            {
+              "file": "openhuman_aiplan_priority_execution_20260414.backup_20260414_172347.json",
+              "status": "running",
+              "pending": 0,
+              "running": 0,
+              "completed": 0,
+              "failed": 0
+            },
+            {
+              "file": "openhuman_aiplan_priority_execution_20260414_deduplicated_deduplication_report.json",
+              "status": "unknown",
+              "pending": 0,
+              "running": 0,
+              "completed": 0,
+              "failed": 0
+            },
+            {
+              "file": "openhuman_aiplan_priority_execution_20260414.json",
+              "status": "unknown",
+              "pending": 0,
+              "running": 0,
+              "completed": 0,
+              "failed": 0
+            }
+          ],
+          "web_dashboard_running": true,
+          "monitor_dashboard_running": true,
+          "system_resources": {
+            "cpu_percent": 25.1,
+            "memory_percent": 77.3,
+            "memory_available_mb": 5573.171875,
+            "disk_usage_percent": 1.8,
+            "disk_free_gb": 936.2418365478516
+          },
+          "timestamp": "2026-04-17T12:19:20.324560"
+        },
+        {
+          "queue_runner_running": true,
+          "queue_statuses": [
+            {
+              "file": "openhuman_aiplan_priority_execution_20260414.backup_20260414_172347.json",
+              "status": "running",
+              "pending": 0,
+              "running": 0,
+              "completed": 0,
+              "failed": 0
+            },
+            {
+              "file": "openhuman_aiplan_priority_execution_20260414_deduplicated_deduplication_report.json",
+              "status": "unknown",
+              "pending": 0,
+              "running": 0,
+              "completed": 0,
+              "failed": 0
+            },
+            {
+              "file": "openhuman_aiplan_priority_execution_20260414.json",
+              "status": "unknown",
+              "pending": 0,
+              "running": 0,
+              "completed": 0,
+              "failed": 0
+            }
+          ],
+          "web_dashboard_running": true,
+          "monitor_dashboard_running": true,
+          "system_resources": {
+            "cpu_percent": 24.4,
+            "memory_percent": 76.9,
+            "memory_available_mb": 5689.3125,
+            "disk_usage_percent": 1.8,
+            "disk_free_gb": 936.2418518066406
+          },
+          "timestamp": "2026-04-17T12:19:51.385417"
+        },
+        {
+          "queue_runner_running": true,
+          "queue_statuses": [
+            {
+              "file": "openhuman_aiplan_priority_execution_20260414.backup_20260414_172347.json",
+              "status": "running",
+              "pending": 0,
+              "running": 0,
+              "completed": 0,
+              "failed": 0
+            },
+            {
+              "file": "openhuman_aiplan_priority_execution_20260414_deduplicated_deduplication_report.json",
+              "status": "unknown",
+              "pending": 0,
+              "running": 0,
+              "completed": 0,
+              "failed": 0
+            },
+            {
+              "file": "openhuman_aiplan_priority_execution_20260414.json",
+              "status": "unknown",
+              "pending": 0,
+              "running": 0,
+              "completed": 0,
+              "failed": 0
+            }
+          ],
+          "web_dashboard_running": true,
+          "monitor_dashboard_running": true,
+          "system_resources": {
+            "cpu_percent": 26.7,
+            "memory_percent": 76.4,
+            "memory_available_mb": 5802.796875,
+            "disk_usage_percent": 1.8,
+            "disk_free_gb": 936.2418479919434
+          },
+          "timestamp": "2026-04-17T12:20:22.444959"
+        },
+        {
+          "queue_runner_running": true,
+          "queue_statuses": [
+            {
+              "file": "openhuman_aiplan_priority_execution_20260414.backup_20260414_172347.json",
+              "status": "running",
+              "pending": 0,
+              "running": 0,
+              "completed": 0,
+              "failed": 0
+            },
+            {
+              "file": "openhuman_aiplan_priority_execution_20260414_deduplicated_deduplication_report.json",
+              "status": "unknown",
+              "pending": 0,
+              "running": 0,
+              "completed": 0,
+              "failed": 0
+            },
+            {
+              "file": "openhuman_aiplan_priority_execution_20260414.json",
+              "status": "unknown",
+              "pending": 0,
+              "running": 0,
+              "completed": 0,
+              "failed": 0
+            }
+          ],
+          "web_dashboard_running": true,
+          "monitor_dashboard_running": true,
+          "system_resources": {
+            "cpu_percent": 23.8,
+            "memory_percent": 76.4,
+            "memory_available_mb": 5789.53125,
+            "disk_usage_percent": 1.8,
+            "disk_free_gb": 936.2418441772461
+          },
+          "timestamp": "2026-04-17T12:20:53.509420"
+        },
+        {
+          "queue_runner_running": true,
+          "queue_statuses": [
+            {
+              "file": "openhuman_aiplan_priority_execution_20260414.backup_20260414_172347.json",
+              "status": "running",
+              "pending": 0,
+              "running": 0,
+              "completed": 0,
+              "failed": 0
+            },
+            {
+              "file": "openhuman_aiplan_priority_execution_20260414_deduplicated_deduplication_report.json",
+              "status": "unknown",
+              "pending": 0,
+              "running": 0,
+              "completed": 0,
+              "failed": 0
+            },
+            {
+              "file": "openhuman_aiplan_priority_execution_20260414.json",
+              "status": "unknown",
+              "pending": 0,
+              "running": 0,
+              "completed": 0,
+              "failed": 0
+            }
+          ],
+          "web_dashboard_running": true,
+          "monitor_dashboard_running": true,
+          "system_resources": {
+            "cpu_percent": 22.1,
+            "memory_percent": 76.2,
+            "memory_available_mb": 5837.859375,
+            "disk_usage_percent": 1.8,
+            "disk_free_gb": 936.2418441772461
+          },
+          "timestamp": "2026-04-17T12:21:24.580261"
+        },
+        {
+          "queue_runner_running": true,
+          "queue_statuses": [
+            {
+              "file": "openhuman_aiplan_priority_execution_20260414.backup_20260414_172347.json",
+              "status": "running",
+              "pending": 0,
+              "running": 0,
+              "completed": 0,
+              "failed": 0
+            },
+            {
+              "file": "openhuman_aiplan_priority_execution_20260414_deduplicated_deduplication_report.json",
+              "status": "unknown",
+              "pending": 0,
+              "running": 0,
+              "completed": 0,
+              "failed": 0
+            },
+            {
+              "file": "openhuman_aiplan_priority_execution_20260414.json",
+              "status": "unknown",
+              "pending": 0,
+              "running": 0,
+              "completed": 0,
+              "failed": 0
+            }
+          ],
+          "web_dashboard_running": true,
+          "monitor_dashboard_running": true,
+          "system_resources": {
+            "cpu_percent": 32.5,
+            "memory_percent": 78.9,
+            "memory_available_mb": 5181.734375,
+            "disk_usage_percent": 1.8,
+            "disk_free_gb": 936.2418403625488
+          },
+          "timestamp": "2026-04-17T12:21:55.666380"
+        },
+        {
+          "queue_runner_running": true,
+          "queue_statuses": [
+            {
+              "file": "openhuman_aiplan_priority_execution_20260414.backup_20260414_172347.json",
+              "status": "running",
+              "pending": 0,
+              "running": 0,
+              "completed": 0,
+              "failed": 0
+            },
+            {
+              "file": "openhuman_aiplan_priority_execution_20260414_deduplicated_deduplication_report.json",
+              "status": "unknown",
+              "pending": 0,
+              "running": 0,
+              "completed": 0,
+              "failed": 0
+            },
+            {
+              "file": "openhuman_aiplan_priority_execution_20260414.json",
+              "status": "unknown",
+              "pending": 0,
+              "running": 0,
+              "completed": 0,
+              "failed": 0
+            }
+          ],
+          "web_dashboard_running": true,
+          "monitor_dashboard_running": true,
+          "system_resources": {
+            "cpu_percent": 20.6,
+            "memory_percent": 77.2,
+            "memory_available_mb": 5594.296875,
+            "disk_usage_percent": 1.8,
+            "disk_free_gb": 936.2418327331543
+          },
+          "timestamp": "2026-04-17T12:22:26.732941"
+        },
+        {
+          "queue_runner_running": true,
+          "queue_statuses": [
+            {
+              "file": "openhuman_aiplan_priority_execution_20260414.backup_20260414_172347.json",
+              "status": "running",
+              "pending": 0,
+              "running": 0,
+              "completed": 0,
+              "failed": 0
+            },
+            {
+              "file": "openhuman_aiplan_priority_execution_20260414_deduplicated_deduplication_report.json",
+              "status": "unknown",
+              "pending": 0,
+              "running": 0,
+              "completed": 0,
+              "failed": 0
+            },
+            {
+              "file": "openhuman_aiplan_priority_execution_20260414.json",
+              "status": "unknown",
+              "pending": 0,
+              "running": 0,
+              "completed": 0,
+              "failed": 0
+            }
+          ],
+          "web_dashboard_running": true,
+          "monitor_dashboard_running": true,
+          "system_resources": {
+            "cpu_percent": 29.6,
+            "memory_percent": 78.4,
+            "memory_available_mb": 5303.578125,
+            "disk_usage_percent": 1.8,
+            "disk_free_gb": 936.2418098449707
+          },
+          "timestamp": "2026-04-17T12:22:57.807774"
+        },
+        {
+          "queue_runner_running": true,
+          "queue_statuses": [
+            {
+              "file": "openhuman_aiplan_priority_execution_20260414.backup_20260414_172347.json",
+              "status": "running",
+              "pending": 0,
+              "running": 0,
+              "completed": 0,
+              "failed": 0
+            },
+            {
+              "file": "openhuman_aiplan_priority_execution_20260414_deduplicated_deduplication_report.json",
+              "status": "unknown",
+              "pending": 0,
+              "running": 0,
+              "completed": 0,
+              "failed": 0
+            },
+            {
+              "file": "openhuman_aiplan_priority_execution_20260414.json",
+              "status": "unknown",
+              "pending": 0,
+              "running": 0,
+              "completed": 0,
+              "failed": 0
+            }
+          ],
+          "web_dashboard_running": true,
+          "monitor_dashboard_running": true,
+          "system_resources": {
+            "cpu_percent": 28.0,
+            "memory_percent": 80.3,
+            "memory_available_mb": 4831.875,
+            "disk_usage_percent": 1.8,
+            "disk_free_gb": 936.2417907714844
+          },
+          "timestamp": "2026-04-17T12:23:28.896101"
+        },
+        {
+          "queue_runner_running": true,
+          "queue_statuses": [
+            {
+              "file": "openhuman_aiplan_priority_execution_20260414.backup_20260414_172347.json",
+              "status": "running",
+              "pending": 0,
+              "running": 0,
+              "completed": 0,
+              "failed": 0
+            },
+            {
+              "file": "openhuman_aiplan_priority_execution_20260414_deduplicated_deduplication_report.json",
+              "status": "unknown",
+              "pending": 0,
+              "running": 0,
+              "completed": 0,
+              "failed": 0
+            },
+            {
+              "file": "openhuman_aiplan_priority_execution_20260414.json",
+              "status": "unknown",
+              "pending": 0,
+              "running": 0,
+              "completed": 0,
+              "failed": 0
+            }
+          ],
+          "web_dashboard_running": true,
+          "monitor_dashboard_running": true,
+          "system_resources": {
+            "cpu_percent": 36.9,
+            "memory_percent": 79.6,
+            "memory_available_mb": 5017.421875,
+            "disk_usage_percent": 1.8,
+            "disk_free_gb": 936.2417907714844
+          },
+          "timestamp": "2026-04-17T12:23:59.974118"
+        },
+        {
+          "queue_runner_running": true,
+          "queue_statuses": [
+            {
+              "file": "openhuman_aiplan_priority_execution_20260414.backup_20260414_172347.json",
+              "status": "running",
+              "pending": 0,
+              "running": 0,
+              "completed": 0,
+              "failed": 0
+            },
+            {
+              "file": "openhuman_aiplan_priority_execution_20260414_deduplicated_deduplication_report.json",
+              "status": "unknown",
+              "pending": 0,
+              "running": 0,
+              "completed": 0,
+              "failed": 0
+            },
+            {
+              "file": "openhuman_aiplan_priority_execution_20260414.json",
+              "status": "unknown",
+              "pending": 0,
+              "running": 0,
+              "completed": 0,
+              "failed": 0
+            }
+          ],
+          "web_dashboard_running": true,
+          "monitor_dashboard_running": true,
+          "system_resources": {
+            "cpu_percent": 19.6,
+            "memory_percent": 79.2,
+            "memory_available_mb": 5103.796875,
+            "disk_usage_percent": 1.8,
+            "disk_free_gb": 936.2417831420898
+          },
+          "timestamp": "2026-04-17T12:24:31.053269"
+        },
+        {
+          "queue_runner_running": true,
+          "queue_statuses": [
+            {
+              "file": "openhuman_aiplan_priority_execution_20260414.backup_20260414_172347.json",
+              "status": "running",
+              "pending": 0,
+              "running": 0,
+              "completed": 0,
+              "failed": 0
+            },
+            {
+              "file": "openhuman_aiplan_priority_execution_20260414_deduplicated_deduplication_report.json",
+              "status": "unknown",
+              "pending": 0,
+              "running": 0,
+              "completed": 0,
+              "failed": 0
+            },
+            {
+              "file": "openhuman_aiplan_priority_execution_20260414.json",
+              "status": "unknown",
+              "pending": 0,
+              "running": 0,
+              "completed": 0,
+              "failed": 0
+            }
+          ],
+          "web_dashboard_running": true,
+          "monitor_dashboard_running": true,
+          "system_resources": {
+            "cpu_percent": 31.5,
+            "memory_percent": 79.4,
+            "memory_available_mb": 5071.3125,
+            "disk_usage_percent": 1.8,
+            "disk_free_gb": 936.2417678833008
+          },
+          "timestamp": "2026-04-17T12:25:02.128729"
+        }
+      ],
+      "health_checks": [
+        {
+          "timestamp": "2026-04-17T12:19:20.324560",
+          "healthy": true,
+          "issues": [],
+          "queue_runner": true,
+          "queue_statuses": [
+            {
+              "file": "openhuman_aiplan_priority_execution_20260414.backup_20260414_172347.json",
+              "status": "running",
+              "pending": 0,
+              "running": 0,
+              "completed": 0,
+              "failed": 0
+            },
+            {
+              "file": "openhuman_aiplan_priority_execution_20260414_deduplicated_deduplication_report.json",
+              "status": "unknown",
+              "pending": 0,
+              "running": 0,
+              "completed": 0,
+              "failed": 0
+            },
+            {
+              "file": "openhuman_aiplan_priority_execution_20260414.json",
+              "status": "unknown",
+              "pending": 0,
+              "running": 0,
+              "completed": 0,
+              "failed": 0
+            }
+          ],
+          "system_resources": {
+            "cpu_percent": 25.1,
+            "memory_percent": 77.3,
+            "memory_available_mb": 5573.171875,
+            "disk_usage_percent": 1.8,
+            "disk_free_gb": 936.2418365478516
+          }
+        },
+        {
+          "timestamp": "2026-04-17T12:19:51.385417",
+          "healthy": true,
+          "issues": [],
+          "queue_runner": true,
+          "queue_statuses": [
+            {
+              "file": "openhuman_aiplan_priority_execution_20260414.backup_20260414_172347.json",
+              "status": "running",
+              "pending": 0,
+              "running": 0,
+              "completed": 0,
+              "failed": 0
+            },
+            {
+              "file": "openhuman_aiplan_priority_execution_20260414_deduplicated_deduplication_report.json",
+              "status": "unknown",
+              "pending": 0,
+              "running": 0,
+              "completed": 0,
+              "failed": 0
+            },
+            {
+              "file": "openhuman_aiplan_priority_execution_20260414.json",
+              "status": "unknown",
+              "pending": 0,
+              "running": 0,
+              "completed": 0,
+              "failed": 0
+            }
+          ],
+          "system_resources": {
+            "cpu_percent": 24.4,
+            "memory_percent": 76.9,
+            "memory_available_mb": 5689.3125,
+            "disk_usage_percent": 1.8,
+            "disk_free_gb": 936.2418518066406
+          }
+        },
+        {
+          "timestamp": "2026-04-17T12:20:22.444959",
+          "healthy": true,
+          "issues": [],
+          "queue_runner": true,
+          "queue_statuses": [
+            {
+              "file": "openhuman_aiplan_priority_execution_20260414.backup_20260414_172347.json",
+              "status": "running",
+              "pending": 0,
+              "running": 0,
+              "completed": 0,
+              "failed": 0
+            },
+            {
+              "file": "openhuman_aiplan_priority_execution_20260414_deduplicated_deduplication_report.json",
+              "status": "unknown",
+              "pending": 0,
+              "running": 0,
+              "completed": 0,
+              "failed": 0
+            },
+            {
+              "file": "openhuman_aiplan_priority_execution_20260414.json",
+              "status": "unknown",
+              "pending": 0,
+              "running": 0,
+              "completed": 0,
+              "failed": 0
+            }
+          ],
+          "system_resources": {
+            "cpu_percent": 26.7,
+            "memory_percent": 76.4,
+            "memory_available_mb": 5802.796875,
+            "disk_usage_percent": 1.8,
+            "disk_free_gb": 936.2418479919434
+          }
+        },
+        {
+          "timestamp": "2026-04-17T12:20:53.509420",
+          "healthy": true,
+          "issues": [],
+          "queue_runner": true,
+          "queue_statuses": [
+            {
+              "file": "openhuman_aiplan_priority_execution_20260414.backup_20260414_172347.json",
+              "status": "running",
+              "pending": 0,
+              "running": 0,
+              "completed": 0,
+              "failed": 0
+            },
+            {
+              "file": "openhuman_aiplan_priority_execution_20260414_deduplicated_deduplication_report.json",
+              "status": "unknown",
+              "pending": 0,
+              "running": 0,
+              "completed": 0,
+              "failed": 0
+            },
+            {
+              "file": "openhuman_aiplan_priority_execution_20260414.json",
+              "status": "unknown",
+              "pending": 0,
+              "running": 0,
+              "completed": 0,
+              "failed": 0
+            }
+          ],
+          "system_resources": {
+            "cpu_percent": 23.8,
+            "memory_percent": 76.4,
+            "memory_available_mb": 5789.53125,
+            "disk_usage_percent": 1.8,
+            "disk_free_gb": 936.2418441772461
+          }
+        },
+        {
+          "timestamp": "2026-04-17T12:21:24.580261",
+          "healthy": true,
+          "issues": [],
+          "queue_runner": true,
+          "queue_statuses": [
+            {
+              "file": "openhuman_aiplan_priority_execution_20260414.backup_20260414_172347.json",
+              "status": "running",
+              "pending": 0,
+              "running": 0,
+              "completed": 0,
+              "failed": 0
+            },
+            {
+              "file": "openhuman_aiplan_priority_execution_20260414_deduplicated_deduplication_report.json",
+              "status": "unknown",
+              "pending": 0,
+              "running": 0,
+              "completed": 0,
+              "failed": 0
+            },
+            {
+              "file": "openhuman_aiplan_priority_execution_20260414.json",
+              "status": "unknown",
+              "pending": 0,
+              "running": 0,
+              "completed": 0,
+              "failed": 0
+            }
+          ],
+          "system_resources": {
+            "cpu_percent": 22.1,
+            "memory_percent": 76.2,
+            "memory_available_mb": 5837.859375,
+            "disk_usage_percent": 1.8,
+            "disk_free_gb": 936.2418441772461
+          }
+        },
+        {
+          "timestamp": "2026-04-17T12:21:55.666380",
+          "healthy": true,
+          "issues": [],
+          "queue_runner": true,
+          "queue_statuses": [
+            {
+              "file": "openhuman_aiplan_priority_execution_20260414.backup_20260414_172347.json",
+              "status": "running",
+              "pending": 0,
+              "running": 0,
+              "completed": 0,
+              "failed": 0
+            },
+            {
+              "file": "openhuman_aiplan_priority_execution_20260414_deduplicated_deduplication_report.json",
+              "status": "unknown",
+              "pending": 0,
+              "running": 0,
+              "completed": 0,
+              "failed": 0
+            },
+            {
+              "file": "openhuman_aiplan_priority_execution_20260414.json",
+              "status": "unknown",
+              "pending": 0,
+              "running": 0,
+              "completed": 0,
+              "failed": 0
+            }
+          ],
+          "system_resources": {
+            "cpu_percent": 32.5,
+            "memory_percent": 78.9,
+            "memory_available_mb": 5181.734375,
+            "disk_usage_percent": 1.8,
+            "disk_free_gb": 936.2418403625488
+          }
+        },
+        {
+          "timestamp": "2026-04-17T12:22:26.732941",
+          "healthy": true,
+          "issues": [],
+          "queue_runner": true,
+          "queue_statuses": [
+            {
+              "file": "openhuman_aiplan_priority_execution_20260414.backup_20260414_172347.json",
+              "status": "running",
+              "pending": 0,
+              "running": 0,
+              "completed": 0,
+              "failed": 0
+            },
+            {
+              "file": "openhuman_aiplan_priority_execution_20260414_deduplicated_deduplication_report.json",
+              "status": "unknown",
+              "pending": 0,
+              "running": 0,
+              "completed": 0,
+              "failed": 0
+            },
+            {
+              "file": "openhuman_aiplan_priority_execution_20260414.json",
+              "status": "unknown",
+              "pending": 0,
+              "running": 0,
+              "completed": 0,
+              "failed": 0
+            }
+          ],
+          "system_resources": {
+            "cpu_percent": 20.6,
+            "memory_percent": 77.2,
+            "memory_available_mb": 5594.296875,
+            "disk_usage_percent": 1.8,
+            "disk_free_gb": 936.2418327331543
+          }
+        },
+        {
+          "timestamp": "2026-04-17T12:22:57.807774",
+          "healthy": true,
+          "issues": [],
+          "queue_runner": true,
+          "queue_statuses": [
+            {
+              "file": "openhuman_aiplan_priority_execution_20260414.backup_20260414_172347.json",
+              "status": "running",
+              "pending": 0,
+              "running": 0,
+              "completed": 0,
+              "failed": 0
+            },
+            {
+              "file": "openhuman_aiplan_priority_execution_20260414_deduplicated_deduplication_report.json",
+              "status": "unknown",
+              "pending": 0,
+              "running": 0,
+              "completed": 0,
+              "failed": 0
+            },
+            {
+              "file": "openhuman_aiplan_priority_execution_20260414.json",
+              "status": "unknown",
+              "pending": 0,
+              "running": 0,
+              "completed": 0,
+              "failed": 0
+            }
+          ],
+          "system_resources": {
+            "cpu_percent": 29.6,
+            "memory_percent": 78.4,
+            "memory_available_mb": 5303.578125,
+            "disk_usage_percent": 1.8,
+            "disk_free_gb": 936.2418098449707
+          }
+        },
+        {
+          "timestamp": "2026-04-17T12:23:28.896101",
+          "healthy": true,
+          "issues": [],
+          "queue_runner": true,
+          "queue_statuses": [
+            {
+              "file": "openhuman_aiplan_priority_execution_20260414.backup_20260414_172347.json",
+              "status": "running",
+              "pending": 0,
+              "running": 0,
+              "completed": 0,
+              "failed": 0
+            },
+            {
+              "file": "openhuman_aiplan_priority_execution_20260414_deduplicated_deduplication_report.json",
+              "status": "unknown",
+              "pending": 0,
+              "running": 0,
+              "completed": 0,
+              "failed": 0
+            },
+            {
+              "file": "openhuman_aiplan_priority_execution_20260414.json",
+              "status": "unknown",
+              "pending": 0,
+              "running": 0,
+              "completed": 0,
+              "failed": 0
+            }
+          ],
+          "system_resources": {
+            "cpu_percent": 28.0,
+            "memory_percent": 80.3,
+            "memory_available_mb": 4831.875,
+            "disk_usage_percent": 1.8,
+            "disk_free_gb": 936.2417907714844
+          }
+        },
+        {
+          "timestamp": "2026-04-17T12:23:59.974118",
+          "healthy": true,
+          "issues": [],
+          "queue_runner": true,
+          "queue_statuses": [
+            {
+              "file": "openhuman_aiplan_priority_execution_20260414.backup_20260414_172347.json",
+              "status": "running",
+              "pending": 0,
+              "running": 0,
+              "completed": 0,
+              "failed": 0
+            },
+            {
+              "file": "openhuman_aiplan_priority_execution_20260414_deduplicated_deduplication_report.json",
+              "status": "unknown",
+              "pending": 0,
+              "running": 0,
+              "completed": 0,
+              "failed": 0
+            },
+            {
+              "file": "openhuman_aiplan_priority_execution_20260414.json",
+              "status": "unknown",
+              "pending": 0,
+              "running": 0,
+              "completed": 0,
+              "failed": 0
+            }
+          ],
+          "system_resources": {
+            "cpu_percent": 36.9,
+            "memory_percent": 79.6,
+            "memory_available_mb": 5017.421875,
+            "disk_usage_percent": 1.8,
+            "disk_free_gb": 936.2417907714844
+          }
+        },
+        {
+          "timestamp": "2026-04-17T12:24:31.053269",
+          "healthy": true,
+          "issues": [],
+          "queue_runner": true,
+          "queue_statuses": [
+            {
+              "file": "openhuman_aiplan_priority_execution_20260414.backup_20260414_172347.json",
+              "status": "running",
+              "pending": 0,
+              "running": 0,
+              "completed": 0,
+              "failed": 0
+            },
+            {
+              "file": "openhuman_aiplan_priority_execution_20260414_deduplicated_deduplication_report.json",
+              "status": "unknown",
+              "pending": 0,
+              "running": 0,
+              "completed": 0,
+              "failed": 0
+            },
+            {
+              "file": "openhuman_aiplan_priority_execution_20260414.json",
+              "status": "unknown",
+              "pending": 0,
+              "running": 0,
+              "completed": 0,
+              "failed": 0
+            }
+          ],
+          "system_resources": {
+            "cpu_percent": 19.6,
+            "memory_percent": 79.2,
+            "memory_available_mb": 5103.796875,
+            "disk_usage_percent": 1.8,
+            "disk_free_gb": 936.2417831420898
+          }
+        },
+        {
+          "timestamp": "2026-04-17T12:25:02.128729",
+          "healthy": true,
+          "issues": [],
+          "queue_runner": true,
+          "queue_statuses": [
+            {
+              "file": "openhuman_aiplan_priority_execution_20260414.backup_20260414_172347.json",
+              "status": "running",
+              "pending": 0,
+              "running": 0,
+              "completed": 0,
+              "failed": 0
+            },
+            {
+              "file": "openhuman_aiplan_priority_execution_20260414_deduplicated_deduplication_report.json",
+              "status": "unknown",
+              "pending": 0,
+              "running": 0,
+              "completed": 0,
+              "failed": 0
+            },
+            {
+              "file": "openhuman_aiplan_priority_execution_20260414.json",
+              "status": "unknown",
+              "pending": 0,
+              "running": 0,
+              "completed": 0,
+              "failed": 0
+            }
+          ],
+          "system_resources": {
+            "cpu_percent": 31.5,
+            "memory_percent": 79.4,
+            "memory_available_mb": 5071.3125,
+            "disk_usage_percent": 1.8,
+            "disk_free_gb": 936.2417678833008
+          }
+        }
+      ],
+      "end_time": "2026-04-17T12:25:02.137921",
+      "duration_seconds": 343.938267,
+      "final_status": {
+        "queue_runner_running": true,
+        "queue_statuses": [
+          {
+            "file": "openhuman_aiplan_priority_execution_20260414.backup_20260414_172347.json",
+            "status": "running",
+            "pending": 0,
+            "running": 0,
+            "completed": 0,
+            "failed": 0
+          },
+          {
+            "file": "openhuman_aiplan_priority_execution_20260414_deduplicated_deduplication_report.json",
+            "status": "unknown",
+            "pending": 0,
+            "running": 0,
+            "completed": 0,
+            "failed": 0
+          },
+          {
+            "file": "openhuman_aiplan_priority_execution_20260414.json",
+            "status": "unknown",
+            "pending": 0,
+            "running": 0,
+            "completed": 0,
+            "failed": 0
+          }
+        ],
+        "web_dashboard_running": true,
+        "monitor_dashboard_running": true,
+        "system_resources": {
+          "cpu_percent": 20.0,
+          "memory_percent": 78.7,
+          "memory_available_mb": 5238.71875,
+          "disk_usage_percent": 1.8,
+          "disk_free_gb": 936.2417678833008
+        },
+        "timestamp": "2026-04-17T12:25:03.206893"
+      },
+      "success": true,
+      "summary_issues": []
+    },
+    {
+      "batch_index": 3,
+      "batch_name": "批次4: 全部队列迁移",
+      "target_percentage": 80,
+      "start_time": "2026-04-17T12:25:03.216501",
+      "baseline_status": {
+        "queue_runner_running": true,
+        "queue_statuses": [
+          {
+            "file": "openhuman_aiplan_priority_execution_20260414.backup_20260414_172347.json",
+            "status": "running",
+            "pending": 0,
+            "running": 0,
+            "completed": 0,
+            "failed": 0
+          },
+          {
+            "file": "openhuman_aiplan_priority_execution_20260414_deduplicated_deduplication_report.json",
+            "status": "unknown",
+            "pending": 0,
+            "running": 0,
+            "completed": 0,
+            "failed": 0
+          },
+          {
+            "file": "openhuman_aiplan_priority_execution_20260414.json",
+            "status": "unknown",
+            "pending": 0,
+            "running": 0,
+            "completed": 0,
+            "failed": 0
+          }
+        ],
+        "web_dashboard_running": true,
+        "monitor_dashboard_running": true,
+        "system_resources": {
+          "cpu_percent": 24.9,
+          "memory_percent": 79.0,
+          "memory_available_mb": 5150.6875,
+          "disk_usage_percent": 1.8,
+          "disk_free_gb": 936.2417373657227
+        },
+        "timestamp": "2026-04-17T12:25:04.275104"
+      },
+      "monitoring_data": [
+        {
+          "queue_runner_running": true,
+          "queue_statuses": [
+            {
+              "file": "openhuman_aiplan_priority_execution_20260414.backup_20260414_172347.json",
+              "status": "running",
+              "pending": 0,
+              "running": 0,
+              "completed": 0,
+              "failed": 0
+            },
+            {
+              "file": "openhuman_aiplan_priority_execution_20260414_deduplicated_deduplication_report.json",
+              "status": "unknown",
+              "pending": 0,
+              "running": 0,
+              "completed": 0,
+              "failed": 0
+            },
+            {
+              "file": "openhuman_aiplan_priority_execution_20260414.json",
+              "status": "unknown",
+              "pending": 0,
+              "running": 0,
+              "completed": 0,
+              "failed": 0
+            }
+          ],
+          "web_dashboard_running": true,
+          "monitor_dashboard_running": true,
+          "system_resources": {
+            "cpu_percent": 28.1,
+            "memory_percent": 79.2,
+            "memory_available_mb": 5109.53125,
+            "disk_usage_percent": 1.8,
+            "disk_free_gb": 936.2417373657227
+          },
+          "timestamp": "2026-04-17T12:25:05.356056"
+        },
+        {
+          "queue_runner_running": true,
+          "queue_statuses": [
+            {
+              "file": "openhuman_aiplan_priority_execution_20260414.backup_20260414_172347.json",
+              "status": "running",
+              "pending": 0,
+              "running": 0,
+              "completed": 0,
+              "failed": 0
+            },
+            {
+              "file": "openhuman_aiplan_priority_execution_20260414_deduplicated_deduplication_report.json",
+              "status": "unknown",
+              "pending": 0,
+              "running": 0,
+              "completed": 0,
+              "failed": 0
+            },
+            {
+              "file": "openhuman_aiplan_priority_execution_20260414.json",
+              "status": "unknown",
+              "pending": 0,
+              "running": 0,
+              "completed": 0,
+              "failed": 0
+            }
+          ],
+          "web_dashboard_running": true,
+          "monitor_dashboard_running": true,
+          "system_resources": {
+            "cpu_percent": 17.5,
+            "memory_percent": 78.9,
+            "memory_available_mb": 5184.453125,
+            "disk_usage_percent": 1.8,
+            "disk_free_gb": 936.2417602539062
+          },
+          "timestamp": "2026-04-17T12:25:36.423074"
+        },
+        {
+          "queue_runner_running": true,
+          "queue_statuses": [
+            {
+              "file": "openhuman_aiplan_priority_execution_20260414.backup_20260414_172347.json",
+              "status": "running",
+              "pending": 0,
+              "running": 0,
+              "completed": 0,
+              "failed": 0
+            },
+            {
+              "file": "openhuman_aiplan_priority_execution_20260414_deduplicated_deduplication_report.json",
+              "status": "unknown",
+              "pending": 0,
+              "running": 0,
+              "completed": 0,
+              "failed": 0
+            },
+            {
+              "file": "openhuman_aiplan_priority_execution_20260414.json",
+              "status": "unknown",
+              "pending": 0,
+              "running": 0,
+              "completed": 0,
+              "failed": 0
+            }
+          ],
+          "web_dashboard_running": true,
+          "monitor_dashboard_running": true,
+          "system_resources": {
+            "cpu_percent": 26.7,
+            "memory_percent": 79.3,
+            "memory_available_mb": 5080.15625,
+            "disk_usage_percent": 1.8,
+            "disk_free_gb": 936.2416801452637
+          },
+          "timestamp": "2026-04-17T12:26:07.482612"
+        },
+        {
+          "queue_runner_running": true,
+          "queue_statuses": [
+            {
+              "file": "openhuman_aiplan_priority_execution_20260414.backup_20260414_172347.json",
+              "status": "running",
+              "pending": 0,
+              "running": 0,
+              "completed": 0,
+              "failed": 0
+            },
+            {
+              "file": "openhuman_aiplan_priority_execution_20260414_deduplicated_deduplication_report.json",
+              "status": "unknown",
+              "pending": 0,
+              "running": 0,
+              "completed": 0,
+              "failed": 0
+            },
+            {
+              "file": "openhuman_aiplan_priority_execution_20260414.json",
+              "status": "unknown",
+              "pending": 0,
+              "running": 0,
+              "completed": 0,
+              "failed": 0
+            }
+          ],
+          "web_dashboard_running": true,
+          "monitor_dashboard_running": true,
+          "system_resources": {
+            "cpu_percent": 19.1,
+            "memory_percent": 78.4,
+            "memory_available_mb": 5316.890625,
+            "disk_usage_percent": 1.8,
+            "disk_free_gb": 936.2416458129883
+          },
+          "timestamp": "2026-04-17T12:26:38.549516"
+        },
+        {
+          "queue_runner_running": true,
+          "queue_statuses": [
+            {
+              "file": "openhuman_aiplan_priority_execution_20260414.backup_20260414_172347.json",
+              "status": "running",
+              "pending": 0,
+              "running": 0,
+              "completed": 0,
+              "failed": 0
+            },
+            {
+              "file": "openhuman_aiplan_priority_execution_20260414_deduplicated_deduplication_report.json",
+              "status": "unknown",
+              "pending": 0,
+              "running": 0,
+              "completed": 0,
+              "failed": 0
+            },
+            {
+              "file": "openhuman_aiplan_priority_execution_20260414.json",
+              "status": "unknown",
+              "pending": 0,
+              "running": 0,
+              "completed": 0,
+              "failed": 0
+            }
+          ],
+          "web_dashboard_running": true,
+          "monitor_dashboard_running": true,
+          "system_resources": {
+            "cpu_percent": 22.8,
+            "memory_percent": 78.4,
+            "memory_available_mb": 5300.25,
+            "disk_usage_percent": 1.8,
+            "disk_free_gb": 936.2416458129883
+          },
+          "timestamp": "2026-04-17T12:27:09.614570"
+        },
+        {
+          "queue_runner_running": true,
+          "queue_statuses": [
+            {
+              "file": "openhuman_aiplan_priority_execution_20260414.backup_20260414_172347.json",
+              "status": "running",
+              "pending": 0,
+              "running": 0,
+              "completed": 0,
+              "failed": 0
+            },
+            {
+              "file": "openhuman_aiplan_priority_execution_20260414_deduplicated_deduplication_report.json",
+              "status": "unknown",
+              "pending": 0,
+              "running": 0,
+              "completed": 0,
+              "failed": 0
+            },
+            {
+              "file": "openhuman_aiplan_priority_execution_20260414.json",
+              "status": "unknown",
+              "pending": 0,
+              "running": 0,
+              "completed": 0,
+              "failed": 0
+            }
+          ],
+          "web_dashboard_running": true,
+          "monitor_dashboard_running": true,
+          "system_resources": {
+            "cpu_percent": 21.7,
+            "memory_percent": 77.8,
+            "memory_available_mb": 5448.15625,
+            "disk_usage_percent": 1.8,
+            "disk_free_gb": 936.2416229248047
+          },
+          "timestamp": "2026-04-17T12:27:40.686950"
+        },
+        {
+          "queue_runner_running": true,
+          "queue_statuses": [
+            {
+              "file": "openhuman_aiplan_priority_execution_20260414.backup_20260414_172347.json",
+              "status": "running",
+              "pending": 0,
+              "running": 0,
+              "completed": 0,
+              "failed": 0
+            },
+            {
+              "file": "openhuman_aiplan_priority_execution_20260414_deduplicated_deduplication_report.json",
+              "status": "unknown",
+              "pending": 0,
+              "running": 0,
+              "completed": 0,
+              "failed": 0
+            },
+            {
+              "file": "openhuman_aiplan_priority_execution_20260414.json",
+              "status": "unknown",
+              "pending": 0,
+              "running": 0,
+              "completed": 0,
+              "failed": 0
+            }
+          ],
+          "web_dashboard_running": true,
+          "monitor_dashboard_running": true,
+          "system_resources": {
+            "cpu_percent": 24.9,
+            "memory_percent": 77.5,
+            "memory_available_mb": 5522.015625,
+            "disk_usage_percent": 1.8,
+            "disk_free_gb": 936.2416191101074
+          },
+          "timestamp": "2026-04-17T12:28:11.749314"
+        },
+        {
+          "queue_runner_running": true,
+          "queue_statuses": [
+            {
+              "file": "openhuman_aiplan_priority_execution_20260414.backup_20260414_172347.json",
+              "status": "running",
+              "pending": 0,
+              "running": 0,
+              "completed": 0,
+              "failed": 0
+            },
+            {
+              "file": "openhuman_aiplan_priority_execution_20260414_deduplicated_deduplication_report.json",
+              "status": "unknown",
+              "pending": 0,
+              "running": 0,
+              "completed": 0,
+              "failed": 0
+            },
+            {
+              "file": "openhuman_aiplan_priority_execution_20260414.json",
+              "status": "unknown",
+              "pending": 0,
+              "running": 0,
+              "completed": 0,
+              "failed": 0
+            }
+          ],
+          "web_dashboard_running": true,
+          "monitor_dashboard_running": true,
+          "system_resources": {
+            "cpu_percent": 24.7,
+            "memory_percent": 78.8,
+            "memory_available_mb": 5214.0625,
+            "disk_usage_percent": 1.8,
+            "disk_free_gb": 936.2416191101074
+          },
+          "timestamp": "2026-04-17T12:28:42.815041"
+        },
+        {
+          "queue_runner_running": true,
+          "queue_statuses": [
+            {
+              "file": "openhuman_aiplan_priority_execution_20260414.backup_20260414_172347.json",
+              "status": "running",
+              "pending": 0,
+              "running": 0,
+              "completed": 0,
+              "failed": 0
+            },
+            {
+              "file": "openhuman_aiplan_priority_execution_20260414_deduplicated_deduplication_report.json",
+              "status": "unknown",
+              "pending": 0,
+              "running": 0,
+              "completed": 0,
+              "failed": 0
+            },
+            {
+              "file": "openhuman_aiplan_priority_execution_20260414.json",
+              "status": "unknown",
+              "pending": 0,
+              "running": 0,
+              "completed": 0,
+              "failed": 0
+            }
+          ],
+          "web_dashboard_running": true,
+          "monitor_dashboard_running": true,
+          "system_resources": {
+            "cpu_percent": 21.1,
+            "memory_percent": 78.7,
+            "memory_available_mb": 5225.96875,
+            "disk_usage_percent": 1.8,
+            "disk_free_gb": 936.2416114807129
+          },
+          "timestamp": "2026-04-17T12:29:13.891062"
+        },
+        {
+          "queue_runner_running": true,
+          "queue_statuses": [
+            {
+              "file": "openhuman_aiplan_priority_execution_20260414.backup_20260414_172347.json",
+              "status": "running",
+              "pending": 0,
+              "running": 0,
+              "completed": 0,
+              "failed": 0
+            },
+            {
+              "file": "openhuman_aiplan_priority_execution_20260414_deduplicated_deduplication_report.json",
+              "status": "unknown",
+              "pending": 0,
+              "running": 0,
+              "completed": 0,
+              "failed": 0
+            },
+            {
+              "file": "openhuman_aiplan_priority_execution_20260414.json",
+              "status": "unknown",
+              "pending": 0,
+              "running": 0,
+              "completed": 0,
+              "failed": 0
+            }
+          ],
+          "web_dashboard_running": true,
+          "monitor_dashboard_running": true,
+          "system_resources": {
+            "cpu_percent": 23.7,
+            "memory_percent": 78.8,
+            "memory_available_mb": 5198.34375,
+            "disk_usage_percent": 1.8,
+            "disk_free_gb": 936.2415657043457
+          },
+          "timestamp": "2026-04-17T12:29:44.949678"
+        },
+        {
+          "queue_runner_running": true,
+          "queue_statuses": [
+            {
+              "file": "openhuman_aiplan_priority_execution_20260414.backup_20260414_172347.json",
+              "status": "running",
+              "pending": 0,
+              "running": 0,
+              "completed": 0,
+              "failed": 0
+            },
+            {
+              "file": "openhuman_aiplan_priority_execution_20260414_deduplicated_deduplication_report.json",
+              "status": "unknown",
+              "pending": 0,
+              "running": 0,
+              "completed": 0,
+              "failed": 0
+            },
+            {
+              "file": "openhuman_aiplan_priority_execution_20260414.json",
+              "status": "unknown",
+              "pending": 0,
+              "running": 0,
+              "completed": 0,
+              "failed": 0
+            }
+          ],
+          "web_dashboard_running": true,
+          "monitor_dashboard_running": true,
+          "system_resources": {
+            "cpu_percent": 19.6,
+            "memory_percent": 78.5,
+            "memory_available_mb": 5281.578125,
+            "disk_usage_percent": 1.8,
+            "disk_free_gb": 936.2415542602539
+          },
+          "timestamp": "2026-04-17T12:30:16.022369"
+        },
+        {
+          "queue_runner_running": true,
+          "queue_statuses": [
+            {
+              "file": "openhuman_aiplan_priority_execution_20260414.backup_20260414_172347.json",
+              "status": "running",
+              "pending": 0,
+              "running": 0,
+              "completed": 0,
+              "failed": 0
+            },
+            {
+              "file": "openhuman_aiplan_priority_execution_20260414_deduplicated_deduplication_report.json",
+              "status": "unknown",
+              "pending": 0,
+              "running": 0,
+              "completed": 0,
+              "failed": 0
+            },
+            {
+              "file": "openhuman_aiplan_priority_execution_20260414.json",
+              "status": "unknown",
+              "pending": 0,
+              "running": 0,
+              "completed": 0,
+              "failed": 0
+            }
+          ],
+          "web_dashboard_running": true,
+          "monitor_dashboard_running": true,
+          "system_resources": {
+            "cpu_percent": 15.6,
+            "memory_percent": 78.2,
+            "memory_available_mb": 5362.21875,
+            "disk_usage_percent": 1.8,
+            "disk_free_gb": 936.2415504455566
+          },
+          "timestamp": "2026-04-17T12:30:47.107811"
+        },
+        {
+          "queue_runner_running": true,
+          "queue_statuses": [
+            {
+              "file": "openhuman_aiplan_priority_execution_20260414.backup_20260414_172347.json",
+              "status": "running",
+              "pending": 0,
+              "running": 0,
+              "completed": 0,
+              "failed": 0
+            },
+            {
+              "file": "openhuman_aiplan_priority_execution_20260414_deduplicated_deduplication_report.json",
+              "status": "unknown",
+              "pending": 0,
+              "running": 0,
+              "completed": 0,
+              "failed": 0
+            },
+            {
+              "file": "openhuman_aiplan_priority_execution_20260414.json",
+              "status": "unknown",
+              "pending": 0,
+              "running": 0,
+              "completed": 0,
+              "failed": 0
+            }
+          ],
+          "web_dashboard_running": true,
+          "monitor_dashboard_running": true,
+          "system_resources": {
+            "cpu_percent": 31.4,
+            "memory_percent": 79.7,
+            "memory_available_mb": 4979.734375,
+            "disk_usage_percent": 1.8,
+            "disk_free_gb": 936.2415390014648
+          },
+          "timestamp": "2026-04-17T12:31:18.179150"
+        },
+        {
+          "queue_runner_running": true,
+          "queue_statuses": [
+            {
+              "file": "openhuman_aiplan_priority_execution_20260414.backup_20260414_172347.json",
+              "status": "running",
+              "pending": 0,
+              "running": 0,
+              "completed": 0,
+              "failed": 0
+            },
+            {
+              "file": "openhuman_aiplan_priority_execution_20260414_deduplicated_deduplication_report.json",
+              "status": "unknown",
+              "pending": 0,
+              "running": 0,
+              "completed": 0,
+              "failed": 0
+            },
+            {
+              "file": "openhuman_aiplan_priority_execution_20260414.json",
+              "status": "unknown",
+              "pending": 0,
+              "running": 0,
+              "completed": 0,
+              "failed": 0
+            }
+          ],
+          "web_dashboard_running": true,
+          "monitor_dashboard_running": true,
+          "system_resources": {
+            "cpu_percent": 24.8,
+            "memory_percent": 79.2,
+            "memory_available_mb": 5105.890625,
+            "disk_usage_percent": 1.8,
+            "disk_free_gb": 936.2415313720703
+          },
+          "timestamp": "2026-04-17T12:31:49.250270"
+        },
+        {
+          "queue_runner_running": true,
+          "queue_statuses": [
+            {
+              "file": "openhuman_aiplan_priority_execution_20260414.backup_20260414_172347.json",
+              "status": "running",
+              "pending": 0,
+              "running": 0,
+              "completed": 0,
+              "failed": 0
+            },
+            {
+              "file": "openhuman_aiplan_priority_execution_20260414_deduplicated_deduplication_report.json",
+              "status": "unknown",
+              "pending": 0,
+              "running": 0,
+              "completed": 0,
+              "failed": 0
+            },
+            {
+              "file": "openhuman_aiplan_priority_execution_20260414.json",
+              "status": "unknown",
+              "pending": 0,
+              "running": 0,
+              "completed": 0,
+              "failed": 0
+            }
+          ],
+          "web_dashboard_running": true,
+          "monitor_dashboard_running": true,
+          "system_resources": {
+            "cpu_percent": 26.0,
+            "memory_percent": 79.2,
+            "memory_available_mb": 5108.34375,
+            "disk_usage_percent": 1.8,
+            "disk_free_gb": 936.2415008544922
+          },
+          "timestamp": "2026-04-17T12:32:20.325113"
+        },
+        {
+          "queue_runner_running": true,
+          "queue_statuses": [
+            {
+              "file": "openhuman_aiplan_priority_execution_20260414.backup_20260414_172347.json",
+              "status": "running",
+              "pending": 0,
+              "running": 0,
+              "completed": 0,
+              "failed": 0
+            },
+            {
+              "file": "openhuman_aiplan_priority_execution_20260414_deduplicated_deduplication_report.json",
+              "status": "unknown",
+              "pending": 0,
+              "running": 0,
+              "completed": 0,
+              "failed": 0
+            },
+            {
+              "file": "openhuman_aiplan_priority_execution_20260414.json",
+              "status": "unknown",
+              "pending": 0,
+              "running": 0,
+              "completed": 0,
+              "failed": 0
+            }
+          ],
+          "web_dashboard_running": true,
+          "monitor_dashboard_running": true,
+          "system_resources": {
+            "cpu_percent": 14.5,
+            "memory_percent": 79.4,
+            "memory_available_mb": 5060.875,
+            "disk_usage_percent": 1.8,
+            "disk_free_gb": 936.2414970397949
+          },
+          "timestamp": "2026-04-17T12:32:51.403349"
+        }
+      ],
+      "health_checks": [
+        {
+          "timestamp": "2026-04-17T12:25:05.356056",
+          "healthy": true,
+          "issues": [],
+          "queue_runner": true,
+          "queue_statuses": [
+            {
+              "file": "openhuman_aiplan_priority_execution_20260414.backup_20260414_172347.json",
+              "status": "running",
+              "pending": 0,
+              "running": 0,
+              "completed": 0,
+              "failed": 0
+            },
+            {
+              "file": "openhuman_aiplan_priority_execution_20260414_deduplicated_deduplication_report.json",
+              "status": "unknown",
+              "pending": 0,
+              "running": 0,
+              "completed": 0,
+              "failed": 0
+            },
+            {
+              "file": "openhuman_aiplan_priority_execution_20260414.json",
+              "status": "unknown",
+              "pending": 0,
+              "running": 0,
+              "completed": 0,
+              "failed": 0
+            }
+          ],
+          "system_resources": {
+            "cpu_percent": 28.1,
+            "memory_percent": 79.2,
+            "memory_available_mb": 5109.53125,
+            "disk_usage_percent": 1.8,
+            "disk_free_gb": 936.2417373657227
+          }
+        },
+        {
+          "timestamp": "2026-04-17T12:25:36.423074",
+          "healthy": true,
+          "issues": [],
+          "queue_runner": true,
+          "queue_statuses": [
+            {
+              "file": "openhuman_aiplan_priority_execution_20260414.backup_20260414_172347.json",
+              "status": "running",
+              "pending": 0,
+              "running": 0,
+              "completed": 0,
+              "failed": 0
+            },
+            {
+              "file": "openhuman_aiplan_priority_execution_20260414_deduplicated_deduplication_report.json",
+              "status": "unknown",
+              "pending": 0,
+              "running": 0,
+              "completed": 0,
+              "failed": 0
+            },
+            {
+              "file": "openhuman_aiplan_priority_execution_20260414.json",
+              "status": "unknown",
+              "pending": 0,
+              "running": 0,
+              "completed": 0,
+              "failed": 0
+            }
+          ],
+          "system_resources": {
+            "cpu_percent": 17.5,
+            "memory_percent": 78.9,
+            "memory_available_mb": 5184.453125,
+            "disk_usage_percent": 1.8,
+            "disk_free_gb": 936.2417602539062
+          }
+        },
+        {
+          "timestamp": "2026-04-17T12:26:07.482612",
+          "healthy": true,
+          "issues": [],
+          "queue_runner": true,
+          "queue_statuses": [
+            {
+              "file": "openhuman_aiplan_priority_execution_20260414.backup_20260414_172347.json",
+              "status": "running",
+              "pending": 0,
+              "running": 0,
+              "completed": 0,
+              "failed": 0
+            },
+            {
+              "file": "openhuman_aiplan_priority_execution_20260414_deduplicated_deduplication_report.json",
+              "status": "unknown",
+              "pending": 0,
+              "running": 0,
+              "completed": 0,
+              "failed": 0
+            },
+            {
+              "file": "openhuman_aiplan_priority_execution_20260414.json",
+              "status": "unknown",
+              "pending": 0,
+              "running": 0,
+              "completed": 0,
+              "failed": 0
+            }
+          ],
+          "system_resources": {
+            "cpu_percent": 26.7,
+            "memory_percent": 79.3,
+            "memory_available_mb": 5080.15625,
+            "disk_usage_percent": 1.8,
+            "disk_free_gb": 936.2416801452637
+          }
+        },
+        {
+          "timestamp": "2026-04-17T12:26:38.549516",
+          "healthy": true,
+          "issues": [],
+          "queue_runner": true,
+          "queue_statuses": [
+            {
+              "file": "openhuman_aiplan_priority_execution_20260414.backup_20260414_172347.json",
+              "status": "running",
+              "pending": 0,
+              "running": 0,
+              "completed": 0,
+              "failed": 0
+            },
+            {
+              "file": "openhuman_aiplan_priority_execution_20260414_deduplicated_deduplication_report.json",
+              "status": "unknown",
+              "pending": 0,
+              "running": 0,
+              "completed": 0,
+              "failed": 0
+            },
+            {
+              "file": "openhuman_aiplan_priority_execution_20260414.json",
+              "status": "unknown",
+              "pending": 0,
+              "running": 0,
+              "completed": 0,
+              "failed": 0
+            }
+          ],
+          "system_resources": {
+            "cpu_percent": 19.1,
+            "memory_percent": 78.4,
+            "memory_available_mb": 5316.890625,
+            "disk_usage_percent": 1.8,
+            "disk_free_gb": 936.2416458129883
+          }
+        },
+        {
+          "timestamp": "2026-04-17T12:27:09.614570",
+          "healthy": true,
+          "issues": [],
+          "queue_runner": true,
+          "queue_statuses": [
+            {
+              "file": "openhuman_aiplan_priority_execution_20260414.backup_20260414_172347.json",
+              "status": "running",
+              "pending": 0,
+              "running": 0,
+              "completed": 0,
+              "failed": 0
+            },
+            {
+              "file": "openhuman_aiplan_priority_execution_20260414_deduplicated_deduplication_report.json",
+              "status": "unknown",
+              "pending": 0,
+              "running": 0,
+              "completed": 0,
+              "failed": 0
+            },
+            {
+              "file": "openhuman_aiplan_priority_execution_20260414.json",
+              "status": "unknown",
+              "pending": 0,
+              "running": 0,
+              "completed": 0,
+              "failed": 0
+            }
+          ],
+          "system_resources": {
+            "cpu_percent": 22.8,
+            "memory_percent": 78.4,
+            "memory_available_mb": 5300.25,
+            "disk_usage_percent": 1.8,
+            "disk_free_gb": 936.2416458129883
+          }
+        },
+        {
+          "timestamp": "2026-04-17T12:27:40.686950",
+          "healthy": true,
+          "issues": [],
+          "queue_runner": true,
+          "queue_statuses": [
+            {
+              "file": "openhuman_aiplan_priority_execution_20260414.backup_20260414_172347.json",
+              "status": "running",
+              "pending": 0,
+              "running": 0,
+              "completed": 0,
+              "failed": 0
+            },
+            {
+              "file": "openhuman_aiplan_priority_execution_20260414_deduplicated_deduplication_report.json",
+              "status": "unknown",
+              "pending": 0,
+              "running": 0,
+              "completed": 0,
+              "failed": 0
+            },
+            {
+              "file": "openhuman_aiplan_priority_execution_20260414.json",
+              "status": "unknown",
+              "pending": 0,
+              "running": 0,
+              "completed": 0,
+              "failed": 0
+            }
+          ],
+          "system_resources": {
+            "cpu_percent": 21.7,
+            "memory_percent": 77.8,
+            "memory_available_mb": 5448.15625,
+            "disk_usage_percent": 1.8,
+            "disk_free_gb": 936.2416229248047
+          }
+        },
+        {
+          "timestamp": "2026-04-17T12:28:11.749314",
+          "healthy": true,
+          "issues": [],
+          "queue_runner": true,
+          "queue_statuses": [
+            {
+              "file": "openhuman_aiplan_priority_execution_20260414.backup_20260414_172347.json",
+              "status": "running",
+              "pending": 0,
+              "running": 0,
+              "completed": 0,
+              "failed": 0
+            },
+            {
+              "file": "openhuman_aiplan_priority_execution_20260414_deduplicated_deduplication_report.json",
+              "status": "unknown",
+              "pending": 0,
+              "running": 0,
+              "completed": 0,
+              "failed": 0
+            },
+            {
+              "file": "openhuman_aiplan_priority_execution_20260414.json",
+              "status": "unknown",
+              "pending": 0,
+              "running": 0,
+              "completed": 0,
+              "failed": 0
+            }
+          ],
+          "system_resources": {
+            "cpu_percent": 24.9,
+            "memory_percent": 77.5,
+            "memory_available_mb": 5522.015625,
+            "disk_usage_percent": 1.8,
+            "disk_free_gb": 936.2416191101074
+          }
+        },
+        {
+          "timestamp": "2026-04-17T12:28:42.815041",
+          "healthy": true,
+          "issues": [],
+          "queue_runner": true,
+          "queue_statuses": [
+            {
+              "file": "openhuman_aiplan_priority_execution_20260414.backup_20260414_172347.json",
+              "status": "running",
+              "pending": 0,
+              "running": 0,
+              "completed": 0,
+              "failed": 0
+            },
+            {
+              "file": "openhuman_aiplan_priority_execution_20260414_deduplicated_deduplication_report.json",
+              "status": "unknown",
+              "pending": 0,
+              "running": 0,
+              "completed": 0,
+              "failed": 0
+            },
+            {
+              "file": "openhuman_aiplan_priority_execution_20260414.json",
+              "status": "unknown",
+              "pending": 0,
+              "running": 0,
+              "completed": 0,
+              "failed": 0
+            }
+          ],
+          "system_resources": {
+            "cpu_percent": 24.7,
+            "memory_percent": 78.8,
+            "memory_available_mb": 5214.0625,
+            "disk_usage_percent": 1.8,
+            "disk_free_gb": 936.2416191101074
+          }
+        },
+        {
+          "timestamp": "2026-04-17T12:29:13.891062",
+          "healthy": true,
+          "issues": [],
+          "queue_runner": true,
+          "queue_statuses": [
+            {
+              "file": "openhuman_aiplan_priority_execution_20260414.backup_20260414_172347.json",
+              "status": "running",
+              "pending": 0,
+              "running": 0,
+              "completed": 0,
+              "failed": 0
+            },
+            {
+              "file": "openhuman_aiplan_priority_execution_20260414_deduplicated_deduplication_report.json",
+              "status": "unknown",
+              "pending": 0,
+              "running": 0,
+              "completed": 0,
+              "failed": 0
+            },
+            {
+              "file": "openhuman_aiplan_priority_execution_20260414.json",
+              "status": "unknown",
+              "pending": 0,
+              "running": 0,
+              "completed": 0,
+              "failed": 0
+            }
+          ],
+          "system_resources": {
+            "cpu_percent": 21.1,
+            "memory_percent": 78.7,
+            "memory_available_mb": 5225.96875,
+            "disk_usage_percent": 1.8,
+            "disk_free_gb": 936.2416114807129
+          }
+        },
+        {
+          "timestamp": "2026-04-17T12:29:44.949678",
+          "healthy": true,
+          "issues": [],
+          "queue_runner": true,
+          "queue_statuses": [
+            {
+              "file": "openhuman_aiplan_priority_execution_20260414.backup_20260414_172347.json",
+              "status": "running",
+              "pending": 0,
+              "running": 0,
+              "completed": 0,
+              "failed": 0
+            },
+            {
+              "file": "openhuman_aiplan_priority_execution_20260414_deduplicated_deduplication_report.json",
+              "status": "unknown",
+              "pending": 0,
+              "running": 0,
+              "completed": 0,
+              "failed": 0
+            },
+            {
+              "file": "openhuman_aiplan_priority_execution_20260414.json",
+              "status": "unknown",
+              "pending": 0,
+              "running": 0,
+              "completed": 0,
+              "failed": 0
+            }
+          ],
+          "system_resources": {
+            "cpu_percent": 23.7,
+            "memory_percent": 78.8,
+            "memory_available_mb": 5198.34375,
+            "disk_usage_percent": 1.8,
+            "disk_free_gb": 936.2415657043457
+          }
+        },
+        {
+          "timestamp": "2026-04-17T12:30:16.022369",
+          "healthy": true,
+          "issues": [],
+          "queue_runner": true,
+          "queue_statuses": [
+            {
+              "file": "openhuman_aiplan_priority_execution_20260414.backup_20260414_172347.json",
+              "status": "running",
+              "pending": 0,
+              "running": 0,
+              "completed": 0,
+              "failed": 0
+            },
+            {
+              "file": "openhuman_aiplan_priority_execution_20260414_deduplicated_deduplication_report.json",
+              "status": "unknown",
+              "pending": 0,
+              "running": 0,
+              "completed": 0,
+              "failed": 0
+            },
+            {
+              "file": "openhuman_aiplan_priority_execution_20260414.json",
+              "status": "unknown",
+              "pending": 0,
+              "running": 0,
+              "completed": 0,
+              "failed": 0
+            }
+          ],
+          "system_resources": {
+            "cpu_percent": 19.6,
+            "memory_percent": 78.5,
+            "memory_available_mb": 5281.578125,
+            "disk_usage_percent": 1.8,
+            "disk_free_gb": 936.2415542602539
+          }
+        },
+        {
+          "timestamp": "2026-04-17T12:30:47.107811",
+          "healthy": true,
+          "issues": [],
+          "queue_runner": true,
+          "queue_statuses": [
+            {
+              "file": "openhuman_aiplan_priority_execution_20260414.backup_20260414_172347.json",
+              "status": "running",
+              "pending": 0,
+              "running": 0,
+              "completed": 0,
+              "failed": 0
+            },
+            {
+              "file": "openhuman_aiplan_priority_execution_20260414_deduplicated_deduplication_report.json",
+              "status": "unknown",
+              "pending": 0,
+              "running": 0,
+              "completed": 0,
+              "failed": 0
+            },
+            {
+              "file": "openhuman_aiplan_priority_execution_20260414.json",
+              "status": "unknown",
+              "pending": 0,
+              "running": 0,
+              "completed": 0,
+              "failed": 0
+            }
+          ],
+          "system_resources": {
+            "cpu_percent": 15.6,
+            "memory_percent": 78.2,
+            "memory_available_mb": 5362.21875,
+            "disk_usage_percent": 1.8,
+            "disk_free_gb": 936.2415504455566
+          }
+        },
+        {
+          "timestamp": "2026-04-17T12:31:18.179150",
+          "healthy": true,
+          "issues": [],
+          "queue_runner": true,
+          "queue_statuses": [
+            {
+              "file": "openhuman_aiplan_priority_execution_20260414.backup_20260414_172347.json",
+              "status": "running",
+              "pending": 0,
+              "running": 0,
+              "completed": 0,
+              "failed": 0
+            },
+            {
+              "file": "openhuman_aiplan_priority_execution_20260414_deduplicated_deduplication_report.json",
+              "status": "unknown",
+              "pending": 0,
+              "running": 0,
+              "completed": 0,
+              "failed": 0
+            },
+            {
+              "file": "openhuman_aiplan_priority_execution_20260414.json",
+              "status": "unknown",
+              "pending": 0,
+              "running": 0,
+              "completed": 0,
+              "failed": 0
+            }
+          ],
+          "system_resources": {
+            "cpu_percent": 31.4,
+            "memory_percent": 79.7,
+            "memory_available_mb": 4979.734375,
+            "disk_usage_percent": 1.8,
+            "disk_free_gb": 936.2415390014648
+          }
+        },
+        {
+          "timestamp": "2026-04-17T12:31:49.250270",
+          "healthy": true,
+          "issues": [],
+          "queue_runner": true,
+          "queue_statuses": [
+            {
+              "file": "openhuman_aiplan_priority_execution_20260414.backup_20260414_172347.json",
+              "status": "running",
+              "pending": 0,
+              "running": 0,
+              "completed": 0,
+              "failed": 0
+            },
+            {
+              "file": "openhuman_aiplan_priority_execution_20260414_deduplicated_deduplication_report.json",
+              "status": "unknown",
+              "pending": 0,
+              "running": 0,
+              "completed": 0,
+              "failed": 0
+            },
+            {
+              "file": "openhuman_aiplan_priority_execution_20260414.json",
+              "status": "unknown",
+              "pending": 0,
+              "running": 0,
+              "completed": 0,
+              "failed": 0
+            }
+          ],
+          "system_resources": {
+            "cpu_percent": 24.8,
+            "memory_percent": 79.2,
+            "memory_available_mb": 5105.890625,
+            "disk_usage_percent": 1.8,
+            "disk_free_gb": 936.2415313720703
+          }
+        },
+        {
+          "timestamp": "2026-04-17T12:32:20.325113",
+          "healthy": true,
+          "issues": [],
+          "queue_runner": true,
+          "queue_statuses": [
+            {
+              "file": "openhuman_aiplan_priority_execution_20260414.backup_20260414_172347.json",
+              "status": "running",
+              "pending": 0,
+              "running": 0,
+              "completed": 0,
+              "failed": 0
+            },
+            {
+              "file": "openhuman_aiplan_priority_execution_20260414_deduplicated_deduplication_report.json",
+              "status": "unknown",
+              "pending": 0,
+              "running": 0,
+              "completed": 0,
+              "failed": 0
+            },
+            {
+              "file": "openhuman_aiplan_priority_execution_20260414.json",
+              "status": "unknown",
+              "pending": 0,
+              "running": 0,
+              "completed": 0,
+              "failed": 0
+            }
+          ],
+          "system_resources": {
+            "cpu_percent": 26.0,
+            "memory_percent": 79.2,
+            "memory_available_mb": 5108.34375,
+            "disk_usage_percent": 1.8,
+            "disk_free_gb": 936.2415008544922
+          }
+        },
+        {
+          "timestamp": "2026-04-17T12:32:51.403349",
+          "healthy": true,
+          "issues": [],
+          "queue_runner": true,
+          "queue_statuses": [
+            {
+              "file": "openhuman_aiplan_priority_execution_20260414.backup_20260414_172347.json",
+              "status": "running",
+              "pending": 0,
+              "running": 0,
+              "completed": 0,
+              "failed": 0
+            },
+            {
+              "file": "openhuman_aiplan_priority_execution_20260414_deduplicated_deduplication_report.json",
+              "status": "unknown",
+              "pending": 0,
+              "running": 0,
+              "completed": 0,
+              "failed": 0
+            },
+            {
+              "file": "openhuman_aiplan_priority_execution_20260414.json",
+              "status": "unknown",
+              "pending": 0,
+              "running": 0,
+              "completed": 0,
+              "failed": 0
+            }
+          ],
+          "system_resources": {
+            "cpu_percent": 14.5,
+            "memory_percent": 79.4,
+            "memory_available_mb": 5060.875,
+            "disk_usage_percent": 1.8,
+            "disk_free_gb": 936.2414970397949
+          }
+        }
+      ],
+      "end_time": "2026-04-17T12:32:51.406925",
+      "duration_seconds": 468.190424,
+      "final_status": {
+        "queue_runner_running": true,
+        "queue_statuses": [
+          {
+            "file": "openhuman_aiplan_priority_execution_20260414.backup_20260414_172347.json",
+            "status": "running",
+            "pending": 0,
+            "running": 0,
+            "completed": 0,
+            "failed": 0
+          },
+          {
+            "file": "openhuman_aiplan_priority_execution_20260414_deduplicated_deduplication_report.json",
+            "status": "unknown",
+            "pending": 0,
+            "running": 0,
+            "completed": 0,
+            "failed": 0
+          },
+          {
+            "file": "openhuman_aiplan_priority_execution_20260414.json",
+            "status": "unknown",
+            "pending": 0,
+            "running": 0,
+            "completed": 0,
+            "failed": 0
+          }
+        ],
+        "web_dashboard_running": true,
+        "monitor_dashboard_running": true,
+        "system_resources": {
+          "cpu_percent": 19.8,
+          "memory_percent": 79.8,
+          "memory_available_mb": 4954.921875,
+          "disk_usage_percent": 1.8,
+          "disk_free_gb": 936.2414970397949
+        },
+        "timestamp": "2026-04-17T12:32:52.473566"
+      },
+      "success": true,
+      "summary_issues": []
+    },
+    {
+      "batch_index": 4,
+      "batch_name": "批次5: 完全切换",
+      "target_percentage": 100,
+      "start_time": "2026-04-17T12:32:52.480710",
+      "baseline_status": {
+        "queue_runner_running": true,
+        "queue_statuses": [
+          {
+            "file": "openhuman_aiplan_priority_execution_20260414.backup_20260414_172347.json",
+            "status": "running",
+            "pending": 0,
+            "running": 0,
+            "completed": 0,
+            "failed": 0
+          },
+          {
+            "file": "openhuman_aiplan_priority_execution_20260414_deduplicated_deduplication_report.json",
+            "status": "unknown",
+            "pending": 0,
+            "running": 0,
+            "completed": 0,
+            "failed": 0
+          },
+          {
+            "file": "openhuman_aiplan_priority_execution_20260414.json",
+            "status": "unknown",
+            "pending": 0,
+            "running": 0,
+            "completed": 0,
+            "failed": 0
+          }
+        ],
+        "web_dashboard_running": true,
+        "monitor_dashboard_running": true,
+        "system_resources": {
+          "cpu_percent": 23.6,
+          "memory_percent": 79.3,
+          "memory_available_mb": 5081.25,
+          "disk_usage_percent": 1.8,
+          "disk_free_gb": 936.2414588928223
+        },
+        "timestamp": "2026-04-17T12:32:53.543857"
+      },
+      "monitoring_data": [
+        {
+          "queue_runner_running": true,
+          "queue_statuses": [
+            {
+              "file": "openhuman_aiplan_priority_execution_20260414.backup_20260414_172347.json",
+              "status": "running",
+              "pending": 0,
+              "running": 0,
+              "completed": 0,
+              "failed": 0
+            },
+            {
+              "file": "openhuman_aiplan_priority_execution_20260414_deduplicated_deduplication_report.json",
+              "status": "unknown",
+              "pending": 0,
+              "running": 0,
+              "completed": 0,
+              "failed": 0
+            },
+            {
+              "file": "openhuman_aiplan_priority_execution_20260414.json",
+              "status": "unknown",
+              "pending": 0,
+              "running": 0,
+              "completed": 0,
+              "failed": 0
+            }
+          ],
+          "web_dashboard_running": true,
+          "monitor_dashboard_running": true,
+          "system_resources": {
+            "cpu_percent": 19.2,
+            "memory_percent": 79.2,
+            "memory_available_mb": 5112.1875,
+            "disk_usage_percent": 1.8,
+            "disk_free_gb": 936.2414588928223
+          },
+          "timestamp": "2026-04-17T12:32:54.597723"
+        },
+        {
+          "queue_runner_running": true,
+          "queue_statuses": [
+            {
+              "file": "openhuman_aiplan_priority_execution_20260414.backup_20260414_172347.json",
+              "status": "running",
+              "pending": 0,
+              "running": 0,
+              "completed": 0,
+              "failed": 0
+            },
+            {
+              "file": "openhuman_aiplan_priority_execution_20260414_deduplicated_deduplication_report.json",
+              "status": "unknown",
+              "pending": 0,
+              "running": 0,
+              "completed": 0,
+              "failed": 0
+            },
+            {
+              "file": "openhuman_aiplan_priority_execution_20260414.json",
+              "status": "unknown",
+              "pending": 0,
+              "running": 0,
+              "completed": 0,
+              "failed": 0
+            }
+          ],
+          "web_dashboard_running": true,
+          "monitor_dashboard_running": true,
+          "system_resources": {
+            "cpu_percent": 16.3,
+            "memory_percent": 79.0,
+            "memory_available_mb": 5161.953125,
+            "disk_usage_percent": 1.8,
+            "disk_free_gb": 936.2414894104004
+          },
+          "timestamp": "2026-04-17T12:33:25.679344"
+        },
+        {
+          "queue_runner_running": true,
+          "queue_statuses": [
+            {
+              "file": "openhuman_aiplan_priority_execution_20260414.backup_20260414_172347.json",
+              "status": "running",
+              "pending": 0,
+              "running": 0,
+              "completed": 0,
+              "failed": 0
+            },
+            {
+              "file": "openhuman_aiplan_priority_execution_20260414_deduplicated_deduplication_report.json",
+              "status": "unknown",
+              "pending": 0,
+              "running": 0,
+              "completed": 0,
+              "failed": 0
+            },
+            {
+              "file": "openhuman_aiplan_priority_execution_20260414.json",
+              "status": "unknown",
+              "pending": 0,
+              "running": 0,
+              "completed": 0,
+              "failed": 0
+            }
+          ],
+          "web_dashboard_running": true,
+          "monitor_dashboard_running": true,
+          "system_resources": {
+            "cpu_percent": 19.2,
+            "memory_percent": 79.0,
+            "memory_available_mb": 5161.296875,
+            "disk_usage_percent": 1.8,
+            "disk_free_gb": 936.2414894104004
+          },
+          "timestamp": "2026-04-17T12:33:56.750504"
+        },
+        {
+          "queue_runner_running": true,
+          "queue_statuses": [
+            {
+              "file": "openhuman_aiplan_priority_execution_20260414.backup_20260414_172347.json",
+              "status": "running",
+              "pending": 0,
+              "running": 0,
+              "completed": 0,
+              "failed": 0
+            },
+            {
+              "file": "openhuman_aiplan_priority_execution_20260414_deduplicated_deduplication_report.json",
+              "status": "unknown",
+              "pending": 0,
+              "running": 0,
+              "completed": 0,
+              "failed": 0
+            },
+            {
+              "file": "openhuman_aiplan_priority_execution_20260414.json",
+              "status": "unknown",
+              "pending": 0,
+              "running": 0,
+              "completed": 0,
+              "failed": 0
+            }
+          ],
+          "web_dashboard_running": true,
+          "monitor_dashboard_running": true,
+          "system_resources": {
+            "cpu_percent": 18.3,
+            "memory_percent": 78.4,
+            "memory_available_mb": 5312.71875,
+            "disk_usage_percent": 1.8,
+            "disk_free_gb": 936.2414817810059
+          },
+          "timestamp": "2026-04-17T12:34:27.825643"
+        },
+        {
+          "queue_runner_running": true,
+          "queue_statuses": [
+            {
+              "file": "openhuman_aiplan_priority_execution_20260414.backup_20260414_172347.json",
+              "status": "running",
+              "pending": 0,
+              "running": 0,
+              "completed": 0,
+              "failed": 0
+            },
+            {
+              "file": "openhuman_aiplan_priority_execution_20260414_deduplicated_deduplication_report.json",
+              "status": "unknown",
+              "pending": 0,
+              "running": 0,
+              "completed": 0,
+              "failed": 0
+            },
+            {
+              "file": "openhuman_aiplan_priority_execution_20260414.json",
+              "status": "unknown",
+              "pending": 0,
+              "running": 0,
+              "completed": 0,
+              "failed": 0
+            }
+          ],
+          "web_dashboard_running": true,
+          "monitor_dashboard_running": true,
+          "system_resources": {
+            "cpu_percent": 26.2,
+            "memory_percent": 77.6,
+            "memory_available_mb": 5510.234375,
+            "disk_usage_percent": 1.8,
+            "disk_free_gb": 936.2414817810059
+          },
+          "timestamp": "2026-04-17T12:34:58.896397"
+        },
+        {
+          "queue_runner_running": true,
+          "queue_statuses": [
+            {
+              "file": "openhuman_aiplan_priority_execution_20260414.backup_20260414_172347.json",
+              "status": "running",
+              "pending": 0,
+              "running": 0,
+              "completed": 0,
+              "failed": 0
+            },
+            {
+              "file": "openhuman_aiplan_priority_execution_20260414_deduplicated_deduplication_report.json",
+              "status": "unknown",
+              "pending": 0,
+              "running": 0,
+              "completed": 0,
+              "failed": 0
+            },
+            {
+              "file": "openhuman_aiplan_priority_execution_20260414.json",
+              "status": "unknown",
+              "pending": 0,
+              "running": 0,
+              "completed": 0,
+              "failed": 0
+            }
+          ],
+          "web_dashboard_running": true,
+          "monitor_dashboard_running": true,
+          "system_resources": {
+            "cpu_percent": 24.8,
+            "memory_percent": 78.0,
+            "memory_available_mb": 5395.34375,
+            "disk_usage_percent": 1.8,
+            "disk_free_gb": 936.2414779663086
+          },
+          "timestamp": "2026-04-17T12:35:29.959174"
+        },
+        {
+          "queue_runner_running": true,
+          "queue_statuses": [
+            {
+              "file": "openhuman_aiplan_priority_execution_20260414.backup_20260414_172347.json",
+              "status": "running",
+              "pending": 0,
+              "running": 0,
+              "completed": 0,
+              "failed": 0
+            },
+            {
+              "file": "openhuman_aiplan_priority_execution_20260414_deduplicated_deduplication_report.json",
+              "status": "unknown",
+              "pending": 0,
+              "running": 0,
+              "completed": 0,
+              "failed": 0
+            },
+            {
+              "file": "openhuman_aiplan_priority_execution_20260414.json",
+              "status": "unknown",
+              "pending": 0,
+              "running": 0,
+              "completed": 0,
+              "failed": 0
+            }
+          ],
+          "web_dashboard_running": true,
+          "monitor_dashboard_running": true,
+          "system_resources": {
+            "cpu_percent": 22.4,
+            "memory_percent": 79.0,
+            "memory_available_mb": 5160.25,
+            "disk_usage_percent": 1.8,
+            "disk_free_gb": 936.2414741516113
+          },
+          "timestamp": "2026-04-17T12:36:01.032811"
+        },
+        {
+          "queue_runner_running": true,
+          "queue_statuses": [
+            {
+              "file": "openhuman_aiplan_priority_execution_20260414.backup_20260414_172347.json",
+              "status": "running",
+              "pending": 0,
+              "running": 0,
+              "completed": 0,
+              "failed": 0
+            },
+            {
+              "file": "openhuman_aiplan_priority_execution_20260414_deduplicated_deduplication_report.json",
+              "status": "unknown",
+              "pending": 0,
+              "running": 0,
+              "completed": 0,
+              "failed": 0
+            },
+            {
+              "file": "openhuman_aiplan_priority_execution_20260414.json",
+              "status": "unknown",
+              "pending": 0,
+              "running": 0,
+              "completed": 0,
+              "failed": 0
+            }
+          ],
+          "web_dashboard_running": true,
+          "monitor_dashboard_running": true,
+          "system_resources": {
+            "cpu_percent": 17.1,
+            "memory_percent": 79.0,
+            "memory_available_mb": 5153.046875,
+            "disk_usage_percent": 1.8,
+            "disk_free_gb": 936.2414741516113
+          },
+          "timestamp": "2026-04-17T12:36:32.104964"
+        },
+        {
+          "queue_runner_running": true,
+          "queue_statuses": [
+            {
+              "file": "openhuman_aiplan_priority_execution_20260414.backup_20260414_172347.json",
+              "status": "running",
+              "pending": 0,
+              "running": 0,
+              "completed": 0,
+              "failed": 0
+            },
+            {
+              "file": "openhuman_aiplan_priority_execution_20260414_deduplicated_deduplication_report.json",
+              "status": "unknown",
+              "pending": 0,
+              "running": 0,
+              "completed": 0,
+              "failed": 0
+            },
+            {
+              "file": "openhuman_aiplan_priority_execution_20260414.json",
+              "status": "unknown",
+              "pending": 0,
+              "running": 0,
+              "completed": 0,
+              "failed": 0
+            }
+          ],
+          "web_dashboard_running": true,
+          "monitor_dashboard_running": true,
+          "system_resources": {
+            "cpu_percent": 27.0,
+            "memory_percent": 79.7,
+            "memory_available_mb": 4991.703125,
+            "disk_usage_percent": 1.8,
+            "disk_free_gb": 936.2414360046387
+          },
+          "timestamp": "2026-04-17T12:37:03.171902"
+        },
+        {
+          "queue_runner_running": true,
+          "queue_statuses": [
+            {
+              "file": "openhuman_aiplan_priority_execution_20260414.backup_20260414_172347.json",
+              "status": "running",
+              "pending": 0,
+              "running": 0,
+              "completed": 0,
+              "failed": 0
+            },
+            {
+              "file": "openhuman_aiplan_priority_execution_20260414_deduplicated_deduplication_report.json",
+              "status": "unknown",
+              "pending": 0,
+              "running": 0,
+              "completed": 0,
+              "failed": 0
+            },
+            {
+              "file": "openhuman_aiplan_priority_execution_20260414.json",
+              "status": "unknown",
+              "pending": 0,
+              "running": 0,
+              "completed": 0,
+              "failed": 0
+            }
+          ],
+          "web_dashboard_running": true,
+          "monitor_dashboard_running": true,
+          "system_resources": {
+            "cpu_percent": 21.3,
+            "memory_percent": 79.7,
+            "memory_available_mb": 4986.875,
+            "disk_usage_percent": 1.8,
+            "disk_free_gb": 936.2414360046387
+          },
+          "timestamp": "2026-04-17T12:37:34.249092"
+        },
+        {
+          "queue_runner_running": true,
+          "queue_statuses": [
+            {
+              "file": "openhuman_aiplan_priority_execution_20260414.backup_20260414_172347.json",
+              "status": "running",
+              "pending": 0,
+              "running": 0,
+              "completed": 0,
+              "failed": 0
+            },
+            {
+              "file": "openhuman_aiplan_priority_execution_20260414_deduplicated_deduplication_report.json",
+              "status": "unknown",
+              "pending": 0,
+              "running": 0,
+              "completed": 0,
+              "failed": 0
+            },
+            {
+              "file": "openhuman_aiplan_priority_execution_20260414.json",
+              "status": "unknown",
+              "pending": 0,
+              "running": 0,
+              "completed": 0,
+              "failed": 0
+            }
+          ],
+          "web_dashboard_running": true,
+          "monitor_dashboard_running": true,
+          "system_resources": {
+            "cpu_percent": 22.5,
+            "memory_percent": 80.0,
+            "memory_available_mb": 4905.140625,
+            "disk_usage_percent": 1.8,
+            "disk_free_gb": 936.2414321899414
+          },
+          "timestamp": "2026-04-17T12:38:05.322748"
+        },
+        {
+          "queue_runner_running": true,
+          "queue_statuses": [
+            {
+              "file": "openhuman_aiplan_priority_execution_20260414.backup_20260414_172347.json",
+              "status": "running",
+              "pending": 0,
+              "running": 0,
+              "completed": 0,
+              "failed": 0
+            },
+            {
+              "file": "openhuman_aiplan_priority_execution_20260414_deduplicated_deduplication_report.json",
+              "status": "unknown",
+              "pending": 0,
+              "running": 0,
+              "completed": 0,
+              "failed": 0
+            },
+            {
+              "file": "openhuman_aiplan_priority_execution_20260414.json",
+              "status": "unknown",
+              "pending": 0,
+              "running": 0,
+              "completed": 0,
+              "failed": 0
+            }
+          ],
+          "web_dashboard_running": true,
+          "monitor_dashboard_running": true,
+          "system_resources": {
+            "cpu_percent": 16.6,
+            "memory_percent": 79.5,
+            "memory_available_mb": 5041.375,
+            "disk_usage_percent": 1.8,
+            "disk_free_gb": 936.2414283752441
+          },
+          "timestamp": "2026-04-17T12:38:36.393084"
+        },
+        {
+          "queue_runner_running": true,
+          "queue_statuses": [
+            {
+              "file": "openhuman_aiplan_priority_execution_20260414.backup_20260414_172347.json",
+              "status": "running",
+              "pending": 0,
+              "running": 0,
+              "completed": 0,
+              "failed": 0
+            },
+            {
+              "file": "openhuman_aiplan_priority_execution_20260414_deduplicated_deduplication_report.json",
+              "status": "unknown",
+              "pending": 0,
+              "running": 0,
+              "completed": 0,
+              "failed": 0
+            },
+            {
+              "file": "openhuman_aiplan_priority_execution_20260414.json",
+              "status": "unknown",
+              "pending": 0,
+              "running": 0,
+              "completed": 0,
+              "failed": 0
+            }
+          ],
+          "web_dashboard_running": true,
+          "monitor_dashboard_running": true,
+          "system_resources": {
+            "cpu_percent": 22.9,
+            "memory_percent": 79.8,
+            "memory_available_mb": 4966.140625,
+            "disk_usage_percent": 1.8,
+            "disk_free_gb": 936.2414283752441
+          },
+          "timestamp": "2026-04-17T12:39:07.458407"
+        },
+        {
+          "queue_runner_running": true,
+          "queue_statuses": [
+            {
+              "file": "openhuman_aiplan_priority_execution_20260414.backup_20260414_172347.json",
+              "status": "running",
+              "pending": 0,
+              "running": 0,
+              "completed": 0,
+              "failed": 0
+            },
+            {
+              "file": "openhuman_aiplan_priority_execution_20260414_deduplicated_deduplication_report.json",
+              "status": "unknown",
+              "pending": 0,
+              "running": 0,
+              "completed": 0,
+              "failed": 0
+            },
+            {
+              "file": "openhuman_aiplan_priority_execution_20260414.json",
+              "status": "unknown",
+              "pending": 0,
+              "running": 0,
+              "completed": 0,
+              "failed": 0
+            }
+          ],
+          "web_dashboard_running": true,
+          "monitor_dashboard_running": true,
+          "system_resources": {
+            "cpu_percent": 18.1,
+            "memory_percent": 79.3,
+            "memory_available_mb": 5079.8125,
+            "disk_usage_percent": 1.8,
+            "disk_free_gb": 936.2414207458496
+          },
+          "timestamp": "2026-04-17T12:39:38.540839"
+        },
+        {
+          "queue_runner_running": true,
+          "queue_statuses": [
+            {
+              "file": "openhuman_aiplan_priority_execution_20260414.backup_20260414_172347.json",
+              "status": "running",
+              "pending": 0,
+              "running": 0,
+              "completed": 0,
+              "failed": 0
+            },
+            {
+              "file": "openhuman_aiplan_priority_execution_20260414_deduplicated_deduplication_report.json",
+              "status": "unknown",
+              "pending": 0,
+              "running": 0,
+              "completed": 0,
+              "failed": 0
+            },
+            {
+              "file": "openhuman_aiplan_priority_execution_20260414.json",
+              "status": "unknown",
+              "pending": 0,
+              "running": 0,
+              "completed": 0,
+              "failed": 0
+            }
+          ],
+          "web_dashboard_running": true,
+          "monitor_dashboard_running": true,
+          "system_resources": {
+            "cpu_percent": 21.5,
+            "memory_percent": 79.6,
+            "memory_available_mb": 5006.53125,
+            "disk_usage_percent": 1.8,
+            "disk_free_gb": 936.2414169311523
+          },
+          "timestamp": "2026-04-17T12:40:09.618765"
+        },
+        {
+          "queue_runner_running": true,
+          "queue_statuses": [
+            {
+              "file": "openhuman_aiplan_priority_execution_20260414.backup_20260414_172347.json",
+              "status": "running",
+              "pending": 0,
+              "running": 0,
+              "completed": 0,
+              "failed": 0
+            },
+            {
+              "file": "openhuman_aiplan_priority_execution_20260414_deduplicated_deduplication_report.json",
+              "status": "unknown",
+              "pending": 0,
+              "running": 0,
+              "completed": 0,
+              "failed": 0
+            },
+            {
+              "file": "openhuman_aiplan_priority_execution_20260414.json",
+              "status": "unknown",
+              "pending": 0,
+              "running": 0,
+              "completed": 0,
+              "failed": 0
+            }
+          ],
+          "web_dashboard_running": true,
+          "monitor_dashboard_running": true,
+          "system_resources": {
+            "cpu_percent": 23.6,
+            "memory_percent": 79.9,
+            "memory_available_mb": 4928.484375,
+            "disk_usage_percent": 1.8,
+            "disk_free_gb": 936.2414131164551
+          },
+          "timestamp": "2026-04-17T12:40:40.690304"
+        },
+        {
+          "queue_runner_running": true,
+          "queue_statuses": [
+            {
+              "file": "openhuman_aiplan_priority_execution_20260414.backup_20260414_172347.json",
+              "status": "running",
+              "pending": 0,
+              "running": 0,
+              "completed": 0,
+              "failed": 0
+            },
+            {
+              "file": "openhuman_aiplan_priority_execution_20260414_deduplicated_deduplication_report.json",
+              "status": "unknown",
+              "pending": 0,
+              "running": 0,
+              "completed": 0,
+              "failed": 0
+            },
+            {
+              "file": "openhuman_aiplan_priority_execution_20260414.json",
+              "status": "unknown",
+              "pending": 0,
+              "running": 0,
+              "completed": 0,
+              "failed": 0
+            }
+          ],
+          "web_dashboard_running": true,
+          "monitor_dashboard_running": true,
+          "system_resources": {
+            "cpu_percent": 21.7,
+            "memory_percent": 78.9,
+            "memory_available_mb": 5192.75,
+            "disk_usage_percent": 1.8,
+            "disk_free_gb": 936.2414131164551
+          },
+          "timestamp": "2026-04-17T12:41:11.764733"
+        },
+        {
+          "queue_runner_running": true,
+          "queue_statuses": [
+            {
+              "file": "openhuman_aiplan_priority_execution_20260414.backup_20260414_172347.json",
+              "status": "running",
+              "pending": 0,
+              "running": 0,
+              "completed": 0,
+              "failed": 0
+            },
+            {
+              "file": "openhuman_aiplan_priority_execution_20260414_deduplicated_deduplication_report.json",
+              "status": "unknown",
+              "pending": 0,
+              "running": 0,
+              "completed": 0,
+              "failed": 0
+            },
+            {
+              "file": "openhuman_aiplan_priority_execution_20260414.json",
+              "status": "unknown",
+              "pending": 0,
+              "running": 0,
+              "completed": 0,
+              "failed": 0
+            }
+          ],
+          "web_dashboard_running": true,
+          "monitor_dashboard_running": true,
+          "system_resources": {
+            "cpu_percent": 26.8,
+            "memory_percent": 79.6,
+            "memory_available_mb": 5001.265625,
+            "disk_usage_percent": 1.8,
+            "disk_free_gb": 936.2414054870605
+          },
+          "timestamp": "2026-04-17T12:41:42.894175"
+        },
+        {
+          "queue_runner_running": true,
+          "queue_statuses": [
+            {
+              "file": "openhuman_aiplan_priority_execution_20260414.backup_20260414_172347.json",
+              "status": "running",
+              "pending": 0,
+              "running": 0,
+              "completed": 0,
+              "failed": 0
+            },
+            {
+              "file": "openhuman_aiplan_priority_execution_20260414_deduplicated_deduplication_report.json",
+              "status": "unknown",
+              "pending": 0,
+              "running": 0,
+              "completed": 0,
+              "failed": 0
+            },
+            {
+              "file": "openhuman_aiplan_priority_execution_20260414.json",
+              "status": "unknown",
+              "pending": 0,
+              "running": 0,
+              "completed": 0,
+              "failed": 0
+            }
+          ],
+          "web_dashboard_running": true,
+          "monitor_dashboard_running": true,
+          "system_resources": {
+            "cpu_percent": 17.9,
+            "memory_percent": 80.1,
+            "memory_available_mb": 4896.40625,
+            "disk_usage_percent": 1.8,
+            "disk_free_gb": 936.2414016723633
+          },
+          "timestamp": "2026-04-17T12:42:13.967001"
+        },
+        {
+          "queue_runner_running": true,
+          "queue_statuses": [
+            {
+              "file": "openhuman_aiplan_priority_execution_20260414.backup_20260414_172347.json",
+              "status": "running",
+              "pending": 0,
+              "running": 0,
+              "completed": 0,
+              "failed": 0
+            },
+            {
+              "file": "openhuman_aiplan_priority_execution_20260414_deduplicated_deduplication_report.json",
+              "status": "unknown",
+              "pending": 0,
+              "running": 0,
+              "completed": 0,
+              "failed": 0
+            },
+            {
+              "file": "openhuman_aiplan_priority_execution_20260414.json",
+              "status": "unknown",
+              "pending": 0,
+              "running": 0,
+              "completed": 0,
+              "failed": 0
+            }
+          ],
+          "web_dashboard_running": true,
+          "monitor_dashboard_running": true,
+          "system_resources": {
+            "cpu_percent": 25.8,
+            "memory_percent": 81.4,
+            "memory_available_mb": 4574.546875,
+            "disk_usage_percent": 1.8,
+            "disk_free_gb": 936.2413711547852
+          },
+          "timestamp": "2026-04-17T12:42:45.041803"
+        }
+      ],
+      "health_checks": [
+        {
+          "timestamp": "2026-04-17T12:32:54.597723",
+          "healthy": true,
+          "issues": [],
+          "queue_runner": true,
+          "queue_statuses": [
+            {
+              "file": "openhuman_aiplan_priority_execution_20260414.backup_20260414_172347.json",
+              "status": "running",
+              "pending": 0,
+              "running": 0,
+              "completed": 0,
+              "failed": 0
+            },
+            {
+              "file": "openhuman_aiplan_priority_execution_20260414_deduplicated_deduplication_report.json",
+              "status": "unknown",
+              "pending": 0,
+              "running": 0,
+              "completed": 0,
+              "failed": 0
+            },
+            {
+              "file": "openhuman_aiplan_priority_execution_20260414.json",
+              "status": "unknown",
+              "pending": 0,
+              "running": 0,
+              "completed": 0,
+              "failed": 0
+            }
+          ],
+          "system_resources": {
+            "cpu_percent": 19.2,
+            "memory_percent": 79.2,
+            "memory_available_mb": 5112.1875,
+            "disk_usage_percent": 1.8,
+            "disk_free_gb": 936.2414588928223
+          }
+        },
+        {
+          "timestamp": "2026-04-17T12:33:25.679344",
+          "healthy": true,
+          "issues": [],
+          "queue_runner": true,
+          "queue_statuses": [
+            {
+              "file": "openhuman_aiplan_priority_execution_20260414.backup_20260414_172347.json",
+              "status": "running",
+              "pending": 0,
+              "running": 0,
+              "completed": 0,
+              "failed": 0
+            },
+            {
+              "file": "openhuman_aiplan_priority_execution_20260414_deduplicated_deduplication_report.json",
+              "status": "unknown",
+              "pending": 0,
+              "running": 0,
+              "completed": 0,
+              "failed": 0
+            },
+            {
+              "file": "openhuman_aiplan_priority_execution_20260414.json",
+              "status": "unknown",
+              "pending": 0,
+              "running": 0,
+              "completed": 0,
+              "failed": 0
+            }
+          ],
+          "system_resources": {
+            "cpu_percent": 16.3,
+            "memory_percent": 79.0,
+            "memory_available_mb": 5161.953125,
+            "disk_usage_percent": 1.8,
+            "disk_free_gb": 936.2414894104004
+          }
+        },
+        {
+          "timestamp": "2026-04-17T12:33:56.750504",
+          "healthy": true,
+          "issues": [],
+          "queue_runner": true,
+          "queue_statuses": [
+            {
+              "file": "openhuman_aiplan_priority_execution_20260414.backup_20260414_172347.json",
+              "status": "running",
+              "pending": 0,
+              "running": 0,
+              "completed": 0,
+              "failed": 0
+            },
+            {
+              "file": "openhuman_aiplan_priority_execution_20260414_deduplicated_deduplication_report.json",
+              "status": "unknown",
+              "pending": 0,
+              "running": 0,
+              "completed": 0,
+              "failed": 0
+            },
+            {
+              "file": "openhuman_aiplan_priority_execution_20260414.json",
+              "status": "unknown",
+              "pending": 0,
+              "running": 0,
+              "completed": 0,
+              "failed": 0
+            }
+          ],
+          "system_resources": {
+            "cpu_percent": 19.2,
+            "memory_percent": 79.0,
+            "memory_available_mb": 5161.296875,
+            "disk_usage_percent": 1.8,
+            "disk_free_gb": 936.2414894104004
+          }
+        },
+        {
+          "timestamp": "2026-04-17T12:34:27.825643",
+          "healthy": true,
+          "issues": [],
+          "queue_runner": true,
+          "queue_statuses": [
+            {
+              "file": "openhuman_aiplan_priority_execution_20260414.backup_20260414_172347.json",
+              "status": "running",
+              "pending": 0,
+              "running": 0,
+              "completed": 0,
+              "failed": 0
+            },
+            {
+              "file": "openhuman_aiplan_priority_execution_20260414_deduplicated_deduplication_report.json",
+              "status": "unknown",
+              "pending": 0,
+              "running": 0,
+              "completed": 0,
+              "failed": 0
+            },
+            {
+              "file": "openhuman_aiplan_priority_execution_20260414.json",
+              "status": "unknown",
+              "pending": 0,
+              "running": 0,
+              "completed": 0,
+              "failed": 0
+            }
+          ],
+          "system_resources": {
+            "cpu_percent": 18.3,
+            "memory_percent": 78.4,
+            "memory_available_mb": 5312.71875,
+            "disk_usage_percent": 1.8,
+            "disk_free_gb": 936.2414817810059
+          }
+        },
+        {
+          "timestamp": "2026-04-17T12:34:58.896397",
+          "healthy": true,
+          "issues": [],
+          "queue_runner": true,
+          "queue_statuses": [
+            {
+              "file": "openhuman_aiplan_priority_execution_20260414.backup_20260414_172347.json",
+              "status": "running",
+              "pending": 0,
+              "running": 0,
+              "completed": 0,
+              "failed": 0
+            },
+            {
+              "file": "openhuman_aiplan_priority_execution_20260414_deduplicated_deduplication_report.json",
+              "status": "unknown",
+              "pending": 0,
+              "running": 0,
+              "completed": 0,
+              "failed": 0
+            },
+            {
+              "file": "openhuman_aiplan_priority_execution_20260414.json",
+              "status": "unknown",
+              "pending": 0,
+              "running": 0,
+              "completed": 0,
+              "failed": 0
+            }
+          ],
+          "system_resources": {
+            "cpu_percent": 26.2,
+            "memory_percent": 77.6,
+            "memory_available_mb": 5510.234375,
+            "disk_usage_percent": 1.8,
+            "disk_free_gb": 936.2414817810059
+          }
+        },
+        {
+          "timestamp": "2026-04-17T12:35:29.959174",
+          "healthy": true,
+          "issues": [],
+          "queue_runner": true,
+          "queue_statuses": [
+            {
+              "file": "openhuman_aiplan_priority_execution_20260414.backup_20260414_172347.json",
+              "status": "running",
+              "pending": 0,
+              "running": 0,
+              "completed": 0,
+              "failed": 0
+            },
+            {
+              "file": "openhuman_aiplan_priority_execution_20260414_deduplicated_deduplication_report.json",
+              "status": "unknown",
+              "pending": 0,
+              "running": 0,
+              "completed": 0,
+              "failed": 0
+            },
+            {
+              "file": "openhuman_aiplan_priority_execution_20260414.json",
+              "status": "unknown",
+              "pending": 0,
+              "running": 0,
+              "completed": 0,
+              "failed": 0
+            }
+          ],
+          "system_resources": {
+            "cpu_percent": 24.8,
+            "memory_percent": 78.0,
+            "memory_available_mb": 5395.34375,
+            "disk_usage_percent": 1.8,
+            "disk_free_gb": 936.2414779663086
+          }
+        },
+        {
+          "timestamp": "2026-04-17T12:36:01.032811",
+          "healthy": true,
+          "issues": [],
+          "queue_runner": true,
+          "queue_statuses": [
+            {
+              "file": "openhuman_aiplan_priority_execution_20260414.backup_20260414_172347.json",
+              "status": "running",
+              "pending": 0,
+              "running": 0,
+              "completed": 0,
+              "failed": 0
+            },
+            {
+              "file": "openhuman_aiplan_priority_execution_20260414_deduplicated_deduplication_report.json",
+              "status": "unknown",
+              "pending": 0,
+              "running": 0,
+              "completed": 0,
+              "failed": 0
+            },
+            {
+              "file": "openhuman_aiplan_priority_execution_20260414.json",
+              "status": "unknown",
+              "pending": 0,
+              "running": 0,
+              "completed": 0,
+              "failed": 0
+            }
+          ],
+          "system_resources": {
+            "cpu_percent": 22.4,
+            "memory_percent": 79.0,
+            "memory_available_mb": 5160.25,
+            "disk_usage_percent": 1.8,
+            "disk_free_gb": 936.2414741516113
+          }
+        },
+        {
+          "timestamp": "2026-04-17T12:36:32.104964",
+          "healthy": true,
+          "issues": [],
+          "queue_runner": true,
+          "queue_statuses": [
+            {
+              "file": "openhuman_aiplan_priority_execution_20260414.backup_20260414_172347.json",
+              "status": "running",
+              "pending": 0,
+              "running": 0,
+              "completed": 0,
+              "failed": 0
+            },
+            {
+              "file": "openhuman_aiplan_priority_execution_20260414_deduplicated_deduplication_report.json",
+              "status": "unknown",
+              "pending": 0,
+              "running": 0,
+              "completed": 0,
+              "failed": 0
+            },
+            {
+              "file": "openhuman_aiplan_priority_execution_20260414.json",
+              "status": "unknown",
+              "pending": 0,
+              "running": 0,
+              "completed": 0,
+              "failed": 0
+            }
+          ],
+          "system_resources": {
+            "cpu_percent": 17.1,
+            "memory_percent": 79.0,
+            "memory_available_mb": 5153.046875,
+            "disk_usage_percent": 1.8,
+            "disk_free_gb": 936.2414741516113
+          }
+        },
+        {
+          "timestamp": "2026-04-17T12:37:03.171902",
+          "healthy": true,
+          "issues": [],
+          "queue_runner": true,
+          "queue_statuses": [
+            {
+              "file": "openhuman_aiplan_priority_execution_20260414.backup_20260414_172347.json",
+              "status": "running",
+              "pending": 0,
+              "running": 0,
+              "completed": 0,
+              "failed": 0
+            },
+            {
+              "file": "openhuman_aiplan_priority_execution_20260414_deduplicated_deduplication_report.json",
+              "status": "unknown",
+              "pending": 0,
+              "running": 0,
+              "completed": 0,
+              "failed": 0
+            },
+            {
+              "file": "openhuman_aiplan_priority_execution_20260414.json",
+              "status": "unknown",
+              "pending": 0,
+              "running": 0,
+              "completed": 0,
+              "failed": 0
+            }
+          ],
+          "system_resources": {
+            "cpu_percent": 27.0,
+            "memory_percent": 79.7,
+            "memory_available_mb": 4991.703125,
+            "disk_usage_percent": 1.8,
+            "disk_free_gb": 936.2414360046387
+          }
+        },
+        {
+          "timestamp": "2026-04-17T12:37:34.249092",
+          "healthy": true,
+          "issues": [],
+          "queue_runner": true,
+          "queue_statuses": [
+            {
+              "file": "openhuman_aiplan_priority_execution_20260414.backup_20260414_172347.json",
+              "status": "running",
+              "pending": 0,
+              "running": 0,
+              "completed": 0,
+              "failed": 0
+            },
+            {
+              "file": "openhuman_aiplan_priority_execution_20260414_deduplicated_deduplication_report.json",
+              "status": "unknown",
+              "pending": 0,
+              "running": 0,
+              "completed": 0,
+              "failed": 0
+            },
+            {
+              "file": "openhuman_aiplan_priority_execution_20260414.json",
+              "status": "unknown",
+              "pending": 0,
+              "running": 0,
+              "completed": 0,
+              "failed": 0
+            }
+          ],
+          "system_resources": {
+            "cpu_percent": 21.3,
+            "memory_percent": 79.7,
+            "memory_available_mb": 4986.875,
+            "disk_usage_percent": 1.8,
+            "disk_free_gb": 936.2414360046387
+          }
+        },
+        {
+          "timestamp": "2026-04-17T12:38:05.322748",
+          "healthy": true,
+          "issues": [],
+          "queue_runner": true,
+          "queue_statuses": [
+            {
+              "file": "openhuman_aiplan_priority_execution_20260414.backup_20260414_172347.json",
+              "status": "running",
+              "pending": 0,
+              "running": 0,
+              "completed": 0,
+              "failed": 0
+            },
+            {
+              "file": "openhuman_aiplan_priority_execution_20260414_deduplicated_deduplication_report.json",
+              "status": "unknown",
+              "pending": 0,
+              "running": 0,
+              "completed": 0,
+              "failed": 0
+            },
+            {
+              "file": "openhuman_aiplan_priority_execution_20260414.json",
+              "status": "unknown",
+              "pending": 0,
+              "running": 0,
+              "completed": 0,
+              "failed": 0
+            }
+          ],
+          "system_resources": {
+            "cpu_percent": 22.5,
+            "memory_percent": 80.0,
+            "memory_available_mb": 4905.140625,
+            "disk_usage_percent": 1.8,
+            "disk_free_gb": 936.2414321899414
+          }
+        },
+        {
+          "timestamp": "2026-04-17T12:38:36.393084",
+          "healthy": true,
+          "issues": [],
+          "queue_runner": true,
+          "queue_statuses": [
+            {
+              "file": "openhuman_aiplan_priority_execution_20260414.backup_20260414_172347.json",
+              "status": "running",
+              "pending": 0,
+              "running": 0,
+              "completed": 0,
+              "failed": 0
+            },
+            {
+              "file": "openhuman_aiplan_priority_execution_20260414_deduplicated_deduplication_report.json",
+              "status": "unknown",
+              "pending": 0,
+              "running": 0,
+              "completed": 0,
+              "failed": 0
+            },
+            {
+              "file": "openhuman_aiplan_priority_execution_20260414.json",
+              "status": "unknown",
+              "pending": 0,
+              "running": 0,
+              "completed": 0,
+              "failed": 0
+            }
+          ],
+          "system_resources": {
+            "cpu_percent": 16.6,
+            "memory_percent": 79.5,
+            "memory_available_mb": 5041.375,
+            "disk_usage_percent": 1.8,
+            "disk_free_gb": 936.2414283752441
+          }
+        },
+        {
+          "timestamp": "2026-04-17T12:39:07.458407",
+          "healthy": true,
+          "issues": [],
+          "queue_runner": true,
+          "queue_statuses": [
+            {
+              "file": "openhuman_aiplan_priority_execution_20260414.backup_20260414_172347.json",
+              "status": "running",
+              "pending": 0,
+              "running": 0,
+              "completed": 0,
+              "failed": 0
+            },
+            {
+              "file": "openhuman_aiplan_priority_execution_20260414_deduplicated_deduplication_report.json",
+              "status": "unknown",
+              "pending": 0,
+              "running": 0,
+              "completed": 0,
+              "failed": 0
+            },
+            {
+              "file": "openhuman_aiplan_priority_execution_20260414.json",
+              "status": "unknown",
+              "pending": 0,
+              "running": 0,
+              "completed": 0,
+              "failed": 0
+            }
+          ],
+          "system_resources": {
+            "cpu_percent": 22.9,
+            "memory_percent": 79.8,
+            "memory_available_mb": 4966.140625,
+            "disk_usage_percent": 1.8,
+            "disk_free_gb": 936.2414283752441
+          }
+        },
+        {
+          "timestamp": "2026-04-17T12:39:38.540839",
+          "healthy": true,
+          "issues": [],
+          "queue_runner": true,
+          "queue_statuses": [
+            {
+              "file": "openhuman_aiplan_priority_execution_20260414.backup_20260414_172347.json",
+              "status": "running",
+              "pending": 0,
+              "running": 0,
+              "completed": 0,
+              "failed": 0
+            },
+            {
+              "file": "openhuman_aiplan_priority_execution_20260414_deduplicated_deduplication_report.json",
+              "status": "unknown",
+              "pending": 0,
+              "running": 0,
+              "completed": 0,
+              "failed": 0
+            },
+            {
+              "file": "openhuman_aiplan_priority_execution_20260414.json",
+              "status": "unknown",
+              "pending": 0,
+              "running": 0,
+              "completed": 0,
+              "failed": 0
+            }
+          ],
+          "system_resources": {
+            "cpu_percent": 18.1,
+            "memory_percent": 79.3,
+            "memory_available_mb": 5079.8125,
+            "disk_usage_percent": 1.8,
+            "disk_free_gb": 936.2414207458496
+          }
+        },
+        {
+          "timestamp": "2026-04-17T12:40:09.618765",
+          "healthy": true,
+          "issues": [],
+          "queue_runner": true,
+          "queue_statuses": [
+            {
+              "file": "openhuman_aiplan_priority_execution_20260414.backup_20260414_172347.json",
+              "status": "running",
+              "pending": 0,
+              "running": 0,
+              "completed": 0,
+              "failed": 0
+            },
+            {
+              "file": "openhuman_aiplan_priority_execution_20260414_deduplicated_deduplication_report.json",
+              "status": "unknown",
+              "pending": 0,
+              "running": 0,
+              "completed": 0,
+              "failed": 0
+            },
+            {
+              "file": "openhuman_aiplan_priority_execution_20260414.json",
+              "status": "unknown",
+              "pending": 0,
+              "running": 0,
+              "completed": 0,
+              "failed": 0
+            }
+          ],
+          "system_resources": {
+            "cpu_percent": 21.5,
+            "memory_percent": 79.6,
+            "memory_available_mb": 5006.53125,
+            "disk_usage_percent": 1.8,
+            "disk_free_gb": 936.2414169311523
+          }
+        },
+        {
+          "timestamp": "2026-04-17T12:40:40.690304",
+          "healthy": true,
+          "issues": [],
+          "queue_runner": true,
+          "queue_statuses": [
+            {
+              "file": "openhuman_aiplan_priority_execution_20260414.backup_20260414_172347.json",
+              "status": "running",
+              "pending": 0,
+              "running": 0,
+              "completed": 0,
+              "failed": 0
+            },
+            {
+              "file": "openhuman_aiplan_priority_execution_20260414_deduplicated_deduplication_report.json",
+              "status": "unknown",
+              "pending": 0,
+              "running": 0,
+              "completed": 0,
+              "failed": 0
+            },
+            {
+              "file": "openhuman_aiplan_priority_execution_20260414.json",
+              "status": "unknown",
+              "pending": 0,
+              "running": 0,
+              "completed": 0,
+              "failed": 0
+            }
+          ],
+          "system_resources": {
+            "cpu_percent": 23.6,
+            "memory_percent": 79.9,
+            "memory_available_mb": 4928.484375,
+            "disk_usage_percent": 1.8,
+            "disk_free_gb": 936.2414131164551
+          }
+        },
+        {
+          "timestamp": "2026-04-17T12:41:11.764733",
+          "healthy": true,
+          "issues": [],
+          "queue_runner": true,
+          "queue_statuses": [
+            {
+              "file": "openhuman_aiplan_priority_execution_20260414.backup_20260414_172347.json",
+              "status": "running",
+              "pending": 0,
+              "running": 0,
+              "completed": 0,
+              "failed": 0
+            },
+            {
+              "file": "openhuman_aiplan_priority_execution_20260414_deduplicated_deduplication_report.json",
+              "status": "unknown",
+              "pending": 0,
+              "running": 0,
+              "completed": 0,
+              "failed": 0
+            },
+            {
+              "file": "openhuman_aiplan_priority_execution_20260414.json",
+              "status": "unknown",
+              "pending": 0,
+              "running": 0,
+              "completed": 0,
+              "failed": 0
+            }
+          ],
+          "system_resources": {
+            "cpu_percent": 21.7,
+            "memory_percent": 78.9,
+            "memory_available_mb": 5192.75,
+            "disk_usage_percent": 1.8,
+            "disk_free_gb": 936.2414131164551
+          }
+        },
+        {
+          "timestamp": "2026-04-17T12:41:42.894175",
+          "healthy": true,
+          "issues": [],
+          "queue_runner": true,
+          "queue_statuses": [
+            {
+              "file": "openhuman_aiplan_priority_execution_20260414.backup_20260414_172347.json",
+              "status": "running",
+              "pending": 0,
+              "running": 0,
+              "completed": 0,
+              "failed": 0
+            },
+            {
+              "file": "openhuman_aiplan_priority_execution_20260414_deduplicated_deduplication_report.json",
+              "status": "unknown",
+              "pending": 0,
+              "running": 0,
+              "completed": 0,
+              "failed": 0
+            },
+            {
+              "file": "openhuman_aiplan_priority_execution_20260414.json",
+              "status": "unknown",
+              "pending": 0,
+              "running": 0,
+              "completed": 0,
+              "failed": 0
+            }
+          ],
+          "system_resources": {
+            "cpu_percent": 26.8,
+            "memory_percent": 79.6,
+            "memory_available_mb": 5001.265625,
+            "disk_usage_percent": 1.8,
+            "disk_free_gb": 936.2414054870605
+          }
+        },
+        {
+          "timestamp": "2026-04-17T12:42:13.967001",
+          "healthy": true,
+          "issues": [],
+          "queue_runner": true,
+          "queue_statuses": [
+            {
+              "file": "openhuman_aiplan_priority_execution_20260414.backup_20260414_172347.json",
+              "status": "running",
+              "pending": 0,
+              "running": 0,
+              "completed": 0,
+              "failed": 0
+            },
+            {
+              "file": "openhuman_aiplan_priority_execution_20260414_deduplicated_deduplication_report.json",
+              "status": "unknown",
+              "pending": 0,
+              "running": 0,
+              "completed": 0,
+              "failed": 0
+            },
+            {
+              "file": "openhuman_aiplan_priority_execution_20260414.json",
+              "status": "unknown",
+              "pending": 0,
+              "running": 0,
+              "completed": 0,
+              "failed": 0
+            }
+          ],
+          "system_resources": {
+            "cpu_percent": 17.9,
+            "memory_percent": 80.1,
+            "memory_available_mb": 4896.40625,
+            "disk_usage_percent": 1.8,
+            "disk_free_gb": 936.2414016723633
+          }
+        },
+        {
+          "timestamp": "2026-04-17T12:42:45.041803",
+          "healthy": true,
+          "issues": [],
+          "queue_runner": true,
+          "queue_statuses": [
+            {
+              "file": "openhuman_aiplan_priority_execution_20260414.backup_20260414_172347.json",
+              "status": "running",
+              "pending": 0,
+              "running": 0,
+              "completed": 0,
+              "failed": 0
+            },
+            {
+              "file": "openhuman_aiplan_priority_execution_20260414_deduplicated_deduplication_report.json",
+              "status": "unknown",
+              "pending": 0,
+              "running": 0,
+              "completed": 0,
+              "failed": 0
+            },
+            {
+              "file": "openhuman_aiplan_priority_execution_20260414.json",
+              "status": "unknown",
+              "pending": 0,
+              "running": 0,
+              "completed": 0,
+              "failed": 0
+            }
+          ],
+          "system_resources": {
+            "cpu_percent": 25.8,
+            "memory_percent": 81.4,
+            "memory_available_mb": 4574.546875,
+            "disk_usage_percent": 1.8,
+            "disk_free_gb": 936.2413711547852
+          }
+        }
+      ],
+      "end_time": "2026-04-17T12:42:45.052726",
+      "duration_seconds": 592.572016,
+      "final_status": {
+        "queue_runner_running": true,
+        "queue_statuses": [
+          {
+            "file": "openhuman_aiplan_priority_execution_20260414.backup_20260414_172347.json",
+            "status": "running",
+            "pending": 0,
+            "running": 0,
+            "completed": 0,
+            "failed": 0
+          },
+          {
+            "file": "openhuman_aiplan_priority_execution_20260414_deduplicated_deduplication_report.json",
+            "status": "unknown",
+            "pending": 0,
+            "running": 0,
+            "completed": 0,
+            "failed": 0
+          },
+          {
+            "file": "openhuman_aiplan_priority_execution_20260414.json",
+            "status": "unknown",
+            "pending": 0,
+            "running": 0,
+            "completed": 0,
+            "failed": 0
+          }
+        ],
+        "web_dashboard_running": true,
+        "monitor_dashboard_running": true,
+        "system_resources": {
+          "cpu_percent": 29.2,
+          "memory_percent": 81.7,
+          "memory_available_mb": 4509.328125,
+          "disk_usage_percent": 1.8,
+          "disk_free_gb": 936.2413673400879
+        },
+        "timestamp": "2026-04-17T12:42:46.117890"
+      },
+      "success": true,
+      "summary_issues": []
+    }
+  ],
+  "active": true
+}

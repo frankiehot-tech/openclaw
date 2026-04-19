@@ -1,0 +1,56 @@
+name: Documentation Quality Check
+on:
+  push:
+    branches: [ main, develop ]
+    paths:
+      - 'docs/**'
+      - 'scripts/validate_document_format.py'
+      - 'scripts/check_document_links.py'
+      - 'scripts/check_document_completeness.py'
+      - 'scripts/analyze_document_readability.py'
+      - 'scripts/generate_document_quality_report.py'
+  pull_request:
+    branches: [ main, develop ]
+    paths:
+      - 'docs/**'
+      - 'scripts/validate_document_format.py'
+      - 'scripts/check_document_links.py'
+      - 'scripts/check_document_completeness.py'
+      - 'scripts/analyze_document_readability.py'
+      - 'scripts/generate_document_quality_report.py'
+
+jobs:
+  document-check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Setup Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.9'
+
+      - name: Install dependencies
+        run: pip install -r docs/requirements.txt
+
+      - name: Check document format
+        run: python3 scripts/validate_document_format.py --directory docs/ --strict
+
+      - name: Check document links
+        run: python3 scripts/check_document_links.py --directory docs/
+
+      - name: Check document completeness
+        run: python3 scripts/check_document_completeness.py --directory docs/ --metrics
+        continue-on-error: true  # 警告级别，不阻塞流水线
+
+      - name: Analyze document readability
+        run: python3 scripts/analyze_document_readability.py --directory docs/ --json
+        continue-on-error: true  # 分析报告，不阻塞流水线
+
+      - name: Generate quality report
+        run: python3 scripts/generate_document_quality_report.py --output docs/quality/report_${{ github.run_number }}.json
+
+      - name: Upload quality report
+        uses: actions/upload-artifact@v3
+        with:
+          name: documentation-quality-report
+          path: docs/quality/report_*.json

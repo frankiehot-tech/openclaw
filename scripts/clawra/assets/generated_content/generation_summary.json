@@ -1,0 +1,24 @@
+{
+  "timestamp": "2026-04-16T14:46:25.849638",
+  "examples_generated": 3,
+  "output_directory": "/Volumes/1TB-M2/openclaw/scripts/clawra/assets/generated_content",
+  "files_created": [
+    "/Volumes/1TB-M2/openclaw/scripts/clawra/assets/generated_content/tech_demo_script.json",
+    "/Volumes/1TB-M2/openclaw/scripts/clawra/assets/generated_content/generation_summary.json",
+    "/Volumes/1TB-M2/openclaw/scripts/clawra/assets/generated_content/social_media_content.json",
+    "/Volumes/1TB-M2/openclaw/scripts/clawra/assets/generated_content/template_variations.json"
+  ],
+  "templates_used": [
+    "product_demo_001",
+    "tech_social_001"
+  ],
+  "visual_styles_used": [
+    "data_wisdom",
+    "classical_athena"
+  ],
+  "content_types": [
+    "技术演示脚本",
+    "社交媒体内容",
+    "模板变体演示"
+  ]
+}

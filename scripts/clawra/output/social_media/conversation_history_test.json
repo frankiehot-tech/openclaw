@@ -1,0 +1,124 @@
+{
+  "conversations": [
+    {
+      "timestamp": "2026-04-13T13:12:05.906283",
+      "user_message": "你好Athena！open human项目进展如何？",
+      "response": "📊 你好！我是Athena，open human项目的代言人。 #数字人格 #开源",
+      "analysis": {
+        "original": "你好Athena！open human项目进展如何？",
+        "length": 26,
+        "has_question": false,
+        "sentiment": 0.0,
+        "topics": [
+          "greeting",
+          "project_inquiry",
+          "project_inquiry"
+        ],
+        "message_type": "technical",
+        "urgency": 0.5,
+        "interaction_value": 0.338
+      },
+      "emotional_state": {
+        "primary_emotion": "curiosity",
+        "secondary_emotions": [
+          "interest",
+          "optimism",
+          "gratitude"
+        ],
+        "intensity": 0.6947551605459431,
+        "timestamp": "2026-04-13T13:12:05.906266",
+        "context": "general_interaction",
+        "energy_level": 0.7
+      }
+    },
+    {
+      "timestamp": "2026-04-13T13:12:05.906305",
+      "user_message": "碳硅共生这个概念很有意思，能详细介绍一下吗？",
+      "response": "我们正在构建Athena（战略大脑）、openclaw（执行器）、open human（项目）的三层架构。 #AI #数字人格",
+      "analysis": {
+        "original": "碳硅共生这个概念很有意思，能详细介绍一下吗？",
+        "length": 22,
+        "has_question": false,
+        "sentiment": 0.0,
+        "topics": [
+          "project_inquiry"
+        ],
+        "message_type": "technical",
+        "urgency": 0.5,
+        "interaction_value": 0.326
+      },
+      "emotional_state": {
+        "primary_emotion": "curiosity",
+        "secondary_emotions": [
+          "interest",
+          "optimism",
+          "gratitude"
+        ],
+        "intensity": 0.6947551605459431,
+        "timestamp": "2026-04-13T13:12:05.906295",
+        "context": "general_interaction",
+        "energy_level": 0.7
+      }
+    },
+    {
+      "timestamp": "2026-04-13T13:12:05.906320",
+      "user_message": "你们的技术架构是怎么设计的？",
+      "response": "⚙️ 架构设计遵循碳硅共生协议，强调情感连续性和人格一致性。 #数字人格 #AI",
+      "analysis": {
+        "original": "你们的技术架构是怎么设计的？",
+        "length": 14,
+        "has_question": false,
+        "sentiment": 0.0,
+        "topics": [
+          "technical_question"
+        ],
+        "message_type": "technical",
+        "urgency": 0.5,
+        "interaction_value": 0.30200000000000005
+      },
+      "emotional_state": {
+        "primary_emotion": "curiosity",
+        "secondary_emotions": [
+          "interest",
+          "optimism",
+          "gratitude"
+        ],
+        "intensity": 0.6947551605459431,
+        "timestamp": "2026-04-13T13:12:05.906313",
+        "context": "general_interaction",
+        "energy_level": 0.7
+      }
+    },
+    {
+      "timestamp": "2026-04-13T13:12:05.906332",
+      "user_message": "太棒了！这个项目很有前瞻性！",
+      "response": "我们正在构建Athena（战略大脑）、openclaw（执行器）、open human（项目）的三层架构。 💻 #开源 #碳硅共生",
+      "analysis": {
+        "original": "太棒了！这个项目很有前瞻性！",
+        "length": 14,
+        "has_question": false,
+        "sentiment": 0.0,
+        "topics": [
+          "project_inquiry"
+        ],
+        "message_type": "technical",
+        "urgency": 0.5,
+        "interaction_value": 0.30200000000000005
+      },
+      "emotional_state": {
+        "primary_emotion": "curiosity",
+        "secondary_emotions": [
+          "interest",
+          "optimism",
+          "gratitude"
+        ],
+        "intensity": 0.6947551605459431,
+        "timestamp": "2026-04-13T13:12:05.906327",
+        "context": "general_interaction",
+        "energy_level": 0.7
+      }
+    }
+  ],
+  "saved_at": "2026-04-13T13:12:05.906827",
+  "total_conversations": 4
+}

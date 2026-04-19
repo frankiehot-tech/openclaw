@@ -1,0 +1,540 @@
+[
+  {
+    "full_name": "easydiffusion/easydiffusion",
+    "description": "An easy 1-click way to create beautiful artwork on your PC using AI, with no tech knowledge. Provides a browser UI for generating images from text prompts and images. Just enter your text prompt, and see the generated image.",
+    "stars": 10315,
+    "language": "JavaScript",
+    "topics": [
+      "art",
+      "diffusion",
+      "generative-art",
+      "gui",
+      "stable"
+    ],
+    "url": "https://github.com/easydiffusion/easydiffusion"
+  },
+  {
+    "full_name": "nateraw/stable-diffusion-videos",
+    "description": "Create 🔥 videos with Stable Diffusion by exploring the latent space and morphing between text prompts",
+    "stars": 4678,
+    "language": "Python",
+    "topics": [
+      "ai-art",
+      "huggingface",
+      "huggingface-diffusers",
+      "machine-learning",
+      "stable-diffusion"
+    ],
+    "url": "https://github.com/nateraw/stable-diffusion-videos"
+  },
+  {
+    "full_name": "saharmor/dalle-playground",
+    "description": "A playground to generate images from any text prompt using Stable Diffusion (past: using DALL-E Mini)",
+    "stars": 2745,
+    "language": "JavaScript",
+    "topics": [
+      "artificial",
+      "artificial-intelligence",
+      "dall-e",
+      "dalle",
+      "dalle-mini",
+      "gan",
+      "machine-learning",
+      "openai",
+      "stable-diffusion",
+      "text-to-image",
+      "transformers"
+    ],
+    "url": "https://github.com/saharmor/dalle-playground"
+  },
+  {
+    "full_name": "LearnPrompt/LearnPrompt",
+    "description": "永久免费开源的 AIGC 课程, 目前已支持Prompt Engineering, ChatGPT, Midjourney, Runway, Stable Diffusion, AI数字人，AI声音&音乐，开源大模型",
+    "stars": 2345,
+    "language": "JavaScript",
+    "topics": [
+      "agent",
+      "aimusic",
+      "aivoice",
+      "chatgpt-app",
+      "digital-human",
+      "gpt-35-turbo",
+      "gpt4",
+      "gpts",
+      "llms-book",
+      "midjourney-app",
+      "prompt",
+      "prompt-enginering",
+      "prompt-learning",
+      "retrieval-augmented-generation",
+      "stable-diffusion"
+    ],
+    "url": "https://github.com/LearnPrompt/LearnPrompt"
+  },
+  {
+    "full_name": "adieyal/sd-dynamic-prompts",
+    "description": "A custom script for AUTOMATIC1111/stable-diffusion-webui to implement a tiny template language for random prompt generation",
+    "stars": 2262,
+    "language": "Python",
+    "topics": [],
+    "url": "https://github.com/adieyal/sd-dynamic-prompts"
+  },
+  {
+    "full_name": "thinkingjimmy/Learning-Prompt",
+    "description": "Free prompt engineering online course. ChatGPT and Midjourney tutorials are now included!",
+    "stars": 5319,
+    "language": "CSS",
+    "topics": [
+      "prompt",
+      "prompt-engineering",
+      "prompt-toolkit"
+    ],
+    "url": "https://github.com/thinkingjimmy/Learning-Prompt"
+  },
+  {
+    "full_name": "jina-ai/discoart",
+    "description": "🪩 Create Disco Diffusion artworks in one line",
+    "stars": 3829,
+    "language": "Python",
+    "topics": [
+      "clip-guided-diffusion",
+      "creative-ai",
+      "creative-art",
+      "cross-modal",
+      "dalle",
+      "diffusion",
+      "disco-diffusion",
+      "discodiffusion",
+      "generative-art",
+      "imgen",
+      "latent-diffusion",
+      "midjourney",
+      "multimodal",
+      "prompts",
+      "stable-diffusion"
+    ],
+    "url": "https://github.com/jina-ai/discoart"
+  },
+  {
+    "full_name": "YiVal/YiVal",
+    "description": "Your Automatic Prompt Engineering Assistant for GenAI Applications",
+    "stars": 2127,
+    "language": "Python",
+    "topics": [
+      "ai",
+      "ai-experiments",
+      "ai-toolkit",
+      "aigc",
+      "api",
+      "auto-prompting",
+      "autogpt",
+      "fine-tuning",
+      "framework",
+      "generative-ai",
+      "gpt4",
+      "llm",
+      "midjourney",
+      "prompt",
+      "prompt-engineering",
+      "prompt-tuning",
+      "promptengineering",
+      "python",
+      "stable-diffusion"
+    ],
+    "url": "https://github.com/YiVal/YiVal"
+  },
+  {
+    "full_name": "TanShilongMario/PromptFill",
+    "description": "designed specifically for AI painting (GPT, Midjourney, Nano Banana, etc.). Help users quickly build, manage, and iterate complex prompts through a visual \"fill-in-the-blank\" interaction.  通过可视化的\"填空\"交互方式，帮助用户快速构建、管理和迭代复杂的 Prompt。",
+    "stars": 1815,
+    "language": "JavaScript",
+    "topics": [],
+    "url": "https://github.com/TanShilongMario/PromptFill"
+  },
+  {
+    "full_name": "borisdayma/dalle-mini",
+    "description": "DALL·E Mini - Generate images from a text prompt",
+    "stars": 14769,
+    "language": "Python",
+    "topics": [],
+    "url": "https://github.com/borisdayma/dalle-mini"
+  },
+  {
+    "full_name": "Denis2054/Transformers-for-NLP-2nd-Edition",
+    "description": "Transformer models from BERT to GPT-4, environments from Hugging Face to OpenAI. Fine-tuning, training, and prompt engineering examples. A bonus section with ChatGPT, GPT-3.5-turbo, GPT-4, and DALL-E including jump starting GPT-4, speech-to-text, text-to-speech, text to image generation with DALL-E, Google Cloud AI,HuggingGPT, and more ",
+    "stars": 959,
+    "language": "Jupyter Notebook",
+    "topics": [
+      "bert",
+      "chatgpt",
+      "chatgpt-api",
+      "dall-e",
+      "dall-e-api",
+      "deep-learning",
+      "gpt-3-5-turbo",
+      "gpt-4",
+      "gpt-4-api",
+      "huggingface-transformers",
+      "machine-learning",
+      "natural-language-processing",
+      "nlp",
+      "openai",
+      "python",
+      "pytorch",
+      "roberta-model",
+      "transformers",
+      "trax"
+    ],
+    "url": "https://github.com/Denis2054/Transformers-for-NLP-2nd-Edition"
+  },
+  {
+    "full_name": "rockbenben/img-prompt",
+    "description": "🎨 AI Image Prompt Generator with 5000+ prompts in 18 languages. Create perfect prompts fin your native language. 极简的图像提示词编辑器",
+    "stars": 302,
+    "language": "TypeScript",
+    "topics": [
+      "ai-art",
+      "ai-prompts",
+      "aigc",
+      "dall-e",
+      "flux",
+      "generative-ai",
+      "image-generation",
+      "midjourney",
+      "nano-banana",
+      "prompt",
+      "prompt-engineering",
+      "prompt-library",
+      "prompts",
+      "sora",
+      "stable-diffusion"
+    ],
+    "url": "https://github.com/rockbenben/img-prompt"
+  },
+  {
+    "full_name": "langgptai/Awesome-Multimodal-Prompts",
+    "description": " Prompts of GPT-4V & DALL-E3 to full utilize the multi-modal ability. GPT4V Prompts, DALL-E3 Prompts.",
+    "stars": 280,
+    "language": null,
+    "topics": [
+      "awesome",
+      "awesome-list",
+      "chatgpt",
+      "dall-e",
+      "dall-e3",
+      "dall-e3-prompts",
+      "gpt4",
+      "gpt4v",
+      "jailbreak-prompt",
+      "multimodal",
+      "multimodal-prompts",
+      "newbing",
+      "prompt-engineering",
+      "prompt-injection",
+      "prompts"
+    ],
+    "url": "https://github.com/langgptai/Awesome-Multimodal-Prompts"
+  },
+  {
+    "full_name": "altryne/awesome-ai-art-image-synthesis",
+    "description": "A list of awesome tools, ideas, prompt engineering tools, colabs, models, and helpers for the prompt designer playing with aiArt and image synthesis. Covers Dalle2, MidJourney, StableDiffusion, and open source tools.",
+    "stars": 1790,
+    "language": null,
+    "topics": [
+      "ai"
+    ],
+    "url": "https://github.com/altryne/awesome-ai-art-image-synthesis"
+  },
+  {
+    "full_name": "526christian/AI-Image-PromptGenerator",
+    "description": "A flexible UI script to help create and expand on prompts for generative AI art models, such as Stable Diffusion and MidJourney. Get inspired, and create.",
+    "stars": 245,
+    "language": "Python",
+    "topics": [
+      "ai",
+      "ai-art",
+      "generative-art",
+      "image-generation",
+      "midjourney",
+      "prompt-engineering",
+      "prompt-generator",
+      "prompts",
+      "python",
+      "python-script",
+      "python3",
+      "stable-diffusion",
+      "stablediffusion",
+      "txt2img"
+    ],
+    "url": "https://github.com/526christian/AI-Image-PromptGenerator"
+  },
+  {
+    "full_name": "ausbitbank/stable-diffusion-discord-bot",
+    "description": "A discord bot to generate AI art from prompts using invokeAI",
+    "stars": 213,
+    "language": "JavaScript",
+    "topics": [
+      "discord",
+      "discord-bot",
+      "invokeai",
+      "stable-diffusion"
+    ],
+    "url": "https://github.com/ausbitbank/stable-diffusion-discord-bot"
+  },
+  {
+    "full_name": "BCG-X-Official/artkit",
+    "description": "Automated prompt-based testing and evaluation of Gen AI applications",
+    "stars": 165,
+    "language": "Jupyter Notebook",
+    "topics": [
+      "asyncio",
+      "data-science",
+      "gen-ai",
+      "genai",
+      "python",
+      "red-teaming",
+      "test-automation"
+    ],
+    "url": "https://github.com/BCG-X-Official/artkit"
+  },
+  {
+    "full_name": "jamez-bondos/awesome-gpt4o-images",
+    "description": "Awesome curated collection of images and prompts generated by GPT-4o and gpt-image-1. Explore AI generated visuals created with ChatGPT and Sora, showcasing OpenAI’s advanced image generation capabilities.",
+    "stars": 7861,
+    "language": "JavaScript",
+    "topics": [
+      "ai-art",
+      "ai-image-examples",
+      "anime-ai-art",
+      "awesome-list",
+      "cartoon-style",
+      "curated-collection",
+      "generative-art",
+      "ghibli-style",
+      "gpt-4o",
+      "gpt-image-1",
+      "image-generation",
+      "openai",
+      "prompt-engineering",
+      "prompts",
+      "text-to-image"
+    ],
+    "url": "https://github.com/jamez-bondos/awesome-gpt4o-images"
+  },
+  {
+    "full_name": "tencent-ailab/IP-Adapter",
+    "description": "The image prompt adapter is designed to enable a pretrained text-to-image diffusion model to generate images with image prompt. ",
+    "stars": 6526,
+    "language": "Jupyter Notebook",
+    "topics": [],
+    "url": "https://github.com/tencent-ailab/IP-Adapter"
+  },
+  {
+    "full_name": "promptslab/Awesome-Prompt-Engineering",
+    "description": "This repository contains a hand-curated resources for Prompt Engineering with a focus on Generative Pre-trained Transformer (GPT), ChatGPT, PaLM etc ",
+    "stars": 5756,
+    "language": "TypeScript",
+    "topics": [
+      "chatgpt",
+      "chatgpt-api",
+      "deep-learning",
+      "few-shot-learning",
+      "gpt",
+      "gpt-3",
+      "machine-learning",
+      "openai",
+      "prompt",
+      "prompt-based-learning",
+      "prompt-engineering",
+      "prompt-generator",
+      "prompt-learning",
+      "prompt-toolkit",
+      "prompt-tuning",
+      "promptengineering",
+      "text-to-image",
+      "text-to-speech",
+      "text-to-video"
+    ],
+    "url": "https://github.com/promptslab/Awesome-Prompt-Engineering"
+  },
+  {
+    "full_name": "Hunyuan-PromptEnhancer/PromptEnhancer",
+    "description": "PromptEnhancer is a prompt-rewriting tool, refining prompts into clearer, structured versions for better image generation.",
+    "stars": 3668,
+    "language": "Python",
+    "topics": [
+      "hunyuan",
+      "hunyuan-image",
+      "image-editing",
+      "image-to-image",
+      "prompt",
+      "prompt-engineering",
+      "prompt-enhancer",
+      "text-to-image",
+      "vlm"
+    ],
+    "url": "https://github.com/Hunyuan-PromptEnhancer/PromptEnhancer"
+  },
+  {
+    "full_name": "SBoudrias/Inquirer.js",
+    "description": "A collection of common interactive command line user interfaces.",
+    "stars": 21504,
+    "language": "TypeScript",
+    "topics": [
+      "cli",
+      "command-line",
+      "javascript",
+      "javascript-library",
+      "node-js",
+      "nodejs",
+      "prompt",
+      "typescript"
+    ],
+    "url": "https://github.com/SBoudrias/Inquirer.js"
+  },
+  {
+    "full_name": "jujumilk3/leaked-system-prompts",
+    "description": "Collection of leaked system prompts",
+    "stars": 14473,
+    "language": null,
+    "topics": [
+      "ai",
+      "document",
+      "llm",
+      "prompt"
+    ],
+    "url": "https://github.com/jujumilk3/leaked-system-prompts"
+  },
+  {
+    "full_name": "LouisShark/chatgpt_system_prompt",
+    "description": "A collection of GPT system prompts and various prompt injection/leaking knowledge.",
+    "stars": 10514,
+    "language": "HTML",
+    "topics": [
+      "gpt",
+      "prompt",
+      "prompt-engineering"
+    ],
+    "url": "https://github.com/LouisShark/chatgpt_system_prompt"
+  },
+  {
+    "full_name": "dontriskit/awesome-ai-system-prompts",
+    "description": "🧠 Curated collection of system prompts for top AI tools. Perfect for AI agent builders and prompt engineers. Incuding: ChatGPT, Claude, Perplexity, Manus, Claude-Code, Loveable, v0, Grok, same new, windsurf, notion, and MetaAI. ",
+    "stars": 5731,
+    "language": "TypeScript",
+    "topics": [],
+    "url": "https://github.com/dontriskit/awesome-ai-system-prompts"
+  },
+  {
+    "full_name": "langfuse/langfuse",
+    "description": "🪢 Open source LLM engineering platform: LLM Observability, metrics, evals, prompt management, playground, datasets. Integrates with OpenTelemetry, Langchain, OpenAI SDK, LiteLLM, and more. 🍊YC W23 ",
+    "stars": 24948,
+    "language": "TypeScript",
+    "topics": [
+      "analytics",
+      "autogen",
+      "evaluation",
+      "langchain",
+      "large-language-models",
+      "llama-index",
+      "llm",
+      "llm-evaluation",
+      "llm-observability",
+      "llmops",
+      "monitoring",
+      "observability",
+      "open-source",
+      "openai",
+      "playground",
+      "prompt-engineering",
+      "prompt-management",
+      "self-hosted",
+      "ycombinator"
+    ],
+    "url": "https://github.com/langfuse/langfuse"
+  },
+  {
+    "full_name": "Kiln-AI/Kiln",
+    "description": "Build, Evaluate, and Optimize AI Systems. Includes evals, RAG, agents, fine-tuning, synthetic data generation, dataset management, MCP, and more.",
+    "stars": 4749,
+    "language": "Python",
+    "topics": [
+      "ai",
+      "chain-of-thought",
+      "collaboration",
+      "dataset-generation",
+      "evals",
+      "evaluation",
+      "evaluation-framework",
+      "fine-tuning",
+      "machine-learning",
+      "macos",
+      "mcp",
+      "ml",
+      "ollama",
+      "openai",
+      "prompt",
+      "prompt-engineering",
+      "python",
+      "rlhf",
+      "synthetic-data",
+      "windows"
+    ],
+    "url": "https://github.com/Kiln-AI/Kiln"
+  },
+  {
+    "full_name": "OpenCSGs/csghub",
+    "description": "CSGHub is a brand-new open-source platform for managing LLMs, developed by the OpenCSG team. It offers both open-source and on-premise/SaaS solutions, with features comparable to Hugging Face. Gain full control over the lifecycle of LLMs, datasets, and agents, with Python SDK compatibility with Hugging Face. Join us! ⭐️",
+    "stars": 4673,
+    "language": "Vue",
+    "topics": [
+      "ai",
+      "asset-management",
+      "dataset",
+      "deepseek",
+      "deploy",
+      "finetune",
+      "git",
+      "huggingface",
+      "inference",
+      "llm",
+      "management-system",
+      "model",
+      "platform",
+      "prompt",
+      "ray",
+      "space"
+    ],
+    "url": "https://github.com/OpenCSGs/csghub"
+  },
+  {
+    "full_name": "verazuo/jailbreak_llms",
+    "description": "[CCS'24] A dataset consists of 15,140 ChatGPT prompts from Reddit, Discord, websites, and open-source datasets (including 1,405 jailbreak prompts).",
+    "stars": 3633,
+    "language": "Jupyter Notebook",
+    "topics": [
+      "chatgpt",
+      "jailbreak",
+      "jailbreaking",
+      "large-language-model",
+      "llm",
+      "llm-security",
+      "prompt"
+    ],
+    "url": "https://github.com/verazuo/jailbreak_llms"
+  },
+  {
+    "full_name": "poloclub/diffusiondb",
+    "description": "A large-scale text-to-image prompt gallery dataset based on Stable Diffusion",
+    "stars": 1375,
+    "language": "Python",
+    "topics": [
+      "ai-art",
+      "computer-vision",
+      "image-generation",
+      "prompt-engineering",
+      "stable-diffusion"
+    ],
+    "url": "https://github.com/poloclub/diffusiondb"
+  }
+]

@@ -1,0 +1,102 @@
+[
+  {
+    "id": "mehakjain07_stable-diffusion-prompts-collection_portrait.md_0",
+    "category": "character_design",
+    "subcategory": "general",
+    "prompt_text": "RAW photo, close-up portrait of a 28-year-old woman, natural freckles, green eyes, studio lighting with softbox, shallow depth of field, shot on Canon EOS R5, 85mm f/1.4 lens, ultra-detailed skin texture, 8k",
+    "parameters": {},
+    "model_compatibility": [
+      "stable-diffusion",
+      "midjourney",
+      "dall-e"
+    ],
+    "quality_score": 0.7999999999999999,
+    "source": "mehakjain07/stable-diffusion-prompts-collection",
+    "source_url": "https://github.com/mehakjain07/stable-diffusion-prompts-collection",
+    "examples": [],
+    "tags": [],
+    "created_at": "2026-04-16T08:36:37.725236",
+    "updated_at": "2026-04-16T08:36:37.725255",
+    "verification_status": "automated"
+  },
+  {
+    "id": "mehakjain07_stable-diffusion-prompts-collection_portrait.md_1",
+    "category": "text_to_image",
+    "subcategory": "general",
+    "prompt_text": "professional headshot, confident male executive, 40s, sharp jawline, neutral background, Rembrandt lighting, business attire, Hasselblad medium format quality, highly detailed, 8k resolution",
+    "parameters": {},
+    "model_compatibility": [
+      "stable-diffusion",
+      "midjourney",
+      "dall-e"
+    ],
+    "quality_score": 1.0,
+    "source": "mehakjain07/stable-diffusion-prompts-collection",
+    "source_url": "https://github.com/mehakjain07/stable-diffusion-prompts-collection",
+    "examples": [],
+    "tags": [],
+    "created_at": "2026-04-16T08:36:37.725298",
+    "updated_at": "2026-04-16T08:36:37.725301",
+    "verification_status": "automated"
+  },
+  {
+    "id": "mehakjain07_stable-diffusion-prompts-collection_portrait.md_2",
+    "category": "character_design",
+    "subcategory": "general",
+    "prompt_text": "oil painting portrait in the style of John Singer Sargent, young woman in Victorian dress, loose brushwork, warm candlelight, museum quality, highly detailed, fine art",
+    "parameters": {},
+    "model_compatibility": [
+      "stable-diffusion",
+      "midjourney",
+      "dall-e"
+    ],
+    "quality_score": 0.8999999999999999,
+    "source": "mehakjain07/stable-diffusion-prompts-collection",
+    "source_url": "https://github.com/mehakjain07/stable-diffusion-prompts-collection",
+    "examples": [],
+    "tags": [],
+    "created_at": "2026-04-16T08:36:37.725319",
+    "updated_at": "2026-04-16T08:36:37.725322",
+    "verification_status": "automated"
+  },
+  {
+    "id": "mehakjain07_stable-diffusion-prompts-collection_portrait.md_3",
+    "category": "character_design",
+    "subcategory": "fantasy",
+    "prompt_text": "fantasy warrior woman, ornate silver armor with gold filigree, epic fantasy art style, dramatic rim lighting, ethereal glow, highly detailed face, painterly style, ArtStation trending",
+    "parameters": {},
+    "model_compatibility": [
+      "stable-diffusion",
+      "midjourney",
+      "dall-e"
+    ],
+    "quality_score": 0.8999999999999999,
+    "source": "mehakjain07/stable-diffusion-prompts-collection",
+    "source_url": "https://github.com/mehakjain07/stable-diffusion-prompts-collection",
+    "examples": [],
+    "tags": [],
+    "created_at": "2026-04-16T08:36:37.725336",
+    "updated_at": "2026-04-16T08:36:37.725338",
+    "verification_status": "automated"
+  },
+  {
+    "id": "mehakjain07_stable-diffusion-prompts-collection_portrait.md_4",
+    "category": "character_design",
+    "subcategory": "general",
+    "prompt_text": "high fashion editorial portrait, androgynous model, avant-garde makeup, Vogue magazine aesthetic, dramatic shadows, high contrast, shot on Leica M, professional fashion photography, 8k",
+    "parameters": {},
+    "model_compatibility": [
+      "stable-diffusion",
+      "midjourney",
+      "dall-e"
+    ],
+    "quality_score": 0.9999999999999999,
+    "source": "mehakjain07/stable-diffusion-prompts-collection",
+    "source_url": "https://github.com/mehakjain07/stable-diffusion-prompts-collection",
+    "examples": [],
+    "tags": [],
+    "created_at": "2026-04-16T08:36:37.725352",
+    "updated_at": "2026-04-16T08:36:37.725355",
+    "verification_status": "automated"
+  }
+]

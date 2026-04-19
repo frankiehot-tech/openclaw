@@ -1,0 +1,90 @@
+[
+  {
+    "id": "baloglu321/deforum-works_README.md_2",
+    "category": "image_to_video",
+    "subcategory": "anime",
+    "prompt_text": "A collection of notebooks for creating AI-generated animations using Deforum Stable Diffusion and WarpFusion techniques. Transform text prompts into stunning animated sequences with full creative control over motion, camera movement, and visual evolution.",
+    "parameters": {},
+    "model_compatibility": [
+      "stable-diffusion",
+      "midjourney",
+      "dall-e"
+    ],
+    "quality_score": 0.4,
+    "source": "baloglu321/deforum-works",
+    "source_url": "https://github.com/baloglu321/deforum-works",
+    "examples": [],
+    "tags": [],
+    "created_at": "2026-04-15T07:43:40.216601",
+    "updated_at": "2026-04-15T07:43:40.216617",
+    "verification_status": "automated",
+    "usage_count": 0,
+    "success_rate": 0.0
+  },
+  {
+    "id": "baloglu321/deforum-works_README.md_9",
+    "category": "image_to_video",
+    "subcategory": "general",
+    "prompt_text": "The standard Deforum implementation for creating keyframe-based animations with Stable Diffusion.",
+    "parameters": {},
+    "model_compatibility": [
+      "stable-diffusion",
+      "midjourney",
+      "dall-e"
+    ],
+    "quality_score": 0.4,
+    "source": "baloglu321/deforum-works",
+    "source_url": "https://github.com/baloglu321/deforum-works",
+    "examples": [],
+    "tags": [],
+    "created_at": "2026-04-15T07:43:40.216725",
+    "updated_at": "2026-04-15T07:43:40.216729",
+    "verification_status": "automated",
+    "usage_count": 0,
+    "success_rate": 0.0
+  },
+  {
+    "id": "baloglu321/deforum-works_README.md_128",
+    "category": "image_to_video",
+    "subcategory": "general",
+    "prompt_text": "| **Best Use Case** | Quick animations | Professional videos |",
+    "parameters": {},
+    "model_compatibility": [
+      "stable-diffusion",
+      "midjourney",
+      "dall-e"
+    ],
+    "quality_score": 0.4,
+    "source": "baloglu321/deforum-works",
+    "source_url": "https://github.com/baloglu321/deforum-works",
+    "examples": [],
+    "tags": [],
+    "created_at": "2026-04-15T07:43:40.217716",
+    "updated_at": "2026-04-15T07:43:40.217719",
+    "verification_status": "automated",
+    "usage_count": 0,
+    "success_rate": 0.0
+  },
+  {
+    "id": "baloglu321/deforum-works_README.md_277",
+    "category": "text_to_image",
+    "subcategory": "general",
+    "prompt_text": "0: \"a peaceful zen garden, detailed, 4k\"",
+    "parameters": {},
+    "model_compatibility": [
+      "stable-diffusion",
+      "midjourney",
+      "dall-e"
+    ],
+    "quality_score": 0.4,
+    "source": "baloglu321/deforum-works",
+    "source_url": "https://github.com/baloglu321/deforum-works",
+    "examples": [],
+    "tags": [],
+    "created_at": "2026-04-15T07:43:40.218529",
+    "updated_at": "2026-04-15T07:43:40.218531",
+    "verification_status": "automated",
+    "usage_count": 0,
+    "success_rate": 0.0
+  }
+]

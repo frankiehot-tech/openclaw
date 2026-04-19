@@ -1,0 +1,33 @@
+# 文档质量阈值配置
+thresholds:
+  format_check:
+    required: true
+    exit_code: 0
+
+  link_check:
+    required: true
+    max_broken_links: 10
+    max_external_timeouts: 5
+
+  completeness_check:
+    required: false
+    min_score: 60
+    warning_threshold: 50
+
+  readability_analysis:
+    required: false
+    min_average_score: 65
+    max_files_below_50: 10%
+
+  categories:
+    user_docs:
+      min_readability_score: 70
+      min_completeness_score: 75
+
+    technical_docs:
+      min_readability_score: 60
+      min_completeness_score: 70
+
+    architecture_docs:
+      min_readability_score: 65
+      min_completeness_score: 80

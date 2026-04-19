@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mlt LC_NUMERIC="C" version="7.0.0" title="Open_Human_Project_Introduction" producer="kdenlive-cli">
+  <profile description="custom" width="1920" height="1080" progressive="1" sample_aspect_num="17280" sample_aspect_den="17280" display_aspect_num="16" display_aspect_den="9" frame_rate_num="30" frame_rate_den="1" colorspace="709"/>
+  <producer id="clip0" in="0" out="1799">
+    <property name="resource">color</property>
+    <property name="kdenlive:clipname">bg_gradient</property>
+    <property name="kdenlive:clip_type">3</property>
+    <property name="length">1800</property>
+  </producer>
+  <producer id="clip1" in="0" out="89">
+    <property name="resource">color</property>
+    <property name="kdenlive:clipname">title_intro</property>
+    <property name="kdenlive:clip_type">4</property>
+    <property name="length">90</property>
+  </producer>
+  <producer id="clip2" in="0" out="149">
+    <property name="resource">color</property>
+    <property name="kdenlive:clipname">product_shot</property>
+    <property name="kdenlive:clip_type">3</property>
+    <property name="length">150</property>
+  </producer>
+  <producer id="clip3" in="0" out="119">
+    <property name="resource">color</property>
+    <property name="kdenlive:clipname">call_to_action</property>
+    <property name="kdenlive:clip_type">4</property>
+    <property name="length">120</property>
+  </producer>
+  <playlist id="playlist0">
+    <property name="kdenlive:track_name">V1</property>
+    <entry producer="clip0" in="0" out="1799">
+    </entry>
+  </playlist>
+  <playlist id="playlist1">
+    <property name="kdenlive:track_name">V2</property>
+    <entry producer="clip1" in="0" out="89">
+    </entry>
+    <entry producer="clip2" in="0" out="149">
+    </entry>
+    <entry producer="clip3" in="0" out="119">
+    </entry>
+  </playlist>
+  <playlist id="playlist2">
+    <property name="kdenlive:track_name">A1</property>
+  </playlist>
+  <playlist id="playlist3">
+    <property name="kdenlive:track_name">A2</property>
+  </playlist>
+  <tractor id="maintractor">
+    <track producer="playlist0"/>
+    <track producer="playlist1"/>
+    <track producer="playlist2"/>
+    <track producer="playlist3"/>
+  </tractor>
+</mlt>

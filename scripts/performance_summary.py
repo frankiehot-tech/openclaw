@@ -1,0 +1,492 @@
+#!/usr/bin/env python3
+"""
+Performance Summary Dashboard Generator.
+
+Collects performance metrics and alerts, generates structured summary
+for dashboards, monitoring surfaces, and artifact integration.
+"""
+
+from __future__ import annotations
+
+import argparse
+import json
+import logging
+import sys
+import time
+from dataclasses import asdict, dataclass, field
+from datetime import datetime
+from pathlib import Path
+from typing import Any, Dict, List, Optional
+
+# Add project root to path
+project_root = Path(__file__).resolve().parent.parent
+sys.path.insert(0, str(project_root))
+
+logger = logging.getLogger(__name__)
+
+
+@dataclass
+class MetricSummary:
+    """Summary of a metric dimension."""
+
+    dimension: str
+    avg: float
+    min: float
+    max: float
+    count: int
+    labels: Dict[str, str]
+    unit: Optional[str] = None
+    trend: Optional[str] = None  # "up", "down", "stable"
+
+
+@dataclass
+class AlertSummary:
+    """Summary of an alert."""
+
+    alert_level: str
+    message: str
+    count: int
+    metric_dimension: str
+    timestamp: float
+
+
+@dataclass
+class PerformanceSummary:
+    """Overall performance summary."""
+
+    timestamp: float
+    time_window_seconds: int = 3600  # last hour
+
+    # System overview
+    total_tasks: int = 0
+    completed_tasks: int = 0
+    failed_tasks: int = 0
+    pending_tasks: int = 0
+    success_rate: float = 0.0
+    throughput_tasks_per_hour: float = 0.0
+    avg_response_time_seconds: float = 0.0
+
+    # Queue status
+    queues: List[Dict[str, Any]] = field(default_factory=list)
+
+    # Metric summaries
+    metric_summaries: List[MetricSummary] = field(default_factory=list)
+
+    # Alert summaries
+    alert_summaries: List[AlertSummary] = field(default_factory=list)
+
+    # Health status
+    overall_health: str = "unknown"  # "healthy", "degraded", "unhealthy"
+    health_score: float = 0.0
+
+    # Recommendations
+    recommendations: List[str] = field(default_factory=list)
+
+    def to_dict(self) -> Dict[str, Any]:
+        return asdict(self)
+
+    def to_markdown(self) -> str:
+        """Convert summary to markdown format."""
+        lines = []
+        lines.append("# Performance Summary Dashboard")
+        lines.append(f"**Generated**: {datetime.fromtimestamp(self.timestamp).isoformat()}")
+        lines.append(f"**Time Window**: {self.time_window_seconds // 3600} hours")
+        lines.append("")
+
+        lines.append("## System Overview")
+        lines.append(f"- **Total Tasks**: {self.total_tasks}")
+        lines.append(f"- **Completed**: {self.completed_tasks}")
+        lines.append(f"- **Failed**: {self.failed_tasks}")
+        lines.append(f"- **Pending**: {self.pending_tasks}")
+        lines.append(f"- **Success Rate**: {self.success_rate:.1%}")
+        lines.append(f"- **Throughput**: {self.throughput_tasks_per_hour:.1f} tasks/hour")
+        if self.avg_response_time_seconds > 0:
+            lines.append(f"- **Avg Response Time**: {self.avg_response_time_seconds:.1f} seconds")
+        lines.append(f"- **Overall Health**: {self.overall_health} ({self.health_score:.1%})")
+        lines.append("")
+
+        if self.queues:
+            lines.append("## Queue Status")
+            for queue in self.queues[:10]:  # Limit to 10 queues
+                queue_id = queue.get("queue_id", "unknown")
+                pending = queue.get("pending_items", 0)
+                completed = queue.get("completed_items", 0)
+                failed = queue.get("failed_items", 0)
+                lines.append(
+                    f"- **{queue_id}**: {pending} pending, {completed} completed, {failed} failed"
+                )
+            lines.append("")
+
+        if self.metric_summaries:
+            lines.append("## Key Metrics")
+            for metric in self.metric_summaries[:15]:  # Limit to 15 metrics
+                label_str = ""
+                if metric.labels:
+                    label_str = " (" + ", ".join(f"{k}={v}" for k, v in metric.labels.items()) + ")"
+                unit_str = f" {metric.unit}" if metric.unit else ""
+                lines.append(
+                    f"- **{metric.dimension}{label_str}**: {metric.avg:.2f}{unit_str} (min: {metric.min:.2f}, max: {metric.max:.2f}, samples: {metric.count})"
+                )
+            lines.append("")
+
+        if self.alert_summaries:
+            lines.append("## Active Alerts")
+            alert_counts = {}
+            for alert in self.alert_summaries:
+                key = f"{alert.alert_level}: {alert.message}"
+                alert_counts[key] = alert_counts.get(key, 0) + 1
+
+            for alert_text, count in alert_counts.items():
+                lines.append(f"- **{alert_text}** ({count} occurrences)")
+            lines.append("")
+
+        if self.recommendations:
+            lines.append("## Recommendations")
+            for rec in self.recommendations:
+                lines.append(f"- {rec}")
+            lines.append("")
+
+        lines.append("---")
+        lines.append("*Generated by Athena Agent Performance Monitoring*")
+
+        return "\n".join(lines)
+
+
+class SummaryGenerator:
+    """Generates performance summaries from metrics and alerts."""
+
+    def __init__(self, runtime_root: Path):
+        self.runtime_root = runtime_root
+
+        # Try to import performance metrics and alert modules
+        self.metrics_available = False
+        self.alerts_available = False
+
+        try:
+            # Add mini-agent path
+            mini_agent_path = runtime_root / "mini-agent"
+            if str(mini_agent_path) not in sys.path:
+                sys.path.insert(0, str(mini_agent_path))
+
+            from agent.core.alert_rules import get_global_alert_engine
+            from agent.core.performance_metrics import get_global_collector
+
+            self.collector = get_global_collector()
+            self.alert_engine = get_global_alert_engine()
+            self.metrics_available = True
+            self.alerts_available = True
+            logger.info("Performance metrics and alert engine available")
+        except ImportError as e:
+            logger.warning(f"Performance modules not available: {e}")
+
+    def collect_system_overview(self) -> Dict[str, Any]:
+        """Collect basic system overview from tasks.json."""
+        tasks_path = self.runtime_root / ".openclaw" / "orchestrator" / "tasks.json"
+
+        total_tasks = 0
+        completed_tasks = 0
+        failed_tasks = 0
+        pending_tasks = 0
+
+        if tasks_path.exists():
+            try:
+                with open(tasks_path, "r", encoding="utf-8") as f:
+                    tasks_data = json.load(f)
+
+                tasks = tasks_data.get("tasks", [])
+                total_tasks = len(tasks)
+
+                for task in tasks:
+                    status = task.get("status", "")
+                    if status == "completed":
+                        completed_tasks += 1
+                    elif status == "failed":
+                        failed_tasks += 1
+                    elif status == "pending":
+                        pending_tasks += 1
+            except Exception as e:
+                logger.warning(f"Failed to parse tasks.json: {e}")
+
+        success_rate = (
+            completed_tasks / (completed_tasks + failed_tasks)
+            if (completed_tasks + failed_tasks) > 0
+            else 0.0
+        )
+
+        # Estimate throughput (last 24 hours)
+        throughput = 0.0  # Simplified - could calculate from timestamps
+
+        return {
+            "total_tasks": total_tasks,
+            "completed_tasks": completed_tasks,
+            "failed_tasks": failed_tasks,
+            "pending_tasks": pending_tasks,
+            "success_rate": success_rate,
+            "throughput_tasks_per_hour": throughput,
+        }
+
+    def collect_queue_status(self) -> List[Dict[str, Any]]:
+        """Collect queue status from plan_queue directory."""
+        queue_status = []
+        queue_dir = self.runtime_root / ".openclaw" / "plan_queue"
+
+        if not queue_dir.exists():
+            return queue_status
+
+        for queue_file in queue_dir.glob("*.json"):
+            if queue_file.name.endswith(".lock"):
+                continue
+
+            try:
+                with open(queue_file, "r", encoding="utf-8") as f:
+                    queue_data = json.load(f)
+
+                queue_id = queue_data.get("queue_id", queue_file.stem)
+                items = queue_data.get("items", [])
+
+                pending_items = len([item for item in items if item.get("status") == "pending"])
+                completed_items = len([item for item in items if item.get("status") == "completed"])
+                failed_items = len([item for item in items if item.get("status") == "failed"])
+                running_items = len([item for item in items if item.get("status") == "running"])
+
+                queue_status.append(
+                    {
+                        "queue_id": queue_id,
+                        "total_items": len(items),
+                        "pending_items": pending_items,
+                        "completed_items": completed_items,
+                        "failed_items": failed_items,
+                        "running_items": running_items,
+                    }
+                )
+            except Exception as e:
+                logger.warning(f"Failed to parse queue file {queue_file}: {e}")
+
+        return queue_status
+
+    def collect_metric_summaries(self) -> List[MetricSummary]:
+        """Collect metric summaries from performance metrics collector."""
+        if not self.metrics_available:
+            return []
+
+        try:
+            aggregations = self.collector.get_aggregations()
+            summaries = []
+
+            for agg in aggregations:
+                # Map dimension to unit
+                unit_map = {
+                    "response_time": "seconds",
+                    "queue_length": "tasks",
+                    "failure_rate": "ratio",
+                    "concurrency": "tasks",
+                    "success_rate": "ratio",
+                    "heartbeat_freshness": "seconds",
+                    "load": "ratio",
+                }
+
+                unit = unit_map.get(agg.dimension.value)
+
+                summary = MetricSummary(
+                    dimension=agg.dimension.value,
+                    avg=agg.avg,
+                    min=agg.min,
+                    max=agg.max,
+                    count=agg.count,
+                    labels=agg.labels,
+                    unit=unit,
+                )
+                summaries.append(summary)
+
+            return summaries
+        except Exception as e:
+            logger.warning(f"Failed to collect metric summaries: {e}")
+            return []
+
+    def collect_alert_summaries(self) -> List[AlertSummary]:
+        """Collect alert summaries from alert engine."""
+        if not self.alerts_available:
+            return []
+
+        try:
+            # Evaluate alerts first
+            self.alert_engine.evaluate_all()
+            active_alerts = self.alert_engine.get_active_alerts()
+
+            summaries = []
+            for alert in active_alerts:
+                summary = AlertSummary(
+                    alert_level=alert.alert_level.value,
+                    message=alert.message,
+                    count=1,
+                    metric_dimension=alert.metric_dimension.value,
+                    timestamp=alert.timestamp,
+                )
+                summaries.append(summary)
+
+            return summaries
+        except Exception as e:
+            logger.warning(f"Failed to collect alert summaries: {e}")
+            return []
+
+    def generate_summary(self, time_window_seconds: int = 3600) -> PerformanceSummary:
+        """Generate comprehensive performance summary."""
+        logger.info("Generating performance summary...")
+
+        system_overview = self.collect_system_overview()
+        queue_status = self.collect_queue_status()
+        metric_summaries = self.collect_metric_summaries()
+        alert_summaries = self.collect_alert_summaries()
+
+        # Calculate overall health
+        overall_health = "healthy"
+        health_score = 1.0
+
+        if alert_summaries:
+            critical_alerts = [a for a in alert_summaries if a.alert_level == "critical"]
+            warning_alerts = [a for a in alert_summaries if a.alert_level == "warning"]
+
+            if critical_alerts:
+                overall_health = "unhealthy"
+                health_score = 0.3
+            elif warning_alerts:
+                overall_health = "degraded"
+                health_score = 0.7
+
+        # Generate recommendations
+        recommendations = []
+
+        if system_overview["success_rate"] < 0.8:
+            recommendations.append(
+                "Improve task success rate (currently {:.1%})".format(
+                    system_overview["success_rate"]
+                )
+            )
+
+        if alert_summaries:
+            recommendations.append(f"Address {len(alert_summaries)} active alerts")
+
+        total_pending = sum(q["pending_items"] for q in queue_status)
+        if total_pending > 20:
+            recommendations.append(f"Reduce backlog ({total_pending} pending tasks)")
+
+        summary = PerformanceSummary(
+            timestamp=time.time(),
+            time_window_seconds=time_window_seconds,
+            total_tasks=system_overview["total_tasks"],
+            completed_tasks=system_overview["completed_tasks"],
+            failed_tasks=system_overview["failed_tasks"],
+            pending_tasks=system_overview["pending_tasks"],
+            success_rate=system_overview["success_rate"],
+            throughput_tasks_per_hour=system_overview["throughput_tasks_per_hour"],
+            queues=queue_status,
+            metric_summaries=metric_summaries,
+            alert_summaries=alert_summaries,
+            overall_health=overall_health,
+            health_score=health_score,
+            recommendations=recommendations[:5],  # Limit to 5 recommendations
+        )
+
+        logger.info(
+            f"Summary generated: {len(metric_summaries)} metrics, {len(alert_summaries)} alerts"
+        )
+        return summary
+
+    def export_summary(self, summary: PerformanceSummary, output_dir: Path) -> Dict[str, Path]:
+        """Export summary to JSON and markdown files."""
+        output_dir.mkdir(parents=True, exist_ok=True)
+
+        timestamp = datetime.fromtimestamp(summary.timestamp).strftime("%Y%m%d_%H%M%S")
+
+        # JSON output
+        json_path = output_dir / f"performance_summary_{timestamp}.json"
+        with open(json_path, "w", encoding="utf-8") as f:
+            json.dump(summary.to_dict(), f, indent=2, ensure_ascii=False)
+
+        # Markdown output
+        md_path = output_dir / f"performance_summary_{timestamp}.md"
+        with open(md_path, "w", encoding="utf-8") as f:
+            f.write(summary.to_markdown())
+
+        logger.info(f"Summary exported to {json_path} and {md_path}")
+        return {"json": json_path, "markdown": md_path}
+
+
+def main():
+    parser = argparse.ArgumentParser(description="Generate performance summary dashboard")
+    parser.add_argument(
+        "--runtime-root",
+        type=Path,
+        default=Path("/Volumes/1TB-M2/openclaw"),
+        help="Runtime root directory (default: /Volumes/1TB-M2/openclaw)",
+    )
+    parser.add_argument(
+        "--output-dir",
+        type=Path,
+        default=Path("/Volumes/1TB-M2/openclaw/workspace/artifacts"),
+        help="Output directory for summary files (default: workspace/artifacts)",
+    )
+    parser.add_argument(
+        "--time-window",
+        type=int,
+        default=3600,
+        help="Time window for analysis in seconds (default: 3600 = 1 hour)",
+    )
+    parser.add_argument(
+        "--no-export",
+        action="store_true",
+        help="Don't export files, just print summary",
+    )
+
+    args = parser.parse_args()
+
+    # Setup logging
+    logging.basicConfig(
+        level=logging.INFO,
+        format="%(asctime)s - %(name)s - %(levelname)s - %(message)s",
+    )
+
+    # Generate summary
+    generator = SummaryGenerator(args.runtime_root)
+    summary = generator.generate_summary(time_window_seconds=args.time_window)
+
+    if args.no_export:
+        # Print markdown to stdout
+        print(summary.to_markdown())
+    else:
+        # Export files
+        result = generator.export_summary(summary, args.output_dir)
+        print(f"\nPerformance summary generated:")
+        print(f"  JSON: {result['json']}")
+        print(f"  Markdown: {result['md']}")
+
+        # Also create a latest symlink
+        try:
+            latest_json = args.output_dir / "performance_summary_latest.json"
+            if latest_json.exists():
+                latest_json.unlink()
+            latest_json.symlink_to(result["json"].name)
+
+            latest_md = args.output_dir / "performance_summary_latest.md"
+            if latest_md.exists():
+                latest_md.unlink()
+            latest_md.symlink_to(result["md"].name)
+
+            print(f"  Latest symlinks updated")
+        except Exception as e:
+            logger.warning(f"Failed to create latest symlinks: {e}")
+
+    # Exit with non-zero code if system is unhealthy
+    if summary.overall_health == "unhealthy":
+        print("\n⚠️  System is unhealthy - check active alerts")
+        sys.exit(1)
+    elif summary.overall_health == "degraded":
+        print("\n⚠️  System is degraded - review warnings")
+        sys.exit(0)
+    else:
+        print("\n✅ System is healthy")
+        sys.exit(0)
+
+
+if __name__ == "__main__":
+    main()

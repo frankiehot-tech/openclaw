@@ -1,0 +1,31 @@
+{
+  "timestamp": "2026-04-16 12:58:43",
+  "assets_root": "/Volumes/1TB-M2/openclaw/scripts/clawra/assets/athena_ip",
+  "integration_scenarios": [
+    {
+      "name": "提示词生成使用IP语气",
+      "description": "使用Athena IP语气生成技术内容提示词"
+    },
+    {
+      "name": "社交媒体内容生成",
+      "description": "使用社交媒体模板生成技术内容"
+    },
+    {
+      "name": "演示材料生成",
+      "description": "使用演示模板生成技术演示"
+    }
+  ],
+  "accessible_assets": [
+    "05_content_templates/social_media/README.md",
+    "05_content_templates/presentation/README.md",
+    "04_voice_system/sound_effects/sound_effects_library.md"
+  ],
+  "test_summary": {
+    "directory_structure": "test_directory_structure",
+    "core_documentation": "test_core_documentation_files",
+    "yaml_syntax": "test_yaml_template_syntax",
+    "content_templates": "test_content_template_structure",
+    "brand_consistency": "test_brand_consistency",
+    "implementation_examples": "test_implementation_examples"
+  }
+}

@@ -1,0 +1,96 @@
+{
+  "generated_at": "2026-04-16 18:13:16",
+  "total_variants": 10,
+  "variants": [
+    {
+      "id": 1,
+      "name": "classical_athena",
+      "prompt": "古典智慧女神雅典娜，身着古希腊长袍，手持权杖和盾牌，背景是帕特农神庙，漫威电影风格，光线神圣庄严",
+      "style": "realistic",
+      "description": "古典智慧女神形象，体现哲学深度和永恒价值",
+      "target_audience": "70后、80后",
+      "narrative_theme": "传统智慧与永恒价值"
+    },
+    {
+      "id": 2,
+      "name": "data_wisdom",
+      "prompt": "数据智慧女神，全身由流动的数据流构成，面部是水晶显示屏显示实时数据，背景是数字矩阵，漫威电影风格",
+      "style": "fantasy",
+      "description": "数据驱动的现代智慧形象，体现科技感和未来感",
+      "target_audience": "80后、90后",
+      "narrative_theme": "数据驱动决策与人工智能"
+    },
+    {
+      "id": 3,
+      "name": "cyberpunk_athena",
+      "prompt": "赛博朋克雅典娜，霓虹灯机械装甲，全息投影翅膀，站在未来都市雨夜中，漫威电影风格，霓虹色调",
+      "style": "cyberpunk",
+      "description": "赛博朋克视觉风格，融合高科技与低生活美学",
+      "target_audience": "90后、10后",
+      "narrative_theme": "高科技低生活与数字反抗"
+    },
+    {
+      "id": 4,
+      "name": "minimalist_athena",
+      "prompt": "极简主义雅典娜，纯白背景，简洁线条勾勒的女神轮廓，几何形状构成的头盔和盾牌，漫威电影风格",
+      "style": "minimalist",
+      "description": "极简主义设计，强调留白和功能优先美学",
+      "target_audience": "技术决策者",
+      "narrative_theme": "简洁设计与功能主义"
+    },
+    {
+      "id": 5,
+      "name": "futuristic_athena",
+      "prompt": "未来主义雅典娜，液态金属身体，全息投影武器，悬浮在太空站中，漫威电影风格，流畅线条",
+      "style": "futuristic",
+      "description": "未来主义视觉语言，流畅线条和智能材料质感",
+      "target_audience": "技术愿景者",
+      "narrative_theme": "科技未来与人类进化"
+    },
+    {
+      "id": 6,
+      "name": "silicon_symbiosis",
+      "prompt": "硅基共生智慧体，半机械半生物形态，皮肤是电路板纹理，眼睛是蓝色全息投影，背景是科技森林，三体叙事风格",
+      "style": "artistic",
+      "description": "硅基共生主题核心形象，人工智能与人类协作进化",
+      "target_audience": "所有技术用户",
+      "narrative_theme": "硅基共生与协作进化"
+    },
+    {
+      "id": 7,
+      "name": "marvel_superhero",
+      "prompt": "漫威超级英雄雅典娜，高科技战甲，能量盾牌和激光矛，动态战斗姿势，漫威电影海报风格，爆炸背景",
+      "style": "realistic",
+      "description": "漫威超级英雄风格，强调动作感和视觉冲击力",
+      "target_audience": "80后、90后漫威粉丝",
+      "narrative_theme": "英雄叙事与正义使命"
+    },
+    {
+      "id": 8,
+      "name": "three_body_dark_forest",
+      "prompt": "三体黑暗森林雅典娜，站在宇宙尺度观察者角度，背景是银河系和黑暗森林法则文字，表情深邃神秘，三体小说插画风格",
+      "style": "illustration",
+      "description": "三体黑暗森林风格，体现宇宙尺度和哲学思考",
+      "target_audience": "硬核科幻爱好者",
+      "narrative_theme": "黑暗森林法则与宇宙社会学"
+    },
+    {
+      "id": 9,
+      "name": "tech_goddess",
+      "prompt": "科技女神雅典娜，教学姿势，周围漂浮着数学公式、代码片段和科学原理图表，教室背景，教育插画风格",
+      "style": "illustration",
+      "description": "科技教育形象，强调知识传播和教学价值",
+      "target_audience": "学生、教育工作者",
+      "narrative_theme": "知识传播与技术教育"
+    },
+    {
+      "id": 10,
+      "name": "digital_prophet",
+      "prompt": "数字先知雅典娜，闭眼冥想姿势，周围是流动的时间线和预测数据可视化，背景是神经网络结构，数据艺术风格",
+      "style": "artistic",
+      "description": "数据预测形象，体现分析能力和未来洞察",
+      "target_audience": "数据分析师、产品经理",
+      "narrative_theme": "数据预测与未来洞察"
+    }
+  ]
+}

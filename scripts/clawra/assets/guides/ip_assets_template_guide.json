@@ -1,0 +1,183 @@
+{
+  "timestamp": "2026-04-16",
+  "title": "Athena IP数字资产模板使用指南",
+  "introduction": "本指南介绍如何使用Athena IP数字资产模板生成品牌化内容",
+  "templates": [
+    {
+      "id": "product_demo_001",
+      "title": "Athena v2.0：硅基共生智慧体网络发布",
+      "type": "presentation",
+      "target_audience": [
+        "技术决策者",
+        "投资者",
+        "开发者社区"
+      ],
+      "recommended_styles": [
+        "data_wisdom",
+        "futuristic"
+      ]
+    },
+    {
+      "id": "tech_social_001",
+      "title": "技术内容社交媒体模板",
+      "type": "social_media",
+      "target_audience": [
+        "开发者",
+        "技术布道者",
+        "开源贡献者"
+      ],
+      "recommended_styles": [
+        "cyberpunk",
+        "data_wisdom"
+      ]
+    },
+    {
+      "id": "technical_doc_001",
+      "title": "Athena技术文档模板",
+      "type": "documentation",
+      "target_audience": [
+        "开发者",
+        "技术写作者",
+        "集成工程师"
+      ],
+      "recommended_styles": [
+        "minimalist",
+        "classical_athena"
+      ]
+    },
+    {
+      "id": "product_release_001",
+      "title": "Athena产品发布模板",
+      "type": "announcement",
+      "target_audience": [
+        "用户",
+        "媒体",
+        "投资者",
+        "行业分析师"
+      ],
+      "recommended_styles": [
+        "futuristic",
+        "cyberpunk"
+      ]
+    },
+    {
+      "id": "tutorial_001",
+      "title": "Athena技术教程模板",
+      "type": "tutorial",
+      "target_audience": [
+        "初学者",
+        "中级开发者",
+        "教育者"
+      ],
+      "recommended_styles": [
+        "cyberpunk",
+        "data_wisdom",
+        "minimalist"
+      ]
+    },
+    {
+      "id": "community_update_001",
+      "title": "Athena社区更新模板",
+      "type": "community",
+      "target_audience": [
+        "开源贡献者",
+        "社区成员",
+        "项目关注者"
+      ],
+      "recommended_styles": [
+        "classical_athena",
+        "data_wisdom"
+      ]
+    }
+  ],
+  "visual_styles": [
+    {
+      "id": "classical_athena",
+      "name": "classical_athena",
+      "description": "古典智慧女神形象，体现哲学深度和永恒价值",
+      "usage_scenarios": [
+        "品牌起源故事",
+        "哲学深度内容",
+        "企业愿景展示"
+      ],
+      "suitable_templates": [
+        "community_update_001",
+        "technical_doc_001"
+      ]
+    },
+    {
+      "id": "data_wisdom",
+      "name": "data_wisdom",
+      "description": "数据驱动的现代智慧形象，体现科技感和未来感",
+      "usage_scenarios": [
+        "技术产品演示",
+        "数据可视化",
+        "AI应用展示"
+      ],
+      "suitable_templates": [
+        "product_demo_001",
+        "tech_social_001",
+        "tutorial_001"
+      ]
+    },
+    {
+      "id": "cyberpunk",
+      "name": "cyberpunk",
+      "description": "赛博朋克视觉风格，融合高科技与低生活美学，霓虹色调与数字网格",
+      "usage_scenarios": [
+        "前沿技术展示",
+        "未来城市概念",
+        "数字艺术创作",
+        "黑客文化内容"
+      ],
+      "suitable_templates": [
+        "tech_social_001",
+        "tutorial_001",
+        "product_release_001"
+      ]
+    },
+    {
+      "id": "minimalist",
+      "name": "minimalist",
+      "description": "极简主义设计，强调留白、清晰层级和功能优先美学",
+      "usage_scenarios": [
+        "技术文档",
+        "API参考",
+        "企业演示",
+        "教育材料"
+      ],
+      "suitable_templates": [
+        "technical_doc_001",
+        "tutorial_001"
+      ]
+    },
+    {
+      "id": "futuristic",
+      "name": "futuristic",
+      "description": "未来主义视觉语言，流畅线条、全息效果和智能材料质感",
+      "usage_scenarios": [
+        "产品愿景",
+        "科技预测",
+        "概念演示",
+        "创新发布会"
+      ],
+      "suitable_templates": [
+        "product_release_001",
+        "product_demo_001"
+      ]
+    }
+  ],
+  "best_practices": [
+    "技术文档建议使用minimalist风格，强调清晰和可读性",
+    "产品发布建议使用futuristic风格，突出创新和未来感",
+    "社交媒体内容建议使用data_wisdom或cyberpunk风格，增强视觉冲击力",
+    "教程内容可以尝试多种风格，根据目标受众选择",
+    "社区更新建议使用classical_athena风格，体现社区价值和传承"
+  ],
+  "integration_examples": [
+    "在Clawra生产系统中调用generate_branded_content()方法",
+    "使用get_template()获取特定模板进行自定义",
+    "使用get_visual_identity()获取视觉风格指南",
+    "结合GitHub用户画像优化内容策略"
+  ]
+}

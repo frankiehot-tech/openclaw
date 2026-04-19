@@ -1,0 +1,27 @@
+name: dashscope-platform
+version: 1.0.0
+description: 阿里云百炼平台(DashScope)技能包 - API密钥管理、IP白名单配置、模型可用性检查、故障排查
+type: platform_integration
+source: claude_code_setup
+created_at: 2026-04-12T16:00:00+08:00
+status: 已验证通过
+
+capabilities:
+  - api_key_management
+  - ip_whitelist_configuration
+  - model_availability_check
+  - dashscope_api_integration
+  - qwen_model_access
+  - maintenance_tools
+  - openai_compatible_api
+
+dependencies:
+  - dashscope_api_key
+  - network_access
+
+config:
+  dashscope_api_key: REDACTED_DASHSCOPE_KEY
+  whitelisted_ip: 178.208.190.142
+  primary_model: qwen3.6-plus
+  api_compatibility: openai_format
+  alternative_tool: claude-qwen-alt.sh

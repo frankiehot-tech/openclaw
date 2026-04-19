@@ -1,0 +1,51 @@
+{
+  "total_responses": 7,
+  "completion_rate": 1.0,
+  "overall_score": 3.8571428571428577,
+  "dimension_scores": {
+    "visual_style": 4.285714285714286,
+    "narrative_style": 4.0,
+    "theme_alignment": 4.142857142857143,
+    "audience_fit": 4.0,
+    "emotional_impact": 3.857142857142857,
+    "overall_impression": 3.8571428571428577
+  },
+  "segment_breakdown": {
+    "80后": {
+      "visual_style": 4.333333333333334,
+      "narrative_style": 4.0,
+      "theme_alignment": 4.333333333333333,
+      "audience_fit": 4.0,
+      "emotional_impact": 4.0,
+      "overall_impression": 4.0
+    },
+    "90后": {
+      "visual_style": 5.0,
+      "narrative_style": 4.0,
+      "theme_alignment": 4.0,
+      "audience_fit": 4.5,
+      "emotional_impact": 4.0,
+      "overall_impression": 4.0
+    },
+    "70后": {
+      "visual_style": 3.4999999999999996,
+      "narrative_style": 4.0,
+      "theme_alignment": 4.0,
+      "audience_fit": 3.5000000000000004,
+      "emotional_impact": 3.5,
+      "overall_impression": 3.5000000000000004
+    }
+  },
+  "key_insights": [
+    "总体印象中等（3.86/5），有改进空间",
+    "80后用户对IP形象满意度高（4.00/5）",
+    "90后用户对IP形象满意度高（4.00/5）",
+    "共收集到7份有效调查响应"
+  ],
+  "recommendations": [
+    "保持当前设计水准，考虑扩展更多IP形象变体",
+    "探索新的视觉风格和叙事方式，丰富IP形象层次",
+    "定期进行用户调查，持续收集反馈并优化"
+  ],
+  "generated_at": "2026-04-16T17:17:10.886736"
+}

@@ -1,0 +1,104 @@
+[
+  {
+    "prompt": "DRAWING a drawing of [Character], crayon on white paper, in the style of a children's book illustration – simple, cute, and full-color, with [two glitter accent colors] glitter accents and high detail.",
+    "source": "glidea/banana-prompt-quicker",
+    "file": "prompts.json",
+    "type": "json"
+  },
+  {
+    "prompt": "Dreamscape or ethereal style {prompt}. surreal, mysterious, fantasy, soft glows, dreamlike sequences, pastel palette, gentle lighting, highly detailed",
+    "source": "tin2tin/Pallaidium",
+    "file": "styles.json",
+    "type": "json"
+  },
+  {
+    "prompt": "Ethereal fantasy concept art of {prompt}. magnificent, celestial, painterly, epic, majestic, magical, cover art, dreamy",
+    "source": "tin2tin/Pallaidium",
+    "file": "styles.json",
+    "type": "json"
+  },
+  {
+    "prompt": "Surrealist art {prompt}. dreamlike, mysterious, provocative, symbolic, intricate, detailed",
+    "source": "tin2tin/Pallaidium",
+    "file": "styles.json",
+    "type": "json"
+  },
+  {
+    "prompt": "Watercolor painting style {prompt}. vibrant, beautiful, painterly, detailed, textural, artistic, soft edges",
+    "source": "tin2tin/Pallaidium",
+    "file": "styles.json",
+    "type": "json"
+  },
+  {
+    "prompt": "Modern American comic style {prompt}. digital, color, dynamic action, graphic novel art, vibrant, highly detailed",
+    "source": "tin2tin/Pallaidium",
+    "file": "styles.json",
+    "type": "json"
+  },
+  {
+    "prompt": "Manga style {prompt}. vibrant, high-energy, detailed, iconic, Japanese comic style, screentones, intricate",
+    "source": "tin2tin/Pallaidium",
+    "file": "styles.json",
+    "type": "json"
+  },
+  {
+    "prompt": "Professional 3D model {prompt}. Octane render, Blender render, Unreal Engine, highly detailed, volumetric lighting, dramatic lighting",
+    "source": "tin2tin/Pallaidium",
+    "file": "styles.json",
+    "type": "json"
+  },
+  {
+    "prompt": "Concept art {prompt}. digital artwork, illustrative, painterly, matte painting, highly detailed, ArtStation",
+    "source": "tin2tin/Pallaidium",
+    "file": "styles.json",
+    "type": "json"
+  },
+  {
+    "prompt": "Storyboard drawing or sketch style {prompt}. simplified sketch, soft gestural lines, cross hatching, monochrome or muted colors, focus on composition and action, intricate, 8k",
+    "source": "tin2tin/Pallaidium",
+    "file": "styles.json",
+    "type": "json"
+  },
+  {
+    "prompt": "Anime artwork {prompt}. anime style, key visual, vibrant, studio anime, highly detailed, cell shading",
+    "source": "tin2tin/Pallaidium",
+    "file": "styles.json",
+    "type": "json"
+  },
+  {
+    "prompt": "Dystopian style {prompt}. bleak, post-apocalyptic, somber, dramatic, highly detailed, oppressive atmosphere",
+    "source": "tin2tin/Pallaidium",
+    "file": "styles.json",
+    "type": "json"
+  },
+  {
+    "prompt": "Biomechanical or cybernetic style {prompt}. blend of organic and mechanical elements, futuristic, cybernetic enhancements, robotics, Giger influence, intricate, detailed",
+    "source": "tin2tin/Pallaidium",
+    "file": "styles.json",
+    "type": "json"
+  },
+  {
+    "prompt": "Architectural style {prompt}. Clean lines, geometric shapes, minimalist or complex patterns, modern or historical, highly detailed building facade or interior",
+    "source": "tin2tin/Pallaidium",
+    "file": "styles.json",
+    "type": "json"
+  },
+  {
+    "prompt": "HDR photo of {prompt}. Vivid, rich details, clear shadows and highlights, realistic, intense, enhanced contrast, highly detailed",
+    "source": "tin2tin/Pallaidium",
+    "file": "styles.json",
+    "type": "json"
+  },
+  {
+    "prompt": "Silhouette style {prompt} against a bright background. High contrast, minimalistic, stark, dramatic, subject in shadow",
+    "source": "tin2tin/Pallaidium",
+    "file": "styles.json",
+    "type": "json"
+  },
+  {
+    "prompt": "Techwear fashion {prompt}. Futuristic, cyberpunk, urban, tactical, sleek, dark colors, functional, straps, buckles, highly detailed",
+    "source": "tin2tin/Pallaidium",
+    "file": "styles.json",
+    "type": "json"
+  }
+]

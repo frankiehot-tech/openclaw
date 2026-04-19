@@ -1,0 +1,25 @@
+{
+  "timestamp": "2026-04-14 18:49:59",
+  "results": [
+    {
+      "test_name": "直接点击",
+      "passed": true,
+      "timestamp": "18:49:59"
+    },
+    {
+      "test_name": "JavaScript点击",
+      "passed": false,
+      "timestamp": "18:49:59"
+    },
+    {
+      "test_name": "直接发送命令",
+      "passed": true,
+      "timestamp": "18:49:59"
+    }
+  ],
+  "summary": {
+    "total_tests": 3,
+    "passed_tests": 2,
+    "failed_tests": 1
+  }
+}

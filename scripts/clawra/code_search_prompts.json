@@ -1,0 +1,8 @@
+[
+  {
+    "prompt": "DRAWING a drawing of [Character], crayon on white paper, in the style of a children's book illustration – simple, cute, and full-color, with [two glitter accent colors] glitter accents and high detail.",
+    "source": "glidea/banana-prompt-quicker",
+    "file": "prompts.json",
+    "type": "json"
+  }
+]

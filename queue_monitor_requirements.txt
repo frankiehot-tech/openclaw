@@ -1,0 +1,16 @@
+# 队列监控系统依赖包
+# 基本依赖
+psutil>=5.9.0
+requests>=2.28.0
+
+# 可选依赖（用于YAML配置文件支持）
+PyYAML>=6.0
+
+# 安装所有依赖：
+# pip install -r queue_monitor_requirements.txt
+
+# 仅安装基本依赖：
+# pip install psutil requests
+
+# 安装完整依赖（包含YAML支持）：
+# pip install psutil requests PyYAML

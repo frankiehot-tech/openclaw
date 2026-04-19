@@ -1,0 +1,69 @@
+{
+  "analysis_time": "2026-04-05T17:43:10.950052+08:00",
+  "total_queues_analyzed": 5,
+  "total_errors_found": 1,
+  "error_details": [
+    {
+      "item_id": "skill_wiring_and_cli_anything",
+      "queue_id": "openhuman_athena_upgrade_20260326",
+      "title": "OpenHuman-Athena-沟通对齐+Skill接线+CLI-Anything增量接入-VSCode执行指令",
+      "status": "failed",
+      "error": "stale queue task: task started 1182s ago with no heartbeat",
+      "summary": "stale queue task: task started 1182s ago with no heartbeat",
+      "result_excerpt": "\u001b[91m\u001b[1m| \u001b[0m\u001b[90m Bash \u001b[0m检查 agents 目录 目录不存在 \u001b[93m\u001b[1m| \u001b[0m\u001b[90m Todo \u001b[0m9 todos \u001b[93m\u001b[1m| \u001b[0m\u001b[90m Todo \u001b[0m9 todos \u001b[91m\u001b[1m| \u001b[0m\u001b[90m Bash \u001b[0m创建 agents 目录 \u001b[92m\u001b[1m| \u001b[0m\u001b[90m Write \u001b[0mVolumes/1TB-M2/openclaw/agents/ATHENA_COMMUNICATION_CONTRACT.md \u001b[93m\u001b[1m| \u001b[0m\u001b…",
+      "started_at": "2026-03-28T11:28:05+08:00",
+      "finished_at": "2026-03-28T11:47:47+08:00",
+      "category": "timeout",
+      "root_cause": "",
+      "retryable": true
+    }
+  ],
+  "category_distribution": {
+    "timeout": 1,
+    "oom": 0,
+    "config": 0,
+    "logic": 0,
+    "network": 0,
+    "resource": 0,
+    "unknown": 0
+  },
+  "category_percentages": {
+    "timeout": 100.0,
+    "oom": 0.0,
+    "config": 0.0,
+    "logic": 0.0,
+    "network": 0.0,
+    "resource": 0.0,
+    "unknown": 0.0
+  },
+  "retryable_distribution": {
+    "retryable": 1,
+    "non_retryable": 0
+  },
+  "retryable_percentages": {
+    "retryable": 100.0,
+    "non_retryable": 0.0
+  },
+  "repair_priority": [
+    {
+      "category": "timeout",
+      "count": 1,
+      "percentage": 100.0,
+      "frequency_score": 70.0,
+      "severity_score": 30,
+      "total_score": 100.0,
+      "priority": "P0",
+      "description": "超时类错误",
+      "repair_action": "1. 增加超时时间阈值\n2. 优化任务处理逻辑\n3. 实现心跳监控和自动重启\n4. 添加任务进度检查点"
+    }
+  ],
+  "recommendations": [
+    "🚨 主要错误类型: 超时类错误 (100.0%) - 需要立即重点修复",
+    "🔄 可重试错误: 100.0% - 建议实现指数退避重试机制",
+    "❌ 不可重试错误: 0.0% - 需要人工干预或配置修复",
+    "📊 建议建立实时错误监控和告警系统",
+    "🔧 建议实现错误自动分类和根因分析",
+    "⚡ 建议添加任务降级和熔断机制",
+    "📈 建议定期生成错误分析报告"
+  ]
+}
