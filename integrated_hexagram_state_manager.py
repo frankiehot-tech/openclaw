@@ -454,8 +454,12 @@ class IntegratedHexagramStateManager:
         print(f"   河图状态: {analysis.hetu_state_name} ({analysis.hetu_state.value})")
         print(f"   质量评分: {analysis.quality_score:.2f}/10")
         print(f"   到完美状态距离: {analysis.evolution_distance_to_perfect} 步")
-        active_dims_str = ', '.join(analysis.active_dimensions) if analysis.active_dimensions else '无'
-        inactive_dims_str = ', '.join(analysis.inactive_dimensions) if analysis.inactive_dimensions else '无'
+        active_dims_str = (
+            ", ".join(analysis.active_dimensions) if analysis.active_dimensions else "无"
+        )
+        inactive_dims_str = (
+            ", ".join(analysis.inactive_dimensions) if analysis.inactive_dimensions else "无"
+        )
         print(f"   激活维度 ({len(analysis.active_dimensions)}): {active_dims_str}")
         print(f"   未激活维度 ({len(analysis.inactive_dimensions)}): {inactive_dims_str}")
         print(f"   语义: {analysis.semantic_description}")
@@ -572,7 +576,7 @@ def test_integrated_manager() -> None:
             if success:
                 manager.print_state_info()
             else:
-                print(f"     ❌ 转换失败")
+                print("     ❌ 转换失败")
 
         # 测试河图状态查询
         print("\n🗺️ 测试河图状态查询...")

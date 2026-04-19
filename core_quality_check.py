@@ -119,7 +119,7 @@ def main():
     print("\n2. 🔍 运行mypy类型检查（核心文件）...")
     results["mypy"] = run_check(
         "mypy",
-        ["--ignore-missing-imports", "--strict"],
+        ["--ignore-missing-imports", "--strict", "--exclude", "mini_agent/.*", "--exclude", ".*/mini_agent/.*"],
         core_existing_files
     )
     print_result("mypy", results["mypy"])

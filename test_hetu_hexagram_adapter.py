@@ -4,7 +4,6 @@
 测试HetuToHexagramAdapter的API兼容性和功能
 """
 
-import json
 import os
 import sys
 import tempfile

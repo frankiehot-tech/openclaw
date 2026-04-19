@@ -6,7 +6,6 @@
 验证重构计划阶段3（集成和测试）的要求。
 """
 
-import json
 import os
 import sys
 import tempfile

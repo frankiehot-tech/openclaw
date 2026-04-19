@@ -4,7 +4,6 @@
 测试监控系统的邮件发送功能
 """
 
-import os
 import smtplib
 import ssl
 import sys

@@ -15,13 +15,12 @@
 7. 重复代码检查
 """
 
-import importlib.util
-import json
+import datetime
 import os
 import subprocess
 import sys
 from pathlib import Path
-from typing import Any, Dict, List, Optional, Tuple, TypedDict, Union
+from typing import Any, Dict, List, Optional, TypedDict, Union
 
 
 class QualityGate:
@@ -363,7 +362,8 @@ class QualityGate:
 
                         if method_count > 10:
                             issues.append(
-                                f"{file_path.relative_to(self.project_root)}: 类{class_name}可能有太多方法({method_count}个)"
+                                f"{file_path.relative_to(self.project_root)}: "
+                                f"类{class_name}可能有太多方法({method_count}个)"
                             )
 
             except Exception:
@@ -463,7 +463,7 @@ class QualityGate:
         """生成质量检查报告"""
         report_lines = [
             "# 代码质量检查报告",
-            f"生成时间: {importlib.util.find_spec('datetime') and __import__('datetime').datetime.now().isoformat() or 'N/A'}",
+            f"生成时间: {datetime.datetime.now().isoformat()}",
             f"项目根目录: {self.project_root}",
             "",
             "## 检查结果总结",
@@ -536,9 +536,9 @@ def main():
 
     # 生成报告
     if args.output:
-        report = quality_gate.generate_report(results, args.output)
+        quality_gate.generate_report(results, args.output)
     else:
-        report = quality_gate.generate_report(results)
+        quality_gate.generate_report(results)
 
     # 返回退出码
     if results.get("success", False):

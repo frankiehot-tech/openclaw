@@ -1,0 +1,521 @@
+{
+  "timestamp": "2026-04-19T17:44:29.523942",
+  "summary": {
+    "total_files_analyzed": 10,
+    "checks_performed": [
+      "format_check",
+      "link_check",
+      "completeness_check",
+      "readability_analysis"
+    ],
+    "overall_status": "⚠️  良好",
+    "check_results": [
+      {
+        "check": "format_check",
+        "status": "✅ 通过",
+        "exit_code": 0
+      },
+      {
+        "check": "link_check",
+        "status": "⚠️  警告",
+        "exit_code": 1
+      },
+      {
+        "check": "completeness_check",
+        "status": "✅ 通过",
+        "exit_code": 0
+      },
+      {
+        "check": "readability_analysis",
+        "status": "✅ 通过",
+        "exit_code": 0
+      }
+    ],
+    "passed_checks": 3,
+    "total_checks": 4,
+    "pass_rate": 75.0
+  },
+  "files": {
+    "documentation-tools-tutorial.md": {
+      "line_count": 442,
+      "char_count": 9058,
+      "has_title": true,
+      "has_metadata": true,
+      "has_links": false,
+      "has_code_blocks": true,
+      "has_tables": true,
+      "non_empty_line_count": 354
+    },
+    "team-training-plan.md": {
+      "line_count": 524,
+      "char_count": 9674,
+      "has_title": true,
+      "has_metadata": true,
+      "has_links": true,
+      "has_code_blocks": true,
+      "has_tables": true,
+      "non_empty_line_count": 429
+    },
+    "identity.md": {
+      "line_count": 24,
+      "char_count": 634,
+      "has_title": true,
+      "has_metadata": false,
+      "has_links": false,
+      "has_code_blocks": false,
+      "has_tables": false,
+      "non_empty_line_count": 17
+    },
+    "documentation-writing-guide.md": {
+      "line_count": 241,
+      "char_count": 3622,
+      "has_title": true,
+      "has_metadata": true,
+      "has_links": true,
+      "has_code_blocks": true,
+      "has_tables": true,
+      "non_empty_line_count": 186
+    },
+    "notification-setup-guide.md": {
+      "line_count": 250,
+      "char_count": 4460,
+      "has_title": true,
+      "has_metadata": false,
+      "has_links": false,
+      "has_code_blocks": true,
+      "has_tables": false,
+      "non_empty_line_count": 194
+    },
+    "压力测试问题修复实施方案.md": {
+      "line_count": 1027,
+      "char_count": 28228,
+      "has_title": true,
+      "has_metadata": false,
+      "has_links": false,
+      "has_code_blocks": true,
+      "has_tables": true,
+      "non_empty_line_count": 836
+    },
+    "claude-code-config.md": {
+      "line_count": 948,
+      "char_count": 19254,
+      "has_title": true,
+      "has_metadata": true,
+      "has_links": true,
+      "has_code_blocks": true,
+      "has_tables": true,
+      "non_empty_line_count": 751
+    },
+    "heartbeat.md": {
+      "line_count": 6,
+      "char_count": 168,
+      "has_title": true,
+      "has_metadata": false,
+      "has_links": false,
+      "has_code_blocks": false,
+      "has_tables": false,
+      "non_empty_line_count": 3
+    },
+    "claude-code-research-phase3.md": {
+      "line_count": 552,
+      "char_count": 12949,
+      "has_title": true,
+      "has_metadata": false,
+      "has_links": false,
+      "has_code_blocks": true,
+      "has_tables": true,
+      "non_empty_line_count": 426
+    },
+    "first-team-training-guide.md": {
+      "line_count": 210,
+      "char_count": 4438,
+      "has_title": true,
+      "has_metadata": true,
+      "has_links": true,
+      "has_code_blocks": true,
+      "has_tables": false,
+      "non_empty_line_count": 167
+    }
+  },
+  "issues_by_category": {},
+  "metrics": {
+    "format_check": {
+      "exit_code": 0,
+      "output_summary": {
+        "count_info": "📄 找到 22 个Markdown文件",
+        "pass_info": "✅ 通过: 5/22",
+        "fail_info": "❌ 失败: 17/22",
+        "issues_info": "⚠️  问题: 278 个"
+      }
+    },
+    "link_check": {
+      "exit_code": 1,
+      "broken_links": 28,
+      "output_summary": {
+        "count_info": "🔗 找到 50 个链接"
+      }
+    },
+    "completeness_check": {
+      "exit_code": 0,
+      "metrics": {},
+      "output_summary": {
+        "count_info": "📄 找到 22 个Markdown文件",
+        "pass_info": "⚠️  部分通过: 0/22"
+      }
+    },
+    "readability_analysis": {
+      "exit_code": 0,
+      "data": {
+        "analysis_date": "2026-04-19T17:44:29.777830",
+        "total_files_analyzed": 22,
+        "overall_score": 71.2,
+        "score_distribution": {
+          "优秀": 0,
+          "良好": 3,
+          "中等": 12,
+          "及格": 4,
+          "需要改进": 3
+        },
+        "file_scores": [
+          {
+            "file": "docs/user/documentation-tools-tutorial.md",
+            "score": 78.7,
+            "level": "中等",
+            "basic_stats": {
+              "total_lines": 442,
+              "paragraphs": 84,
+              "sentences": 156,
+              "chinese_chars": 1446,
+              "english_words": 413,
+              "avg_sentence_length": 11.9,
+              "avg_paragraph_length": 1.9
+            }
+          },
+          {
+            "file": "docs/user/team-training-plan.md",
+            "score": 78.7,
+            "level": "中等",
+            "basic_stats": {
+              "total_lines": 524,
+              "paragraphs": 96,
+              "sentences": 127,
+              "chinese_chars": 3900,
+              "english_words": 169,
+              "avg_sentence_length": 32.0,
+              "avg_paragraph_length": 1.3
+            }
+          },
+          {
+            "file": "docs/user/identity.md",
+            "score": 57.8,
+            "level": "需要改进",
+            "basic_stats": {
+              "total_lines": 24,
+              "paragraphs": 7,
+              "sentences": 20,
+              "chinese_chars": 0,
+              "english_words": 89,
+              "avg_sentence_length": 4.5,
+              "avg_paragraph_length": 2.9
+            }
+          },
+          {
+            "file": "docs/user/documentation-writing-guide.md",
+            "score": 85.3,
+            "level": "良好",
+            "basic_stats": {
+              "total_lines": 241,
+              "paragraphs": 55,
+              "sentences": 60,
+              "chinese_chars": 1286,
+              "english_words": 67,
+              "avg_sentence_length": 22.6,
+              "avg_paragraph_length": 1.1
+            }
+          },
+          {
+            "file": "docs/user/notification-setup-guide.md",
+            "score": 79.0,
+            "level": "中等",
+            "basic_stats": {
+              "total_lines": 250,
+              "paragraphs": 55,
+              "sentences": 80,
+              "chinese_chars": 1120,
+              "english_words": 140,
+              "avg_sentence_length": 15.8,
+              "avg_paragraph_length": 1.5
+            }
+          },
+          {
+            "file": "docs/user/压力测试问题修复实施方案.md",
+            "score": 70.0,
+            "level": "中等",
+            "basic_stats": {
+              "total_lines": 1027,
+              "paragraphs": 85,
+              "sentences": 293,
+              "chinese_chars": 2480,
+              "english_words": 1174,
+              "avg_sentence_length": 12.5,
+              "avg_paragraph_length": 3.4
+            }
+          },
+          {
+            "file": "docs/user/claude-code-config.md",
+            "score": 70.0,
+            "level": "中等",
+            "basic_stats": {
+              "total_lines": 948,
+              "paragraphs": 149,
+              "sentences": 243,
+              "chinese_chars": 1925,
+              "english_words": 1052,
+              "avg_sentence_length": 12.3,
+              "avg_paragraph_length": 1.6
+            }
+          },
+          {
+            "file": "docs/user/heartbeat.md",
+            "score": 51.5,
+            "level": "需要改进",
+            "basic_stats": {
+              "total_lines": 6,
+              "paragraphs": 3,
+              "sentences": 3,
+              "chinese_chars": 0,
+              "english_words": 27,
+              "avg_sentence_length": 9.0,
+              "avg_paragraph_length": 1.0
+            }
+          },
+          {
+            "file": "docs/user/claude-code-research-phase3.md",
+            "score": 72.4,
+            "level": "中等",
+            "basic_stats": {
+              "total_lines": 552,
+              "paragraphs": 67,
+              "sentences": 119,
+              "chinese_chars": 1968,
+              "english_words": 395,
+              "avg_sentence_length": 19.9,
+              "avg_paragraph_length": 1.8
+            }
+          },
+          {
+            "file": "docs/user/first-team-training-guide.md",
+            "score": 81.2,
+            "level": "良好",
+            "basic_stats": {
+              "total_lines": 210,
+              "paragraphs": 39,
+              "sentences": 94,
+              "chinese_chars": 1134,
+              "english_words": 188,
+              "avg_sentence_length": 14.1,
+              "avg_paragraph_length": 2.4
+            }
+          },
+          {
+            "file": "docs/user/getting-started.md",
+            "score": 77.0,
+            "level": "中等",
+            "basic_stats": {
+              "total_lines": 225,
+              "paragraphs": 52,
+              "sentences": 65,
+              "chinese_chars": 1068,
+              "english_words": 192,
+              "avg_sentence_length": 19.4,
+              "avg_paragraph_length": 1.2
+            }
+          },
+          {
+            "file": "docs/user/user-guide.md",
+            "score": 75.4,
+            "level": "中等",
+            "basic_stats": {
+              "total_lines": 632,
+              "paragraphs": 143,
+              "sentences": 174,
+              "chinese_chars": 2168,
+              "english_words": 492,
+              "avg_sentence_length": 15.3,
+              "avg_paragraph_length": 1.2
+            }
+          },
+          {
+            "file": "docs/user/openhuman-mvp-engineering-implementation-plan.md",
+            "score": 46.2,
+            "level": "需要改进",
+            "basic_stats": {
+              "total_lines": 829,
+              "paragraphs": 53,
+              "sentences": 29,
+              "chinese_chars": 3800,
+              "english_words": 194,
+              "avg_sentence_length": 137.7,
+              "avg_paragraph_length": 0.5
+            }
+          },
+          {
+            "file": "docs/user/手动任务处理guide.md",
+            "score": 75.0,
+            "level": "中等",
+            "basic_stats": {
+              "total_lines": 187,
+              "paragraphs": 28,
+              "sentences": 33,
+              "chinese_chars": 786,
+              "english_words": 82,
+              "avg_sentence_length": 26.3,
+              "avg_paragraph_length": 1.2
+            }
+          },
+          {
+            "file": "docs/user/contributing.md",
+            "score": 73.8,
+            "level": "中等",
+            "basic_stats": {
+              "total_lines": 411,
+              "paragraphs": 89,
+              "sentences": 122,
+              "chinese_chars": 1649,
+              "english_words": 414,
+              "avg_sentence_length": 16.9,
+              "avg_paragraph_length": 1.4
+            }
+          },
+          {
+            "file": "docs/user/openhuman-opencode-cli-优化与athena深度集成方案.md",
+            "score": 69.5,
+            "level": "及格",
+            "basic_stats": {
+              "total_lines": 204,
+              "paragraphs": 42,
+              "sentences": 31,
+              "chinese_chars": 832,
+              "english_words": 89,
+              "avg_sentence_length": 29.7,
+              "avg_paragraph_length": 0.7
+            }
+          },
+          {
+            "file": "docs/user/user.md",
+            "score": 61.0,
+            "level": "及格",
+            "basic_stats": {
+              "total_lines": 18,
+              "paragraphs": 7,
+              "sentences": 11,
+              "chinese_chars": 0,
+              "english_words": 70,
+              "avg_sentence_length": 6.4,
+              "avg_paragraph_length": 1.6
+            }
+          },
+          {
+            "file": "docs/user/claude-code-research-phase1.md",
+            "score": 71.7,
+            "level": "中等",
+            "basic_stats": {
+              "total_lines": 256,
+              "paragraphs": 60,
+              "sentences": 53,
+              "chinese_chars": 1248,
+              "english_words": 161,
+              "avg_sentence_length": 26.6,
+              "avg_paragraph_length": 0.9
+            }
+          },
+          {
+            "file": "docs/user/skills-integration-complete.md",
+            "score": 68.8,
+            "level": "及格",
+            "basic_stats": {
+              "total_lines": 176,
+              "paragraphs": 40,
+              "sentences": 81,
+              "chinese_chars": 1109,
+              "english_words": 279,
+              "avg_sentence_length": 17.1,
+              "avg_paragraph_length": 2.0
+            }
+          },
+          {
+            "file": "docs/user/tools-reference.md",
+            "score": 82.3,
+            "level": "良好",
+            "basic_stats": {
+              "total_lines": 400,
+              "paragraphs": 84,
+              "sentences": 150,
+              "chinese_chars": 1381,
+              "english_words": 363,
+              "avg_sentence_length": 11.6,
+              "avg_paragraph_length": 1.8
+            }
+          },
+          {
+            "file": "docs/user/markdown-advanced.md",
+            "score": 75.4,
+            "level": "中等",
+            "basic_stats": {
+              "total_lines": 379,
+              "paragraphs": 71,
+              "sentences": 52,
+              "chinese_chars": 925,
+              "english_words": 203,
+              "avg_sentence_length": 21.7,
+              "avg_paragraph_length": 0.7
+            }
+          },
+          {
+            "file": "docs/user/tools.md",
+            "score": 66.2,
+            "level": "及格",
+            "basic_stats": {
+              "total_lines": 41,
+              "paragraphs": 16,
+              "sentences": 12,
+              "chinese_chars": 0,
+              "english_words": 114,
+              "avg_sentence_length": 9.5,
+              "avg_paragraph_length": 0.8
+            }
+          }
+        ]
+      },
+      "output_summary": {
+        "count_info": "📄 找到 22 个Markdown文件"
+      }
+    }
+  },
+  "recommendations": [
+    {
+      "priority": "high",
+      "category": "链接质量",
+      "action": "修复 28 个无效链接",
+      "details": "运行 python3 scripts/check_document_links.py --directory docs/ --repair 生成修复建议"
+    },
+    {
+      "priority": "medium",
+      "category": "文档完整性",
+      "action": "提升文档完整性分数",
+      "details": "当前平均完整性分数 0.0/100，建议补充元数据和结构"
+    },
+    {
+      "priority": "low",
+      "category": "可读性",
+      "action": "改善文档可读性",
+      "details": "当前平均可读性分数 0.0/100，建议简化句子结构，减少技术术语密度"
+    },
+    {
+      "priority": "medium",
+      "category": "文档元数据",
+      "action": "为 5 个文档添加最后更新日期",
+      "details": "建议在文档末尾添加\"最后更新: YYYY-MM-DD\"元数据"
+    }
+  ]
+}
