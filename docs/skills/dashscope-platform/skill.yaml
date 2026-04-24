@@ -20,7 +20,7 @@ dependencies:
   - network_access
 
 config:
-  dashscope_api_key: REDACTED_DASHSCOPE_KEY
+  dashscope_api_key: ${DASHSCOPE_API_KEY}
   whitelisted_ip: 178.208.190.142
   primary_model: qwen3.6-plus
   api_compatibility: openai_format

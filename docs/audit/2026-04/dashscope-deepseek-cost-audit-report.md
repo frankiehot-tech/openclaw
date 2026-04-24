@@ -119,7 +119,7 @@
 ### 4.1 案例1：agent_system DeepSeek使用
 **发现**：`agent_system/.env`配置了有效的DeepSeek API密钥
 ```bash
-AUTOGLM_API_KEY=REDACTED_AUTOGLM_KEY
+AUTOGLM_API_KEY=${AUTOGLM_API_KEY}
 AUTOGLM_BASE_URL=https://api.deepseek.com/v1
 AUTOGLM_MODEL=deepseek-chat
 ```

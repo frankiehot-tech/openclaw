@@ -245,7 +245,7 @@ def restart_queue_runner():
     time.sleep(2)
 
     # 启动新的运行器
-    start_cmd = "env DASHSCOPE_API_KEY=REDACTED_DASHSCOPE_KEY python3 scripts/athena_ai_plan_runner.py daemon --queue-id openhuman_aiplan_gene_management_20260405 > /tmp/queue_runner_final.log 2>&1 &"
+    start_cmd = "env DASHSCOPE_API_KEY=${DASHSCOPE_API_KEY} python3 scripts/athena_ai_plan_runner.py daemon --queue-id openhuman_aiplan_gene_management_20260405 > /tmp/queue_runner_final.log 2>&1 &"
 
     try:
         print(f"  执行: {start_cmd}")

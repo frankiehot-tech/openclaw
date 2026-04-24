@@ -122,3 +122,7 @@ document_cleanup.log
 *.key
 *.crt
 *.secret
+# 防止环境变量和密钥文件被追踪
+.env*
+!.env.example
+

@@ -152,7 +152,7 @@ def main():
         print("\n🎯 修复完成，建议重启队列运行器:")
         print("  pkill -f 'athena_ai_plan_runner.py daemon'")
         print(
-            "  env DASHSCOPE_API_KEY=REDACTED_DASHSCOPE_KEY python3 scripts/athena_ai_plan_runner.py daemon --queue-id openhuman_aiplan_gene_management_20260405 > /tmp/queue_runner.log 2>&1 &"
+            "  env DASHSCOPE_API_KEY=${DASHSCOPE_API_KEY} python3 scripts/athena_ai_plan_runner.py daemon --queue-id openhuman_aiplan_gene_management_20260405 > /tmp/queue_runner.log 2>&1 &"
         )
     else:
         print("\n📋 无需修复")
