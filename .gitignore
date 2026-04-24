@@ -73,7 +73,8 @@ temp/
 maref_sandbox/
 mini_agent/
 minicpm_server/
-skillos_experimental/
+skillos_experimental/*
+!skillos_experimental/LEGACY_README.md
 workspace/
 comfyui_workspace/
 openclaw-2031-strategic-vision/
