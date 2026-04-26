@@ -1,0 +1,43 @@
+version: '3.8'
+
+services:
+  maref-sandbox:
+    build: .
+    container_name: maref-sandbox
+    ports:
+      - "5001:5001"
+    environment:
+      - PYTHONUNBUFFERED=1
+      - FLASK_ENV=production
+    volumes:
+      - ./sandbox_monitor_report.json:/app/sandbox_monitor_report.json
+      - ./hetu_hexagram_mapping.json:/app/hetu_hexagram_mapping.json
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:5001/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+    networks:
+      - maref-network
+
+  # 未来可以添加Redis用于分布式缓存
+  # redis:
+  #   image: redis:7-alpine
+  #   container_name: maref-redis
+  #   ports:
+  #     - "6379:6379"
+  #   volumes:
+  #     - redis-data:/data
+  #   restart: unless-stopped
+  #   networks:
+  #     - maref-network
+
+networks:
+  maref-network:
+    driver: bridge
+
+# 未来可以添加Redis数据卷
+# volumes:
+#   redis-data:

@@ -1,0 +1,13 @@
+[2026-04-19 20:40:50] [INFO] 🚀 MAREF沙箱实验开始于 2026-04-19T20:40:50.293321
+[2026-04-19 20:40:50] [INFO]    输出目录: ../experiment_results/
+[2026-04-19 20:40:50] [INFO] 监控器初始化完成 (间隔: 5秒, 保留: 300秒)
+[2026-04-19 20:40:50] [INFO] 开始实验: state_transition
+[2026-04-19 20:40:50] [INFO] 监控器已启动
+[2026-04-19 20:40:50] [INFO] 实验监控已启用
+[2026-04-19 20:40:50] [INFO] 运行状态转换实验: 1 次迭代, 100 任务/次
+[2026-04-19 20:40:50] [ERROR] 实验 state_transition 失败: ComparatorEngine.run_state_transition_experiment() got an unexpected keyword argument 'task_types'
+[2026-04-19 20:40:50] [INFO] 监控数据已导出: ../experiment_results/monitoring_data/metrics_export_20260419_204050.json
+[2026-04-19 20:40:55] [INFO] 监控器已停止
+[2026-04-19 20:40:55] [INFO] 生成最终实验报告...
+[2026-04-19 20:40:55] [INFO] 最终报告已生成: ../experiment_results/final_report_20260419_204055.json
+[2026-04-19 20:40:55] [INFO] 报告摘要: ../experiment_results/report_summary_20260419_204055.txt

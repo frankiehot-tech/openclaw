@@ -15,7 +15,7 @@
   - 存在多个openhuman相关的实施方案和分析报告
   - 有完善的任务规划系统 (`task_plan.md`, `findings.md`, `progress.md`)
 
-- **open human项目目录** (`/Users/frankie/Documents/Athena知识库/执行项目/2026/003-open human（碳硅基共生）`):
+- **open human项目目录** (`/Volumes/1TB-M2/openclaw/Documents/Athena知识库/执行项目/2026/003-open human（碳硅基共生）`):
   - 结构化的项目管理体系（005-MVP, 006-执行阶段, 007-AI-plan等）
   - 包含丰富的规划文档、实施方案和审计报告
   - 有专门的压力测试报告和工程化实施方案
@@ -661,7 +661,7 @@ oh system status --monitor
 
 ## Resources
 - `/Volumes/1TB-M2/openclaw` - Athena主工作区
-- `/Users/frankie/Documents/Athena知识库/执行项目/2026/003-open human（碳硅基共生）` - openhuman项目目录
+- `/Volumes/1TB-M2/openclaw/Documents/Athena知识库/执行项目/2026/003-open human（碳硅基共生）` - openhuman项目目录
 - 现有规划文件: `task_plan.md`, `findings.md`, `progress.md`
 
 ## Visual/Browser Findings

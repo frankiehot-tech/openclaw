@@ -1,0 +1,225 @@
+# Dockerfile模板
+# 多阶段构建，优化镜像大小和安全性
+
+# 第一阶段: 构建阶段
+# 使用合适的构建镜像
+ARG BUILD_IMAGE={{ .build_image }}
+FROM ${BUILD_IMAGE} AS builder
+
+# 设置工作目录
+WORKDIR /app
+
+# 设置构建参数
+ARG NODE_ENV=production
+ARG BUILD_ID={{ .build_id }}
+ARG COMMIT_SHA={{ .commit_sha }}
+ARG VERSION={{ .version }}
+
+# 设置环境变量
+ENV NODE_ENV=${NODE_ENV} \
+    BUILD_ID=${BUILD_ID} \
+    COMMIT_SHA=${COMMIT_SHA} \
+    VERSION=${VERSION} \
+    PYTHONUNBUFFERED=1 \
+    PYTHONDONTWRITEBYTECODE=1 \
+    PIP_NO_CACHE_DIR=1
+
+# 安装系统依赖
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    {{- range .system_dependencies }}
+    {{ . }} \
+    {{- end }}
+    && rm -rf /var/lib/apt/lists/*
+
+# 复制依赖定义文件
+COPY package*.json ./
+COPY requirements*.txt ./
+COPY pyproject.toml ./
+COPY setup.py ./
+
+# 安装依赖
+{{- if eq .language "python" }}
+# Python项目依赖安装
+RUN pip install --no-cache-dir --upgrade pip && \
+    if [ -f "requirements.txt" ]; then \
+        pip install --no-cache-dir -r requirements.txt; \
+    elif [ -f "pyproject.toml" ]; then \
+        pip install --no-cache-dir poetry && \
+        poetry install --no-dev --no-interaction; \
+    fi
+
+{{- else if eq .language "nodejs" }}
+# Node.js项目依赖安装
+RUN npm ci --only=production && \
+    npm cache clean --force
+
+{{- else if eq .language "java" }}
+# Java项目依赖处理
+COPY mvnw .
+COPY .mvn .mvn
+COPY pom.xml .
+RUN ./mvnw dependency:go-offline
+
+{{- else }}
+# 通用依赖安装
+RUN echo "Installing dependencies..." && \
+    {{ .custom_install_command }}
+
+{{- end }}
+
+# 复制源代码
+COPY . .
+
+# 构建项目
+{{- if eq .language "python" }}
+# Python项目构建
+RUN if [ -f "setup.py" ]; then \
+        pip install -e .; \
+    fi
+
+{{- else if eq .language "nodejs" }}
+# Node.js项目构建
+RUN npm run build --if-present
+
+{{- else if eq .language "java" }}
+# Java项目构建
+RUN ./mvnw clean package -DskipTests
+
+{{- else }}
+# 通用构建命令
+RUN {{ .custom_build_command }}
+
+{{- end }}
+
+# 运行测试 (可选)
+{{- if .run_tests }}
+RUN {{ .test_command }}
+{{- end }}
+
+# 第二阶段: 运行阶段
+# 使用轻量级运行镜像
+FROM {{ .runtime_image }} AS runtime
+
+# 设置非root用户
+RUN addgroup --system --gid 1001 appuser && \
+    adduser --system --uid 1001 --gid 1001 appuser
+
+# 安装必要的运行时依赖
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    {{- range .runtime_dependencies }}
+    {{ . }} \
+    {{- end }}
+    && rm -rf /var/lib/apt/lists/*
+
+# 设置工作目录
+WORKDIR /app
+
+# 设置环境变量
+ENV NODE_ENV=production \
+    PORT=8080 \
+    HOST=0.0.0.0
+
+# 从构建阶段复制必要的文件
+{{- if eq .language "python" }}
+# Python项目文件复制
+COPY --from=builder /usr/local/lib/python{{ .python_version }}/site-packages/ /usr/local/lib/python{{ .python_version }}/site-packages/
+COPY --from=builder /usr/local/bin/ /usr/local/bin/
+COPY --from=builder /app .
+
+{{- else if eq .language "nodejs" }}
+# Node.js项目文件复制
+COPY --from=builder /app/node_modules ./node_modules
+COPY --from=builder /app/package*.json ./
+COPY --from=builder /app/dist ./dist
+COPY --from=builder /app/public ./public
+COPY --from=builder /app/.next ./.next
+
+{{- else if eq .language "java" }}
+# Java项目文件复制
+COPY --from=builder /app/target/*.jar ./app.jar
+
+{{- else }}
+# 通用文件复制
+COPY --from=builder /app .
+
+{{- end }}
+
+# 复制配置文件
+COPY --from=builder /app/config ./config
+
+# 更改文件所有权
+RUN chown -R appuser:appuser /app
+
+# 切换到非root用户
+USER appuser
+
+# 健康检查
+HEALTHCHECK --interval=30s --timeout=3s --start-period=5s --retries=3 \
+    CMD {{ .health_check_command }}
+
+# 暴露端口
+EXPOSE ${PORT}
+
+# 设置入口点
+{{- if .entrypoint }}
+ENTRYPOINT {{ .entrypoint }}
+{{- end }}
+
+# 设置启动命令
+CMD {{ .cmd }}
+
+# 标签信息
+LABEL org.label-schema.schema-version="1.0" \
+      org.label-schema.build-date="{{ .build_date }}" \
+      org.label-schema.name="{{ .app_name }}" \
+      org.label-schema.description="{{ .app_description }}" \
+      org.label-schema.url="{{ .app_url }}" \
+      org.label-schema.vcs-url="{{ .vcs_url }}" \
+      org.label-schema.vcs-ref="{{ .vcs_ref }}" \
+      org.label-schema.vendor="{{ .vendor }}" \
+      org.label-schema.version="{{ .version }}" \
+      org.label-schema.docker.cmd="{{ .docker_cmd }}" \
+      maintainer="{{ .maintainer }}"
+
+# 安全扫描忽略 (可选)
+# 如果有已知的安全警告可以在这里忽略
+# 例如: # hadolint ignore=DL3008,DL3015
+
+# 多架构支持 (如果需要)
+# ARG TARGETARCH
+# ARG TARGETOS
+# ARG TARGETVARIANT
+
+# 构建参数文档
+# 可以在构建时覆盖的参数:
+# --build-arg BUILD_IMAGE=node:18-alpine
+# --build-arg NODE_ENV=development
+# --build-arg VERSION=1.0.0
+
+# 使用示例:
+# docker build \
+#   --build-arg BUILD_IMAGE=node:18-alpine \
+#   --build-arg NODE_ENV=production \
+#   --build-arg VERSION=1.0.0 \
+#   -t myapp:latest .
+
+# 多阶段构建的好处:
+# 1. 最终镜像只包含运行时必要的文件，体积小
+# 2. 构建工具和开发依赖不会进入最终镜像
+# 3. 更好的安全性和可维护性
+# 4. 可以利用构建缓存提高构建速度
+
+# 安全最佳实践:
+# 1. 使用非root用户运行容器
+# 2. 使用官方的基础镜像
+# 3. 定期更新基础镜像和安全补丁
+# 4. 扫描镜像中的安全漏洞
+# 5. 最小化安装的软件包
+# 6. 使用多阶段构建减少攻击面
+
+# 性能最佳实践:
+# 1. 合理安排COPY命令的顺序以利用缓存
+# 2. 合并RUN命令减少镜像层
+# 3. 使用.dockerignore文件排除不必要的文件
+# 4. 使用多阶段构建减少最终镜像大小
+# 5. 使用Alpine或Distroless镜像减小体积

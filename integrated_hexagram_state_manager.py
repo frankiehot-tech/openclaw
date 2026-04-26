@@ -626,4 +626,4 @@ def test_integrated_manager() -> None:
 
 
 if __name__ == "__main__":
-    test_integrated_manager()  # type: ignore
+    test_integrated_manager()

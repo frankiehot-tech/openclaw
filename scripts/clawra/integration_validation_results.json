@@ -102,10 +102,10 @@
     {
       "test_name": "日报系统验证",
       "status": "pass",
-      "message": "日报生成成功: /Users/frankie/Documents/Athena知识库/执行项目/2026/003-open human（碳硅基共生）/015-mailbox/maref-daily-2026-04-15.md",
+      "message": "日报生成成功: /Volumes/1TB-M2/openclaw/Documents/Athena知识库/执行项目/2026/003-open human（碳硅基共生）/015-mailbox/maref-daily-2026-04-15.md",
       "timestamp": "2026-04-15T07:04:49.460727",
       "details": {
-        "report_path": "/Users/frankie/Documents/Athena知识库/执行项目/2026/003-open human（碳硅基共生）/015-mailbox/maref-daily-2026-04-15.md",
+        "report_path": "/Volumes/1TB-M2/openclaw/Documents/Athena知识库/执行项目/2026/003-open human（碳硅基共生）/015-mailbox/maref-daily-2026-04-15.md",
         "content_length": 1301,
         "has_actual_data": true,
         "file_size_kb": 2.00390625

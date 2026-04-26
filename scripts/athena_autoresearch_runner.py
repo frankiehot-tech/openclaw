@@ -23,6 +23,10 @@ import time
 from datetime import datetime
 from pathlib import Path
 
+from dotenv import load_dotenv
+
+load_dotenv()
+
 # Import shared root paths
 try:
     from .openclaw_roots import RUNTIME_ROOT, pid_file

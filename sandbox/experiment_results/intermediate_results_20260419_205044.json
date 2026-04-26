@@ -1,0 +1,763 @@
+{
+  "timestamp": "2026-04-19T20:50:44.156709",
+  "results": [
+    {
+      "summary": {
+        "total_iterations": 1,
+        "interference_types_used": [
+          "resource_pressure",
+          "partial_failure",
+          "state_corruption",
+          "network_delay"
+        ],
+        "avg_recovery_time_ratio": 1.0,
+        "success_rate": 1.0
+      },
+      "detailed_results": [
+        {
+          "iteration": 1,
+          "interference_type": "network_delay",
+          "baseline_stats": {
+            "total_submitted": 15,
+            "total_completed": 15,
+            "total_failed": 0,
+            "total_execution_time": 5.363061109993041,
+            "average_execution_time": 0.35753740733286943,
+            "throughput_tasks_per_minute": 15,
+            "current_running": 0,
+            "total_pending": 0,
+            "total_running": 0,
+            "total_completed_tasks": 15,
+            "total_failed_tasks": 0,
+            "state_history_count": 45,
+            "timestamp": "2026-04-19T20:50:42.529165",
+            "success_rate": 1.0,
+            "total_experiment_tasks": 15,
+            "successful_experiment_tasks": 15,
+            "stability_metrics": {
+              "interference_tests": [
+                {
+                  "type": "resource_pressure",
+                  "success": true,
+                  "pre_stats": {
+                    "total_submitted": 15,
+                    "total_completed": 15,
+                    "total_failed": 0,
+                    "total_execution_time": 5.363061109993041,
+                    "average_execution_time": 0.35753740733286943,
+                    "throughput_tasks_per_minute": 15,
+                    "current_running": 0,
+                    "total_pending": 0,
+                    "total_running": 0,
+                    "total_completed_tasks": 15,
+                    "total_failed_tasks": 0,
+                    "state_history_count": 45,
+                    "timestamp": "2026-04-19T20:50:42.529561"
+                  },
+                  "post_stats": {
+                    "total_submitted": 15,
+                    "total_completed": 15,
+                    "total_failed": 0,
+                    "total_execution_time": 5.363061109993041,
+                    "average_execution_time": 0.35753740733286943,
+                    "throughput_tasks_per_minute": 15,
+                    "current_running": 0,
+                    "total_pending": 0,
+                    "total_running": 0,
+                    "total_completed_tasks": 15,
+                    "total_failed_tasks": 0,
+                    "state_history_count": 45,
+                    "timestamp": "2026-04-19T20:50:43.035973"
+                  }
+                },
+                {
+                  "type": "partial_failure",
+                  "success": false,
+                  "pre_stats": {
+                    "total_submitted": 15,
+                    "total_completed": 15,
+                    "total_failed": 0,
+                    "total_execution_time": 5.363061109993041,
+                    "average_execution_time": 0.35753740733286943,
+                    "throughput_tasks_per_minute": 15,
+                    "current_running": 0,
+                    "total_pending": 0,
+                    "total_running": 0,
+                    "total_completed_tasks": 15,
+                    "total_failed_tasks": 0,
+                    "state_history_count": 45,
+                    "timestamp": "2026-04-19T20:50:43.036038"
+                  },
+                  "post_stats": {
+                    "total_submitted": 15,
+                    "total_completed": 15,
+                    "total_failed": 0,
+                    "total_execution_time": 5.363061109993041,
+                    "average_execution_time": 0.35753740733286943,
+                    "throughput_tasks_per_minute": 15,
+                    "current_running": 0,
+                    "total_pending": 0,
+                    "total_running": 0,
+                    "total_completed_tasks": 15,
+                    "total_failed_tasks": 0,
+                    "state_history_count": 45,
+                    "timestamp": "2026-04-19T20:50:43.036079"
+                  }
+                },
+                {
+                  "type": "state_corruption",
+                  "success": true,
+                  "pre_stats": {
+                    "total_submitted": 15,
+                    "total_completed": 15,
+                    "total_failed": 0,
+                    "total_execution_time": 5.363061109993041,
+                    "average_execution_time": 0.35753740733286943,
+                    "throughput_tasks_per_minute": 15,
+                    "current_running": 0,
+                    "total_pending": 0,
+                    "total_running": 0,
+                    "total_completed_tasks": 15,
+                    "total_failed_tasks": 0,
+                    "state_history_count": 45,
+                    "timestamp": "2026-04-19T20:50:43.036103"
+                  },
+                  "post_stats": {
+                    "total_submitted": 15,
+                    "total_completed": 15,
+                    "total_failed": 0,
+                    "total_execution_time": 5.363061109993041,
+                    "average_execution_time": 0.35753740733286943,
+                    "throughput_tasks_per_minute": 15,
+                    "current_running": 0,
+                    "total_pending": 0,
+                    "total_running": 1,
+                    "total_completed_tasks": 14,
+                    "total_failed_tasks": 0,
+                    "state_history_count": 45,
+                    "timestamp": "2026-04-19T20:50:43.036197"
+                  }
+                },
+                {
+                  "type": "network_delay",
+                  "success": false,
+                  "pre_stats": {
+                    "total_submitted": 15,
+                    "total_completed": 15,
+                    "total_failed": 0,
+                    "total_execution_time": 5.363061109993041,
+                    "average_execution_time": 0.35753740733286943,
+                    "throughput_tasks_per_minute": 15,
+                    "current_running": 0,
+                    "total_pending": 0,
+                    "total_running": 1,
+                    "total_completed_tasks": 14,
+                    "total_failed_tasks": 0,
+                    "state_history_count": 45,
+                    "timestamp": "2026-04-19T20:50:43.036221"
+                  },
+                  "post_stats": {
+                    "total_submitted": 15,
+                    "total_completed": 15,
+                    "total_failed": 0,
+                    "total_execution_time": 5.363061109993041,
+                    "average_execution_time": 0.35753740733286943,
+                    "throughput_tasks_per_minute": 15,
+                    "current_running": 0,
+                    "total_pending": 0,
+                    "total_running": 1,
+                    "total_completed_tasks": 14,
+                    "total_failed_tasks": 0,
+                    "state_history_count": 45,
+                    "timestamp": "2026-04-19T20:50:43.036244"
+                  }
+                }
+              ],
+              "recovery_times": []
+            }
+          },
+          "enhanced_stats": {
+            "total_submitted": 15,
+            "total_completed": 15,
+            "total_failed": 0,
+            "total_execution_time": 5.24321584127348,
+            "average_execution_time": 0.34954772275156537,
+            "throughput_tasks_per_minute": 15,
+            "total_quality_score": 75.0,
+            "average_quality_score": 5.0,
+            "total_hamming_distance": 0,
+            "average_hamming_distance": 0.0,
+            "current_running": 0,
+            "total_pending": 0,
+            "total_running": 0,
+            "total_completed_tasks": 15,
+            "total_failed_tasks": 0,
+            "state_history_count": 45,
+            "dimension_stats": {
+              "correctness": 0,
+              "complexity": 0,
+              "style": 0,
+              "readability": 15,
+              "maintainability": 30,
+              "cost_efficiency": 30
+            },
+            "hexagram_report_summary": {
+              "total_tasks": 15,
+              "hexagram_adapter_tasks": 15,
+              "hexagram_mappings": 64
+            },
+            "timestamp": "2026-04-19T20:50:42.529466",
+            "success_rate": 1.0,
+            "total_experiment_tasks": 15,
+            "successful_experiment_tasks": 15,
+            "hexagram_mappings": 64,
+            "hexagram_adapter_tasks": 15,
+            "stability_metrics": {
+              "interference_tests": [
+                {
+                  "type": "resource_pressure",
+                  "success": true,
+                  "pre_stats": {
+                    "total_submitted": 15,
+                    "total_completed": 15,
+                    "total_failed": 0,
+                    "total_execution_time": 5.24321584127348,
+                    "average_execution_time": 0.34954772275156537,
+                    "throughput_tasks_per_minute": 15,
+                    "total_quality_score": 75.0,
+                    "average_quality_score": 5.0,
+                    "total_hamming_distance": 0,
+                    "average_hamming_distance": 0.0,
+                    "current_running": 0,
+                    "total_pending": 0,
+                    "total_running": 0,
+                    "total_completed_tasks": 15,
+                    "total_failed_tasks": 0,
+                    "state_history_count": 45,
+                    "dimension_stats": {
+                      "correctness": 0,
+                      "complexity": 0,
+                      "style": 0,
+                      "readability": 15,
+                      "maintainability": 30,
+                      "cost_efficiency": 30
+                    },
+                    "hexagram_report_summary": {
+                      "total_tasks": 15,
+                      "hexagram_adapter_tasks": 15,
+                      "hexagram_mappings": 64
+                    },
+                    "timestamp": "2026-04-19T20:50:43.036547"
+                  },
+                  "post_stats": {
+                    "total_submitted": 15,
+                    "total_completed": 15,
+                    "total_failed": 0,
+                    "total_execution_time": 5.24321584127348,
+                    "average_execution_time": 0.34954772275156537,
+                    "throughput_tasks_per_minute": 15,
+                    "total_quality_score": 75.0,
+                    "average_quality_score": 5.0,
+                    "total_hamming_distance": 0,
+                    "average_hamming_distance": 0.0,
+                    "current_running": 0,
+                    "total_pending": 0,
+                    "total_running": 0,
+                    "total_completed_tasks": 15,
+                    "total_failed_tasks": 0,
+                    "state_history_count": 45,
+                    "dimension_stats": {
+                      "correctness": 0,
+                      "complexity": 0,
+                      "style": 0,
+                      "readability": 15,
+                      "maintainability": 30,
+                      "cost_efficiency": 30
+                    },
+                    "hexagram_report_summary": {
+                      "total_tasks": 15,
+                      "hexagram_adapter_tasks": 15,
+                      "hexagram_mappings": 64
+                    },
+                    "timestamp": "2026-04-19T20:50:43.343665"
+                  }
+                },
+                {
+                  "type": "partial_failure",
+                  "success": true,
+                  "pre_stats": {
+                    "total_submitted": 15,
+                    "total_completed": 15,
+                    "total_failed": 0,
+                    "total_execution_time": 5.24321584127348,
+                    "average_execution_time": 0.34954772275156537,
+                    "throughput_tasks_per_minute": 15,
+                    "total_quality_score": 75.0,
+                    "average_quality_score": 5.0,
+                    "total_hamming_distance": 0,
+                    "average_hamming_distance": 0.0,
+                    "current_running": 0,
+                    "total_pending": 0,
+                    "total_running": 0,
+                    "total_completed_tasks": 15,
+                    "total_failed_tasks": 0,
+                    "state_history_count": 45,
+                    "dimension_stats": {
+                      "correctness": 0,
+                      "complexity": 0,
+                      "style": 0,
+                      "readability": 15,
+                      "maintainability": 30,
+                      "cost_efficiency": 30
+                    },
+                    "hexagram_report_summary": {
+                      "total_tasks": 15,
+                      "hexagram_adapter_tasks": 15,
+                      "hexagram_mappings": 64
+                    },
+                    "timestamp": "2026-04-19T20:50:43.343864"
+                  },
+                  "post_stats": {
+                    "total_submitted": 15,
+                    "total_completed": 15,
+                    "total_failed": 1,
+                    "total_execution_time": 5.24321584127348,
+                    "average_execution_time": 0.34954772275156537,
+                    "throughput_tasks_per_minute": 15,
+                    "total_quality_score": 75.0,
+                    "average_quality_score": 5.0,
+                    "total_hamming_distance": 0,
+                    "average_hamming_distance": 0.0,
+                    "current_running": 0,
+                    "total_pending": 0,
+                    "total_running": 0,
+                    "total_completed_tasks": 14,
+                    "total_failed_tasks": 1,
+                    "state_history_count": 46,
+                    "dimension_stats": {
+                      "correctness": 0,
+                      "complexity": 0,
+                      "style": 0,
+                      "readability": 15,
+                      "maintainability": 30,
+                      "cost_efficiency": 30
+                    },
+                    "hexagram_report_summary": {
+                      "total_tasks": 15,
+                      "hexagram_adapter_tasks": 15,
+                      "hexagram_mappings": 64
+                    },
+                    "timestamp": "2026-04-19T20:50:43.344113"
+                  }
+                },
+                {
+                  "type": "state_corruption",
+                  "success": true,
+                  "pre_stats": {
+                    "total_submitted": 15,
+                    "total_completed": 15,
+                    "total_failed": 1,
+                    "total_execution_time": 5.24321584127348,
+                    "average_execution_time": 0.34954772275156537,
+                    "throughput_tasks_per_minute": 15,
+                    "total_quality_score": 75.0,
+                    "average_quality_score": 5.0,
+                    "total_hamming_distance": 0,
+                    "average_hamming_distance": 0.0,
+                    "current_running": 0,
+                    "total_pending": 0,
+                    "total_running": 0,
+                    "total_completed_tasks": 14,
+                    "total_failed_tasks": 1,
+                    "state_history_count": 46,
+                    "dimension_stats": {
+                      "correctness": 0,
+                      "complexity": 0,
+                      "style": 0,
+                      "readability": 15,
+                      "maintainability": 30,
+                      "cost_efficiency": 30
+                    },
+                    "hexagram_report_summary": {
+                      "total_tasks": 15,
+                      "hexagram_adapter_tasks": 15,
+                      "hexagram_mappings": 64
+                    },
+                    "timestamp": "2026-04-19T20:50:43.344297"
+                  },
+                  "post_stats": {
+                    "total_submitted": 15,
+                    "total_completed": 15,
+                    "total_failed": 1,
+                    "total_execution_time": 5.24321584127348,
+                    "average_execution_time": 0.34954772275156537,
+                    "throughput_tasks_per_minute": 15,
+                    "total_quality_score": 75.0,
+                    "average_quality_score": 5.0,
+                    "total_hamming_distance": 0,
+                    "average_hamming_distance": 0.0,
+                    "current_running": 0,
+                    "total_pending": 0,
+                    "total_running": 0,
+                    "total_completed_tasks": 13,
+                    "total_failed_tasks": 2,
+                    "state_history_count": 46,
+                    "dimension_stats": {
+                      "correctness": 0,
+                      "complexity": 0,
+                      "style": 0,
+                      "readability": 15,
+                      "maintainability": 30,
+                      "cost_efficiency": 30
+                    },
+                    "hexagram_report_summary": {
+                      "total_tasks": 15,
+                      "hexagram_adapter_tasks": 15,
+                      "hexagram_mappings": 64
+                    },
+                    "timestamp": "2026-04-19T20:50:43.344541"
+                  }
+                },
+                {
+                  "type": "network_delay",
+                  "success": true,
+                  "pre_stats": {
+                    "total_submitted": 15,
+                    "total_completed": 15,
+                    "total_failed": 1,
+                    "total_execution_time": 5.24321584127348,
+                    "average_execution_time": 0.34954772275156537,
+                    "throughput_tasks_per_minute": 15,
+                    "total_quality_score": 75.0,
+                    "average_quality_score": 5.0,
+                    "total_hamming_distance": 0,
+                    "average_hamming_distance": 0.0,
+                    "current_running": 0,
+                    "total_pending": 0,
+                    "total_running": 0,
+                    "total_completed_tasks": 13,
+                    "total_failed_tasks": 2,
+                    "state_history_count": 46,
+                    "dimension_stats": {
+                      "correctness": 0,
+                      "complexity": 0,
+                      "style": 0,
+                      "readability": 15,
+                      "maintainability": 30,
+                      "cost_efficiency": 30
+                    },
+                    "hexagram_report_summary": {
+                      "total_tasks": 15,
+                      "hexagram_adapter_tasks": 15,
+                      "hexagram_mappings": 64
+                    },
+                    "timestamp": "2026-04-19T20:50:43.344720"
+                  },
+                  "post_stats": {
+                    "total_submitted": 15,
+                    "total_completed": 15,
+                    "total_failed": 1,
+                    "total_execution_time": 5.24321584127348,
+                    "average_execution_time": 0.34954772275156537,
+                    "throughput_tasks_per_minute": 15,
+                    "total_quality_score": 75.0,
+                    "average_quality_score": 5.0,
+                    "total_hamming_distance": 0,
+                    "average_hamming_distance": 0.0,
+                    "current_running": 0,
+                    "total_pending": 0,
+                    "total_running": 0,
+                    "total_completed_tasks": 13,
+                    "total_failed_tasks": 2,
+                    "state_history_count": 46,
+                    "dimension_stats": {
+                      "correctness": 0,
+                      "complexity": 0,
+                      "style": 0,
+                      "readability": 15,
+                      "maintainability": 30,
+                      "cost_efficiency": 30
+                    },
+                    "hexagram_report_summary": {
+                      "total_tasks": 15,
+                      "hexagram_adapter_tasks": 15,
+                      "hexagram_mappings": 64
+                    },
+                    "timestamp": "2026-04-19T20:50:44.149876"
+                  }
+                }
+              ],
+              "recovery_times": []
+            }
+          },
+          "comparison_metrics": {
+            "execution_time_ratio": 0.977653570179118,
+            "execution_time_improvement": 0.022346429820881974,
+            "success_rate_improvement": 0.0,
+            "quality_improvement": 5.0,
+            "hamming_distance": 0.0,
+            "dimensions_improvement": 0
+          },
+          "timestamp": "2026-04-19T20:50:44.150039"
+        }
+      ],
+      "experiment_type": "stability",
+      "duration_seconds": 2.630521059036255,
+      "success": true,
+      "monitoring_data": {
+        "monitor_metrics": {
+          "experiment.duration": {
+            "name": "experiment.duration",
+            "type": "application",
+            "category": "gauge",
+            "description": "\u5b9e\u9a8c\u6267\u884c\u65f6\u957f",
+            "unit": "seconds",
+            "current_value": 0.0,
+            "last_updated": "2026-04-19T20:50:41.520790",
+            "config": {
+              "min_value": 0
+            }
+          },
+          "experiment.success_rate": {
+            "name": "experiment.success_rate",
+            "type": "application",
+            "category": "gauge",
+            "description": "\u5b9e\u9a8c\u6210\u529f\u7387",
+            "unit": "percent",
+            "current_value": 0.0,
+            "last_updated": "2026-04-19T20:50:41.520791",
+            "config": {
+              "min_value": 0,
+              "max_value": 100
+            }
+          },
+          "performance.latency": {
+            "name": "performance.latency",
+            "type": "application",
+            "category": "gauge",
+            "description": "\u5e73\u5747\u5ef6\u8fdf",
+            "unit": "seconds",
+            "current_value": 0.0,
+            "last_updated": "2026-04-19T20:50:41.520794",
+            "config": {
+              "min_value": 0
+            }
+          },
+          "performance.throughput": {
+            "name": "performance.throughput",
+            "type": "application",
+            "category": "gauge",
+            "description": "\u541e\u5410\u91cf",
+            "unit": "tasks/second",
+            "current_value": 0.0,
+            "last_updated": "2026-04-19T20:50:41.520795",
+            "config": {
+              "min_value": 0
+            }
+          },
+          "system.cpu_usage": {
+            "name": "system.cpu_usage",
+            "type": "system",
+            "category": "gauge",
+            "description": "CPU\u4f7f\u7528\u7387 (%)",
+            "unit": "percent",
+            "current_value": 67.52626713914935,
+            "last_updated": "2026-04-19T20:50:41.521046",
+            "config": {
+              "min_value": 0,
+              "max_value": 100
+            }
+          },
+          "system.memory_usage": {
+            "name": "system.memory_usage",
+            "type": "system",
+            "category": "gauge",
+            "description": "\u5185\u5b58\u4f7f\u7528\u7387 (%)",
+            "unit": "percent",
+            "current_value": 64.80513768373697,
+            "last_updated": "2026-04-19T20:50:41.521054",
+            "config": {
+              "min_value": 0,
+              "max_value": 100
+            }
+          }
+        },
+        "monitor_alerts": [],
+        "monitor_statistics": {
+          "system.cpu_usage": {
+            "count": 1,
+            "min": 67.52626713914935,
+            "max": 67.52626713914935,
+            "mean": 67.52626713914935,
+            "median": 67.52626713914935,
+            "last": 67.52626713914935
+          },
+          "system.memory_usage": {
+            "count": 1,
+            "min": 64.80513768373697,
+            "max": 64.80513768373697,
+            "mean": 64.80513768373697,
+            "median": 64.80513768373697,
+            "last": 64.80513768373697
+          }
+        },
+        "monitor_report": {
+          "generated_at": "2026-04-19T20:50:44.151701",
+          "summary": {
+            "total_metrics": 18,
+            "active_alerts": 0,
+            "system_metrics": {
+              "system.cpu_usage": 67.52626713914935,
+              "system.memory_usage": 64.80513768373697,
+              "system.disk_io": 144.09923889656085,
+              "system.network_traffic": 175.56032975352105
+            },
+            "application_metrics": {
+              "application.queue_depth": 0,
+              "application.throughput": 0,
+              "application.latency": 0,
+              "application.error_rate": 0,
+              "experiment.duration": 0,
+              "experiment.success_rate": 0,
+              "performance.latency": 0,
+              "performance.throughput": 0
+            },
+            "business_metrics": {
+              "business.task_completion_rate": 0,
+              "business.quality_score": 0,
+              "business.state_transition_efficiency": 0,
+              "business.hamming_distance": 0,
+              "experiment.task_completed": 0,
+              "experiment.task_failed": 0
+            }
+          },
+          "metric_details": {
+            "system.cpu_usage": {
+              "current_value": 67.52626713914935,
+              "last_updated": "2026-04-19T20:50:41.521046",
+              "statistics": {
+                "count": 1,
+                "min": 67.52626713914935,
+                "max": 67.52626713914935,
+                "mean": 67.52626713914935,
+                "median": 67.52626713914935,
+                "last": 67.52626713914935
+              }
+            },
+            "system.memory_usage": {
+              "current_value": 64.80513768373697,
+              "last_updated": "2026-04-19T20:50:41.521054",
+              "statistics": {
+                "count": 1,
+                "min": 64.80513768373697,
+                "max": 64.80513768373697,
+                "mean": 64.80513768373697,
+                "median": 64.80513768373697,
+                "last": 64.80513768373697
+              }
+            },
+            "system.disk_io": {
+              "current_value": 144.09923889656085,
+              "last_updated": "2026-04-19T20:50:41.521058",
+              "statistics": {
+                "count": 1,
+                "min": 144.09923889656085,
+                "max": 144.09923889656085,
+                "mean": 144.09923889656085,
+                "median": 144.09923889656085,
+                "last": 144.09923889656085
+              }
+            },
+            "system.network_traffic": {
+              "current_value": 175.56032975352105,
+              "last_updated": "2026-04-19T20:50:41.521060",
+              "statistics": {
+                "count": 1,
+                "min": 175.56032975352105,
+                "max": 175.56032975352105,
+                "mean": 175.56032975352105,
+                "median": 175.56032975352105,
+                "last": 175.56032975352105
+              }
+            },
+            "application.queue_depth": {
+              "current_value": 0.0,
+              "last_updated": "2026-04-19T20:50:41.520772",
+              "statistics": {}
+            },
+            "application.throughput": {
+              "current_value": 0.0,
+              "last_updated": "2026-04-19T20:50:41.520778",
+              "statistics": {}
+            },
+            "application.latency": {
+              "current_value": 0.0,
+              "last_updated": "2026-04-19T20:50:41.520779",
+              "statistics": {}
+            },
+            "application.error_rate": {
+              "current_value": 0.0,
+              "last_updated": "2026-04-19T20:50:41.520782",
+              "statistics": {}
+            },
+            "business.task_completion_rate": {
+              "current_value": 0.0,
+              "last_updated": "2026-04-19T20:50:41.520783",
+              "statistics": {}
+            },
+            "business.quality_score": {
+              "current_value": 0.0,
+              "last_updated": "2026-04-19T20:50:41.520785",
+              "statistics": {}
+            },
+            "business.state_transition_efficiency": {
+              "current_value": 0.0,
+              "last_updated": "2026-04-19T20:50:41.520786",
+              "statistics": {}
+            },
+            "business.hamming_distance": {
+              "current_value": 0.0,
+              "last_updated": "2026-04-19T20:50:41.520787",
+              "statistics": {}
+            },
+            "experiment.duration": {
+              "current_value": 0.0,
+              "last_updated": "2026-04-19T20:50:41.520790",
+              "statistics": {}
+            },
+            "experiment.success_rate": {
+              "current_value": 0.0,
+              "last_updated": "2026-04-19T20:50:41.520791",
+              "statistics": {}
+            },
+            "experiment.task_completed": {
+              "current_value": 0.0,
+              "last_updated": "2026-04-19T20:50:41.520792",
+              "statistics": {}
+            },
+            "experiment.task_failed": {
+              "current_value": 0.0,
+              "last_updated": "2026-04-19T20:50:41.520793",
+              "statistics": {}
+            },
+            "performance.latency": {
+              "current_value": 0.0,
+              "last_updated": "2026-04-19T20:50:41.520794",
+              "statistics": {}
+            },
+            "performance.throughput": {
+              "current_value": 0.0,
+              "last_updated": "2026-04-19T20:50:41.520795",
+              "statistics": {}
+            }
+          },
+          "alert_details": []
+        }
+      }
+    }
+  ],
+  "metadata": {
+    "total_experiments": 1,
+    "successful_experiments": 1
+  }
+}

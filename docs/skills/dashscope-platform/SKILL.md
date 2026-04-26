@@ -73,12 +73,12 @@ export GITHUB_TOKEN="${GITHUB_TOKEN}"
 
 ### 别名系统
 ```bash
-alias claude="/Users/frankie/claude-code-setup/claude-dual-model.sh"
-alias claude-max="/Users/frankie/claude-code-setup/claude-qwen-alt.sh -m qwen3.6-plus"
-alias claude-dev="/Users/frankie/claude-code-setup/claude-dual-model.sh 2"
-alias claude-fix="/Users/frankie/claude-code-setup/claude-dual-model.sh 1"
-alias claude-zh="/Users/frankie/claude-code-setup/claude-qwen-alt.sh"
-alias claude-init='eval "$(/Users/frankie/claude-code-setup/init-claude-env.sh --export)"'
+alias claude="/Volumes/1TB-M2/openclaw/claude-code-setup/claude-dual-model.sh"
+alias claude-max="/Volumes/1TB-M2/openclaw/claude-code-setup/claude-qwen-alt.sh -m qwen3.6-plus"
+alias claude-dev="/Volumes/1TB-M2/openclaw/claude-code-setup/claude-dual-model.sh 2"
+alias claude-fix="/Volumes/1TB-M2/openclaw/claude-code-setup/claude-dual-model.sh 1"
+alias claude-zh="/Volumes/1TB-M2/openclaw/claude-code-setup/claude-qwen-alt.sh"
+alias claude-init='eval "$(/Volumes/1TB-M2/openclaw/claude-code-setup/init-claude-env.sh --export)"'
 ```
 
 ## 工具脚本
@@ -306,10 +306,10 @@ curl -s ifconfig.me
 ### 监控和维护计划
 ```bash
 # 每日检查 (添加到crontab)
-0 9 * * * /Users/frankie/claude-code-setup/dashscope-maintenance.sh --report >> ~/dashscope-maintenance.log
+0 9 * * * /Volumes/1TB-M2/openclaw/claude-code-setup/dashscope-maintenance.sh --report >> ~/dashscope-maintenance.log
 
 # 每周完整检查
-0 9 * * 1 /Users/frankie/claude-code-setup/dashscope-maintenance.sh --all >> ~/dashscope-maintenance-full.log
+0 9 * * 1 /Volumes/1TB-M2/openclaw/claude-code-setup/dashscope-maintenance.sh --all >> ~/dashscope-maintenance-full.log
 ```
 
 ### 关键监控指标

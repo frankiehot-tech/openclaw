@@ -6,7 +6,7 @@
 set -euo pipefail
 
 # 配置
-BASE_DIR="/Users/frankie/Documents/Athena知识库/执行项目/2026/003-open human（碳硅基共生）"
+BASE_DIR="/Volumes/1TB-M2/openclaw/Documents/Athena知识库/执行项目/2026/003-open human（碳硅基共生）"
 AI_PLAN_DIR="$BASE_DIR/007-AI-plan"
 COMPLETED_DIR="$AI_PLAN_DIR/完成"
 APPROVED_DIR="$AI_PLAN_DIR/批准"

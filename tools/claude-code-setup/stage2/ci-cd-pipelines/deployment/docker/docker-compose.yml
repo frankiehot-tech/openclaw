@@ -1,0 +1,399 @@
+# Docker Compose配置模板
+# 用于本地开发、测试和多服务应用部署
+
+version: '3.8'
+
+# 定义网络
+networks:
+  app-network:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.20.0.0/16
+
+# 定义卷
+volumes:
+  postgres-data:
+    driver: local
+  redis-data:
+    driver: local
+  app-logs:
+    driver: local
+
+# 定义配置
+x-common-config: &common-config
+  restart: unless-stopped
+  networks:
+    - app-network
+  logging:
+    driver: json-file
+    options:
+      max-size: "10m"
+      max-file: "3"
+
+# 定义环境变量
+x-environment: &default-environment
+  TZ: Asia/Shanghai
+  NODE_ENV: development
+  LOG_LEVEL: debug
+
+# 服务定义
+services:
+  # Web前端服务
+  web:
+    <<: *common-config
+    image: ${WEB_IMAGE:-nginx:alpine}
+    container_name: ${APP_NAME:-myapp}-web
+    depends_on:
+      - api
+    ports:
+      - "${WEB_PORT:-8080}:80"
+    environment:
+      <<: *default-environment
+      API_URL: http://api:${API_PORT:-3000}
+    volumes:
+      - ./web/nginx.conf:/etc/nginx/nginx.conf:ro
+      - ./web/html:/usr/share/nginx/html:ro
+      - app-logs:/var/log/nginx
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:80/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+    deploy:
+      resources:
+        limits:
+          memory: 256M
+        reservations:
+          memory: 128M
+
+  # API后端服务
+  api:
+    <<: *common-config
+    build:
+      context: ../..
+      dockerfile: deployment/docker/Dockerfile.template
+      args:
+        BUILD_IMAGE: ${API_BUILD_IMAGE:-node:18-alpine}
+        NODE_ENV: development
+        VERSION: ${VERSION:-latest}
+    container_name: ${APP_NAME:-myapp}-api
+    depends_on:
+      database:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    ports:
+      - "${API_PORT:-3000}:${API_PORT:-3000}"
+    environment:
+      <<: *default-environment
+      DATABASE_HOST: database
+      DATABASE_PORT: 5432
+      DATABASE_NAME: ${DB_NAME:-myapp}
+      DATABASE_USER: ${DB_USER:-postgres}
+      DATABASE_PASSWORD: ${DB_PASSWORD:-password}
+      REDIS_HOST: redis
+      REDIS_PORT: 6379
+      REDIS_PASSWORD: ${REDIS_PASSWORD:-}
+      JWT_SECRET: ${JWT_SECRET:-your-jwt-secret-here}
+      API_KEY: ${API_KEY:-}
+    volumes:
+      - ../../src:/app/src:ro
+      - ../../package.json:/app/package.json:ro
+      - ../../.env:/app/.env:ro
+      - app-logs:/app/logs
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:${API_PORT:-3000}/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 60s
+    command: ["npm", "run", "dev"]
+    working_dir: /app
+    user: "node"
+    deploy:
+      resources:
+        limits:
+          memory: 512M
+          cpus: '1.0'
+        reservations:
+          memory: 256M
+          cpus: '0.5'
+
+  # 数据库服务
+  database:
+    <<: *common-config
+    image: ${DB_IMAGE:-postgres:15-alpine}
+    container_name: ${APP_NAME:-myapp}-database
+    environment:
+      <<: *default-environment
+      POSTGRES_DB: ${DB_NAME:-myapp}
+      POSTGRES_USER: ${DB_USER:-postgres}
+      POSTGRES_PASSWORD: ${DB_PASSWORD:-password}
+      POSTGRES_INITDB_ARGS: "--encoding=UTF8 --locale=C"
+    ports:
+      - "${DB_PORT:-5432}:5432"
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+      - ./initdb:/docker-entrypoint-initdb.d:ro
+      - app-logs:/var/log/postgresql
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${DB_USER:-postgres}"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+      start_period: 30s
+    deploy:
+      resources:
+        limits:
+          memory: 256M
+        reservations:
+          memory: 128M
+
+  # Redis缓存服务
+  redis:
+    <<: *common-config
+    image: ${REDIS_IMAGE:-redis:7-alpine}
+    container_name: ${APP_NAME:-myapp}-redis
+    command: redis-server --appendonly yes --requirepass ${REDIS_PASSWORD:-}
+    ports:
+      - "${REDIS_PORT:-6379}:6379"
+    volumes:
+      - redis-data:/data
+      - app-logs:/var/log/redis
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 30s
+    deploy:
+      resources:
+        limits:
+          memory: 128M
+        reservations:
+          memory: 64M
+
+  # 消息队列服务 (RabbitMQ)
+  rabbitmq:
+    <<: *common-config
+    image: ${RABBITMQ_IMAGE:-rabbitmq:3-management-alpine}
+    container_name: ${APP_NAME:-myapp}-rabbitmq
+    environment:
+      <<: *default-environment
+      RABBITMQ_DEFAULT_USER: ${RABBITMQ_USER:-guest}
+      RABBITMQ_DEFAULT_PASS: ${RABBITMQ_PASS:-guest}
+      RABBITMQ_DEFAULT_VHOST: /
+    ports:
+      - "${RABBITMQ_PORT:-5672}:5672"
+      - "${RABBITMQ_MANAGEMENT_PORT:-15672}:15672"
+    volumes:
+      - ./rabbitmq.conf:/etc/rabbitmq/rabbitmq.conf:ro
+      - rabbitmq-data:/var/lib/rabbitmq
+    healthcheck:
+      test: ["CMD", "rabbitmq-diagnostics", "ping"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 60s
+
+  # Elasticsearch服务
+  elasticsearch:
+    <<: *common-config
+    image: ${ELASTICSEARCH_IMAGE:-elasticsearch:8.11.0}
+    container_name: ${APP_NAME:-myapp}-elasticsearch
+    environment:
+      <<: *default-environment
+      discovery.type: single-node
+      xpack.security.enabled: false
+      ES_JAVA_OPTS: "-Xms512m -Xmx512m"
+      cluster.name: ${APP_NAME:-myapp}-cluster
+    ports:
+      - "${ELASTICSEARCH_PORT:-9200}:9200"
+      - "${ELASTICSEARCH_TRANSPORT_PORT:-9300}:9300"
+    volumes:
+      - elasticsearch-data:/usr/share/elasticsearch/data
+    healthcheck:
+      test: ["CMD-SHELL", "curl -f http://localhost:9200/_cluster/health?wait_for_status=yellow&timeout=50s"]
+      interval: 30s
+      timeout: 60s
+      retries: 3
+      start_period: 90s
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+      nofile:
+        soft: 65536
+        hard: 65536
+
+  # 监控服务 (Prometheus + Grafana)
+  prometheus:
+    <<: *common-config
+    image: ${PROMETHEUS_IMAGE:-prom/prometheus:latest}
+    container_name: ${APP_NAME:-myapp}-prometheus
+    ports:
+      - "${PROMETHEUS_PORT:-9090}:9090"
+    volumes:
+      - ./prometheus.yml:/etc/prometheus/prometheus.yml:ro
+      - prometheus-data:/prometheus
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
+      - '--storage.tsdb.path=/prometheus'
+      - '--web.console.libraries=/etc/prometheus/console_libraries'
+      - '--web.console.templates=/etc/prometheus/consoles'
+      - '--storage.tsdb.retention.time=200h'
+      - '--web.enable-lifecycle'
+
+  grafana:
+    <<: *common-config
+    image: ${GRAFANA_IMAGE:-grafana/grafana:latest}
+    container_name: ${APP_NAME:-myapp}-grafana
+    depends_on:
+      - prometheus
+    ports:
+      - "${GRAFANA_PORT:-3001}:3000"
+    environment:
+      <<: *default-environment
+      GF_SECURITY_ADMIN_PASSWORD: ${GRAFANA_ADMIN_PASSWORD:-admin}
+      GF_INSTALL_PLUGINS: grafana-piechart-panel
+    volumes:
+      - grafana-data:/var/lib/grafana
+      - ./grafana/provisioning:/etc/grafana/provisioning:ro
+      - ./grafana/dashboards:/var/lib/grafana/dashboards:ro
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:3000/api/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  # 反向代理/负载均衡器 (Traefik)
+  traefik:
+    <<: *common-config
+    image: ${TRAEFIK_IMAGE:-traefik:v3.0}
+    container_name: ${APP_NAME:-myapp}-traefik
+    command:
+      - "--api.insecure=true"
+      - "--providers.docker=true"
+      - "--providers.docker.exposedbydefault=false"
+      - "--entrypoints.web.address=:80"
+      - "--entrypoints.websecure.address=:443"
+      - "--certificatesresolvers.myresolver.acme.tlschallenge=true"
+      - "--certificatesresolvers.myresolver.acme.email=${ACME_EMAIL:-admin@example.com}"
+      - "--certificatesresolvers.myresolver.acme.storage=/letsencrypt/acme.json"
+    ports:
+      - "80:80"
+      - "443:443"
+      - "${TRAEFIK_DASHBOARD_PORT:-8081}:8080"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - traefik-data:/letsencrypt
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.api.rule=Host(`${API_DOMAIN:-api.localhost}`)"
+      - "traefik.http.routers.api.entrypoints=web"
+      - "traefik.http.routers.api.service=api"
+      - "traefik.http.services.api.loadbalancer.server.port=${API_PORT:-3000}"
+
+  # 作业执行器 (Celery worker示例)
+  worker:
+    <<: *common-config
+    build:
+      context: ../..
+      dockerfile: deployment/docker/Dockerfile.template
+    container_name: ${APP_NAME:-myapp}-worker
+    depends_on:
+      - rabbitmq
+      - redis
+      - database
+    environment:
+      <<: *default-environment
+      DATABASE_HOST: database
+      DATABASE_PORT: 5432
+      DATABASE_NAME: ${DB_NAME:-myapp}
+      DATABASE_USER: ${DB_USER:-postgres}
+      DATABASE_PASSWORD: ${DB_PASSWORD:-password}
+      REDIS_HOST: redis
+      REDIS_PORT: 6379
+      RABBITMQ_HOST: rabbitmq
+      RABBITMQ_PORT: 5672
+      CELERY_BROKER_URL: amqp://${RABBITMQ_USER:-guest}:${RABBITMQ_PASS:-guest}@rabbitmq:5672//
+      CELERY_RESULT_BACKEND: redis://redis:6379/0
+    volumes:
+      - ../../src:/app/src:ro
+      - ../../requirements.txt:/app/requirements.txt:ro
+      - app-logs:/app/logs
+    command: ["celery", "-A", "tasks", "worker", "--loglevel=info"]
+    working_dir: /app
+    deploy:
+      resources:
+        limits:
+          memory: 256M
+        reservations:
+          memory: 128M
+      replicas: 2
+
+  # 数据库迁移服务
+  migrations:
+    <<: *common-config
+    build:
+      context: ../..
+      dockerfile: deployment/docker/Dockerfile.template
+    container_name: ${APP_NAME:-myapp}-migrations
+    depends_on:
+      database:
+        condition: service_healthy
+    environment:
+      <<: *default-environment
+      DATABASE_HOST: database
+      DATABASE_PORT: 5432
+      DATABASE_NAME: ${DB_NAME:-myapp}
+      DATABASE_USER: ${DB_USER:-postgres}
+      DATABASE_PASSWORD: ${DB_PASSWORD:-password}
+    command: ["npm", "run", "migrate:up"]
+    working_dir: /app
+    restart: "no"
+
+# 环境变量配置说明
+# 创建.env文件并设置以下变量:
+# APP_NAME=myapp
+# WEB_PORT=8080
+# API_PORT=3000
+# DB_PORT=5432
+# REDIS_PORT=6379
+# VERSION=1.0.0
+# DB_USER=postgres
+# DB_PASSWORD=secure_password
+# JWT_SECRET=your-secret-key
+# API_KEY=your-api-key
+
+# 使用说明:
+# 1. 复制此文件到项目根目录: cp deployment/docker/docker-compose.yml .
+# 2. 创建.env文件并配置环境变量
+# 3. 启动所有服务: docker-compose up -d
+# 4. 查看日志: docker-compose logs -f
+# 5. 停止服务: docker-compose down
+# 6. 清理数据: docker-compose down -v
+
+# 常用命令:
+# - 启动特定服务: docker-compose up -d api database
+# - 重建服务: docker-compose up -d --build api
+# - 执行命令: docker-compose exec api npm test
+# - 查看服务状态: docker-compose ps
+# - 查看服务资源使用: docker-compose stats
+
+# 扩展配置:
+# 1. 添加自定义网络配置
+# 2. 配置资源限制和预留
+# 3. 设置健康检查策略
+# 4. 配置日志轮转
+# 5. 添加卷备份策略
+
+# 安全最佳实践:
+# 1. 不要在生产环境使用默认密码
+# 2. 定期更新基础镜像
+# 3. 使用非root用户运行容器
+# 4. 配置适当的资源限制
+# 5. 启用TLS加密通信
+# 6. 定期备份持久化数据

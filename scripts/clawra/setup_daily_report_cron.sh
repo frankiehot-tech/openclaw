@@ -34,7 +34,7 @@ echo ""
 echo "注意："
 echo "- 确保Python环境正确配置"
 echo "- 确保logs目录存在: mkdir -p logs"
-echo "- 日报将生成到默认目录: /Users/frankie/Documents/Athena知识库/执行项目/2026/003-open human（碳硅基共生）/015-mailbox"
+echo "- 日报将生成到默认目录: /Volumes/1TB-M2/openclaw/Documents/Athena知识库/执行项目/2026/003-open human（碳硅基共生）/015-mailbox"
 echo "- 可通过修改maref_daily_reporter.py中的get_default_output_dir()方法更改输出目录"
 echo ""
 

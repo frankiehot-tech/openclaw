@@ -77,13 +77,13 @@ tail -f ~/.openclaw-gsdv2/logs/state-machine.log
 
 ```bash
 # 1. 备份原队列配置
-cp /Users/frankie/Documents/Athena知识库/执行项目/2026/003-open human（碳硅基共生）/007-AI-plan/.athena-auto-queue.json ~/.openclaw-gsdv2/backups/
+cp /Volumes/1TB-M2/openclaw/Documents/Athena知识库/执行项目/2026/003-open human（碳硅基共生）/007-AI-plan/.athena-auto-queue.json ~/.openclaw-gsdv2/backups/
 
 # 2. 更新队列路由配置（将opencode_build改为claude-executor）
-sed -i '' 's/"opencode_build"/"claude-executor"/g' /Users/frankie/Documents/Athena知识库/执行项目/2026/003-open human（碳硅基共生）/007-AI-plan/.athena-auto-queue.json
+sed -i '' 's/"opencode_build"/"claude-executor"/g' /Volumes/1TB-M2/openclaw/Documents/Athena知识库/执行项目/2026/003-open human（碳硅基共生）/007-AI-plan/.athena-auto-queue.json
 
 # 3. 验证配置更新
-grep -n "runner_mode" /Users/frankie/Documents/Athena知识库/执行项目/2026/003-open human（碳硅基共生）/007-AI-plan/.athena-auto-queue.json
+grep -n "runner_mode" /Volumes/1TB-M2/openclaw/Documents/Athena知识库/执行项目/2026/003-open human（碳硅基共生）/007-AI-plan/.athena-auto-queue.json
 ```
 
 ## 📊 **每日7点监控报告机制**
@@ -198,10 +198,10 @@ ps aux | grep state-machine | grep -v grep
 
 ```bash
 # 1. 恢复队列配置（如配置出错）
-cp ~/.openclaw-gsdv2/backups/.athena-auto-queue.json /Users/frankie/Documents/Athena知识库/执行项目/2026/003-open human（碳硅基共生）/007-AI-plan/
+cp ~/.openclaw-gsdv2/backups/.athena-auto-queue.json /Volumes/1TB-M2/openclaw/Documents/Athena知识库/执行项目/2026/003-open human（碳硅基共生）/007-AI-plan/
 
 # 2. 重新适配GSD V2
-sed -i '' 's/"opencode_build"/"claude-executor"/g' /Users/frankie/Documents/Athena知识库/执行项目/2026/003-open human（碳硅基共生）/007-AI-plan/.athena-auto-queue.json
+sed -i '' 's/"opencode_build"/"claude-executor"/g' /Volumes/1TB-M2/openclaw/Documents/Athena知识库/执行项目/2026/003-open human（碳硅基共生）/007-AI-plan/.athena-auto-queue.json
 ```
 
 ## 📋 **执行检查清单**

@@ -1,7 +1,7 @@
 # Athena Open Human 与 Claude Code Router 对齐配置方案
 
 **生成时间**: 2026-04-07  
-**基于报告**: /Users/frankie/claude-code-deployment-report.md  
+**基于报告**: /Volumes/1TB-M2/openclaw/claude-code-deployment-report.md  
 **目标**: 实现Athena Open Human与Claude Code Router的深度集成
 
 ## 📋 集成概览

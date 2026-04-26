@@ -1,0 +1,836 @@
+#!/usr/bin/env python3
+"""
+集成64卦状态管理器（MAREF重构第二阶段）
+
+特性：
+1. 集成河图10态到64卦映射（来自hetu_hexagram_mapping.json）
+2. 保持格雷编码约束（汉明距离=1）
+3. 支持6个质量维度（与GrayCodeStateManager兼容）
+4. 提供河图状态和卦象状态的双向映射
+5. 支持状态演化和历史记录
+
+设计原则：
+- 保持与现有HexagramStateManager API的兼容性
+- 添加河图状态映射功能
+- 集成质量维度分析
+- 支持MAREF调度器的状态转换需求
+"""
+
+import json
+import os
+import time
+import asyncio
+import concurrent.futures
+from dataclasses import dataclass, field
+from datetime import datetime
+from enum import IntEnum
+from typing import Any, Dict, List, Optional, Tuple
+
+# Phase 22优化: 卦象缓存（延迟导入解决循环依赖）
+
+
+class HetuState(IntEnum):
+    """河图10态枚举（与映射文件保持一致）"""
+
+    INITIAL = 1  # 初始状态：评估待开始
+    AST_PARSED = 2  # AST解析完成：代码结构已分析
+    DIMENSION_ASSESSING = 3  # 维度评估中：各维度评估进行中
+    TEST_RUNNING = 4  # 测试执行：运行测试用例
+    RESULT_AGGREGATING = 5  # 结果聚合：汇总各维度分数
+    STRATEGY_ANALYZING = 6  # 策略分析：成本-质量分析
+    TREND_PREDICTING = 7  # 趋势预测：质量演化预测
+    REPORT_GENERATING = 8  # 报告生成：可视化报告
+    DECISION_SUPPORTING = 9  # 决策支持：优化建议生成
+    COMPLETED = 10  # 完成状态：评估结束
+
+
+@dataclass
+class HexagramMapping:
+    """64卦映射定义（与映射文件结构一致）"""
+
+    hexagram_code: int  # 6位二进制编码 (0-63)
+    binary_str: str  # 二进制字符串表示
+    hexagram_name: str  # 卦象名称
+    dimension_values: Dict[str, int]  # 6个维度的值 (0/1)
+    hetu_state: HetuState  # 对应的河图状态
+    semantic_description: str  # 语义描述
+
+
+@dataclass
+class StateEvolution:
+    """状态演化记录"""
+
+    from_state: str  # 起始卦象状态（二进制字符串）
+    to_state: str  # 目标卦象状态
+    from_hetu: HetuState  # 起始河图状态
+    to_hetu: HetuState  # 目标河图状态
+    changed_dimension: Optional[str]  # 改变的维度（如果有）
+    hamming_distance: int  # 汉明距离
+    timestamp: datetime  # 演化时间
+    context: Dict[str, Any] = field(default_factory=dict)  # 演化上下文
+
+
+@dataclass
+class StateAnalysis:
+    """状态分析结果"""
+
+    hexagram_code: int  # 卦象编码
+    binary_representation: str  # 二进制表示
+    hexagram_name: str  # 卦象名称
+    dimension_values: Dict[str, int]  # 各维度值（0或1）
+    hetu_state: HetuState  # 河图状态
+    hetu_state_name: str  # 河图状态名称
+    semantic_description: str  # 语义描述
+    quality_score: float  # 质量评分（基于激活维度数）
+    evolution_distance_to_perfect: int  # 到完美状态的距离
+    active_dimensions: List[str]  # 激活的维度列表
+    inactive_dimensions: List[str]  # 未激活的维度列表
+
+
+class IntegratedHexagramStateManager:
+    """集成64卦状态管理器"""
+
+    # 6个质量维度（与GrayCodeStateManager保持一致）
+    DIMENSIONS = [
+        "correctness",  # D1: 正确性
+        "complexity",  # D2: 复杂度
+        "style",  # D3: 风格
+        "readability",  # D4: 可读性
+        "maintainability",  # D5: 可维护性
+        "cost_efficiency",  # D6: 成本效率
+    ]
+
+    def __init__(self, mapping_file_path: str = "hetu_hexagram_mapping.json"):
+        """
+        初始化集成状态管理器
+
+        Args:
+            mapping_file_path: 河图-卦象映射文件路径
+        """
+        self.mapping_file_path = mapping_file_path
+        self.mappings = self._load_mappings()
+
+        # 创建快速查找索引
+        self._by_code = {m.hexagram_code: m for m in self.mappings}
+        self._by_binary = {m.binary_str: m for m in self.mappings}
+        self._by_hetu_state = self._group_by_hetu_state()
+
+        # 状态历史
+        self.state_history: List[StateEvolution] = []
+
+        # 当前状态
+        self.current_state: Optional[str] = None
+
+        # Phase 22优化: 卦象缓存管理器（延迟导入解决循环依赖）
+        from hexagram_cache import HexagramCacheManager
+
+        self.cache_manager = HexagramCacheManager(self)
+
+        # Phase 22步骤2: 状态分析缓存
+        self._analysis_cache: Dict[str, StateAnalysis] = {}
+
+        # Phase 22步骤2: 异步质量评估优化
+        self._async_executor = concurrent.futures.ThreadPoolExecutor(
+            max_workers=2,  # 2个工作线程处理后台计算
+            thread_name_prefix="hexagram_async",
+        )
+        self._pending_analysis_tasks: Dict[str, concurrent.futures.Future] = {}
+        self._analysis_lock = asyncio.Lock()  # 用于异步操作
+
+        print("🔧 集成64卦状态管理器初始化完成")
+        print(f"   加载 {len(self.mappings)} 个卦象映射")
+        print(f"   河图状态数: {len(self._by_hetu_state)}")
+
+    def _load_mappings(self) -> List[HexagramMapping]:
+        """加载河图-卦象映射数据"""
+        if not os.path.exists(self.mapping_file_path):
+            raise FileNotFoundError(f"映射文件不存在: {self.mapping_file_path}")
+
+        with open(self.mapping_file_path, "r", encoding="utf-8") as f:
+            data = json.load(f)
+
+        mappings = []
+        for item in data.get("mappings", []):
+            # 解析河图状态
+            hetu_state_name = item["hetu_state"]
+            hetu_state_value = item["hetu_state_value"]
+
+            # 查找对应的HetuState枚举值
+            hetu_state = None
+            for state in HetuState:
+                if state.value == hetu_state_value and state.name == hetu_state_name:
+                    hetu_state = state
+                    break
+
+            if hetu_state is None:
+                raise ValueError(
+                    f"未知河图状态: {hetu_state_name} ({hetu_state_value})"
+                )
+
+            # 创建映射对象
+            mapping = HexagramMapping(
+                hexagram_code=item["hexagram_code"],
+                binary_str=item["binary"],
+                hexagram_name=item["hexagram_name"],
+                dimension_values=item["dimension_values"],
+                hetu_state=hetu_state,
+                semantic_description=item["semantic_description"],
+            )
+            mappings.append(mapping)
+
+        return mappings
+
+    def _group_by_hetu_state(self) -> Dict[HetuState, List[HexagramMapping]]:
+        """按河图状态分组映射"""
+        groups: Dict[HetuState, List[HexagramMapping]] = {}
+        for mapping in self.mappings:
+            state = mapping.hetu_state
+            if state not in groups:
+                groups[state] = []
+            groups[state].append(mapping)
+        return groups
+
+    def initialize_state(self, initial_state: str = "000000") -> bool:
+        """
+        初始化当前状态
+
+        Args:
+            initial_state: 初始卦象状态（6位二进制字符串）
+
+        Returns:
+            初始化是否成功
+        """
+        if initial_state not in self._by_binary:
+            print(f"❌ 无效初始状态: {initial_state}")
+            return False
+
+        self.current_state = initial_state
+        print(f"✅ 状态初始化: {self.get_hexagram_name(initial_state)}")
+        return True
+
+    def _validate_state(self, state: str) -> bool:
+        """验证状态是否为有效的64卦状态"""
+        return state in self._by_binary
+
+    @staticmethod
+    def _hamming_distance_raw(state1: str, state2: str) -> int:
+        """
+        计算两个状态之间的汉明距离（原始实现，不使用缓存）
+
+        Args:
+            state1: 第一个状态（6位二进制）
+            state2: 第二个状态（6位二进制）
+
+        Returns:
+            汉明距离（不同位的数量）
+        """
+        if len(state1) != len(state2):
+            raise ValueError("状态长度不一致")
+        return sum(bit1 != bit2 for bit1, bit2 in zip(state1, state2))
+
+    def hamming_distance(self, state1: str, state2: str) -> int:
+        """
+        计算两个状态之间的汉明距离（使用缓存优化）
+
+        Args:
+            state1: 第一个状态（6位二进制）
+            state2: 第二个状态（6位二进制）
+
+        Returns:
+            汉明距离（不同位的数量）
+        """
+        # Phase 22优化: 使用缓存
+        return self.cache_manager.hamming_distance(state1, state2)
+
+    def get_valid_transitions(self, state: Optional[str] = None) -> List[str]:
+        """
+        获取所有有效的转换目标状态（格雷编码约束：汉明距离=1）
+
+        Args:
+            state: 当前状态，如果为None则使用当前状态
+
+        Returns:
+            所有可能的下一个状态列表
+        """
+        if state is None:
+            if self.current_state is None:
+                return []
+            state = self.current_state
+
+        valid_states = []
+
+        # 生成所有可能的下一个状态（只改变1位）
+        for i in range(6):
+            # 翻转第i位
+            bits = list(state)
+            bits[i] = "1" if bits[i] == "0" else "0"
+            new_state = "".join(bits)
+
+            # 检查是否为有效状态
+            if self._validate_state(new_state):
+                valid_states.append(new_state)
+
+        return valid_states
+
+    def transition(
+        self,
+        new_state: str,
+        reason: str = "unknown",
+        context: Optional[Dict[str, Any]] = None,
+    ) -> bool:
+        """
+        执行状态转换（必须满足格雷编码约束）
+
+        Args:
+            new_state: 目标状态
+            reason: 转换原因
+            context: 转换上下文
+
+        Returns:
+            转换是否成功
+        """
+        if self.current_state is None:
+            print("❌ 未初始化状态")
+            return False
+
+        if not self._validate_state(new_state):
+            print(f"❌ 无效目标状态: {new_state}")
+            return False
+
+        # 检查格雷编码约束（汉明距离必须为1）
+        distance = self.hamming_distance(self.current_state, new_state)
+        if distance != 1:
+            print(f"❌ 状态转换不符合格雷编码约束（汉明距离={distance}，必须为1）")
+            return False
+
+        # 获取前后状态的映射信息
+        from_mapping = self._by_binary[self.current_state]
+        to_mapping = self._by_binary[new_state]
+
+        # 确定改变的维度（如果有）
+        changed_dimension = None
+        for dim in self.DIMENSIONS:
+            if from_mapping.dimension_values[dim] != to_mapping.dimension_values[dim]:
+                changed_dimension = dim
+                break
+
+        # 创建演化记录
+        evolution = StateEvolution(
+            from_state=self.current_state,
+            to_state=new_state,
+            from_hetu=from_mapping.hetu_state,
+            to_hetu=to_mapping.hetu_state,
+            changed_dimension=changed_dimension,
+            hamming_distance=distance,
+            timestamp=datetime.now(),
+            context=context or {},
+        )
+
+        # 添加到历史
+        self.state_history.append(evolution)
+
+        # 更新当前状态
+        old_state = self.current_state
+        self.current_state = new_state
+
+        print("🔄 状态转换成功:")
+        print(f"   从: {from_mapping.hexagram_name} ({old_state})")
+        print(f"   到: {to_mapping.hexagram_name} ({new_state})")
+        print(
+            f"   河图状态: {from_mapping.hetu_state.name} → {to_mapping.hetu_state.name}"
+        )
+        print(f"   原因: {reason}")
+
+        return True
+
+    def get_hexagram_name(self, state: Optional[str] = None) -> str:
+        """获取卦象名称"""
+        if state is None:
+            if self.current_state is None:
+                return "未初始化"
+            state = self.current_state
+
+        mapping = self._by_binary.get(state)
+        return mapping.hexagram_name if mapping else "未知卦象"
+
+    def get_hetu_state(self, state: Optional[str] = None) -> Optional[HetuState]:
+        """获取河图状态"""
+        if state is None:
+            if self.current_state is None:
+                return None
+            state = self.current_state
+
+        mapping = self._by_binary.get(state)
+        return mapping.hetu_state if mapping else None
+
+    def get_dimension_values(self, state: Optional[str] = None) -> Dict[str, int]:
+        """获取维度值"""
+        if state is None:
+            if self.current_state is None:
+                return {}
+            state = self.current_state
+
+        mapping = self._by_binary.get(state)
+        return mapping.dimension_values.copy() if mapping else {}
+
+    def _compute_analysis(self, state: str) -> StateAnalysis:
+        """
+        同步计算状态分析（供缓存和异步任务使用）
+
+        Args:
+            state: 卦象状态（6位二进制字符串）
+
+        Returns:
+            StateAnalysis对象
+        """
+        mapping = self._by_binary.get(state)
+        if not mapping:
+            raise ValueError(f"无效状态: {state}")
+
+        # 计算质量评分（简单版本：激活维度比例）
+        active_dims = [dim for dim, val in mapping.dimension_values.items() if val == 1]
+        inactive_dims = [
+            dim for dim, val in mapping.dimension_values.items() if val == 0
+        ]
+        quality_score = len(active_dims) / len(self.DIMENSIONS) * 10  # 0-10分制
+
+        # 计算到完美状态的距离（完美状态：111111）
+        perfect_state = "111111"
+        distance_to_perfect = self.hamming_distance(state, perfect_state)
+
+        analysis = StateAnalysis(
+            hexagram_code=mapping.hexagram_code,
+            binary_representation=mapping.binary_str,
+            hexagram_name=mapping.hexagram_name,
+            dimension_values=mapping.dimension_values.copy(),
+            hetu_state=mapping.hetu_state,
+            hetu_state_name=mapping.hetu_state.name,
+            semantic_description=mapping.semantic_description,
+            quality_score=quality_score,
+            evolution_distance_to_perfect=distance_to_perfect,
+            active_dimensions=active_dims,
+            inactive_dimensions=inactive_dims,
+        )
+
+        return analysis
+
+    def analyze_state(
+        self, state: Optional[str] = None, async_mode: bool = False
+    ) -> Optional[StateAnalysis]:
+        """
+        分析状态（支持同步和异步模式）
+
+        Args:
+            state: 卦象状态（6位二进制字符串），None表示使用当前状态
+            async_mode: 是否启用异步模式（缓存未命中时启动后台计算）
+
+        Returns:
+            StateAnalysis对象或None（异步模式下缓存未命中时可能返回None）
+        """
+        if state is None:
+            if self.current_state is None:
+                return None
+            state = self.current_state
+
+        # Phase 22步骤2: 检查缓存
+        if state in self._analysis_cache:
+            return self._analysis_cache[state]
+
+        mapping = self._by_binary.get(state)
+        if not mapping:
+            return None
+
+        if async_mode:
+            # 异步模式：启动后台计算，立即返回None（或快速估算）
+            # 实际应用中可以返回快速估算结果，这里简化处理
+            self._schedule_async_analysis(state)
+            return None  # 或者返回快速估算
+        else:
+            # 同步模式：立即计算并缓存
+            analysis = self._compute_analysis(state)
+            self._analysis_cache[state] = analysis
+            return analysis
+
+    def _schedule_async_analysis(self, state: str) -> None:
+        """
+        调度异步分析任务
+
+        Args:
+            state: 需要分析的卦象状态
+        """
+        if state in self._pending_analysis_tasks:
+            # 任务已在处理中
+            return
+
+        # 提交后台计算任务
+        future = self._async_executor.submit(self._compute_analysis, state)
+
+        def on_completion(f: concurrent.futures.Future):
+            try:
+                analysis = f.result()
+                # 任务完成后更新缓存
+                self._analysis_cache[state] = analysis
+                # 从待处理任务中移除
+                if state in self._pending_analysis_tasks:
+                    del self._pending_analysis_tasks[state]
+                # 可选：触发回调或通知
+                print(f"🔍 异步分析完成: {state} → {analysis.hexagram_name}")
+            except Exception as e:
+                print(f"❌ 异步分析失败: {state}, 错误: {e}")
+                # 清理待处理任务
+                if state in self._pending_analysis_tasks:
+                    del self._pending_analysis_tasks[state]
+
+        future.add_done_callback(on_completion)
+        self._pending_analysis_tasks[state] = future
+        print(f"🔧 已调度异步分析: {state}")
+
+    async def analyze_state_async(
+        self, state: Optional[str] = None
+    ) -> Optional[StateAnalysis]:
+        """
+        异步分析状态（协程版本）
+
+        Args:
+            state: 卦象状态（6位二进制字符串），None表示使用当前状态
+
+        Returns:
+            StateAnalysis对象或None
+        """
+        if state is None:
+            if self.current_state is None:
+                return None
+            state = self.current_state
+
+        # 检查缓存
+        if state in self._analysis_cache:
+            return self._analysis_cache[state]
+
+        mapping = self._by_binary.get(state)
+        if not mapping:
+            return None
+
+        # 启动异步计算
+        async with self._analysis_lock:
+            # 再次检查缓存（避免竞态条件）
+            if state in self._analysis_cache:
+                return self._analysis_cache[state]
+
+            # 使用asyncio.run_in_executor在后台线程计算
+            loop = asyncio.get_event_loop()
+            analysis = await loop.run_in_executor(
+                self._async_executor, self._compute_analysis, state
+            )
+            self._analysis_cache[state] = analysis
+            return analysis
+
+    def precompute_all_analysis(self) -> None:
+        """预计算所有卦象状态的分析结果（后台初始化）"""
+        print("🔧 预计算所有卦象状态分析...")
+        start_time = time.time()
+
+        count = 0
+        for state in self._by_binary.keys():
+            # 如果不在缓存中，计算并缓存
+            if state not in self._analysis_cache:
+                try:
+                    analysis = self._compute_analysis(state)
+                    self._analysis_cache[state] = analysis
+                    count += 1
+                except Exception as e:
+                    print(f"⚠️  预计算失败 {state}: {e}")
+
+        elapsed = time.time() - start_time
+        print(f"✅ 预计算完成，新增 {count} 个分析结果，耗时 {elapsed:.3f}秒")
+        print(f"   缓存总数: {len(self._analysis_cache)}/64")
+
+    def get_states_by_hetu(self, hetu_state: HetuState) -> List[str]:
+        """获取指定河图状态的所有卦象状态"""
+        mappings = self._by_hetu_state.get(hetu_state, [])
+        return [m.binary_str for m in mappings]
+
+    def get_hetu_state_transitions(
+        self, from_hetu: HetuState, to_hetu: HetuState
+    ) -> List[Tuple[str, str]]:
+        """
+        获取河图状态之间的可能转换
+
+        Args:
+            from_hetu: 起始河图状态
+            to_hetu: 目标河图状态
+
+        Returns:
+            (from_state, to_state) 对的列表，表示可能的卦象转换
+        """
+        from_states = self.get_states_by_hetu(from_hetu)
+        to_states = self.get_states_by_hetu(to_hetu)
+
+        transitions = []
+        for from_state in from_states:
+            for to_state in to_states:
+                if self.hamming_distance(from_state, to_state) == 1:
+                    transitions.append((from_state, to_state))
+
+        return transitions
+
+    def find_path_to_hetu_state(
+        self, target_hetu: HetuState, max_steps: int = 6
+    ) -> List[str]:
+        """
+        找到从当前状态到指定河图状态的路径
+
+        Args:
+            target_hetu: 目标河图状态
+            max_steps: 最大步数限制
+
+        Returns:
+            转换序列（状态列表）
+        """
+        if self.current_state is None:
+            return []
+
+        from collections import deque
+
+        target_states = self.get_states_by_hetu(target_hetu)
+        if not target_states:
+            return []
+
+        # BFS搜索最短路径
+        queue = deque([(self.current_state, [self.current_state])])
+        visited = {self.current_state}
+
+        while queue:
+            current, path = queue.popleft()
+
+            if len(path) > max_steps:
+                continue
+
+            # 检查是否到达目标河图状态
+            if current in target_states:
+                return path
+
+            # 生成所有可能的下一步状态
+            for i in range(6):
+                bits = list(current)
+                bits[i] = "1" if bits[i] == "0" else "0"
+                next_state = "".join(bits)
+
+                if self._validate_state(next_state) and next_state not in visited:
+                    visited.add(next_state)
+                    queue.append((next_state, path + [next_state]))
+
+        return []
+
+    def print_state_info(self, state: Optional[str] = None) -> None:
+        """打印状态详细信息"""
+        analysis = self.analyze_state(state)
+        if not analysis:
+            print("❌ 无法分析状态")
+            return
+
+        print("📊 状态分析:")
+        print(f"   卦象: {analysis.hexagram_name}")
+        print(f"   二进制: {analysis.binary_representation}")
+        print(f"   编码: {analysis.hexagram_code}")
+        print(f"   河图状态: {analysis.hetu_state_name} ({analysis.hetu_state.value})")
+        print(f"   质量评分: {analysis.quality_score:.2f}/10")
+        print(f"   到完美状态距离: {analysis.evolution_distance_to_perfect} 步")
+        active_dims_str = (
+            ", ".join(analysis.active_dimensions)
+            if analysis.active_dimensions
+            else "无"
+        )
+        inactive_dims_str = (
+            ", ".join(analysis.inactive_dimensions)
+            if analysis.inactive_dimensions
+            else "无"
+        )
+        print(f"   激活维度 ({len(analysis.active_dimensions)}): {active_dims_str}")
+        print(
+            f"   未激活维度 ({len(analysis.inactive_dimensions)}): {inactive_dims_str}"
+        )
+        print(f"   语义: {analysis.semantic_description}")
+
+    def get_evolution_history(
+        self, limit: Optional[int] = None
+    ) -> List[StateEvolution]:
+        """获取演化历史"""
+        if limit:
+            return self.state_history[-limit:]
+        return self.state_history
+
+    def visualize_state_space(
+        self, highlight_hetu_states: Optional[List[HetuState]] = None
+    ) -> str:
+        """可视化状态空间（返回文本表示）"""
+        highlight_hetu_states = highlight_hetu_states or []
+
+        lines = []
+        lines.append("=" * 70)
+        lines.append("🔄 集成64卦状态空间可视化（河图10态映射）")
+        lines.append("=" * 70)
+        lines.append("")
+
+        # 显示维度映射
+        lines.append("📋 质量维度:")
+        for i, dimension in enumerate(self.DIMENSIONS, 1):
+            lines.append(f"   D{i}: {dimension}")
+        lines.append("")
+
+        # 显示河图状态分布
+        lines.append("🗺️ 河图状态分布:")
+        for state in HetuState:
+            count = len(self._by_hetu_state.get(state, []))
+            lines.append(f"   {state.name:20} ({state.value:2}): {count:2} 个卦象")
+        lines.append("")
+
+        # 显示当前状态
+        if self.current_state:
+            lines.append("📍 当前状态:")
+            analysis = self.analyze_state(self.current_state)
+            if analysis:
+                lines.append(
+                    f"   卦象: {analysis.hexagram_name} ({self.current_state})"
+                )
+                lines.append(
+                    f"   河图: {analysis.hetu_state_name} ({analysis.hetu_state.value})"
+                )
+                lines.append(f"   质量: {analysis.quality_score:.2f}/10")
+                lines.append("")
+
+        # 显示高亮河图状态
+        if highlight_hetu_states:
+            lines.append("🔍 高亮河图状态:")
+            for hetu_state in highlight_hetu_states[:3]:  # 最多显示3个
+                states = self.get_states_by_hetu(hetu_state)
+                lines.append(
+                    f"   {hetu_state.name} ({hetu_state.value}): {len(states)} 个卦象"
+                )
+                if states:
+                    # 显示该状态的代表性卦象
+                    sample_state = states[0]
+                    sample_mapping = self._by_binary[sample_state]
+                    active_dims = [
+                        dim
+                        for dim, val in sample_mapping.dimension_values.items()
+                        if val == 1
+                    ]
+                    lines.append(
+                        f"     示例: {sample_mapping.hexagram_name} ({sample_state})"
+                    )
+                    lines.append(f"     激活维度: {len(active_dims)}个")
+                lines.append("")
+
+        # 显示状态历史统计
+        lines.append("📊 状态历史统计:")
+        lines.append(f"   总演化记录: {len(self.state_history)}")
+
+        if self.state_history:
+            recent = self.state_history[-1]
+            lines.append(f"   最近演化: {recent.from_state} → {recent.to_state}")
+            lines.append(
+                f"   河图变化: {recent.from_hetu.name} → {recent.to_hetu.name}"
+            )
+
+        lines.append("")
+        lines.append("=" * 70)
+
+        return "\n".join(lines)
+
+
+def test_integrated_manager() -> None:
+    """测试集成64卦状态管理器"""
+    print("=== 集成64卦状态管理器测试 ===")
+
+    try:
+        # 创建管理器
+        manager = IntegratedHexagramStateManager("hetu_hexagram_mapping.json")
+
+        # 初始化状态
+        print("\n🔧 初始化状态...")
+        if not manager.initialize_state("000000"):  # 坤卦
+            print("❌ 状态初始化失败")
+            return
+
+        # 显示初始状态信息
+        print("\n📊 初始状态信息:")
+        manager.print_state_info()
+
+        # 测试有效转换
+        print("\n🔍 测试有效转换...")
+        valid_transitions = manager.get_valid_transitions()
+        print(f"   有效转换目标数: {len(valid_transitions)}")
+        for i, state in enumerate(valid_transitions[:3]):  # 显示前3个
+            print(f"     目标{i + 1}: {state} ({manager.get_hexagram_name(state)})")
+
+        # 测试状态转换
+        print("\n🔄 测试状态转换...")
+
+        # 有效转换（汉明距离=1）
+        test_transitions = [
+            ("000001", True, "测试转换1"),  # 地雷复（有效）
+            ("000010", True, "测试转换2"),  # 水地比（有效）
+            ("000100", True, "测试转换3"),  # 山地剥（有效）
+        ]
+
+        for new_state, expected, reason in test_transitions:
+            print(
+                f"\n   尝试转换到 {new_state} ({manager.get_hexagram_name(new_state)}):"
+            )
+            success = manager.transition(new_state, reason)
+            if success:
+                manager.print_state_info()
+            else:
+                print("     ❌ 转换失败")
+
+        # 测试河图状态查询
+        print("\n🗺️ 测试河图状态查询...")
+        current_hetu = manager.get_hetu_state()
+        print(f"   当前河图状态: {current_hetu.name if current_hetu else '无'}")
+
+        # 获取指定河图状态的所有卦象
+        target_hetu = HetuState.COMPLETED
+        states_in_completed = manager.get_states_by_hetu(target_hetu)
+        print(f"   河图状态 {target_hetu.name} 包含 {len(states_in_completed)} 个卦象")
+
+        # 测试状态分析
+        print("\n📈 测试状态分析...")
+        analysis = manager.analyze_state()
+        if analysis:
+            print(f"   质量评分: {analysis.quality_score:.2f}/10")
+            print(f"   激活维度: {len(analysis.active_dimensions)}个")
+            print(f"   到完美状态距离: {analysis.evolution_distance_to_perfect}步")
+
+        # 测试路径查找
+        print("\n🧭 测试路径查找...")
+        target_hetu = HetuState.COMPLETED
+        path = manager.find_path_to_hetu_state(target_hetu, max_steps=6)
+        if path:
+            print(f"   到 {target_hetu.name} 的路径 ({len(path) - 1} 步):")
+            for i, state in enumerate(path):
+                hetu = manager.get_hetu_state(state)
+                hetu_name = hetu.name if hetu else "未知"
+                print(
+                    f"     步骤{i}: {state} ({manager.get_hexagram_name(state)}) - {hetu_name}"
+                )
+        else:
+            print(f"   未在6步内找到到 {target_hetu.name} 的路径")
+
+        # 可视化状态空间
+        print("\n" + "=" * 70)
+        visualization = manager.visualize_state_space(
+            highlight_hetu_states=[HetuState.INITIAL, HetuState.COMPLETED]
+        )
+        print(visualization)
+
+        print("\n🎉 集成64卦状态管理器测试完成！")
+
+    except Exception as e:
+        print(f"❌ 测试失败: {e}")
+        import traceback
+
+        traceback.print_exc()
+
+
+if __name__ == "__main__":
+    test_integrated_manager()

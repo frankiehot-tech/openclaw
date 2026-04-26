@@ -1,0 +1,56 @@
+================================================================================
+MAREF沙箱验证实验最终报告
+================================================================================
+
+报告生成时间: 2026-04-19T20:51:06.584027
+总实验次数: 4
+成功实验: 4
+失败实验: 0
+
+--------------------------------------------------------------------------------
+各实验类型汇总:
+--------------------------------------------------------------------------------
+
+STABILITY:
+  运行次数: 1 (成功率: 100.0%)
+  avg_total_iterations: 1.000
+  avg_avg_recovery_time_ratio: 1.000
+  avg_success_rate: 1.000
+
+STATE_TRANSITION:
+  运行次数: 1 (成功率: 100.0%)
+  avg_total_iterations: 1.000
+  avg_total_tasks: 100.000
+  avg_avg_transition_steps_ratio: 1.000
+  avg_avg_success_rate_ratio: 1.000
+
+QUALITY_ASSESSMENT:
+  运行次数: 1 (成功率: 100.0%)
+  avg_total_iterations: 1.000
+  avg_total_samples: 200.000
+  avg_avg_accuracy_ratio: 1.000
+  avg_avg_defect_detection_ratio: 1.000
+
+PERFORMANCE_BENCHMARK:
+  运行次数: 1 (成功率: 100.0%)
+  avg_total_iterations: 1.000
+
+--------------------------------------------------------------------------------
+关键发现:
+--------------------------------------------------------------------------------
+  performance_improvements:
+    median_avg_recovery_time_ratio: 1.000
+    median_avg_transition_steps_ratio: 1.000
+    median_avg_success_rate_ratio: 1.000
+    median_avg_accuracy_ratio: 1.000
+    median_avg_defect_detection_ratio: 1.000
+  stability_improvement: 1.000
+  quality_assessment_improvement: 1.000
+  state_transition_efficiency: 1.000
+  throughput_improvement: 1.000
+
+--------------------------------------------------------------------------------
+建议:
+--------------------------------------------------------------------------------
+
+================================================================================

@@ -57,7 +57,7 @@
 
 ### **日报系统设计**
 - **生成频率**: 每日上午9:00自动生成
-- **存储位置**: `/Users/frankie/Documents/Athena知识库/执行项目/2026/003-open human（碳硅基共生）/015-mailbox/maref-daily-YYYY-MM-DD.md`
+- **存储位置**: `/Volumes/1TB-M2/openclaw/Documents/Athena知识库/执行项目/2026/003-open human（碳硅基共生）/015-mailbox/maref-daily-YYYY-MM-DD.md`
 - **触发方式**: Cron定时任务 + 手动触发
 - **内容格式**: 标准Markdown，包含结构化数据和可视化建议
 
@@ -407,7 +407,7 @@ class MAREFDailyReporter:
     
     def get_default_output_dir(self) -> str:
         """获取默认输出目录"""
-        return "/Users/frankie/Documents/Athena知识库/执行项目/2026/003-open human（碳硅基共生）/015-mailbox"
+        return "/Volumes/1TB-M2/openclaw/Documents/Athena知识库/执行项目/2026/003-open human（碳硅基共生）/015-mailbox"
     
     def generate_daily_report(self) -> str:
         """生成日报"""
@@ -804,7 +804,7 @@ class MAREFDashboard:
     @app.route('/api/daily-reports')
     def get_daily_reports():
         """获取日报列表API"""
-        report_dir = "/Users/frankie/Documents/Athena知识库/执行项目/2026/003-open human（碳硅基共生）/015-mailbox"
+        report_dir = "/Volumes/1TB-M2/openclaw/Documents/Athena知识库/执行项目/2026/003-open human（碳硅基共生）/015-mailbox"
         reports = []
         
         for file in Path(report_dir).glob("maref-daily-*.md"):
@@ -1119,7 +1119,7 @@ if __name__ == '__main__':
 ## 📚 附录
 
 ### **A. 日报示例文件**
-见 `/Users/frankie/Documents/Athena知识库/执行项目/2026/003-open human（碳硅基共生）/015-mailbox/maref-daily-template.md`
+见 `/Volumes/1TB-M2/openclaw/Documents/Athena知识库/执行项目/2026/003-open human（碳硅基共生）/015-mailbox/maref-daily-template.md`
 
 ### **B. 预警规则配置文件**
 见 `/Volumes/1TB-M2/openclaw/scripts/clawra/config/maref_alerts.yaml`

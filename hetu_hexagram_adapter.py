@@ -156,9 +156,10 @@ class HetuToHexagramAdapter:
 
         # 验证当前河图状态是否与卦象匹配
         current_hexagram_hetu = self.hexagram_manager.get_hetu_state(current_hexagram)
-        if current_hexagram_hetu != current_state:
+        if current_hexagram_hetu is None or current_hexagram_hetu != current_state:
+            hetu_name = current_hexagram_hetu.name if current_hexagram_hetu else "unknown"
             print(
-                f"⚠️  任务 {task_id}: 卦象{current_hexagram}的河图状态{current_hexagram_hetu.name} "
+                f"⚠️  任务 {task_id}: 卦象{current_hexagram}的河图状态{hetu_name} "
                 f"与请求的当前状态{current_state.name}不匹配，自动修正"
             )
 
@@ -195,6 +196,11 @@ class HetuToHexagramAdapter:
             for i in range(1, len(path)):
                 step_hexagram = path[i]
                 step_hetu = self.hexagram_manager.get_hetu_state(step_hexagram)
+
+                if step_hetu is None:
+                    print(f"❌ 任务 {task_id}: 卦象 {step_hexagram} 无效")
+                    success = False
+                    break
 
                 if i == len(path) - 1:
                     # 最终步骤：记录到历史
@@ -241,10 +247,8 @@ class HetuToHexagramAdapter:
         print(
             f"🔄 任务 {task_id}: 卦象转换 {from_hexagram} ({from_name}) → {to_hexagram} ({to_name})"
         )
-        print(
-            f"   河图状态: {self.hexagram_manager.get_hetu_state(from_hexagram).name} → "
-            f"{target_hetu.name}"
-        )
+        from_hetu = self.hexagram_manager.get_hetu_state(from_hexagram)
+        print(f"   河图状态: {from_hetu.name if from_hetu else 'unknown'} → " f"{target_hetu.name}")
         print(f"   汉明距离: {self.hexagram_manager.hamming_distance(from_hexagram, to_hexagram)}")
 
         return True
@@ -353,12 +357,12 @@ class HetuToHexagramAdapter:
             return None
         return self.hexagram_manager.analyze_state(hexagram)
 
-    def save_states(self):
+    def save_states(self) -> None:
         """保存状态到文件（兼容HetuStateManager接口）"""
         if not self.state_file:
             return
 
-        data = {
+        data: Dict[str, Any] = {
             "version": "1.0",
             "generated_at": datetime.now().isoformat(),
             "description": "河图-64卦适配器状态文件",
@@ -379,11 +383,31 @@ class HetuToHexagramAdapter:
 
         print(f"💾 适配器状态已保存到: {self.state_file}")
 
-    def load_states(self):
+    def load_states(self) -> None:
         """从文件加载状态（兼容HetuStateManager接口）"""
+        if self.state_file is None:
+            return
+
+        # 检查文件是否存在且不为空
+        if not os.path.exists(self.state_file):
+            print(f"📂 状态文件不存在: {self.state_file}")
+            return
+
         try:
+            # 检查文件是否为空
+            if os.path.getsize(self.state_file) == 0:
+                print(f"📂 状态文件为空: {self.state_file}，跳过加载")
+                return
+
             with open(self.state_file, "r", encoding="utf-8") as f:
-                data = json.load(f)
+                content = f.read().strip()
+
+            # 如果文件只有空白字符，跳过加载
+            if not content:
+                print(f"📂 状态文件只包含空白字符: {self.state_file}，跳过加载")
+                return
+
+            data = json.loads(content)
 
             # 清空现有状态
             self.task_states.clear()
@@ -406,6 +430,11 @@ class HetuToHexagramAdapter:
 
             print(f"📂 从 {self.state_file} 加载了 {len(self.task_states)} 个任务状态")
 
+        except json.JSONDecodeError as e:
+            print(f"⚠️  状态文件JSON格式错误: {e}")
+            print(f"   文件路径: {self.state_file}")
+            # 保持空状态，不抛出异常
+            self.task_states = {}
         except Exception as e:
             print(f"⚠️  加载适配器状态失败: {e}")
             self.task_states = {}
@@ -422,18 +451,26 @@ class HetuToHexagramAdapter:
             "task_summary": {
                 task_id: {
                     "current_hexagram": record.current_hexagram,
-                    "current_hetu": self.hexagram_manager.get_hetu_state(
-                        record.current_hexagram
-                    ).name,
+                    "current_hetu": (
+                        hetu_state.name
+                        if (
+                            hetu_state := self.hexagram_manager.get_hetu_state(
+                                record.current_hexagram
+                            )
+                        )
+                        else "unknown"
+                    ),
                     "history_length": len(record.state_history),
-                    "last_update": record.timestamps[-1].isoformat() if record.timestamps else None,
+                    "last_update": (
+                        record.timestamps[-1].isoformat() if record.timestamps else None
+                    ),
                 }
                 for task_id, record in self.task_states.items()
             },
         }
 
 
-def test_adapter():
+def test_adapter() -> None:
     """测试适配器功能"""
     print("=== 河图到64卦适配器测试 ===")
 

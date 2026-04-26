@@ -21,7 +21,7 @@ def create_move_instructions():
 
 ## 📊 当前文件位置
 - **源文件**: `/Volumes/1TB-M2/openclaw/OpenHuman-OpenCode-CLI-优化与Athena深度集成方案.md`
-- **目标目录**: `/Users/frankie/Documents/Athena知识库/执行项目/2026/003-open human（碳硅基共生）/007-AI-plan/`
+- **目标目录**: `/Volumes/1TB-M2/openclaw/Documents/Athena知识库/执行项目/2026/003-open human（碳硅基共生）/007-AI-plan/`
 
 ## 🔧 手动执行步骤
 
@@ -29,13 +29,13 @@ def create_move_instructions():
 ```bash
 # 复制OpenCode CLI优化方案到AIplan目录
 cp "/Volumes/1TB-M2/openclaw/OpenHuman-OpenCode-CLI-优化与Athena深度集成方案.md" \
-   "/Users/frankie/Documents/Athena知识库/执行项目/2026/003-open human（碳硅基共生）/007-AI-plan/OpenHuman-OpenCode-CLI-优化与Athena深度集成方案.md"
+   "/Volumes/1TB-M2/openclaw/Documents/Athena知识库/执行项目/2026/003-open human（碳硅基共生）/007-AI-plan/OpenHuman-OpenCode-CLI-优化与Athena深度集成方案.md"
 ```
 
 ### 步骤2: 验证文件复制成功
 ```bash
 # 检查文件是否复制成功
-ls -la "/Users/frankie/Documents/Athena知识库/执行项目/2026/003-open human（碳硅基共生）/007-AI-plan/OpenHuman-OpenCode-CLI-优化与Athena深度集成方案.md"
+ls -la "/Volumes/1TB-M2/openclaw/Documents/Athena知识库/执行项目/2026/003-open human（碳硅基共生）/007-AI-plan/OpenHuman-OpenCode-CLI-优化与Athena深度集成方案.md"
 ```
 
 ### 步骤3: 更新队列配置中的文件路径
@@ -44,7 +44,7 @@ ls -la "/Users/frankie/Documents/Athena知识库/执行项目/2026/003-open huma
 1. **队列状态文件**: `/Volumes/1TB-M2/openclaw/.openclaw/plan_queue/openhuman_aiplan_plan_manual_20260328.json`
    - 将 `opencode_cli_optimization` 项的 `instruction_path` 更新为新路径
 
-2. **队列配置文件**: `/Users/frankie/Documents/Athena知识库/执行项目/2026/003-open human（碳硅基共生）/007-AI-plan/OpenHuman-AIPlan-自动策划队列.queue.json`
+2. **队列配置文件**: `/Volumes/1TB-M2/openclaw/Documents/Athena知识库/执行项目/2026/003-open human（碳硅基共生）/007-AI-plan/OpenHuman-AIPlan-自动策划队列.queue.json`
    - 添加新的OpenCode CLI优化任务项
 
 ### 步骤4: 更新队列状态文件
@@ -52,18 +52,18 @@ ls -la "/Users/frankie/Documents/Athena知识库/执行项目/2026/003-open huma
 
 找到 `opencode_cli_optimization` 项，更新 `instruction_path`:
 ```json
-"instruction_path": "/Users/frankie/Documents/Athena知识库/执行项目/2026/003-open human（碳硅基共生）/007-AI-plan/OpenHuman-OpenCode-CLI-优化与Athena深度集成方案.md"
+"instruction_path": "/Volumes/1TB-M2/openclaw/Documents/Athena知识库/执行项目/2026/003-open human（碳硅基共生）/007-AI-plan/OpenHuman-OpenCode-CLI-优化与Athena深度集成方案.md"
 ```
 
 ### 步骤5: 更新队列配置文件
-编辑文件: `/Users/frankie/Documents/Athena知识库/执行项目/2026/003-open human（碳硅基共生）/007-AI-plan/OpenHuman-AIPlan-自动策划队列.queue.json`
+编辑文件: `/Volumes/1TB-M2/openclaw/Documents/Athena知识库/执行项目/2026/003-open human（碳硅基共生）/007-AI-plan/OpenHuman-AIPlan-自动策划队列.queue.json`
 
 在 `items` 数组中添加新的任务项（放在第一位，优先级S0）:
 ```json
 {
   "id": "opencode_cli_optimization",
   "title": "OpenHuman-OpenCode-CLI-优化与Athena深度集成方案",
-  "instruction_path": "/Users/frankie/Documents/Athena知识库/执行项目/2026/003-open human（碳硅基共生）/007-AI-plan/OpenHuman-OpenCode-CLI-优化与Athena深度集成方案.md",
+  "instruction_path": "/Volumes/1TB-M2/openclaw/Documents/Athena知识库/执行项目/2026/003-open human（碳硅基共生）/007-AI-plan/OpenHuman-OpenCode-CLI-优化与Athena深度集成方案.md",
   "entry_stage": "build",
   "risk_level": "medium",
   "unattended_allowed": true,
@@ -86,7 +86,7 @@ ls -la "/Users/frankie/Documents/Athena知识库/执行项目/2026/003-open huma
 ### 验证1: 文件位置正确
 ```bash
 # 检查文件是否在正确位置
-ls -la "/Users/frankie/Documents/Athena知识库/执行项目/2026/003-open human（碳硅基共生）/007-AI-plan/" | grep OpenCode
+ls -la "/Volumes/1TB-M2/openclaw/Documents/Athena知识库/执行项目/2026/003-open human（碳硅基共生）/007-AI-plan/" | grep OpenCode
 ```
 
 ### 验证2: 队列配置正确
@@ -103,7 +103,7 @@ cat "/Volumes/1TB-M2/openclaw/.openclaw/plan_queue/openhuman_aiplan_plan_manual_
 
 ### 文件结构
 ```
-/Users/frankie/Documents/Athena知识库/执行项目/2026/003-open human（碳硅基共生）/007-AI-plan/
+/Volumes/1TB-M2/openclaw/Documents/Athena知识库/执行项目/2026/003-open human（碳硅基共生）/007-AI-plan/
 ├── OpenHuman-OpenCode-CLI-优化与Athena深度集成方案.md  # 新增
 ├── completed/                                          # 已完成方案
 └── OpenHuman-AIPlan-自动策划队列.queue.json           # 已更新
@@ -127,7 +127,7 @@ import json
 # 1. 复制文件
 shutil.copy2(
     "/Volumes/1TB-M2/openclaw/OpenHuman-OpenCode-CLI-优化与Athena深度集成方案.md",
-    "/Users/frankie/Documents/Athena知识库/执行项目/2026/003-open human（碳硅基共生）/007-AI-plan/OpenHuman-OpenCode-CLI-优化与Athena深度集成方案.md"
+    "/Volumes/1TB-M2/openclaw/Documents/Athena知识库/执行项目/2026/003-open human（碳硅基共生）/007-AI-plan/OpenHuman-OpenCode-CLI-优化与Athena深度集成方案.md"
 )
 
 # 2. 更新队列配置
@@ -175,7 +175,7 @@ def update_queue_state_file():
         items = queue_state.get('items', {})
         if 'opencode_cli_optimization' in items:
             items['opencode_cli_optimization']['instruction_path'] = \
-                "/Users/frankie/Documents/Athena知识库/执行项目/2026/003-open human（碳硅基共生）/007-AI-plan/OpenHuman-OpenCode-CLI-优化与Athena深度集成方案.md"
+                "/Volumes/1TB-M2/openclaw/Documents/Athena知识库/执行项目/2026/003-open human（碳硅基共生）/007-AI-plan/OpenHuman-OpenCode-CLI-优化与Athena深度集成方案.md"
             
             print("✅ 队列状态文件中的文件路径已更新")
         else:

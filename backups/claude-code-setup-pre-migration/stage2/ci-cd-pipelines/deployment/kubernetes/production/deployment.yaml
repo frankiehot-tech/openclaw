@@ -1,0 +1,705 @@
+# Kubernetes部署配置模板 - 生产环境
+# 用于生产环境部署，包含高可用性、安全性和监控配置
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Values.app.name }}-production
+  namespace: {{ .Values.namespace }}
+  labels:
+    app: {{ .Values.app.name }}
+    environment: production
+    version: {{ .Values.app.version }}
+    managed-by: claude-code
+    cost-center: "engineering"
+    business-unit: "platform"
+  annotations:
+    deployment.kubernetes.io/revision: "{{ .Values.app.version }}"
+    prometheus.io/scrape: "true"
+    prometheus.io/port: "{{ .Values.app.port }}"
+    prometheus.io/path: "/metrics"
+    grafana.com/dashboard: "{{ .Values.app.name }}-dashboard"
+    backup.velero.io/backup-volumes: "logs-volume"
+spec:
+  replicas: {{ .Values.app.replicas.production }}
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 0
+  revisionHistoryLimit: 10
+  selector:
+    matchLabels:
+      app: {{ .Values.app.name }}
+      environment: production
+  template:
+    metadata:
+      labels:
+        app: {{ .Values.app.name }}
+        environment: production
+        version: {{ .Values.app.version }}
+        tier: "backend"
+      annotations:
+        sidecar.istio.io/inject: "true"
+        checksum/config: {{ include (print $.Template.BasePath "/configmap.yaml") . | sha256sum }}
+        checksum/secret: {{ include (print $.Template.BasePath "/secret.yaml") . | sha256sum }}
+        vault.hashicorp.com/agent-inject: "true"
+        vault.hashicorp.com/role: "{{ .Values.app.name }}-production"
+        vault.hashicorp.com/agent-inject-secret-config.yml: "secret/data/{{ .Values.app.name }}/production"
+    spec:
+      automountServiceAccountToken: false
+      serviceAccountName: {{ .Values.app.name }}-sa-production
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 1000
+        fsGroup: 2000
+        seccompProfile:
+          type: RuntimeDefault
+        sysctls:
+        - name: net.core.somaxconn
+          value: "1024"
+      containers:
+      - name: {{ .Values.app.name }}
+        image: "{{ .Values.image.registry }}/{{ .Values.image.repository }}:{{ .Values.app.version }}"
+        imagePullPolicy: IfNotPresent
+        ports:
+        - name: http
+          containerPort: {{ .Values.app.port }}
+          protocol: TCP
+        - name: metrics
+          containerPort: 9090
+          protocol: TCP
+        env:
+        - name: NODE_ENV
+          value: "production"
+        - name: LOG_LEVEL
+          value: "warn"
+        - name: PORT
+          value: "{{ .Values.app.port | toString }}"
+        - name: ENVIRONMENT
+          value: "production"
+        - name: POD_NAME
+          valueFrom:
+            fieldRef:
+              fieldPath: metadata.name
+        - name: POD_NAMESPACE
+          valueFrom:
+            fieldRef:
+              fieldPath: metadata.namespace
+        - name: POD_IP
+          valueFrom:
+            fieldRef:
+              fieldPath: status.podIP
+        envFrom:
+        - configMapRef:
+            name: {{ .Values.app.name }}-config-production
+        - secretRef:
+            name: {{ .Values.app.name }}-secrets-production
+        resources:
+          requests:
+            memory: "512Mi"
+            cpu: "500m"
+          limits:
+            memory: "1Gi"
+            cpu: "1"
+        livenessProbe:
+          httpGet:
+            path: {{ .Values.app.healthCheck.path }}
+            port: http
+            scheme: HTTP
+            httpHeaders:
+            - name: X-Production-Health-Check
+              value: "true"
+          initialDelaySeconds: 60
+          periodSeconds: 30
+          timeoutSeconds: 10
+          failureThreshold: 3
+          successThreshold: 1
+        readinessProbe:
+          httpGet:
+            path: {{ .Values.app.healthCheck.path }}
+            port: http
+            scheme: HTTP
+            httpHeaders:
+            - name: X-Production-Readiness
+              value: "true"
+          initialDelaySeconds: 15
+          periodSeconds: 15
+          timeoutSeconds: 5
+          failureThreshold: 3
+          successThreshold: 2
+        startupProbe:
+          httpGet:
+            path: {{ .Values.app.healthCheck.path }}
+            port: http
+            scheme: HTTP
+          initialDelaySeconds: 45
+          periodSeconds: 10
+          timeoutSeconds: 5
+          failureThreshold: 15
+          successThreshold: 1
+        lifecycle:
+          preStop:
+            exec:
+              command: ["/bin/sh", "-c", "sleep 30"]
+        volumeMounts:
+        - name: config-volume
+          mountPath: /app/config
+          readOnly: true
+        - name: logs-volume
+          mountPath: /var/log/app
+        - name: tmp-volume
+          mountPath: /tmp
+        - name: vault-secrets
+          mountPath: /vault/secrets
+          readOnly: true
+        securityContext:
+          allowPrivilegeEscalation: false
+          readOnlyRootFilesystem: true
+          runAsUser: 1000
+          runAsGroup: 1000
+          capabilities:
+            drop:
+            - ALL
+          seccompProfile:
+            type: RuntimeDefault
+      initContainers:
+      - name: init-db-migration
+        image: "{{ .Values.image.registry }}/{{ .Values.image.repository }}:{{ .Values.app.version }}"
+        imagePullPolicy: IfNotPresent
+        command: ["/bin/sh", "-c"]
+        args:
+          - |
+            echo "Running database migrations..."
+            ./scripts/migrate-db.sh
+        envFrom:
+        - configMapRef:
+            name: {{ .Values.app.name }}-config-production
+        - secretRef:
+            name: {{ .Values.app.name }}-secrets-production
+        securityContext:
+          allowPrivilegeEscalation: false
+          readOnlyRootFilesystem: true
+          runAsUser: 1000
+          runAsGroup: 1000
+      volumes:
+      - name: config-volume
+        configMap:
+          name: {{ .Values.app.name }}-config-production
+      - name: logs-volume
+        persistentVolumeClaim:
+          claimName: {{ .Values.app.name }}-logs-pvc
+      - name: tmp-volume
+        emptyDir:
+          sizeLimit: 1Gi
+          medium: Memory
+      - name: vault-secrets
+        emptyDir:
+          medium: Memory
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+            - matchExpressions:
+              - key: kubernetes.io/os
+                operator: In
+                values:
+                - linux
+              - key: node-type
+                operator: In
+                values:
+                - production
+              - key: dedicated
+                operator: In
+                values:
+                - {{ .Values.app.name }}
+        podAntiAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+          - labelSelector:
+              matchExpressions:
+              - key: app
+                operator: In
+                values:
+                - {{ .Values.app.name }}
+              - key: environment
+                operator: In
+                values:
+                - production
+            topologyKey: kubernetes.io/hostname
+      tolerations:
+      - key: "production"
+        operator: "Equal"
+        value: "true"
+        effect: "NoSchedule"
+      - key: "node.kubernetes.io/not-ready"
+        operator: "Exists"
+        effect: "NoExecute"
+        tolerationSeconds: 300
+      - key: "node.kubernetes.io/unreachable"
+        operator: "Exists"
+        effect: "NoExecute"
+        tolerationSeconds: 300
+      restartPolicy: Always
+      terminationGracePeriodSeconds: 120
+      dnsConfig:
+        options:
+        - name: ndots
+          value: "1"
+        - name: attempts
+          value: "5"
+        - name: timeout
+          value: "3"
+      priorityClassName: production-priority
+---
+# 服务配置
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ .Values.app.name }}-service-production
+  namespace: {{ .Values.namespace }}
+  labels:
+    app: {{ .Values.app.name }}
+    environment: production
+  annotations:
+    service.beta.kubernetes.io/aws-load-balancer-type: "nlb"
+    service.beta.kubernetes.io/aws-load-balancer-internal: "false"
+    service.beta.kubernetes.io/aws-load-balancer-cross-zone-load-balancing-enabled: "true"
+    service.beta.kubernetes.io/aws-load-balancer-ssl-cert: "arn:aws:acm:region:account:certificate/cert-id"
+    service.beta.kubernetes.io/aws-load-balancer-ssl-ports: "443"
+    service.beta.kubernetes.io/aws-load-balancer-backend-protocol: "tcp"
+    external-dns.alpha.kubernetes.io/hostname: "{{ .Values.app.domain.production }}"
+spec:
+  type: LoadBalancer
+  ports:
+  - name: https
+    port: 443
+    targetPort: http
+    protocol: TCP
+  - name: http
+    port: 80
+    targetPort: http
+    protocol: TCP
+  - name: metrics
+    port: 9090
+    targetPort: 9090
+    protocol: TCP
+  selector:
+    app: {{ .Values.app.name }}
+    environment: production
+  sessionAffinity: ClientIP
+  sessionAffinityConfig:
+    clientIP:
+      timeoutSeconds: 10800
+  externalTrafficPolicy: Local
+  loadBalancerSourceRanges:
+  - 0.0.0.0/0
+---
+# 水平Pod自动伸缩配置
+apiVersion: autoscaling/v2
+kind: HorizontalPodAutoscaler
+metadata:
+  name: {{ .Values.app.name }}-hpa-production
+  namespace: {{ .Values.namespace }}
+  labels:
+    app: {{ .Values.app.name }}
+    environment: production
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: {{ .Values.app.name }}-production
+  minReplicas: {{ .Values.app.replicas.production }}
+  maxReplicas: 50
+  metrics:
+  - type: Resource
+    resource:
+      name: cpu
+      target:
+        type: Utilization
+        averageUtilization: 50
+  - type: Resource
+    resource:
+      name: memory
+      target:
+        type: Utilization
+        averageUtilization: 60
+  - type: Pods
+    pods:
+      metric:
+        name: http_requests_per_second
+      target:
+        type: AverageValue
+        averageValue: 500
+  - type: External
+    external:
+      metric:
+        name: elb_request_count_per_target
+        selector:
+          matchLabels:
+            service: {{ .Values.app.name }}-service-production
+      target:
+        type: AverageValue
+        averageValue: 1000
+  behavior:
+    scaleDown:
+      stabilizationWindowSeconds: 900
+      policies:
+      - type: Pods
+        value: 1
+        periodSeconds: 300
+      - type: Percent
+        value: 5
+        periodSeconds: 300
+      selectPolicy: Min
+    scaleUp:
+      stabilizationWindowSeconds: 120
+      policies:
+      - type: Pods
+        value: 4
+        periodSeconds: 60
+      - type: Percent
+        value: 100
+        periodSeconds: 60
+      selectPolicy: Max
+---
+# Ingress配置
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: {{ .Values.app.name }}-ingress-production
+  namespace: {{ .Values.namespace }}
+  labels:
+    app: {{ .Values.app.name }}
+    environment: production
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /
+    nginx.ingress.kubernetes.io/ssl-redirect: "true"
+    nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
+    nginx.ingress.kubernetes.io/proxy-body-size: "100m"
+    nginx.ingress.kubernetes.io/proxy-read-timeout: "120"
+    nginx.ingress.kubernetes.io/proxy-send-timeout: "120"
+    nginx.ingress.kubernetes.io/proxy-buffer-size: "16k"
+    nginx.ingress.kubernetes.io/client-body-buffer-size: "16k"
+    nginx.ingress.kubernetes.io/proxy-connect-timeout: "75"
+    nginx.ingress.kubernetes.io/enable-cors: "true"
+    nginx.ingress.kubernetes.io/cors-allow-methods: "GET, PUT, POST, DELETE, PATCH, OPTIONS"
+    nginx.ingress.kubernetes.io/cors-allow-origin: "https://{{ .Values.app.domain.production }}"
+    nginx.ingress.kubernetes.io/cors-allow-headers: "DNT,Keep-Alive,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type,Authorization"
+    nginx.ingress.kubernetes.io/enable-modsecurity: "true"
+    nginx.ingress.kubernetes.io/modsecurity-snippet: |
+      SecRuleEngine On
+      SecRequestBodyAccess On
+      SecRule REQUEST_HEADERS:Content-Type "text/xml" "id:'200000',phase:1,t:none,t:lowercase,pass,nolog,ctl:requestBodyProcessor=XML"
+      SecRule REQUEST_HEADERS:Content-Type "application/json" "id:'200001',phase:1,t:none,t:lowercase,pass,nolog,ctl:requestBodyProcessor=JSON"
+    cert-manager.io/cluster-issuer: "letsencrypt-production"
+    cert-manager.io/acme-challenge-type: "http01"
+    kubernetes.io/ingress.class: "nginx"
+    kubernetes.io/tls-acme: "true"
+spec:
+  ingressClassName: nginx
+  tls:
+  - hosts:
+    - {{ .Values.app.domain.production }}
+    - api.{{ .Values.app.domain.production }}
+    secretName: {{ .Values.app.name }}-tls-production
+  rules:
+  - host: {{ .Values.app.domain.production }}
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: {{ .Values.app.name }}-service-production
+            port:
+              number: 443
+      - path: /api
+        pathType: Prefix
+        backend:
+          service:
+            name: {{ .Values.app.name }}-service-production
+            port:
+              number: 443
+      - path: /metrics
+        pathType: Prefix
+        backend:
+          service:
+            name: {{ .Values.app.name }}-service-production
+            port:
+              number: 9090
+  - host: api.{{ .Values.app.domain.production }}
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: {{ .Values.app.name }}-service-production
+            port:
+              number: 443
+---
+# ConfigMap配置
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ .Values.app.name }}-config-production
+  namespace: {{ .Values.namespace }}
+  labels:
+    app: {{ .Values.app.name }}
+    environment: production
+data:
+  APP_NAME: {{ .Values.app.name }}
+  ENVIRONMENT: production
+  DATABASE_HOST: {{ .Values.database.host.production }}
+  DATABASE_PORT: "{{ .Values.database.port }}"
+  DATABASE_NAME: {{ .Values.database.name.production }}
+  REDIS_HOST: {{ .Values.redis.host.production }}
+  REDIS_PORT: "{{ .Values.redis.port }}"
+  CACHE_TTL: "3600"
+  API_RATE_LIMIT: "1000"
+  DEBUG: "false"
+  ENABLE_SWAGGER: "false"
+  METRICS_PORT: "9090"
+  LOG_FORMAT: "json"
+  LOG_LEVEL: "warn"
+  JWT_EXPIRY: "3600"
+  SESSION_TIMEOUT: "7200"
+  MAX_UPLOAD_SIZE: "100MB"
+  CORS_ORIGINS: "https://{{ .Values.app.domain.production }}"
+  SECURE_COOKIES: "true"
+  HTTP_ONLY_COOKIES: "true"
+  SAME_SITE_COOKIES: "Strict"
+  COMPRESSION_ENABLED: "true"
+  GZIP_LEVEL: "6"
+  CACHE_CONTROL_MAX_AGE: "31536000"
+  SECURITY_HEADERS_ENABLED: "true"
+  FEATURE_FLAGS: "{{ .Values.featureFlags.production | toJson }}"
+---
+# 服务账户配置
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: {{ .Values.app.name }}-sa-production
+  namespace: {{ .Values.namespace }}
+  labels:
+    app: {{ .Values.app.name }}
+    environment: production
+  annotations:
+    eks.amazonaws.com/role-arn: "arn:aws:iam::{{ .Values.aws.accountId }}:role/{{ .Values.app.name }}-production-role"
+automountServiceAccountToken: false
+---
+# 角色配置
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  name: {{ .Values.app.name }}-role-production
+  namespace: {{ .Values.namespace }}
+  labels:
+    app: {{ .Values.app.name }}
+    environment: production
+rules:
+- apiGroups: [""]
+  resources: ["pods", "services", "endpoints", "persistentvolumeclaims", "configmaps", "secrets"]
+  verbs: ["get", "list", "watch", "create", "update", "patch", "delete"]
+- apiGroups: ["apps"]
+  resources: ["deployments", "replicasets", "statefulsets", "daemonsets"]
+  verbs: ["get", "list", "watch", "create", "update", "patch", "delete"]
+- apiGroups: ["autoscaling"]
+  resources: ["horizontalpodautoscalers"]
+  verbs: ["get", "list", "watch", "create", "update", "patch", "delete"]
+- apiGroups: ["networking.k8s.io"]
+  resources: ["ingresses", "networkpolicies"]
+  verbs: ["get", "list", "watch", "create", "update", "patch", "delete"]
+- apiGroups: ["policy"]
+  resources: ["poddisruptionbudgets"]
+  verbs: ["get", "list", "watch", "create", "update", "patch", "delete"]
+- apiGroups: ["batch"]
+  resources: ["jobs", "cronjobs"]
+  verbs: ["get", "list", "watch", "create", "update", "patch", "delete"]
+---
+# 角色绑定配置
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: {{ .Values.app.name }}-rolebinding-production
+  namespace: {{ .Values.namespace }}
+  labels:
+    app: {{ .Values.app.name }}
+    environment: production
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: Role
+  name: {{ .Values.app.name }}-role-production
+subjects:
+- kind: ServiceAccount
+  name: {{ .Values.app.name }}-sa-production
+  namespace: {{ .Values.namespace }}
+---
+# 网络策略配置
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: {{ .Values.app.name }}-networkpolicy-production
+  namespace: {{ .Values.namespace }}
+  labels:
+    app: {{ .Values.app.name }}
+    environment: production
+spec:
+  podSelector:
+    matchLabels:
+      app: {{ .Values.app.name }}
+      environment: production
+  policyTypes:
+  - Ingress
+  - Egress
+  ingress:
+  - from:
+    - namespaceSelector:
+        matchLabels:
+          name: monitoring
+    ports:
+    - protocol: TCP
+      port: {{ .Values.app.port }}
+    - protocol: TCP
+      port: 9090
+  - from:
+    - namespaceSelector:
+        matchLabels:
+          name: ingress-nginx
+    ports:
+    - protocol: TCP
+      port: {{ .Values.app.port }}
+  - from:
+    - ipBlock:
+        cidr: {{ .Values.vpc.cidr }}
+    ports:
+    - protocol: TCP
+      port: {{ .Values.app.port }}
+  egress:
+  - to:
+    - namespaceSelector:
+        matchLabels:
+          name: database
+    ports:
+    - protocol: TCP
+      port: {{ .Values.database.port }}
+  - to:
+    - namespaceSelector:
+        matchLabels:
+          name: redis
+    ports:
+    - protocol: TCP
+      port: {{ .Values.redis.port }}
+  - to:
+    - namespaceSelector:
+        matchLabels:
+          name: logging
+    ports:
+    - protocol: TCP
+      port: 9200
+    - protocol: TCP
+      port: 5044
+  - to:
+    - ipBlock:
+        cidr: 0.0.0.0/0
+    ports:
+    - protocol: TCP
+      port: 443
+    - protocol: TCP
+      port: 53
+    - protocol: UDP
+      port: 53
+---
+# PodDisruptionBudget配置
+apiVersion: policy/v1
+kind: PodDisruptionBudget
+metadata:
+  name: {{ .Values.app.name }}-pdb-production
+  namespace: {{ .Values.namespace }}
+  labels:
+    app: {{ .Values.app.name }}
+    environment: production
+spec:
+  minAvailable: 2
+  selector:
+    matchLabels:
+      app: {{ .Values.app.name }}
+      environment: production
+---
+# 优先级配置
+apiVersion: scheduling.k8s.io/v1
+kind: PriorityClass
+metadata:
+  name: production-priority
+value: 1000000000
+globalDefault: false
+description: "Priority class for production environment pods"
+---
+# 资源配额配置
+apiVersion: v1
+kind: ResourceQuota
+metadata:
+  name: {{ .Values.app.name }}-quota-production
+  namespace: {{ .Values.namespace }}
+  labels:
+    app: {{ .Values.app.name }}
+    environment: production
+spec:
+  hard:
+    requests.cpu: "16"
+    requests.memory: "32Gi"
+    limits.cpu: "32"
+    limits.memory: "64Gi"
+    pods: "100"
+    services: "20"
+    configmaps: "50"
+    persistentvolumeclaims: "20"
+    secrets: "50"
+    requests.ephemeral-storage: "100Gi"
+    limits.ephemeral-storage: "200Gi"
+---
+# 持久卷声明配置
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: {{ .Values.app.name }}-logs-pvc
+  namespace: {{ .Values.namespace }}
+  labels:
+    app: {{ .Values.app.name }}
+    environment: production
+    storage-class: "gp3"
+spec:
+  accessModes:
+    - ReadWriteOnce
+  storageClassName: gp3
+  resources:
+    requests:
+      storage: 100Gi
+---
+# 垂直Pod自动伸缩配置
+apiVersion: autoscaling.k8s.io/v1
+kind: VerticalPodAutoscaler
+metadata:
+  name: {{ .Values.app.name }}-vpa-production
+  namespace: {{ .Values.namespace }}
+  labels:
+    app: {{ .Values.app.name }}
+    environment: production
+spec:
+  targetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: {{ .Values.app.name }}-production
+  updatePolicy:
+    updateMode: "Auto"
+  resourcePolicy:
+    containerPolicies:
+    - containerName: "*"
+      minAllowed:
+        cpu: "100m"
+        memory: "256Mi"
+      maxAllowed:
+        cpu: "4"
+        memory: "8Gi"
+      controlledResources: ["cpu", "memory"]
+      controlledValues: "RequestsAndLimits"

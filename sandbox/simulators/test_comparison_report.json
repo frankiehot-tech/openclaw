@@ -1,0 +1,798 @@
+{
+  "timestamp": "2026-04-20T18:47:53.042216",
+  "total_experiments": 5,
+  "experiments": [
+    {
+      "experiment_type": "state_transition",
+      "timestamp": "2026-04-20T18:47:48.365908",
+      "baseline": {
+        "total_submitted": 5,
+        "total_completed": 3,
+        "total_failed": 2,
+        "total_execution_time": 1.1849964121800927,
+        "average_execution_time": 0.3112237589446388,
+        "throughput_tasks_per_minute": 4,
+        "current_running": 0,
+        "total_pending": 0,
+        "total_running": 0,
+        "total_completed_tasks": 3,
+        "total_failed_tasks": 2,
+        "state_history_count": 15,
+        "timestamp": "2026-04-20T18:47:48.365697",
+        "success_rate": 0.6,
+        "total_experiment_tasks": 5,
+        "successful_experiment_tasks": 3,
+        "transition_metrics": {
+          "total_transitions": 5,
+          "average_transition_steps": 1.0,
+          "efficiency_score": 0
+        }
+      },
+      "enhanced": {
+        "total_submitted": 5,
+        "total_completed": 4,
+        "total_failed": 1,
+        "total_execution_time": 1.3468440508333006,
+        "average_execution_time": 0.26833227443043833,
+        "throughput_tasks_per_minute": 4,
+        "total_quality_score": 6.666666666666666,
+        "average_quality_score": 1.6666666666666665,
+        "total_hamming_distance": 0,
+        "average_hamming_distance": 0.0,
+        "current_running": 0,
+        "total_pending": 0,
+        "total_running": 0,
+        "total_completed_tasks": 4,
+        "total_failed_tasks": 1,
+        "state_history_count": 15,
+        "dimension_stats": {
+          "correctness": 0,
+          "complexity": 0,
+          "style": 65,
+          "readability": 0,
+          "maintainability": 0,
+          "cost_efficiency": 0
+        },
+        "hexagram_report_summary": {
+          "total_tasks": 5,
+          "hexagram_adapter_tasks": 5,
+          "hexagram_mappings": 64
+        },
+        "timestamp": "2026-04-20T18:47:48.365783",
+        "success_rate": 0.8,
+        "total_experiment_tasks": 5,
+        "successful_experiment_tasks": 4,
+        "hexagram_mappings": 64,
+        "hexagram_adapter_tasks": 5,
+        "transition_metrics": {
+          "total_transitions": 5,
+          "average_transition_steps": 1.0,
+          "efficiency_score": 0.9090909090909091
+        }
+      },
+      "metrics": {
+        "execution_time_ratio": 0.8621844146486577,
+        "execution_time_improvement": 0.1378155853513423,
+        "success_rate_improvement": 0.20000000000000007,
+        "quality_improvement": 1.6666666666666665,
+        "hamming_distance": 0.0,
+        "dimensions_improvement": 0
+      },
+      "summary": "MAREF增强系统对比: 性能提升13.8%, 成功率提升20.0%, 质量评分提升1.67分"
+    },
+    {
+      "experiment_type": "stability",
+      "timestamp": "2026-04-20T18:47:50.749947",
+      "baseline": {
+        "total_submitted": 17,
+        "total_completed": 15,
+        "total_failed": 2,
+        "total_execution_time": 5.408814699595322,
+        "average_execution_time": 0.3605876466396881,
+        "throughput_tasks_per_minute": 17,
+        "current_running": 0,
+        "total_pending": 0,
+        "total_running": 0,
+        "total_completed_tasks": 15,
+        "total_failed_tasks": 2,
+        "state_history_count": 51,
+        "timestamp": "2026-04-20T18:47:49.205603",
+        "success_rate": 1.0,
+        "total_experiment_tasks": 12,
+        "successful_experiment_tasks": 12,
+        "stability_metrics": {
+          "interference_tests": [
+            {
+              "type": "resource_pressure",
+              "success": true,
+              "pre_stats": {
+                "total_submitted": 17,
+                "total_completed": 15,
+                "total_failed": 2,
+                "total_execution_time": 5.408814699595322,
+                "average_execution_time": 0.3605876466396881,
+                "throughput_tasks_per_minute": 17,
+                "current_running": 0,
+                "total_pending": 0,
+                "total_running": 0,
+                "total_completed_tasks": 15,
+                "total_failed_tasks": 2,
+                "state_history_count": 51,
+                "timestamp": "2026-04-20T18:47:49.205802"
+              },
+              "post_stats": {
+                "total_submitted": 17,
+                "total_completed": 15,
+                "total_failed": 2,
+                "total_execution_time": 5.408814699595322,
+                "average_execution_time": 0.3605876466396881,
+                "throughput_tasks_per_minute": 17,
+                "current_running": 0,
+                "total_pending": 0,
+                "total_running": 0,
+                "total_completed_tasks": 15,
+                "total_failed_tasks": 2,
+                "state_history_count": 51,
+                "timestamp": "2026-04-20T18:47:49.711596"
+              }
+            },
+            {
+              "type": "partial_failure",
+              "success": false,
+              "pre_stats": {
+                "total_submitted": 17,
+                "total_completed": 15,
+                "total_failed": 2,
+                "total_execution_time": 5.408814699595322,
+                "average_execution_time": 0.3605876466396881,
+                "throughput_tasks_per_minute": 17,
+                "current_running": 0,
+                "total_pending": 0,
+                "total_running": 0,
+                "total_completed_tasks": 15,
+                "total_failed_tasks": 2,
+                "state_history_count": 51,
+                "timestamp": "2026-04-20T18:47:49.711643"
+              },
+              "post_stats": {
+                "total_submitted": 17,
+                "total_completed": 15,
+                "total_failed": 2,
+                "total_execution_time": 5.408814699595322,
+                "average_execution_time": 0.3605876466396881,
+                "throughput_tasks_per_minute": 17,
+                "current_running": 0,
+                "total_pending": 0,
+                "total_running": 0,
+                "total_completed_tasks": 15,
+                "total_failed_tasks": 2,
+                "state_history_count": 51,
+                "timestamp": "2026-04-20T18:47:49.711671"
+              }
+            },
+            {
+              "type": "state_corruption",
+              "success": true,
+              "pre_stats": {
+                "total_submitted": 17,
+                "total_completed": 15,
+                "total_failed": 2,
+                "total_execution_time": 5.408814699595322,
+                "average_execution_time": 0.3605876466396881,
+                "throughput_tasks_per_minute": 17,
+                "current_running": 0,
+                "total_pending": 0,
+                "total_running": 0,
+                "total_completed_tasks": 15,
+                "total_failed_tasks": 2,
+                "state_history_count": 51,
+                "timestamp": "2026-04-20T18:47:49.711682"
+              },
+              "post_stats": {
+                "total_submitted": 17,
+                "total_completed": 15,
+                "total_failed": 2,
+                "total_execution_time": 5.408814699595322,
+                "average_execution_time": 0.3605876466396881,
+                "throughput_tasks_per_minute": 17,
+                "current_running": 0,
+                "total_pending": 0,
+                "total_running": 1,
+                "total_completed_tasks": 14,
+                "total_failed_tasks": 2,
+                "state_history_count": 51,
+                "timestamp": "2026-04-20T18:47:49.711746"
+              }
+            },
+            {
+              "type": "network_delay",
+              "success": false,
+              "pre_stats": {
+                "total_submitted": 17,
+                "total_completed": 15,
+                "total_failed": 2,
+                "total_execution_time": 5.408814699595322,
+                "average_execution_time": 0.3605876466396881,
+                "throughput_tasks_per_minute": 17,
+                "current_running": 0,
+                "total_pending": 0,
+                "total_running": 1,
+                "total_completed_tasks": 14,
+                "total_failed_tasks": 2,
+                "state_history_count": 51,
+                "timestamp": "2026-04-20T18:47:49.711759"
+              },
+              "post_stats": {
+                "total_submitted": 17,
+                "total_completed": 15,
+                "total_failed": 2,
+                "total_execution_time": 5.408814699595322,
+                "average_execution_time": 0.3605876466396881,
+                "throughput_tasks_per_minute": 17,
+                "current_running": 0,
+                "total_pending": 0,
+                "total_running": 1,
+                "total_completed_tasks": 14,
+                "total_failed_tasks": 2,
+                "state_history_count": 51,
+                "timestamp": "2026-04-20T18:47:49.711769"
+              }
+            }
+          ],
+          "recovery_times": []
+        }
+      },
+      "enhanced": {
+        "total_submitted": 17,
+        "total_completed": 14,
+        "total_failed": 3,
+        "total_execution_time": 6.075095624669084,
+        "average_execution_time": 0.4339354017620774,
+        "throughput_tasks_per_minute": 17,
+        "total_quality_score": 23.333333333333336,
+        "average_quality_score": 1.6666666666666667,
+        "total_hamming_distance": 0,
+        "average_hamming_distance": 0.0,
+        "current_running": 0,
+        "total_pending": 0,
+        "total_running": 0,
+        "total_completed_tasks": 14,
+        "total_failed_tasks": 3,
+        "state_history_count": 51,
+        "dimension_stats": {
+          "correctness": 0,
+          "complexity": 0,
+          "style": 65,
+          "readability": 0,
+          "maintainability": 0,
+          "cost_efficiency": 0
+        },
+        "hexagram_report_summary": {
+          "total_tasks": 17,
+          "hexagram_adapter_tasks": 17,
+          "hexagram_mappings": 64
+        },
+        "timestamp": "2026-04-20T18:47:49.205776",
+        "success_rate": 0.8333333333333334,
+        "total_experiment_tasks": 12,
+        "successful_experiment_tasks": 10,
+        "hexagram_mappings": 64,
+        "hexagram_adapter_tasks": 17,
+        "stability_metrics": {
+          "interference_tests": [
+            {
+              "type": "resource_pressure",
+              "success": true,
+              "pre_stats": {
+                "total_submitted": 17,
+                "total_completed": 14,
+                "total_failed": 3,
+                "total_execution_time": 6.075095624669084,
+                "average_execution_time": 0.4339354017620774,
+                "throughput_tasks_per_minute": 17,
+                "total_quality_score": 23.333333333333336,
+                "average_quality_score": 1.6666666666666667,
+                "total_hamming_distance": 0,
+                "average_hamming_distance": 0.0,
+                "current_running": 0,
+                "total_pending": 0,
+                "total_running": 0,
+                "total_completed_tasks": 14,
+                "total_failed_tasks": 3,
+                "state_history_count": 51,
+                "dimension_stats": {
+                  "correctness": 0,
+                  "complexity": 0,
+                  "style": 65,
+                  "readability": 0,
+                  "maintainability": 0,
+                  "cost_efficiency": 0
+                },
+                "hexagram_report_summary": {
+                  "total_tasks": 17,
+                  "hexagram_adapter_tasks": 17,
+                  "hexagram_mappings": 64
+                },
+                "timestamp": "2026-04-20T18:47:49.711930"
+              },
+              "post_stats": {
+                "total_submitted": 17,
+                "total_completed": 14,
+                "total_failed": 3,
+                "total_execution_time": 6.075095624669084,
+                "average_execution_time": 0.4339354017620774,
+                "throughput_tasks_per_minute": 17,
+                "total_quality_score": 23.333333333333336,
+                "average_quality_score": 1.6666666666666667,
+                "total_hamming_distance": 0,
+                "average_hamming_distance": 0.0,
+                "current_running": 0,
+                "total_pending": 0,
+                "total_running": 0,
+                "total_completed_tasks": 14,
+                "total_failed_tasks": 3,
+                "state_history_count": 51,
+                "dimension_stats": {
+                  "correctness": 0,
+                  "complexity": 0,
+                  "style": 65,
+                  "readability": 0,
+                  "maintainability": 0,
+                  "cost_efficiency": 0
+                },
+                "hexagram_report_summary": {
+                  "total_tasks": 17,
+                  "hexagram_adapter_tasks": 17,
+                  "hexagram_mappings": 64
+                },
+                "timestamp": "2026-04-20T18:47:50.020568"
+              }
+            },
+            {
+              "type": "partial_failure",
+              "success": true,
+              "pre_stats": {
+                "total_submitted": 17,
+                "total_completed": 14,
+                "total_failed": 3,
+                "total_execution_time": 6.075095624669084,
+                "average_execution_time": 0.4339354017620774,
+                "throughput_tasks_per_minute": 17,
+                "total_quality_score": 23.333333333333336,
+                "average_quality_score": 1.6666666666666667,
+                "total_hamming_distance": 0,
+                "average_hamming_distance": 0.0,
+                "current_running": 0,
+                "total_pending": 0,
+                "total_running": 0,
+                "total_completed_tasks": 14,
+                "total_failed_tasks": 3,
+                "state_history_count": 51,
+                "dimension_stats": {
+                  "correctness": 0,
+                  "complexity": 0,
+                  "style": 65,
+                  "readability": 0,
+                  "maintainability": 0,
+                  "cost_efficiency": 0
+                },
+                "hexagram_report_summary": {
+                  "total_tasks": 17,
+                  "hexagram_adapter_tasks": 17,
+                  "hexagram_mappings": 64
+                },
+                "timestamp": "2026-04-20T18:47:50.020683"
+              },
+              "post_stats": {
+                "total_submitted": 17,
+                "total_completed": 14,
+                "total_failed": 4,
+                "total_execution_time": 6.075095624669084,
+                "average_execution_time": 0.4339354017620774,
+                "throughput_tasks_per_minute": 17,
+                "total_quality_score": 23.333333333333336,
+                "average_quality_score": 1.6666666666666667,
+                "total_hamming_distance": 0,
+                "average_hamming_distance": 0.0,
+                "current_running": 0,
+                "total_pending": 0,
+                "total_running": 0,
+                "total_completed_tasks": 13,
+                "total_failed_tasks": 4,
+                "state_history_count": 52,
+                "dimension_stats": {
+                  "correctness": 0,
+                  "complexity": 0,
+                  "style": 65,
+                  "readability": 0,
+                  "maintainability": 0,
+                  "cost_efficiency": 0
+                },
+                "hexagram_report_summary": {
+                  "total_tasks": 17,
+                  "hexagram_adapter_tasks": 17,
+                  "hexagram_mappings": 64
+                },
+                "timestamp": "2026-04-20T18:47:50.020837"
+              }
+            },
+            {
+              "type": "state_corruption",
+              "success": true,
+              "pre_stats": {
+                "total_submitted": 17,
+                "total_completed": 14,
+                "total_failed": 4,
+                "total_execution_time": 6.075095624669084,
+                "average_execution_time": 0.4339354017620774,
+                "throughput_tasks_per_minute": 17,
+                "total_quality_score": 23.333333333333336,
+                "average_quality_score": 1.6666666666666667,
+                "total_hamming_distance": 0,
+                "average_hamming_distance": 0.0,
+                "current_running": 0,
+                "total_pending": 0,
+                "total_running": 0,
+                "total_completed_tasks": 13,
+                "total_failed_tasks": 4,
+                "state_history_count": 52,
+                "dimension_stats": {
+                  "correctness": 0,
+                  "complexity": 0,
+                  "style": 65,
+                  "readability": 0,
+                  "maintainability": 0,
+                  "cost_efficiency": 0
+                },
+                "hexagram_report_summary": {
+                  "total_tasks": 17,
+                  "hexagram_adapter_tasks": 17,
+                  "hexagram_mappings": 64
+                },
+                "timestamp": "2026-04-20T18:47:50.020936"
+              },
+              "post_stats": {
+                "total_submitted": 17,
+                "total_completed": 14,
+                "total_failed": 4,
+                "total_execution_time": 6.075095624669084,
+                "average_execution_time": 0.4339354017620774,
+                "throughput_tasks_per_minute": 17,
+                "total_quality_score": 23.333333333333336,
+                "average_quality_score": 1.6666666666666667,
+                "total_hamming_distance": 0,
+                "average_hamming_distance": 0.0,
+                "current_running": 0,
+                "total_pending": 1,
+                "total_running": 0,
+                "total_completed_tasks": 12,
+                "total_failed_tasks": 4,
+                "state_history_count": 52,
+                "dimension_stats": {
+                  "correctness": 0,
+                  "complexity": 0,
+                  "style": 65,
+                  "readability": 0,
+                  "maintainability": 0,
+                  "cost_efficiency": 0
+                },
+                "hexagram_report_summary": {
+                  "total_tasks": 17,
+                  "hexagram_adapter_tasks": 17,
+                  "hexagram_mappings": 64
+                },
+                "timestamp": "2026-04-20T18:47:50.021052"
+              }
+            },
+            {
+              "type": "network_delay",
+              "success": true,
+              "pre_stats": {
+                "total_submitted": 17,
+                "total_completed": 14,
+                "total_failed": 4,
+                "total_execution_time": 6.075095624669084,
+                "average_execution_time": 0.4339354017620774,
+                "throughput_tasks_per_minute": 17,
+                "total_quality_score": 23.333333333333336,
+                "average_quality_score": 1.6666666666666667,
+                "total_hamming_distance": 0,
+                "average_hamming_distance": 0.0,
+                "current_running": 0,
+                "total_pending": 1,
+                "total_running": 0,
+                "total_completed_tasks": 12,
+                "total_failed_tasks": 4,
+                "state_history_count": 52,
+                "dimension_stats": {
+                  "correctness": 0,
+                  "complexity": 0,
+                  "style": 65,
+                  "readability": 0,
+                  "maintainability": 0,
+                  "cost_efficiency": 0
+                },
+                "hexagram_report_summary": {
+                  "total_tasks": 17,
+                  "hexagram_adapter_tasks": 17,
+                  "hexagram_mappings": 64
+                },
+                "timestamp": "2026-04-20T18:47:50.021150"
+              },
+              "post_stats": {
+                "total_submitted": 17,
+                "total_completed": 14,
+                "total_failed": 4,
+                "total_execution_time": 6.075095624669084,
+                "average_execution_time": 0.4339354017620774,
+                "throughput_tasks_per_minute": 17,
+                "total_quality_score": 23.333333333333336,
+                "average_quality_score": 1.6666666666666667,
+                "total_hamming_distance": 0,
+                "average_hamming_distance": 0.0,
+                "current_running": 0,
+                "total_pending": 1,
+                "total_running": 0,
+                "total_completed_tasks": 12,
+                "total_failed_tasks": 4,
+                "state_history_count": 52,
+                "dimension_stats": {
+                  "correctness": 0,
+                  "complexity": 0,
+                  "style": 65,
+                  "readability": 0,
+                  "maintainability": 0,
+                  "cost_efficiency": 0
+                },
+                "hexagram_report_summary": {
+                  "total_tasks": 17,
+                  "hexagram_adapter_tasks": 17,
+                  "hexagram_mappings": 64
+                },
+                "timestamp": "2026-04-20T18:47:50.749915"
+              }
+            }
+          ],
+          "recovery_times": []
+        }
+      },
+      "metrics": {
+        "execution_time_ratio": 1.2034117247385376,
+        "execution_time_improvement": -0.20341172473853764,
+        "success_rate_improvement": -0.16666666666666663,
+        "quality_improvement": 1.6666666666666667,
+        "hamming_distance": 0.0,
+        "dimensions_improvement": 0
+      },
+      "summary": "MAREF增强系统对比: 性能下降20.3%, 成功率持平, 质量评分提升1.67分"
+    },
+    {
+      "experiment_type": "state_transition",
+      "timestamp": "2026-04-20T18:47:51.497183",
+      "baseline": {
+        "total_submitted": 32,
+        "total_completed": 28,
+        "total_failed": 4,
+        "total_execution_time": 9.18975495341718,
+        "average_execution_time": 0.3187615891580543,
+        "throughput_tasks_per_minute": 31,
+        "current_running": 0,
+        "total_pending": 0,
+        "total_running": 1,
+        "total_completed_tasks": 27,
+        "total_failed_tasks": 4,
+        "state_history_count": 96,
+        "timestamp": "2026-04-20T18:47:51.496485",
+        "success_rate": 0.8666666666666667,
+        "total_experiment_tasks": 15,
+        "successful_experiment_tasks": 13,
+        "transition_metrics": {
+          "total_transitions": 15,
+          "average_transition_steps": 1.0,
+          "efficiency_score": 0
+        }
+      },
+      "enhanced": {
+        "total_submitted": 32,
+        "total_completed": 26,
+        "total_failed": 7,
+        "total_execution_time": 10.099189971087439,
+        "average_execution_time": 0.388430383503363,
+        "throughput_tasks_per_minute": 32,
+        "total_quality_score": 43.33333333333333,
+        "average_quality_score": 1.6666666666666665,
+        "total_hamming_distance": 0,
+        "average_hamming_distance": 0.0,
+        "current_running": 0,
+        "total_pending": 1,
+        "total_running": 0,
+        "total_completed_tasks": 24,
+        "total_failed_tasks": 7,
+        "state_history_count": 97,
+        "dimension_stats": {
+          "correctness": 0,
+          "complexity": 0,
+          "style": 65,
+          "readability": 0,
+          "maintainability": 0,
+          "cost_efficiency": 0
+        },
+        "hexagram_report_summary": {
+          "total_tasks": 32,
+          "hexagram_adapter_tasks": 32,
+          "hexagram_mappings": 64
+        },
+        "timestamp": "2026-04-20T18:47:51.496860",
+        "success_rate": 0.8,
+        "total_experiment_tasks": 15,
+        "successful_experiment_tasks": 12,
+        "hexagram_mappings": 64,
+        "hexagram_adapter_tasks": 32,
+        "transition_metrics": {
+          "total_transitions": 15,
+          "average_transition_steps": 1.0,
+          "efficiency_score": 0.9090909090909091
+        }
+      },
+      "metrics": {
+        "execution_time_ratio": 1.2185608201079843,
+        "execution_time_improvement": -0.21856082010798428,
+        "success_rate_improvement": -0.06666666666666665,
+        "quality_improvement": 1.6666666666666665,
+        "hamming_distance": 0.0,
+        "dimensions_improvement": 0
+      },
+      "summary": "MAREF增强系统对比: 性能下降21.9%, 成功率持平, 质量评分提升1.67分"
+    },
+    {
+      "experiment_type": "quality_assessment",
+      "timestamp": "2026-04-20T18:47:51.786638",
+      "baseline": {
+        "total_submitted": 40,
+        "total_completed": 36,
+        "total_failed": 4,
+        "total_execution_time": 10.536400589891503,
+        "average_execution_time": 0.29267779416365286,
+        "throughput_tasks_per_minute": 40,
+        "current_running": 0,
+        "total_pending": 0,
+        "total_running": 1,
+        "total_completed_tasks": 35,
+        "total_failed_tasks": 4,
+        "state_history_count": 120,
+        "timestamp": "2026-04-20T18:47:51.786391",
+        "success_rate": 1.0,
+        "total_experiment_tasks": 8,
+        "successful_experiment_tasks": 8
+      },
+      "enhanced": {
+        "total_submitted": 40,
+        "total_completed": 34,
+        "total_failed": 7,
+        "total_execution_time": 11.48831347517757,
+        "average_execution_time": 0.3378915727993403,
+        "throughput_tasks_per_minute": 40,
+        "total_quality_score": 56.66666666666664,
+        "average_quality_score": 1.666666666666666,
+        "total_hamming_distance": 0,
+        "average_hamming_distance": 0.0,
+        "current_running": 0,
+        "total_pending": 1,
+        "total_running": 0,
+        "total_completed_tasks": 32,
+        "total_failed_tasks": 7,
+        "state_history_count": 121,
+        "dimension_stats": {
+          "correctness": 0,
+          "complexity": 0,
+          "style": 65,
+          "readability": 0,
+          "maintainability": 0,
+          "cost_efficiency": 0
+        },
+        "hexagram_report_summary": {
+          "total_tasks": 40,
+          "hexagram_adapter_tasks": 40,
+          "hexagram_mappings": 64
+        },
+        "timestamp": "2026-04-20T18:47:51.786592",
+        "success_rate": 1.0,
+        "total_experiment_tasks": 8,
+        "successful_experiment_tasks": 8,
+        "hexagram_mappings": 64,
+        "hexagram_adapter_tasks": 40
+      },
+      "metrics": {
+        "execution_time_ratio": 1.1544831194484328,
+        "execution_time_improvement": -0.15448311944843285,
+        "success_rate_improvement": 0.0,
+        "quality_improvement": 1.666666666666666,
+        "hamming_distance": 0.0,
+        "dimensions_improvement": 0
+      },
+      "summary": "MAREF增强系统对比: 性能下降15.4%, 成功率持平, 质量评分提升1.67分"
+    },
+    {
+      "experiment_type": "performance_benchmark",
+      "timestamp": "2026-04-20T18:47:53.042167",
+      "baseline": {
+        "total_submitted": 65,
+        "total_completed": 61,
+        "total_failed": 4,
+        "total_execution_time": 16.526687647273047,
+        "average_execution_time": 0.2709293056930008,
+        "throughput_tasks_per_minute": 65,
+        "current_running": 0,
+        "total_pending": 0,
+        "total_running": 1,
+        "total_completed_tasks": 60,
+        "total_failed_tasks": 4,
+        "state_history_count": 195,
+        "timestamp": "2026-04-20T18:47:53.041422",
+        "success_rate": 1.0,
+        "total_experiment_tasks": 25,
+        "successful_experiment_tasks": 25
+      },
+      "enhanced": {
+        "total_submitted": 65,
+        "total_completed": 58,
+        "total_failed": 8,
+        "total_execution_time": 17.916820708910308,
+        "average_execution_time": 0.3089107018777639,
+        "throughput_tasks_per_minute": 65,
+        "total_quality_score": 96.66666666666673,
+        "average_quality_score": 1.6666666666666676,
+        "total_hamming_distance": 0,
+        "average_hamming_distance": 0.0,
+        "current_running": 0,
+        "total_pending": 1,
+        "total_running": 0,
+        "total_completed_tasks": 56,
+        "total_failed_tasks": 8,
+        "state_history_count": 196,
+        "dimension_stats": {
+          "correctness": 0,
+          "complexity": 0,
+          "style": 65,
+          "readability": 0,
+          "maintainability": 0,
+          "cost_efficiency": 0
+        },
+        "hexagram_report_summary": {
+          "total_tasks": 65,
+          "hexagram_adapter_tasks": 65,
+          "hexagram_mappings": 64
+        },
+        "timestamp": "2026-04-20T18:47:53.042150",
+        "success_rate": 0.96,
+        "total_experiment_tasks": 25,
+        "successful_experiment_tasks": 24,
+        "hexagram_mappings": 64,
+        "hexagram_adapter_tasks": 65
+      },
+      "metrics": {
+        "execution_time_ratio": 1.1401893238814156,
+        "execution_time_improvement": -0.14018932388141558,
+        "success_rate_improvement": -0.040000000000000036,
+        "quality_improvement": 1.6666666666666676,
+        "hamming_distance": 0.0,
+        "dimensions_improvement": 0
+      },
+      "summary": "MAREF增强系统对比: 性能下降14.0%, 成功率持平, 质量评分提升1.67分"
+    }
+  ],
+  "summary_statistics": {
+    "average_execution_improvement": -0.11576588056500561,
+    "average_success_improvement": -0.01466666666666665,
+    "average_quality_improvement": 1.6666666666666667,
+    "total_experiments": 5,
+    "experiments_completed": 5
+  },
+  "recommendations": [
+    "⚠️ MAREF增强系统性能未提升，需要进一步优化",
+    "✅ MAREF增强系统显著提升质量: 1.67分",
+    "🎯 建议: 将MAREF增强系统部署到生产环境进行真实负载测试",
+    "🔧 建议: 优化64卦状态转换算法，进一步提高效率",
+    "📊 建议: 扩展质量维度评估，涵盖更多代码质量指标"
+  ]
+}

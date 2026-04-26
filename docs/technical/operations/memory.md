@@ -7,7 +7,7 @@
 - **root_task_id**: 20260402-065141-research-openhuman-athena
 - **阶段**: research
 - **摘要**: 该短版路线图整体偏战略，但 T+3 未落地缺口可安全收敛为 SkillWeaver、业务对象账本、offline_survey 模拟闭环和一次收口审计四张窄卡。
-- **源文档**: /Users/frankie/Documents/Athena知识库/执行项目/2026/003-open human（碳硅基共生）/007-AI-plan/completed/OpenHuman-Athena-现实版路线图.md
+- **源文档**: /Volumes/1TB-M2/openclaw/Documents/Athena知识库/执行项目/2026/003-open human（碳硅基共生）/007-AI-plan/completed/OpenHuman-Athena-现实版路线图.md
 
 
 ## OpenHuman-AI市场情报与职业风险引擎-clean-room产品架构方案 (蒸馏于 2026-04-02 21:46:57)
@@ -16,7 +16,7 @@
 - **root_task_id**: 20260402-070356-research-openhuman-ai-clean-room
 - **阶段**: research
 - **摘要**: 该母卡可安全收敛为 3 张前置 build 卡和 1 张 review 卡，但当前 AI plan 目录只读，以下为应落盘清单。
-- **源文档**: /Users/frankie/Documents/Athena知识库/执行项目/2026/003-open human（碳硅基共生）/007-AI-plan/completed/OpenHuman-AI市场情报与职业风险引擎-clean-room产品架构方案.md
+- **源文档**: /Volumes/1TB-M2/openclaw/Documents/Athena知识库/执行项目/2026/003-open human（碳硅基共生）/007-AI-plan/completed/OpenHuman-AI市场情报与职业风险引擎-clean-room产品架构方案.md
 
 ## OpenHuman-Automaton 预算心跳与四级生存模式接入 (实施于 2026-04-03)
 
@@ -81,7 +81,7 @@
 - **root_task_id**: 20260415-074216-build-openhuman-athena-workflowstability-runner-bootst
 - **阶段**: build
 - **摘要**: 收到，初始化完成。我是 OpenClaw 仓库的 VS Code / OpenCode Build Agent。
-- **源文档**: /Users/frankie/Documents/Athena知识库/执行项目/2026/003-open human（碳硅基共生）/007-AI-plan/completed/OpenHuman-Athena-WorkflowStability-Runner重启契约与Bootstrap硬化-VSCode执行指令.md
+- **源文档**: /Volumes/1TB-M2/openclaw/Documents/Athena知识库/执行项目/2026/003-open human（碳硅基共生）/007-AI-plan/completed/OpenHuman-Athena-WorkflowStability-Runner重启契约与Bootstrap硬化-VSCode执行指令.md
 
 
 ## OpenHuman-Athena-ExecutionHarness-完成后Memory回写与交付摘要-VSCode执行指令 (蒸馏于 2026-04-15 07:45:50)
@@ -90,7 +90,7 @@
 - **root_task_id**: 20260415-074532-build-openhuman-athena-executionharness-memory-vscode
 - **阶段**: build
 - **摘要**: - /Volumes/1TB-M2/openclaw
-- **源文档**: /Users/frankie/Documents/Athena知识库/执行项目/2026/003-open human（碳硅基共生）/007-AI-plan/completed/OpenHuman-Athena-ExecutionHarness-完成后Memory回写与交付摘要-VSCode执行指令.md
+- **源文档**: /Volumes/1TB-M2/openclaw/Documents/Athena知识库/执行项目/2026/003-open human（碳硅基共生）/007-AI-plan/completed/OpenHuman-Athena-ExecutionHarness-完成后Memory回写与交付摘要-VSCode执行指令.md
 
 
 ## OpenHuman-Athena-Bridge聊天入口收敛与状态真实化-VSCode执行指令 (蒸馏于 2026-04-15 08:34:24)
@@ -99,7 +99,7 @@
 - **root_task_id**: 20260415-083337-build-openhuman-athena-bridge-vscode
 - **阶段**: build
 - **摘要**: "type": "shell",
-- **源文档**: /Users/frankie/Documents/Athena知识库/执行项目/2026/003-open human（碳硅基共生）/007-AI-plan/completed/OpenHuman-Athena-Bridge聊天入口收敛与状态真实化-VSCode执行指令.md
+- **源文档**: /Volumes/1TB-M2/openclaw/Documents/Athena知识库/执行项目/2026/003-open human（碳硅基共生）/007-AI-plan/completed/OpenHuman-Athena-Bridge聊天入口收敛与状态真实化-VSCode执行指令.md
 
 
 ## OpenHuman-TenacitOS-Desktop聊天运行态对齐-VSCode执行指令 (蒸馏于 2026-04-15 08:35:31)
@@ -108,7 +108,7 @@
 - **root_task_id**: 20260415-083438-build-openhuman-tenacitos-desktop-vscode
 - **阶段**: build
 - **摘要**: # 🤖 OpenClaw Build Agent Status Report
-- **源文档**: /Users/frankie/Documents/Athena知识库/执行项目/2026/003-open human（碳硅基共生）/007-AI-plan/completed/OpenHuman-TenacitOS-Desktop聊天运行态对齐-VSCode执行指令.md
+- **源文档**: /Volumes/1TB-M2/openclaw/Documents/Athena知识库/执行项目/2026/003-open human（碳硅基共生）/007-AI-plan/completed/OpenHuman-TenacitOS-Desktop聊天运行态对齐-VSCode执行指令.md
 
 
 ## OpenHuman-nanobot-Athena-自动修复桥接器与幂等入队-VSCode执行指令 (蒸馏于 2026-04-15 08:37:49)
@@ -117,7 +117,7 @@
 - **root_task_id**: 20260415-083739-build-openhuman-nanobot-athena-vscode
 - **阶段**: build
 - **摘要**: # Bash Overview
-- **源文档**: /Users/frankie/Documents/Athena知识库/执行项目/2026/003-open human（碳硅基共生）/007-AI-plan/completed/OpenHuman-nanobot-Athena-自动修复桥接器与幂等入队-VSCode执行指令.md
+- **源文档**: /Volumes/1TB-M2/openclaw/Documents/Athena知识库/执行项目/2026/003-open human（碳硅基共生）/007-AI-plan/completed/OpenHuman-nanobot-Athena-自动修复桥接器与幂等入队-VSCode执行指令.md
 
 
 ## OpenHuman-nanobot-Athena-自动修复链Smoke与状态回写-VSCode执行指令 (蒸馏于 2026-04-15 08:38:06)
@@ -126,7 +126,7 @@
 - **root_task_id**: 20260415-083754-build-openhuman-nanobot-athena-smoke-vscode
 - **阶段**: build
 - **摘要**: "messages": [
-- **源文档**: /Users/frankie/Documents/Athena知识库/执行项目/2026/003-open human（碳硅基共生）/007-AI-plan/completed/OpenHuman-nanobot-Athena-自动修复链Smoke与状态回写-VSCode执行指令.md
+- **源文档**: /Volumes/1TB-M2/openclaw/Documents/Athena知识库/执行项目/2026/003-open human（碳硅基共生）/007-AI-plan/completed/OpenHuman-nanobot-Athena-自动修复链Smoke与状态回写-VSCode执行指令.md
 
 
 ## OpenHuman-Athena-Guardrails前置授权与阶段策略下沉-VSCode执行指令 (蒸馏于 2026-04-15 08:38:13)
@@ -135,7 +135,7 @@
 - **root_task_id**: 20260415-083739-build-openhuman-athena-guardrails-vscode
 - **阶段**: build
 - **摘要**: 收到，我已初始化完成，当前作为 **OpenClaw 仓库的 VS Code / OpenCode Build Agent** 待命。
-- **源文档**: /Users/frankie/Documents/Athena知识库/执行项目/2026/003-open human（碳硅基共生）/007-AI-plan/completed/OpenHuman-Athena-Guardrails前置授权与阶段策略下沉-VSCode执行指令.md
+- **源文档**: /Volumes/1TB-M2/openclaw/Documents/Athena知识库/执行项目/2026/003-open human（碳硅基共生）/007-AI-plan/completed/OpenHuman-Athena-Guardrails前置授权与阶段策略下沉-VSCode执行指令.md
 
 
 ## OpenHuman-Athena-Bridge聊天入口收敛与状态真实化-VSCode执行指令 (蒸馏于 2026-04-16 13:16:47)
@@ -144,7 +144,7 @@
 - **root_task_id**: 20260416-131604-build-openhuman-athena-bridge-vscode
 - **阶段**: build
 - **摘要**: # 🤖 OpenClaw Build Agent 状态报告
-- **源文档**: /Users/frankie/Documents/Athena知识库/执行项目/2026/003-open human（碳硅基共生）/007-AI-plan/completed/OpenHuman-Athena-Bridge聊天入口收敛与状态真实化-VSCode执行指令.md
+- **源文档**: /Volumes/1TB-M2/openclaw/Documents/Athena知识库/执行项目/2026/003-open human（碳硅基共生）/007-AI-plan/completed/OpenHuman-Athena-Bridge聊天入口收敛与状态真实化-VSCode执行指令.md
 
 
 ## OpenHuman-nanobot-Athena-自动修复桥接器与幂等入队-VSCode执行指令 (蒸馏于 2026-04-16 13:17:44)
@@ -153,7 +153,7 @@
 - **root_task_id**: 20260416-131735-build-openhuman-nanobot-athena-vscode
 - **阶段**: build
 - **摘要**: - Basic commands or syntax?
-- **源文档**: /Users/frankie/Documents/Athena知识库/执行项目/2026/003-open human（碳硅基共生）/007-AI-plan/completed/OpenHuman-nanobot-Athena-自动修复桥接器与幂等入队-VSCode执行指令.md
+- **源文档**: /Volumes/1TB-M2/openclaw/Documents/Athena知识库/执行项目/2026/003-open human（碳硅基共生）/007-AI-plan/completed/OpenHuman-nanobot-Athena-自动修复桥接器与幂等入队-VSCode执行指令.md
 
 
 ## OpenHuman-nanobot-Athena-自动修复链Smoke与状态回写-VSCode执行指令 (蒸馏于 2026-04-16 13:17:58)
@@ -162,7 +162,7 @@
 - **root_task_id**: 20260416-131750-build-openhuman-nanobot-athena-smoke-vscode
 - **阶段**: build
 - **摘要**: It looks like you're interested in **Bash** (Bourne Again SHell), the default command-line interpreter for most Linux distributions and macOS.
-- **源文档**: /Users/frankie/Documents/Athena知识库/执行项目/2026/003-open human（碳硅基共生）/007-AI-plan/completed/OpenHuman-nanobot-Athena-自动修复链Smoke与状态回写-VSCode执行指令.md
+- **源文档**: /Volumes/1TB-M2/openclaw/Documents/Athena知识库/执行项目/2026/003-open human（碳硅基共生）/007-AI-plan/completed/OpenHuman-nanobot-Athena-自动修复链Smoke与状态回写-VSCode执行指令.md
 
 
 ## OpenHuman-Athena-Enterprise-控制面分层与本地优先策略作用域-VSCode执行指令 (蒸馏于 2026-04-16 13:21:34)
@@ -171,7 +171,7 @@
 - **root_task_id**: 20260416-132052-build-openhuman-athena-enterprise-vscode
 - **阶段**: build
 - **摘要**: 由于队列项说明文截断，请补充以下信息以便 Agent 生成具体实现代码：
-- **源文档**: /Users/frankie/Documents/Athena知识库/执行项目/2026/003-open human（碳硅基共生）/007-AI-plan/completed/OpenHuman-Athena-Enterprise-控制面分层与本地优先策略作用域-VSCode执行指令.md
+- **源文档**: /Volumes/1TB-M2/openclaw/Documents/Athena知识库/执行项目/2026/003-open human（碳硅基共生）/007-AI-plan/completed/OpenHuman-Athena-Enterprise-控制面分层与本地优先策略作用域-VSCode执行指令.md
 
 
 ## OpenHuman-Athena-WorkflowStability-Runner重启契约与Bootstrap硬化-VSCode执行指令 (蒸馏于 2026-04-18 17:52:41)
@@ -180,7 +180,7 @@
 - **root_task_id**: 20260418-175241-build-openhuman-athena-workflowstability-runner-bootst
 - **阶段**: build
 - **摘要**: ✅ 成本记录成功: req_20260418_175241_c3f158612026-04-18 17:52:41,394 - agent.core.financial_monitor_adapter - INFO - 预算引擎连接成功
-- **源文档**: /Users/frankie/Documents/Athena知识库/执行项目/2026/003-open human（碳硅基共生）/007-AI-plan/completed/OpenHuman-Athena-WorkflowStability-Runner重启契约与Bootstrap硬化-VSCode执行指令.md
+- **源文档**: /Volumes/1TB-M2/openclaw/Documents/Athena知识库/执行项目/2026/003-open human（碳硅基共生）/007-AI-plan/completed/OpenHuman-Athena-WorkflowStability-Runner重启契约与Bootstrap硬化-VSCode执行指令.md
 
 
 ## OpenHuman-Athena-ExecutionHarness-根路径Helper与路径漂移收敛-VSCode执行指令 (蒸馏于 2026-04-18 17:52:41)
@@ -189,7 +189,7 @@
 - **root_task_id**: 20260418-175241-build-openhuman-athena-executionharness-helper-vscode
 - **阶段**: build
 - **摘要**: ✅ 成本记录成功: req_20260418_175241_6238a556
-- **源文档**: /Users/frankie/Documents/Athena知识库/执行项目/2026/003-open human（碳硅基共生）/007-AI-plan/completed/OpenHuman-Athena-ExecutionHarness-根路径Helper与路径漂移收敛-VSCode执行指令.md
+- **源文档**: /Volumes/1TB-M2/openclaw/Documents/Athena知识库/执行项目/2026/003-open human（碳硅基共生）/007-AI-plan/completed/OpenHuman-Athena-ExecutionHarness-根路径Helper与路径漂移收敛-VSCode执行指令.md
 
 
 ## OpenHuman-Athena-ExecutionHarness-完成后Memory回写与交付摘要-VSCode执行指令 (蒸馏于 2026-04-18 17:54:28)
@@ -198,7 +198,7 @@
 - **root_task_id**: 20260418-175427-build-openhuman-athena-executionharness-memory-vscode
 - **阶段**: build
 - **摘要**: ✅ 成本记录成功: req_20260418_175428_106122d2
-- **源文档**: /Users/frankie/Documents/Athena知识库/执行项目/2026/003-open human（碳硅基共生）/007-AI-plan/completed/OpenHuman-Athena-ExecutionHarness-完成后Memory回写与交付摘要-VSCode执行指令.md
+- **源文档**: /Volumes/1TB-M2/openclaw/Documents/Athena知识库/执行项目/2026/003-open human（碳硅基共生）/007-AI-plan/completed/OpenHuman-Athena-ExecutionHarness-完成后Memory回写与交付摘要-VSCode执行指令.md
 
 
 ## OpenHuman-Athena-WorkflowStability-Runner重启契约与Bootstrap硬化-VSCode执行指令 (蒸馏于 2026-04-19 08:04:19)
@@ -207,7 +207,7 @@
 - **root_task_id**: 20260419-080418-build-openhuman-athena-workflowstability-runner-bootst
 - **阶段**: build
 - **摘要**: ✅ 成本记录成功: req_20260419_080418_5a026b97
-- **源文档**: /Users/frankie/Documents/Athena知识库/执行项目/2026/003-open human（碳硅基共生）/007-AI-plan/completed/OpenHuman-Athena-WorkflowStability-Runner重启契约与Bootstrap硬化-VSCode执行指令.md
+- **源文档**: /Volumes/1TB-M2/openclaw/Documents/Athena知识库/执行项目/2026/003-open human（碳硅基共生）/007-AI-plan/completed/OpenHuman-Athena-WorkflowStability-Runner重启契约与Bootstrap硬化-VSCode执行指令.md
 
 
 ## OpenHuman-Athena-ExecutionHarness-根路径Helper与路径漂移收敛-VSCode执行指令 (蒸馏于 2026-04-19 08:05:04)
@@ -216,7 +216,7 @@
 - **root_task_id**: 20260419-080504-build-openhuman-athena-executionharness-helper-vscode
 - **阶段**: build
 - **摘要**: ✅ 成本记录成功: req_20260419_080504_9f096ea7
-- **源文档**: /Users/frankie/Documents/Athena知识库/执行项目/2026/003-open human（碳硅基共生）/007-AI-plan/completed/OpenHuman-Athena-ExecutionHarness-根路径Helper与路径漂移收敛-VSCode执行指令.md
+- **源文档**: /Volumes/1TB-M2/openclaw/Documents/Athena知识库/执行项目/2026/003-open human（碳硅基共生）/007-AI-plan/completed/OpenHuman-Athena-ExecutionHarness-根路径Helper与路径漂移收敛-VSCode执行指令.md
 
 
 ## OpenHuman-Athena-ExecutionHarness-完成后Memory回写与交付摘要-VSCode执行指令 (蒸馏于 2026-04-19 08:06:05)
@@ -225,5 +225,5 @@
 - **root_task_id**: 20260419-080605-build-openhuman-athena-executionharness-memory-vscode
 - **阶段**: build
 - **摘要**: ✅ 成本记录成功: req_20260419_080605_2d911bcc
-- **源文档**: /Users/frankie/Documents/Athena知识库/执行项目/2026/003-open human（碳硅基共生）/007-AI-plan/completed/OpenHuman-Athena-ExecutionHarness-完成后Memory回写与交付摘要-VSCode执行指令.md
+- **源文档**: /Volumes/1TB-M2/openclaw/Documents/Athena知识库/执行项目/2026/003-open human（碳硅基共生）/007-AI-plan/completed/OpenHuman-Athena-ExecutionHarness-完成后Memory回写与交付摘要-VSCode执行指令.md
 

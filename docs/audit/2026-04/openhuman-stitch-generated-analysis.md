@@ -3,7 +3,7 @@
 ## 文档信息
 
 **分析对象**: Google Stitch生成的OpenHuman AI界面设计  
-**文件来源**: `/Users/frankie/Downloads/openhuman-ai.zip`  
+**文件来源**: `/Volumes/1TB-M2/openclaw/Downloads/openhuman-ai.zip`  
 **生成时间**: 2026-04-03 08:07  
 **分析时间**: 2026-04-03  
 **技术栈**: React + TypeScript + Tailwind CSS + Motion  

@@ -1,0 +1,120 @@
+[project]
+name = "openclaw"
+version = "0.1.0"
+description = "Athena execution layer — AI plan queue runner and enterprise orchestration"
+requires-python = ">=3.11"
+readme = "README.md"
+license = { text = "MIT" }
+authors = [
+    { name = "frankiehot-tech" }
+]
+dependencies = [
+    "psutil>=5.9.0",
+    "requests>=2.28.0",
+    "PyYAML>=6.0",
+    "python-dotenv>=1.0.0",
+]
+
+[project.optional-dependencies]
+dev = [
+    "ruff>=0.15.0",
+    "mypy>=1.0.0",
+    "pytest>=7.0.0",
+    "coverage>=7.0.0",
+    "bandit>=1.7.0",
+    "pip-audit>=2.0.0",
+]
+
+[tool.ruff]
+target-version = "py311"
+src = ["scripts", "athena", "execution", "ops"]
+line-length = 100
+exclude = [
+    ".venv",
+    ".venv311",
+    ".venvs",
+    "venv",
+    "__pycache__",
+    ".git",
+    "*.egg-info",
+    "comfyui_workspace",
+]
+
+[tool.ruff.lint]
+select = [
+    "E",      # pycodestyle errors
+    "W",      # pycodestyle warnings
+    "F",      # pyflakes
+    "I",      # isort
+    "B",      # flake8-bugbear
+    "C4",     # flake8-comprehensions
+    "UP",     # pyupgrade
+    "SIM",    # flake8-simplify
+    "TCH",    # flake8-type-checking
+]
+ignore = [
+    "E501",   # line too long (handled by formatter)
+    "B008",   # do not perform function calls in argument defaults
+    "SIM108", # use ternary operator instead of if-else-block
+]
+
+[tool.ruff.lint.isort]
+known-first-party = ["scripts", "athena", "execution", "ops"]
+
+[tool.mypy]
+python_version = "3.11"
+ignore_missing_imports = true
+check_untyped_defs = false
+disallow_untyped_defs = false
+show_error_codes = true
+warn_return_any = false
+warn_unused_ignores = false
+exclude = [
+    ".venv/",
+    ".venv311/",
+    ".venvs/",
+    "venv/",
+    "comfyui_workspace/",
+    "scripts/clawra/external/",
+]
+
+[tool.pytest.ini_options]
+minversion = "7.0"
+testpaths = ["tests", "scripts"]
+python_files = ["test_*.py", "*_test.py"]
+python_functions = ["test_*"]
+addopts = "-v --tb=short"
+timeout = 300
+markers = [
+    "slow: marks tests as slow (deselect with '-m \"not slow\"')",
+    "integration: marks tests as integration tests",
+    "smoke: marks tests as smoke tests",
+]
+
+[tool.coverage.run]
+source = ["scripts", "athena", "execution", "ops"]
+omit = [
+    "*/tests/*",
+    "*/test_*.py",
+    "*/_test.py",
+    "*/clawra/external/*",
+]
+
+[tool.coverage.report]
+exclude_lines = [
+    "pragma: no cover",
+    "def __repr__",
+    "if TYPE_CHECKING:",
+    "raise NotImplementedError",
+]
+
+[tool.bandit]
+exclude_dirs = [
+    ".venv",
+    ".venv311",
+    ".venvs",
+    "venv",
+    "comfyui_workspace",
+    "scripts/clawra/external",
+]
+skips = ["B101", "B404", "B603", "B607"]

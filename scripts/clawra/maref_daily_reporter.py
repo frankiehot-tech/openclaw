@@ -99,7 +99,7 @@ class MAREFDailyReporter:
 
     def get_default_output_dir(self) -> str:
         """获取默认输出目录"""
-        return "/Users/frankie/Documents/Athena知识库/执行项目/2026/003-open human（碳硅基共生）/015-mailbox"
+        return "/Volumes/1TB-M2/openclaw/Documents/Athena知识库/执行项目/2026/003-open human（碳硅基共生）/015-mailbox"
 
     def generate_daily_report(self) -> str:
         """生成日报"""

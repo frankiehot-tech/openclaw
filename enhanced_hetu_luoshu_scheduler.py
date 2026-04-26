@@ -17,7 +17,9 @@ from datetime import datetime
 
 # 导入我们的适配器和状态管理器
 from hetu_hexagram_adapter import HetuToHexagramAdapter
-from integrated_hexagram_state_manager import StateAnalysis
+
+# 使用我们自己的HetuState（来自64卦状态系统）
+from integrated_hexagram_state_manager import HetuState, StateAnalysis
 
 # 导入原有的调度器组件
 from mini_agent.agent.core.maref_quality.hetu_luoshu_scheduler import (
@@ -25,12 +27,37 @@ from mini_agent.agent.core.maref_quality.hetu_luoshu_scheduler import (
     AssessmentSchedule,
     AssessmentTask,
     HetuLuoshuScheduler,
-    HetuState,
     LuoshuScheduler,
 )
 
 
-class HexagramEnhancedLuoshuScheduler(HetuLuoshuScheduler):
+def convert_to_integrated_hetu_state(legacy_state: t.Any) -> HetuState:
+    """将原有的HetuState转换为集成的HetuState枚举"""
+    # 通过状态名称进行转换
+    state_name = legacy_state.name if hasattr(legacy_state, "name") else str(legacy_state)
+
+    try:
+        return HetuState[state_name]
+    except KeyError:
+        # 如果找不到对应的状态，使用INITIAL作为默认
+        return HetuState.INITIAL
+
+
+def convert_from_integrated_hetu_state(integrated_state: HetuState) -> t.Any:
+    """将集成的HetuState转换回原有的HetuState枚举"""
+    # 我们需要获取mini_agent的HetuState，但为了避免循环导入，我们动态导入
+    from mini_agent.agent.core.maref_quality.hetu_luoshu_scheduler import (
+        HetuState as LegacyHetuState,
+    )
+
+    try:
+        return LegacyHetuState[integrated_state.name]
+    except (KeyError, AttributeError):
+        # 如果转换失败，返回默认状态
+        return LegacyHetuState.INITIAL
+
+
+class HexagramEnhancedLuoshuScheduler(HetuLuoshuScheduler):  # type: ignore[misc]
     """增强的河图洛书调度器（集成64卦状态）"""
 
     def __init__(
@@ -72,12 +99,12 @@ class HexagramEnhancedLuoshuScheduler(HetuLuoshuScheduler):
         code: str,
         task_type: str = "general",
         priority: AssessmentPriority = AssessmentPriority.MEDIUM,
-        context: t.Optional[dict] = None,
-        test_cases: t.Optional[list] = None,
+        context: t.Optional[t.Dict[str, t.Any]] = None,
+        test_cases: t.Optional[t.List[t.Any]] = None,
     ) -> str:
         """提交评估任务（增强版）"""
         # 调用父类方法创建任务
-        task_id = super().submit_task(code, task_type, priority, context, test_cases)
+        task_id: str = super().submit_task(code, task_type, priority, context, test_cases)
 
         # 使用适配器初始化任务状态（初始化为INITIAL状态）
         self.hexagram_adapter.transition(task_id, HetuState.INITIAL, HetuState.INITIAL)
@@ -87,9 +114,11 @@ class HexagramEnhancedLuoshuScheduler(HetuLuoshuScheduler):
         hexagram_name = self.hexagram_adapter.hexagram_manager.get_hexagram_name(hexagram_state)
 
         print(f"   初始卦象: {hexagram_state} ({hexagram_name})")
-        print(
-            f"   状态详情: {self.hexagram_adapter.hexagram_manager.get_hetu_state(hexagram_state).name}"
-        )
+        hetu_state = self.hexagram_adapter.hexagram_manager.get_hetu_state(hexagram_state)
+        if hetu_state:
+            print(f"   状态详情: {hetu_state.name}")
+        else:
+            print("   状态详情: 未知")
 
         return task_id
 
@@ -113,9 +142,9 @@ class HexagramEnhancedLuoshuScheduler(HetuLuoshuScheduler):
             print(f"❌ 无法获取调度计划: {task_id}")
             return False
 
-        # 使用适配器进行状态转移
-        current_hetu_state = task.state
-        target_hetu_state = schedule.next_state
+        # 使用适配器进行状态转移（转换状态枚举）
+        current_hetu_state = convert_to_integrated_hetu_state(task.state)
+        target_hetu_state = convert_to_integrated_hetu_state(schedule.next_state)
 
         print(f"📊 任务 {task_id} 状态转移:")
         print(f"   当前河图状态: {current_hetu_state.name}")
@@ -141,8 +170,8 @@ class HexagramEnhancedLuoshuScheduler(HetuLuoshuScheduler):
             print(f"❌ 任务 {task_id}: 调度执行失败")
             return False
 
-        # 更新任务的河图状态
-        task.state = target_hetu_state
+        # 更新任务的河图状态（转换回原有格式）
+        task.state = convert_from_integrated_hetu_state(target_hetu_state)
 
         # 获取转移后的卦象状态
         new_hexagram = self.hexagram_adapter.get_task_hexagram_state(task_id)
@@ -160,7 +189,7 @@ class HexagramEnhancedLuoshuScheduler(HetuLuoshuScheduler):
 
         return True
 
-    def get_task_status(self, task_id: str) -> t.Optional[dict]:
+    def get_task_status(self, task_id: str) -> t.Optional[t.Dict[str, t.Any]]:
         """获取任务状态（增强版，包含卦象信息）"""
         base_status = super().get_task_status(task_id)
         if base_status is None:
@@ -183,13 +212,13 @@ class HexagramEnhancedLuoshuScheduler(HetuLuoshuScheduler):
                     }
                 )
 
-        return base_status
+        return base_status  # type: ignore[no-any-return]
 
     def get_hexagram_analysis(self, task_id: str) -> t.Optional[StateAnalysis]:
         """获取任务的卦象分析"""
         return self.hexagram_adapter.analyze_task_state(task_id)
 
-    def get_system_report(self) -> dict:
+    def get_system_report(self) -> t.Dict[str, t.Any]:
         """获取系统报告（增强版，包含卦象统计）"""
         # 获取调度器状态
         status = self.luoshu_scheduler.get_system_status()
@@ -220,16 +249,20 @@ class HexagramEnhancedLuoshuScheduler(HetuLuoshuScheduler):
 
         return base_report
 
-    def _collect_hexagram_statistics(self) -> dict:
+    def _collect_hexagram_statistics(self) -> t.Dict[str, t.Any]:
         """收集卦象统计信息"""
-        stats = {"hexagram_distribution": {}, "quality_scores": {}, "dimension_activation": {}}
+        stats: t.Dict[str, t.Any] = {
+            "hexagram_distribution": {},
+            "quality_scores": {},
+            "dimension_activation": {},
+        }
 
         # 收集所有任务的卦象分布
-        hexagram_counts = {}
-        total_quality = 0
+        hexagram_counts: t.Dict[str, int] = {}
+        total_quality: float = 0.0
         task_count = 0
 
-        dimension_counts = {
+        dimension_counts: t.Dict[str, int] = {
             "correctness": 0,
             "complexity": 0,
             "style": 0,
@@ -269,7 +302,11 @@ class HexagramEnhancedLuoshuScheduler(HetuLuoshuScheduler):
         hexagram_manager = self.hexagram_adapter.hexagram_manager
 
         # 使用卦象管理器的可视化功能
-        highlight_states = [HetuState.INITIAL, HetuState.COMPLETED, HetuState.STRATEGY_ANALYZING]
+        highlight_states = [
+            HetuState.INITIAL,
+            HetuState.COMPLETED,
+            HetuState.STRATEGY_ANALYZING,
+        ]
 
         visualization = hexagram_manager.visualize_state_space(
             highlight_hetu_states=highlight_states
@@ -299,7 +336,7 @@ class HexagramEnhancedLuoshuScheduler(HetuLuoshuScheduler):
 
         return "\n".join(lines)
 
-    def save_state(self, filepath: str):
+    def save_state(self, filepath: str) -> None:
         """保存系统状态（增强版，包含卦象状态）"""
         # 保存适配器状态
         if self.hexagram_adapter.state_file:
@@ -311,7 +348,7 @@ class HexagramEnhancedLuoshuScheduler(HetuLuoshuScheduler):
         print("💾 增强系统状态已保存（包含64卦状态）")
 
 
-def test_enhanced_scheduler():
+def test_enhanced_scheduler() -> None:
     """测试增强调度器"""
     print("=== 增强河图洛书调度器测试 ===")
 
@@ -379,7 +416,10 @@ def fibonacci(n):
         # 清理测试文件
         import os
 
-        test_files = ["/tmp/enhanced_hetu_luoshu_test.json", "/tmp/enhanced_scheduler_state.json"]
+        test_files = [
+            "/tmp/enhanced_hetu_luoshu_test.json",
+            "/tmp/enhanced_scheduler_state.json",
+        ]
         for file in test_files:
             if os.path.exists(file):
                 os.remove(file)

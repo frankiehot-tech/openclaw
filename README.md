@@ -1,133 +1,74 @@
-# OpenClaw项目
+# OpenClaw · AI 智能体开发平台
 
-> **多智能体协作的工程化AI开发平台**
+> 让一个人 + AI = 一家公司。
 
-## 概述
+## 简介
 
-OpenClaw是一个基于MAREF（多智能体递归进化框架）构建的工程化AI开发平台，专注于Athena队列系统和智能工作流管理。项目采用三才六层架构模型，实现超稳定系统设计和契约驱动开发。
+OpenClaw 是一个开源的 AI 智能体工作流引擎，专为 **一人公司（OPC）** 创业模式设计。
+通过本地部署的 AI Agent 编排系统，个人开发者可以独立完成代码生成、文档审计、
+自动化测试等复杂工程任务。
 
-## 核心功能
+本项目是深圳市龙岗区"龙虾十条"政策重点支持的开源项目。
 
-### 🧠 智能工作流管理
-- **Athena队列系统**: 基于契约框架的任务编排和智能路由
-- **智能工作流引擎**: SmartOrchestrator实现执行器智能决策
-- **状态同步机制**: 原子状态更新确保系统一致性
+## 核心特性
 
-### 📚 文档驱动开发
-- **三才六层文档架构**: 战略层→环境层的完整文档体系
-- **知识蒸馏管道**: 自动提取和沉淀项目知识
-- **认知DNA维护**: 保持项目核心认知框架
-
-### 🚀 工程化部署
-- **阶段性部署计划**: 分阶段、批次的工程化部署流程
-- **质量门禁检查**: 每个部署阶段前的严格质量检查
-- **回滚能力**: 快速回滚到稳定状态的能力
+- **MAREF 多智能体递归进化框架**：基于 64 卦状态机的治理系统
+- **四级生存模式**：normal / low / critical / paused 预算自适应
+- **Athena 工作流引擎**：任务队列 + 自动分类 + 质量门禁
+- **财务熔断器**：$5/日强制安全边界
+- **多模型支持**：DeepSeek / Claude / Qwen 自由切换
 
 ## 快速开始
 
-### 环境配置
 ```bash
-# 设置环境变量
-export OPENCLAW_ROOT="/Volumes/1TB-M2/openclaw"
-export ATHENA_RUNTIME_ROOT="/Volumes/1TB-M2/openclaw"
-
-# 添加到PATH（可选）
-export PATH="$OPENCLAW_ROOT/scripts:$PATH"
-
-# 验证配置
-python3 setup_environment.py
+git clone https://github.com/frankiehot-tech/openclaw.git
+cd openclaw
+pip install -e .
+cp .env.example .env   # 编辑填入你的 API Key
+python3 scripts/wallet_guardian.py
 ```
 
-### 路径配置验证
+### 验证安装
+
 ```bash
-# 验证路径配置完整性
-python3 validate_path_config.py
+python3 -c "from dotenv import load_dotenv; load_dotenv(); import os; print('API Key:', os.environ.get('DASHSCOPE_API_KEY','')[:8]+'...')"
 ```
 
-### 文档导航
-项目文档已按MAREF三才六层模型组织：
+## 与 OpenHuman 协议的关系
 
-| 文档类型 | 目录 | 主要文档 |
-|----------|------|----------|
-| **架构文档** | `docs/architecture/` | 认知DNA、智能体架构、系统设计 |
-| **技术文档** | `docs/technical/` | 技术规范、部署指南、运维文档 |
-| **审计文档** | `docs/audit/` | 审计报告、分析文档（按年月组织） |
-| **用户文档** | `docs/user/` | 用户指南、配置说明、工具参考 |
-| **技能文档** | `skills/` | 智能体技能定义（保持原结构） |
-| **第三方文档** | `vendor/` | 第三方库文档（保持原结构） |
+OpenClaw 是 **执行引擎**，OpenHuman 是 **上层协议**。两者共同构成完整的人机混合劳动力市场基础设施。
 
-**完整文档索引**: [docs/README.md](docs/README.md)
+```
+OpenHuman 碳硅共生协议  ← 市场层（撮合、结算、确权）
+        ↓
+OpenClaw 智能体引擎    ← 执行层（工作流、Agent 编排、质量门禁）
+```
 
-## 项目结构
+→ [OpenHuman 碳硅共生协议](https://github.com/frankiehot-tech/openhuman)
+
+## 项目架构
 
 ```
 openclaw/
-├── .openclaw/                    # OpenClaw运行时状态目录
-├── scripts/                      # 脚本目录
-├── config/                       # 配置文件目录
-│   └── paths.py                  # 路径配置模块（单一事实源）
-├── docs/                         # 文档根目录（按三才六层模型组织）
-├── skills/                       # 智能体技能定义
-├── vendor/                       # 第三方依赖
-├── CLAUDE.md                     # Claude Code项目配置
-├── README.md                     # 项目主README（本文件）
-├── setup_environment.py          # 环境变量设置工具
-├── validate_path_config.py       # 路径配置验证脚本
-└── document_migration_plan.md    # 文档迁移实施计划
+├── scripts/          # 执行入口与工具脚本
+├── execution/        # Agent 运行时（runner、agents、harness）
+├── ops/              # 运维监控（故障处理、部署）
+├── athena/           # Athena 工作流引擎
+├── contracts/        # 数据契约与质量门禁
+├── docs/             # 文档体系
+└── .env.example      # 环境变量模板
 ```
 
-## 核心原则
+## 政策合作
 
-### MAREF框架指导
-1. **超稳定性要求**: 系统在状态空间中收敛到稳定区域
-2. **递归进化机制**: 智能体通过递归学习和进化提升能力
-3. **多智能体协作**: 明确角色和职责的智能体协同工作
-4. **契约驱动设计**: 明确的契约定义组件交互
-5. **可观测性优先**: 系统状态完全透明，变更可追溯
+本项目积极对接深圳市龙岗区"龙虾十条"政策，致力于构建 AI 智能体开源生态。
 
-### gstack工程化原则
-- **质量门禁检查**: 每个关键节点前的严格质量检查
-- **风险控制矩阵**: 识别风险并制定缓解措施
-- **文档驱动**: 所有决策、配置、验证结果记录在案
+| 政策项 | 状态 |
+|--------|------|
+| 开源贡献奖励 | 申报中 |
+| 数字员工应用券 | 筹备中 |
+| 场景项目示范 | 规划中 |
 
-## 开发指南
+## License
 
-### 新贡献者
-1. 阅读[认知DNA](docs/architecture/cognitive-dna.md)了解项目核心框架
-2. 查看[快速开始](docs/user/getting-started.md)设置开发环境
-3. 熟悉[系统设计](docs/architecture/system-design.md)理解架构
-
-### 代码规范
-1. 使用`config.paths`模块处理路径，避免硬编码
-2. 遵循契约驱动设计原则，定义明确的接口契约
-3. 保持文档与代码同步更新
-
-### 文档贡献
-1. 根据文档类型选择对应目录
-2. 遵循命名规范：`{domain}-{topic}-{date}.md`
-3. 更新相关索引文件
-
-## 相关资源
-
-### 项目文档
-- [文档索引](docs/README.md) - 完整文档导航
-- [CLAUDE.md](CLAUDE.md) - Claude Code项目配置
-- [文档迁移计划](document_migration_plan.md) - 文档重组实施计划
-
-### 工具脚本
-- [环境变量设置](setup_environment.py) - 环境配置工具
-- [路径配置验证](validate_path_config.py) - 配置完整性验证
-- [代码质量审计](audit_code_quality.py) - 代码质量检查工具
-
-### 部署计划
-- [阶段性部署计划](docs/technical/deployment/staged-deployment-plan.md) - 工程化部署实施
-- [部署指南](docs/technical/deployment/deployment-guide.md) - 部署操作指南
-
-## 许可证
-
-[待添加许可证信息]
-
----
-**最后更新**: 2026-04-19  
-**维护者**: OpenClaw核心团队  
-**状态**: 活跃开发中
+AGPL-3.0 License — 详见 [LICENSE](LICENSE)。

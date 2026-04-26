@@ -8,7 +8,7 @@
 
 - Python 3.8+
 - 依赖包: `psutil` (可选，用于系统指标采集)
-- 文件权限: 对输出目录 `/Users/frankie/Documents/Athena知识库/执行项目/2026/003-open human（碳硅基共生）/015-mailbox` 有写权限
+- 文件权限: 对输出目录 `/Volumes/1TB-M2/openclaw/Documents/Athena知识库/执行项目/2026/003-open human（碳硅基共生）/015-mailbox` 有写权限
 
 ## 安装依赖
 
@@ -160,7 +160,7 @@ tail -n 5 /Volumes/1TB-M2/openclaw/scripts/clawra/maref_report_success.log
 tail -n 5 /Volumes/1TB-M2/openclaw/scripts/clawra/maref_report_errors.log
 
 # 检查最新日报文件
-ls -lt "/Users/frankie/Documents/Athena知识库/执行项目/2026/003-open human（碳硅基共生）/015-mailbox"/maref-daily-*.md | head -5
+ls -lt "/Volumes/1TB-M2/openclaw/Documents/Athena知识库/执行项目/2026/003-open human（碳硅基共生）/015-mailbox"/maref-daily-*.md | head -5
 ```
 
 ## 集成到Athena工作流
@@ -171,7 +171,7 @@ MAREF日报系统可以作为Athena的独立监控服务运行：
 
 1. 将脚本部署到Athena服务器
 2. 配置cron定时任务
-3. 日报输出到共享目录 `/Users/frankie/Documents/Athena知识库/...`
+3. 日报输出到共享目录 `/Volumes/1TB-M2/openclaw/Documents/Athena知识库/...`
 
 ### 与Athena现有系统集成
 
@@ -239,7 +239,7 @@ git pull origin main  # 假设代码在git仓库中
 
 ```bash
 # 保留最近30天的日报
-find "/Users/frankie/Documents/Athena知识库/执行项目/2026/003-open human（碳硅基共生）/015-mailbox" -name "maref-daily-*.md" -mtime +30 -delete
+find "/Volumes/1TB-M2/openclaw/Documents/Athena知识库/执行项目/2026/003-open human（碳硅基共生）/015-mailbox" -name "maref-daily-*.md" -mtime +30 -delete
 ```
 
 ## 联系方式

@@ -1,0 +1,618 @@
+// Jenkins Pipeline for Java Projects
+// 支持Maven/Gradle、多阶段管道、容器化部署
+
+pipeline {
+    agent {
+        docker {
+            image 'maven:3.9-openjdk-17'
+            args '-v /var/run/docker.sock:/var/run/docker.sock'
+        }
+    }
+
+    parameters {
+        choice(
+            name: 'JAVA_VERSION',
+            choices: ['11', '17', '21'],
+            description: 'Select Java version'
+        )
+        choice(
+            name: 'BUILD_TOOL',
+            choices: ['maven', 'gradle'],
+            description: 'Select build tool'
+        )
+        choice(
+            name: 'DEPLOY_ENV',
+            choices: ['dev', 'staging', 'production'],
+            description: 'Select deployment environment'
+        )
+        booleanParam(
+            name: 'RUN_SECURITY_SCANS',
+            defaultValue: true,
+            description: 'Run security scans'
+        )
+        booleanParam(
+            name: 'BUILD_DOCKER_IMAGE',
+            defaultValue: false,
+            description: 'Build Docker image'
+        )
+        booleanParam(
+            name: 'RUN_INTEGRATION_TESTS',
+            defaultValue: false,
+            description: 'Run integration tests (requires Docker)'
+        )
+        string(
+            name: 'MAVEN_PROFILES',
+            defaultValue: '',
+            description: 'Maven profiles to activate (comma-separated)'
+        )
+    }
+
+    environment {
+        // 环境变量配置
+        JAVA_VERSION = "${params.JAVA_VERSION}"
+        BUILD_TOOL = "${params.BUILD_TOOL}"
+        PROJECT_NAME = "${JOB_BASE_NAME}"
+        DOCKER_REGISTRY = "registry.example.com"
+        DOCKER_IMAGE = "${DOCKER_REGISTRY}/${PROJECT_NAME}:${BUILD_TAG}"
+
+        // 构建工具配置
+        MAVEN_VERSION = "3.9"
+        GRADLE_VERSION = "8.5"
+
+        // Maven配置
+        MAVEN_OPTS = "-Dmaven.repo.local=${WORKSPACE}/.m2/repository -Dorg.slf4j.simpleLogger.log.org.apache.maven.cli.transfer.Slf4jMavenTransferListener=WARN -Dorg.slf4j.simpleLogger.showDateTime=true -Djava.awt.headless=true"
+        MAVEN_CLI_OPTS = "--batch-mode --errors --fail-at-end --show-version -DinstallAtEnd=true -DdeployAtEnd=true"
+
+        // 凭据ID (在Jenkins中配置)
+        AWS_ACCESS_KEY_ID = credentials('aws-access-key-id')
+        AWS_SECRET_ACCESS_KEY = credentials('aws-secret-access-key')
+        SLACK_WEBHOOK_URL = credentials('slack-webhook-url')
+        SONAR_TOKEN = credentials('sonar-token')
+
+        // 路径配置
+        TEST_RESULTS_DIR = 'test-results'
+        COVERAGE_REPORTS_DIR = 'coverage-reports'
+        ARTIFACTS_DIR = 'artifacts'
+    }
+
+    options {
+        // 管道选项
+        timeout(time: 45, unit: 'MINUTES')
+        retry(2)
+        buildDiscarder(logRotator(numToKeepStr: '10'))
+        disableConcurrentBuilds()
+        timestamps()
+        ansiColor('xterm')
+    }
+
+    triggers {
+        // 触发器配置
+        pollSCM('H/5 * * * *')  // 每5分钟检查一次SCM
+        // cron('0 2 * * *')     // 每日凌晨2点运行 (可选)
+    }
+
+    stages {
+        stage('Checkout') {
+            steps {
+                // 检出代码
+                checkout([
+                    $class: 'GitSCM',
+                    branches: [[name: "${BRANCH_NAME}"]],
+                    extensions: [
+                        [
+                            $class: 'CleanBeforeCheckout'
+                        ],
+                        [
+                            $class: 'RelativeTargetDirectory',
+                            relativeTargetDir: 'source'
+                        ]
+                    ],
+                    userRemoteConfigs: [[url: "${GIT_URL}"]]
+                ])
+
+                dir('source') {
+                    script {
+                        echo "Checking out ${BRANCH_NAME} from ${GIT_URL}"
+                        currentBuild.description = "Branch: ${BRANCH_NAME} | Commit: ${GIT_COMMIT.take(8)} | Java: ${JAVA_VERSION} | Tool: ${BUILD_TOOL}"
+                    }
+                }
+            }
+        }
+
+        stage('Detect Build Tool') {
+            steps {
+                dir('source') {
+                    script {
+                        echo "Detecting build tool..."
+
+                        // 检测构建工具
+                        if (fileExists('pom.xml')) {
+                            echo "Maven project detected"
+                            env.MAVEN_PROJECT = 'true'
+                            env.GRADLE_PROJECT = 'false'
+                        } else if (fileExists('build.gradle') || fileExists('build.gradle.kts')) {
+                            echo "Gradle project detected"
+                            env.MAVEN_PROJECT = 'false'
+                            env.GRADLE_PROJECT = 'true'
+                        } else {
+                            error "No build configuration file found (pom.xml or build.gradle)"
+                        }
+                    }
+                }
+            }
+        }
+
+        stage('Setup') {
+            steps {
+                dir('source') {
+                    script {
+                        echo "Setting up Java ${JAVA_VERSION} with ${BUILD_TOOL}"
+
+                        // 显示版本信息
+                        sh 'java --version'
+
+                        if (MAVEN_PROJECT == 'true') {
+                            sh 'mvn --version'
+                        } else if (GRADLE_PROJECT == 'true') {
+                            sh 'gradle --version'
+                        }
+                    }
+                }
+            }
+        }
+
+        stage('Build') {
+            parallel {
+                stage('Build Maven') {
+                    when {
+                        expression { MAVEN_PROJECT == 'true' }
+                    }
+                    steps {
+                        dir('source') {
+                            script {
+                                echo "Building with Maven..."
+
+                                def profiles = params.MAVEN_PROFILES ? "-P${params.MAVEN_PROFILES}" : ""
+                                sh """
+                                    mvn ${MAVEN_CLI_OPTS} ${profiles} clean compile
+                                """
+                            }
+                        }
+                    }
+                }
+
+                stage('Build Gradle') {
+                    when {
+                        expression { GRADLE_PROJECT == 'true' }
+                    }
+                    steps {
+                        dir('source') {
+                            script {
+                                echo "Building with Gradle..."
+                                sh 'gradle clean classes --no-daemon'
+                            }
+                        }
+                    }
+                }
+            }
+
+            post {
+                success {
+                    dir('source') {
+                        // 保存构建产物
+                        if (MAVEN_PROJECT == 'true') {
+                            archiveArtifacts artifacts: 'target/classes/**', allowEmptyArchive: true
+                        } else if (GRADLE_PROJECT == 'true') {
+                            archiveArtifacts artifacts: 'build/classes/**', allowEmptyArchive: true
+                        }
+                    }
+                }
+            }
+        }
+
+        stage('Unit Tests') {
+            parallel {
+                stage('Test Maven') {
+                    when {
+                        expression { MAVEN_PROJECT == 'true' }
+                    }
+                    steps {
+                        dir('source') {
+                            script {
+                                echo "Running Maven tests..."
+                                sh """
+                                    mvn ${MAVEN_CLI_OPTS} test
+                                """
+                            }
+                        }
+                    }
+                }
+
+                stage('Test Gradle') {
+                    when {
+                        expression { GRADLE_PROJECT == 'true' }
+                    }
+                    steps {
+                        dir('source') {
+                            script {
+                                echo "Running Gradle tests..."
+                                sh 'gradle test --no-daemon'
+                            }
+                        }
+                    }
+                }
+            }
+
+            post {
+                always {
+                    dir('source') {
+                        // 保存测试结果
+                        if (MAVEN_PROJECT == 'true') {
+                            junit testResults: 'target/surefire-reports/TEST-*.xml', allowEmptyResults: true
+                            junit testResults: 'target/failsafe-reports/TEST-*.xml', allowEmptyResults: true
+                        } else if (GRADLE_PROJECT == 'true') {
+                            junit testResults: 'build/test-results/test/TEST-*.xml', allowEmptyResults: true
+                        }
+                    }
+                }
+            }
+        }
+
+        stage('Integration Tests') {
+            when {
+                expression { params.RUN_INTEGRATION_TESTS == true }
+            }
+            agent {
+                docker {
+                    image 'maven:3.9-openjdk-17'
+                    args '-v /var/run/docker.sock:/var/run/docker.sock'
+                }
+            }
+            environment {
+                POSTGRES_DB = 'test_db'
+                POSTGRES_USER = 'test_user'
+                POSTGRES_PASSWORD = 'test_password'
+                REDIS_URL = 'redis://redis:6379'
+                SPRING_PROFILES_ACTIVE = 'test'
+            }
+            steps {
+                dir('source') {
+                    script {
+                        echo "Running integration tests..."
+
+                        // 启动测试服务
+                        sh '''
+                            docker run -d --name test-postgres -e POSTGRES_DB=${POSTGRES_DB} -e POSTGRES_USER=${POSTGRES_USER} -e POSTGRES_PASSWORD=${POSTGRES_PASSWORD} -p 5432:5432 postgres:14-alpine
+                            docker run -d --name test-redis -p 6379:6379 redis:7-alpine
+                            sleep 10  # 等待服务启动
+                        '''
+
+                        // 运行集成测试
+                        if (MAVEN_PROJECT == 'true') {
+                            sh """
+                                mvn ${MAVEN_CLI_OPTS} verify -DskipITs=false
+                            """
+                        } else if (GRADLE_PROJECT == 'true') {
+                            sh 'gradle integrationTest --no-daemon'
+                        }
+
+                        // 清理测试服务
+                        sh '''
+                            docker stop test-postgres test-redis || true
+                            docker rm test-postgres test-redis || true
+                        '''
+                    }
+                }
+            }
+
+            post {
+                always {
+                    dir('source') {
+                        // 保存集成测试结果
+                        if (MAVEN_PROJECT == 'true') {
+                            junit testResults: 'target/failsafe-reports/TEST-*.xml', allowEmptyResults: true
+                        } else if (GRADLE_PROJECT == 'true') {
+                            junit testResults: 'build/test-results/integrationTest/TEST-*.xml', allowEmptyResults: true
+                        }
+                    }
+                }
+            }
+        }
+
+        stage('Code Quality') {
+            steps {
+                dir('source') {
+                    script {
+                        echo "Running code quality checks..."
+
+                        if (MAVEN_PROJECT == 'true') {
+                            // Checkstyle
+                            sh """
+                                mvn ${MAVEN_CLI_OPTS} checkstyle:check || true
+                            """
+                            // PMD
+                            sh """
+                                mvn ${MAVEN_CLI_OPTS} pmd:check || true
+                            """
+                            // SpotBugs
+                            sh """
+                                mvn ${MAVEN_CLI_OPTS} spotbugs:check || true
+                            """
+                            // JaCoCo代码覆盖率
+                            sh """
+                                mvn ${MAVEN_CLI_OPTS} jacoco:report
+                            """
+                        } else if (GRADLE_PROJECT == 'true') {
+                            sh 'gradle check --no-daemon || true'
+                            sh 'gradle jacocoTestReport --no-daemon'
+                        }
+                    }
+                }
+            }
+
+            post {
+                always {
+                    dir('source') {
+                        // 保存代码质量报告
+                        archiveArtifacts artifacts: 'target/site/**,build/reports/**', allowEmptyArchive: true
+
+                        // 发布覆盖率报告
+                        publishHTML([
+                            reportDir: 'target/site/jacoco',
+                            reportFiles: 'index.html',
+                            reportName: 'Coverage Report'
+                        ])
+                    }
+                }
+            }
+        }
+
+        stage('Security Scan') {
+            when {
+                expression { params.RUN_SECURITY_SCANS == true }
+            }
+            steps {
+                dir('source') {
+                    script {
+                        echo "Running security scans..."
+
+                        // OWASP依赖检查
+                        if (MAVEN_PROJECT == 'true') {
+                            sh """
+                                mvn ${MAVEN_CLI_OPTS} org.owasp:dependency-check-maven:check -Dformat=XML -Dout=target/dependency-check-report.xml || true
+                            """
+                        } else if (GRADLE_PROJECT == 'true') {
+                            sh 'gradle dependencyCheckAnalyze --no-daemon || true'
+                        }
+
+                        // Snyk安全扫描
+                        if (env.SNYK_TOKEN) {
+                            sh '''
+                                npx snyk test --json > snyk-report.json || true
+                            '''
+                        } else {
+                            echo "SNYK_TOKEN not set, skipping Snyk scan"
+                        }
+                    }
+                }
+            }
+
+            post {
+                always {
+                    dir('source') {
+                        archiveArtifacts artifacts: 'target/dependency-check-report.xml,snyk-report.json', allowEmptyArchive: true
+                    }
+                }
+            }
+        }
+
+        stage('Package') {
+            parallel {
+                stage('Package Maven') {
+                    when {
+                        expression { MAVEN_PROJECT == 'true' }
+                    }
+                    steps {
+                        dir('source') {
+                            script {
+                                echo "Packaging with Maven..."
+                                sh """
+                                    mvn ${MAVEN_CLI_OPTS} clean package -DskipTests
+                                """
+                            }
+                        }
+                    }
+                }
+
+                stage('Package Gradle') {
+                    when {
+                        expression { GRADLE_PROJECT == 'true' }
+                    }
+                    steps {
+                        dir('source') {
+                            script {
+                                echo "Packaging with Gradle..."
+                                sh 'gradle clean bootJar --no-daemon'
+                            }
+                        }
+                    }
+                }
+            }
+
+            post {
+                success {
+                    dir('source') {
+                        // 保存打包产物
+                        if (MAVEN_PROJECT == 'true') {
+                            archiveArtifacts artifacts: 'target/*.jar,target/*.war', allowEmptyArchive: true
+                        } else if (GRADLE_PROJECT == 'true') {
+                            archiveArtifacts artifacts: 'build/libs/*.jar', allowEmptyArchive: true
+                        }
+                    }
+                }
+            }
+        }
+
+        stage('SonarQube Analysis') {
+            when {
+                expression { SONAR_TOKEN != null && SONAR_TOKEN != '' }
+            }
+            steps {
+                dir('source') {
+                    script {
+                        echo "Running SonarQube analysis..."
+
+                        if (MAVEN_PROJECT == 'true') {
+                            sh """
+                                mvn ${MAVEN_CLI_OPTS} sonar:sonar -Dsonar.projectKey=${JOB_NAME} -Dsonar.host.url=${SONAR_HOST_URL} -Dsonar.login=${SONAR_TOKEN}
+                            """
+                        } else if (GRADLE_PROJECT == 'true') {
+                            sh """
+                                gradle sonarqube -Dsonar.projectKey=${JOB_NAME} -Dsonar.host.url=${SONAR_HOST_URL} -Dsonar.login=${SONAR_TOKEN} --no-daemon
+                            """
+                        }
+                    }
+                }
+            }
+        }
+
+        stage('Build Docker Image') {
+            when {
+                expression { params.BUILD_DOCKER_IMAGE == true }
+            }
+            agent {
+                docker {
+                    image 'docker:24'
+                    args '-v /var/run/docker.sock:/var/run/docker.sock'
+                }
+            }
+            steps {
+                dir('source') {
+                    script {
+                        echo "Building Docker image..."
+
+                        // 登录到Docker注册表
+                        withCredentials([usernamePassword(
+                            credentialsId: 'docker-registry-creds',
+                            usernameVariable: 'DOCKER_USERNAME',
+                            passwordVariable: 'DOCKER_PASSWORD'
+                        )]) {
+                            sh '''
+                                docker login ${DOCKER_REGISTRY} -u ${DOCKER_USERNAME} -p ${DOCKER_PASSWORD}
+                            '''
+                        }
+
+                        // 构建并推送镜像
+                        sh '''
+                            docker build -t ${DOCKER_IMAGE} .
+                            docker push ${DOCKER_IMAGE}
+                        '''
+                    }
+                }
+            }
+        }
+
+        stage('Deploy to Staging') {
+            when {
+                expression { params.DEPLOY_ENV == 'staging' }
+            }
+            steps {
+                dir('source') {
+                    script {
+                        echo "Deploying to staging environment..."
+
+                        // 部署到Kubernetes示例
+                        if (fileExists('deployment.yaml')) {
+                            withCredentials([file(
+                                credentialsId: 'kubeconfig-staging',
+                                variable: 'KUBECONFIG_FILE'
+                            )]) {
+                                sh '''
+                                    cp ${KUBECONFIG_FILE} kubeconfig.yaml
+                                    export KUBECONFIG=kubeconfig.yaml
+                                    kubectl apply -f deployment.yaml -n staging
+                                    kubectl rollout status deployment/app -n staging --timeout=300s
+                                '''
+                            }
+                        } else {
+                            echo "No deployment configuration found"
+                        }
+                    }
+                }
+            }
+        }
+
+        stage('Deploy to Production') {
+            when {
+                expression { params.DEPLOY_ENV == 'production' }
+            }
+            steps {
+                dir('source') {
+                    script {
+                        echo "Deploying to production environment..."
+
+                        // 蓝绿部署示例
+                        if (fileExists('deployment.yaml') && params.BUILD_DOCKER_IMAGE == true) {
+                            withCredentials([file(
+                                credentialsId: 'kubeconfig-production',
+                                variable: 'KUBECONFIG_FILE'
+                            )]) {
+                                sh '''
+                                    cp ${KUBECONFIG_FILE} kubeconfig.yaml
+                                    export KUBECONFIG=kubeconfig.yaml
+
+                                    # 创建新部署 (绿色环境)
+                                    sed "s|image:.*|image: ${DOCKER_IMAGE}|g" deployment.yaml > deployment-green.yaml
+                                    sed -i 's/name: app-deployment/name: app-deployment-green/g' deployment-green.yaml
+
+                                    kubectl apply -f deployment-green.yaml -n production
+                                    kubectl rollout status deployment/app-deployment-green -n production --timeout=300s
+
+                                    # 切换服务流量
+                                    kubectl patch service app-service -n production -p '{"spec":{"selector":{"app":"app","version":"green"}}}'
+                                    sleep 30
+
+                                    # 清理旧部署
+                                    kubectl delete deployment app-deployment -n production || true
+                                '''
+                            }
+                        } else {
+                            echo "Docker image not built or no deployment configuration found"
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    post {
+        always {
+            script {
+                echo "Pipeline completed with status: ${currentBuild.currentResult}"
+
+                // 发送通知到Slack
+                if (currentBuild.currentResult == 'SUCCESS') {
+                    slackSend(
+                        color: 'good',
+                        message: "✅ Pipeline ${JOB_NAME} #${BUILD_NUMBER} succeeded"
+                    )
+                } else if (currentBuild.currentResult == 'FAILURE') {
+                    slackSend(
+                        color: 'danger',
+                        message: "❌ Pipeline ${JOB_NAME} #${BUILD_NUMBER} failed"
+                    )
+                }
+            }
+        }
+
+        cleanup {
+            dir('source') {
+                // 清理临时文件
+                sh '''
+                    rm -rf target/ build/ .m2/ .gradle/ test-results/
+                    rm -f kubeconfig.yaml
+                '''
+            }
+        }
+    }
+}

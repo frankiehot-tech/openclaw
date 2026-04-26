@@ -158,7 +158,7 @@ LAYER_VALIDATION = {
 1. **环境准备与依赖安装**
    ```bash
    # 安装MAREF框架依赖
-   pip install -r /Users/frankie/Downloads/kimiOKC/maref_framework/requirements.txt
+   pip install -r /Volumes/1TB-M2/openclaw/Downloads/kimiOKC/maref_framework/requirements.txt
    
    # 创建集成配置文件
    mkdir -p /Volumes/1TB-M2/openclaw/integration/maref

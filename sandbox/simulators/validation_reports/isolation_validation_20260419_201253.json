@@ -1,0 +1,94 @@
+{
+  "metadata": {
+    "sandbox_root": "/Volumes/1TB-M2/openclaw/sandbox",
+    "validated_at": "2026-04-19T20:12:53.756291",
+    "total_checks": 7
+  },
+  "summary": {
+    "overall_status": "warning",
+    "pass_count": 2,
+    "warning_count": 3,
+    "fail_count": 0,
+    "info_count": 2
+  },
+  "checks": [
+    {
+      "name": "directory_structure",
+      "status": "warning",
+      "message": "缺失目录: test_datasets, experiment_results, monitoring_data",
+      "details": {
+        "missing_dirs": [
+          "test_datasets",
+          "experiment_results",
+          "monitoring_data"
+        ]
+      }
+    },
+    {
+      "name": "filesystem_isolation",
+      "status": "warning",
+      "message": "可访问沙箱外路径: 1 个",
+      "details": {
+        "accessible_paths": [
+          "/etc/passwd"
+        ]
+      }
+    },
+    {
+      "name": "process_isolation",
+      "status": "pass",
+      "message": "进程隔离检查通过",
+      "details": {
+        "command": "echo test",
+        "output": "test"
+      }
+    },
+    {
+      "name": "resource_limits",
+      "status": "info",
+      "message": "文件描述符限制: soft=9223372036854775807, hard=9223372036854775807",
+      "details": {
+        "soft_limit": 9223372036854775807,
+        "hard_limit": 9223372036854775807
+      }
+    },
+    {
+      "name": "environment_variables",
+      "status": "warning",
+      "message": "发现 4 个敏感环境变量",
+      "details": {
+        "found_vars": {
+          "HOME": "/Volumes/1TB-M2/openclaw",
+          "USER": "frankie",
+          "LOGNAME": "frankie",
+          "PATH": "/Volumes/1TB-M2/openclaw/.bun/..."
+        }
+      }
+    },
+    {
+      "name": "network_isolation",
+      "status": "info",
+      "message": "网络基础功能正常: Mac-mini.gw.gcableconfig.local -> 192.168.1.34",
+      "details": {
+        "hostname": "Mac-mini.gw.gcableconfig.local",
+        "ip": "192.168.1.34"
+      }
+    },
+    {
+      "name": "security_boundaries",
+      "status": "pass",
+      "message": "安全边界检查通过",
+      "details": {
+        "mode": "0o40755",
+        "uid": 501,
+        "gid": 20
+      }
+    }
+  ],
+  "recommendations": [
+    "改善警告项: directory_structure - 缺失目录: test_datasets, experiment_results, monitoring_data",
+    "改善警告项: filesystem_isolation - 可访问沙箱外路径: 1 个",
+    "改善警告项: environment_variables - 发现 4 个敏感环境变量",
+    "修复所有问题后重新运行验证"
+  ]
+}

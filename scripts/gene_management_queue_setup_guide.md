@@ -47,7 +47,7 @@
 
 ```bash
 # 创建队列清单文件
-echo '{"queue_id":"openhuman_aiplan_gene_management_20260405","name":"OpenHuman AIPlan 基因管理队列","description":"基因管理系统实施的专用队列","runner_mode":"opencode_build","created_at":"2026-04-05T00:00:00","items":[' > "/Users/frankie/Documents/Athena知识库/执行项目/2026/003-open human（碳硅基共生）/007-AI-plan/OpenHuman-AIPlan-基因管理队列.queue.json"
+echo '{"queue_id":"openhuman_aiplan_gene_management_20260405","name":"OpenHuman AIPlan 基因管理队列","description":"基因管理系统实施的专用队列","runner_mode":"opencode_build","created_at":"2026-04-05T00:00:00","items":[' > "/Volumes/1TB-M2/openclaw/Documents/Athena知识库/执行项目/2026/003-open human（碳硅基共生）/007-AI-plan/OpenHuman-AIPlan-基因管理队列.queue.json"
 ```
 
 ### 步骤2: 添加任务项

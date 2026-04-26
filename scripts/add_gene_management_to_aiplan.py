@@ -13,7 +13,7 @@ from pathlib import Path
 def get_aiplan_directory():
     """获取AI Plan目录路径"""
     aiplan_path = Path(
-        "/Users/frankie/Documents/Athena知识库/执行项目/2026/003-open human（碳硅基共生）/007-AI-plan"
+        "/Volumes/1TB-M2/openclaw/Documents/Athena知识库/执行项目/2026/003-open human（碳硅基共生）/007-AI-plan"
     )
     if not aiplan_path.exists():
         print(f"❌ AI Plan目录不存在: {aiplan_path}")

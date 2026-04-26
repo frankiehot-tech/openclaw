@@ -59,7 +59,7 @@ G0 (30 分钟) → G1 (1 小时) → G2 (45 分钟) → Audit (30 分钟)
 
 ```bash
 # 找到 AI Plan 目录
-AI_PLAN_DIR="/Users/frankie/Documents/Athena 知识库/执行项目/2026/003-open human（碳硅基共生）/007-AI-plan"
+AI_PLAN_DIR="/Volumes/1TB-M2/openclaw/Documents/Athena 知识库/执行项目/2026/003-open human（碳硅基共生）/007-AI-plan"
 
 # 复制队列清单文件
 cp /Volumes/1TB-M2/openclaw/scripts/gene_management_queue_manifest.json \

@@ -33,6 +33,16 @@ alert_thresholds:
   queue_age:
     warning: 60
     critical: 240
+  api_error_rate:
+    warning: 5
+    critical: 15
+    unit: percent
+    description: API error rate in last 5 minutes
+  llm_latency:
+    warning: 30
+    critical: 60
+    unit: seconds
+    description: LLM call p95 latency
 monitoring:
   check_interval: 300
   alert_cooldown: 1800

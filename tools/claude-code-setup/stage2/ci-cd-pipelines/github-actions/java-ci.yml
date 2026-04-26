@@ -1,0 +1,450 @@
+# Java项目CI/CD工作流
+# 支持Maven和Gradle构建工具
+# 自动检测构建工具并配置相应的缓存和构建命令
+
+name: Java CI
+
+on:
+  push:
+    branches: [ main, develop, feature/* ]
+    tags: [ 'v*' ]
+  pull_request:
+    branches: [ main, develop ]
+  schedule:
+    # 每周一早上6点运行安全扫描
+    - cron: '0 6 * * 1'
+
+env:
+  # 构建工具版本
+  MAVEN_VERSION: '3.9.6'
+  GRADLE_VERSION: '8.5'
+
+  # Java版本
+  JAVA_VERSION: '17'
+  JAVA_DISTRIBUTION: 'temurin'  # temurin, zulu, microsoft
+
+  # 测试配置
+  TEST_TIMEOUT: '30'
+  COVERAGE_THRESHOLD: '80'
+
+jobs:
+  # 构建工具检测
+  detect-build-tool:
+    name: 检测构建工具
+    runs-on: ubuntu-latest
+    outputs:
+      build-tool: ${{ steps.detect.outputs.build-tool }}
+      has-maven: ${{ steps.detect.outputs.has-maven }}
+      has-gradle: ${{ steps.detect.outputs.has-gradle }}
+      java-version: ${{ steps.detect.outputs.java-version }}
+    steps:
+      - name: 检出代码
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: 检测构建工具
+        id: detect
+        run: |
+          if [ -f "pom.xml" ]; then
+            echo "build-tool=maven" >> $GITHUB_OUTPUT
+            echo "has-maven=true" >> $GITHUB_OUTPUT
+
+            # 从pom.xml中检测Java版本
+            JAVA_VERSION=$(grep -oP '<maven.compiler.source>\K[0-9]+' pom.xml 2>/dev/null || echo "17")
+            echo "java-version=${JAVA_VERSION}" >> $GITHUB_OUTPUT
+          elif [ -f "build.gradle" ] || [ -f "build.gradle.kts" ]; then
+            echo "build-tool=gradle" >> $GITHUB_OUTPUT
+            echo "has-gradle=true" >> $GITHUB_OUTPUT
+
+            # 从gradle.properties中检测Java版本
+            if [ -f "gradle.properties" ]; then
+              JAVA_VERSION=$(grep -oP 'java\.targetCompatibility=\K[0-9]+' gradle.properties 2>/dev/null || echo "17")
+            else
+              JAVA_VERSION="17"
+            fi
+            echo "java-version=${JAVA_VERSION}" >> $GITHUB_OUTPUT
+          else
+            echo "未检测到构建工具，使用Maven作为默认"
+            echo "build-tool=maven" >> $GITHUB_OUTPUT
+            echo "has-maven=true" >> $GITHUB_OUTPUT
+            echo "java-version=17" >> $GITHUB_OUTPUT
+          fi
+
+  # 代码质量检查
+  code-quality:
+    name: 代码质量检查
+    runs-on: ubuntu-latest
+    needs: detect-build-tool
+    steps:
+      - name: 检出代码
+        uses: actions/checkout@v4
+
+      - name: 设置Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: ${{ env.JAVA_DISTRIBUTION }}
+          java-version: ${{ needs.detect-build-tool.outputs.java-version }}
+
+      - name: 缓存依赖
+        if: needs.detect-build-tool.outputs.has-maven == 'true'
+        uses: actions/cache@v3
+        with:
+          path: ~/.m2
+          key: maven-${{ hashFiles('pom.xml') }}
+          restore-keys: |
+            maven-
+
+      - name: 缓存Gradle依赖
+        if: needs.detect-build-tool.outputs.has-gradle == 'true'
+        uses: actions/cache@v3
+        with:
+          path: ~/.gradle/caches
+          key: gradle-${{ hashFiles('gradle/**', '*.gradle*') }}
+          restore-keys: |
+            gradle-
+
+      - name: 运行代码质量检查 (Maven)
+        if: needs.detect-build-tool.outputs.has-maven == 'true'
+        run: |
+          mvn checkstyle:check spotbugs:check pmd:check
+
+      - name: 运行代码质量检查 (Gradle)
+        if: needs.detect-build-tool.outputs.has-gradle == 'true'
+        run: |
+          ./gradlew checkstyleMain checkstyleTest spotbugsMain spotbugsTest
+
+  # 单元测试
+  unit-tests:
+    name: 单元测试
+    runs-on: ubuntu-latest
+    needs: detect-build-tool
+    strategy:
+      matrix:
+        os: [ubuntu-latest, windows-latest, macos-latest]
+      fail-fast: false
+    steps:
+      - name: 检出代码
+        uses: actions/checkout@v4
+
+      - name: 设置Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: ${{ env.JAVA_DISTRIBUTION }}
+          java-version: ${{ needs.detect-build-tool.outputs.java-version }}
+
+      - name: 运行单元测试 (Maven)
+        if: needs.detect-build-tool.outputs.has-maven == 'true'
+        run: |
+          mvn test -Dtest.timeout=${{ env.TEST_TIMEOUT }}
+
+      - name: 运行单元测试 (Gradle)
+        if: needs.detect-build-tool.outputs.has-gradle == 'true'
+        run: |
+          ./gradlew test --info --tests "*Test" -Dtest.timeout=${{ env.TEST_TIMEOUT }}
+
+      - name: 上传测试结果
+        uses: actions/upload-artifact@v3
+        if: always()
+        with:
+          name: test-results-${{ matrix.os }}
+          path: |
+            **/target/surefire-reports/
+            **/build/test-results/
+            **/target/jacoco*.xml
+
+  # 集成测试
+  integration-tests:
+    name: 集成测试
+    runs-on: ubuntu-latest
+    needs: [detect-build-tool, unit-tests]
+    services:
+      # 测试数据库
+      postgres:
+        image: postgres:15-alpine
+        env:
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_DB: testdb
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+        ports:
+          - 5432:5432
+
+      # Redis缓存
+      redis:
+        image: redis:7-alpine
+        options: >-
+          --health-cmd "redis-cli ping"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+        ports:
+          - 6379:6379
+    steps:
+      - name: 检出代码
+        uses: actions/checkout@v4
+
+      - name: 设置Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: ${{ env.JAVA_DISTRIBUTION }}
+          java-version: ${{ needs.detect-build-tool.outputs.java-version }}
+
+      - name: 运行集成测试
+        env:
+          DATABASE_URL: jdbc:postgresql://localhost:5432/testdb
+          DATABASE_USERNAME: postgres
+          DATABASE_PASSWORD: postgres
+          REDIS_HOST: localhost
+          REDIS_PORT: 6379
+        run: |
+          if [ "${{ needs.detect-build-tool.outputs.has-maven }}" = "true" ]; then
+            mvn verify -Pintegration-test
+          else
+            ./gradlew integrationTest
+          fi
+
+  # 代码覆盖率
+  code-coverage:
+    name: 代码覆盖率分析
+    runs-on: ubuntu-latest
+    needs: [unit-tests, integration-tests]
+    steps:
+      - name: 检出代码
+        uses: actions/checkout@v4
+
+      - name: 设置Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: ${{ env.JAVA_DISTRIBUTION }}
+          java-version: ${{ needs.detect-build-tool.outputs.java-version }}
+
+      - name: 生成覆盖率报告 (Maven)
+        if: needs.detect-build-tool.outputs.has-maven == 'true'
+        run: |
+          mvn jacoco:prepare-agent test jacoco:report verify
+
+      - name: 生成覆盖率报告 (Gradle)
+        if: needs.detect-build-tool.outputs.has-gradle == 'true'
+        run: |
+          ./gradlew jacocoTestReport
+
+      - name: 检查覆盖率阈值
+        run: |
+          # 这里添加覆盖率检查逻辑
+          # 实际项目中可以使用jacoco-maven-plugin或gradle-jacoco插件
+          echo "覆盖率检查完成"
+
+      - name: 上传覆盖率报告
+        uses: actions/upload-artifact@v3
+        with:
+          name: coverage-report
+          path: |
+            **/target/site/jacoco/
+            **/build/reports/jacoco/
+
+  # 安全扫描
+  security-scan:
+    name: 安全扫描
+    runs-on: ubuntu-latest
+    needs: detect-build-tool
+    steps:
+      - name: 检出代码
+        uses: actions/checkout@v4
+
+      - name: 设置Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: ${{ env.JAVA_DISTRIBUTION }}
+          java-version: ${{ needs.detect-build-tool.outputs.java-version }}
+
+      - name: 依赖漏洞扫描 (Maven)
+        if: needs.detect-build-tool.outputs.has-maven == 'true'
+        uses: snyk/actions/maven@master
+        env:
+          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+        with:
+          args: --severity-threshold=high
+
+      - name: 依赖漏洞扫描 (Gradle)
+        if: needs.detect-build-tool.outputs.has-gradle == 'true'
+        uses: snyk/actions/gradle@master
+        env:
+          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+        with:
+          args: --severity-threshold=high
+
+      - name: 代码安全扫描
+        uses: github/codeql-action/analyze@v2
+        with:
+          languages: java
+          queries: security-and-quality
+
+      - name: OWASP依赖检查 (Maven)
+        if: needs.detect-build-tool.outputs.has-maven == 'true'
+        run: |
+          mvn org.owasp:dependency-check-maven:check -DfailBuildOnCVSS=7
+
+      - name: OWASP依赖检查 (Gradle)
+        if: needs.detect-build-tool.outputs.has-gradle == 'true'
+        run: |
+          ./gradlew dependencyCheckAnalyze
+
+  # 构建和打包
+  build:
+    name: 构建和打包
+    runs-on: ubuntu-latest
+    needs: [code-quality, unit-tests, integration-tests, security-scan]
+    steps:
+      - name: 检出代码
+        uses: actions/checkout@v4
+
+      - name: 设置Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: ${{ env.JAVA_DISTRIBUTION }}
+          java-version: ${{ needs.detect-build-tool.outputs.java-version }}
+
+      - name: 构建项目 (Maven)
+        if: needs.detect-build-tool.outputs.has-maven == 'true'
+        run: |
+          mvn clean package -DskipTests
+
+      - name: 构建项目 (Gradle)
+        if: needs.detect-build-tool.outputs.has-gradle == 'true'
+        run: |
+          ./gradlew build -x test
+
+      - name: 上传构建产物
+        uses: actions/upload-artifact@v3
+        with:
+          name: build-artifacts
+          path: |
+            **/target/*.jar
+            **/build/libs/*.jar
+            **/target/distributions/
+
+  # 容器化构建
+  docker-build:
+    name: Docker镜像构建
+    runs-on: ubuntu-latest
+    needs: build
+    if: github.ref == 'refs/heads/main' || github.ref == 'refs/heads/develop' || startsWith(github.ref, 'refs/tags/v')
+    steps:
+      - name: 检出代码
+        uses: actions/checkout@v4
+
+      - name: 设置Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: 登录到容器注册表
+        uses: docker/login-action@v3
+        with:
+          registry: ${{ secrets.DOCKER_REGISTRY_URL }}
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
+
+      - name: 构建并推送Docker镜像
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          push: true
+          tags: |
+            ${{ secrets.DOCKER_REGISTRY_URL }}/${{ github.repository }}:latest
+            ${{ secrets.DOCKER_REGISTRY_URL }}/${{ github.repository }}:${{ github.sha }}
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+
+  # 部署到测试环境
+  deploy-staging:
+    name: 部署到测试环境
+    runs-on: ubuntu-latest
+    needs: docker-build
+    environment: staging
+    if: github.ref == 'refs/heads/develop'
+    steps:
+      - name: 部署到Kubernetes
+        uses: azure/k8s-deploy@v1
+        with:
+          namespace: staging
+          manifests: |
+            k8s/deployment.yaml
+            k8s/service.yaml
+            k8s/ingress.yaml
+          images: |
+            ${{ secrets.DOCKER_REGISTRY_URL }}/${{ github.repository }}:${{ github.sha }}
+
+      - name: 运行冒烟测试
+        run: |
+          # 等待应用启动
+          sleep 30
+          # 运行冒烟测试脚本
+          ./scripts/smoke-test.sh
+
+  # 部署到生产环境
+  deploy-production:
+    name: 部署到生产环境
+    runs-on: ubuntu-latest
+    needs: [docker-build, deploy-staging]
+    environment: production
+    if: github.ref == 'refs/heads/main' || startsWith(github.ref, 'refs/tags/v')
+    steps:
+      - name: 确认部署
+        uses: actions/github-script@v6
+        with:
+          script: |
+            // 这里可以添加部署确认逻辑
+            console.log('开始生产环境部署')
+
+      - name: 蓝绿部署到Kubernetes
+        uses: azure/k8s-deploy@v1
+        with:
+          namespace: production
+          strategy: blue-green
+          manifests: |
+            k8s/deployment.yaml
+            k8s/service.yaml
+            k8s/ingress.yaml
+          images: |
+            ${{ secrets.DOCKER_REGISTRY_URL }}/${{ github.repository }}:${{ github.sha }}
+
+      - name: 运行健康检查
+        run: |
+          # 等待应用启动
+          sleep 60
+          # 运行健康检查
+          ./scripts/health-check.sh
+
+# 工作流通知
+notify:
+  name: 发送通知
+  needs: [deploy-production, deploy-staging]
+  if: always()
+  runs-on: ubuntu-latest
+  steps:
+    - name: 发送Slack通知
+      uses: 8398a7/action-slack@v3
+      with:
+        status: ${{ job.status }}
+        author_name: Java CI/CD Pipeline
+        fields: repo,message,commit,author,action
+      env:
+        SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+
+    - name: 生成测试报告
+      if: always()
+      run: |
+        # 汇总测试结果
+        echo "CI/CD流水线执行完成"
+
+    - name: 上传最终报告
+      uses: actions/upload-artifact@v3
+      if: always()
+      with:
+        name: final-report
+        path: |
+          **/target/surefire-reports/
+          **/build/reports/

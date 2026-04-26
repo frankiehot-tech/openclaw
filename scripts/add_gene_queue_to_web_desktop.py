@@ -14,7 +14,7 @@ def get_aiplan_directory():
     """获取 AI Plan 目录路径"""
     aiplan_paths = [
         Path(
-            "/Users/frankie/Documents/Athena 知识库/执行项目/2026/003-open human（碳硅基共生）/007-AI-plan"
+            "/Volumes/1TB-M2/openclaw/Documents/Athena 知识库/执行项目/2026/003-open human（碳硅基共生）/007-AI-plan"
         ),
         Path("/Volumes/1TB-M2/openclaw/athena/open_human/phase1/ai_plan"),
         Path("/Volumes/1TB-M2/openclaw/ai_plan"),

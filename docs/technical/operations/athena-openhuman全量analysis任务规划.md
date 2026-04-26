@@ -2,7 +2,7 @@
 
 **分析目标**: 对Athena-Open Human项目进行全面分析，识别问题并按优先级制定调优方案
 **分析时间**: 2026-04-09
-**项目路径**: /Users/frankie/Documents/Athena知识库/执行项目/2026/003-open human（碳硅基共生）
+**项目路径**: /Volumes/1TB-M2/openclaw/Documents/Athena知识库/执行项目/2026/003-open human（碳硅基共生）
 
 ## 🎯 项目分析目标
 

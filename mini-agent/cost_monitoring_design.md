@@ -18,7 +18,7 @@
    - 告警系统
    - 但未与provider成本直接集成
 
-3. **OpenCode包装器** (`/Users/frankie/bin/opencode-athena`)
+3. **OpenCode包装器** (`/Volumes/1TB-M2/openclaw/bin/opencode-athena`)
    - API调用的入口点
    - 已支持多provider路由
    - 可捕获执行上下文

@@ -1,0 +1,33 @@
+repos:
+  - repo: https://github.com/astral-sh/ruff-pre-commit
+    rev: v0.15.11
+    hooks:
+      - id: ruff
+        args: [--fix, --exit-non-zero-on-fix]
+      - id: ruff-format
+
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v5.0.0
+    hooks:
+      - id: check-yaml
+        args: [--allow-multiple-documents]
+      - id: check-json
+      - id: check-toml
+      - id: end-of-file-fixer
+        exclude: '\.json$|\.md$'
+      - id: trailing-whitespace
+        exclude: '\.md$'
+      - id: detect-private-key
+      - id: check-added-large-files
+        args: ['--maxkb=500']
+
+  - repo: local
+    hooks:
+      - id: mypy
+        name: mypy
+        entry: .venv311/bin/mypy
+        language: system
+        types: [python]
+        pass_filenames: false
+        args: [scripts/, athena/, execution/, ops/]
+        verbose: true

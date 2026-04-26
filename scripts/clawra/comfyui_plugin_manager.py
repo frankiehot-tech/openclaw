@@ -16,7 +16,7 @@ from typing import Any, Dict, List, Optional
 import requests
 
 # ComfyUI目录配置
-COMFYUI_BASE_DIR = Path("/Users/frankie/ComfyUI")
+COMFYUI_BASE_DIR = Path("/Volumes/1TB-M2/openclaw/ComfyUI")
 COMFYUI_CUSTOM_NODES_DIR = COMFYUI_BASE_DIR / "custom_nodes"
 EXTERNAL_WORKSPACE_DIR = Path("/Volumes/1TB-M2/openclaw/comfyui_workspace")
 

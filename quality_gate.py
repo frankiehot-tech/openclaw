@@ -428,7 +428,7 @@ class QualityGate:
             print("⚠️  发现质量问题，需要修复。")
             return {"success": False, "total_issues": total_issues, "checks": checks}
 
-    def _print_check_result(self, check_name: str, result: Dict):
+    def _print_check_result(self, check_name: str, result: Dict[str, Any]) -> None:
         """打印检查结果"""
         if not result.get("available", False):
             print(f"  ⚠️  {check_name}: 工具不可用")
@@ -444,7 +444,7 @@ class QualityGate:
                 if len(result["errors"]) > 3:
                     print(f"    ... 还有{len(result['errors']) - 3}个错误")
 
-    def _print_custom_check_result(self, result: Dict):
+    def _print_custom_check_result(self, result: Dict[str, Any]) -> None:
         """打印自定义检查结果"""
         for check_name, subresult in result.items():
             if isinstance(subresult, dict):
@@ -459,7 +459,7 @@ class QualityGate:
                         if len(subresult["issues"]) > 2:
                             print(f"    ... 还有{len(subresult['issues']) - 2}个问题")
 
-    def generate_report(self, results: Dict, output_file: str = None) -> str:
+    def generate_report(self, results: Dict[str, Any], output_file: Optional[str] = None) -> str:
         """生成质量检查报告"""
         report_lines = [
             "# 代码质量检查报告",
@@ -508,7 +508,7 @@ class QualityGate:
         return report
 
 
-def main():
+def main() -> None:
     """主函数"""
     import argparse
 

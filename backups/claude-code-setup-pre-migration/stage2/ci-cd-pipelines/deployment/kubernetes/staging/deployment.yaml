@@ -1,0 +1,529 @@
+# Kubernetes部署配置模板 - 预生产环境
+# 用于功能验证和用户验收测试
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Values.app.name }}-staging
+  namespace: {{ .Values.namespace }}
+  labels:
+    app: {{ .Values.app.name }}
+    environment: staging
+    version: {{ .Values.app.version }}
+    managed-by: claude-code
+  annotations:
+    deployment.kubernetes.io/revision: "{{ .Values.app.version }}"
+    prometheus.io/scrape: "true"
+    prometheus.io/port: "{{ .Values.app.port }}"
+    prometheus.io/path: "/metrics"
+spec:
+  replicas: {{ .Values.app.replicas.staging }}
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 2
+      maxUnavailable: 1
+  revisionHistoryLimit: 5
+  selector:
+    matchLabels:
+      app: {{ .Values.app.name }}
+      environment: staging
+  template:
+    metadata:
+      labels:
+        app: {{ .Values.app.name }}
+        environment: staging
+        version: {{ .Values.app.version }}
+      annotations:
+        sidecar.istio.io/inject: "false"
+        checksum/config: {{ include (print $.Template.BasePath "/configmap.yaml") . | sha256sum }}
+        checksum/secret: {{ include (print $.Template.BasePath "/secret.yaml") . | sha256sum }}
+    spec:
+      automountServiceAccountToken: false
+      serviceAccountName: {{ .Values.app.name }}-sa-staging
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 1000
+        fsGroup: 2000
+        seccompProfile:
+          type: RuntimeDefault
+      containers:
+      - name: {{ .Values.app.name }}
+        image: "{{ .Values.image.registry }}/{{ .Values.image.repository }}:{{ .Values.app.version }}"
+        imagePullPolicy: Always
+        ports:
+        - name: http
+          containerPort: {{ .Values.app.port }}
+          protocol: TCP
+        env:
+        - name: NODE_ENV
+          value: "staging"
+        - name: LOG_LEVEL
+          value: "info"
+        - name: PORT
+          value: "{{ .Values.app.port | toString }}"
+        - name: ENVIRONMENT
+          value: "staging"
+        - name: FEATURE_FLAGS
+          value: "{{ .Values.featureFlags.staging | toJson }}"
+        envFrom:
+        - configMapRef:
+            name: {{ .Values.app.name }}-config-staging
+        - secretRef:
+            name: {{ .Values.app.name }}-secrets-staging
+        resources:
+          requests:
+            memory: "256Mi"
+            cpu: "250m"
+          limits:
+            memory: "512Mi"
+            cpu: "500m"
+        livenessProbe:
+          httpGet:
+            path: {{ .Values.app.healthCheck.path }}
+            port: http
+            scheme: HTTP
+            httpHeaders:
+            - name: Custom-Header
+              value: "staging-health-check"
+          initialDelaySeconds: 45
+          periodSeconds: 15
+          timeoutSeconds: 10
+          failureThreshold: 3
+          successThreshold: 1
+        readinessProbe:
+          httpGet:
+            path: {{ .Values.app.healthCheck.path }}
+            port: http
+            scheme: HTTP
+            httpHeaders:
+            - name: Custom-Header
+              value: "staging-readiness"
+          initialDelaySeconds: 10
+          periodSeconds: 10
+          timeoutSeconds: 5
+          failureThreshold: 3
+          successThreshold: 1
+        startupProbe:
+          httpGet:
+            path: {{ .Values.app.healthCheck.path }}
+            port: http
+            scheme: HTTP
+          initialDelaySeconds: 30
+          periodSeconds: 10
+          timeoutSeconds: 5
+          failureThreshold: 10
+          successThreshold: 1
+        volumeMounts:
+        - name: config-volume
+          mountPath: /app/config
+          readOnly: true
+        - name: logs-volume
+          mountPath: /var/log/app
+        - name: tmp-volume
+          mountPath: /tmp
+        securityContext:
+          allowPrivilegeEscalation: false
+          readOnlyRootFilesystem: true
+          capabilities:
+            drop:
+            - ALL
+          seccompProfile:
+            type: RuntimeDefault
+      volumes:
+      - name: config-volume
+        configMap:
+          name: {{ .Values.app.name }}-config-staging
+      - name: logs-volume
+        emptyDir:
+          sizeLimit: 1Gi
+      - name: tmp-volume
+        emptyDir:
+          sizeLimit: 512Mi
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+            - matchExpressions:
+              - key: kubernetes.io/os
+                operator: In
+                values:
+                - linux
+              - key: node-type
+                operator: In
+                values:
+                - general
+        podAntiAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+          - weight: 100
+            podAffinityTerm:
+              labelSelector:
+                matchExpressions:
+                - key: app
+                  operator: In
+                  values:
+                  - {{ .Values.app.name }}
+                - key: environment
+                  operator: In
+                  values:
+                  - staging
+              topologyKey: kubernetes.io/hostname
+      tolerations:
+      - key: "staging"
+        operator: "Equal"
+        value: "true"
+        effect: "NoSchedule"
+      - key: "node.kubernetes.io/not-ready"
+        operator: "Exists"
+        effect: "NoExecute"
+        tolerationSeconds: 300
+      - key: "node.kubernetes.io/unreachable"
+        operator: "Exists"
+        effect: "NoExecute"
+        tolerationSeconds: 300
+      restartPolicy: Always
+      terminationGracePeriodSeconds: 60
+      dnsConfig:
+        options:
+        - name: ndots
+          value: "2"
+        - name: attempts
+          value: "3"
+        - name: timeout
+          value: "1"
+---
+# 服务配置
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ .Values.app.name }}-service-staging
+  namespace: {{ .Values.namespace }}
+  labels:
+    app: {{ .Values.app.name }}
+    environment: staging
+  annotations:
+    service.beta.kubernetes.io/aws-load-balancer-type: "nlb"
+    service.beta.kubernetes.io/aws-load-balancer-internal: "false"
+    service.beta.kubernetes.io/aws-load-balancer-cross-zone-load-balancing-enabled: "true"
+spec:
+  type: LoadBalancer
+  ports:
+  - name: http
+    port: {{ .Values.app.port }}
+    targetPort: http
+    protocol: TCP
+  - name: metrics
+    port: 9090
+    targetPort: 9090
+    protocol: TCP
+  selector:
+    app: {{ .Values.app.name }}
+    environment: staging
+  sessionAffinity: None
+  externalTrafficPolicy: Cluster
+---
+# 水平Pod自动伸缩配置
+apiVersion: autoscaling/v2
+kind: HorizontalPodAutoscaler
+metadata:
+  name: {{ .Values.app.name }}-hpa-staging
+  namespace: {{ .Values.namespace }}
+  labels:
+    app: {{ .Values.app.name }}
+    environment: staging
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: {{ .Values.app.name }}-staging
+  minReplicas: {{ .Values.app.replicas.staging }}
+  maxReplicas: 10
+  metrics:
+  - type: Resource
+    resource:
+      name: cpu
+      target:
+        type: Utilization
+        averageUtilization: 60
+  - type: Resource
+    resource:
+      name: memory
+      target:
+        type: Utilization
+        averageUtilization: 70
+  - type: Pods
+    pods:
+      metric:
+        name: http_requests
+      target:
+        type: AverageValue
+        averageValue: 100
+  behavior:
+    scaleDown:
+      stabilizationWindowSeconds: 600
+      policies:
+      - type: Pods
+        value: 1
+        periodSeconds: 120
+      - type: Percent
+        value: 10
+        periodSeconds: 120
+    scaleUp:
+      stabilizationWindowSeconds: 180
+      policies:
+      - type: Pods
+        value: 2
+        periodSeconds: 60
+      - type: Percent
+        value: 50
+        periodSeconds: 60
+---
+# Ingress配置
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: {{ .Values.app.name }}-ingress-staging
+  namespace: {{ .Values.namespace }}
+  labels:
+    app: {{ .Values.app.name }}
+    environment: staging
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /
+    nginx.ingress.kubernetes.io/ssl-redirect: "true"
+    nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
+    nginx.ingress.kubernetes.io/proxy-body-size: "50m"
+    nginx.ingress.kubernetes.io/proxy-read-timeout: "60"
+    nginx.ingress.kubernetes.io/proxy-send-timeout: "60"
+    cert-manager.io/cluster-issuer: "letsencrypt-staging"
+    kubernetes.io/ingress.class: "nginx"
+spec:
+  ingressClassName: nginx
+  tls:
+  - hosts:
+    - {{ .Values.app.name }}.staging.example.com
+    secretName: {{ .Values.app.name }}-tls-staging
+  rules:
+  - host: {{ .Values.app.name }}.staging.example.com
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: {{ .Values.app.name }}-service-staging
+            port:
+              number: {{ .Values.app.port }}
+      - path: /api
+        pathType: Prefix
+        backend:
+          service:
+            name: {{ .Values.app.name }}-service-staging
+            port:
+              number: {{ .Values.app.port }}
+      - path: /metrics
+        pathType: Prefix
+        backend:
+          service:
+            name: {{ .Values.app.name }}-service-staging
+            port:
+              number: 9090
+---
+# ConfigMap配置
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ .Values.app.name }}-config-staging
+  namespace: {{ .Values.namespace }}
+  labels:
+    app: {{ .Values.app.name }}
+    environment: staging
+data:
+  APP_NAME: {{ .Values.app.name }}
+  ENVIRONMENT: staging
+  DATABASE_HOST: {{ .Values.database.host.staging }}
+  DATABASE_PORT: "{{ .Values.database.port }}"
+  DATABASE_NAME: {{ .Values.database.name.staging }}
+  REDIS_HOST: {{ .Values.redis.host.staging }}
+  REDIS_PORT: "{{ .Values.redis.port }}"
+  CACHE_TTL: "1800"
+  API_RATE_LIMIT: "500"
+  DEBUG: "false"
+  ENABLE_SWAGGER: "true"
+  METRICS_PORT: "9090"
+  LOG_FORMAT: "json"
+  LOG_LEVEL: "info"
+  JWT_EXPIRY: "3600"
+  SESSION_TIMEOUT: "7200"
+  MAX_UPLOAD_SIZE: "50MB"
+  CORS_ORIGINS: "{{ .Values.app.domain.staging }}"
+  FEATURE_NEW_AUTH: "true"
+  FEATURE_BETA_UI: "true"
+---
+# 服务账户配置
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: {{ .Values.app.name }}-sa-staging
+  namespace: {{ .Values.namespace }}
+  labels:
+    app: {{ .Values.app.name }}
+    environment: staging
+automountServiceAccountToken: false
+---
+# 角色配置
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  name: {{ .Values.app.name }}-role-staging
+  namespace: {{ .Values.namespace }}
+  labels:
+    app: {{ .Values.app.name }}
+    environment: staging
+rules:
+- apiGroups: [""]
+  resources: ["pods", "services", "endpoints", "persistentvolumeclaims", "configmaps", "secrets"]
+  verbs: ["get", "list", "watch", "create", "update", "patch", "delete"]
+- apiGroups: ["apps"]
+  resources: ["deployments", "replicasets", "statefulsets"]
+  verbs: ["get", "list", "watch", "create", "update", "patch", "delete"]
+- apiGroups: ["autoscaling"]
+  resources: ["horizontalpodautoscalers"]
+  verbs: ["get", "list", "watch"]
+- apiGroups: ["networking.k8s.io"]
+  resources: ["ingresses"]
+  verbs: ["get", "list", "watch"]
+---
+# 角色绑定配置
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: {{ .Values.app.name }}-rolebinding-staging
+  namespace: {{ .Values.namespace }}
+  labels:
+    app: {{ .Values.app.name }}
+    environment: staging
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: Role
+  name: {{ .Values.app.name }}-role-staging
+subjects:
+- kind: ServiceAccount
+  name: {{ .Values.app.name }}-sa-staging
+  namespace: {{ .Values.namespace }}
+---
+# 网络策略配置
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: {{ .Values.app.name }}-networkpolicy-staging
+  namespace: {{ .Values.namespace }}
+  labels:
+    app: {{ .Values.app.name }}
+    environment: staging
+spec:
+  podSelector:
+    matchLabels:
+      app: {{ .Values.app.name }}
+      environment: staging
+  policyTypes:
+  - Ingress
+  - Egress
+  ingress:
+  - from:
+    - namespaceSelector:
+        matchLabels:
+          name: monitoring
+    ports:
+    - protocol: TCP
+      port: {{ .Values.app.port }}
+    - protocol: TCP
+      port: 9090
+  - from:
+    - namespaceSelector:
+        matchLabels:
+          name: ingress-nginx
+    ports:
+    - protocol: TCP
+      port: {{ .Values.app.port }}
+  egress:
+  - to:
+    - namespaceSelector:
+        matchLabels:
+          name: database
+    ports:
+    - protocol: TCP
+      port: {{ .Values.database.port }}
+  - to:
+    - namespaceSelector:
+        matchLabels:
+          name: redis
+    ports:
+    - protocol: TCP
+      port: {{ .Values.redis.port }}
+  - to:
+    - namespaceSelector:
+        matchLabels:
+          name: logging
+    ports:
+    - protocol: TCP
+      port: 9200
+    - protocol: TCP
+      port: 5044
+  - to:
+    - ipBlock:
+        cidr: 0.0.0.0/0
+        except:
+        - 10.0.0.0/8
+        - 172.16.0.0/12
+        - 192.168.0.0/16
+    ports:
+    - protocol: TCP
+      port: 443
+    - protocol: TCP
+      port: 80
+---
+# PodDisruptionBudget配置
+apiVersion: policy/v1
+kind: PodDisruptionBudget
+metadata:
+  name: {{ .Values.app.name }}-pdb-staging
+  namespace: {{ .Values.namespace }}
+  labels:
+    app: {{ .Values.app.name }}
+    environment: staging
+spec:
+  minAvailable: 1
+  selector:
+    matchLabels:
+      app: {{ .Values.app.name }}
+      environment: staging
+---
+# 优先级配置
+apiVersion: scheduling.k8s.io/v1
+kind: PriorityClass
+metadata:
+  name: staging-priority
+value: 1000000
+globalDefault: false
+description: "Priority class for staging environment pods"
+---
+# 资源配额配置
+apiVersion: v1
+kind: ResourceQuota
+metadata:
+  name: {{ .Values.app.name }}-quota-staging
+  namespace: {{ .Values.namespace }}
+  labels:
+    app: {{ .Values.app.name }}
+    environment: staging
+spec:
+  hard:
+    requests.cpu: "4"
+    requests.memory: "8Gi"
+    limits.cpu: "8"
+    limits.memory: "16Gi"
+    pods: "20"
+    services: "10"
+    configmaps: "20"
+    persistentvolumeclaims: "5"
+    secrets: "20"

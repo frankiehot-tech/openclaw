@@ -16,7 +16,7 @@ import yaml
 
 # 配置
 APPROVAL_DIR = Path(
-    "/Users/frankie/Documents/Athena知识库/执行项目/2026/003-open human（碳硅基共生）/007-AI-plan/批准"
+    "/Volumes/1TB-M2/openclaw/Documents/Athena知识库/执行项目/2026/003-open human（碳硅基共生）/007-AI-plan/批准"
 )
 QUEUE_FILE = Path(
     "/Volumes/1TB-M2/openclaw/.openclaw/plan_queue/openhuman_aiplan_build_priority_20260328.json"

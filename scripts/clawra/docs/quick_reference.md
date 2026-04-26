@@ -64,7 +64,7 @@ python3 run_maref_daily_report.py --mode production
 python3 run_maref_daily_report.py --mode integration
 
 # 查看日报生成历史
-ls -la /Users/frankie/Documents/Athena知识库/执行项目/2026/003-open\ human（碳硅基共生）/015-mailbox/maref-daily-*.md
+ls -la /Volumes/1TB-M2/openclaw/Documents/Athena知识库/执行项目/2026/003-open\ human（碳硅基共生）/015-mailbox/maref-daily-*.md
 ```
 
 ## 关键文件位置

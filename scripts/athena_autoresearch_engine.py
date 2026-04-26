@@ -28,6 +28,10 @@ from enum import Enum
 from pathlib import Path
 from typing import Any, Dict, List, Optional, Tuple
 
+from dotenv import load_dotenv
+
+load_dotenv()
+
 # Import shared root paths
 try:
     from .openclaw_roots import PLAN_CONFIG_PATH, RUNTIME_ROOT

@@ -1,0 +1,36 @@
+[2026-04-20 19:48:43] [INFO] 🚀 MAREF沙箱实验开始于 2026-04-20T19:48:43.298665
+[2026-04-20 19:48:43] [INFO]    输出目录: ./experiment_results
+[2026-04-20 19:48:43] [INFO] 监控器初始化完成 (间隔: 5秒, 保留: 300秒)
+[2026-04-20 19:48:43] [INFO] 开始实验: stability
+[2026-04-20 19:48:43] [INFO] 监控器已启动
+[2026-04-20 19:48:43] [INFO] 实验监控已启用
+[2026-04-20 19:48:43] [INFO] 运行超稳定性实验: 10 次迭代
+[2026-04-20 19:48:45] [INFO]   迭代 1/10: partial_failure, 恢复时间比: 1.00
+[2026-04-20 19:48:54] [INFO]   迭代 5/10: resource_pressure, 恢复时间比: 1.00
+[2026-04-20 19:48:55] [ERROR] 实验 stability 失败: [Errno 32] Broken pipe
+[2026-04-20 19:48:55] [INFO] 监控数据已导出: ./experiment_results/monitoring_data/metrics_export_20260420_194855.json
+[2026-04-20 19:48:58] [INFO] 监控器已停止
+[2026-04-20 19:48:58] [INFO] 开始实验: state_transition
+[2026-04-20 19:48:58] [INFO] 监控器已启动
+[2026-04-20 19:48:58] [INFO] 实验监控已启用
+[2026-04-20 19:48:58] [INFO] 运行状态转换实验: 50 次迭代, 100 任务/次
+[2026-04-20 19:48:58] [ERROR] 实验 state_transition 失败: [Errno 32] Broken pipe
+[2026-04-20 19:48:58] [INFO] 监控数据已导出: ./experiment_results/monitoring_data/metrics_export_20260420_194858.json
+[2026-04-20 19:49:03] [INFO] 监控器已停止
+[2026-04-20 19:49:03] [INFO] 开始实验: quality_assessment
+[2026-04-20 19:49:03] [INFO] 监控器已启动
+[2026-04-20 19:49:03] [INFO] 实验监控已启用
+[2026-04-20 19:49:03] [INFO] 运行质量门禁实验: 5 次迭代, 200 样本/次
+[2026-04-20 19:49:03] [ERROR] 实验 quality_assessment 失败: [Errno 32] Broken pipe
+[2026-04-20 19:49:03] [INFO] 监控数据已导出: ./experiment_results/monitoring_data/metrics_export_20260420_194903.json
+[2026-04-20 19:49:08] [INFO] 监控器已停止
+[2026-04-20 19:49:08] [INFO] 开始实验: performance_benchmark
+[2026-04-20 19:49:08] [INFO] 监控器已启动
+[2026-04-20 19:49:08] [INFO] 实验监控已启用
+[2026-04-20 19:49:08] [INFO] 运行性能基准实验: 3 次迭代, 4 负载级别
+[2026-04-20 19:49:08] [ERROR] 实验 performance_benchmark 失败: [Errno 32] Broken pipe
+[2026-04-20 19:49:08] [INFO] 监控数据已导出: ./experiment_results/monitoring_data/metrics_export_20260420_194908.json
+[2026-04-20 19:49:13] [INFO] 监控器已停止
+[2026-04-20 19:49:13] [INFO] 生成最终实验报告...
+[2026-04-20 19:49:13] [INFO] 最终报告已生成: ./experiment_results/final_report_20260420_194913.json
+[2026-04-20 19:49:13] [INFO] 报告摘要: ./experiment_results/report_summary_20260420_194913.txt

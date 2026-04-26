@@ -1,0 +1,10 @@
+{
+  "$schema": "https://opencode.ai/config.json",
+  "mcp": {
+    "claude-mem": {
+      "type": "local",
+      "command": ["/opt/homebrew/Cellar/node/23.11.0/bin/node", "/Volumes/1TB-M2/openclaw/.claude/plugins/marketplaces/thedotmack/plugin/scripts/mcp-server.cjs"],
+      "enabled": true
+    }
+  }
+}

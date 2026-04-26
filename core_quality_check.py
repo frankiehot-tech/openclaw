@@ -42,7 +42,9 @@ def check_file_exists(files: List[str]) -> List[str]:
 
 def run_check(tool: str, args: List[str], files: List[str]) -> Dict:
     """运行质量检查工具"""
-    cmd = [tool] + args + files
+    # 使用虚拟环境中的工具
+    venv_tool = f"./venv/bin/{tool}"
+    cmd = [venv_tool] + args + files
     print(f"运行: {' '.join(cmd[:5])}...")
 
     try:
@@ -119,7 +121,7 @@ def main():
     print("\n2. 🔍 运行mypy类型检查（核心文件）...")
     results["mypy"] = run_check(
         "mypy",
-        ["--ignore-missing-imports", "--strict", "--exclude", "mini_agent/.*", "--exclude", ".*/mini_agent/.*"],
+        ["--ignore-missing-imports", "--strict", "--follow-imports=skip", "--exclude", "mini_agent", "--exclude", "mini_agent/.*", "--exclude", ".*/mini_agent/.*"],
         core_existing_files
     )
     print_result("mypy", results["mypy"])

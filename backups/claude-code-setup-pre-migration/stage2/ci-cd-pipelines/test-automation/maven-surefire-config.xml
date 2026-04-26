@@ -1,0 +1,142 @@
+<!-- Maven Surefire插件配置示例 -->
+<!-- 用于Java项目单元测试执行 -->
+
+<!-- 在pom.xml的<build><plugins>部分添加以下配置 -->
+
+<plugin>
+    <groupId>org.apache.maven.plugins</groupId>
+    <artifactId>maven-surefire-plugin</artifactId>
+    <version>3.2.5</version>
+    <configuration>
+        <!-- 测试执行配置 -->
+        <includes>
+            <include>**/*Test.java</include>
+            <include>**/*Tests.java</include>
+            <include>**/*TestCase.java</include>
+        </includes>
+        <excludes>
+            <exclude>**/*IT.java</exclude>
+            <exclude>**/*IntegrationTest.java</exclude>
+            <exclude>**/*E2ETest.java</exclude>
+        </excludes>
+
+        <!-- 并行测试执行 -->
+        <parallel>classes</parallel>
+        <threadCount>4</threadCount>
+        <useUnlimitedThreads>false</useUnlimitedThreads>
+        <parallelTestTimeoutInSeconds>600</parallelTestTimeoutInSeconds>
+        <parallelTestTimeoutForcedInSeconds>60</parallelTestTimeoutForcedInSeconds>
+
+        <!-- 报告配置 -->
+        <reportFormat>xml</reportFormat>
+        <redirectTestOutputToFile>true</redirectTestOutputToFile>
+        <trimStackTrace>false</trimStackTrace>
+        <printSummary>true</printSummary>
+
+        <!-- 系统属性配置 -->
+        <systemPropertyVariables>
+            <java.awt.headless>true</java.awt.headless>
+            <junit.jupiter.execution.parallel.enabled>true</junit.jupiter.execution.parallel.enabled>
+            <junit.jupiter.execution.parallel.mode.default>concurrent</junit.jupiter.execution.parallel.mode.default>
+        </systemPropertyVariables>
+
+        <!-- 环境变量配置 -->
+        <environmentVariables>
+            <TEST_ENV>ci</TEST_ENV>
+            <CI>true</CI>
+        </environmentVariables>
+
+        <!-- 测试超时配置 -->
+        <forkCount>1</forkCount>
+        <reuseForks>true</reuseForks>
+        <argLine>-Xmx1024m -XX:MaxMetaspaceSize=256m</argLine>
+
+        <!-- 失败重试配置 -->
+        <rerunFailingTestsCount>1</rerunFailingTestsCount>
+
+        <!-- 跳过测试条件 -->
+        <skipTests>${skip.unit.tests}</skipTests>
+        <skipExec>false</skipExec>
+
+        <!-- 测试套件配置 -->
+        <suiteXmlFiles>
+            <!-- <suiteXmlFile>src/test/resources/testng.xml</suiteXmlFile> -->
+        </suiteXmlFiles>
+
+        <!-- 启用JUnit 5平台 -->
+        <properties>
+            <property>
+                <name>junit.jupiter.execution.parallel.enabled</name>
+                <value>true</value>
+            </property>
+            <property>
+                <name>junit.jupiter.execution.parallel.mode.default</name>
+                <value>concurrent</value>
+            </property>
+            <property>
+                <name>junit.jupiter.execution.parallel.config.strategy</name>
+                <value>dynamic</value>
+            </property>
+        </properties>
+
+        <!-- 排除模式 -->
+        <excludedGroups>integration,slow,e2e</excludedGroups>
+        <groups>unit,fast</groups>
+
+        <!-- 统计信息 -->
+        <statelessTestsetInfoReporter>true</statelessTestsetInfoReporter>
+        <statelessTestsetInfoReporter.format>brief</statelessTestsetInfoReporter.format>
+
+        <!-- 额外classpath配置 -->
+        <additionalClasspathElements>
+            <!-- <additionalClasspathElement>${basedir}/lib/*.jar</additionalClasspathElement> -->
+        </additionalClasspathElements>
+    </configuration>
+
+    <!-- 依赖配置 -->
+    <dependencies>
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-engine</artifactId>
+            <version>5.10.0</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.junit.platform</groupId>
+            <artifactId>junit-platform-suite</artifactId>
+            <version>1.10.0</version>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
+</plugin>
+
+<!-- 完整pom.xml测试配置示例：
+<project>
+    <build>
+        <plugins>
+            在此处插入上述Surefire插件配置
+        </plugins>
+    </build>
+
+    <profiles>
+        <profile>
+            <id>ci</id>
+            <properties>
+                <skip.unit.tests>false</skip.unit.tests>
+            </properties>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-surefire-plugin</artifactId>
+                        <configuration>
+                            <reportFormat>xml</reportFormat>
+                            <outputDirectory>${project.build.directory}/surefire-reports</outputDirectory>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
+</project>
+-->

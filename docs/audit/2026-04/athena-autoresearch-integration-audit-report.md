@@ -56,17 +56,17 @@ class ResearchDocumentationAnalysis:
         
         documents = {
             "Karpathy五维灵魂拷问报告": {
-                "路径": "/Users/frankie/Documents/Athena知识库/执行项目/2026/003-open human（碳硅基共生）/007-AI-plan/completed/OpenHuman-Athena-autoresearch-Andrej-Karpathy五维灵魂拷问最优解报告.md",
+                "路径": "/Volumes/1TB-M2/openclaw/Documents/Athena知识库/执行项目/2026/003-open human（碳硅基共生）/007-AI-plan/completed/OpenHuman-Athena-autoresearch-Andrej-Karpathy五维灵魂拷问最优解报告.md",
                 "内容": "基于Karpathy框架的深度战略分析",
                 "价值": "明确了AutoResearch在项目中的战略定位"
             },
             "Claude Code全维度工程研究": {
-                "路径": "/Users/frankie/Documents/Athena知识库/执行项目/2026/003-open human（碳硅基共生）/007-AI-plan/completed/OpenHuman-Athena-autoresearch-Claude-Code-全维度工程拆解研究报告.md",
+                "路径": "/Volumes/1TB-M2/openclaw/Documents/Athena知识库/执行项目/2026/003-open human（碳硅基共生）/007-AI-plan/completed/OpenHuman-Athena-autoresearch-Claude-Code-全维度工程拆解研究报告.md",
                 "内容": "Claude Code与AutoResearch的工程化对齐分析",
                 "价值": "提供了技术集成的理论框架"
             },
             "工作流稳定性研究": {
-                "路径": "/Users/frankie/Documents/Athena知识库/执行项目/2026/003-open human（碳硅基共生）/007-AI-plan/completed/OpenHuman-Athena-autoresearch-工作流稳定性研究与跑通方案.md",
+                "路径": "/Volumes/1TB-M2/openclaw/Documents/Athena知识库/执行项目/2026/003-open human（碳硅基共生）/007-AI-plan/completed/OpenHuman-Athena-autoresearch-工作流稳定性研究与跑通方案.md",
                 "内容": "AutoResearch在工作流优化中的应用研究",
                 "价值": "明确了具体应用场景和技术路径"
             }

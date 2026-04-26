@@ -19,7 +19,7 @@ class ComfyUIMigrationOptimizer:
 
     def __init__(self):
         # 源目录（本地硬盘）
-        self.source_comfyui_dir = Path("/Users/frankie/ComfyUI")
+        self.source_comfyui_dir = Path("/Volumes/1TB-M2/openclaw/ComfyUI")
         # 目标目录（外部硬盘）
         self.target_comfyui_dir = Path("/Volumes/1TB-M2/openclaw/comfyui_workspace")
         # 模型文件路径

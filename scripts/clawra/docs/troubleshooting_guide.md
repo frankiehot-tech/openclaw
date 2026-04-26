@@ -296,7 +296,7 @@
    tail -f logs/maref_daily_report.log
    
    # 检查输出目录
-   ls -la "/Users/frankie/Documents/Athena知识库/执行项目/2026/003-open human（碳硅基共生）/015-mailbox/" | grep maref-daily
+   ls -la "/Volumes/1TB-M2/openclaw/Documents/Athena知识库/执行项目/2026/003-open human（碳硅基共生）/015-mailbox/" | grep maref-daily
    ```
 
 2. **手动测试日报生成**

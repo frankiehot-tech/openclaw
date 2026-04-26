@@ -1,0 +1,35 @@
+name: AI Tool Trace Scan
+
+on: [push, pull_request]
+
+jobs:
+  scan:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Scan for AI Tool Traces
+        run: |
+          echo "🔍 扫描全仓库痕迹..."
+
+          # 扫描文件内容（排除 reference 第三方目录）
+          if grep -ri -E "(claude\s*code|anthropic|generated\s*by\s*claude)" \
+              --include="*.py" --include="*.js" --include="*.ts" --include="*.md" \
+              --include="*.json" --include="*.yaml" --include="*.yml" --include="*.sh" \
+              --include="*.txt" --include="*.ini" \
+              . 2>/dev/null | grep -v node_modules | grep -v ".git" | grep -v "^./reference/" | grep -v "^./scripts/" | grep -v "^./archive/"; then
+              echo "❌ 发现 AI 工具痕迹"
+              exit 1
+          fi
+
+          # 扫描提交历史（针对 PR）
+          if [ "${{ github.event_name }}" == "pull_request" ]; then
+              if git log --oneline origin/main..HEAD --grep="[Cc]laude\|[Aa]nthropic" | grep .; then
+                  echo "❌ 提交消息包含敏感词"
+                  exit 1
+              fi
+          fi
+
+          echo "✅ 痕迹扫描通过"

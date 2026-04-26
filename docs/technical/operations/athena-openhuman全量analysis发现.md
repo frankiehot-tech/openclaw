@@ -1,7 +1,7 @@
 # Athena-Open Human项目全量分析发现
 
 **分析时间**: 2026-04-09  
-**分析范围**: /Users/frankie/Documents/Athena知识库/执行项目/2026/003-open human（碳硅基共生）
+**分析范围**: /Volumes/1TB-M2/openclaw/Documents/Athena知识库/执行项目/2026/003-open human（碳硅基共生）
 
 ## 📊 项目概况分析
 

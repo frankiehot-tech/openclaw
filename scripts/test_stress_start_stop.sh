@@ -2,7 +2,7 @@
 set -euo pipefail
 
 ROOT="${ATHENA_RUNTIME_ROOT:-/Volumes/1TB-M2/openclaw}"
-PLAN_DIR="${ATHENA_PLAN_DIR:-/Users/frankie/Documents/Athena知识库/执行项目/2026/003-open human（碳硅基共生）/007-AI-plan}"
+PLAN_DIR="${ATHENA_PLAN_DIR:-/Volumes/1TB-M2/openclaw/Documents/Athena知识库/执行项目/2026/003-open human（碳硅基共生）/007-AI-plan}"
 PID_FILE="$ROOT/.openclaw/test_stress_runner.pid"
 SESSION_NAME="test_stress_runner"
 REPORT_PATH="$PLAN_DIR/OpenHuman-Athena-24小时压力测试执行报告_TEST.md"

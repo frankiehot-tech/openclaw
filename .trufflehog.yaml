@@ -1,0 +1,20 @@
+# TruffleHog configuration for openclaw
+# Run: trufflehog filesystem . --config .trufflehog.yaml
+
+exclude_detectors:
+  - "private_key"
+  - "google_api_key"
+
+exclude_paths:
+  - .venv/
+  - .venv311/
+  - .venvs/
+  - venv/
+  - node_modules/
+  - comfyui_workspace/
+  - scripts/clawra/external/
+  - docs/vendor/
+
+no_entropy: false
+json: true
+fail: false

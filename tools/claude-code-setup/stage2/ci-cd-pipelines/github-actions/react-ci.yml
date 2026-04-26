@@ -1,0 +1,521 @@
+# React/前端项目CI/CD工作流
+# 支持React、Vue、Angular等前端框架
+# 包含测试、构建、部署到CDN等阶段
+
+name: Frontend CI
+
+on:
+  push:
+    branches: [ main, develop, feature/* ]
+    tags: [ 'v*' ]
+  pull_request:
+    branches: [ main, develop ]
+  schedule:
+    # 每周一早上6点运行安全扫描
+    - cron: '0 6 * * 1'
+
+env:
+  # Node.js版本
+  NODE_VERSION: '18'
+
+  # 包管理器配置
+  NPM_CONFIG_CACHE: '${{ runner.temp }}/npm-cache'
+  NPM_CONFIG_PREFER_OFFLINE: 'true'
+
+  # 构建配置
+  CI: 'true'
+  BUILD_ENV: 'production'
+
+  # 测试配置
+  TEST_TIMEOUT: '30000'
+  COVERAGE_THRESHOLD: '80'
+
+jobs:
+  # 包管理器检测
+  detect-package-manager:
+    name: 检测包管理器
+    runs-on: ubuntu-latest
+    outputs:
+      package-manager: ${{ steps.detect.outputs.package-manager }}
+      has-npm: ${{ steps.detect.outputs.has-npm }}
+      has-yarn: ${{ steps.detect.outputs.has-yarn }}
+      has-pnpm: ${{ steps.detect.outputs.has-pnpm }}
+    steps:
+      - name: 检出代码
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: 检测包管理器
+        id: detect
+        run: |
+          if [ -f "package-lock.json" ]; then
+            echo "package-manager=npm" >> $GITHUB_OUTPUT
+            echo "has-npm=true" >> $GITHUB_OUTPUT
+          elif [ -f "yarn.lock" ]; then
+            echo "package-manager=yarn" >> $GITHUB_OUTPUT
+            echo "has-yarn=true" >> $GITHUB_OUTPUT
+          elif [ -f "pnpm-lock.yaml" ]; then
+            echo "package-manager=pnpm" >> $GITHUB_OUTPUT
+            echo "has-pnpm=true" >> $GITHUB_OUTPUT
+          else
+            echo "未检测到包管理器，使用npm作为默认"
+            echo "package-manager=npm" >> $GITHUB_OUTPUT
+            echo "has-npm=true" >> $GITHUB_OUTPUT
+          fi
+
+  # 代码质量检查
+  code-quality:
+    name: 代码质量检查
+    runs-on: ubuntu-latest
+    needs: detect-package-manager
+    steps:
+      - name: 检出代码
+        uses: actions/checkout@v4
+
+      - name: 设置Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: ${{ needs.detect-package-manager.outputs.package-manager }}
+
+      - name: 安装依赖
+        run: |
+          if [ "${{ needs.detect-package-manager.outputs.has-npm }}" = "true" ]; then
+            npm ci
+          elif [ "${{ needs.detect-package-manager.outputs.has-yarn }}" = "true" ]; then
+            yarn install --frozen-lockfile
+          elif [ "${{ needs.detect-package-manager.outputs.has-pnpm }}" = "true" ]; then
+            pnpm install --frozen-lockfile
+          fi
+
+      - name: ESLint检查
+        run: |
+          if [ "${{ needs.detect-package-manager.outputs.has-npm }}" = "true" ]; then
+            npm run lint --if-present || npx eslint .
+          elif [ "${{ needs.detect-package-manager.outputs.has-yarn }}" = "true" ]; then
+            yarn lint --if-present || npx eslint .
+          elif [ "${{ needs.detect-package-manager.outputs.has-pnpm }}" = "true" ]; then
+            pnpm run lint --if-present || npx eslint .
+          fi
+
+      - name: TypeScript类型检查
+        run: |
+          if [ -f "tsconfig.json" ]; then
+            if [ "${{ needs.detect-package-manager.outputs.has-npm }}" = "true" ]; then
+              npx tsc --noEmit
+            elif [ "${{ needs.detect-package-manager.outputs.has-yarn }}" = "true" ]; then
+              yarn tsc --noEmit
+            elif [ "${{ needs.detect-package-manager.outputs.has-pnpm }}" = "true" ]; then
+              pnpm exec tsc --noEmit
+            fi
+          fi
+
+      - name: 样式检查
+        run: |
+          # 检查是否有stylelint配置
+          if [ -f ".stylelintrc" ] || [ -f "stylelint.config.js" ]; then
+            if [ "${{ needs.detect-package-manager.outputs.has-npm }}" = "true" ]; then
+              npx stylelint "**/*.{css,scss,sass,less}" --allow-empty-input
+            elif [ "${{ needs.detect-package-manager.outputs.has-yarn }}" = "true" ]; then
+              yarn stylelint "**/*.{css,scss,sass,less}" --allow-empty-input
+            elif [ "${{ needs.detect-package-manager.outputs.has-pnpm }}" = "true" ]; then
+              pnpm exec stylelint "**/*.{css,scss,sass,less}" --allow-empty-input
+            fi
+          fi
+
+      - name: 依赖安全检查
+        uses: snyk/actions/node@master
+        env:
+          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+        with:
+          args: --severity-threshold=high
+
+  # 单元测试
+  unit-tests:
+    name: 单元测试
+    runs-on: ubuntu-latest
+    needs: detect-package-manager
+    strategy:
+      matrix:
+        os: [ubuntu-latest, windows-latest, macos-latest]
+        node-version: ['16', '18', '20']
+    steps:
+      - name: 检出代码
+        uses: actions/checkout@v4
+
+      - name: 设置Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: ${{ needs.detect-package-manager.outputs.package-manager }}
+
+      - name: 安装依赖
+        run: |
+          if [ "${{ needs.detect-package-manager.outputs.has-npm }}" = "true" ]; then
+            npm ci
+          elif [ "${{ needs.detect-package-manager.outputs.has-yarn }}" = "true" ]; then
+            yarn install --frozen-lockfile
+          elif [ "${{ needs.detect-package-manager.outputs.has-pnpm }}" = "true" ]; then
+            pnpm install --frozen-lockfile
+          fi
+
+      - name: 运行单元测试
+        run: |
+          if [ "${{ needs.detect-package-manager.outputs.has-npm }}" = "true" ]; then
+            npm test -- --watchAll=false --coverage
+          elif [ "${{ needs.detect-package-manager.outputs.has-yarn }}" = "true" ]; then
+            yarn test --watchAll=false --coverage
+          elif [ "${{ needs.detect-package-manager.outputs.has-pnpm }}" = "true" ]; then
+            pnpm test --watchAll=false --coverage
+          fi
+
+      - name: 上传测试结果
+        uses: actions/upload-artifact@v3
+        if: always()
+        with:
+          name: test-results-${{ matrix.os }}-node${{ matrix.node-version }}
+          path: |
+            coverage/
+            **/test-results/
+            *.xml
+
+  # 组件测试
+  component-tests:
+    name: 组件测试
+    runs-on: ubuntu-latest
+    needs: unit-tests
+    steps:
+      - name: 检出代码
+        uses: actions/checkout@v4
+
+      - name: 设置Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: ${{ needs.detect-package-manager.outputs.package-manager }}
+
+      - name: 安装依赖
+        run: |
+          if [ "${{ needs.detect-package-manager.outputs.has-npm }}" = "true" ]; then
+            npm ci
+          elif [ "${{ needs.detect-package-manager.outputs.has-yarn }}" = "true" ]; then
+            yarn install --frozen-lockfile
+          elif [ "${{ needs.detect-package-manager.outputs.has-pnpm }}" = "true" ]; then
+            pnpm install --frozen-lockfile
+          fi
+
+      - name: 运行组件测试
+        run: |
+          # 检查是否有组件测试配置
+          if [ -f "cypress.config.js" ] || [ -f "cypress.config.ts" ]; then
+            if [ "${{ needs.detect-package-manager.outputs.has-npm }}" = "true" ]; then
+              npx cypress run --component
+            elif [ "${{ needs.detect-package-manager.outputs.has-yarn }}" = "true" ]; then
+              yarn cypress run --component
+            elif [ "${{ needs.detect-package-manager.outputs.has-pnpm }}" = "true" ]; then
+              pnpm exec cypress run --component
+            fi
+          fi
+
+  # E2E测试
+  e2e-tests:
+    name: 端到端测试
+    runs-on: ubuntu-latest
+    needs: [unit-tests, component-tests]
+    services:
+      # 如果应用需要后端API，可以在这里启动
+      api:
+        image: node:18-alpine
+        env:
+          NODE_ENV: test
+        ports:
+          - 3001:3001
+    steps:
+      - name: 检出代码
+        uses: actions/checkout@v4
+
+      - name: 设置Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: ${{ needs.detect-package-manager.outputs.package-manager }}
+
+      - name: 安装依赖
+        run: |
+          if [ "${{ needs.detect-package-manager.outputs.has-npm }}" = "true" ]; then
+            npm ci
+          elif [ "${{ needs.detect-package-manager.outputs.has-yarn }}" = "true" ]; then
+            yarn install --frozen-lockfile
+          elif [ "${{ needs.detect-package-manager.outputs.has-pnpm }}" = "true" ]; then
+            pnpm install --frozen-lockfile
+          fi
+
+      - name: 启动开发服务器
+        run: |
+          if [ "${{ needs.detect-package-manager.outputs.has-npm }}" = "true" ]; then
+            npm start &
+          elif [ "${{ needs.detect-package-manager.outputs.has-yarn }}" = "true" ]; then
+            yarn start &
+          elif [ "${{ needs.detect-package-manager.outputs.has-pnpm }}" = "true" ]; then
+            pnpm start &
+          fi
+          sleep 30  # 等待服务器启动
+
+      - name: 运行E2E测试
+        run: |
+          if [ -f "cypress.config.js" ] || [ -f "cypress.config.ts" ]; then
+            if [ "${{ needs.detect-package-manager.outputs.has-npm }}" = "true" ]; then
+              npx cypress run --e2e
+            elif [ "${{ needs.detect-package-manager.outputs.has-yarn }}" = "true" ]; then
+              yarn cypress run --e2e
+            elif [ "${{ needs.detect-package-manager.outputs.has-pnpm }}" = "true" ]; then
+              pnpm exec cypress run --e2e
+            fi
+          fi
+
+  # 构建和打包
+  build:
+    name: 构建和打包
+    runs-on: ubuntu-latest
+    needs: [code-quality, unit-tests, e2e-tests]
+    strategy:
+      matrix:
+        environment: [development, staging, production]
+    steps:
+      - name: 检出代码
+        uses: actions/checkout@v4
+
+      - name: 设置Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: ${{ needs.detect-package-manager.outputs.package-manager }}
+
+      - name: 安装依赖
+        run: |
+          if [ "${{ needs.detect-package-manager.outputs.has-npm }}" = "true" ]; then
+            npm ci
+          elif [ "${{ needs.detect-package-manager.outputs.has-yarn }}" = "true" ]; then
+            yarn install --frozen-lockfile
+          elif [ "${{ needs.detect-package-manager.outputs.has-pnpm }}" = "true" ]; then
+            pnpm install --frozen-lockfile
+          fi
+
+      - name: 构建项目
+        env:
+          REACT_APP_ENV: ${{ matrix.environment }}
+          NEXT_PUBLIC_ENV: ${{ matrix.environment }}
+          VITE_ENV: ${{ matrix.environment }}
+        run: |
+          if [ "${{ needs.detect-package-manager.outputs.has-npm }}" = "true" ]; then
+            npm run build
+          elif [ "${{ needs.detect-package-manager.outputs.has-yarn }}" = "true" ]; then
+            yarn build
+          elif [ "${{ needs.detect-package-manager.outputs.has-pnpm }}" = "true" ]; then
+            pnpm run build
+          fi
+
+      - name: 分析构建产物大小
+        run: |
+          if [ "${{ needs.detect-package-manager.outputs.has-npm }}" = "true" ]; then
+            npx source-map-explorer build/static/js/*.js --html build-stats.html || true
+          elif [ "${{ needs.detect-package-manager.outputs.has-yarn }}" = "true" ]; then
+            yarn source-map-explorer build/static/js/*.js --html build-stats.html || true
+          elif [ "${{ needs.detect-package-manager.outputs.has-pnpm }}" = "true" ]; then
+            pnpm exec source-map-explorer build/static/js/*.js --html build-stats.html || true
+          fi
+
+      - name: 上传构建产物
+        uses: actions/upload-artifact@v3
+        with:
+          name: build-${{ matrix.environment }}
+          path: |
+            build/
+            dist/
+            out/
+            .next/
+            build-stats.html
+
+  # 性能测试
+  performance-test:
+    name: 性能测试
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - name: 检出代码
+        uses: actions/checkout@v4
+
+      - name: 设置Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+
+      - name: 安装依赖
+        run: |
+          if [ "${{ needs.detect-package-manager.outputs.has-npm }}" = "true" ]; then
+            npm ci
+          elif [ "${{ needs.detect-package-manager.outputs.has-yarn }}" = "true" ]; then
+            yarn install --frozen-lockfile
+          elif [ "${{ needs.detect-package-manager.outputs.has-pnpm }}" = "true" ]; then
+            pnpm install --frozen-lockfile
+          fi
+
+      - name: 运行Lighthouse性能测试
+        uses: treosh/lighthouse-ci-action@v10
+        with:
+          configPath: './lighthouserc.json'
+          uploadArtifacts: true
+          temporaryPublicStorage: true
+
+      - name: 运行Web Vitals测试
+        run: |
+          # 这里可以添加Web Vitals测试
+          echo "Web Vitals测试完成"
+
+  # 部署到CDN/静态托管
+  deploy-static:
+    name: 部署到静态托管
+    runs-on: ubuntu-latest
+    needs: [build, performance-test]
+    if: github.ref == 'refs/heads/main' || github.ref == 'refs/heads/develop'
+    environment:
+      name: ${{ github.ref == 'refs/heads/main' && 'production' || 'staging' }}
+      url: ${{ github.ref == 'refs/heads/main' && 'https://app.example.com' || 'https://staging.app.example.com' }}
+    steps:
+      - name: 检出代码
+        uses: actions/checkout@v4
+
+      - name: 下载构建产物
+        uses: actions/download-artifact@v3
+        with:
+          name: build-production
+          path: ./build
+
+      - name: 部署到GitHub Pages
+        if: github.ref == 'refs/heads/main'
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./build
+          user_name: 'github-actions[bot]'
+          user_email: 'github-actions[bot]@users.noreply.github.com'
+
+      - name: 部署到AWS S3
+        if: github.ref == 'refs/heads/main'
+        uses: jakejarvis/s3-sync-action@master
+        with:
+          args: --acl public-read --follow-symlinks --delete
+        env:
+          AWS_S3_BUCKET: ${{ secrets.AWS_S3_BUCKET }}
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          AWS_REGION: 'us-east-1'
+          SOURCE_DIR: './build'
+
+      - name: 部署到Netlify
+        if: github.ref == 'refs/heads/develop'
+        uses: nwtgck/actions-netlify@v2
+        with:
+          publish-dir: './build'
+          production-branch: main
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          deploy-message: "Deploy from GitHub Actions"
+        env:
+          NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+          NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
+
+      - name: 部署到Vercel
+        if: github.ref == 'refs/heads/develop'
+        uses: amondnet/vercel-action@v25
+        with:
+          vercel-token: ${{ secrets.VERCEL_TOKEN }}
+          vercel-org-id: ${{ secrets.VERCEL_ORG_ID }}
+          vercel-project-id: ${{ secrets.VERCEL_PROJECT_ID }}
+          vercel-args: '--prod'
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          working-directory: ./
+
+  # Docker镜像构建 (用于服务器端渲染应用)
+  docker-build:
+    name: Docker镜像构建 (SSR)
+    runs-on: ubuntu-latest
+    needs: build
+    if: github.ref == 'refs/heads/main' || github.ref == 'refs/heads/develop'
+    steps:
+      - name: 检出代码
+        uses: actions/checkout@v4
+
+      - name: 设置Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: 登录到容器注册表
+        uses: docker/login-action@v3
+        with:
+          registry: ${{ secrets.DOCKER_REGISTRY_URL }}
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
+
+      - name: 构建并推送Docker镜像
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          push: true
+          tags: |
+            ${{ secrets.DOCKER_REGISTRY_URL }}/${{ github.repository }}-frontend:latest
+            ${{ secrets.DOCKER_REGISTRY_URL }}/${{ github.repository }}-frontend:${{ github.sha }}
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+
+  # 部署到Kubernetes (用于服务器端渲染应用)
+  deploy-kubernetes:
+    name: 部署到Kubernetes
+    runs-on: ubuntu-latest
+    needs: docker-build
+    environment:
+      name: ${{ github.ref == 'refs/heads/main' && 'production' || 'staging' }}
+    if: github.ref == 'refs/heads/main' || github.ref == 'refs/heads/develop'
+    steps:
+      - name: 部署到Kubernetes
+        uses: azure/k8s-deploy@v1
+        with:
+          namespace: ${{ github.ref == 'refs/heads/main' && 'production' || 'staging' }}
+          manifests: |
+            k8s/deployment.yaml
+            k8s/service.yaml
+            k8s/ingress.yaml
+          images: |
+            ${{ secrets.DOCKER_REGISTRY_URL }}/${{ github.repository }}-frontend:${{ github.sha }}
+
+# 工作流通知
+notify:
+  name: 发送通知
+  needs: [deploy-static, deploy-kubernetes]
+  if: always()
+  runs-on: ubuntu-latest
+  steps:
+    - name: 发送Slack通知
+      uses: 8398a7/action-slack@v3
+      with:
+        status: ${{ job.status }}
+        author_name: Frontend CI/CD Pipeline
+        fields: repo,message,commit,author,action
+      env:
+        SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+
+    - name: 生成性能报告
+      run: |
+        echo "前端CI/CD流水线执行完成"
+        echo "构建状态: ${{ needs.deploy-static.result }}"
+        echo "测试状态: ${{ needs.unit-tests.result }}"
+        echo "性能测试状态: ${{ needs.performance-test.result }}"
+
+    - name: 上传最终报告
+      uses: actions/upload-artifact@v3
+      if: always()
+      with:
+        name: final-report
+        path: |
+          coverage/
+          lighthouse-results/
+          build-stats.html

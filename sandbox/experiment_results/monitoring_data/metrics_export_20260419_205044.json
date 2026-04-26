@@ -1,0 +1,389 @@
+{
+  "metadata": {
+    "exported_at": "2026-04-19T20:50:44.159131",
+    "total_metrics": 18,
+    "retention_period": 300,
+    "collection_interval": 5
+  },
+  "metrics": {
+    "system.cpu_usage": {
+      "current": {
+        "name": "system.cpu_usage",
+        "type": "system",
+        "category": "gauge",
+        "description": "CPU\u4f7f\u7528\u7387 (%)",
+        "unit": "percent",
+        "current_value": 67.52626713914935,
+        "last_updated": "2026-04-19T20:50:41.521046",
+        "config": {
+          "min_value": 0,
+          "max_value": 100
+        }
+      },
+      "history": [
+        {
+          "timestamp": "2026-04-19T20:50:41.521046",
+          "value": 67.52626713914935,
+          "old_value": 0.0
+        }
+      ],
+      "statistics": {
+        "count": 1,
+        "min": 67.52626713914935,
+        "max": 67.52626713914935,
+        "mean": 67.52626713914935,
+        "median": 67.52626713914935,
+        "last": 67.52626713914935
+      }
+    },
+    "system.memory_usage": {
+      "current": {
+        "name": "system.memory_usage",
+        "type": "system",
+        "category": "gauge",
+        "description": "\u5185\u5b58\u4f7f\u7528\u7387 (%)",
+        "unit": "percent",
+        "current_value": 64.80513768373697,
+        "last_updated": "2026-04-19T20:50:41.521054",
+        "config": {
+          "min_value": 0,
+          "max_value": 100
+        }
+      },
+      "history": [
+        {
+          "timestamp": "2026-04-19T20:50:41.521054",
+          "value": 64.80513768373697,
+          "old_value": 0.0
+        }
+      ],
+      "statistics": {
+        "count": 1,
+        "min": 64.80513768373697,
+        "max": 64.80513768373697,
+        "mean": 64.80513768373697,
+        "median": 64.80513768373697,
+        "last": 64.80513768373697
+      }
+    },
+    "system.disk_io": {
+      "current": {
+        "name": "system.disk_io",
+        "type": "system",
+        "category": "gauge",
+        "description": "\u78c1\u76d8IO (KB/s)",
+        "unit": "KB/s",
+        "current_value": 144.09923889656085,
+        "last_updated": "2026-04-19T20:50:41.521058",
+        "config": {
+          "min_value": 0
+        }
+      },
+      "history": [
+        {
+          "timestamp": "2026-04-19T20:50:41.521058",
+          "value": 144.09923889656085,
+          "old_value": 0.0
+        }
+      ],
+      "statistics": {
+        "count": 1,
+        "min": 144.09923889656085,
+        "max": 144.09923889656085,
+        "mean": 144.09923889656085,
+        "median": 144.09923889656085,
+        "last": 144.09923889656085
+      }
+    },
+    "system.network_traffic": {
+      "current": {
+        "name": "system.network_traffic",
+        "type": "system",
+        "category": "gauge",
+        "description": "\u7f51\u7edc\u6d41\u91cf (KB/s)",
+        "unit": "KB/s",
+        "current_value": 175.56032975352105,
+        "last_updated": "2026-04-19T20:50:41.521060",
+        "config": {
+          "min_value": 0
+        }
+      },
+      "history": [
+        {
+          "timestamp": "2026-04-19T20:50:41.521060",
+          "value": 175.56032975352105,
+          "old_value": 0.0
+        }
+      ],
+      "statistics": {
+        "count": 1,
+        "min": 175.56032975352105,
+        "max": 175.56032975352105,
+        "mean": 175.56032975352105,
+        "median": 175.56032975352105,
+        "last": 175.56032975352105
+      }
+    },
+    "application.queue_depth": {
+      "current": {
+        "name": "application.queue_depth",
+        "type": "application",
+        "category": "gauge",
+        "description": "\u961f\u5217\u6df1\u5ea6",
+        "unit": "tasks",
+        "current_value": 0.0,
+        "last_updated": "2026-04-19T20:50:41.520772",
+        "config": {
+          "min_value": 0
+        }
+      },
+      "history": [],
+      "statistics": {}
+    },
+    "application.throughput": {
+      "current": {
+        "name": "application.throughput",
+        "type": "application",
+        "category": "gauge",
+        "description": "\u541e\u5410\u91cf",
+        "unit": "tasks/minute",
+        "current_value": 0.0,
+        "last_updated": "2026-04-19T20:50:41.520778",
+        "config": {
+          "min_value": 0
+        }
+      },
+      "history": [],
+      "statistics": {}
+    },
+    "application.latency": {
+      "current": {
+        "name": "application.latency",
+        "type": "application",
+        "category": "gauge",
+        "description": "\u5ef6\u8fdf",
+        "unit": "seconds",
+        "current_value": 0.0,
+        "last_updated": "2026-04-19T20:50:41.520779",
+        "config": {
+          "min_value": 0
+        }
+      },
+      "history": [],
+      "statistics": {}
+    },
+    "application.error_rate": {
+      "current": {
+        "name": "application.error_rate",
+        "type": "application",
+        "category": "gauge",
+        "description": "\u9519\u8bef\u7387",
+        "unit": "percent",
+        "current_value": 0.0,
+        "last_updated": "2026-04-19T20:50:41.520782",
+        "config": {
+          "min_value": 0,
+          "max_value": 100
+        }
+      },
+      "history": [],
+      "statistics": {}
+    },
+    "business.task_completion_rate": {
+      "current": {
+        "name": "business.task_completion_rate",
+        "type": "business",
+        "category": "gauge",
+        "description": "\u4efb\u52a1\u5b8c\u6210\u7387",
+        "unit": "percent",
+        "current_value": 0.0,
+        "last_updated": "2026-04-19T20:50:41.520783",
+        "config": {
+          "min_value": 0,
+          "max_value": 100
+        }
+      },
+      "history": [],
+      "statistics": {}
+    },
+    "business.quality_score": {
+      "current": {
+        "name": "business.quality_score",
+        "type": "business",
+        "category": "gauge",
+        "description": "\u8d28\u91cf\u8bc4\u5206",
+        "unit": "score",
+        "current_value": 0.0,
+        "last_updated": "2026-04-19T20:50:41.520785",
+        "config": {
+          "min_value": 0,
+          "max_value": 10
+        }
+      },
+      "history": [],
+      "statistics": {}
+    },
+    "business.state_transition_efficiency": {
+      "current": {
+        "name": "business.state_transition_efficiency",
+        "type": "business",
+        "category": "gauge",
+        "description": "\u72b6\u6001\u8f6c\u6362\u6548\u7387",
+        "unit": "ratio",
+        "current_value": 0.0,
+        "last_updated": "2026-04-19T20:50:41.520786",
+        "config": {
+          "min_value": 0
+        }
+      },
+      "history": [],
+      "statistics": {}
+    },
+    "business.hamming_distance": {
+      "current": {
+        "name": "business.hamming_distance",
+        "type": "business",
+        "category": "gauge",
+        "description": "\u6c49\u660e\u8ddd\u79bb",
+        "unit": "bits",
+        "current_value": 0.0,
+        "last_updated": "2026-04-19T20:50:41.520787",
+        "config": {
+          "min_value": 0,
+          "max_value": 6
+        }
+      },
+      "history": [],
+      "statistics": {}
+    },
+    "experiment.duration": {
+      "current": {
+        "name": "experiment.duration",
+        "type": "application",
+        "category": "gauge",
+        "description": "\u5b9e\u9a8c\u6267\u884c\u65f6\u957f",
+        "unit": "seconds",
+        "current_value": 0.0,
+        "last_updated": "2026-04-19T20:50:41.520790",
+        "config": {
+          "min_value": 0
+        }
+      },
+      "history": [],
+      "statistics": {}
+    },
+    "experiment.success_rate": {
+      "current": {
+        "name": "experiment.success_rate",
+        "type": "application",
+        "category": "gauge",
+        "description": "\u5b9e\u9a8c\u6210\u529f\u7387",
+        "unit": "percent",
+        "current_value": 0.0,
+        "last_updated": "2026-04-19T20:50:41.520791",
+        "config": {
+          "min_value": 0,
+          "max_value": 100
+        }
+      },
+      "history": [],
+      "statistics": {}
+    },
+    "experiment.task_completed": {
+      "current": {
+        "name": "experiment.task_completed",
+        "type": "business",
+        "category": "counter",
+        "description": "\u5b8c\u6210\u4efb\u52a1\u6570\u91cf",
+        "unit": "tasks",
+        "current_value": 0.0,
+        "last_updated": "2026-04-19T20:50:41.520792",
+        "config": {
+          "min_value": 0
+        }
+      },
+      "history": [],
+      "statistics": {}
+    },
+    "experiment.task_failed": {
+      "current": {
+        "name": "experiment.task_failed",
+        "type": "business",
+        "category": "counter",
+        "description": "\u5931\u8d25\u4efb\u52a1\u6570\u91cf",
+        "unit": "tasks",
+        "current_value": 0.0,
+        "last_updated": "2026-04-19T20:50:41.520793",
+        "config": {
+          "min_value": 0
+        }
+      },
+      "history": [],
+      "statistics": {}
+    },
+    "performance.latency": {
+      "current": {
+        "name": "performance.latency",
+        "type": "application",
+        "category": "gauge",
+        "description": "\u5e73\u5747\u5ef6\u8fdf",
+        "unit": "seconds",
+        "current_value": 0.0,
+        "last_updated": "2026-04-19T20:50:41.520794",
+        "config": {
+          "min_value": 0
+        }
+      },
+      "history": [],
+      "statistics": {}
+    },
+    "performance.throughput": {
+      "current": {
+        "name": "performance.throughput",
+        "type": "application",
+        "category": "gauge",
+        "description": "\u541e\u5410\u91cf",
+        "unit": "tasks/second",
+        "current_value": 0.0,
+        "last_updated": "2026-04-19T20:50:41.520795",
+        "config": {
+          "min_value": 0
+        }
+      },
+      "history": [],
+      "statistics": {}
+    }
+  },
+  "alerts": {
+    "high_failure_rate": {
+      "metric": "experiment.success_rate",
+      "condition": "below",
+      "threshold": 80.0,
+      "severity": "warning",
+      "description": "\u5b9e\u9a8c\u6210\u529f\u7387\u4f4e\u4e8e80%",
+      "created_at": "2026-04-19T20:50:41.520797",
+      "last_triggered": null,
+      "trigger_count": 0
+    },
+    "high_latency": {
+      "metric": "performance.latency",
+      "condition": "above",
+      "threshold": 2.0,
+      "severity": "warning",
+      "description": "\u5e73\u5747\u5ef6\u8fdf\u8d85\u8fc72\u79d2",
+      "created_at": "2026-04-19T20:50:41.520798",
+      "last_triggered": null,
+      "trigger_count": 0
+    },
+    "low_throughput": {
+      "metric": "performance.throughput",
+      "condition": "below",
+      "threshold": 10.0,
+      "severity": "warning",
+      "description": "\u541e\u5410\u91cf\u4f4e\u4e8e10\u4efb\u52a1/\u79d2",
+      "created_at": "2026-04-19T20:50:41.520799",
+      "last_triggered": null,
+      "trigger_count": 0
+    }
+  }
+}

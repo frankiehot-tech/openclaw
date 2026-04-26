@@ -1,0 +1,279 @@
+name: Quality Gate
+
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main, develop ]
+  schedule:
+    # 每周一早上运行
+    - cron: '0 9 * * 1'
+
+env:
+  PYTHON_VERSION: '3.9'
+  COVERAGE_THRESHOLD: '40'  # 最小覆盖率阈值 (%)
+
+jobs:
+  quality-checks:
+    name: Quality Checks
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Set up Python ${{ env.PYTHON_VERSION }}
+      uses: actions/setup-python@v4
+      with:
+        python-version: ${{ env.PYTHON_VERSION }}
+
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+        pip install -r requirements-dev.txt
+
+    - name: Run black (format check)
+      run: |
+        black --check --line-length 88 --target-version py39 .
+      continue-on-error: false
+
+    - name: Run isort (import sorting)
+      run: |
+        isort --check-only --profile black .
+      continue-on-error: false
+
+    - name: Run flake8 (linting)
+      run: |
+        flake8 --config setup.cfg --max-line-length=88 --max-complexity=10 .
+      continue-on-error: false
+
+    - name: Run mypy (type checking)
+      run: |
+        mypy --config-file setup.cfg .
+      continue-on-error: false
+
+    - name: Run bandit (security)
+      run: |
+        bandit -r . -ll --skip B101
+      continue-on-error: false
+
+  tests:
+    name: Tests
+    runs-on: ubuntu-latest
+    needs: quality-checks
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Set up Python ${{ env.PYTHON_VERSION }}
+      uses: actions/setup-python@v4
+      with:
+        python-version: ${{ env.PYTHON_VERSION }}
+
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+        pip install -r requirements-dev.txt
+        pip install pytest-cov coverage
+
+    - name: Run tests with coverage
+      run: |
+        python -m pytest \
+          --cov=. \
+          --cov-report=xml \
+          --cov-report=html \
+          --cov-report=term \
+          --cov-fail-under=${{ env.COVERAGE_THRESHOLD }} \
+          -v \
+          test_*.py
+
+    - name: Upload coverage to Codecov
+      uses: codecov/codecov-action@v3
+      with:
+        file: ./coverage.xml
+        fail_ci_if_error: true
+        verbose: true
+
+    - name: Upload test results
+      uses: actions/upload-artifact@v3
+      if: always()
+      with:
+        name: test-results
+        path: |
+          htmlcov/
+          coverage.xml
+
+  hexagram-analysis:
+    name: Hexagram Analysis
+    runs-on: ubuntu-latest
+    needs: tests
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Set up Python ${{ env.PYTHON_VERSION }}
+      uses: actions/setup-python@v4
+      with:
+        python-version: ${{ env.PYTHON_VERSION }}
+
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+
+    - name: Run enhanced scheduler integration test
+      run: |
+        python -m pytest test_enhanced_scheduler_integration.py -v
+
+    - name: Generate hexagram state report
+      run: |
+        python -c "
+        import sys
+        sys.path.insert(0, '/Volumes/1TB-M2/openclaw')
+        from sandbox.simulators.enhanced_hetu_luoshu_scheduler import HexagramEnhancedLuoshuScheduler
+
+        scheduler = HexagramEnhancedLuoshuScheduler(max_concurrent=2)
+        report = scheduler.get_system_report()
+
+        print('=== 64卦状态系统报告 ===')
+        print(f'总任务数: {report[\"total_tasks\"]}')
+        print(f'卦象适配器任务数: {report[\"hexagram_adapter\"][\"total_tasks\"]}')
+        print(f'卦象映射总数: {report[\"hexagram_adapter\"][\"hexagram_manager\"][\"total_mappings\"]}')
+
+        if 'hexagram_statistics' in report:
+            stats = report['hexagram_statistics']
+            print(f'\\n卦象分布:')
+            for hexagram, count in stats['hexagram_distribution'].items():
+                print(f'  {hexagram}: {count}')
+            print(f'\\n平均质量评分: {stats[\"quality_scores\"][\"average\"]:.2f}/10')
+
+        print('\\n✅ 64卦状态系统运行正常')
+        "
+
+    - name: Save analysis report
+      run: |
+        mkdir -p reports
+        python -c "
+        import json
+        import sys
+        sys.path.insert(0, '/Volumes/1TB-M2/openclaw')
+        from sandbox.simulators.enhanced_hetu_luoshu_scheduler import HexagramEnhancedLuoshuScheduler
+
+        scheduler = HexagramEnhancedLuoshuScheduler(max_concurrent=2)
+        report = scheduler.get_system_report()
+
+        with open('reports/hexagram_analysis.json', 'w') as f:
+            json.dump(report, f, indent=2, ensure_ascii=False)
+
+        # 创建简化报告
+        simplified = {
+            'timestamp': report['timestamp'],
+            'total_tasks': report['total_tasks'],
+            'hexagram_mappings': report['hexagram_adapter']['hexagram_manager']['total_mappings'],
+            'quality_score': report.get('hexagram_statistics', {}).get('quality_scores', {}).get('average', 0)
+        }
+
+        with open('reports/hexagram_summary.json', 'w') as f:
+            json.dump(simplified, f, indent=2)
+        "
+
+    - name: Upload analysis reports
+      uses: actions/upload-artifact@v3
+      if: always()
+      with:
+        name: hexagram-analysis
+        path: |
+          reports/
+
+  quality-gate:
+    name: Quality Gate Evaluation
+    runs-on: ubuntu-latest
+    needs: [quality-checks, tests, hexagram-analysis]
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Download test artifacts
+      uses: actions/download-artifact@v3
+      with:
+        name: test-results
+        path: artifacts/test-results
+
+    - name: Download hexagram analysis
+      uses: actions/download-artifact@v3
+      with:
+        name: hexagram-analysis
+        path: artifacts/hexagram-analysis
+
+    - name: Evaluate quality gates
+      run: |
+        echo "=== 质量门禁评估 ==="
+        echo ""
+
+        # 门禁1: 测试覆盖率 >= 40%
+        echo "门禁1: 测试覆盖率 >= ${{ env.COVERAGE_THRESHOLD }}%"
+        if [ -f artifacts/test-results/coverage.xml ]; then
+          echo "✅ 覆盖率报告已生成"
+        else
+          echo "❌ 覆盖率报告缺失"
+          exit 1
+        fi
+
+        # 门禁2: 64卦系统运行正常
+        echo ""
+        echo "门禁2: 64卦状态系统完整性"
+        if [ -f artifacts/hexagram-analysis/hexagram_summary.json ]; then
+          echo "✅ 64卦分析报告已生成"
+        else
+          echo "❌ 64卦分析报告缺失"
+          exit 1
+        fi
+
+        # 门禁3: 代码质量工具通过
+        echo ""
+        echo "门禁3: 代码质量工具通过"
+        echo "✅ black, isort, flake8, mypy 检查已完成"
+
+        echo ""
+        echo "🎉 所有质量门禁通过!"
+        echo ""
+        echo "📊 质量指标:"
+        echo "- Python版本: ${{ env.PYTHON_VERSION }}"
+        echo "- 最小覆盖率: ${{ env.COVERAGE_THRESHOLD }}%"
+        echo "- 质量工具: black, isort, flake8, mypy, bandit"
+        echo "- 64卦状态验证: 集成测试通过"
+
+    - name: Create quality badge
+      run: |
+        echo "📈 创建质量徽章状态"
+        cat > quality-status.md << 'EOF'
+        # 质量状态报告
+
+        | 质量维度 | 状态 | 详情 |
+        |----------|------|------|
+        | 代码格式化 | ✅ 通过 | black 检查通过 |
+        | 导入排序 | ✅ 通过 | isort 检查通过 |
+        | 代码检查 | ✅ 通过 | flake8 检查通过 |
+        | 类型检查 | ✅ 通过 | mypy 检查通过 |
+        | 安全扫描 | ✅ 通过 | bandit 检查通过 |
+        | 测试覆盖率 | ⏳ 运行中 | 目标: ${{ env.COVERAGE_THRESHOLD }}% |
+        | 64卦系统 | ✅ 通过 | 状态分析正常 |
+
+        **最后更新**: $(date -u +"%Y-%m-%d %H:%M:%S UTC")
+
+        EOF
+
+        mkdir -p reports
+        mv quality-status.md reports/
+
+    - name: Upload quality report
+      uses: actions/upload-artifact@v3
+      if: always()
+      with:
+        name: quality-report
+        path: reports/quality-status.md
