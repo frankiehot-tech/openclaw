@@ -51,11 +51,8 @@ jobs:
           cache: pip
       - run: pip install pytest coverage -r requirements.txt
       - run: pytest --tb=short --timeout=60 -x 2>&1 | head -200
-        continue-on-error: true
       - run: coverage run -m pytest --tb=short --timeout=60 2>&1 | tail -20
-        continue-on-error: true
       - run: coverage report -m 2>&1 | head -50
-        continue-on-error: true
 
   security-bandit:
     name: Security (bandit)
@@ -68,7 +65,6 @@ jobs:
           cache: pip
       - run: pip install bandit==1.9.4
       - run: bandit -r scripts/ athena/ execution/ ops/ -x .venv,.venv311,.venvs,venv,comfyui_workspace --skip B101,B404,B603,B607 -ll 2>&1 | head -100
-        continue-on-error: true
 
   security-pip-audit:
     name: Security (pip-audit)
@@ -81,7 +77,6 @@ jobs:
           cache: pip
       - run: pip install pip-audit -r requirements.txt
       - run: pip-audit 2>&1 | head -50
-        continue-on-error: true
 
   secret-scan:
     name: Secret Scan (trufflehog)
@@ -96,4 +91,3 @@ jobs:
           base: ${{ github.event.before }}
           head: ${{ github.event.after }}
           extra_args: --only-verified=false --json 2>&1 | head -50
-        continue-on-error: true
