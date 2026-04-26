@@ -68,7 +68,10 @@ temp/
 .pytest_cache/
 .ruff_cache/
 .venv311/
-.claude/
+.claude/*
+!.claude/hooks/
+!.claude/skills/
+!.claude/settings.local.json
 .venvs/
 maref_sandbox/
 mini_agent/

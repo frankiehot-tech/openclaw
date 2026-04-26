@@ -1,0 +1,31 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(grep -E \"\\\\.sh$\")",
+      "Bash(python3 *)",
+      "Bash(ruff *)",
+      "Bash(mypy *)",
+      "Bash(git *)",
+      "Bash(npm *)",
+      "Bash(pip *)",
+      "Bash(jq *)",
+      "Bash(curl *)",
+      "Bash(ls *)",
+      "Bash(find *)",
+      "Bash(wc *)"
+    ]
+  },
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "Bash(git commit *)",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python3 .claude/hooks/pre_commit.py"
+          }
+        ]
+      }
+    ]
+  }
+}
