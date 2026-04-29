@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
+# DEPRECATED: 使用 governance/ 模块代替
+# governance_cli.py task <command>
 """直接将gene_mgmt_audit任务状态重置为pending"""
 
-import copy
 import json
-import os
 from datetime import datetime
 
 queue_file = (
@@ -20,7 +20,7 @@ shutil.copy2(queue_file, backup_file)
 print(f"📂 已创建备份: {backup_file}")
 
 # 读取队列文件
-with open(queue_file, "r", encoding="utf-8") as f:
+with open(queue_file, encoding="utf-8") as f:
     queue_data = json.load(f)
 
 # 检查gene_mgmt_audit任务
@@ -29,8 +29,8 @@ if "gene_mgmt_audit" not in queue_data.get("items", {}):
     exit(1)
 
 task_data = queue_data["items"]["gene_mgmt_audit"]
-print(f"📋 当前任务状态:")
-print(f"   ID: gene_mgmt_audit")
+print("📋 当前任务状态:")
+print("   ID: gene_mgmt_audit")
 print(f"   标题: {task_data.get('title')}")
 print(f"   状态: {task_data.get('status')}")
 print(f"   错误: {task_data.get('error', '无')}")
@@ -86,25 +86,25 @@ if "paused_reason" in queue_data:
 with open(queue_file, "w", encoding="utf-8") as f:
     json.dump(queue_data, f, indent=2, ensure_ascii=False)
 
-print(f"\n✅ 任务已重置:")
-print(f"   新状态: pending")
-print(f"   进度: 0%")
+print("\n✅ 任务已重置:")
+print("   新状态: pending")
+print("   进度: 0%")
 print(f"   重试计数: {task_data.get('retry_count', 0)}")
-print(f"   队列状态: running")
-print(f"   当前任务ID: gene_mgmt_audit")
+print("   队列状态: running")
+print("   当前任务ID: gene_mgmt_audit")
 
 # 验证写入
-print(f"\n🔍 验证写入...")
-with open(queue_file, "r", encoding="utf-8") as f:
+print("\n🔍 验证写入...")
+with open(queue_file, encoding="utf-8") as f:
     verify_data = json.load(f)
 
 verify_task = verify_data["items"]["gene_mgmt_audit"]
 print(f"   验证状态: {verify_task.get('status')}")
 print(f"   验证进度: {verify_task.get('progress_percent')}%")
 
-print(f"\n🚀 现在队列运行器应该能自动拾取并执行此任务。")
-print(f"💡 提示: 如果任务仍然失败，请检查:")
-print(f"   1. 预检验证是否通过 (已修复)")
-print(f"   2. 指令文件是否有效")
-print(f"   3. 系统资源是否充足")
-print(f"   4. API密钥配置是否正确")
+print("\n🚀 现在队列运行器应该能自动拾取并执行此任务。")
+print("💡 提示: 如果任务仍然失败，请检查:")
+print("   1. 预检验证是否通过 (已修复)")
+print("   2. 指令文件是否有效")
+print("   3. 系统资源是否充足")
+print("   4. API密钥配置是否正确")

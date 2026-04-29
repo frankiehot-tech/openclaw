@@ -4,16 +4,12 @@ OpenCode CLI优化方案文件移动和队列更新脚本
 将方案移动到AIplan目录并更新队列配置
 """
 
-import json
 import os
-import shutil
-from datetime import datetime
-from pathlib import Path
 
 
 def create_move_instructions():
     """创建文件移动操作指南"""
-    
+
     instructions = """# 📁 OpenCode CLI优化方案文件移动操作指南
 
 ## 🎯 目标
@@ -141,16 +137,16 @@ shutil.copy2(
 3. JSON格式是否正确
 4. 队列运行器是否正常运行
 """
-    
+
     return instructions
+
 
 def create_queue_update_script():
     """创建队列更新脚本"""
-    
-    script_content = """#!/usr/bin/env python3
+
+    script_content = '''#!/usr/bin/env python3
 """
 OpenCode CLI优化方案队列配置更新脚本
-更新队列状态文件和配置文件中的文件路径
 """
 
 import json
@@ -159,34 +155,34 @@ from datetime import datetime
 
 def update_queue_state_file():
     """更新队列状态文件中的文件路径"""
-    
+
     queue_state_file = "/Volumes/1TB-M2/openclaw/.openclaw/plan_queue/openhuman_aiplan_plan_manual_20260328.json"
-    
+
     if not os.path.exists(queue_state_file):
         print(f"❌ 队列状态文件不存在: {queue_state_file}")
         return False
-    
+
     try:
         # 加载队列状态
         with open(queue_state_file, 'r', encoding='utf-8') as f:
             queue_state = json.load(f)
-        
+
         # 更新OpenCode CLI优化任务的instruction_path
         items = queue_state.get('items', {})
         if 'opencode_cli_optimization' in items:
             items['opencode_cli_optimization']['instruction_path'] = \
                 "/Volumes/1TB-M2/openclaw/Documents/Athena知识库/执行项目/2026/003-open human（碳硅基共生）/007-AI-plan/OpenHuman-OpenCode-CLI-优化与Athena深度集成方案.md"
-            
+
             print("✅ 队列状态文件中的文件路径已更新")
         else:
             print("⚠️ 队列状态文件中未找到OpenCode CLI优化任务")
-        
+
         # 保存更新
         with open(queue_state_file, 'w', encoding='utf-8') as f:
             json.dump(queue_state, f, indent=2, ensure_ascii=False)
-        
+
         return True
-        
+
     except Exception as e:
         print(f"❌ 更新队列状态文件失败: {e}")
         return False
@@ -194,7 +190,7 @@ def update_queue_state_file():
 def main():
     """主函数"""
     print("🔧 OpenCode CLI优化方案队列配置更新工具")
-    
+
     if update_queue_state_file():
         print("✅ 队列配置更新完成")
     else:
@@ -202,103 +198,58 @@ def main():
 
 if __name__ == "__main__":
     main()
-"""
-    
+'''
+
     script_path = "/Volumes/1TB-M2/openclaw/update_queue_config.py"
-    
+
     try:
-        with open(script_path, 'w', encoding='utf-8') as f:
+        with open(script_path, "w", encoding="utf-8") as f:
             f.write(script_content)
-        
+
         # 设置执行权限
         os.chmod(script_path, 0o755)
-        
+
         print(f"✅ 队列更新脚本已创建: {script_path}")
         return script_path
-        
+
     except Exception as e:
         print(f"❌ 创建队列更新脚本失败: {e}")
         return None
 
+
 def main():
     """主函数"""
     print("=" * 60)
     print("📁 OpenCode CLI优化方案文件移动和队列更新工具")
     print("=" * 60)
-    
+
     # 创建操作指南
     instructions = create_move_instructions()
     instructions_file = "/Volumes/1TB-M2/openclaw/opencode_plan_move_instructions.md"
-    
+
     try:
-        with open(instructions_file, 'w', encoding='utf-8') as f:
+        with open(instructions_file, "w", encoding="utf-8") as f:
             f.write(instructions)
-        
+
         print(f"✅ 操作指南已创建: {instructions_file}")
-        
+
     except Exception as e:
         print(f"❌ 创建操作指南失败: {e}")
         return
-    
+
     # 创建队列更新脚本
-    script_path = create_queue_update_script()
-    
+    create_queue_update_script()
+
     print("\n🎯 下一步操作:")
     print("1. 手动执行文件复制操作（见操作指南）")
     print("2. 运行队列更新脚本: python3 update_queue_config.py")
     print("3. 验证队列状态和文件位置")
-    
+
     print(f"\n📋 详细操作指南见: {instructions_file}")
+
 
 if __name__ == "__main__":
     main()
-"""
-    
-    script_path = "/Volumes/1TB-M2/openclaw/move_opencode_plan_to_aiplan.py"
-    
-    try:
-        with open(script_path, 'w', encoding='utf-8') as f:
-            f.write(script_content)
-        
-        # 设置执行权限
-        os.chmod(script_path, 0o755)
-        
-        print(f"✅ 文件移动工具已创建: {script_path}")
-        return script_path
-        
-    except Exception as e:
-        print(f"❌ 创建文件移动工具失败: {e}")
-        return None
-
-def main():
-    """主函数"""
-    print("=" * 60)
-    print("📁 OpenCode CLI优化方案文件移动和队列更新工具")
-    print("=" * 60)
-    
-    # 创建操作指南
-    instructions = create_move_instructions()
-    instructions_file = "/Volumes/1TB-M2/openclaw/opencode_plan_move_instructions.md"
-    
-    try:
-        with open(instructions_file, 'w', encoding='utf-8') as f:
-            f.write(instructions)
-        
-        print(f"✅ 操作指南已创建: {instructions_file}")
-        
-    except Exception as e:
-        print(f"❌ 创建操作指南失败: {e}")
-        return
-    
-    # 创建队列更新脚本
-    script_path = create_queue_update_script()
-    
-    print("\n🎯 下一步操作:")
-    print("1. 手动执行文件复制操作（见操作指南）")
-    print("2. 运行队列更新脚本: python3 update_queue_config.py")
-    print("3. 验证队列状态和文件位置")
-    
-    print(f"\n📋 详细操作指南见: {instructions_file}")
 
 if __name__ == "__main__":
     main()

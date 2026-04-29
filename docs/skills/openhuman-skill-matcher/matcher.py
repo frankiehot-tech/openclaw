@@ -5,16 +5,14 @@ OpenHuman Skill-Matcher v1.0
 权重: 40(技能) / 30(经验) / 20(地点) / 10(其他)
 """
 
-import math
 from dataclasses import dataclass
-from typing import Dict, List, Optional
 
 
 @dataclass
 class SkillProfile:
     """技能画像"""
 
-    skills: List[str]
+    skills: list[str]
     experience_years: float
     location: str
     availability: str
@@ -25,7 +23,7 @@ class SkillProfile:
 class JobRequirement:
     """职位需求"""
 
-    required_skills: List[str]
+    required_skills: list[str]
     min_experience: float
     location: str
     budget: float
@@ -43,7 +41,7 @@ class SkillMatcher:
     def __init__(self):
         self.match_history = []
 
-    def calculate_similarity(self, skills1: List[str], skills2: List[str]) -> float:
+    def calculate_similarity(self, skills1: list[str], skills2: list[str]) -> float:
         """计算技能相似度"""
         if not skills1 or not skills2:
             return 0.0
@@ -78,7 +76,7 @@ class SkillMatcher:
             "西北": ["西安"],
         }
 
-        for region, cities in regions.items():
+        for _region, cities in regions.items():
             if profile_loc in cities and job_loc in cities:
                 return 0.7  # 同区域高分
 
@@ -88,7 +86,7 @@ class SkillMatcher:
 
         return 0.2  # 降低到 0.2，保留基础分
 
-    def match(self, profile: SkillProfile, requirement: JobRequirement) -> Dict:
+    def match(self, profile: SkillProfile, requirement: JobRequirement) -> dict:
         """执行匹配计算"""
 
         # 1. 技能匹配 (40%)

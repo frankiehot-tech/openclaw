@@ -1,0 +1,87 @@
+{
+  "version": "1.0",
+  "description": "基准测试任务集 - 低风险导航任务",
+  "device": "Samsung Galaxy Z Flip3",
+  "tasks": [
+    {
+      "name": "打开设置",
+      "task": "打开设置",
+      "category": "navigation",
+      "max_steps": 5,
+      "expected_success_signal": "设置",
+      "allowed_action_sources": ["ocr_grounding", "model_inference", "fallback"],
+      "risk_level": "low",
+      "priority": "high"
+    },
+    {
+      "name": "返回上一级",
+      "task": "返回上一级",
+      "category": "navigation",
+      "max_steps": 3,
+      "expected_success_signal": "返回",
+      "allowed_action_sources": ["ocr_grounding", "model_inference", "fallback"],
+      "risk_level": "low",
+      "priority": "high"
+    },
+    {
+      "name": "回到主屏幕",
+      "task": "回到主屏幕",
+      "category": "navigation",
+      "max_steps": 3,
+      "expected_success_signal": "主屏幕",
+      "allowed_action_sources": ["ocr_grounding", "model_inference", "fallback"],
+      "risk_level": "low",
+      "priority": "high"
+    },
+    {
+      "name": "打开浏览器",
+      "task": "打开浏览器",
+      "category": "app_launch",
+      "max_steps": 5,
+      "expected_success_signal": "浏览器",
+      "allowed_action_sources": ["ocr_grounding", "model_inference", "fallback"],
+      "risk_level": "low",
+      "priority": "medium"
+    },
+    {
+      "name": "点击搜索",
+      "task": "点击搜索",
+      "category": "interaction",
+      "max_steps": 3,
+      "expected_success_signal": "搜索",
+      "allowed_action_sources": ["ocr_grounding", "model_inference", "fallback"],
+      "risk_level": "low",
+      "priority": "medium"
+    },
+    {
+      "name": "向上滑动",
+      "task": "向上滑动",
+      "category": "gesture",
+      "max_steps": 3,
+      "expected_success_signal": "滑动",
+      "allowed_action_sources": ["ocr_grounding", "model_inference", "fallback"],
+      "risk_level": "low",
+      "priority": "medium"
+    },
+    {
+      "name": "打开WiFi页面",
+      "task": "打开 Wi-Fi 页面",
+      "category": "navigation",
+      "max_steps": 5,
+      "expected_success_signal": "Wi-Fi",
+      "allowed_action_sources": ["ocr_grounding", "model_inference", "fallback"],
+      "risk_level": "low",
+      "priority": "medium"
+    },
+    {
+      "name": "打开蓝牙页面",
+      "task": "打开蓝牙页面",
+      "category": "navigation",
+      "max_steps": 5,
+      "expected_success_signal": "蓝牙",
+      "allowed_action_sources": ["ocr_grounding", "model_inference", "fallback"],
+      "risk_level": "low",
+      "priority": "medium"
+    }
+  ]
+}

@@ -7,7 +7,7 @@
 import json
 import os
 import sys
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 
 # 导入原脚本中的函数
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
@@ -22,7 +22,7 @@ def load_queue_data():
         print(f"❌ 队列文件不存在: {queue_file}")
         return None
 
-    with open(queue_file, "r", encoding="utf-8") as f:
+    with open(queue_file, encoding="utf-8") as f:
         return json.load(f)
 
 
@@ -85,7 +85,7 @@ def verify_system_state(data):
                 }
             )
 
-    print(f"\n🔑 关键任务状态:")
+    print("\n🔑 关键任务状态:")
     for ct in critical_tasks:
         print(f"  - {ct['id']}: {ct['status']} (进度: {ct['progress']}%)")
 
@@ -102,7 +102,7 @@ def complete_pending_tasks(data, task_ids=None):
     完成指定的pending任务
     task_ids: 要完成的任务ID列表，如果为None则完成所有pending任务
     """
-    print(f"\n📝 处理pending任务...")
+    print("\n📝 处理pending任务...")
 
     completed_tasks = []
     for task in data.get("items", []):
@@ -111,9 +111,7 @@ def complete_pending_tasks(data, task_ids=None):
 
         # 检查是否需要处理此任务
         should_complete = False
-        if task_ids is None and current_status == "pending":
-            should_complete = True
-        elif task_id in (task_ids or []):
+        if task_ids is None and current_status == "pending" or task_id in (task_ids or []):
             should_complete = True
 
         if should_complete:
@@ -123,7 +121,7 @@ def complete_pending_tasks(data, task_ids=None):
             # 更新状态
             task["status"] = "completed"
             task["progress_percent"] = 100
-            task["updated_at"] = datetime.now(timezone.utc).isoformat()
+            task["updated_at"] = datetime.now(UTC).isoformat()
 
             # 添加完成记录
             if "closeout_history" not in task:
@@ -131,7 +129,7 @@ def complete_pending_tasks(data, task_ids=None):
 
             task["closeout_history"].append(
                 {
-                    "timestamp": datetime.now(timezone.utc).isoformat(),
+                    "timestamp": datetime.now(UTC).isoformat(),
                     "old_status": old_status,
                     "new_status": "completed",
                     "old_progress": old_progress,
@@ -166,7 +164,7 @@ def complete_manual_hold_task(data, task_id, reason="final_closeout"):
             # 更新状态
             task["status"] = "completed"
             task["progress_percent"] = 100
-            task["updated_at"] = datetime.now(timezone.utc).isoformat()
+            task["updated_at"] = datetime.now(UTC).isoformat()
 
             # 添加完成记录
             if "closeout_history" not in task:
@@ -174,7 +172,7 @@ def complete_manual_hold_task(data, task_id, reason="final_closeout"):
 
             task["closeout_history"].append(
                 {
-                    "timestamp": datetime.now(timezone.utc).isoformat(),
+                    "timestamp": datetime.now(UTC).isoformat(),
                     "old_status": old_status,
                     "new_status": "completed",
                     "old_progress": old_progress,
@@ -192,7 +190,7 @@ def complete_manual_hold_task(data, task_id, reason="final_closeout"):
 
 def generate_final_report(data, verification_result):
     """生成最终报告"""
-    print(f"\n📄 生成最终报告...")
+    print("\n📄 生成最终报告...")
 
     timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
     report_dir = "/Volumes/1TB-M2/openclaw/.openclaw/reports"
@@ -206,7 +204,7 @@ def generate_final_report(data, verification_result):
         f.write("=" * 80 + "\n\n")
 
         f.write(f"生成时间: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}\n")
-        f.write(f"队列文件: openhuman_aiplan_priority_execution_20260414.json\n\n")
+        f.write("队列文件: openhuman_aiplan_priority_execution_20260414.json\n\n")
 
         f.write("## 系统状态摘要\n")
         f.write(f"- 总任务数: {verification_result['total_tasks']}\n")
@@ -256,7 +254,7 @@ def main():
     print("\n📋 自动选择: 完成所有pending和manual_hold任务")
 
     # 完成所有pending任务
-    completed_pending = complete_pending_tasks(data)
+    complete_pending_tasks(data)
 
     # 完成manual_hold任务
     manual_hold_tasks = []
@@ -268,7 +266,7 @@ def main():
         complete_manual_hold_task(data, task_id, "batch_closeout")
 
     # 4. 保存更新后的数据
-    print(f"\n💾 保存队列数据...")
+    print("\n💾 保存队列数据...")
     counts = save_queue_data(data)
     print(f"✅ 队列状态已更新: {counts}")
 
@@ -276,7 +274,7 @@ def main():
     report_file = generate_final_report(data, verification_result)
 
     # 6. 显示完成摘要
-    print(f"\n🎉 收尾工作流程完成!")
+    print("\n🎉 收尾工作流程完成!")
     print(f"📄 报告文件: {report_file}")
     print(f"📊 最终状态: {counts}")
     print(

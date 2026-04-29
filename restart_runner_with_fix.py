@@ -7,6 +7,7 @@
 4. 验证修复成功
 """
 
+import contextlib
 import json
 import os
 import signal
@@ -63,10 +64,8 @@ def stop_runner(pids):
 
     print("警告: 进程未完全退出，尝试强制终止")
     for pid in pids:
-        try:
+        with contextlib.suppress(BaseException):
             os.kill(pid, signal.SIGKILL)
-        except:
-            pass
     time.sleep(1)
     return True
 
@@ -76,7 +75,7 @@ def update_queue_status():
     print("更新队列状态...")
 
     try:
-        with open(QUEUE_FILE, "r", encoding="utf-8") as f:
+        with open(QUEUE_FILE, encoding="utf-8") as f:
             data = json.load(f)
 
         old_status = data.get("queue_status", "unknown")
@@ -109,7 +108,7 @@ def update_queue_status():
         print(f"已更新queue_status: {old_status} -> running")
 
         # 验证
-        with open(QUEUE_FILE, "r", encoding="utf-8") as f:
+        with open(QUEUE_FILE, encoding="utf-8") as f:
             saved = json.load(f)
 
         if saved.get("queue_status") == "running":
@@ -152,7 +151,7 @@ def start_runner():
             return process.pid
         else:
             stdout, stderr = process.communicate(timeout=1)
-            print(f"❌ 队列运行器启动失败")
+            print("❌ 队列运行器启动失败")
             print(f"stdout: {stdout.decode('utf-8', errors='ignore')[:200]}")
             print(f"stderr: {stderr.decode('utf-8', errors='ignore')[:200]}")
             return None
@@ -200,7 +199,7 @@ def main():
 
     # 检查队列状态
     try:
-        with open(QUEUE_FILE, "r", encoding="utf-8") as f:
+        with open(QUEUE_FILE, encoding="utf-8") as f:
             data = json.load(f)
         status = data.get("queue_status", "unknown")
         if status == "running":

@@ -5,9 +5,7 @@ AIAG 身份网关 - 身份保险库与 Z Flip3 OTP 路由硬化
 """
 
 import json
-import os
 import subprocess
-import time
 from datetime import datetime
 from pathlib import Path
 
@@ -116,7 +114,7 @@ def load_credential_vault() -> dict:
         return {"identities": []}
 
     try:
-        with open(vault_path, "r") as f:
+        with open(vault_path) as f:
             return json.load(f)
     except Exception as e:
         log(f"⚠️ 保险库加载失败: {e}")
@@ -169,7 +167,7 @@ def test_nft_matching(nft_id: str) -> dict:
         "timestamp": datetime.now().isoformat(),
     }
 
-    log(f"✅ 撮合测试完成: 胜率 {result['match_rate']*100}%")
+    log(f"✅ 撮合测试完成: 胜率 {result['match_rate'] * 100}%")
     return result
 
 

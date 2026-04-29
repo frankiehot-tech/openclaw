@@ -1,4 +1,6 @@
 #!/usr/bin/env python3
+# DEPRECATED: 使用 governance/ 模块代替
+# governance_cli.py <command>
 """
 手动队列修复脚本
 直接强制更新queue_status为running，确保写入成功
@@ -14,7 +16,7 @@ QUEUE_FILE = (
 
 
 def load_queue():
-    with open(QUEUE_FILE, "r", encoding="utf-8") as f:
+    with open(QUEUE_FILE, encoding="utf-8") as f:
         return json.load(f)
 
 
@@ -37,7 +39,7 @@ def save_queue(data):
     print(f"已保存: {QUEUE_FILE}")
 
     # 验证
-    with open(QUEUE_FILE, "r", encoding="utf-8") as f:
+    with open(QUEUE_FILE, encoding="utf-8") as f:
         saved = json.load(f)
 
     if saved.get("queue_status") == data.get("queue_status"):

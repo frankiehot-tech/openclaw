@@ -2,22 +2,31 @@
 import subprocess
 import sys
 import os
+import shutil
+from pathlib import Path
 
-os.chdir("/Volumes/1TB-M2/openclaw")
+project_root = Path(__file__).resolve().parent.parent.parent
+os.chdir(project_root)
+
+venv_bin = project_root / ".venv" / "bin"
+
+def find_tool(name: str) -> str:
+    venv_path = venv_bin / name
+    if venv_path.exists():
+        return str(venv_path)
+    return shutil.which(name) or name
 
 errors = []
 
-# ruff check
 r = subprocess.run(
-    ["ruff", "check", "scripts/", "athena/", "execution/", "ops/", "--output-format=concise"],
+    [find_tool("ruff"), "check", "scripts/", "athena/", "execution/", "ops/", "--output-format=concise"],
     capture_output=True, text=True
 )
 if r.returncode != 0:
     errors.append(f"ruff check failed:\n{r.stdout}\n{r.stderr}")
 
-# mypy quick
 r = subprocess.run(
-    ["mypy", "scripts/", "athena/", "execution/", "ops/",
+    [find_tool("mypy"), "scripts/", "athena/", "execution/", "ops/",
      "--ignore-missing-imports", "--show-error-codes", "--no-error-summary"],
     capture_output=True, text=True
 )
@@ -30,7 +39,7 @@ if errors:
         print(e, file=sys.stderr)
     print("=" * 60, file=sys.stderr)
     print("Pre-commit checks failed. Fix issues or use --no-verify to bypass.", file=sys.stderr)
-    sys.exit(1)
+    sys.exit(2)
 
 print("pre_commit: ruff + mypy OK")
 sys.exit(0)

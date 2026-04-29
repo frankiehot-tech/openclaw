@@ -1,4 +1,6 @@
 #!/usr/bin/env python3
+# DEPRECATED: 使用 governance/ 模块代替
+# governance_cli.py task <command>
 """
 重置目标任务状态为pending
 """
@@ -12,7 +14,7 @@ def main():
     state_file = ".openclaw/plan_queue/openhuman_aiplan_build_priority_20260328.json"
     task_id = "-Agent-基因递归演进-engineering-plan-20260413-095313-task-20260413-095313"
 
-    with open(state_file, "r", encoding="utf-8") as f:
+    with open(state_file, encoding="utf-8") as f:
         data = json.load(f)
 
     if task_id not in data.get("items", {}):
@@ -20,8 +22,8 @@ def main():
         return 1
 
     task = data["items"][task_id]
-    print(f'当前任务状态: {task.get("status")}')
-    print(f'当前错误: {task.get("error", "空")}')
+    print(f"当前任务状态: {task.get('status')}")
+    print(f"当前错误: {task.get('error', '空')}")
 
     # 重置任务状态
     task["status"] = "pending"
@@ -55,7 +57,7 @@ def main():
 
     # 重新计算counts
     counts = {"pending": 0, "running": 0, "completed": 0, "failed": 0, "manual_hold": 0}
-    for item_id, item in data.get("items", {}).items():
+    for _item_id, item in data.get("items", {}).items():
         status = item.get("status", "pending")
         if status in counts:
             counts[status] += 1
@@ -82,13 +84,13 @@ def main():
 
     # 验证manifest中的autostart
     manifest_file = ".openclaw/plan_queue/openhuman_aiplan_priority_execution_20260414.json"
-    with open(manifest_file, "r", encoding="utf-8") as f:
+    with open(manifest_file, encoding="utf-8") as f:
         manifest_data = json.load(f)
 
     for item in manifest_data.get("items", []):
         if item.get("id") == task_id:
             metadata = item.get("metadata", {})
-            if metadata.get("autostart") != True:
+            if not metadata.get("autostart"):
                 print("⚠️  manifest中autostart不为True，正在修复...")
                 metadata["autostart"] = True
                 item["metadata"] = metadata
@@ -99,7 +101,7 @@ def main():
                 shutil.copy2(manifest_file, manifest_backup)
                 with open(manifest_file, "w", encoding="utf-8") as f:
                     json.dump(manifest_data, f, ensure_ascii=False, indent=2)
-                print(f"✅ 修复manifest autostart=True")
+                print("✅ 修复manifest autostart=True")
             else:
                 print("✅ manifest中autostart已为True")
             break

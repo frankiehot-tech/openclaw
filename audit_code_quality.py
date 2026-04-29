@@ -15,12 +15,11 @@ import json
 import math
 import os
 import re
-import subprocess
 import sys
-from collections import Counter, defaultdict
+from collections import Counter
 from datetime import datetime
 from pathlib import Path
-from typing import Any, Dict, List, Optional, Tuple
+from typing import Any
 
 # 添加项目根目录到路径
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
@@ -29,7 +28,7 @@ try:
     from config.paths import ROOT_DIR
 
     BASE_DIR = ROOT_DIR
-    print(f"✅ 使用config.paths模块配置路径")
+    print("✅ 使用config.paths模块配置路径")
 except ImportError as e:
     print(f"⚠️  警告: 无法导入路径配置模块: {e}")
     print("   使用回退的硬编码路径...")
@@ -68,9 +67,9 @@ class CodeQualityAuditor:
             "issues": [],
         }
 
-    def analyze_file_complexity(self, file_path: Path) -> Dict[str, Any]:
+    def analyze_file_complexity(self, file_path: Path) -> dict[str, Any]:
         """分析文件复杂度"""
-        with open(file_path, "r", encoding="utf-8") as f:
+        with open(file_path, encoding="utf-8") as f:
             content = f.read()
 
         analysis = {
@@ -94,7 +93,7 @@ class CodeQualityAuditor:
                     analysis["functions"] += 1
                 elif isinstance(node, ast.ClassDef):
                     analysis["classes"] += 1
-                elif isinstance(node, ast.Import) or isinstance(node, ast.ImportFrom):
+                elif isinstance(node, (ast.Import, ast.ImportFrom)):
                     analysis["imports"] += 1
 
             # 计算注释比例
@@ -141,9 +140,9 @@ class CodeQualityAuditor:
 
         return analysis
 
-    def check_code_style(self, file_path: Path) -> Dict[str, Any]:
+    def check_code_style(self, file_path: Path) -> dict[str, Any]:
         """检查代码风格"""
-        with open(file_path, "r", encoding="utf-8") as f:
+        with open(file_path, encoding="utf-8") as f:
             content = f.read()
 
         issues = []
@@ -183,7 +182,7 @@ class CodeQualityAuditor:
         # 检查类型注解
         function_pattern = r"def\s+(\w+)\s*\((.*?)\)\s*(->\s*[\w\[\],\s]+)?:"
         functions = re.findall(function_pattern, content, re.DOTALL)
-        for func_name, params, return_type in functions:
+        for func_name, _params, return_type in functions:
             if not return_type:
                 issues.append(
                     {
@@ -217,9 +216,9 @@ class CodeQualityAuditor:
             "detailed_issues": issues[:20],  # 只显示前20个详细问题
         }
 
-    def analyze_dependencies(self, file_path: Path) -> Dict[str, Any]:
+    def analyze_dependencies(self, file_path: Path) -> dict[str, Any]:
         """分析文件依赖关系"""
-        with open(file_path, "r", encoding="utf-8") as f:
+        with open(file_path, encoding="utf-8") as f:
             content = f.read()
 
         dependencies = {
@@ -253,9 +252,11 @@ class CodeQualityAuditor:
                         module = alias.name
                         dependencies["imports"].append(module)
 
-                        if module in standard_lib_modules:
-                            dependencies["standard_library"].append(module)
-                        elif "." in module and module.split(".")[0] in standard_lib_modules:
+                        if (
+                            module in standard_lib_modules
+                            or "." in module
+                            and module.split(".")[0] in standard_lib_modules
+                        ):
                             dependencies["standard_library"].append(module)
                         elif module.startswith("."):
                             dependencies["local_imports"].append(module)
@@ -266,9 +267,11 @@ class CodeQualityAuditor:
                     module = node.module or ""
                     dependencies["imports"].append(module)
 
-                    if module in standard_lib_modules:
-                        dependencies["standard_library"].append(module)
-                    elif "." in module and module.split(".")[0] in standard_lib_modules:
+                    if (
+                        module in standard_lib_modules
+                        or "." in module
+                        and module.split(".")[0] in standard_lib_modules
+                    ):
                         dependencies["standard_library"].append(module)
                     elif module.startswith("."):
                         dependencies["local_imports"].append(module)
@@ -285,7 +288,7 @@ class CodeQualityAuditor:
 
         return dependencies
 
-    def calculate_maintainability_index(self, file_analysis: Dict[str, Any]) -> float:
+    def calculate_maintainability_index(self, file_analysis: dict[str, Any]) -> float:
         """计算可维护性指数（简化版本）"""
         lines = file_analysis.get("lines", 1)
         complexity = file_analysis.get("cyclomatic_complexity", 1)
@@ -309,12 +312,12 @@ class CodeQualityAuditor:
 
             # 限制在0-100之间
             mi = max(0, min(100, mi))
-        except:
+        except Exception:
             mi = 50  # 默认值
 
         return round(mi, 2)
 
-    def run_audit(self) -> Dict[str, Any]:
+    def run_audit(self) -> dict[str, Any]:
         """运行综合代码质量审计"""
         print("=" * 80)
         print("🔍 代码质量详细审计开始")
@@ -395,8 +398,8 @@ class CodeQualityAuditor:
             return "POOR"
 
     def generate_summary(
-        self, file_analyses: Dict, total_files: int, total_issues: int
-    ) -> Dict[str, Any]:
+        self, file_analyses: dict, total_files: int, total_issues: int
+    ) -> dict[str, Any]:
         """生成审计摘要"""
         maintainability_scores = [fa["maintainability_index"] for fa in file_analyses.values()]
         complexity_scores = [
@@ -432,7 +435,7 @@ class CodeQualityAuditor:
 
         return summary
 
-    def calculate_quality_metrics(self, file_analyses: Dict) -> Dict[str, Any]:
+    def calculate_quality_metrics(self, file_analyses: dict) -> dict[str, Any]:
         """计算质量指标"""
         metrics = {
             "maintainability_metrics": {},
@@ -470,7 +473,7 @@ class CodeQualityAuditor:
 
         # 依赖指标
         external_deps = []
-        for file_path, fa in file_analyses.items():
+        for _file_path, fa in file_analyses.items():
             external_deps.extend(fa["dependencies"].get("external_imports", []))
 
         metrics["dependencies_metrics"] = {
@@ -482,13 +485,13 @@ class CodeQualityAuditor:
         return metrics
 
     def calculate_distribution(
-        self, values: List[float], thresholds: List[float]
-    ) -> Dict[str, int]:
+        self, values: list[float], thresholds: list[float]
+    ) -> dict[str, int]:
         """计算值在阈值区间的分布"""
         distribution = {f"below_{thresholds[0]}": 0}
         for i in range(len(thresholds)):
             if i < len(thresholds) - 1:
-                key = f"{thresholds[i]}-{thresholds[i+1]}"
+                key = f"{thresholds[i]}-{thresholds[i + 1]}"
             else:
                 key = f"above_{thresholds[-1]}"
             distribution[key] = 0
@@ -500,7 +503,7 @@ class CodeQualityAuditor:
                     if i == 0:
                         distribution[f"below_{thresholds[0]}"] += 1
                     else:
-                        distribution[f"{thresholds[i-1]}-{thresholds[i]}"] += 1
+                        distribution[f"{thresholds[i - 1]}-{thresholds[i]}"] += 1
                     placed = True
                     break
             if not placed:
@@ -530,10 +533,10 @@ class CodeQualityAuditor:
         metrics = self.results["quality_metrics"]
 
         with open(output_path, "w", encoding="utf-8") as f:
-            f.write(f"# 代码质量审计报告\n")
+            f.write("# 代码质量审计报告\n")
             f.write(f"生成时间: {datetime.now().strftime('%Y-%m-%dT%H:%M:%S')}\n\n")
 
-            f.write(f"## 📊 审计摘要\n")
+            f.write("## 📊 审计摘要\n")
             f.write(f"- **审计文件总数**: {summary['total_files_audited']}\n")
             f.write(f"- **总代码行数**: {summary['total_lines_of_code']}\n")
             f.write(f"- **总函数数**: {summary['total_functions']}\n")
@@ -541,39 +544,39 @@ class CodeQualityAuditor:
             f.write(f"- **平均可维护性指数**: {summary['average_maintainability']}/100\n")
             f.write(f"- **平均圈复杂度**: {summary['average_complexity']}\n\n")
 
-            f.write(f"## 🏆 质量等级分布\n")
+            f.write("## 🏆 质量等级分布\n")
             for quality, count in summary["quality_distribution"].items():
                 percentage = (count / summary["total_files_audited"]) * 100
                 f.write(f"- **{quality}**: {count}个文件 ({percentage:.1f}%)\n")
 
             if summary["files_needing_attention"]:
-                f.write(f"\n## ⚠️ 需要关注的文件\n")
+                f.write("\n## ⚠️ 需要关注的文件\n")
                 for file_path in summary["files_needing_attention"]:
                     f.write(f"- `{file_path}`\n")
 
-            f.write(f"\n## 📈 关键指标\n")
+            f.write("\n## 📈 关键指标\n")
             if metrics.get("maintainability_metrics"):
                 mm = metrics["maintainability_metrics"]
-                f.write(f"### 可维护性指标\n")
+                f.write("### 可维护性指标\n")
                 f.write(f"- **最低分**: {mm['min']}/100\n")
                 f.write(f"- **最高分**: {mm['max']}/100\n")
                 f.write(f"- **平均分**: {mm['average']}/100\n")
 
             if metrics.get("complexity_metrics"):
                 cm = metrics["complexity_metrics"]
-                f.write(f"\n### 复杂度指标\n")
+                f.write("\n### 复杂度指标\n")
                 f.write(f"- **平均圈复杂度**: {cm['average']}\n")
                 if cm.get("high_complexity_files"):
                     f.write(
                         f"- **高复杂度文件** (圈复杂度>15): {len(cm['high_complexity_files'])}个\n"
                     )
 
-            f.write(f"\n## 🛠️ 改进建议\n")
-            f.write(f"1. **高复杂度文件重构**: 优先重构圈复杂度超过15的文件\n")
-            f.write(f"2. **代码风格统一**: 解决发现的所有代码风格问题\n")
-            f.write(f"3. **增加测试覆盖**: 为重点文件增加单元测试\n")
-            f.write(f"4. **依赖管理优化**: 减少不必要的外部依赖\n")
-            f.write(f"5. **文档完善**: 为复杂函数增加文档字符串\n")
+            f.write("\n## 🛠️ 改进建议\n")
+            f.write("1. **高复杂度文件重构**: 优先重构圈复杂度超过15的文件\n")
+            f.write("2. **代码风格统一**: 解决发现的所有代码风格问题\n")
+            f.write("3. **增加测试覆盖**: 为重点文件增加单元测试\n")
+            f.write("4. **依赖管理优化**: 减少不必要的外部依赖\n")
+            f.write("5. **文档完善**: 为复杂函数增加文档字符串\n")
 
 
 def main():
@@ -590,7 +593,7 @@ def main():
     print("=" * 80)
 
     summary = results["summary"]
-    print(f"\n📋 审计结果摘要:")
+    print("\n📋 审计结果摘要:")
     print(f"   审计文件数: {summary['total_files_audited']}")
     print(f"   总代码行数: {summary['total_lines_of_code']}")
     print(f"   发现问题数: {summary['total_issues']}")
@@ -599,7 +602,7 @@ def main():
 
     # 显示需要关注的文件
     if summary["files_needing_attention"]:
-        print(f"\n⚠️  需要关注的文件:")
+        print("\n⚠️  需要关注的文件:")
         for file_path in summary["files_needing_attention"]:
             print(f"   - {file_path}")
 

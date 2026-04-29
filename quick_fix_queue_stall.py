@@ -1,4 +1,6 @@
 #!/usr/bin/env python3
+# DEPRECATED: 使用 governance/ 模块代替
+# governance_cli.py repair <command> 或 governance_cli.py queue fix
 """
 快速修复队列停滞问题
 直接更新openhuman_aiplan_build_priority_20260328队列
@@ -18,7 +20,7 @@ BACKUP_FILE = f"{QUEUE_FILE}.backup_quickfix"
 
 def load_queue():
     """加载队列文件"""
-    with open(QUEUE_FILE, "r", encoding="utf-8") as f:
+    with open(QUEUE_FILE, encoding="utf-8") as f:
         return json.load(f)
 
 
@@ -46,7 +48,7 @@ def find_completed_deps_in_other_queues():
             continue
 
         try:
-            with open(file_path, "r", encoding="utf-8") as f:
+            with open(file_path, encoding="utf-8") as f:
                 queue_data = json.load(f)
 
             items = queue_data.get("items", {})
@@ -167,9 +169,9 @@ def fix_queue():
         current_status = queue_data.get("queue_status", "unknown")
         if current_status == "dependency_blocked" and not has_dependency_block:
             queue_data["queue_status"] = "running"
-            print(f"🔄 队列状态从 dependency_blocked 更新为 running")
+            print("🔄 队列状态从 dependency_blocked 更新为 running")
         elif current_status == "dependency_blocked" and has_dependency_block:
-            print(f"⚠️ 队列仍有依赖阻塞，保持 dependency_blocked 状态")
+            print("⚠️ 队列仍有依赖阻塞，保持 dependency_blocked 状态")
         else:
             print(f"📊 当前队列状态: {current_status}")
 
@@ -180,7 +182,7 @@ def fix_queue():
     pending_count = sum(1 for task in items.values() if task.get("status") == "pending")
     running_count = sum(1 for task in items.values() if task.get("status") == "running")
 
-    print(f"\n📊 修复后统计:")
+    print("\n📊 修复后统计:")
     print(f"  pending任务: {pending_count}")
     print(f"  running任务: {running_count}")
     print(f"  队列状态: {queue_data.get('queue_status', 'unknown')}")

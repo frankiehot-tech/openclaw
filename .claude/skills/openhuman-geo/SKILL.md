@@ -1,13 +1,49 @@
 ---
 name: openhuman-geo
-description: "OpenCLI 地理位置感知扫描技能 — 主权化 v1.1 版本 (GEO)，skill_nft 类型"
+description: "GEO 地理组织架构 — 16+16n 军团模式、EVO 五阶段进化"
+user-invocable: true
 ---
 
-# GEO 地理位置扫描
+# GEO 地理组织架构
 
-完整技能文档见: `docs/skills/openhuman-geo/SKILL.md`
+## 触发条件
+- 用户提到地理组织、军团、GEO
+- 用户需要配置 16+16n 军团结构
+- 用户提到 EVO 进化阶段
 
-## 概述
+## 执行步骤
 
-OpenCLI 地理位置感知扫描组件 — 主权化 v1.1。
-类型: skill_nft
+### 1. 16+16n 军团模式配置
+- 基础架构：16 个核心军团
+- 扩展规则：每个军团可扩展 n 个子军团
+- 地理分布：按区域划分军团职责
+- 指挥链：军团长 → 大队长 → 小队长 → 成员
+
+### 2. EVO 五阶段进化
+
+| 阶段 | 名称 | 目标 | 标志 |
+|------|------|------|------|
+| E1 | 萌芽 | 最小可运行单元 | skill-matcher 编码完成 |
+| E2 | 成型 | 核心功能闭环 | 20/80 入口上线 |
+| E3 | 扩张 | 生态网络建立 | 技能市场活跃 |
+| E4 | 成熟 | 自治运营 | SkillDAO 治理 |
+| E5 | 超越 | 跨域融合 | 多协议互通 |
+
+### 3. 军团调度
+- 基于河图洛书调度器分配任务
+- 八卦评估器评估军团状态
+- 三才引擎综合天地人三层评估
+
+## 输出格式
+```json
+{
+  "legion_count": 16,
+  "sub_legions": 0,
+  "evo_stage": "E1|E2|E3|E4|E5",
+  "dispatch_status": {
+    "active_tasks": 0,
+    "pending_tasks": 0,
+    "completed_tasks": 0
+  }
+}
+```

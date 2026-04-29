@@ -75,7 +75,6 @@ def backup_manifest_files(backup_dir):
 
 def backup_config_files(backup_dir):
     """备份配置文件"""
-    config_files = []
 
     # 查找配置文件
     potential_configs = [
@@ -141,7 +140,7 @@ def create_snapshot_report(backup_dir):
             file_count = 0
             total_size = 0
 
-            for root, dirs, files in os.walk(comp_dir):
+            for root, _dirs, files in os.walk(comp_dir):
                 file_count += len(files)
                 for file in files:
                     file_path = Path(root) / file
@@ -158,7 +157,7 @@ def create_snapshot_report(backup_dir):
                 report["components"]["configs"]["total_size"] = total_size
 
     # 计算校验和
-    for root, dirs, files in os.walk(backup_dir):
+    for root, _dirs, files in os.walk(backup_dir):
         for file in files:
             if file.endswith(".json") or file.endswith(".yaml") or file.endswith(".yml"):
                 file_path = Path(root) / file
@@ -167,7 +166,7 @@ def create_snapshot_report(backup_dir):
                         file_hash = hashlib.md5(f.read()).hexdigest()
                         rel_path = file_path.relative_to(backup_dir)
                         report["checksums"][str(rel_path)] = file_hash
-                except:
+                except Exception:
                     pass
 
     # 写入报告
@@ -187,7 +186,7 @@ def verify_backup_integrity(backup_dir):
         return False
 
     try:
-        with open(report_path, "r", encoding="utf-8") as f:
+        with open(report_path, encoding="utf-8") as f:
             report = json.load(f)
 
         print("🔍 验证备份完整性:")

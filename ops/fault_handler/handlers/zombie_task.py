@@ -8,10 +8,9 @@
 
 import json
 import logging
-import os
 import subprocess
 from pathlib import Path
-from typing import Any, Dict
+from typing import Any
 
 from ops.fault_handler.registry import (
     BaseFaultHandler,
@@ -43,10 +42,8 @@ class ZombieTaskHandler(BaseFaultHandler):
                     return True
         return False
 
-    def diagnose(self, ctx: FaultContext) -> Dict[str, Any]:
-        result = subprocess.run(
-            ["ps", "aux"], capture_output=True, text=True
-        )
+    def diagnose(self, ctx: FaultContext) -> dict[str, Any]:
+        result = subprocess.run(["ps", "aux"], capture_output=True, text=True)
         running_processes = result.stdout
 
         task_id = ctx.metadata.get("task_id", "")
@@ -74,7 +71,7 @@ class ZombieTaskHandler(BaseFaultHandler):
             item["fail_reason"] = "zombie_task: process not found"
             logger.info(f"已标记为僵尸: {task_id}")
 
-        with open(queue_file, 'w') as f:
+        with open(queue_file, "w") as f:
             json.dump(state, f, indent=2, ensure_ascii=False)
 
         return True

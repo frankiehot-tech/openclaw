@@ -1,4 +1,5 @@
 #!/bin/bash
+# DEPRECATED: 使用 governance_cli.py queue status 命令代替
 # Web界面与队列状态同步监控脚本
 
 SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"

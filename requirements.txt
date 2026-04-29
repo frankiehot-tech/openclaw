@@ -1,39 +1,27 @@
 # OpenClaw 项目依赖包
 # 此文件包含所有项目依赖和质量检查工具
+# 注意: flake8/black/isort/pydocstyle/radon 已被 ruff 替代，不再需要
 
 # === 核心依赖 ===
-# 基本系统依赖
 psutil>=5.9.0
 requests>=2.28.0
 PyYAML>=6.0
-
-# 任务调度和状态管理
-# （已包含在项目代码中）
+python-dotenv>=1.0.0
 
 # === 代码质量检查工具 ===
-# 根据 next_phase_engineering_plan_20260419.md 计划建立的质量门禁工具
-flake8>=6.0.0           # 代码规范检查
-mypy>=1.0.0            # 类型检查
-black>=23.0.0          # 代码格式化
-isort>=5.12.0          # 导入排序
-pydocstyle>=6.3.0      # 文档字符串检查
-radon>=5.1.0           # 代码复杂度分析
-coverage>=7.0.0        # 测试覆盖率
-pytest>=7.0.0          # 测试框架
-
-# === 可选依赖 ===
-# 邮件通知相关（已在 monitoring_config.yaml 中配置）
-# 无额外Python依赖
+ruff>=0.15.0
+mypy>=1.0.0
+coverage>=7.0.0
+pytest>=7.0.0
+bandit>=1.7.0
+pip-audit>=2.0.0
 
 # === 安装说明 ===
 # 1. 安装所有依赖：
 #    pip install -r requirements.txt
 #
 # 2. 仅安装核心依赖：
-#    pip install psutil requests PyYAML
+#    pip install psutil requests PyYAML python-dotenv
 #
 # 3. 仅安装质量检查工具：
-#    pip install flake8 mypy black isort pydocstyle radon coverage pytest
-#
-# 4. 更新到最新版本：
-#    pip install --upgrade -r requirements.txt
+#    pip install ruff mypy coverage pytest bandit pip-audit

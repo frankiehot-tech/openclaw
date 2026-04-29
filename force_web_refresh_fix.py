@@ -28,7 +28,7 @@ def check_web_cache_issue():
         return None
 
     try:
-        with open(queue_file, "r", encoding="utf-8") as f:
+        with open(queue_file, encoding="utf-8") as f:
             actual_state = json.load(f)
 
         print(f"📊 实际队列状态: {actual_state.get('queue_status', 'unknown')}")
@@ -103,7 +103,7 @@ def force_web_refresh():
                 print("✅ Web服务器重启成功")
             else:
                 print(f"⚠️ Web服务器响应异常: {response.status_code}")
-        except:
+        except Exception:
             print("❌ Web服务器重启后无法访问")
 
     except Exception as e:
@@ -138,7 +138,7 @@ def force_web_refresh():
 
     if os.path.exists(queue_file):
         try:
-            with open(queue_file, "r", encoding="utf-8") as f:
+            with open(queue_file, encoding="utf-8") as f:
                 queue_state = json.load(f)
 
             # 更新时间戳

@@ -3,7 +3,6 @@
 
 import json
 import os
-import time
 from datetime import datetime
 from http.server import BaseHTTPRequestHandler, HTTPServer
 
@@ -45,7 +44,7 @@ class FixedAthenaWebHandler(BaseHTTPRequestHandler):
             queue_file = "/Volumes/1TB-M2/openclaw/.openclaw/plan_queue/openhuman_aiplan_plan_manual_20260328.json"
 
             if os.path.exists(queue_file):
-                with open(queue_file, "r", encoding="utf-8") as f:
+                with open(queue_file, encoding="utf-8") as f:
                     queue_state = json.load(f)
 
                 # 构建响应数据
@@ -104,48 +103,48 @@ class FixedAthenaWebHandler(BaseHTTPRequestHandler):
 </head>
 <body>
     <h1>Athena Web Desktop - 修复版本</h1>
-    
+
     <div class="status info">
         <h3>系统状态</h3>
         <p>队列状态: <span id="queueStatus">加载中...</span></p>
         <p>当前任务: <span id="currentTask">加载中...</span></p>
         <p>运行中任务: <span id="runningTasks">加载中...</span></p>
     </div>
-    
+
     <div class="status" id="errorStatus" style="display: none;">
         <h3>错误信息</h3>
         <p id="errorMessage"></p>
     </div>
-    
+
     <button onclick="refreshStatus()">刷新状态</button>
     <button onclick="launchTask()">手动拉起任务</button>
-    
+
     <script>
         async function loadQueueStatus() {
             try {
                 const response = await fetch('/api/queues');
                 const data = await response.json();
-                
+
                 if (data.routes && data.routes.length > 0) {
                     const route = data.routes[0];
                     document.getElementById('queueStatus').textContent = route.queue_status;
                     document.getElementById('currentTask').textContent = route.current_item_id || '无';
                     document.getElementById('runningTasks').textContent = route.counts.running || 0;
-                    
+
                     // 更新状态颜色
                     const statusDiv = document.querySelector('.status.info');
                     if (statusDiv && route.queue_status === 'running') {
                         statusDiv.className = 'status running';
                     }
                 }
-                
+
                 document.getElementById('errorStatus').style.display = 'none';
             } catch (error) {
                 document.getElementById('errorMessage').textContent = '无法加载队列状态: ' + error.message;
                 document.getElementById('errorStatus').style.display = 'block';
             }
         }
-        
+
         async function launchTask() {
             try {
                 const response = await fetch('/api/queue/item/launch', {
@@ -156,7 +155,7 @@ class FixedAthenaWebHandler(BaseHTTPRequestHandler):
                         item_id: 'opencode_cli_optimization'
                     })
                 });
-                
+
                 const result = await response.json();
                 alert(result.message || '操作完成');
                 loadQueueStatus(); // 刷新状态
@@ -164,14 +163,14 @@ class FixedAthenaWebHandler(BaseHTTPRequestHandler):
                 alert('手动拉起失败: ' + error.message);
             }
         }
-        
+
         function refreshStatus() {
             loadQueueStatus();
         }
-        
+
         // 页面加载时自动刷新状态
         window.onload = loadQueueStatus;
-        
+
         // 每10秒自动刷新状态
         setInterval(loadQueueStatus, 10000);
     </script>

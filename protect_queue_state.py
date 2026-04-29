@@ -1,11 +1,11 @@
 #!/usr/bin/env python3
+# DEPRECATED: 使用 governance/ 模块代替
+# governance_cli.py health 或 governance_cli.py queue protect
 """队列状态保护脚本
 防止队列状态被意外重置
 """
 
 import json
-import os
-import time
 from datetime import datetime
 from pathlib import Path
 
@@ -22,7 +22,7 @@ def protect_queue_state():
         return False
 
     try:
-        with open(queue_file, "r", encoding="utf-8") as f:
+        with open(queue_file, encoding="utf-8") as f:
             queue_state = json.load(f)
 
         # 检查队列状态是否被意外重置

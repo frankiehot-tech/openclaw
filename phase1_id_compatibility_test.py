@@ -4,7 +4,6 @@
 测试TaskIdentityContract生成的新ID与系统现有组件的兼容性
 """
 
-import argparse
 import json
 import os
 import subprocess
@@ -46,10 +45,10 @@ def test_id_normalization():
 
             # 验证规范化ID不以'-'或'--'开头
             if normalized.id.startswith("-"):
-                print(f"    ❌ 规范化ID仍以'-'开头")
+                print("    ❌ 规范化ID仍以'-'开头")
                 all_pass = False
             else:
-                print(f"    ✅ 规范化ID合规")
+                print("    ✅ 规范化ID合规")
 
         except Exception as e:
             print(f"    ❌ 规范化失败: {e}")
@@ -176,7 +175,7 @@ def test_system_components():
             with open(test_file, "w") as f:
                 f.write(f"测试文件: {id_str}")
 
-            with open(test_file, "r") as f:
+            with open(test_file) as f:
                 content = f.read()
 
             os.remove(test_file)
@@ -203,7 +202,7 @@ def test_system_components():
         if queue_files:
             sample_file = queue_files[0]
             try:
-                with open(sample_file, "r", encoding="utf-8") as f:
+                with open(sample_file, encoding="utf-8") as f:
                     queue_data = json.load(f)
 
                 # 检查items中的ID格式
@@ -212,7 +211,7 @@ def test_system_components():
                 problematic_ids = []
 
                 if isinstance(items, dict):
-                    for item_id in items.keys():
+                    for item_id in items:
                         id_count += 1
                         if item_id.startswith("-") or item_id.startswith("--"):
                             problematic_ids.append(item_id)
@@ -229,7 +228,7 @@ def test_system_components():
                     print(f"    ⚠️  现有队列文件中有{len(problematic_ids)}个以'-'开头的ID")
                     print(f"       示例: {problematic_ids[:3]}")
                 else:
-                    print(f"    ✅ 现有队列文件中的ID格式正常")
+                    print("    ✅ 现有队列文件中的ID格式正常")
 
                 print(f"    分析文件: {os.path.basename(sample_file)}")
                 print(f"    总任务数: {id_count}")
@@ -267,9 +266,9 @@ def test_backward_compatibility():
 
             # 验证ID格式
             if not task_id.startswith("-"):
-                print(f"      格式合规: 不以'-'开头")
+                print("      格式合规: 不以'-'开头")
             else:
-                print(f"      ❌ 格式不合规: 以'-'开头")
+                print("      ❌ 格式不合规: 以'-'开头")
         else:
             print(f"    ❌ 脚本执行失败: {result.stderr}")
 
@@ -296,7 +295,7 @@ def test_backward_compatibility():
     generator_script = "/Volumes/1TB-M2/openclaw/engineering-plan-generator-optimized.sh"
     if os.path.exists(generator_script):
         # 检查脚本中是否调用了generate_task_id.py
-        with open(generator_script, "r", encoding="utf-8") as f:
+        with open(generator_script, encoding="utf-8") as f:
             content = f.read()
 
         if "scripts/generate_task_id.py" in content:
@@ -328,7 +327,7 @@ def test_manifest_compatibility():
     manifest_path = "/Volumes/1TB-M2/openclaw/.openclaw/gene_management_queue_manifest.json"
     if os.path.exists(manifest_path):
         try:
-            with open(manifest_path, "r", encoding="utf-8") as f:
+            with open(manifest_path, encoding="utf-8") as f:
                 manifest_data = json.load(f)
 
             # 检查manifest中的ID格式
@@ -351,12 +350,12 @@ def test_manifest_compatibility():
             print(f"    以'-'开头的ID数: {len(problematic_ids)}")
 
             if problematic_ids:
-                print(f"    ⚠️  存在需要规范化的ID:")
+                print("    ⚠️  存在需要规范化的ID:")
                 for pid in problematic_ids[:5]:  # 显示前5个
                     normalized = TaskIdentity.normalize(pid)
                     print(f"      {pid} → {normalized.id}")
             else:
-                print(f"    ✅ 所有ID格式正常")
+                print("    ✅ 所有ID格式正常")
 
         except Exception as e:
             print(f"    ❌ 分析manifest失败: {e}")
@@ -370,8 +369,6 @@ def main():
     """主测试函数"""
     print("🧪 阶段1: 验证新旧ID格式兼容性测试")
     print("=" * 60)
-
-    all_tests_passed = True
 
     # 运行所有测试
     test1 = test_id_normalization()

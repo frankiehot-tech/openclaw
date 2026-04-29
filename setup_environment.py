@@ -83,23 +83,7 @@ def generate_shell_code(shell_type="bash"):
     project_root = Path(__file__).parent
     default_root = str(project_root)
 
-    if shell_type == "bash":
-        code = f"""# OpenClaw项目环境变量配置
-export OPENCLAW_ROOT="{default_root}"
-export ATHENA_RUNTIME_ROOT="{default_root}"
-
-# DashScope API密钥 (需要替换为你的实际密钥)
-# export DASHSCOPE_API_KEY="your-dashscope-api-key-here"
-
-# 添加到PATH（可选）
-export PATH="$OPENCLAW_ROOT/scripts:$PATH"
-
-# 验证配置
-echo "✅ OpenClaw环境变量已配置"
-echo "   OPENCLAW_ROOT: $OPENCLAW_ROOT"
-echo "   ATHENA_RUNTIME_ROOT: $ATHENA_RUNTIME_ROOT"
-"""
-    elif shell_type == "zsh":
+    if shell_type == "bash" or shell_type == "zsh":
         code = f"""# OpenClaw项目环境变量配置
 export OPENCLAW_ROOT="{default_root}"
 export ATHENA_RUNTIME_ROOT="{default_root}"

@@ -2,21 +2,18 @@
 故障注册中心 — 所有 Handler 在此注册，支持自动发现和路由
 """
 
-import json
 import logging
 import os
-import sys
 import traceback
 from dataclasses import dataclass, field
 from datetime import datetime
-from enum import Enum
-from pathlib import Path
-from typing import Any, Callable, Dict, List, Optional, Type
+from enum import StrEnum
+from typing import Any
 
 logger = logging.getLogger(__name__)
 
 
-class FaultPhase(str, Enum):
+class FaultPhase(StrEnum):
     DETECT = "detect"
     DIAGNOSE = "diagnose"
     REPAIR = "repair"
@@ -24,35 +21,37 @@ class FaultPhase(str, Enum):
     REPORT = "report"
 
 
-class FaultSeverity(str, Enum):
+class FaultSeverity(StrEnum):
     CRITICAL = "critical"  # 系统不可用
-    HIGH = "high"          # 主流程受阻
-    MEDIUM = "medium"      # 部分功能受损
-    LOW = "low"            # 可忽略
+    HIGH = "high"  # 主流程受阻
+    MEDIUM = "medium"  # 部分功能受损
+    LOW = "low"  # 可忽略
 
 
 @dataclass
 class FaultContext:
     """故障上下文，Handler 通过此获取故障信息"""
+
     fault_type: str
     phase: FaultPhase = FaultPhase.DETECT
     severity: FaultSeverity = FaultSeverity.MEDIUM
-    metadata: Dict[str, Any] = field(default_factory=dict)
-    queue_id: Optional[str] = None
-    task_id: Optional[str] = None
+    metadata: dict[str, Any] = field(default_factory=dict)
+    queue_id: str | None = None
+    task_id: str | None = None
     started_at: datetime = field(default_factory=datetime.now)
 
 
-@dataclass 
+@dataclass
 class FaultResult:
     """Handler 执行结果"""
+
     success: bool
     fault_type: str
-    actions: List[str] = field(default_factory=list)
-    errors: List[str] = field(default_factory=list)
+    actions: list[str] = field(default_factory=list)
+    errors: list[str] = field(default_factory=list)
     duration_ms: float = 0
     escalated: bool = False
-    metadata: Dict[str, Any] = field(default_factory=dict)
+    metadata: dict[str, Any] = field(default_factory=dict)
 
 
 class BaseFaultHandler:
@@ -66,7 +65,7 @@ class BaseFaultHandler:
         """检测故障是否存在 — 子类实现"""
         raise NotImplementedError
 
-    def diagnose(self, ctx: FaultContext) -> Dict[str, Any]:
+    def diagnose(self, ctx: FaultContext) -> dict[str, Any]:
         """诊断根因 — 子类实现"""
         raise NotImplementedError
 
@@ -125,22 +124,22 @@ class BaseFaultHandler:
 class FaultRegistry:
     """故障注册中心"""
 
-    _handlers: Dict[str, BaseFaultHandler] = {}
+    _handlers: dict[str, BaseFaultHandler] = {}
 
     @classmethod
-    def register(cls, handler_class: Type[BaseFaultHandler]):
+    def register(cls, handler_class: type[BaseFaultHandler]):
         """注册一个 Handler"""
         instance = handler_class()
         cls._handlers[instance.fault_type] = instance
         logger.info(f"注册故障处理器: {instance.fault_type}")
 
     @classmethod
-    def get_handler(cls, fault_type: str) -> Optional[BaseFaultHandler]:
+    def get_handler(cls, fault_type: str) -> BaseFaultHandler | None:
         """获取指定类型的 Handler"""
         return cls._handlers.get(fault_type)
 
     @classmethod
-    def list_handlers(cls) -> List[str]:
+    def list_handlers(cls) -> list[str]:
         """列出所有已注册的 Handler"""
         return list(cls._handlers.keys())
 
@@ -149,8 +148,9 @@ class FaultRegistry:
         """处理指定类型的故障"""
         handler = cls.get_handler(fault_type)
         if not handler:
-            return FaultResult(success=False, fault_type=fault_type,
-                             errors=[f"未找到处理器: {fault_type}"])
+            return FaultResult(
+                success=False, fault_type=fault_type, errors=[f"未找到处理器: {fault_type}"]
+            )
         ctx = FaultContext(fault_type=fault_type, metadata=metadata)
         return handler.handle(ctx)
 

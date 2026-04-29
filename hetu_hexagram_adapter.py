@@ -16,7 +16,7 @@ import json
 import os
 from dataclasses import dataclass, field
 from datetime import datetime
-from typing import Any, Dict, List, Optional, Set
+from typing import Any
 
 from integrated_hexagram_state_manager import (
     HetuState,
@@ -31,10 +31,10 @@ class TaskStateRecord:
 
     task_id: str
     current_hexagram: str  # 当前卦象状态（6位二进制）
-    state_history: List[str] = field(default_factory=list)  # 卦象状态历史
-    hetu_history: List[HetuState] = field(default_factory=list)  # 河图状态历史
-    timestamps: List[datetime] = field(default_factory=list)  # 状态变更时间
-    metadata: Dict[str, Any] = field(default_factory=dict)  # 任务元数据
+    state_history: list[str] = field(default_factory=list)  # 卦象状态历史
+    hetu_history: list[HetuState] = field(default_factory=list)  # 河图状态历史
+    timestamps: list[datetime] = field(default_factory=list)  # 状态变更时间
+    metadata: dict[str, Any] = field(default_factory=dict)  # 任务元数据
 
 
 class HetuToHexagramAdapter:
@@ -43,7 +43,7 @@ class HetuToHexagramAdapter:
     def __init__(
         self,
         mapping_file_path: str = "hetu_hexagram_mapping.json",
-        state_file: Optional[str] = None,
+        state_file: str | None = None,
     ):
         """
         初始化适配器
@@ -56,7 +56,7 @@ class HetuToHexagramAdapter:
         self.state_file = state_file
 
         # 任务状态存储（task_id -> TaskStateRecord）
-        self.task_states: Dict[str, TaskStateRecord] = {}
+        self.task_states: dict[str, TaskStateRecord] = {}
 
         # 河图状态到卦象集合的快速映射
         self.hetu_to_hexagrams = self._build_hetu_mapping()
@@ -69,7 +69,7 @@ class HetuToHexagramAdapter:
         print(f"   映射文件: {mapping_file_path}")
         print(f"   状态文件: {state_file or '内存模式'}")
 
-    def _build_hetu_mapping(self) -> Dict[HetuState, Set[str]]:
+    def _build_hetu_mapping(self) -> dict[HetuState, set[str]]:
         """构建河图状态到卦象集合的映射"""
         mapping = {}
         for state in HetuState:
@@ -77,7 +77,7 @@ class HetuToHexagramAdapter:
             mapping[state] = set(hexagrams)
         return mapping
 
-    def _select_nearest_hexagram(self, current_hexagram: str, target_hexagrams: Set[str]) -> str:
+    def _select_nearest_hexagram(self, current_hexagram: str, target_hexagrams: set[str]) -> str:
         """
         选择与当前卦象汉明距离最近的目标卦象
 
@@ -248,14 +248,14 @@ class HetuToHexagramAdapter:
             f"🔄 任务 {task_id}: 卦象转换 {from_hexagram} ({from_name}) → {to_hexagram} ({to_name})"
         )
         from_hetu = self.hexagram_manager.get_hetu_state(from_hexagram)
-        print(f"   河图状态: {from_hetu.name if from_hetu else 'unknown'} → " f"{target_hetu.name}")
+        print(f"   河图状态: {from_hetu.name if from_hetu else 'unknown'} → {target_hetu.name}")
         print(f"   汉明距离: {self.hexagram_manager.hamming_distance(from_hexagram, to_hexagram)}")
 
         return True
 
     def _find_hexagram_path(
         self, from_hexagram: str, to_hexagram: str, max_steps: int = 10
-    ) -> List[str]:
+    ) -> list[str]:
         """查找卦象之间的转换路径"""
         # 使用卦象管理器的BFS搜索功能
         # 这里简化实现：直接使用卦象管理器的状态转换图
@@ -292,7 +292,7 @@ class HetuToHexagramAdapter:
 
         return []
 
-    def get_next_states(self, current_state: HetuState) -> List[HetuState]:
+    def get_next_states(self, current_state: HetuState) -> list[HetuState]:
         """
         获取可能的下一河图状态（兼容HetuStateManager接口）
 
@@ -312,7 +312,7 @@ class HetuToHexagramAdapter:
         # 返回当前状态之后的状态
         return all_states[current_index + 1 :]
 
-    def get_shortest_path(self, from_state: HetuState, to_state: HetuState) -> List[HetuState]:
+    def get_shortest_path(self, from_state: HetuState, to_state: HetuState) -> list[HetuState]:
         """
         获取河图状态之间的最短路径（兼容HetuStateManager接口）
 
@@ -337,20 +337,20 @@ class HetuToHexagramAdapter:
 
         return all_states[from_index : to_index + 1]
 
-    def get_task_hexagram_state(self, task_id: str) -> Optional[str]:
+    def get_task_hexagram_state(self, task_id: str) -> str | None:
         """获取任务的当前卦象状态"""
         if task_id not in self.task_states:
             return None
         return self.task_states[task_id].current_hexagram
 
-    def get_task_hetu_state(self, task_id: str) -> Optional[HetuState]:
+    def get_task_hetu_state(self, task_id: str) -> HetuState | None:
         """获取任务的当前河图状态"""
         hexagram = self.get_task_hexagram_state(task_id)
         if hexagram is None:
             return None
         return self.hexagram_manager.get_hetu_state(hexagram)
 
-    def analyze_task_state(self, task_id: str) -> Optional[StateAnalysis]:
+    def analyze_task_state(self, task_id: str) -> StateAnalysis | None:
         """分析任务状态"""
         hexagram = self.get_task_hexagram_state(task_id)
         if hexagram is None:
@@ -362,7 +362,7 @@ class HetuToHexagramAdapter:
         if not self.state_file:
             return
 
-        data: Dict[str, Any] = {
+        data: dict[str, Any] = {
             "version": "1.0",
             "generated_at": datetime.now().isoformat(),
             "description": "河图-64卦适配器状态文件",
@@ -399,7 +399,7 @@ class HetuToHexagramAdapter:
                 print(f"📂 状态文件为空: {self.state_file}，跳过加载")
                 return
 
-            with open(self.state_file, "r", encoding="utf-8") as f:
+            with open(self.state_file, encoding="utf-8") as f:
                 content = f.read().strip()
 
             # 如果文件只有空白字符，跳过加载
@@ -439,7 +439,7 @@ class HetuToHexagramAdapter:
             print(f"⚠️  加载适配器状态失败: {e}")
             self.task_states = {}
 
-    def get_state_report(self) -> Dict[str, Any]:
+    def get_state_report(self) -> dict[str, Any]:
         """获取状态报告"""
         return {
             "total_tasks": len(self.task_states),

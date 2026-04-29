@@ -23,9 +23,9 @@ jobs:
   document-check:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - name: Setup Python
-        uses: actions/setup-python@v4
+        uses: actions/setup-python@v5
         with:
           python-version: '3.9'
 
@@ -50,7 +50,7 @@ jobs:
         run: python3 scripts/generate_document_quality_report.py --output docs/quality/report_${{ github.run_number }}.json
 
       - name: Upload quality report
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: documentation-quality-report
           path: docs/quality/report_*.json

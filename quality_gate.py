@@ -20,7 +20,7 @@ import os
 import subprocess
 import sys
 from pathlib import Path
-from typing import Any, Dict, List, Optional, TypedDict, Union
+from typing import Any, TypedDict
 
 
 class QualityGate:
@@ -29,12 +29,12 @@ class QualityGate:
     def __init__(self, project_root: str = ".", verbose: bool = False):
         self.project_root = Path(project_root).resolve()
         self.verbose = verbose
-        self.results: Dict[str, Dict[str, Any]] = {}
+        self.results: dict[str, dict[str, Any]] = {}
 
         # 检查工具是否安装
         self.tools_available = self._check_tools_availability()
 
-    def _check_tools_availability(self) -> Dict[str, bool]:
+    def _check_tools_availability(self) -> dict[str, bool]:
         """检查质量检查工具是否可用"""
         tools = {
             "flake8": "flake8 --version",
@@ -66,7 +66,7 @@ class QualityGate:
 
         return available
 
-    def run_flake8_check(self, paths: Optional[List[str]] = None) -> Dict[str, Any]:
+    def run_flake8_check(self, paths: list[str] | None = None) -> dict[str, Any]:
         """运行flake8代码规范检查"""
         if not self.tools_available.get("flake8", False):
             return {"available": False, "errors": [], "warnings": []}
@@ -103,7 +103,7 @@ class QualityGate:
                 "error_count": 1,
             }
 
-    def run_mypy_check(self, paths: Optional[List[str]] = None) -> Dict[str, Any]:
+    def run_mypy_check(self, paths: list[str] | None = None) -> dict[str, Any]:
         """运行mypy类型检查"""
         if not self.tools_available.get("mypy", False):
             return {"available": False, "errors": [], "warnings": []}
@@ -141,7 +141,7 @@ class QualityGate:
                 "error_count": 1,
             }
 
-    def run_black_check(self, paths: Optional[List[str]] = None) -> Dict[str, Any]:
+    def run_black_check(self, paths: list[str] | None = None) -> dict[str, Any]:
         """运行black代码格式化检查"""
         if not self.tools_available.get("black", False):
             return {"available": False, "errors": [], "warnings": []}
@@ -179,7 +179,7 @@ class QualityGate:
                 "error_count": 1,
             }
 
-    def run_isort_check(self, paths: Optional[List[str]] = None) -> Dict[str, Any]:
+    def run_isort_check(self, paths: list[str] | None = None) -> dict[str, Any]:
         """运行isort导入排序检查"""
         if not self.tools_available.get("isort", False):
             return {"available": False, "errors": [], "warnings": []}
@@ -224,7 +224,7 @@ class QualityGate:
                 "error_count": 1,
             }
 
-    def run_custom_checks(self) -> Dict[str, Any]:
+    def run_custom_checks(self) -> dict[str, Any]:
         """运行自定义质量检查"""
         checks = {
             "python_files_exist": self._check_python_files_exist(),
@@ -235,7 +235,7 @@ class QualityGate:
 
         return checks
 
-    def _check_python_files_exist(self) -> Dict[str, Any]:
+    def _check_python_files_exist(self) -> dict[str, Any]:
         """检查Python文件存在性和可读性"""
         python_files = list(self.project_root.rglob("*.py"))
 
@@ -247,7 +247,7 @@ class QualityGate:
             ],  # 只显示前10个
         }
 
-    def _check_import_statements(self) -> Dict[str, Any]:
+    def _check_import_statements(self) -> dict[str, Any]:
         """检查导入语句"""
         issues = []
 
@@ -256,7 +256,7 @@ class QualityGate:
 
         for file_path in python_files[:5]:  # 只检查前5个文件
             try:
-                with open(file_path, "r", encoding="utf-8") as f:
+                with open(file_path, encoding="utf-8") as f:
                     content = f.read()
 
                 # 检查通配符导入
@@ -270,7 +270,7 @@ class QualityGate:
                         # 检查是否在同一文件中有复杂导入逻辑
                         if "sys.path" in line and "insert" in line:
                             issues.append(
-                                f"{file_path.relative_to(self.project_root)}: 第{i+1}行动态修改sys.path"
+                                f"{file_path.relative_to(self.project_root)}: 第{i + 1}行动态修改sys.path"
                             )
 
             except Exception as e:
@@ -278,13 +278,13 @@ class QualityGate:
 
         return {"issues": issues, "issue_count": len(issues)}
 
-    def _check_function_lengths(self) -> Dict[str, Any]:
+    def _check_function_lengths(self) -> dict[str, Any]:
         """检查函数长度（简单实现）"""
 
         class FunctionStats(TypedDict):
             files_checked: int
             functions_found: int
-            long_functions: List[Dict[str, Union[str, int]]]
+            long_functions: list[dict[str, str | int]]
 
         stats: FunctionStats = {
             "files_checked": 0,
@@ -296,7 +296,7 @@ class QualityGate:
 
         for file_path in python_files[:3]:  # 只检查前3个文件
             try:
-                with open(file_path, "r", encoding="utf-8") as f:
+                with open(file_path, encoding="utf-8") as f:
                     lines = f.readlines()
 
                 in_function = False
@@ -333,7 +333,7 @@ class QualityGate:
 
         return stats  # type: ignore[return-value]
 
-    def _check_class_design(self) -> Dict[str, Any]:
+    def _check_class_design(self) -> dict[str, Any]:
         """检查类设计"""
         issues = []
 
@@ -341,7 +341,7 @@ class QualityGate:
 
         for file_path in python_files[:3]:  # 只检查前3个文件
             try:
-                with open(file_path, "r", encoding="utf-8") as f:
+                with open(file_path, encoding="utf-8") as f:
                     content = f.read()
 
                 lines = content.split("\n")
@@ -371,7 +371,7 @@ class QualityGate:
 
         return {"issues": issues, "issue_count": len(issues)}
 
-    def run_all_checks(self, specific_paths: Optional[List[str]] = None) -> Dict[str, Any]:
+    def run_all_checks(self, specific_paths: list[str] | None = None) -> dict[str, Any]:
         """运行所有质量检查"""
         print("🔧 开始代码质量检查...")
         print(f"项目根目录: {self.project_root}")
@@ -413,7 +413,7 @@ class QualityGate:
         total_issues = 0
         for check_name, result in checks.items():
             if check_name == "custom":
-                for subcheck_name, subresult in result.items():
+                for _subcheck_name, subresult in result.items():
                     if isinstance(subresult, dict) and "issue_count" in subresult:
                         total_issues += subresult["issue_count"]
             elif isinstance(result, dict) and "error_count" in result:
@@ -428,7 +428,7 @@ class QualityGate:
             print("⚠️  发现质量问题，需要修复。")
             return {"success": False, "total_issues": total_issues, "checks": checks}
 
-    def _print_check_result(self, check_name: str, result: Dict[str, Any]) -> None:
+    def _print_check_result(self, check_name: str, result: dict[str, Any]) -> None:
         """打印检查结果"""
         if not result.get("available", False):
             print(f"  ⚠️  {check_name}: 工具不可用")
@@ -444,7 +444,7 @@ class QualityGate:
                 if len(result["errors"]) > 3:
                     print(f"    ... 还有{len(result['errors']) - 3}个错误")
 
-    def _print_custom_check_result(self, result: Dict[str, Any]) -> None:
+    def _print_custom_check_result(self, result: dict[str, Any]) -> None:
         """打印自定义检查结果"""
         for check_name, subresult in result.items():
             if isinstance(subresult, dict):
@@ -459,7 +459,7 @@ class QualityGate:
                         if len(subresult["issues"]) > 2:
                             print(f"    ... 还有{len(subresult['issues']) - 2}个问题")
 
-    def generate_report(self, results: Dict[str, Any], output_file: Optional[str] = None) -> str:
+    def generate_report(self, results: dict[str, Any], output_file: str | None = None) -> str:
         """生成质量检查报告"""
         report_lines = [
             "# 代码质量检查报告",

@@ -12,17 +12,58 @@
       "Bash(curl *)",
       "Bash(ls *)",
       "Bash(find *)",
-      "Bash(wc *)"
+      "Bash(wc *)",
+      "Bash(bandit *)",
+      "Bash(pip-audit *)",
+      "Bash(pytest *)",
+      "Bash(coverage *)"
+    ],
+    "deny": [
+      "Bash(rm -rf *)",
+      "Bash(sudo *)",
+      "Bash(shutdown *)"
     ]
   },
   "hooks": {
     "PreToolUse": [
       {
-        "matcher": "Bash(git commit *)",
+        "matcher": "Bash",
         "hooks": [
           {
             "type": "command",
-            "command": "python3 .claude/hooks/pre_commit.py"
+            "if": "Bash(git commit *)",
+            "command": "python3 \"$CLAUDE_PROJECT_DIR\"/.claude/hooks/pre_commit.py",
+            "timeout": 10000
+          },
+          {
+            "type": "command",
+            "if": "Bash(git push *)",
+            "command": "python3 \"$CLAUDE_PROJECT_DIR\"/.claude/hooks/pre_push.py",
+            "timeout": 30000
+          }
+        ]
+      }
+    ],
+    "PostToolUse": [
+      {
+        "matcher": "Write|Edit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python3 \"$CLAUDE_PROJECT_DIR\"/.claude/hooks/post_write.py",
+            "timeout": 5000,
+            "async": true
+          }
+        ]
+      }
+    ],
+    "SessionStart": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python3 \"$CLAUDE_PROJECT_DIR\"/.claude/hooks/session_init.py",
+            "timeout": 5000
           }
         ]
       }

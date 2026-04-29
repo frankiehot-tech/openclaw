@@ -6,7 +6,7 @@
 
 import json
 import os
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 
 
 def disable_autostart_permanent():
@@ -17,7 +17,7 @@ def disable_autostart_permanent():
         return
 
     # 原子性读取
-    with open(queue_file, "r", encoding="utf-8") as f:
+    with open(queue_file, encoding="utf-8") as f:
         data = json.load(f)
 
     disabled_tasks = []
@@ -48,7 +48,7 @@ def disable_autostart_permanent():
 
             # 添加禁用标记
             metadata["autostart"] = False
-            metadata["autostart_disabled_at"] = datetime.now(timezone.utc).isoformat()
+            metadata["autostart_disabled_at"] = datetime.now(UTC).isoformat()
             metadata["autostart_disabled_reason"] = reason
             metadata["autostart_disabled_by"] = "disable_autostart_permanent.py"
 
@@ -58,7 +58,7 @@ def disable_autostart_permanent():
 
             task["change_history"].append(
                 {
-                    "timestamp": datetime.now(timezone.utc).isoformat(),
+                    "timestamp": datetime.now(UTC).isoformat(),
                     "field": "metadata.autostart",
                     "old_value": old_autostart,
                     "new_value": False,
@@ -91,7 +91,7 @@ def disable_autostart_permanent():
         with open(queue_file, "w", encoding="utf-8") as f:
             json.dump(data, f, indent=2, ensure_ascii=False)
 
-        print(f"\n✅ 永久禁用autostart完成")
+        print("\n✅ 永久禁用autostart完成")
         print(f"禁用了 {len(disabled_tasks)} 个任务的autostart功能:")
         for dt in disabled_tasks:
             print(f"  - {dt['id']}: autostart {dt['old_autostart']} -> {dt['new_autostart']}")

@@ -1,4 +1,6 @@
 #!/usr/bin/env python3
+# DEPRECATED: 使用 governance/ 模块代替
+# governance_cli.py task <command>
 """重试gene_mgmt_audit任务"""
 
 import json
@@ -39,7 +41,7 @@ if not target_queue:
     print("❌ 未找到基因管理队列")
     exit(1)
 
-print(f"📊 找到队列:")
+print("📊 找到队列:")
 print(f"   队列ID: {target_queue.get('queue_id')}")
 print(f"   路由ID: {target_route_id}")
 print(f"   队列状态: {target_queue.get('queue_status')}")
@@ -58,10 +60,10 @@ if not target_item:
     # 列出所有任务
     print("可用的任务:")
     for i, item in enumerate(items):
-        print(f"  {i+1}. ID: {item.get('id')}, 状态: {item.get('status')}")
+        print(f"  {i + 1}. ID: {item.get('id')}, 状态: {item.get('status')}")
     exit(1)
 
-print(f"📋 找到任务:")
+print("📋 找到任务:")
 print(f"   ID: {target_item.get('id')}")
 print(f"   标题: {target_item.get('title')}")
 print(f"   状态: {target_item.get('status')}")
@@ -71,7 +73,7 @@ print(f"   错误: {target_item.get('error', '无')}")
 # 根据之前观察，重试API端点是: /api/athena/queues/items/{route_id}/{task_id}/retry
 task_id = target_item.get("id")
 
-print(f"\n🔄 调用重试API...")
+print("\n🔄 调用重试API...")
 retry_url = f"{base_url}/api/athena/queues/items/{target_route_id}/{task_id}/retry"
 print(f"   重试URL: {retry_url}")
 
@@ -101,7 +103,7 @@ if response2.status_code == 200:
             items2 = route.get("items", [])
             for item in items2:
                 if item.get("id") == "gene_mgmt_audit":
-                    print(f"📊 更新后的任务状态:")
+                    print("📊 更新后的任务状态:")
                     print(f"   状态: {item.get('status')}")
                     print(f"   进度: {item.get('progress_percent', 0)}%")
                     print(f"   错误: {item.get('error', '无')}")

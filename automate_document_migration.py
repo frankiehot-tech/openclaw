@@ -183,12 +183,11 @@ class DocumentClassifier:
         """从文件名中提取日期，返回YYYY-MM格式"""
         for pattern in self.date_patterns:
             match = re.search(pattern, filename)
-            if match:
-                if len(match.groups()) >= 2:
-                    year = match.group(1)
-                    month = match.group(2)
-                    if len(month) == 2:
-                        return f"{year}-{month}"
+            if match and len(match.groups()) >= 2:
+                year = match.group(1)
+                month = match.group(2)
+                if len(month) == 2:
+                    return f"{year}-{month}"
         return None
 
     def normalize_filename(self, filename):
@@ -241,20 +240,20 @@ class DocumentClassifier:
         # 读取文件前几行内容进行分析
         content_preview = ""
         try:
-            with open(filepath, "r", encoding="utf-8") as f:
+            with open(filepath, encoding="utf-8") as f:
                 content_preview = f.read(5000)  # 读取前5000字符
         except UnicodeDecodeError:
             try:
-                with open(filepath, "r", encoding="gbk") as f:
+                with open(filepath, encoding="gbk") as f:
                     content_preview = f.read(5000)
-            except:
+            except Exception:
                 content_preview = ""
 
         filename_lower = filename.lower()
         content_lower = content_preview.lower()
 
         # 得分统计
-        scores = {category: 0 for category in self.classification_rules}
+        scores = dict.fromkeys(self.classification_rules, 0)
 
         # 基于文件名评分
         for category, rule in self.classification_rules.items():
@@ -368,7 +367,7 @@ class DocumentMigrator:
                 if real_path.is_relative_to(self.docs_root):
                     logger.debug(f"跳过已在docs目录中的文件: {item}")
                     continue
-            except:
+            except Exception:
                 pass
 
             md_files.append(str(item_path))
@@ -458,12 +457,12 @@ class DocumentMigrator:
         report_content = f"""# 文档迁移报告
 
 ## 迁移概览
-- **执行时间**: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}
-- **模式**: {'模拟运行 (dry-run)' if self.dry_run else '实际迁移'}
-- **总文件数**: {self.stats['total']}
-- **成功迁移**: {self.stats['migrated']}
-- **跳过**: {self.stats['skipped']}
-- **失败**: {self.stats['failed']}
+- **执行时间**: {datetime.now().strftime("%Y-%m-%d %H:%M:%S")}
+- **模式**: {"模拟运行 (dry-run)" if self.dry_run else "实际迁移"}
+- **总文件数**: {self.stats["total"]}
+- **成功迁移**: {self.stats["migrated"]}
+- **跳过**: {self.stats["skipped"]}
+- **失败**: {self.stats["failed"]}
 
 ## 分类统计
 """
@@ -479,7 +478,7 @@ class DocumentMigrator:
             status = "✅ 成功" if not log_entry.get("dry_run", False) else "🔍 模拟"
             report_content += f"| {log_entry['original']} | {log_entry['target']} | {log_entry['category']} | {status} |\n"
 
-        report_content += f"\n## 未分类文件\n"
+        report_content += "\n## 未分类文件\n"
 
         # 查找未分类文件
         unclassified_files = []

@@ -1,10 +1,11 @@
 #!/usr/bin/env python3
+# DEPRECATED: 使用 governance/ 模块代替
+# governance_cli.py task <command>
 """移除陈旧队列任务脚本"""
 
 import json
 import os
 import sys
-import time
 from datetime import datetime
 from pathlib import Path
 
@@ -13,7 +14,7 @@ project_root = Path(__file__).parent
 sys.path.insert(0, str(project_root))
 
 try:
-    from config.paths import PLAN_QUEUE_DIR, ROOT_DIR, SCRIPTS_DIR, get_queue_file
+    from config.paths import PLAN_QUEUE_DIR, ROOT_DIR, SCRIPTS_DIR
 except ImportError as e:
     print(f"⚠️  警告: 无法导入路径配置模块: {e}")
     print("   使用回退的硬编码路径...")
@@ -35,14 +36,14 @@ def remove_stale_task():
 
     try:
         # 读取队列文件
-        with open(queue_file, "r", encoding="utf-8") as f:
+        with open(queue_file, encoding="utf-8") as f:
             data = json.load(f)
 
         task_id = "skill_wiring_and_cli_anything"
 
         if task_id in data.get("items", {}):
             task_info = data["items"][task_id]
-            print(f"📋 任务信息:")
+            print("📋 任务信息:")
             print(f"  标题: {task_info.get('title', 'N/A')}")
             print(f"  状态: {task_info.get('status', 'N/A')}")
             print(f"  错误: {task_info.get('error', 'N/A')}")
@@ -51,7 +52,7 @@ def remove_stale_task():
             # 检查是否为陈旧任务
             error_msg = task_info.get("error", "").lower()
             if "stale" in error_msg or "no heartbeat" in error_msg:
-                print(f"\n⚠️ 检测到陈旧任务，准备移除...")
+                print("\n⚠️ 检测到陈旧任务，准备移除...")
 
                 # 从队列中移除任务
                 del data["items"][task_id]
@@ -68,7 +69,7 @@ def remove_stale_task():
                     "failed": 0,
                     "manual_hold": 0,
                 }
-                for item_id, item_data in data.get("items", {}).items():
+                for _item_id, item_data in data.get("items", {}).items():
                     status = item_data.get("status", "")
                     if status in status_counts:
                         status_counts[status] += 1
@@ -106,7 +107,7 @@ def remove_stale_task():
 
                 return True
             else:
-                print(f"❌ 任务不是陈旧任务")
+                print("❌ 任务不是陈旧任务")
                 return False
         else:
             print(f"❌ 任务不存在: {task_id}")
@@ -129,7 +130,7 @@ def verify_removal():
         return False
 
     try:
-        with open(queue_file, "r", encoding="utf-8") as f:
+        with open(queue_file, encoding="utf-8") as f:
             data = json.load(f)
 
         task_id = "skill_wiring_and_cli_anything"

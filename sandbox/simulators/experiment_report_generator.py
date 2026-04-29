@@ -286,7 +286,7 @@ class ExperimentReportGenerator:
 </head>
 <body>
     <div id="content">
-        {markdown.replace('\n', '<br>').replace('# ', '<h1>').replace('## ', '<h2>').replace('### ', '<h3>')}
+        {markdown.replace(chr(10), '<br>').replace('# ', '<h1>').replace('## ', '<h2>').replace('### ', '<h3>')}
     </div>
 </body>
 </html>"""

@@ -5,10 +5,8 @@
 """
 
 import json
-import os
 from datetime import datetime
-from pathlib import Path
-from typing import Any, Dict, List
+from typing import Any
 
 
 class SimulatedClaudeCodeAnalyzer:
@@ -17,7 +15,7 @@ class SimulatedClaudeCodeAnalyzer:
     def __init__(self):
         self.simulated_structure = self._create_simulated_structure()
 
-    def _create_simulated_structure(self) -> Dict[str, Any]:
+    def _create_simulated_structure(self) -> dict[str, Any]:
         """创建模拟的Claude Code代码库结构"""
 
         return {
@@ -128,7 +126,7 @@ class SimulatedClaudeCodeAnalyzer:
             },
         }
 
-    def analyze_codebase_structure(self) -> Dict[str, Any]:
+    def analyze_codebase_structure(self) -> dict[str, Any]:
         """分析代码库基础结构"""
 
         print("🔍 分析代码库基础结构...")
@@ -167,14 +165,14 @@ class SimulatedClaudeCodeAnalyzer:
             "main_language": metadata["main_language"],
         }
 
-    def extract_feature_flags(self) -> Dict[str, List[str]]:
+    def extract_feature_flags(self) -> dict[str, list[str]]:
         """提取特性标志系统"""
 
         print("🔍 提取特性标志系统...")
 
         return self.simulated_structure["feature_flags"]
 
-    def identify_hidden_subsystems(self) -> Dict[str, Any]:
+    def identify_hidden_subsystems(self) -> dict[str, Any]:
         """识别隐藏子系统"""
 
         print("🔍 识别隐藏子系统...")
@@ -205,7 +203,7 @@ class SimulatedClaudeCodeAnalyzer:
 
         return descriptions.get(subsystem_name, "未知子系统")
 
-    def _identify_entry_points(self, files: List[str]) -> List[str]:
+    def _identify_entry_points(self, files: list[str]) -> list[str]:
         """识别子系统入口点"""
 
         entry_points = []
@@ -216,14 +214,14 @@ class SimulatedClaudeCodeAnalyzer:
 
         return entry_points if entry_points else files[:1]
 
-    def analyze_query_engine_complexity(self) -> Dict[str, Any]:
+    def analyze_query_engine_complexity(self) -> dict[str, Any]:
         """分析QueryEngine复杂度"""
 
         print("🔍 分析QueryEngine复杂度...")
 
         return self.simulated_structure["complexity_metrics"]["query_engine"]
 
-    def generate_architecture_report(self) -> Dict[str, Any]:
+    def generate_architecture_report(self) -> dict[str, Any]:
         """生成架构分析报告"""
 
         print("📊 生成架构分析报告...")
@@ -245,7 +243,7 @@ class SimulatedClaudeCodeAnalyzer:
 
         return report
 
-    def _generate_key_findings(self) -> Dict[str, Any]:
+    def _generate_key_findings(self) -> dict[str, Any]:
         """生成关键发现"""
 
         findings = {
@@ -261,7 +259,7 @@ class SimulatedClaudeCodeAnalyzer:
 
         return findings
 
-    def _generate_recommendations(self) -> List[str]:
+    def _generate_recommendations(self) -> list[str]:
         """生成建议"""
 
         return [
@@ -272,7 +270,7 @@ class SimulatedClaudeCodeAnalyzer:
             "代码库规模庞大（512K行），建议采用模块化重构策略",
         ]
 
-    def _generate_next_steps(self) -> List[str]:
+    def _generate_next_steps(self) -> list[str]:
         """生成下一步计划"""
 
         return [

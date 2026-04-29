@@ -16,11 +16,9 @@
 - 格雷编码：确保相邻状态汉明距离=1
 """
 
-import itertools
 import json
-from dataclasses import dataclass, field
+from dataclasses import dataclass
 from enum import IntEnum
-from typing import Dict, List, Set, Tuple
 
 
 # 重新定义HetuState枚举（从原文件复制）
@@ -123,7 +121,7 @@ class HexagramMapping:
     hexagram_code: int  # 6位二进制编码 (0-63)
     binary_str: str  # 二进制字符串表示
     hexagram_name: str  # 卦象名称
-    dimension_values: Dict[str, int]  # 6个维度的值 (0/1)
+    dimension_values: dict[str, int]  # 6个维度的值 (0/1)
     hetu_state: HetuState  # 对应的河图状态
     semantic_description: str  # 语义描述
 
@@ -139,7 +137,7 @@ DIMENSIONS = [
 ]
 
 
-def generate_gray_codes(n: int) -> List[int]:
+def generate_gray_codes(n: int) -> list[int]:
     """生成n位格雷编码序列"""
     if n == 0:
         return [0]
@@ -147,12 +145,12 @@ def generate_gray_codes(n: int) -> List[int]:
     return smaller + [x | (1 << (n - 1)) for x in reversed(smaller)]
 
 
-def binary_to_dimension_values(binary_str: str) -> Dict[str, int]:
+def binary_to_dimension_values(binary_str: str) -> dict[str, int]:
     """将二进制字符串转换为维度值字典"""
-    return {dim: int(bit) for dim, bit in zip(DIMENSIONS, binary_str)}
+    return {dim: int(bit) for dim, bit in zip(DIMENSIONS, binary_str, strict=False)}
 
 
-def create_mapping_table() -> List[HexagramMapping]:
+def create_mapping_table() -> list[HexagramMapping]:
     """创建河图10态到64卦的映射表
 
     使用简单的范围分配，确保每个河图状态有6-7个卦象
@@ -214,17 +212,17 @@ def create_mapping_table() -> List[HexagramMapping]:
     return mapping_table
 
 
-def describe_semantics(code: int, hetu_state: HetuState, dim_vals: Dict[str, int]) -> str:
+def describe_semantics(code: int, hetu_state: HetuState, dim_vals: dict[str, int]) -> str:
     """生成语义描述"""
     active_dims = [dim for dim, val in dim_vals.items() if val == 1]
-    inactive_dims = [dim for dim, val in dim_vals.items() if val == 0]
+    [dim for dim, val in dim_vals.items() if val == 0]
 
     desc = f"河图状态: {hetu_state.name} ({hetu_state.value})"
     desc += f", 激活维度: {len(active_dims)}个"
     if active_dims:
         desc += f" ({', '.join(active_dims[:3])}"
         if len(active_dims) > 3:
-            desc += f" 等)"
+            desc += " 等)"
         else:
             desc += ")"
 
@@ -253,7 +251,7 @@ def describe_semantics(code: int, hetu_state: HetuState, dim_vals: Dict[str, int
     return desc
 
 
-def validate_mapping(mapping_table: List[HexagramMapping]) -> Tuple[bool, List[str]]:
+def validate_mapping(mapping_table: list[HexagramMapping]) -> tuple[bool, list[str]]:
     """验证映射表的有效性"""
     errors = []
 
@@ -280,7 +278,7 @@ def validate_mapping(mapping_table: List[HexagramMapping]) -> Tuple[bool, List[s
     return len(errors) == 0, errors
 
 
-def generate_state_transition_graph() -> Dict[int, List[int]]:
+def generate_state_transition_graph() -> dict[int, list[int]]:
     """生成格雷编码状态转移图（汉明距离=1）"""
     graph = {}
 
@@ -366,7 +364,7 @@ def main():
             print(f"\n{state.name} ({state.value}): {state_mappings[0].semantic_description}")
             for i, mapping in enumerate(state_mappings[:2]):
                 active_dims = [dim for dim, val in mapping.dimension_values.items() if val == 1]
-                print(f"  卦象{i+1}: {mapping.hexagram_name} ({mapping.binary_str})")
+                print(f"  卦象{i + 1}: {mapping.hexagram_name} ({mapping.binary_str})")
                 print(f"     激活维度: {', '.join(active_dims) if active_dims else '无'}")
 
     print("\n" + "=" * 70)

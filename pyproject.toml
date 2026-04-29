@@ -27,7 +27,7 @@ dev = [
 
 [tool.ruff]
 target-version = "py311"
-src = ["scripts", "athena", "execution", "ops"]
+src = ["scripts", "athena", "execution", "ops", "agent_system", "config", "workflow", "monitoring"]
 line-length = 100
 exclude = [
     ".venv",
@@ -38,6 +38,17 @@ exclude = [
     ".git",
     "*.egg-info",
     "comfyui_workspace",
+    "backups",
+    "tools/claude-code-setup",
+    "mini-agent",
+    "skillos_experimental",
+    "docs/vendor",
+    ".claude",
+    "scripts/clawra",
+    "sandbox",
+    "tools",
+    "templates",
+    "scripts/test",
 ]
 
 [tool.ruff.lint]

@@ -1,4 +1,6 @@
 #!/usr/bin/env python3
+# DEPRECATED: 使用 governance/ 模块代替
+# governance_cli.py health 或 governance_cli.py queue protect
 """
 全面队列保护脚本
 防止所有队列状态被意外重置
@@ -8,7 +10,6 @@ import json
 import os
 import subprocess
 import sys
-import time
 from datetime import datetime
 from pathlib import Path
 
@@ -17,7 +18,7 @@ project_root = Path(__file__).parent
 sys.path.insert(0, str(project_root))
 
 try:
-    from config.paths import PLAN_QUEUE_DIR, ROOT_DIR, SCRIPTS_DIR, get_queue_file
+    from config.paths import PLAN_QUEUE_DIR, ROOT_DIR, SCRIPTS_DIR
 except ImportError as e:
     print(f"⚠️  警告: 无法导入路径配置模块: {e}")
     print("   使用回退的硬编码路径...")
@@ -45,7 +46,7 @@ def protect_all_queues():
 
     for queue_file in queue_files:
         try:
-            with open(queue_file, "r", encoding="utf-8") as f:
+            with open(queue_file, encoding="utf-8") as f:
                 queue_state = json.load(f)
 
             queue_id = queue_state.get("queue_id", "unknown")

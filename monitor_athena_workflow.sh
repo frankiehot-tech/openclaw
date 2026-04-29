@@ -1,4 +1,5 @@
 #!/bin/bash
+# DEPRECATED: 使用 governance_cli.py health 命令代替
 # Athena工作流无人值守监控脚本
 
 SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"

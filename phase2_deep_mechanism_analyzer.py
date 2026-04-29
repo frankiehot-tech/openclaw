@@ -5,10 +5,9 @@ Claude Code Phase 2 深层机制分析器
 """
 
 import json
-import math
 from dataclasses import dataclass
 from datetime import datetime
-from typing import Any, Dict, List, Tuple
+from typing import Any
 
 
 @dataclass
@@ -27,7 +26,7 @@ class CognitivePattern:
 
     pattern_type: str
     effectiveness: float  # 0-1
-    ethical_concerns: List[str]
+    ethical_concerns: list[str]
 
 
 @dataclass
@@ -46,7 +45,7 @@ class Phase2DeepMechanismAnalyzer:
         self.analysis_results = {}
         self.timestamp = datetime.now().isoformat()
 
-    def analyze_anti_distillation_mechanisms(self) -> Dict[str, Any]:
+    def analyze_anti_distillation_mechanisms(self) -> dict[str, Any]:
         """分析Anti-Distillation机制"""
 
         print("🔍 分析Anti-Distillation机制...")
@@ -97,7 +96,7 @@ class Phase2DeepMechanismAnalyzer:
             ],
         }
 
-    def analyze_undercover_mode(self) -> Dict[str, Any]:
+    def analyze_undercover_mode(self) -> dict[str, Any]:
         """分析Undercover Mode机制"""
 
         print("🔍 分析Undercover Mode机制...")
@@ -138,7 +137,7 @@ class Phase2DeepMechanismAnalyzer:
             ],
         }
 
-    def analyze_buddy_system(self) -> Dict[str, Any]:
+    def analyze_buddy_system(self) -> dict[str, Any]:
         """分析BUDDY系统游戏化机制"""
 
         print("🔍 分析BUDDY系统游戏化机制...")
@@ -190,7 +189,7 @@ class Phase2DeepMechanismAnalyzer:
             ],
         }
 
-    def analyze_kairos_system(self) -> Dict[str, Any]:
+    def analyze_kairos_system(self) -> dict[str, Any]:
         """分析KAIROS梦境算法"""
 
         print("🔍 分析KAIROS梦境算法...")
@@ -235,7 +234,7 @@ class Phase2DeepMechanismAnalyzer:
             ],
         }
 
-    def analyze_prompt_economics(self) -> Dict[str, Any]:
+    def analyze_prompt_economics(self) -> dict[str, Any]:
         """分析提示词经济学"""
 
         print("🔍 分析提示词经济学...")
@@ -281,7 +280,7 @@ class Phase2DeepMechanismAnalyzer:
             ],
         }
 
-    def generate_comprehensive_report(self) -> Dict[str, Any]:
+    def generate_comprehensive_report(self) -> dict[str, Any]:
         """生成综合分析报告"""
 
         print("📊 生成Phase 2综合分析报告...")
@@ -305,7 +304,7 @@ class Phase2DeepMechanismAnalyzer:
 
         return report
 
-    def _generate_cross_cutting_insights(self) -> Dict[str, Any]:
+    def _generate_cross_cutting_insights(self) -> dict[str, Any]:
         """生成跨领域洞察"""
 
         insights = {
@@ -328,7 +327,7 @@ class Phase2DeepMechanismAnalyzer:
 
         return insights
 
-    def _prepare_phase3_work(self) -> Dict[str, Any]:
+    def _prepare_phase3_work(self) -> dict[str, Any]:
         """准备Phase 3工作"""
 
         return {

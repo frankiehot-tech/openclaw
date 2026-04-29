@@ -21,7 +21,7 @@ import os
 from dataclasses import dataclass, field
 from datetime import datetime
 from enum import IntEnum
-from typing import Any, Dict, List, Optional, Tuple
+from typing import Any
 
 
 class HetuState(IntEnum):
@@ -46,7 +46,7 @@ class HexagramMapping:
     hexagram_code: int  # 6位二进制编码 (0-63)
     binary_str: str  # 二进制字符串表示
     hexagram_name: str  # 卦象名称
-    dimension_values: Dict[str, int]  # 6个维度的值 (0/1)
+    dimension_values: dict[str, int]  # 6个维度的值 (0/1)
     hetu_state: HetuState  # 对应的河图状态
     semantic_description: str  # 语义描述
 
@@ -59,10 +59,10 @@ class StateEvolution:
     to_state: str  # 目标卦象状态
     from_hetu: HetuState  # 起始河图状态
     to_hetu: HetuState  # 目标河图状态
-    changed_dimension: Optional[str]  # 改变的维度（如果有）
+    changed_dimension: str | None  # 改变的维度（如果有）
     hamming_distance: int  # 汉明距离
     timestamp: datetime  # 演化时间
-    context: Dict[str, Any] = field(default_factory=dict)  # 演化上下文
+    context: dict[str, Any] = field(default_factory=dict)  # 演化上下文
 
 
 @dataclass
@@ -72,14 +72,14 @@ class StateAnalysis:
     hexagram_code: int  # 卦象编码
     binary_representation: str  # 二进制表示
     hexagram_name: str  # 卦象名称
-    dimension_values: Dict[str, int]  # 各维度值（0或1）
+    dimension_values: dict[str, int]  # 各维度值（0或1）
     hetu_state: HetuState  # 河图状态
     hetu_state_name: str  # 河图状态名称
     semantic_description: str  # 语义描述
     quality_score: float  # 质量评分（基于激活维度数）
     evolution_distance_to_perfect: int  # 到完美状态的距离
-    active_dimensions: List[str]  # 激活的维度列表
-    inactive_dimensions: List[str]  # 未激活的维度列表
+    active_dimensions: list[str]  # 激活的维度列表
+    inactive_dimensions: list[str]  # 未激活的维度列表
 
 
 class IntegratedHexagramStateManager:
@@ -111,21 +111,21 @@ class IntegratedHexagramStateManager:
         self._by_hetu_state = self._group_by_hetu_state()
 
         # 状态历史
-        self.state_history: List[StateEvolution] = []
+        self.state_history: list[StateEvolution] = []
 
         # 当前状态
-        self.current_state: Optional[str] = None
+        self.current_state: str | None = None
 
         print("🔧 集成64卦状态管理器初始化完成")
         print(f"   加载 {len(self.mappings)} 个卦象映射")
         print(f"   河图状态数: {len(self._by_hetu_state)}")
 
-    def _load_mappings(self) -> List[HexagramMapping]:
+    def _load_mappings(self) -> list[HexagramMapping]:
         """加载河图-卦象映射数据"""
         if not os.path.exists(self.mapping_file_path):
             raise FileNotFoundError(f"映射文件不存在: {self.mapping_file_path}")
 
-        with open(self.mapping_file_path, "r", encoding="utf-8") as f:
+        with open(self.mapping_file_path, encoding="utf-8") as f:
             data = json.load(f)
 
         mappings = []
@@ -157,9 +157,9 @@ class IntegratedHexagramStateManager:
 
         return mappings
 
-    def _group_by_hetu_state(self) -> Dict[HetuState, List[HexagramMapping]]:
+    def _group_by_hetu_state(self) -> dict[HetuState, list[HexagramMapping]]:
         """按河图状态分组映射"""
-        groups: Dict[HetuState, List[HexagramMapping]] = {}
+        groups: dict[HetuState, list[HexagramMapping]] = {}
         for mapping in self.mappings:
             state = mapping.hetu_state
             if state not in groups:
@@ -203,9 +203,9 @@ class IntegratedHexagramStateManager:
         """
         if len(state1) != len(state2):
             raise ValueError("状态长度不一致")
-        return sum(bit1 != bit2 for bit1, bit2 in zip(state1, state2))
+        return sum(bit1 != bit2 for bit1, bit2 in zip(state1, state2, strict=False))
 
-    def get_valid_transitions(self, state: Optional[str] = None) -> List[str]:
+    def get_valid_transitions(self, state: str | None = None) -> list[str]:
         """
         获取所有有效的转换目标状态（格雷编码约束：汉明距离=1）
 
@@ -236,7 +236,7 @@ class IntegratedHexagramStateManager:
         return valid_states
 
     def transition(
-        self, new_state: str, reason: str = "unknown", context: Optional[Dict[str, Any]] = None
+        self, new_state: str, reason: str = "unknown", context: dict[str, Any] | None = None
     ) -> bool:
         """
         执行状态转换（必须满足格雷编码约束）
@@ -301,7 +301,7 @@ class IntegratedHexagramStateManager:
 
         return True
 
-    def get_hexagram_name(self, state: Optional[str] = None) -> str:
+    def get_hexagram_name(self, state: str | None = None) -> str:
         """获取卦象名称"""
         if state is None:
             if self.current_state is None:
@@ -311,7 +311,7 @@ class IntegratedHexagramStateManager:
         mapping = self._by_binary.get(state)
         return mapping.hexagram_name if mapping else "未知卦象"
 
-    def get_hetu_state(self, state: Optional[str] = None) -> Optional[HetuState]:
+    def get_hetu_state(self, state: str | None = None) -> HetuState | None:
         """获取河图状态"""
         if state is None:
             if self.current_state is None:
@@ -321,7 +321,7 @@ class IntegratedHexagramStateManager:
         mapping = self._by_binary.get(state)
         return mapping.hetu_state if mapping else None
 
-    def get_dimension_values(self, state: Optional[str] = None) -> Dict[str, int]:
+    def get_dimension_values(self, state: str | None = None) -> dict[str, int]:
         """获取维度值"""
         if state is None:
             if self.current_state is None:
@@ -331,7 +331,7 @@ class IntegratedHexagramStateManager:
         mapping = self._by_binary.get(state)
         return mapping.dimension_values.copy() if mapping else {}
 
-    def analyze_state(self, state: Optional[str] = None) -> Optional[StateAnalysis]:
+    def analyze_state(self, state: str | None = None) -> StateAnalysis | None:
         """分析状态"""
         if state is None:
             if self.current_state is None:
@@ -365,14 +365,14 @@ class IntegratedHexagramStateManager:
             inactive_dimensions=inactive_dims,
         )
 
-    def get_states_by_hetu(self, hetu_state: HetuState) -> List[str]:
+    def get_states_by_hetu(self, hetu_state: HetuState) -> list[str]:
         """获取指定河图状态的所有卦象状态"""
         mappings = self._by_hetu_state.get(hetu_state, [])
         return [m.binary_str for m in mappings]
 
     def get_hetu_state_transitions(
         self, from_hetu: HetuState, to_hetu: HetuState
-    ) -> List[Tuple[str, str]]:
+    ) -> list[tuple[str, str]]:
         """
         获取河图状态之间的可能转换
 
@@ -394,7 +394,7 @@ class IntegratedHexagramStateManager:
 
         return transitions
 
-    def find_path_to_hetu_state(self, target_hetu: HetuState, max_steps: int = 6) -> List[str]:
+    def find_path_to_hetu_state(self, target_hetu: HetuState, max_steps: int = 6) -> list[str]:
         """
         找到从当前状态到指定河图状态的路径
 
@@ -440,7 +440,7 @@ class IntegratedHexagramStateManager:
 
         return []
 
-    def print_state_info(self, state: Optional[str] = None) -> None:
+    def print_state_info(self, state: str | None = None) -> None:
         """打印状态详细信息"""
         analysis = self.analyze_state(state)
         if not analysis:
@@ -464,13 +464,13 @@ class IntegratedHexagramStateManager:
         print(f"   未激活维度 ({len(analysis.inactive_dimensions)}): {inactive_dims_str}")
         print(f"   语义: {analysis.semantic_description}")
 
-    def get_evolution_history(self, limit: Optional[int] = None) -> List[StateEvolution]:
+    def get_evolution_history(self, limit: int | None = None) -> list[StateEvolution]:
         """获取演化历史"""
         if limit:
             return self.state_history[-limit:]
         return self.state_history
 
-    def visualize_state_space(self, highlight_hetu_states: Optional[List[HetuState]] = None) -> str:
+    def visualize_state_space(self, highlight_hetu_states: list[HetuState] | None = None) -> str:
         """可视化状态空间（返回文本表示）"""
         highlight_hetu_states = highlight_hetu_states or []
 
@@ -558,7 +558,7 @@ def test_integrated_manager() -> None:
         valid_transitions = manager.get_valid_transitions()
         print(f"   有效转换目标数: {len(valid_transitions)}")
         for i, state in enumerate(valid_transitions[:3]):  # 显示前3个
-            print(f"     目标{i+1}: {state} ({manager.get_hexagram_name(state)})")
+            print(f"     目标{i + 1}: {state} ({manager.get_hexagram_name(state)})")
 
         # 测试状态转换
         print("\n🔄 测试状态转换...")
@@ -570,7 +570,7 @@ def test_integrated_manager() -> None:
             ("000100", True, "测试转换3"),  # 山地剥（有效）
         ]
 
-        for new_state, expected, reason in test_transitions:
+        for new_state, _expected, reason in test_transitions:
             print(f"\n   尝试转换到 {new_state} ({manager.get_hexagram_name(new_state)}):")
             success = manager.transition(new_state, reason)
             if success:
@@ -601,7 +601,7 @@ def test_integrated_manager() -> None:
         target_hetu = HetuState.COMPLETED
         path = manager.find_path_to_hetu_state(target_hetu, max_steps=6)
         if path:
-            print(f"   到 {target_hetu.name} 的路径 ({len(path)-1} 步):")
+            print(f"   到 {target_hetu.name} 的路径 ({len(path) - 1} 步):")
             for i, state in enumerate(path):
                 hetu = manager.get_hetu_state(state)
                 hetu_name = hetu.name if hetu else "未知"

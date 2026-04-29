@@ -7,9 +7,8 @@ Athena Web Desktop 工作流自动修复任务
 import json
 import os
 import subprocess
-import sys
 import time
-from datetime import datetime, timedelta
+from datetime import datetime
 
 import requests
 
@@ -51,7 +50,7 @@ class AthenaWorkflowAutoFix:
             return None
 
         try:
-            with open(self.queue_file, "r", encoding="utf-8") as f:
+            with open(self.queue_file, encoding="utf-8") as f:
                 queue_state = json.load(f)
 
             status = queue_state.get("queue_status", "unknown")
@@ -157,7 +156,7 @@ class AthenaWorkflowAutoFix:
         print("\n🔧 修复队列手动保留状态...")
 
         try:
-            with open(self.queue_file, "r", encoding="utf-8") as f:
+            with open(self.queue_file, encoding="utf-8") as f:
                 queue_state = json.load(f)
 
             # 查找可自动执行的任务
@@ -250,21 +249,17 @@ class AthenaWorkflowAutoFix:
         # 执行修复
         fixes_applied = []
 
-        if "web_service_down" in problems:
-            if self.fix_web_service():
-                fixes_applied.append("web_service")
+        if "web_service_down" in problems and self.fix_web_service():
+            fixes_applied.append("web_service")
 
-        if "runner_not_running" in problems:
-            if self.restart_queue_runner():
-                fixes_applied.append("queue_runner")
+        if "runner_not_running" in problems and self.restart_queue_runner():
+            fixes_applied.append("queue_runner")
 
-        if "queue_manual_hold" in problems:
-            if self.fix_queue_manual_hold(queue_state):
-                fixes_applied.append("queue_status")
+        if "queue_manual_hold" in problems and self.fix_queue_manual_hold(queue_state):
+            fixes_applied.append("queue_status")
 
-        if "no_current_task" in problems:
-            if self.fix_queue_manual_hold(queue_state):
-                fixes_applied.append("current_task")
+        if "no_current_task" in problems and self.fix_queue_manual_hold(queue_state):
+            fixes_applied.append("current_task")
 
         # 验证修复结果
         print("\n🔍 验证修复结果...")
@@ -299,16 +294,16 @@ log() {
 monitor_workflow() {
     while true; do
         log "🔍 检查工作流状态..."
-        
+
         # 运行自动修复脚本
         python3 "$AUTO_FIX_SCRIPT" >> "$LOG_FILE" 2>&1
-        
+
         if [ $? -eq 0 ]; then
             log "✅ 工作流状态正常"
         else
             log "⚠️ 工作流存在问题，已尝试修复"
         fi
-        
+
         # 等待5分钟再次检查
         sleep 300
     done

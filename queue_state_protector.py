@@ -7,7 +7,6 @@
 import json
 import os
 import signal
-import sys
 import time
 from datetime import datetime
 from pathlib import Path
@@ -37,7 +36,7 @@ class QueueStateProtector:
             return False
 
         try:
-            with open(self.queue_file, "r", encoding="utf-8") as f:
+            with open(self.queue_file, encoding="utf-8") as f:
                 queue_state = json.load(f)
 
             # 检查队列状态是否异常
@@ -99,7 +98,7 @@ class QueueStateProtector:
             self.protect_queue_state()
 
             # 等待30秒再次检查
-            for i in range(30):
+            for _i in range(30):
                 if not self.running:
                     break
                 time.sleep(1)
@@ -108,7 +107,7 @@ class QueueStateProtector:
         try:
             if self.protection_file.exists():
                 self.protection_file.unlink()
-        except:
+        except Exception:
             pass
 
         print(f"🛑 [{datetime.now()}] 队列状态保护守护进程已停止")

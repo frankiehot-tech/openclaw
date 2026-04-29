@@ -5,11 +5,10 @@ Clean-room重建验证 + 跨语言实现对比
 """
 
 import json
-import math
 from dataclasses import asdict, dataclass
 from datetime import datetime
 from enum import Enum
-from typing import Any, Dict, List, Tuple
+from typing import Any
 
 
 class CustomJSONEncoder(json.JSONEncoder):
@@ -49,7 +48,7 @@ class ImplementationMetrics:
 class ParityScore:
     """相似度分数"""
 
-    language_pair: Tuple[Language, Language]
+    language_pair: tuple[Language, Language]
     functional_equivalence: float  # 0-1
     performance_similarity: float  # 0-1
     api_compatibility: float  # 0-1
@@ -63,7 +62,7 @@ class Phase3ValidationReconstructor:
         self.analysis_results = {}
         self.timestamp = datetime.now().isoformat()
 
-    def setup_clean_room_methodology(self) -> Dict[str, Any]:
+    def setup_clean_room_methodology(self) -> dict[str, Any]:
         """建立Clean-room重建方法论"""
 
         print("🔍 建立Clean-room重建方法论...")
@@ -112,7 +111,7 @@ class Phase3ValidationReconstructor:
             "verification_process": self._setup_verification_process(),
         }
 
-    def _setup_verification_process(self) -> Dict[str, Any]:
+    def _setup_verification_process(self) -> dict[str, Any]:
         """建立验证流程"""
 
         verification_process = {
@@ -135,7 +134,7 @@ class Phase3ValidationReconstructor:
 
         return verification_process
 
-    def analyze_cross_language_migration(self) -> Dict[str, Any]:
+    def analyze_cross_language_migration(self) -> dict[str, Any]:
         """分析跨语言迁移"""
 
         print("🔍 分析跨语言迁移...")
@@ -191,7 +190,7 @@ class Phase3ValidationReconstructor:
             "migration_timeline": self._create_migration_timeline(),
         }
 
-    def _create_migration_timeline(self) -> Dict[str, Any]:
+    def _create_migration_timeline(self) -> dict[str, Any]:
         """创建迁移时间线"""
 
         timeline = {
@@ -213,7 +212,7 @@ class Phase3ValidationReconstructor:
 
         return timeline
 
-    def run_parity_audit(self) -> Dict[str, Any]:
+    def run_parity_audit(self) -> dict[str, Any]:
         """运行三语言相似度检测"""
 
         print("🔍 运行三语言相似度检测...")
@@ -262,8 +261,8 @@ class Phase3ValidationReconstructor:
         }
 
     def _calculate_parity_matrix(
-        self, implementations: Dict[Language, ImplementationMetrics], metrics: Dict[str, Any]
-    ) -> Dict[str, Dict[str, float]]:
+        self, implementations: dict[Language, ImplementationMetrics], metrics: dict[str, Any]
+    ) -> dict[str, dict[str, float]]:
         """计算相似度矩阵"""
 
         languages = list(implementations.keys())
@@ -300,8 +299,8 @@ class Phase3ValidationReconstructor:
         return parity_matrix
 
     def _analyze_acceptance(
-        self, parity_matrix: Dict[str, Dict[str, float]], metrics: Dict[str, Any]
-    ) -> Dict[str, Any]:
+        self, parity_matrix: dict[str, dict[str, float]], metrics: dict[str, Any]
+    ) -> dict[str, Any]:
         """分析接受度"""
 
         acceptance_threshold = 0.85
@@ -331,7 +330,7 @@ class Phase3ValidationReconstructor:
             "is_overall_acceptable": overall_acceptance >= 0.8,
         }
 
-    def setup_oh_my_codex_workflow(self) -> Dict[str, Any]:
+    def setup_oh_my_codex_workflow(self) -> dict[str, Any]:
         """设置Oh-My-Codex工作流"""
 
         print("🔍 设置Oh-My-Codex工作流...")
@@ -392,7 +391,7 @@ class Phase3ValidationReconstructor:
             "expected_efficiency_gain": "40-60%生产力提升",
         }
 
-    def generate_comprehensive_report(self) -> Dict[str, Any]:
+    def generate_comprehensive_report(self) -> dict[str, Any]:
         """生成综合分析报告"""
 
         print("📊 生成Phase 3综合分析报告...")
@@ -413,7 +412,7 @@ class Phase3ValidationReconstructor:
 
         return report
 
-    def _assess_phase_completion(self) -> Dict[str, Any]:
+    def _assess_phase_completion(self) -> dict[str, Any]:
         """评估阶段完成度"""
 
         return {
@@ -434,7 +433,7 @@ class Phase3ValidationReconstructor:
             },
         }
 
-    def _generate_final_recommendations(self) -> List[Dict[str, Any]]:
+    def _generate_final_recommendations(self) -> list[dict[str, Any]]:
         """生成最终建议"""
 
         recommendations = [
@@ -496,7 +495,7 @@ def main():
 
     # 打印关键发现
     parity_results = report["parity_audit"]["acceptance_analysis"]
-    print(f"\n🔍 Parity Audit结果:")
+    print("\n🔍 Parity Audit结果:")
     print(f"   总体接受率: {parity_results['overall_acceptance_rate']:.1%}")
     print(f"   是否可接受: {'是' if parity_results['is_overall_acceptable'] else '否'}")
 

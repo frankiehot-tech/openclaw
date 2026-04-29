@@ -10,10 +10,8 @@
 import json
 import logging
 import os
-import subprocess
-import time
 from pathlib import Path
-from typing import Any, Dict
+from typing import Any
 
 from ops.fault_handler.registry import (
     BaseFaultHandler,
@@ -68,7 +66,7 @@ class QueueStuckHandler(BaseFaultHandler):
 
         return False
 
-    def diagnose(self, ctx: FaultContext) -> Dict[str, Any]:
+    def diagnose(self, ctx: FaultContext) -> dict[str, Any]:
         queue_file = ctx.metadata.get("queue_file", "")
         diagnosis = {"root_cause": "unknown", "evidence": []}
 
@@ -80,16 +78,20 @@ class QueueStuckHandler(BaseFaultHandler):
             state = json.load(f)
 
         items = state.get("items", {})
-        blocked_count = sum(1 for item in items.values()
-                          if not item.get("status", "") == "completed"
-                          and item.get("depends_on"))
+        blocked_count = sum(
+            1
+            for item in items.values()
+            if item.get("status", "") != "completed" and item.get("depends_on")
+        )
 
-        diagnosis.update({
-            "total_items": len(items),
-            "blocked_items": blocked_count,
-            "queue_status": state.get("queue_status"),
-            "worker_status": state.get("worker_status"),
-        })
+        diagnosis.update(
+            {
+                "total_items": len(items),
+                "blocked_items": blocked_count,
+                "queue_status": state.get("queue_status"),
+                "worker_status": state.get("worker_status"),
+            }
+        )
 
         if state.get("queue_status") == "empty" and len(items) > 0:
             diagnosis["root_cause"] = "queue_empty_state_mismatch"
@@ -120,7 +122,7 @@ class QueueStuckHandler(BaseFaultHandler):
                 state["queue_status"] = "running"
                 logger.info("已修复: 队列状态 empty -> running")
             elif current_status == "manual_hold":
-                for item_id, item in state.get("items", {}).items():
+                for _item_id, item in state.get("items", {}).items():
                     if item.get("status") == "manual_hold":
                         item["status"] = "pending"
                 state["queue_status"] = "running"
@@ -129,7 +131,7 @@ class QueueStuckHandler(BaseFaultHandler):
                 state["queue_status"] = "running"
                 logger.info("已修复: 队列状态 stopped -> running")
 
-            with open(queue_file, 'w') as f:
+            with open(queue_file, "w") as f:
                 json.dump(state, f, indent=2, ensure_ascii=False)
 
             return True

@@ -19,7 +19,7 @@ BACKUP_SUFFIX = ".rollback_" + datetime.now().strftime("%Y%m%d_%H%M%S")
 def load_config():
     """加载配置文件"""
     try:
-        with open(CONFIG_FILE, "r", encoding="utf-8") as f:
+        with open(CONFIG_FILE, encoding="utf-8") as f:
             return yaml.safe_load(f)
     except Exception as e:
         print(f"❌ 加载配置文件失败: {e}")
@@ -69,14 +69,14 @@ def rollback_to_safe_state():
         "suggestion_confidence_threshold": 0.7,
     }
 
-    print(f"\n🔒 安全配置:")
+    print("\n🔒 安全配置:")
     for key, value in safe_config.items():
         print(f"  {key}: {value}")
 
     # 询问确认
-    print(f"\n❓ 是否回滚到安全状态？")
-    print(f"  输入 'yes' 执行回滚")
-    print(f"  输入 'no' 或直接回车取消")
+    print("\n❓ 是否回滚到安全状态？")
+    print("  输入 'yes' 执行回滚")
+    print("  输入 'no' 或直接回车取消")
 
     try:
         user_input = input("  你的选择: ").strip().lower()
@@ -91,12 +91,12 @@ def rollback_to_safe_state():
     config_data.update(safe_config)
 
     if save_config(config_data):
-        print(f"\n✅ 配置已回滚到安全状态")
+        print("\n✅ 配置已回滚到安全状态")
 
         # 验证回滚
         verify_config = load_config()
         if verify_config:
-            print(f"\n✅ 验证回滚结果:")
+            print("\n✅ 验证回滚结果:")
             for key, expected_value in safe_config.items():
                 actual_value = verify_config.get(key)
                 if actual_value == expected_value:
@@ -105,13 +105,13 @@ def rollback_to_safe_state():
                     print(f"  ❌ {key}: 期望 {expected_value}, 实际 {actual_value}")
         return True
     else:
-        print(f"\n❌ 回滚失败")
+        print("\n❌ 回滚失败")
         return False
 
 
 def check_maref_status():
     """检查MAREF状态"""
-    print(f"\n🔍 MAREF状态检查:")
+    print("\n🔍 MAREF状态检查:")
     print("=" * 40)
 
     config_data = load_config()
@@ -145,15 +145,15 @@ def main():
 
     # 检查当前状态
     if check_maref_status():
-        print(f"\n✅ MAREF配置处于自动化启用状态")
+        print("\n✅ MAREF配置处于自动化启用状态")
     else:
-        print(f"\n⚠️  MAREF配置可能有问题")
+        print("\n⚠️  MAREF配置可能有问题")
 
     # 提供选项
-    print(f"\n📋 可用操作:")
-    print(f"  1. 检查当前状态")
-    print(f"  2. 回滚到安全状态")
-    print(f"  3. 退出")
+    print("\n📋 可用操作:")
+    print("  1. 检查当前状态")
+    print("  2. 回滚到安全状态")
+    print("  3. 退出")
 
     try:
         choice = input("\n  选择操作 (1-3): ").strip()

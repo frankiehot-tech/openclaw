@@ -1,4 +1,5 @@
 #!/bin/bash
+# DEPRECATED: 使用 governance_cli.py repair 命令代替
 # Athena Web配置与队列状态同步监控脚本
 
 SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"

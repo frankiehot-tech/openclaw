@@ -7,7 +7,7 @@ import json
 import os
 import subprocess
 import sys
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 
 import psutil
 
@@ -15,7 +15,7 @@ import psutil
 def check_queue_status(queue_file_path):
     """检查队列文件状态"""
     try:
-        with open(queue_file_path, "r", encoding="utf-8") as f:
+        with open(queue_file_path, encoding="utf-8") as f:
             data = json.load(f)
 
         queue_id = data.get("queue_id", "unknown")
@@ -37,7 +37,7 @@ def check_queue_status(queue_file_path):
 
         # 统计任务状态
         status_counts = {}
-        for item_id, item_data in items_dict.items():
+        for _item_id, item_data in items_dict.items():
             status = item_data.get("status", "unknown")
             status_counts[status] = status_counts.get(status, 0) + 1
 
@@ -50,11 +50,11 @@ def check_queue_status(queue_file_path):
                 # 检查updated_at时间
                 try:
                     update_time = datetime.fromisoformat(updated_at.replace("Z", "+00:00"))
-                    now = datetime.now(timezone.utc)
+                    now = datetime.now(UTC)
                     time_diff = (now - update_time).total_seconds()
                     if time_diff > 3600:  # 超过1小时
                         is_stuck = True
-                except:
+                except Exception:
                     pass
 
         return {
@@ -166,7 +166,7 @@ def check_monitor_dashboard(port=5002):
                 }
             else:
                 return {"status": "curl_error", "returncode": result.returncode}
-        except:
+        except Exception:
             return {"status": "check_failed"}
 
 
@@ -211,14 +211,14 @@ def main():
 
                 if report["health_score"] < 70:
                     all_queues_healthy = False
-                    print(f"   ⚠️ 队列健康分数较低 (<70)")
+                    print("   ⚠️ 队列健康分数较低 (<70)")
         else:
             print(f"\n📊 队列文件不存在: {queue_file}")
             queue_reports.append({"queue_id": queue_file, "error": "文件不存在", "health_score": 0})
             all_queues_healthy = False
 
     # 检查进程
-    print(f"\n🔄 检查系统进程:")
+    print("\n🔄 检查系统进程:")
 
     process_checks = [
         ("athena_ai_plan_runner", "队列运行器"),
@@ -244,7 +244,7 @@ def main():
             all_processes_healthy = False
 
     # 检查监控仪表板
-    print(f"\n📈 检查监控仪表板:")
+    print("\n📈 检查监控仪表板:")
     dashboard_status = check_monitor_dashboard(5002)
     print(f"   仪表板状态: {dashboard_status.get('status', 'unknown')}")
     if dashboard_status.get("status") == "running":
@@ -252,7 +252,7 @@ def main():
         print(f"   活跃告警数: {dashboard_status.get('alerts_active', 0)}")
 
     # 总结
-    print(f"\n" + "=" * 60)
+    print("\n" + "=" * 60)
     print("📋 健康检查总结")
     print("=" * 60)
 
@@ -284,7 +284,7 @@ def main():
     print(f"\n   质量门禁通过: {'✅ 通过' if quality_gate_passed else '❌ 未通过'}")
 
     # 建议
-    print(f"\n💡 建议:")
+    print("\n💡 建议:")
     if not all_queues_healthy:
         print("   - 修复队列健康问题（失败任务、卡住任务）")
     if not all_processes_healthy:

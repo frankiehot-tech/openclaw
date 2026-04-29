@@ -209,33 +209,56 @@ Think of it like a human reviewing their journal and updating their mental model
 
 The goal: Be helpful without being annoying. Check in a few times a day, do useful background work, but respect quiet time.
 
-### 🧠 LLM Wiki — 知识复利系统
+## 🌉 跨项目知识桥接
 
-**Session 结束时自动执行**（main session 或复杂工作完成后）：
+openclaw 的 wiki 索引了 `Athena知识库/执行项目/2026/003-open human（碳硅基共生）/` 的核心文档。
 
-1. 对照 `wiki/SCHEMA.md` 检查本次会话产出
-2. 如果有新决策、概念、模式 → 更新对应 wiki 页面
-3. 写入会话摘要到 `wiki/sessions/YYYY-MM-DD.md`
-4. 追加到 `wiki/LOG.md`
-5. 如果添加了新页面 → 更新 `wiki/INDEX.md`
+- **索引位置**: `wiki/CROSS_PROJECT.md`
+- **用途**: AI Agent 在涉及项目状态、架构方案、审计报告等主题时，先查此索引找到原始文档
+- **原则**: wiki 不复制外部内容，只维护路径索引
+- **维护**: 每次会话涉及新外部文档时，更新 `CROSS_PROJECT.md` 和 `wiki/LOG.md`
+
+### 🧠 LLM Wiki — 知识复利系统（llm-wiki 模式）
+
+核心思想：wiki 是持久化的编译产物，不是 RAG 的检索缓存。每次会话的知识被编译进 wiki，下次会话直接从 wiki 读取，而非重新从原始数据推导。[[wiki/CONCEPTS|知识复利]]
+
+**Session 结束时必须执行**（main session 或复杂工作完成后）:
+
+1. 读取 `wiki/sessions/YYYY-MM-DD.md`（昨天的摘要）了解最近进展
+2. 对照 `wiki/SCHEMA.md` 检查本次会话产出
+3. 如果有新决策 → 追加到 `wiki/DECISIONS.md`
+4. 如果有新模式/陷阱 → 追加到 `wiki/PATTERNS.md`
+5. 写入会话摘要到 `wiki/sessions/YYYY-MM-DD.md`（本次日期）
+6. 追加到 `wiki/LOG.md`
+7. 如果添加了新页面 → 更新 `wiki/INDEX.md`
+8. 如果页面超过 SCHEMA.md 的大小上限 → 拆分为子页面
 
 **知识查找优先级**（Session 中任何时候）：
 ```
-wiki/ → claude-mem搜索 → memory/日志
+wiki/ → memory/日志
 ```
-
-先查 wiki（已蒸馏的知识），不够再用 claude-mem 搜原始记忆。
+先读 `wiki/INDEX.md` 找到相关页面 → 读页面 → 跟 [[wikilinks]]。wiki 不够时回退到 memory/。
 
 **蒸馏触发条件**（Session 中自觉判断）：
 
 | 信号 | 操作 |
 |------|------|
 | 同一主题讨论 ≥ 2 次 | 写入概念或模式条目 |
-| 做出架构决策 | 追加到 DECISIONS.md |
+| 做出架构决策 | 追加到 `DECISIONS.md` |
 | 用户说"记住这个" | 立即写入 wiki |
-| 识别到重复模式 | 追加到 PATTERNS.md |
-| 修复了反复出现的 bug | 记录到 PATTERNS.md |
+| 识别到重复模式 | 追加到 `PATTERNS.md` |
+| 修复了反复出现的 bug | 记录到 `PATTERNS.md` |
+| 页面超过 30 天未更新 | 标记"可能过时" |
 
 ## Make It Yours
 
 This is a starting point. Add your own conventions, style, and rules as you figure out what works.
+
+
+<claude-mem-context>
+# Memory Context
+
+# [openclaw] recent context, 2026-04-28 3:45pm GMT+8
+
+No previous sessions found.
+</claude-mem-context>

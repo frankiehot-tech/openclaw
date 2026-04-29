@@ -1,4 +1,5 @@
 #!/bin/bash
+# DEPRECATED: 使用 governance_cli.py queue protect 命令代替
 # 队列状态保护监控脚本
 
 SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"

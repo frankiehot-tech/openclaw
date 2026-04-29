@@ -63,7 +63,7 @@ class HexagramEnhancedLuoshuScheduler(HetuLuoshuScheduler):  # type: ignore[misc
     def __init__(
         self,
         mapping_file_path: str = "hetu_hexagram_mapping.json",
-        state_file: t.Optional[str] = None,
+        state_file: str | None = None,
         max_concurrent: int = 5,
     ):
         """
@@ -82,8 +82,8 @@ class HexagramEnhancedLuoshuScheduler(HetuLuoshuScheduler):  # type: ignore[misc
         # 初始化父类（但跳过父类的state_manager初始化）
         # 我们手动创建luoshu_scheduler和任务存储
         self.luoshu_scheduler = LuoshuScheduler(max_concurrent)
-        self.tasks: t.Dict[str, AssessmentTask] = {}
-        self.task_schedules: t.Dict[str, AssessmentSchedule] = {}
+        self.tasks: dict[str, AssessmentTask] = {}
+        self.task_schedules: dict[str, AssessmentSchedule] = {}
 
         # 状态文件路径
         self.state_file = state_file
@@ -99,8 +99,8 @@ class HexagramEnhancedLuoshuScheduler(HetuLuoshuScheduler):  # type: ignore[misc
         code: str,
         task_type: str = "general",
         priority: AssessmentPriority = AssessmentPriority.MEDIUM,
-        context: t.Optional[t.Dict[str, t.Any]] = None,
-        test_cases: t.Optional[t.List[t.Any]] = None,
+        context: dict[str, t.Any] | None = None,
+        test_cases: list[t.Any] | None = None,
     ) -> str:
         """提交评估任务（增强版）"""
         # 调用父类方法创建任务
@@ -189,7 +189,7 @@ class HexagramEnhancedLuoshuScheduler(HetuLuoshuScheduler):  # type: ignore[misc
 
         return True
 
-    def get_task_status(self, task_id: str) -> t.Optional[t.Dict[str, t.Any]]:
+    def get_task_status(self, task_id: str) -> dict[str, t.Any] | None:
         """获取任务状态（增强版，包含卦象信息）"""
         base_status = super().get_task_status(task_id)
         if base_status is None:
@@ -214,11 +214,11 @@ class HexagramEnhancedLuoshuScheduler(HetuLuoshuScheduler):  # type: ignore[misc
 
         return base_status  # type: ignore[no-any-return]
 
-    def get_hexagram_analysis(self, task_id: str) -> t.Optional[StateAnalysis]:
+    def get_hexagram_analysis(self, task_id: str) -> StateAnalysis | None:
         """获取任务的卦象分析"""
         return self.hexagram_adapter.analyze_task_state(task_id)
 
-    def get_system_report(self) -> t.Dict[str, t.Any]:
+    def get_system_report(self) -> dict[str, t.Any]:
         """获取系统报告（增强版，包含卦象统计）"""
         # 获取调度器状态
         status = self.luoshu_scheduler.get_system_status()
@@ -249,20 +249,20 @@ class HexagramEnhancedLuoshuScheduler(HetuLuoshuScheduler):  # type: ignore[misc
 
         return base_report
 
-    def _collect_hexagram_statistics(self) -> t.Dict[str, t.Any]:
+    def _collect_hexagram_statistics(self) -> dict[str, t.Any]:
         """收集卦象统计信息"""
-        stats: t.Dict[str, t.Any] = {
+        stats: dict[str, t.Any] = {
             "hexagram_distribution": {},
             "quality_scores": {},
             "dimension_activation": {},
         }
 
         # 收集所有任务的卦象分布
-        hexagram_counts: t.Dict[str, int] = {}
+        hexagram_counts: dict[str, int] = {}
         total_quality: float = 0.0
         task_count = 0
 
-        dimension_counts: t.Dict[str, int] = {
+        dimension_counts: dict[str, int] = {
             "correctness": 0,
             "complexity": 0,
             "style": 0,
@@ -404,7 +404,7 @@ def fibonacci(n):
         visualization = scheduler.visualize_hexagram_space()
         # 只显示部分可视化内容
         lines = visualization.split("\n")
-        for i, line in enumerate(lines[:30]):  # 只显示前30行
+        for _i, line in enumerate(lines[:30]):  # 只显示前30行
             print(line)
 
         print("\n... (可视化内容截断) ...")

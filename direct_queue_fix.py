@@ -1,4 +1,6 @@
 #!/usr/bin/env python3
+# DEPRECATED: 使用 governance/ 模块代替
+# governance_cli.py repair <command> 或 governance_cli.py queue fix
 """
 直接队列修复脚本
 修复最后的manual_hold状态和no_consumer问题
@@ -6,8 +8,7 @@
 
 import json
 import os
-import sys
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 
 QUEUE_FILE = (
     "/Volumes/1TB-M2/openclaw/.openclaw/plan_queue/openhuman_aiplan_gene_management_20260405.json"
@@ -16,7 +17,7 @@ QUEUE_FILE = (
 
 def load_json_file(file_path):
     """加载JSON文件"""
-    with open(file_path, "r", encoding="utf-8") as f:
+    with open(file_path, encoding="utf-8") as f:
         return json.load(f)
 
 
@@ -84,15 +85,15 @@ def direct_fix():
         state["pause_reason"] = ""
         state["current_item_id"] = first_task
         state["current_item_ids"] = runnable_tasks
-        state["updated_at"] = datetime.now(timezone.utc).isoformat()
+        state["updated_at"] = datetime.now(UTC).isoformat()
 
         # 设置第一个任务为running
         items[first_task]["status"] = "running"
         items[first_task]["progress_percent"] = 0
         if not items[first_task].get("started_at"):
-            items[first_task]["started_at"] = datetime.now(timezone.utc).isoformat()
+            items[first_task]["started_at"] = datetime.now(UTC).isoformat()
 
-        print(f"   ✅ 队列状态: no_consumer → running")
+        print("   ✅ 队列状态: no_consumer → running")
         print(f"   ✅ 当前任务: {first_task}")
     else:
         print("   ⚠️  未找到可执行任务，保持队列为running状态")
@@ -125,7 +126,7 @@ def direct_fix():
     print("\n5. 保存修复...")
     save_json_file(QUEUE_FILE, state)
 
-    print(f"\n🎯 修复完成总结:")
+    print("\n🎯 修复完成总结:")
     print(f"   • 重置manual_hold任务: {manual_hold_reset}")
     print(f"   • 可执行任务数量: {len(runnable_tasks)}")
     print(f"   • 队列状态: {state.get('queue_status')}")
