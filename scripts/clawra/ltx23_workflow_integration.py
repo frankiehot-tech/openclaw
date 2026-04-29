@@ -13,21 +13,19 @@ LTX2.3工作流特点：
 待网络恢复后可获取真实工作流文件替换。
 """
 
-import json
-import os
 import random
 import subprocess
 import sys
 import time
 from dataclasses import dataclass, field
 from pathlib import Path
-from typing import Any, Dict, List, Optional, Tuple
+from typing import Any
 
 import requests
 from PIL import Image, ImageDraw, ImageFont
 
 sys.path.append(str(Path(__file__).parent))
-from comfyui_panels_integration import ComfyUIPanelsSimulator, PanelLayout
+from comfyui_panels_integration import ComfyUIPanelsSimulator
 
 
 @dataclass
@@ -75,17 +73,17 @@ class LTX23WorkflowResult:
 
     workflow_id: str
     story_prompt: str
-    generated_scenes: List[StoryScene]
-    panel_images: List[Image.Image]
-    video_path: Optional[Path] = None
-    audio_path: Optional[Path] = None
-    metadata: Dict[str, Any] = field(default_factory=dict)
+    generated_scenes: list[StoryScene]
+    panel_images: list[Image.Image]
+    video_path: Path | None = None
+    audio_path: Path | None = None
+    metadata: dict[str, Any] = field(default_factory=dict)
 
 
 class LTX23WorkflowIntegrator:
     """LTX2.3工作流集成器"""
 
-    def __init__(self, comfyui_url: str = "http://127.0.0.1:8189"):
+    def __init__(self, comfyui_url: str = "http://127.0.0.1:8188"):
         self.comfyui_url = comfyui_url
         self.panels_simulator = ComfyUIPanelsSimulator()
         self.output_dir = Path("/Volumes/1TB-M2/openclaw/comfyui_workspace/output/ltx23_videos")
@@ -94,7 +92,7 @@ class LTX23WorkflowIntegrator:
         # 预定义工作流模板（模拟）
         self.workflow_templates = self._load_workflow_templates()
 
-    def _load_workflow_templates(self) -> Dict[str, Any]:
+    def _load_workflow_templates(self) -> dict[str, Any]:
         """加载工作流模板（模拟）"""
         # 实际应从文件或API加载真实工作流JSON
         return {
@@ -148,7 +146,7 @@ class LTX23WorkflowIntegrator:
             },
         }
 
-    def generate_story_scenes(self, story_prompt: str, total_panels: int = 20) -> List[StoryScene]:
+    def generate_story_scenes(self, story_prompt: str, total_panels: int = 20) -> list[StoryScene]:
         """从故事提示词生成场景列表"""
         scenes = []
 
@@ -254,8 +252,8 @@ class LTX23WorkflowIntegrator:
         return emotions[panel_index % len(emotions)]
 
     def generate_panels_from_scenes(
-        self, scenes: List[StoryScene], config: LTX23Config
-    ) -> List[Image.Image]:
+        self, scenes: list[StoryScene], config: LTX23Config
+    ) -> list[Image.Image]:
         """从场景生成面板图像"""
         panel_images = []
 
@@ -288,13 +286,13 @@ class LTX23WorkflowIntegrator:
             # 在图像底部添加场景信息
             info_text = f"P{scene.panel_index+1}: {scene.camera_shot}"
             draw.text((5, image.height - 15), info_text, fill=(100, 100, 100, 128), font=font)
-        except:
+        except Exception:
             pass
 
         return image
 
     def create_storyboard_image(
-        self, panel_images: List[Image.Image], config: LTX23Config
+        self, panel_images: list[Image.Image], config: LTX23Config
     ) -> Image.Image:
         """创建故事板图像（20宫格布局）"""
         # 使用PanelsSimulator的20宫格布局
@@ -324,14 +322,14 @@ class LTX23WorkflowIntegrator:
             font = ImageFont.load_default()
             title = f"LTX2.3故事板 - {config.story_prompt[:50]}..."
             draw.text((20, 10), title, fill=(0, 0, 0), font=font)
-        except:
+        except Exception:
             pass
 
         return page_image
 
     def create_video_from_panels(
-        self, panel_images: List[Image.Image], scenes: List[StoryScene], config: LTX23Config
-    ) -> Optional[Path]:
+        self, panel_images: list[Image.Image], scenes: list[StoryScene], config: LTX23Config
+    ) -> Path | None:
         """从面板图像创建视频"""
         try:
             # 创建临时目录存放帧图像
@@ -342,7 +340,7 @@ class LTX23WorkflowIntegrator:
 
             # 根据场景持续时间生成帧
             frame_count = 0
-            for i, (panel_image, scene) in enumerate(zip(panel_images, scenes)):
+            for _i, (panel_image, scene) in enumerate(zip(panel_images, scenes, strict=False)):
                 # 计算该场景的帧数
                 scene_frames = int(scene.duration_seconds * config.fps)
 
@@ -373,7 +371,7 @@ class LTX23WorkflowIntegrator:
                 "-pix_fmt",
                 "yuv420p",
                 "-vf",
-                f"scale=1280:720",  # 缩放为720p
+                "scale=1280:720",  # 缩放为720p
                 str(output_path),
             ]
 
@@ -435,7 +433,7 @@ class LTX23WorkflowIntegrator:
             return image
 
     def execute_full_workflow(
-        self, story_prompt: str, config: Optional[LTX23Config] = None
+        self, story_prompt: str, config: LTX23Config | None = None
     ) -> LTX23WorkflowResult:
         """执行完整的LTX2.3工作流"""
         print("🎬 开始执行LTX2.3完整工作流")
@@ -501,15 +499,15 @@ class LTX23WorkflowIntegrator:
             # 检查服务器状态
             response = requests.get(f"{self.comfyui_url}/system_stats")
             if response.status_code == 200:
-                print(f"[SUCCESS] ComfyUI服务器连接正常")
+                print("[SUCCESS] ComfyUI服务器连接正常")
 
                 # 模拟注册LTX2.3工作流
-                print(f"[INFO] 模拟注册LTX2.3工作流节点:")
-                print(f"  - LTX23StoryGenerator: 故事生成器")
-                print(f"  - ScenePlanner: 场景规划器")
-                print(f"  - BatchImageGenerator: 批量图像生成器")
-                print(f"  - VideoComposer: 视频合成器")
-                print(f"  - VoiceClone: 语音克隆器")
+                print("[INFO] 模拟注册LTX2.3工作流节点:")
+                print("  - LTX23StoryGenerator: 故事生成器")
+                print("  - ScenePlanner: 场景规划器")
+                print("  - BatchImageGenerator: 批量图像生成器")
+                print("  - VideoComposer: 视频合成器")
+                print("  - VoiceClone: 语音克隆器")
 
                 # 理论上应通过API上传工作流JSON
                 # self._upload_workflow_to_comfyui()
@@ -563,7 +561,7 @@ def main():
     try:
         result = integrator.execute_full_workflow(test_story, config)
 
-        print(f"\n📊 工作流结果:")
+        print("\n📊 工作流结果:")
         print(f"  工作流ID: {result.workflow_id}")
         print(f"  场景数量: {len(result.generated_scenes)}")
         print(f"  面板数量: {len(result.panel_images)}")

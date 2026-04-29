@@ -14,17 +14,12 @@ Athena队列深度审计工具 - 阶段1：深度审计与基准建立
 
 import argparse
 import json
-import math
-import os
 import re
-import statistics
-import subprocess
 import sys
-import time
 from collections import Counter, defaultdict
-from datetime import datetime, timedelta
+from datetime import datetime
 from pathlib import Path
-from typing import Any, Dict, List, Optional, Tuple
+from typing import Any
 
 import psutil
 
@@ -65,7 +60,7 @@ class AthenaQueueAuditor:
         self.audit_results = {}
         self.benchmarks = {}
 
-    def run_comprehensive_audit(self) -> Dict[str, Any]:
+    def run_comprehensive_audit(self) -> dict[str, Any]:
         """运行综合审计"""
         print("=" * 80)
         print("🧪 Athena队列深度审计开始")
@@ -119,13 +114,13 @@ class AthenaQueueAuditor:
 
         return comprehensive_report
 
-    def audit_task_identity(self) -> Dict[str, Any]:
+    def audit_task_identity(self) -> dict[str, Any]:
         """审计任务身份规范化失败"""
         results = {"issues": [], "metrics": {}, "recommendations": []}
 
         try:
             # 分析athena_ai_plan_runner.py中的argparse解析逻辑
-            with open(ATHENA_RUNNER_PATH, "r", encoding="utf-8") as f:
+            with open(ATHENA_RUNNER_PATH, encoding="utf-8") as f:
                 content = f.read()
 
             # 查找argparse定义
@@ -135,7 +130,7 @@ class AthenaQueueAuditor:
 
                 # 检查item_id参数定义
                 lines = content.split("\n")
-                for i, line in enumerate(lines):
+                for _i, line in enumerate(lines):
                     if '"item_id"' in line or "'item_id'" in line:
                         # 检查是否是位置参数（不是以--开头）
                         if not line.strip().startswith("--"):
@@ -157,7 +152,7 @@ class AthenaQueueAuditor:
 
             for queue_file in QUEUE_DIR.glob("*.json"):
                 try:
-                    with open(queue_file, "r", encoding="utf-8") as f:
+                    with open(queue_file, encoding="utf-8") as f:
                         data = json.load(f)
 
                     items = data.get("items", {})
@@ -198,7 +193,7 @@ class AthenaQueueAuditor:
 
         return results
 
-    def audit_manifest_quality(self) -> Dict[str, Any]:
+    def audit_manifest_quality(self) -> dict[str, Any]:
         """审计Manifest数据质量缺陷"""
         results = {"issues": [], "metrics": {}, "recommendations": []}
 
@@ -207,7 +202,7 @@ class AthenaQueueAuditor:
                 results["error"] = f"Manifest文件不存在: {MANIFEST_PATH}"
                 return results
 
-            with open(MANIFEST_PATH, "r", encoding="utf-8") as f:
+            with open(MANIFEST_PATH, encoding="utf-8") as f:
                 data = json.load(f)
 
             items = data.get("items", [])
@@ -277,12 +272,12 @@ class AthenaQueueAuditor:
 
         return results
 
-    def audit_process_reliability(self) -> Dict[str, Any]:
+    def audit_process_reliability(self) -> dict[str, Any]:
         """审计进程可靠性契约缺失"""
         results = {"issues": [], "metrics": {}, "recommendations": []}
 
         try:
-            with open(ATHENA_RUNNER_PATH, "r", encoding="utf-8") as f:
+            with open(ATHENA_RUNNER_PATH, encoding="utf-8") as f:
                 content = f.read()
 
             # 查找spawn_build_worker函数
@@ -369,7 +364,7 @@ class AthenaQueueAuditor:
 
         return results
 
-    def audit_liveness_detection(self) -> Dict[str, Any]:
+    def audit_liveness_detection(self) -> dict[str, Any]:
         """审计活跃占位检测延迟"""
         results = {"issues": [], "metrics": {}, "recommendations": []}
 
@@ -378,7 +373,7 @@ class AthenaQueueAuditor:
                 results["error"] = f"活性探针文件不存在: {LIVENESS_PROBE_PATH}"
                 return results
 
-            with open(LIVENESS_PROBE_PATH, "r", encoding="utf-8") as f:
+            with open(LIVENESS_PROBE_PATH, encoding="utf-8") as f:
                 content = f.read()
 
             # 检查心跳阈值配置
@@ -432,7 +427,7 @@ class AthenaQueueAuditor:
 
         return results
 
-    def audit_lane_mixing(self) -> Dict[str, Any]:
+    def audit_lane_mixing(self) -> dict[str, Any]:
         """审计Lane混合与路由混淆"""
         results = {"issues": [], "metrics": {}, "recommendations": []}
 
@@ -442,7 +437,7 @@ class AthenaQueueAuditor:
                 results["error"] = f"编排器文件不存在: {ATHENA_ORCHESTRATOR_PATH}"
                 return results
 
-            with open(ATHENA_ORCHESTRATOR_PATH, "r", encoding="utf-8") as f:
+            with open(ATHENA_ORCHESTRATOR_PATH, encoding="utf-8") as f:
                 content = f.read()
 
             # 查找执行器选择逻辑
@@ -491,7 +486,7 @@ class AthenaQueueAuditor:
             for log_file in log_files:
                 if log_file.exists():
                     try:
-                        with open(log_file, "r", encoding="utf-8") as f:
+                        with open(log_file, encoding="utf-8") as f:
                             log_content = f.read()
 
                         for pattern in log_patterns:
@@ -525,7 +520,7 @@ class AthenaQueueAuditor:
 
         return results
 
-    def establish_performance_benchmarks(self) -> Dict[str, Any]:
+    def establish_performance_benchmarks(self) -> dict[str, Any]:
         """建立性能基准"""
         print("  建立性能基准...")
 
@@ -547,14 +542,14 @@ class AthenaQueueAuditor:
 
             for queue_file in queue_files:
                 try:
-                    with open(queue_file, "r", encoding="utf-8") as f:
+                    with open(queue_file, encoding="utf-8") as f:
                         data = json.load(f)
 
                     items = data.get("items", {})
                     total_items += len(items)
 
                     # 统计状态分布
-                    for item_id, item_data in items.items():
+                    for _item_id, item_data in items.items():
                         status = item_data.get("status", "unknown")
                         status_counts[status] += 1
                 except Exception as e:
@@ -613,7 +608,7 @@ class AthenaQueueAuditor:
 
         return benchmarks
 
-    def assess_technical_debt(self) -> Dict[str, Any]:
+    def assess_technical_debt(self) -> dict[str, Any]:
         """技术债务评估"""
         results = {"debt_categories": [], "total_debt_score": 0, "recommendations": []}
 
@@ -649,7 +644,7 @@ class AthenaQueueAuditor:
 
             # 3. 代码复杂度债务
             try:
-                with open(ATHENA_RUNNER_PATH, "r", encoding="utf-8") as f:
+                with open(ATHENA_RUNNER_PATH, encoding="utf-8") as f:
                     lines = f.readlines()
 
                 line_count = len(lines)
@@ -707,7 +702,7 @@ class AthenaQueueAuditor:
 
         return results
 
-    def generate_comprehensive_report(self) -> Dict[str, Any]:
+    def generate_comprehensive_report(self) -> dict[str, Any]:
         """生成综合审计报告"""
         report = {
             "metadata": {
@@ -768,7 +763,9 @@ class AthenaQueueAuditor:
             "technical_risk": (
                 "HIGH"
                 if high_priority_issues > 3
-                else "MEDIUM" if high_priority_issues > 0 else "LOW"
+                else "MEDIUM"
+                if high_priority_issues > 0
+                else "LOW"
             ),
             "operational_risk": (
                 "HIGH" if total_issues > 10 else "MEDIUM" if total_issues > 5 else "LOW"
@@ -777,7 +774,9 @@ class AthenaQueueAuditor:
             "recovery_time": (
                 "DAYS"
                 if high_priority_issues > 5
-                else "HOURS" if high_priority_issues > 0 else "MINUTES"
+                else "HOURS"
+                if high_priority_issues > 0
+                else "MINUTES"
             ),
         }
 
@@ -847,7 +846,7 @@ class AthenaQueueAuditor:
             f.write(text_report)
         print(f"  执行摘要保存到: {text_file}")
 
-    def _generate_text_report(self, report: Dict[str, Any]) -> str:
+    def _generate_text_report(self, report: dict[str, Any]) -> str:
         """生成文本格式报告"""
         lines = []
 
@@ -888,7 +887,7 @@ class AthenaQueueAuditor:
 
                 # 显示前3个问题
                 for i, issue in enumerate(findings["issues"][:3]):
-                    lines.append(f"  {i+1}. {issue.get('description', '未描述的问题')}")
+                    lines.append(f"  {i + 1}. {issue.get('description', '未描述的问题')}")
 
         lines.append("")
 
@@ -918,7 +917,7 @@ class AthenaQueueAuditor:
 
         return "\n".join(lines)
 
-    def _get_system_info(self) -> Dict[str, Any]:
+    def _get_system_info(self) -> dict[str, Any]:
         """获取系统信息"""
         info = {
             "platform": sys.platform,
@@ -933,7 +932,7 @@ class AthenaQueueAuditor:
             info["system"] = platform.system()
             info["release"] = platform.release()
             info["machine"] = platform.machine()
-        except:
+        except Exception:
             pass
 
         return info

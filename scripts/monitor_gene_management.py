@@ -1,14 +1,14 @@
 #!/usr/bin/env python3
+# DEPRECATED: 使用 governance/ 模块代替
+# governance_cli.py health 或 governance_cli.py queue protect
 """
 基因管理队列执行监控脚本
 实时监控执行状态，自动调整策略
 """
 
 import json
-import sys
 import time
 from datetime import datetime, timedelta
-from pathlib import Path
 
 
 class GeneManagementMonitor:
@@ -36,7 +36,7 @@ class GeneManagementMonitor:
     def load_queue_state(self):
         """加载队列状态"""
         try:
-            with open(self.queue_state_file, "r", encoding="utf-8") as f:
+            with open(self.queue_state_file, encoding="utf-8") as f:
                 return json.load(f)
         except FileNotFoundError:
             self.log_message(f"队列状态文件未找到：{self.queue_state_file}", "ERROR")
@@ -52,7 +52,7 @@ class GeneManagementMonitor:
         print("=" * 80)
 
         # 基本信息
-        print(f"\n📊 队列信息:")
+        print("\n📊 队列信息:")
         print(f"  队列 ID: {state.get('queue_id', 'N/A')}")
         print(f"  队列名称：{state.get('name', 'N/A')}")
         print(f"  队列状态：{state.get('queue_status', 'N/A')}")
@@ -63,7 +63,7 @@ class GeneManagementMonitor:
 
         # 任务计数
         counts = state.get("counts", {})
-        print(f"\n📈 任务统计:")
+        print("\n📈 任务统计:")
         print(f"  运行中：{counts.get('running', 0)}")
         print(f"  等待中：{counts.get('pending', 0)}")
         print(f"  已完成：{counts.get('completed', 0)}")
@@ -81,7 +81,7 @@ class GeneManagementMonitor:
         print(f"   预计总时长：{self.expected_duration}")
 
         # 任务详情
-        print(f"\n📋 任务详情:")
+        print("\n📋 任务详情:")
         items = state.get("items", {})
         for task_id, task in items.items():
             status = task.get("status", "unknown")
@@ -117,12 +117,12 @@ class GeneManagementMonitor:
         # 检查运行时间
         elapsed = datetime.now() - self.start_time
         if elapsed > self.expected_duration * 1.5:
-            self.log_message(f"⚠️  警告：执行时间超过预计时间 50%！", "WARNING")
+            self.log_message("⚠️  警告：执行时间超过预计时间 50%！", "WARNING")
             self.suggest_time_adjustment()
 
         # 检查队列状态
         if state.get("queue_status") == "paused":
-            self.log_message(f"⚠️  警告：队列已暂停！", "WARNING")
+            self.log_message("⚠️  警告：队列已暂停！", "WARNING")
             self.suggest_resume_queue()
 
     def suggest_recovery_action(self):
@@ -169,7 +169,7 @@ class GeneManagementMonitor:
 
         elapsed = datetime.now() - self.start_time
 
-        print(f"\n📊 执行总结:")
+        print("\n📊 执行总结:")
         print(f"  开始时间：{self.start_time.strftime('%Y-%m-%d %H:%M:%S')}")
         print(f"  完成时间：{datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
         print(f"  总耗时：{elapsed}")
@@ -179,13 +179,13 @@ class GeneManagementMonitor:
         efficiency = (self.expected_duration / elapsed) * 100 if elapsed > timedelta(0) else 0
         print(f"  执行效率：{efficiency:.1f}%")
 
-        print(f"\n✅ 实施成果:")
+        print("\n✅ 实施成果:")
         print("  1. 基因序列基础设施搭建完成")
         print("  2. CLI 命令框架实现完成")
         print("  3. 队列系统集成配置就绪")
         print("  4. 实施效果审计通过")
 
-        print(f"\n📋 下一步建议:")
+        print("\n📋 下一步建议:")
         print("  1. 验证各阶段实施效果")
         print("  2. 查看审计报告")
         print("  3. 规划 G1+ 阶段演进路线")

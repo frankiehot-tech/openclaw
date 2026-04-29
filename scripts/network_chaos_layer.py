@@ -6,11 +6,8 @@
 """
 
 import logging
-import os
 import subprocess
-import sys
 import time
-from typing import Dict, List, Optional
 
 from chaos_engineering_engine import FaultSeverity, FaultType
 
@@ -32,13 +29,13 @@ class NetworkChaosLayer:
             safe_mode: 安全模式，为True时模拟故障而不实际修改系统
         """
         self.safe_mode = safe_mode
-        self.active_faults: Dict[str, Dict] = {}
+        self.active_faults: dict[str, dict] = {}
         self.network_interfaces = self._detect_network_interfaces()
 
         logger.info(f"网络层故障注入器初始化完成 (安全模式: {'启用' if safe_mode else '禁用'})")
         logger.info(f"检测到的网络接口: {self.network_interfaces}")
 
-    def _detect_network_interfaces(self) -> List[str]:
+    def _detect_network_interfaces(self) -> list[str]:
         """检测可用的网络接口"""
         interfaces = []
 
@@ -86,7 +83,7 @@ class NetworkChaosLayer:
 
         return interfaces
 
-    def _run_tc_command(self, command: List[str], simulate: bool = False) -> Dict:
+    def _run_tc_command(self, command: list[str], simulate: bool = False) -> dict:
         """
         运行tc命令
 
@@ -134,7 +131,7 @@ class NetworkChaosLayer:
 
     def inject_fault(
         self, fault_type: FaultType, severity: FaultSeverity, duration_seconds: int = 60
-    ) -> Dict:
+    ) -> dict:
         """
         注入网络故障
 
@@ -197,7 +194,7 @@ class NetworkChaosLayer:
 
         return result
 
-    def _get_fault_params(self, fault_type: FaultType, severity: FaultSeverity) -> Dict:
+    def _get_fault_params(self, fault_type: FaultType, severity: FaultSeverity) -> dict:
         """根据故障类型和严重程度获取参数"""
         params = {}
 
@@ -225,7 +222,7 @@ class NetworkChaosLayer:
 
         return params
 
-    def _inject_latency(self, interface: str, params: Dict) -> Dict:
+    def _inject_latency(self, interface: str, params: dict) -> dict:
         """注入网络延迟"""
         latency_ms = params.get("latency_ms", 100)
         jitter_ms = params.get("jitter_ms", 20)
@@ -265,7 +262,7 @@ class NetworkChaosLayer:
             "details": results,
         }
 
-    def _inject_packet_loss(self, interface: str, params: Dict) -> Dict:
+    def _inject_packet_loss(self, interface: str, params: dict) -> dict:
         """注入网络丢包"""
         loss_percent = params.get("loss_percent", 5)
         correlation_percent = params.get("correlation_percent", 25)
@@ -303,7 +300,7 @@ class NetworkChaosLayer:
             "details": results,
         }
 
-    def _inject_network_partition(self, interface: str, params: Dict) -> Dict:
+    def _inject_network_partition(self, interface: str, params: dict) -> dict:
         """注入网络分区"""
         # 网络分区实际上是通过防火墙规则实现的
         # 这里我们模拟或实际添加防火墙规则
@@ -364,7 +361,7 @@ class NetworkChaosLayer:
         except Exception as e:
             return {"success": False, "error": str(e)}
 
-    def recover_fault(self, fault_type: FaultType) -> Dict:
+    def recover_fault(self, fault_type: FaultType) -> dict:
         """
         恢复网络故障
 

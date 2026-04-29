@@ -4,7 +4,6 @@
 """
 
 import json
-import os
 import shutil
 from datetime import datetime
 
@@ -13,14 +12,14 @@ def main():
     state_file = ".openclaw/plan_queue/openhuman_aiplan_build_priority_20260328.json"
 
     print(f"加载状态文件: {state_file}")
-    with open(state_file, "r", encoding="utf-8") as f:
+    with open(state_file, encoding="utf-8") as f:
         data = json.load(f)
 
     items = data.get("items", {})
 
     # 重新计算counts
     counts = {"pending": 0, "running": 0, "completed": 0, "failed": 0, "manual_hold": 0}
-    for task_id, task in items.items():
+    for _task_id, task in items.items():
         status = task.get("status", "pending")
         if status in counts:
             counts[status] += 1
@@ -36,7 +35,7 @@ def main():
         task for task_id, task in items.items() if task.get("status") == "manual_hold"
     ]
 
-    print(f"📊 任务统计:")
+    print("📊 任务统计:")
     print(f"  pending: {len(pending_items)}")
     print(f"  running: {len(running_items)}")
     print(f"  completed: {counts['completed']}")
@@ -70,7 +69,7 @@ def main():
     data["updated_at"] = datetime.now().isoformat()
 
     # 创建备份
-    backup = state_file + f'.queue_status_fix_backup_{datetime.now().strftime("%Y%m%d_%H%M%S")}'
+    backup = state_file + f".queue_status_fix_backup_{datetime.now().strftime('%Y%m%d_%H%M%S')}"
     shutil.copy2(state_file, backup)
     print(f"✅ 创建备份: {backup}")
 
@@ -78,7 +77,7 @@ def main():
     with open(state_file, "w", encoding="utf-8") as f:
         json.dump(data, f, ensure_ascii=False, indent=2)
 
-    print(f"\n📊 队列状态更新完成:")
+    print("\n📊 队列状态更新完成:")
     print(f"  新counts: {json.dumps(counts, ensure_ascii=False)}")
     print(f"  新queue_status: {data['queue_status']}")
     print(f"  pause_reason: {data.get('pause_reason', '')}")

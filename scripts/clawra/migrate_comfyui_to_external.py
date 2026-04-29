@@ -6,9 +6,7 @@
 
 import hashlib
 import json
-import os
 import shutil
-import subprocess
 import sys
 import time
 from pathlib import Path
@@ -38,11 +36,14 @@ class ComfyUIMigrationOptimizer:
         print(f"源目录: {self.source_comfyui_dir}")
         print(f"目标目录: {self.target_comfyui_dir}")
         print(f"模型文件: {self.source_model_path}")
-        print(f"模型大小: {self.source_model_path.stat().st_size / (1024**3):.2f} GB")
+        if self.source_model_path.exists():
+            print(f"模型大小: {self.source_model_path.stat().st_size / (1024**3):.2f} GB")
+        else:
+            print(f"⚠️ 模型文件不存在: {self.source_model_path}")
 
     def check_source_model_integrity(self):
         """检查源模型文件完整性"""
-        print(f"\n🔍 检查模型文件完整性...")
+        print("\n🔍 检查模型文件完整性...")
 
         if not self.source_model_path.exists():
             print(f"❌ 模型文件不存在: {self.source_model_path}")
@@ -77,7 +78,7 @@ class ComfyUIMigrationOptimizer:
 
     def create_workspace_structure(self):
         """创建ComfyUI工作区结构"""
-        print(f"\n🏗️ 创建ComfyUI工作区结构...")
+        print("\n🏗️ 创建ComfyUI工作区结构...")
 
         directories = [
             self.target_comfyui_dir,
@@ -112,7 +113,7 @@ class ComfyUIMigrationOptimizer:
 
     def migrate_model_file(self):
         """迁移模型文件到外部硬盘"""
-        print(f"\n📦 迁移模型文件到外部硬盘...")
+        print("\n📦 迁移模型文件到外部硬盘...")
 
         if not self.source_model_path.exists():
             print(f"❌ 源模型文件不存在: {self.source_model_path}")
@@ -123,7 +124,7 @@ class ComfyUIMigrationOptimizer:
         model_size = self.source_model_path.stat().st_size
 
         if target_disk_usage.free < model_size * 1.1:  # 留10%余量
-            print(f"❌ 目标磁盘空间不足")
+            print("❌ 目标磁盘空间不足")
             print(f"   需要: {model_size/(1024**3):.2f} GB")
             print(f"   可用: {target_disk_usage.free/(1024**3):.2f} GB")
             return False
@@ -153,7 +154,7 @@ class ComfyUIMigrationOptimizer:
                 return False
 
             # 计算MD5校验（可选，耗时但安全）
-            print(f"  验证文件完整性...")
+            print("  验证文件完整性...")
             source_md5 = self._calculate_file_md5(self.source_model_path)
             target_md5 = self._calculate_file_md5(self.target_model_path)
 
@@ -162,7 +163,7 @@ class ComfyUIMigrationOptimizer:
                 return False
 
             speed = model_size / (1024**2) / copy_time  # MB/s
-            print(f"✅ 模型文件迁移成功")
+            print("✅ 模型文件迁移成功")
             print(f"   耗时: {copy_time:.1f} 秒")
             print(f"   速度: {speed:.1f} MB/s")
             print(f"   MD5校验: {target_md5[:16]}... (匹配)")
@@ -187,7 +188,7 @@ class ComfyUIMigrationOptimizer:
 
     def create_optimized_config(self):
         """创建优化的ComfyUI配置文件"""
-        print(f"\n⚙️ 创建优化配置文件...")
+        print("\n⚙️ 创建优化配置文件...")
 
         config_files = {
             "extra_model_paths.yaml": self._generate_extra_model_paths_config(),
@@ -407,14 +408,14 @@ exit 0
 
     def update_athena_generator(self):
         """更新Athena生成器使用新配置"""
-        print(f"\n🔄 更新Athena生成器配置...")
+        print("\n🔄 更新Athena生成器配置...")
 
         if not self.athena_generator_path.exists():
             print(f"❌ Athena生成器文件不存在: {self.athena_generator_path}")
             return False
 
         try:
-            with open(self.athena_generator_path, "r", encoding="utf-8") as f:
+            with open(self.athena_generator_path, encoding="utf-8") as f:
                 content = f.read()
 
             # 更新ComfyUI服务器地址
@@ -461,7 +462,7 @@ exit 0
             with open(self.athena_generator_path, "w", encoding="utf-8") as f:
                 f.write(updated_content)
 
-            print(f"✅ Athena生成器更新完成")
+            print("✅ Athena生成器更新完成")
             print(f"   服务器地址: {new_base_url}")
             print(f"   外部工作区: {self.target_comfyui_dir}")
 
@@ -473,7 +474,7 @@ exit 0
 
     def create_optimized_athena_workflow(self):
         """创建优化的Athena工作流模板"""
-        print(f"\n🎨 创建优化的Athena工作流模板...")
+        print("\n🎨 创建优化的Athena工作流模板...")
 
         workflow_template = {
             "name": "athena_silicon_symbiosis_optimized",
@@ -564,7 +565,7 @@ exit 0
 
     def verify_migration(self):
         """验证迁移结果"""
-        print(f"\n🔎 验证迁移结果...")
+        print("\n🔎 验证迁移结果...")
 
         checks = [
             ("工作区目录", self.target_comfyui_dir.exists()),
@@ -585,7 +586,7 @@ exit 0
                 all_passed = False
 
         if all_passed:
-            print(f"\n🎉 迁移验证成功!")
+            print("\n🎉 迁移验证成功!")
 
             # 计算空间节省
             if self.source_model_path.exists():
@@ -596,20 +597,20 @@ exit 0
             print(f"  外部硬盘可用空间: {target_usage.free/(1024**3):.2f} GB")
 
             # 提供使用说明
-            print(f"\n📋 使用说明:")
+            print("\n📋 使用说明:")
             print(f"  1. 启动服务器: {self.target_comfyui_dir}/start_comfyui.sh")
-            print(f"  2. 访问地址: http://127.0.0.1:8189")
+            print("  2. 访问地址: http://127.0.0.1:8189")
             print(f"  3. 测试生成: python {self.athena_generator_path}")
             print(f"  4. 查看日志: {self.target_comfyui_dir}/logs/")
 
         else:
-            print(f"\n⚠️  迁移验证失败，请检查上述问题")
+            print("\n⚠️  迁移验证失败，请检查上述问题")
 
         return all_passed
 
     def cleanup_source_if_needed(self):
         """如果需要，清理源文件释放空间"""
-        print(f"\n🧹 清理源文件释放空间...")
+        print("\n🧹 清理源文件释放空间...")
 
         if not self.source_model_path.exists():
             print("源模型文件已不存在，跳过清理")
@@ -650,10 +651,10 @@ exit 0
                         large_files.append((file.name, file.stat().st_size / (1024**3)))
 
                 if large_files:
-                    print(f"  发现其他大文件:")
+                    print("  发现其他大文件:")
                     for name, size in large_files:
                         print(f"    - {name}: {size:.2f} GB")
-                    print(f"  考虑移动到外部硬盘或删除")
+                    print("  考虑移动到外部硬盘或删除")
 
             return True
 
@@ -701,11 +702,11 @@ exit 0
         print("\n📋 后续操作:")
         print("1. 启动优化版ComfyUI:")
         print(f"   cd {self.target_comfyui_dir}")
-        print(f"   ./start_comfyui.sh")
+        print("   ./start_comfyui.sh")
         print()
         print("2. 测试Athena生成:")
         print(f"   cd {self.clawra_dir}")
-        print(f"   python comfyui_athena_generator.py")
+        print("   python comfyui_athena_generator.py")
         print()
         print("3. 监控服务器状态:")
         print(f"   tail -f {self.target_comfyui_dir}/logs/comfyui_*.log")

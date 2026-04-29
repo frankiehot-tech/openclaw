@@ -5,17 +5,13 @@
 模拟模型响应延迟、输出质量劣化、幻觉生成等故障
 """
 
-import json
 import logging
-import os
 import random
-import sys
 import threading
 import time
 from dataclasses import dataclass, field
 from datetime import datetime
-from enum import Enum
-from typing import Any, Dict, List, Optional, Union
+from enum import Enum, StrEnum
 
 # 设置日志
 logging.basicConfig(
@@ -31,7 +27,7 @@ class FaultSeverity(Enum):
     HIGH = "high"
 
 
-class ModelFaultType(str, Enum):
+class ModelFaultType(StrEnum):
     """模型故障类型"""
 
     RESPONSE_DELAY = "response_delay"  # 响应延迟
@@ -47,8 +43,8 @@ class HallucinationPattern:
 
     pattern_type: str  # "fabrication", "contradiction", "irrelevance", "nonsense"
     severity: float  # 0.0-1.0
-    keywords: List[str] = field(default_factory=list)
-    templates: List[str] = field(default_factory=list)
+    keywords: list[str] = field(default_factory=list)
+    templates: list[str] = field(default_factory=list)
 
 
 @dataclass
@@ -72,10 +68,10 @@ class ModelChaosLayer:
             safe_mode: 安全模式，为True时模拟故障而不实际影响模型
         """
         self.safe_mode = safe_mode
-        self.active_faults: Dict[str, Dict] = {}
-        self.original_response_times: Dict[str, float] = {}
-        self.hallucination_patterns: Dict[str, HallucinationPattern] = {}
-        self.degradation_profiles: Dict[str, DegradationProfile] = {}
+        self.active_faults: dict[str, dict] = {}
+        self.original_response_times: dict[str, float] = {}
+        self.hallucination_patterns: dict[str, HallucinationPattern] = {}
+        self.degradation_profiles: dict[str, DegradationProfile] = {}
 
         # 初始化幻觉模式
         self._initialize_hallucination_patterns()
@@ -168,11 +164,11 @@ class ModelChaosLayer:
 
     def inject_fault(
         self,
-        fault_type: Union[ModelFaultType, str],
+        fault_type: ModelFaultType | str,
         severity: FaultSeverity,
         model_name: str = "default",
         duration_seconds: int = 60,
-    ) -> Dict:
+    ) -> dict:
         """
         注入模型故障
 
@@ -253,7 +249,7 @@ class ModelChaosLayer:
 
         return result
 
-    def _inject_response_delay(self, severity: FaultSeverity, model_name: str) -> Dict:
+    def _inject_response_delay(self, severity: FaultSeverity, model_name: str) -> dict:
         """注入响应延迟故障"""
         # 根据严重程度确定延迟倍数
         delay_multipliers = {
@@ -296,7 +292,7 @@ class ModelChaosLayer:
 
         return result
 
-    def _inject_output_degradation(self, severity: FaultSeverity, model_name: str) -> Dict:
+    def _inject_output_degradation(self, severity: FaultSeverity, model_name: str) -> dict:
         """注入输出质量劣化故障"""
         # 获取降级配置
         severity_str = severity.value.lower()
@@ -338,7 +334,7 @@ class ModelChaosLayer:
 
         return result
 
-    def _inject_hallucination(self, severity: FaultSeverity, model_name: str) -> Dict:
+    def _inject_hallucination(self, severity: FaultSeverity, model_name: str) -> dict:
         """注入幻觉生成故障"""
         # 根据严重程度选择幻觉模式
         hallucination_probabilities = {
@@ -383,7 +379,7 @@ class ModelChaosLayer:
 
         return result
 
-    def _inject_context_loss(self, severity: FaultSeverity, model_name: str) -> Dict:
+    def _inject_context_loss(self, severity: FaultSeverity, model_name: str) -> dict:
         """注入上下文丢失故障"""
         # 根据严重程度确定上下文丢失比例
         context_loss_ratios = {
@@ -414,7 +410,7 @@ class ModelChaosLayer:
 
         return result
 
-    def _inject_parameter_drift(self, severity: FaultSeverity, model_name: str) -> Dict:
+    def _inject_parameter_drift(self, severity: FaultSeverity, model_name: str) -> dict:
         """注入参数漂移故障"""
         # 根据严重程度确定参数漂移程度
         drift_magnitudes = {
@@ -464,7 +460,7 @@ class ModelChaosLayer:
 
         logger.info(f"安排模型故障 {fault_id} 在 {delay_seconds} 秒后自动恢复")
 
-    def recover_fault_by_id(self, fault_id: str) -> Dict:
+    def recover_fault_by_id(self, fault_id: str) -> dict:
         """
         通过故障ID恢复故障
 
@@ -499,7 +495,7 @@ class ModelChaosLayer:
         logger.info(f"模型层故障恢复成功: {fault_id}")
         return result
 
-    def recover_fault(self, fault_type: Union[ModelFaultType, str]) -> Dict:
+    def recover_fault(self, fault_type: ModelFaultType | str) -> dict:
         """
         恢复特定类型的故障
 
@@ -534,7 +530,7 @@ class ModelChaosLayer:
 
     def simulate_model_response(
         self, model_name: str, prompt: str, original_response: str = None
-    ) -> Dict:
+    ) -> dict:
         """
         模拟模型响应（用于测试故障注入效果）
 
@@ -666,10 +662,10 @@ class ModelChaosLayer:
         ]
         return random.choice(responses)
 
-    def _degrade_response(self, original_response: str, fault_info: Dict) -> str:
+    def _degrade_response(self, original_response: str, fault_info: dict) -> str:
         """劣化响应质量"""
         degradation_params = fault_info.get("parameters", {})
-        quality_metrics = degradation_params.get("quality_metrics", {})
+        degradation_params.get("quality_metrics", {})
 
         # 简单模拟劣化：添加语法错误、降低连贯性等
         words = original_response.split()
@@ -686,7 +682,7 @@ class ModelChaosLayer:
 
         return " ".join(words)
 
-    def _add_hallucination(self, original_response: str, fault_info: Dict) -> str:
+    def _add_hallucination(self, original_response: str, fault_info: dict) -> str:
         """添加幻觉内容"""
         fault_params = fault_info.get("parameters", {})
         probability = fault_params.get("probability", 0.3)
@@ -719,17 +715,17 @@ class ModelChaosLayer:
             + original_response[insert_pos:]
         )
 
-    def _generate_hallucinated_response(self, prompt: str, fault_info: Dict) -> str:
+    def _generate_hallucinated_response(self, prompt: str, fault_info: dict) -> str:
         """生成包含幻觉的响应"""
         normal_response = self._generate_normal_response(prompt)
         return self._add_hallucination(normal_response, fault_info)
 
-    def _generate_degraded_response(self, prompt: str, fault_info: Dict) -> str:
+    def _generate_degraded_response(self, prompt: str, fault_info: dict) -> str:
         """生成劣化响应"""
         normal_response = self._generate_normal_response(prompt)
         return self._degrade_response(normal_response, fault_info)
 
-    def get_active_faults(self) -> List[Dict]:
+    def get_active_faults(self) -> list[dict]:
         """获取所有活动故障"""
         return [
             {
@@ -744,7 +740,7 @@ class ModelChaosLayer:
             for fault_id, info in self.active_faults.items()
         ]
 
-    def get_model_health_status(self, model_name: str = None) -> Dict:
+    def get_model_health_status(self, model_name: str = None) -> dict:
         """
         获取模型健康状态
 
@@ -770,12 +766,14 @@ class ModelChaosLayer:
                 "status": (
                     "healthy"
                     if health_score > 0.7
-                    else "degraded" if health_score > 0.4 else "unhealthy"
+                    else "degraded"
+                    if health_score > 0.4
+                    else "unhealthy"
                 ),
             }
         else:
             # 返回所有模型的健康状态
-            all_models = set(fault["model_name"] for fault in self.get_active_faults())
+            all_models = {fault["model_name"] for fault in self.get_active_faults()}
             if not all_models:
                 all_models = {"default"}
 
@@ -833,11 +831,11 @@ def test_model_chaos_layer():
     # 测试模型响应模拟
     print("\n4. 测试模型响应模拟（受故障影响）...")
     for i in range(3):
-        prompt = f"测试问题 {i+1}: 请解释人工智能的基本原理"
+        prompt = f"测试问题 {i + 1}: 请解释人工智能的基本原理"
         response = layer.simulate_model_response("gpt-4", prompt)
         quality = response.get("quality_score", 0)
         print(
-            f"   响应 {i+1}: 质量评分={quality:.2f}, 受影响={response.get('faults_affected', False)}"
+            f"   响应 {i + 1}: 质量评分={quality:.2f}, 受影响={response.get('faults_affected', False)}"
         )
 
     # 获取活动故障

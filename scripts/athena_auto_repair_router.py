@@ -9,11 +9,10 @@ Athena Auto Repair Router - 自动修复桥接器
 import argparse
 import json
 import logging
-import os
 import sys
 from datetime import datetime
 from pathlib import Path
-from typing import Any, Dict, Optional, Tuple
+from typing import Any
 
 # 添加项目根目录到路径
 project_root = Path(__file__).parent.parent
@@ -30,11 +29,9 @@ try:
     from agent.core.athena_orchestrator import get_orchestrator
 
     from scripts.workflow_state import (
-        INCIDENT_STATE_COMPLETED,
         INCIDENT_STATE_DETECTED,
         INCIDENT_STATE_FAILED,
         INCIDENT_STATE_QUEUED,
-        INCIDENT_STATE_RUNNING,
         get_incident_state,
         get_task_for_incident,
         record_incident_detected,
@@ -80,7 +77,7 @@ class IncidentRouter:
     def __init__(self):
         self.orchestrator = get_orchestrator() if IMPORT_SUCCESS else None
 
-    def validate_incident(self, incident: Dict[str, Any]) -> Tuple[bool, str]:
+    def validate_incident(self, incident: dict[str, Any]) -> tuple[bool, str]:
         """验证 incident 是否适合自动修复"""
         # 1. 必需字段检查
         required_fields = ["id", "category", "severity", "repairable", "summary"]
@@ -109,14 +106,14 @@ class IncidentRouter:
 
         return True, "验证通过"
 
-    def check_duplicate(self, incident_id: str) -> Tuple[bool, Optional[str]]:
+    def check_duplicate(self, incident_id: str) -> tuple[bool, str | None]:
         """检查 incident 是否已有对应任务"""
         existing_task_id = get_task_for_incident(incident_id)
         if existing_task_id:
             return True, existing_task_id
         return False, None
 
-    def create_repair_task(self, incident: Dict[str, Any]) -> Tuple[bool, str, Optional[Dict]]:
+    def create_repair_task(self, incident: dict[str, Any]) -> tuple[bool, str, dict | None]:
         """为 incident 创建修复任务"""
         if not self.orchestrator:
             return False, "Athena orchestrator 不可用", None
@@ -156,11 +153,11 @@ class IncidentRouter:
             logger.error(f"创建修复任务时异常: {e}", exc_info=True)
             return False, f"创建任务异常: {str(e)}", None
 
-    def route_incident(self, incident_path: Path) -> Tuple[bool, str, Optional[Dict]]:
+    def route_incident(self, incident_path: Path) -> tuple[bool, str, dict | None]:
         """路由 incident 到修复通道"""
         # 1. 加载 incident
         try:
-            with open(incident_path, "r", encoding="utf-8") as f:
+            with open(incident_path, encoding="utf-8") as f:
                 incident = json.load(f)
         except Exception as e:
             return False, f"加载 incident 文件失败: {e}", None
@@ -307,10 +304,10 @@ def main():
     success, message, result = router.route_incident(incident_path)
 
     if success:
-        print(f"✅ 修复任务创建成功")
+        print("✅ 修复任务创建成功")
         print(f"   Incident: {result['incident_id']}")
         print(f"   Task ID: {result['task_id']}")
-        print(f"   映射已记录到 workflow_state")
+        print("   映射已记录到 workflow_state")
         sys.exit(0)
     else:
         print(f"⚠️  {message}")

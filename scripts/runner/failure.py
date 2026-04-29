@@ -5,10 +5,9 @@ from __future__ import annotations
 
 import logging
 import sys
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from pathlib import Path
 from typing import Any
-
 
 logger = logging.getLogger(__name__)
 
@@ -18,30 +17,27 @@ if str(_scripts_dir) not in sys.path:
     sys.path.insert(0, str(_scripts_dir))
 
 try:
-    from .openclaw_roots import (
-        LOG_DIR,
-        PLAN_CONFIG_PATH,
-        PLAN_DIR,
-        QUEUE_STATE_DIR,
-        RUNTIME_ROOT,
-        TASKS_DIR,
-        TASKS_PATH,
-        pid_file,
-    )
+    pass
 except ImportError:
     import sys
 
-from .utils import now_iso
-from .manifest import active_route_item_ids, load_manifest_items, route_index_by_item_id
-from .route_state import load_route_state
-from .config import load_plan_config
+from .config import (
+    AUTO_RETRY_COOLDOWN_SECONDS,
+    AUTO_RETRY_LIMIT,
+    BLOCKED_RESCUE_FAILURE_MARKERS,
+    BLOCKED_RESCUE_RETRY_COOLDOWN_SECONDS,
+    BLOCKED_RESCUE_RETRY_LIMIT,
+    RETRYABLE_FAILURE_MARKERS,
+    load_plan_config,
+)
+from .route_state import load_route_state, route_matches_runner_modes
 from .task import (
-    set_task_status,
-    set_route_item_state,
     remove_route_current_item,
     reset_failed_item_for_auto_retry,
+    set_route_item_state,
+    set_task_status,
 )
-from .route_state import route_matches_runner_modes
+from .utils import now_iso, terminate_pid_tree
 
 
 def failure_text(state_item: dict[str, Any]) -> str:
@@ -67,8 +63,8 @@ def retry_window_open(
         try:
             retry_time = datetime.fromisoformat(last_retry_at.replace("Z", "+00:00"))
             if retry_time.tzinfo is None:
-                retry_time = retry_time.replace(tzinfo=timezone.utc)
-            if (datetime.now(timezone.utc) - retry_time).total_seconds() < cooldown:
+                retry_time = retry_time.replace(tzinfo=UTC)
+            if (datetime.now(UTC) - retry_time).total_seconds() < cooldown:
                 return False
         except Exception:
             pass
@@ -215,6 +211,8 @@ def auto_retry_blocking_failures(
     *,
     accepted_runner_modes: set[str] | tuple[str, ...] | None = None,
 ) -> list[str]:
+    from .manifest import active_route_item_ids, load_manifest_items, route_index_by_item_id
+
     if AUTO_RETRY_LIMIT <= 0:
         return []
     all_routes = list(load_plan_config().get("routes", []))

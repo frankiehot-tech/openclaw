@@ -17,14 +17,9 @@ OpenClaw Auto Repair Smoke Test
 """
 
 import json
-import os
-import shutil
 import subprocess
 import sys
-import tempfile
-import time
 from pathlib import Path
-from typing import Optional
 
 # 添加项目根目录到路径
 project_root = Path(__file__).parent.parent
@@ -34,7 +29,6 @@ sys.path.insert(0, str(project_root))
 try:
     from scripts.workflow_state import (
         INCIDENT_STATE_COMPLETED,
-        INCIDENT_STATE_DETECTED,
         INCIDENT_STATE_FAILED,
         INCIDENT_STATE_QUEUED,
         INCIDENT_STATE_RUNNING,
@@ -42,9 +36,7 @@ try:
         describe_incident_status,
         get_incident_state,
         get_incident_state_value,
-        get_state,
         get_task_for_incident,
-        set_incident_state,
         update_incident_state_from_task,
     )
 except ImportError:
@@ -58,7 +50,6 @@ try:
     mini_agent_path = project_root / "mini-agent"
     if str(mini_agent_path) not in sys.path:
         sys.path.insert(0, str(mini_agent_path))
-    from agent.core.athena_orchestrator import get_orchestrator
 
     ORCHESTRATOR_AVAILABLE = True
 except ImportError as e:
@@ -96,10 +87,10 @@ def run_auto_repair_router(incident_path: Path) -> dict:
     cmd = [sys.executable, str(router_script), "--incident", str(incident_path)]
     result = subprocess.run(cmd, capture_output=True, text=True, cwd=project_root)
 
-    print(f"📋 路由器输出:")
+    print("📋 路由器输出:")
     print(result.stdout)
     if result.stderr:
-        print(f"⚠️  路由器错误输出:")
+        print("⚠️  路由器错误输出:")
         print(result.stderr)
 
     # 解析输出以提取任务ID（如果成功）
@@ -157,7 +148,7 @@ def run_auto_repair_router(incident_path: Path) -> dict:
     }
 
 
-def verify_incident_task_mapping(incident_id: str, expected_task_id: Optional[str] = None) -> dict:
+def verify_incident_task_mapping(incident_id: str, expected_task_id: str | None = None) -> dict:
     """验证 incident-task 映射"""
     print(f"🔍 检查 incident-task 映射: {incident_id}")
 
@@ -169,7 +160,7 @@ def verify_incident_task_mapping(incident_id: str, expected_task_id: Optional[st
     direct_mapping = {}
     if mapping_path.exists():
         try:
-            with open(mapping_path, "r", encoding="utf-8") as f:
+            with open(mapping_path, encoding="utf-8") as f:
                 direct_mapping = json.load(f)
         except Exception as e:
             print(f"⚠️  无法读取映射文件: {e}")
@@ -179,7 +170,7 @@ def verify_incident_task_mapping(incident_id: str, expected_task_id: Optional[st
     tasks = []
     if tasks_path.exists():
         try:
-            with open(tasks_path, "r", encoding="utf-8") as f:
+            with open(tasks_path, encoding="utf-8") as f:
                 tasks_data = json.load(f)
                 tasks = tasks_data.get("tasks", [])
         except Exception as e:
@@ -203,7 +194,7 @@ def verify_incident_task_mapping(incident_id: str, expected_task_id: Optional[st
     }
 
 
-def verify_task_created(task_id: Optional[str]) -> dict:
+def verify_task_created(task_id: str | None) -> dict:
     """验证任务是否已创建"""
     if not task_id:
         return {"task_exists": False, "task_details": None}
@@ -215,7 +206,7 @@ def verify_task_created(task_id: Optional[str]) -> dict:
     task_details = None
     if tasks_path.exists():
         try:
-            with open(tasks_path, "r", encoding="utf-8") as f:
+            with open(tasks_path, encoding="utf-8") as f:
                 tasks_data = json.load(f)
                 for task in tasks_data.get("tasks", []):
                     if task.get("id") == task_id:
@@ -256,7 +247,7 @@ def check_plan_queue_status() -> dict:
     queue_status = {}
     for qfile in queue_files[:3]:  # 只检查前3个文件
         try:
-            with open(qfile, "r", encoding="utf-8") as f:
+            with open(qfile, encoding="utf-8") as f:
                 data = json.load(f)
                 queue_id = data.get("queue_id", qfile.stem)
                 current_item = data.get("current_item_id", "")
@@ -300,12 +291,12 @@ def main():
 
     # 读取 incident ID
     try:
-        with open(test_incident_path, "r", encoding="utf-8") as f:
+        with open(test_incident_path, encoding="utf-8") as f:
             incident_data = json.load(f)
         incident_id = incident_data.get("id", "unknown")
         incident_category = incident_data.get("category", "unknown")
         incident_repairable = incident_data.get("repairable", False)
-        print(f"📄 测试 Incident:")
+        print("📄 测试 Incident:")
         print(f"   ID: {incident_id}")
         print(f"   类别: {incident_category}")
         print(f"   可修复: {incident_repairable}")
@@ -354,7 +345,7 @@ def main():
 
     # 检查2: 映射存在
     if mapping_result["mapping_exists"]:
-        print(f"✅ Incident-task 映射存在")
+        print("✅ Incident-task 映射存在")
         if mapping_result["mapped_task_id"]:
             print(f"   映射任务ID: {mapping_result['mapped_task_id']}")
     else:
@@ -364,7 +355,7 @@ def main():
 
     # 检查3: 任务创建
     if task_result["task_exists"]:
-        print(f"✅ 任务已创建")
+        print("✅ 任务已创建")
         if task_result["task_details"]:
             status = task_result["task_details"].get("status", "unknown")
             print(f"   任务状态: {status}")
@@ -374,17 +365,17 @@ def main():
 
     # 检查4: 任务目录
     if task_result["task_dir_exists"]:
-        print(f"✅ 任务目录存在")
+        print("✅ 任务目录存在")
         if task_result["build_md_exists"]:
-            print(f"   build.md 文件存在")
+            print("   build.md 文件存在")
         else:
-            print(f"⚠️  build.md 文件不存在")
+            print("⚠️  build.md 文件不存在")
     elif task_id:
-        print(f"⚠️  任务目录不存在")
+        print("⚠️  任务目录不存在")
 
     # 检查5: incident 状态
     if state_result["has_state"]:
-        print(f"✅ Incident 状态回写存在")
+        print("✅ Incident 状态回写存在")
         print(f"   当前状态: {state_result['state_value']}")
         if state_result.get("overview"):
             task_id = state_result["overview"].get("task_id")
@@ -395,7 +386,7 @@ def main():
                 print(f"   最近错误: {last_error}")
         # 如果状态是 queued，认为成功
         if state_result["is_queued"]:
-            print(f"   状态符合预期 (queued)")
+            print("   状态符合预期 (queued)")
         else:
             print(f"⚠️  状态不是 queued (实际: {state_result['state_value']})")
             # 不视为失败，因为任务可能已进入其他状态
@@ -435,9 +426,9 @@ def main():
     # 输出详细证据位置
     print("\n📁 证据位置:")
     print(f"   测试 incident: {test_incident_path.relative_to(project_root)}")
-    print(f"   映射文件: .openclaw/workflow_state/incident_task_map.json")
-    print(f"   任务列表: .openclaw/orchestrator/tasks.json")
-    print(f"   队列目录: .openclaw/plan_queue/")
+    print("   映射文件: .openclaw/workflow_state/incident_task_map.json")
+    print("   任务列表: .openclaw/orchestrator/tasks.json")
+    print("   队列目录: .openclaw/plan_queue/")
 
     sys.exit(return_code)
 

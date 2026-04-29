@@ -7,7 +7,7 @@ import logging
 import os
 import sqlite3
 import sys
-from datetime import datetime, timedelta
+from datetime import datetime
 
 sys.path.insert(0, "/Volumes/1TB-M2/openclaw/mini-agent")
 
@@ -104,7 +104,7 @@ def test_standard_format_matching():
                     exp_dt = datetime.fromisoformat(exp_time.replace("Z", "+00:00"))
                     cost_dt = datetime.fromisoformat(cost_time.replace("Z", "+00:00"))
                     time_diff = abs((exp_dt - cost_dt).total_seconds())
-                    logger.info(f"  时间差: {time_diff}秒 ({time_diff/60:.1f}分钟)")
+                    logger.info(f"  时间差: {time_diff}秒 ({time_diff / 60:.1f}分钟)")
                 except Exception as e:
                     logger.warning(f"时间解析错误: {e}")
 

@@ -1,7 +1,6 @@
 #!/usr/bin/env python3
 """调试任务字段，找出为什么task_id和route_id为空"""
 
-import json
 from pathlib import Path
 
 import requests
@@ -14,7 +13,7 @@ token = TOKEN_FILE.read_text().strip()
 base_url = "http://127.0.0.1:8080"
 headers = {"X-OpenClaw-Token": token, "Content-Type": "application/json"}
 
-print(f"🔍 调试任务字段...")
+print("🔍 调试任务字段...")
 
 # 获取队列数据
 response = requests.get(
@@ -32,7 +31,7 @@ if response.status_code == 200:
 
     # 检查每个任务的字段
     for i, item in enumerate(items):
-        print(f"\n  任务 #{i+1}:")
+        print(f"\n  任务 #{i + 1}:")
         print(f"    ID: {item.get('id')}")
         print(f"    task_id: {item.get('task_id')}")
         print(f"    route_id: {item.get('route_id')}")
@@ -41,10 +40,10 @@ if response.status_code == 200:
 
         # 检查是否缺少字段
         if item.get("task_id") == "" or item.get("route_id") == "":
-            print(f"    ⚠️  空字段!")
+            print("    ⚠️  空字段!")
 
             # 打印所有字段
-            print(f"    所有字段:")
+            print("    所有字段:")
             for key, value in item.items():
                 print(f"      {key}: {repr(value)[:60]}")
 
@@ -54,7 +53,7 @@ else:
     print(f"❌ 获取队列失败: {response.status_code}")
 
 # 测试手动拉起API使用正确的字段
-print(f"\n🚀 测试手动拉起API...")
+print("\n🚀 测试手动拉起API...")
 
 # 查找一个pending或failed的任务，且有非空的task_id和route_id
 for item in items:
@@ -63,7 +62,7 @@ for item in items:
     route_id = item.get("route_id")
 
     if status in ["pending", "failed"] and task_id and route_id:
-        print(f"  找到可拉起任务:")
+        print("  找到可拉起任务:")
         print(f"    任务ID: {task_id}")
         print(f"    路由ID: {route_id}")
         print(f"    状态: {status}")
@@ -82,6 +81,6 @@ for item in items:
             print(f"      ❌ 请求失败: {e}")
             break
 else:
-    print(f"  没有找到合适的任务进行测试")
+    print("  没有找到合适的任务进行测试")
 
-print(f"\n✅ 调试完成")
+print("\n✅ 调试完成")

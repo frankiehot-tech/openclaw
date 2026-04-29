@@ -80,7 +80,9 @@ if __name__ == "__main__":
     )
 
     print(f"✅ 生成代码成功 ({len(code)} 字符)")
-    print(f"   前3行: {'\\n'.join(code.split('\\n')[:3])}")
+    _first3 = code.split('\n')[:3]
+    _joined = '\n'.join(_first3)
+    print(f"   前3行: {_joined}")
 
     # 方式2: 使用上下文管理器
     print("\n🔧 方式2: 使用上下文管理器")

@@ -110,7 +110,7 @@ def generate_random_requirement(profile: SkillProfile):
 
 def run_saturation_test():
     """执行饱和攻击测试"""
-    print(f"🚀 MVP-2 饱和攻击测试启动")
+    print("🚀 MVP-2 饱和攻击测试启动")
     print(f"   测试数量: {NUM_TESTS}")
     print(f"   目标成功概率: θ ≥ {THETA_MIN}")
     print("-" * 50)
@@ -153,14 +153,14 @@ def run_saturation_test():
         # 进度输出 (每 20 个输出一次)
         if (i + 1) % 20 == 0:
             current_rate = success_count / (i + 1)
-            print(f"   进度: {i+1}/{NUM_TESTS} | 当前成功率: {current_rate:.2%}")
+            print(f"   进度: {i + 1}/{NUM_TESTS} | 当前成功率: {current_rate:.2%}")
 
     # 统计结果
     success_rate = success_count / NUM_TESTS
     theta_met = success_rate >= THETA_MIN
 
     print("-" * 50)
-    print(f"📊 测试结果:")
+    print("📊 测试结果:")
     print(f"   总测试数: {NUM_TESTS}")
     print(f"   成功匹配: {success_count}")
     print(f"   地理门槛失败: {location_fail_count}")

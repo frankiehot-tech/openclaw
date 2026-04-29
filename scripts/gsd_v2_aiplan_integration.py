@@ -2,11 +2,8 @@
 """GSD V2 AIplan集成脚本"""
 
 import json
-import os
 from datetime import datetime
 from pathlib import Path
-
-import yaml
 
 
 class GSDV2AIplanIntegration:
@@ -197,7 +194,7 @@ python3 scripts/start_gsd_v2_monitoring.py
 
 ### 关键监控指标
 - **系统稳定性**: >99.9%可用性
-- **执行效率**: <2秒响应时间  
+- **执行效率**: <2秒响应时间
 - **错误率**: <5%
 - **进度跟踪**: 实时阶段完成度
 

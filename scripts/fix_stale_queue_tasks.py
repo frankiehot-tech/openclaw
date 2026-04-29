@@ -1,4 +1,6 @@
 #!/usr/bin/env python3
+# DEPRECATED: 使用 governance/ 模块代替
+# governance_cli.py repair <command> 或 governance_cli.py queue fix
 """
 修复超时队列任务脚本
 基于《多Agent系统24小时压力测试问题修复实施方案》1.1节实现
@@ -6,11 +8,9 @@
 
 import argparse
 import json
-import os
 import subprocess
-import sys
 import time
-from datetime import datetime, timedelta, timezone
+from datetime import UTC, datetime
 from pathlib import Path
 
 # 配置常量
@@ -28,7 +28,7 @@ def now_iso():
 def load_json_file(path):
     """加载JSON文件"""
     try:
-        with open(path, "r", encoding="utf-8") as f:
+        with open(path, encoding="utf-8") as f:
             return json.load(f)
     except Exception as e:
         print(f"警告: 无法加载文件 {path}: {e}")
@@ -54,7 +54,7 @@ def is_timestamp_old(timestamp_str, timeout_seconds):
     try:
         # 解析ISO格式时间戳
         dt = datetime.fromisoformat(timestamp_str.replace("Z", "+00:00"))
-        now = datetime.now(timezone.utc).astimezone()
+        now = datetime.now(UTC).astimezone()
         elapsed = (now - dt).total_seconds()
         return elapsed > timeout_seconds
     except Exception as e:
@@ -87,10 +87,9 @@ def analyze_queue_file(queue_path):
         timeout_reason = ""
 
         # 检查心跳超时
-        if runner_heartbeat_at:
-            if is_timestamp_old(runner_heartbeat_at, HEARTBEAT_TIMEOUT):
-                is_stale = True
-                timeout_reason = f"心跳超时 ({HEARTBEAT_TIMEOUT}s)"
+        if runner_heartbeat_at and is_timestamp_old(runner_heartbeat_at, HEARTBEAT_TIMEOUT):
+            is_stale = True
+            timeout_reason = f"心跳超时 ({HEARTBEAT_TIMEOUT}s)"
 
         # 检查开始时间超时
         if started_at and not runner_heartbeat_at:
@@ -136,7 +135,7 @@ def fix_stale_task(stale_task, retry_count=0):
     # 加载队列数据
     data = load_json_file(queue_path)
     if not data:
-        print(f"❌ 无法加载队列数据")
+        print("❌ 无法加载队列数据")
         return False
 
     items = data.get("items", {})
@@ -224,7 +223,7 @@ def analyze_all_queues():
         stale_tasks = analyze_queue_file(queue_file)
         all_stale_tasks.extend(stale_tasks)
 
-    print(f"\n📊 分析完成:")
+    print("\n📊 分析完成:")
     print(f"   队列文件数: {len(list(QUEUE_DIR.glob('*.json')))}")
     print(f"   发现超时任务: {len(all_stale_tasks)}")
 
@@ -253,7 +252,7 @@ def fix_all_stale_tasks(dry_run=False):
         print("\n🔧 模拟修复模式 (dry-run):")
         for task in stale_tasks:
             print(f"  - 将修复: {task['queue_id']}/{task['item_id']}")
-            print(f"    操作: 重置为 pending 状态，重试计数+1")
+            print("    操作: 重置为 pending 状态，重试计数+1")
         return True
 
     print(f"\n🔧 开始修复 {len(stale_tasks)} 个超时任务...")
@@ -271,7 +270,7 @@ def fix_all_stale_tasks(dry_run=False):
             print(f"❌ 修复任务失败 {task['queue_id']}/{task['item_id']}: {e}")
             failed_count += 1
 
-    print(f"\n📈 修复结果:")
+    print("\n📈 修复结果:")
     print(f"   成功修复: {fixed_count}")
     print(f"   修复失败: {failed_count}")
     print(f"   总任务数: {len(stale_tasks)}")
@@ -353,11 +352,11 @@ class RetryConfig:
     jitter: bool = True
     retryable_errors: List[str] = None
     non_retryable_errors: List[str] = None
-    
+
     def __post_init__(self):
         if self.retryable_errors is None:
             self.retryable_errors = [
-                "timeout", "rate_limit", "network error", 
+                "timeout", "rate_limit", "network error",
                 "connection refused", "resource exhausted",
                 "temporary error", "stale queue task"
             ]
@@ -369,111 +368,111 @@ class RetryConfig:
 
 class ExponentialBackoffRetry:
     """指数退避重试机制"""
-    
+
     def __init__(self, config: RetryConfig = None):
         self.config = config or RetryConfig()
         self.attempts = 0
-        
+
     def is_retryable_error(self, error_message: str) -> bool:
         """判断错误是否可重试"""
         error_lower = error_message.lower()
-        
+
         # 检查不可重试错误
         for pattern in self.config.non_retryable_errors:
             if pattern.lower() in error_lower:
                 logger.debug(f"错误不可重试 (匹配 '{pattern}'): {error_message}")
                 return False
-        
+
         # 检查可重试错误
         for pattern in self.config.retryable_errors:
             if pattern.lower() in error_lower:
                 logger.debug(f"错误可重试 (匹配 '{pattern}'): {error_message}")
                 return True
-        
+
         # 默认：未知错误视为可重试
         logger.debug(f"未知错误类型，默认视为可重试: {error_message}")
         return True
-    
+
     def calculate_backoff(self, attempt: int) -> float:
         """计算退避时间"""
         delay = self.config.initial_delay * (self.config.backoff_factor ** attempt)
-        
+
         # 添加抖动
         if self.config.jitter:
             jitter = random.uniform(0.8, 1.2)
             delay *= jitter
-        
+
         # 限制最大延迟
         return min(delay, self.config.max_delay)
-    
+
     def execute_with_retry(
-        self, 
+        self,
         func: Callable[[], Any],
         on_retry: Optional[Callable[[int, float, Exception], None]] = None,
         should_retry: Optional[Callable[[Exception], bool]] = None
     ) -> Any:
         """执行函数并自动重试"""
         last_exception = None
-        
+
         for attempt in range(self.config.max_retries + 1):
             try:
                 if attempt > 0:
                     logger.info(f"重试尝试 {attempt}/{self.config.max_retries}")
-                
+
                 result = func()
-                
+
                 # 如果这是重试后的成功，记录成功信息
                 if attempt > 0:
                     logger.info(f"重试成功 (尝试 {attempt})")
-                
+
                 return result
-                
+
             except Exception as e:
                 last_exception = e
                 error_message = str(e)
-                
+
                 # 检查是否应该重试
                 should_retry_flag = False
                 if should_retry:
                     should_retry_flag = should_retry(e)
                 else:
                     should_retry_flag = self.is_retryable_error(error_message)
-                
+
                 # 检查是否达到最大重试次数
                 if attempt >= self.config.max_retries or not should_retry_flag:
                     break
-                
+
                 # 计算等待时间
                 wait_time = self.calculate_backoff(attempt)
                 logger.warning(f"尝试 {attempt + 1} 失败: {error_message}")
                 logger.info(f"等待 {wait_time:.2f} 秒后重试...")
-                
+
                 # 调用重试回调
                 if on_retry:
                     try:
                         on_retry(attempt, wait_time, e)
                     except Exception:
                         pass
-                
+
                 # 等待
                 time.sleep(wait_time)
-        
+
         # 如果所有重试都失败，抛出最后一个异常
         logger.error(f"所有 {self.config.max_retries} 次重试均失败")
         raise last_exception
 
 class TaskRetryManager:
     """任务重试管理器"""
-    
+
     def __init__(self):
         self.retry_configs = {}
         self.task_retry_history = {}
-        
+
     def get_retry_config(self, task_type: str) -> RetryConfig:
         """获取任务类型的重试配置"""
         if task_type in self.retry_configs:
             return self.retry_configs[task_type]
-        
+
         # 默认配置
         if task_type == "build":
             config = RetryConfig(
@@ -495,31 +494,31 @@ class TaskRetryManager:
             )
         else:
             config = RetryConfig()
-        
+
         self.retry_configs[task_type] = config
         return config
-    
+
     def record_retry_attempt(self, task_id: str, attempt: int, success: bool, error: str = ""):
         """记录重试尝试"""
         if task_id not in self.task_retry_history:
             self.task_retry_history[task_id] = []
-        
+
         self.task_retry_history[task_id].append({
             "timestamp": time.time(),
             "attempt": attempt,
             "success": success,
             "error": error
         })
-    
+
     def get_task_retry_summary(self, task_id: str) -> Dict:
         """获取任务重试摘要"""
         if task_id not in self.task_retry_history:
             return {"total_attempts": 0, "successful_attempts": 0}
-        
+
         history = self.task_retry_history[task_id]
         total = len(history)
         successful = sum(1 for entry in history if entry["success"])
-        
+
         return {
             "total_attempts": total,
             "successful_attempts": successful,
@@ -552,12 +551,12 @@ def retry_with_exponential_backoff(
                 retryable_errors=retryable_errors,
                 non_retryable_errors=non_retryable_errors
             )
-            
+
             retry_mechanism = ExponentialBackoffRetry(config)
-            
+
             def func_wrapper():
                 return func(*args, **kwargs)
-            
+
             return retry_mechanism.execute_with_retry(func_wrapper)
         return wrapper
     return decorator
@@ -565,7 +564,7 @@ def retry_with_exponential_backoff(
 # 使用示例
 if __name__ == "__main__":
     logging.basicConfig(level=logging.INFO)
-    
+
     # 示例1: 使用装饰器
     @retry_with_exponential_backoff(max_retries=3, initial_delay=1.0)
     def example_function():
@@ -573,22 +572,22 @@ if __name__ == "__main__":
         if random.random() < 0.7:
             raise Exception("模拟超时错误")
         return "成功"
-    
+
     try:
         result = example_function()
         print(f"结果: {result}")
     except Exception as e:
         print(f"所有重试失败: {e}")
-    
+
     # 示例2: 直接使用重试管理器
     manager = get_retry_manager()
     config = manager.get_retry_config("build")
     retry_mechanism = ExponentialBackoffRetry(config)
-    
+
     def task_function():
         # 模拟任务执行
         raise Exception("rate_limit: 超过API限制")
-    
+
     try:
         retry_mechanism.execute_with_retry(task_function)
     except Exception as e:

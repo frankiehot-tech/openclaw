@@ -1,11 +1,12 @@
 #!/usr/bin/env python3
+# DEPRECATED: 使用 governance/ 模块代替
+# governance_cli.py repair <command> 或 governance_cli.py queue fix
 """
 修复过时的依赖阻塞警告
 更新任务的摘要信息，移除已经解决的依赖阻塞
 """
 
 import json
-import os
 import shutil
 from datetime import datetime
 
@@ -14,7 +15,7 @@ def main():
     state_file = ".openclaw/plan_queue/openhuman_aiplan_build_priority_20260328.json"
 
     print(f"加载状态文件: {state_file}")
-    with open(state_file, "r", encoding="utf-8") as f:
+    with open(state_file, encoding="utf-8") as f:
         data = json.load(f)
 
     items = data.get("items", {})
@@ -81,7 +82,7 @@ def main():
             data["pause_reason"] = "empty"
 
         # 创建备份
-        backup = state_file + f'.stale_deps_fix_backup_{datetime.now().strftime("%Y%m%d_%H%M%S")}'
+        backup = state_file + f".stale_deps_fix_backup_{datetime.now().strftime('%Y%m%d_%H%M%S')}"
         shutil.copy2(state_file, backup)
         print(f"✅ 创建备份: {backup}")
 
@@ -89,11 +90,11 @@ def main():
         with open(state_file, "w", encoding="utf-8") as f:
             json.dump(data, f, ensure_ascii=False, indent=2)
 
-        print(f"\n📊 修复完成:")
+        print("\n📊 修复完成:")
         print(f"  修复任务数: {fixed_count}")
         print(f"  新queue_status: {data['queue_status']}")
     else:
-        print(f"⚠️  没有需要修复的过时依赖警告")
+        print("⚠️  没有需要修复的过时依赖警告")
 
     return 0
 

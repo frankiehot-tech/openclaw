@@ -1,4 +1,6 @@
 #!/usr/bin/env python3
+# DEPRECATED: 使用 governance/ 模块代替
+# governance_cli.py repair <command> 或 governance_cli.py queue fix
 """
 任务ID规范化修复脚本
 
@@ -26,7 +28,7 @@ def audit_queue_file(queue_file_path):
         return None
 
     try:
-        with open(queue_file_path, "r", encoding="utf-8") as f:
+        with open(queue_file_path, encoding="utf-8") as f:
             queue_data = json.load(f)
     except Exception as e:
         print(f"❌ 无法加载队列文件: {e}")
@@ -36,7 +38,7 @@ def audit_queue_file(queue_file_path):
     items = queue_data.get("items", {})
     task_ids = list(items.keys())
 
-    print(f"📊 队列统计:")
+    print("📊 队列统计:")
     print(f"   总任务数: {len(task_ids)}")
     print(f"   items对象类型: {type(items).__name__}")
 
@@ -44,12 +46,12 @@ def audit_queue_file(queue_file_path):
     contract = TaskIdentityContract()
     audit_report = contract.audit_existing_ids(task_ids)
 
-    print(f"\n📋 审计结果:")
+    print("\n📋 审计结果:")
     print(f"   问题ID数量: {audit_report['argparse_unsafe_count']}")
     print(f"   问题ID比例: {audit_report['problematic_percentage']:.2f}%")
 
     if audit_report["argparse_unsafe_count"] > 0:
-        print(f"\n🔴 发现的问题ID:")
+        print("\n🔴 发现的问题ID:")
         for problem in audit_report["problematic_ids"]:
             print(f"   - {problem['id'][:80]}...")
 
@@ -68,7 +70,7 @@ def fix_queue_ids(queue_file_path, backup=True):
     queue_data, audit_report = result
 
     if audit_report["argparse_unsafe_count"] == 0:
-        print(f"✅ 没有发现需要修复的问题ID")
+        print("✅ 没有发现需要修复的问题ID")
         return True
 
     # 创建备份
@@ -128,16 +130,16 @@ def fix_queue_ids(queue_file_path, backup=True):
         return False
 
     # 验证修复结果
-    print(f"\n🔍 验证修复结果...")
+    print("\n🔍 验证修复结果...")
     verify_result = audit_queue_file(fixed_path)
     if verify_result is None:
-        print(f"⚠️  无法验证修复结果")
+        print("⚠️  无法验证修复结果")
         return False
 
     _, verify_audit = verify_result
 
     if verify_audit["argparse_unsafe_count"] == 0:
-        print(f"✅ 验证通过: 修复后没有以'-'开头的ID")
+        print("✅ 验证通过: 修复后没有以'-'开头的ID")
 
         # 替换原始文件
         import shutil
@@ -168,7 +170,7 @@ def main():
         print(f"❌ 配置文件不存在: {config_file}")
         return 1
 
-    with open(config_file, "r", encoding="utf-8") as f:
+    with open(config_file, encoding="utf-8") as f:
         config = json.load(f)
 
     routes = config.get("routes", [])
@@ -182,7 +184,7 @@ def main():
         print(f"   Manifest路径: {manifest_path}")
 
         if not os.path.exists(manifest_path):
-            print(f"   ⚠️  Manifest文件不存在，跳过")
+            print("   ⚠️  Manifest文件不存在，跳过")
             continue
 
         # 根据manifest路径推断队列文件路径
@@ -227,9 +229,9 @@ def main():
                     if response == "y":
                         fix_queue_ids(queue_file)
                     else:
-                        print(f"   ⏭️  跳过修复")
+                        print("   ⏭️  跳过修复")
                 else:
-                    print(f"   ✅ 没有发现以'-'开头的ID，无需修复")
+                    print("   ✅ 没有发现以'-'开头的ID，无需修复")
 
     print("\n" + "=" * 70)
     print("🎉 任务ID规范化检查完成")

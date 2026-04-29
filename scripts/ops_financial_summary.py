@@ -8,12 +8,10 @@
 
 import json
 import logging
-import sys
 from dataclasses import asdict, dataclass, field
-from datetime import datetime, timedelta
-from enum import Enum
+from datetime import datetime
 from pathlib import Path
-from typing import Any, Dict, List, Optional, Tuple
+from typing import Any
 
 # 配置日志
 logging.basicConfig(
@@ -33,7 +31,7 @@ class SummaryHealthScore:
     automation: int = 100  # 自动化健康度 (0-100)
     overall: int = 100  # 整体健康度 (0-100)
 
-    def to_dict(self) -> Dict[str, Any]:
+    def to_dict(self) -> dict[str, Any]:
         return asdict(self)
 
 
@@ -46,7 +44,7 @@ class SummaryAlertSummary:
     info: int = 0
     total: int = 0
 
-    def to_dict(self) -> Dict[str, Any]:
+    def to_dict(self) -> dict[str, Any]:
         return asdict(self)
 
 
@@ -61,7 +59,7 @@ class SummaryFinancialData:
     current_mode: str = "normal"
     days_until_reset: int = 0
 
-    def to_dict(self) -> Dict[str, Any]:
+    def to_dict(self) -> dict[str, Any]:
         return asdict(self)
 
 
@@ -72,10 +70,10 @@ class SummaryOperationalData:
     automation_requests_total: int = 0
     automation_requests_today: int = 0
     automation_success_rate: float = 1.0
-    last_automation_time: Optional[str] = None
+    last_automation_time: str | None = None
     active_automation_contracts: int = 0
 
-    def to_dict(self) -> Dict[str, Any]:
+    def to_dict(self) -> dict[str, Any]:
         return asdict(self)
 
 
@@ -101,15 +99,15 @@ class SummaryDashboardPayload:
     operational_data: SummaryOperationalData = field(default_factory=SummaryOperationalData)
 
     # 关键指标
-    key_metrics: Dict[str, Any] = field(default_factory=dict)
+    key_metrics: dict[str, Any] = field(default_factory=dict)
 
     # 建议
-    recommendations: List[str] = field(default_factory=list)
+    recommendations: list[str] = field(default_factory=list)
 
     # 链接到详细数据
-    detailed_reports: Dict[str, str] = field(default_factory=dict)
+    detailed_reports: dict[str, str] = field(default_factory=dict)
 
-    def to_dict(self) -> Dict[str, Any]:
+    def to_dict(self) -> dict[str, Any]:
         result = asdict(self)
         result["health_scores"] = self.health_scores.to_dict()
         result["alert_summary"] = self.alert_summary.to_dict()
@@ -131,7 +129,7 @@ from dataclasses import field
 class SummaryGenerator:
     """摘要生成引擎"""
 
-    def __init__(self, output_dir: Optional[str] = None):
+    def __init__(self, output_dir: str | None = None):
         self.output_dir = Path(output_dir) if output_dir else Path("workspace/summary_artifacts")
         self.output_dir.mkdir(parents=True, exist_ok=True)
 
@@ -275,7 +273,7 @@ class SummaryGenerator:
         # 从告警分发器获取状态（如果有）
         if dispatcher:
             try:
-                status = dispatcher.get_status()
+                dispatcher.get_status()
                 # 告警分发器没有告警计数，跳过
                 pass
             except Exception as e:
@@ -359,7 +357,7 @@ class SummaryGenerator:
         financial_data: SummaryFinancialData,
         operational_data: SummaryOperationalData,
         alert_summary: SummaryAlertSummary,
-    ) -> List[str]:
+    ) -> list[str]:
         """生成建议"""
         recommendations = []
 
@@ -545,7 +543,7 @@ class SummaryGenerator:
 
 # ==================== 全局实例 ====================
 
-_summary_generator_instance: Optional[SummaryGenerator] = None
+_summary_generator_instance: SummaryGenerator | None = None
 
 
 def get_summary_generator() -> SummaryGenerator:

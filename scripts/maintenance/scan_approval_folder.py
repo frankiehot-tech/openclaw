@@ -7,10 +7,9 @@
 import json
 import os
 import sys
-import uuid
 from datetime import datetime
 from pathlib import Path
-from typing import Any, Dict, List, Set
+from typing import Any
 
 import yaml
 
@@ -40,10 +39,10 @@ APPROVAL_DIR = Path(
 BACKUP_SUFFIX = ".backup_scan_" + datetime.now().strftime("%Y%m%d_%H%M%S")
 
 
-def load_yaml_frontmatter(file_path: Path) -> Dict[str, Any]:
+def load_yaml_frontmatter(file_path: Path) -> dict[str, Any]:
     """从Markdown文件中加载YAML frontmatter"""
     try:
-        with open(file_path, "r", encoding="utf-8") as f:
+        with open(file_path, encoding="utf-8") as f:
             content = f.read()
 
         if not content.startswith("---"):
@@ -61,14 +60,14 @@ def load_yaml_frontmatter(file_path: Path) -> Dict[str, Any]:
         return {}
 
 
-def extract_proposal_info(file_path: Path) -> Dict[str, Any]:
+def extract_proposal_info(file_path: Path) -> dict[str, Any]:
     """从提案文件中提取信息"""
     data = load_yaml_frontmatter(file_path)
     if not data:
         return {}
 
     # 读取文件内容用于生成任务描述
-    with open(file_path, "r", encoding="utf-8") as f:
+    with open(file_path, encoding="utf-8") as f:
         content = f.read()
 
     # 提取标题（第一行非frontmatter的markdown标题）
@@ -93,17 +92,17 @@ def extract_proposal_info(file_path: Path) -> Dict[str, Any]:
     }
 
 
-def load_queue() -> Dict[str, Any]:
+def load_queue() -> dict[str, Any]:
     """加载队列文件"""
     try:
-        with open(QUEUE_FILE, "r", encoding="utf-8") as f:
+        with open(QUEUE_FILE, encoding="utf-8") as f:
             return json.load(f)
     except Exception as e:
         print(f"❌ 加载队列文件失败: {e}")
         return {}
 
 
-def save_queue(queue_data: Dict[str, Any]) -> bool:
+def save_queue(queue_data: dict[str, Any]) -> bool:
     """保存队列文件（先备份）"""
     try:
         # 创建备份
@@ -146,7 +145,7 @@ def proposal_to_task_id(proposal_id: str) -> str:
     return task_id
 
 
-def create_queue_task(proposal_info: Dict[str, Any]) -> Dict[str, Any]:
+def create_queue_task(proposal_info: dict[str, Any]) -> dict[str, Any]:
     """根据提案信息创建队列任务"""
     proposal_id = proposal_info["proposal_id"]
     task_id = proposal_to_task_id(proposal_id)
@@ -176,7 +175,7 @@ def create_queue_task(proposal_info: Dict[str, Any]) -> Dict[str, Any]:
 def update_proposal_status(file_path: Path, new_status: str = "queued") -> bool:
     """更新提案文件中的状态"""
     try:
-        with open(file_path, "r", encoding="utf-8") as f:
+        with open(file_path, encoding="utf-8") as f:
             content = f.read()
 
         if not content.startswith("---"):
@@ -254,7 +253,7 @@ def scan_and_convert():
         # 提取提案信息
         proposal_info = extract_proposal_info(file_path)
         if not proposal_info:
-            print(f"  ⚠️  无法提取提案信息，跳过")
+            print("  ⚠️  无法提取提案信息，跳过")
             failed_conversions.append(str(file_path))
             continue
 
@@ -285,9 +284,9 @@ def scan_and_convert():
             # 更新提案状态
             if update_proposal_status(file_path, "queued"):
                 print(f"  ✅ 已添加到队列: {task_id}")
-                print(f"  ✅ 提案状态更新为: queued")
+                print("  ✅ 提案状态更新为: queued")
             else:
-                print(f"  ⚠️  添加到队列但更新提案状态失败")
+                print("  ⚠️  添加到队列但更新提案状态失败")
         except Exception as e:
             print(f"  ❌ 转换失败: {e}")
             failed_conversions.append(str(file_path))
@@ -308,35 +307,35 @@ def scan_and_convert():
         if save_queue(queue_data):
             print(f"\n✅ 队列文件已更新，添加了 {len(new_tasks)} 个新任务")
         else:
-            print(f"\n❌ 保存队列文件失败")
+            print("\n❌ 保存队列文件失败")
             return
 
     # 生成报告
-    print(f"\n📊 扫描完成报告")
-    print(f"=" * 40)
+    print("\n📊 扫描完成报告")
+    print("=" * 40)
     print(f"📁 扫描文件总数: {len(proposal_files)}")
     print(f"✅ 新添加到队列: {len(new_tasks)}")
     print(f"📋 已在队列中: {len(already_queued)}")
     print(f"❌ 转换失败: {len(failed_conversions)}")
 
     if new_tasks:
-        print(f"\n🎯 新增任务ID (前10个):")
+        print("\n🎯 新增任务ID (前10个):")
         for i, task_id in enumerate(new_tasks[:10], 1):
             print(f"  {i}. {task_id}")
         if len(new_tasks) > 10:
             print(f"  ... 还有 {len(new_tasks) - 10} 个")
 
     if failed_conversions:
-        print(f"\n⚠️  转换失败的文件 (前5个):")
+        print("\n⚠️  转换失败的文件 (前5个):")
         for i, file_path in enumerate(failed_conversions[:5], 1):
             print(f"  {i}. {file_path}")
 
     # 建议下一步
-    print(f"\n🎯 下一步建议:")
-    print(f"1. 运行队列监控: python monitor_queue.py")
-    print(f"2. 检查队列状态: python check_queue_progress.py")
-    print(f"3. 设置定时任务: 将此脚本添加到cron/scheduler")
-    print(f"4. 验证MAREF自动化: 检查auto_apply_suggestions设置")
+    print("\n🎯 下一步建议:")
+    print("1. 运行队列监控: python monitor_queue.py")
+    print("2. 检查队列状态: python check_queue_progress.py")
+    print("3. 设置定时任务: 将此脚本添加到cron/scheduler")
+    print("4. 验证MAREF自动化: 检查auto_apply_suggestions设置")
 
 
 def main():

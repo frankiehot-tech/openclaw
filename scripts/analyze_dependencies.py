@@ -5,12 +5,11 @@
 
 import json
 import os
-from pathlib import Path
 
 
 def load_json(filepath):
     """加载JSON文件"""
-    with open(filepath, "r", encoding="utf-8") as f:
+    with open(filepath, encoding="utf-8") as f:
         return json.load(f)
 
 
@@ -110,7 +109,7 @@ def main():
     for status in task_status.values():
         status_counts[status] = status_counts.get(status, 0) + 1
 
-    print(f"\n任务状态统计:")
+    print("\n任务状态统计:")
     for status, count in sorted(status_counts.items()):
         print(f"  {status}: {count}")
 
@@ -123,7 +122,7 @@ def main():
         "athena_validation_moat_build",
     ]
 
-    print(f"\n关键任务状态:")
+    print("\n关键任务状态:")
     for task_id in critical_tasks:
         status = task_status.get(task_id, "not_found")
         depends_on = None

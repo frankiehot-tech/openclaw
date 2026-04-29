@@ -6,12 +6,11 @@
 
 import json
 import logging
-import os
 import sys
 import time
-from datetime import datetime, timedelta, timezone
+from datetime import UTC, datetime
 from pathlib import Path
-from typing import Any, Dict, List, Optional
+from typing import Any
 
 import requests
 
@@ -80,7 +79,7 @@ class TwoMinuteQueueMonitor:
         logger.info(f"使用默认token: {default_token[:10]}...")
         return default_token
 
-    def get_queue_status(self) -> Dict[str, Any]:
+    def get_queue_status(self) -> dict[str, Any]:
         """获取所有队列状态"""
         headers = {"X-OpenClaw-Token": self.auth_token}
 
@@ -99,7 +98,7 @@ class TwoMinuteQueueMonitor:
             logger.error(f"Web API请求失败: {e}")
             return {"error": str(e), "routes": []}
 
-    def check_individual_queue_files(self) -> Dict[str, Any]:
+    def check_individual_queue_files(self) -> dict[str, Any]:
         """直接检查队列文件状态"""
         queue_status = {"timestamp": datetime.now().isoformat(), "queues": {}}
 
@@ -108,7 +107,7 @@ class TwoMinuteQueueMonitor:
 
             for queue_file in queue_files:
                 try:
-                    with open(queue_file, "r", encoding="utf-8") as f:
+                    with open(queue_file, encoding="utf-8") as f:
                         queue_data = json.load(f)
 
                     queue_name = queue_file.stem
@@ -133,7 +132,7 @@ class TwoMinuteQueueMonitor:
 
         return queue_status
 
-    def auto_launch_pending_tasks(self, web_queue_data: Dict[str, Any]) -> List[Dict[str, Any]]:
+    def auto_launch_pending_tasks(self, web_queue_data: dict[str, Any]) -> list[dict[str, Any]]:
         """自动拉起pending状态的任务"""
         launched_tasks = []
 
@@ -216,10 +215,10 @@ class TwoMinuteQueueMonitor:
 
     def record_problems(
         self,
-        web_queue_data: Dict[str, Any],
-        file_queue_status: Dict[str, Any],
-        launched_tasks: List[Dict[str, Any]],
-    ) -> List[Dict[str, Any]]:
+        web_queue_data: dict[str, Any],
+        file_queue_status: dict[str, Any],
+        launched_tasks: list[dict[str, Any]],
+    ) -> list[dict[str, Any]]:
         """记录执行过程中的问题和错误"""
         problems = []
 
@@ -299,11 +298,11 @@ class TwoMinuteQueueMonitor:
                 try:
                     last_updated = datetime.fromisoformat(updated_at_str.replace("Z", "+00:00"))
                     if last_updated.tzinfo is not None:
-                        last_updated_utc = last_updated.astimezone(timezone.utc)
+                        last_updated_utc = last_updated.astimezone(UTC)
                     else:
-                        last_updated_utc = last_updated.replace(tzinfo=timezone.utc)
+                        last_updated_utc = last_updated.replace(tzinfo=UTC)
 
-                    now_utc = datetime.now(timezone.utc)
+                    now_utc = datetime.now(UTC)
                     age_minutes = (now_utc - last_updated_utc).total_seconds() / 60
 
                     # 优化：empty状态队列不触发陈旧告警，因为这是正常完成状态
@@ -341,7 +340,7 @@ class TwoMinuteQueueMonitor:
 
         return problems
 
-    def check_queue_completion(self, file_queue_status: Dict[str, Any]) -> List[str]:
+    def check_queue_completion(self, file_queue_status: dict[str, Any]) -> list[str]:
         """检查队列是否完成（所有任务都是completed状态）"""
         newly_completed = []
 
@@ -460,11 +459,11 @@ class TwoMinuteQueueMonitor:
 
     def log_check_data(
         self,
-        web_queue_data: Dict[str, Any],
-        file_queue_status: Dict[str, Any],
-        launched_tasks: List[Dict[str, Any]],
-        problems: List[Dict[str, Any]],
-        newly_completed: List[str],
+        web_queue_data: dict[str, Any],
+        file_queue_status: dict[str, Any],
+        launched_tasks: list[dict[str, Any]],
+        problems: list[dict[str, Any]],
+        newly_completed: list[str],
     ):
         """记录检查数据"""
         check_entry = {
@@ -485,7 +484,7 @@ class TwoMinuteQueueMonitor:
         except Exception as e:
             logger.error(f"记录检查数据失败: {e}")
 
-    def run_check_cycle(self) -> Dict[str, Any]:
+    def run_check_cycle(self) -> dict[str, Any]:
         """运行一次完整的检查周期"""
         self.monitoring_state["total_checks"] += 1
         check_number = self.monitoring_state["total_checks"]
@@ -520,7 +519,7 @@ class TwoMinuteQueueMonitor:
         )
 
         # 显示本次检查摘要
-        logger.info(f"📊 检查摘要:")
+        logger.info("📊 检查摘要:")
         logger.info(f"  • Web队列数: {len(web_queue_data.get('routes', []))}")
         logger.info(f"  • 文件队列数: {len(file_queue_status.get('queues', {}))}")
         logger.info(f"  • 拉起任务数: {len(launched_tasks)}")

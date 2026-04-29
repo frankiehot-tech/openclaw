@@ -19,7 +19,7 @@ from dataclasses import asdict, dataclass, field
 from datetime import datetime
 from enum import Enum
 from pathlib import Path
-from typing import Any, Dict, List, Optional, Tuple, Union
+from typing import Any
 
 # 配置日志
 logging.basicConfig(
@@ -67,7 +67,7 @@ class AutomationRequest:
 
     request_id: str
     action: AutomationAction
-    payload: Dict[str, Any]
+    payload: dict[str, Any]
 
     # 配置选项
     dry_run: bool = True
@@ -78,9 +78,9 @@ class AutomationRequest:
     description: str = ""
     created_by: str = "system"
     created_at: str = field(default_factory=lambda: datetime.now().isoformat())
-    metadata: Dict[str, Any] = field(default_factory=dict)
+    metadata: dict[str, Any] = field(default_factory=dict)
 
-    def to_dict(self) -> Dict[str, Any]:
+    def to_dict(self) -> dict[str, Any]:
         result = asdict(self)
         result["action"] = self.action.value
         return result
@@ -92,24 +92,24 @@ class AutomationResult:
 
     request_id: str
     status: AutomationStatus
-    output: Dict[str, Any]
+    output: dict[str, Any]
 
     # 执行详情
     executed_at: str = field(default_factory=lambda: datetime.now().isoformat())
     execution_time_ms: int = 0
-    evidence_path: Optional[str] = None  # 证据文件路径
+    evidence_path: str | None = None  # 证据文件路径
 
     # 告警与错误
-    alerts: List[Dict[str, Any]] = field(default_factory=list)
-    errors: List[str] = field(default_factory=list)
-    warnings: List[str] = field(default_factory=list)
+    alerts: list[dict[str, Any]] = field(default_factory=list)
+    errors: list[str] = field(default_factory=list)
+    warnings: list[str] = field(default_factory=list)
 
     # 预算信息
     budget_checked: bool = False
-    budget_check_result: Optional[Dict[str, Any]] = None
+    budget_check_result: dict[str, Any] | None = None
     actual_cost: float = 0.0
 
-    def to_dict(self) -> Dict[str, Any]:
+    def to_dict(self) -> dict[str, Any]:
         result = asdict(self)
         result["status"] = self.status.value
         return result
@@ -125,7 +125,7 @@ class AutomationContract:
     version: str = "1.0"
 
     # 允许的动作
-    allowed_actions: List[AutomationAction] = field(default_factory=list)
+    allowed_actions: list[AutomationAction] = field(default_factory=list)
 
     # 边界限制
     max_cost_per_action: float = 50.0
@@ -142,10 +142,10 @@ class AutomationContract:
 
     # 状态
     enabled: bool = True
-    last_executed: Optional[str] = None
+    last_executed: str | None = None
     execution_count: int = 0
 
-    def to_dict(self) -> Dict[str, Any]:
+    def to_dict(self) -> dict[str, Any]:
         result = asdict(self)
         result["allowed_actions"] = [a.value for a in self.allowed_actions]
         return result
@@ -157,10 +157,10 @@ class AutomationContract:
 class AutomationEngine:
     """最小自动化引擎"""
 
-    def __init__(self, contract: Optional[AutomationContract] = None):
+    def __init__(self, contract: AutomationContract | None = None):
         self.contract = contract or self._create_default_contract()
-        self.requests: Dict[str, AutomationRequest] = {}
-        self.results: Dict[str, AutomationResult] = {}
+        self.requests: dict[str, AutomationRequest] = {}
+        self.results: dict[str, AutomationResult] = {}
 
         # 确保证据目录存在
         self.evidence_dir = Path(self.contract.evidence_dir)
@@ -185,11 +185,11 @@ class AutomationEngine:
     def create_request(
         self,
         action: AutomationAction,
-        payload: Dict[str, Any],
+        payload: dict[str, Any],
         dry_run: bool = True,
         description: str = "",
         **kwargs,
-    ) -> Tuple[bool, str, Optional[AutomationRequest]]:
+    ) -> tuple[bool, str, AutomationRequest | None]:
         """创建自动化请求"""
         try:
             # 检查契约是否允许此动作
@@ -220,7 +220,7 @@ class AutomationEngine:
             logger.error(f"创建自动化请求失败: {e}")
             return False, str(e), None
 
-    def _check_budget(self, request: AutomationRequest) -> Optional[Dict[str, Any]]:
+    def _check_budget(self, request: AutomationRequest) -> dict[str, Any] | None:
         """检查预算（如果启用）"""
         if not request.require_budget_check:
             return None
@@ -253,7 +253,7 @@ class AutomationEngine:
             logger.warning(f"预算检查失败: {e}")
             return None
 
-    def _execute_content_generation(self, request: AutomationRequest) -> Dict[str, Any]:
+    def _execute_content_generation(self, request: AutomationRequest) -> dict[str, Any]:
         """执行内容生成（dry-run）"""
         if request.dry_run:
             return {
@@ -272,7 +272,7 @@ class AutomationEngine:
                 "note": "真实内容生成需要实现具体逻辑",
             }
 
-    def _execute_publish(self, request: AutomationRequest) -> Dict[str, Any]:
+    def _execute_publish(self, request: AutomationRequest) -> dict[str, Any]:
         """执行发布（dry-run）"""
         if request.dry_run:
             return {
@@ -291,7 +291,7 @@ class AutomationEngine:
                 "note": "真实发布需要实现平台API集成",
             }
 
-    def _execute_monitoring(self, request: AutomationRequest) -> Dict[str, Any]:
+    def _execute_monitoring(self, request: AutomationRequest) -> dict[str, Any]:
         """执行监控（dry-run）"""
         if request.dry_run:
             return {
@@ -309,7 +309,7 @@ class AutomationEngine:
                 "note": "真实监控需要实现指标收集和告警",
             }
 
-    def _execute_reporting(self, request: AutomationRequest) -> Dict[str, Any]:
+    def _execute_reporting(self, request: AutomationRequest) -> dict[str, Any]:
         """执行报告（dry-run）"""
         if request.dry_run:
             return {
@@ -350,7 +350,7 @@ class AutomationEngine:
             logger.warning(f"保存证据文件失败: {e}")
             return ""
 
-    def execute_request(self, request_id: str) -> Tuple[bool, str, Optional[AutomationResult]]:
+    def execute_request(self, request_id: str) -> tuple[bool, str, AutomationResult | None]:
         """执行自动化请求"""
         if request_id not in self.requests:
             return False, f"请求不存在: {request_id}", None
@@ -431,7 +431,7 @@ class AutomationEngine:
             self.results[request_id] = result
             return False, str(e), result
 
-    def get_summary(self) -> Dict[str, Any]:
+    def get_summary(self) -> dict[str, Any]:
         """获取运营自动化摘要"""
         return {
             "contract": self.contract.to_dict(),
@@ -456,7 +456,7 @@ class AutomationEngine:
 
 # ==================== 全局实例 ====================
 
-_automation_engine_instance: Optional[AutomationEngine] = None
+_automation_engine_instance: AutomationEngine | None = None
 
 
 def get_automation_engine() -> AutomationEngine:

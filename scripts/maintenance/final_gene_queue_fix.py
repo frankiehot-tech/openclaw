@@ -1,4 +1,6 @@
 #!/usr/bin/env python3
+# DEPRECATED: 使用 governance/ 模块代替
+# governance_cli.py <command>
 """
 最终基因管理队列修复脚本
 直接修复队列文件中的根本问题，确保手动拉起功能恢复正常
@@ -7,8 +9,7 @@
 import json
 import os
 import subprocess
-import sys
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 
 QUEUE_FILE = (
     "/Volumes/1TB-M2/openclaw/.openclaw/plan_queue/openhuman_aiplan_gene_management_20260405.json"
@@ -19,7 +20,7 @@ API_TOKEN = "FxwdCOtBnl_e0wQJQ2107OUqWkPOBa67"  # 从HTML meta标签获取的tok
 
 def load_queue_state():
     """加载队列状态"""
-    with open(QUEUE_FILE, "r", encoding="utf-8") as f:
+    with open(QUEUE_FILE, encoding="utf-8") as f:
         return json.load(f)
 
 
@@ -78,7 +79,7 @@ def fix_api_key_tasks(state):
                 fixed_count += 1
                 print(f"✅ 修复API key任务 {task_id}")
             else:
-                print(f"❌ 未找到DASHSCOPE_API_KEY环境变量")
+                print("❌ 未找到DASHSCOPE_API_KEY环境变量")
 
     return fixed_count
 
@@ -106,13 +107,13 @@ def fix_manual_hold_tasks(state):
     state["pause_reason"] = ""
     state["current_item_id"] = first_task
     state["current_item_ids"] = manual_hold_tasks
-    state["updated_at"] = datetime.now(timezone.utc).isoformat()
+    state["updated_at"] = datetime.now(UTC).isoformat()
 
     # 更新第一个任务状态
     items[first_task]["status"] = "running"
     items[first_task]["progress_percent"] = 0
     if not items[first_task].get("started_at"):
-        items[first_task]["started_at"] = datetime.now(timezone.utc).isoformat()
+        items[first_task]["started_at"] = datetime.now(UTC).isoformat()
 
     # 其他任务设置为pending
     for i, task_id in enumerate(manual_hold_tasks):
@@ -129,7 +130,7 @@ def fix_manual_hold_tasks(state):
 
     state["counts"] = counts
 
-    print(f"✅ 队列状态修复完成:")
+    print("✅ 队列状态修复完成:")
     print(f"   • queue_status: {state['queue_status']}")
     print(f"   • current_item_id: {state['current_item_id']}")
     print(f"   • counts: pending={counts['pending']}, running={counts['running']}")
@@ -149,11 +150,11 @@ def test_web_api():
     try:
         result = subprocess.run(cmd, shell=True, capture_output=True, text=True, timeout=5)
         if result.returncode == 0:
-            print(f"✅ Web API访问成功")
+            print("✅ Web API访问成功")
             try:
                 data = json.loads(result.stdout)
                 print(f"   API响应: {json.dumps(data, ensure_ascii=False)[:200]}...")
-            except:
+            except Exception:
                 print(f"   API响应 (原始): {result.stdout[:200]}...")
         else:
             print(f"❌ Web API访问失败: {result.stderr[:100]}")

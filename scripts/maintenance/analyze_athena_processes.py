@@ -4,7 +4,6 @@
 确定40个Athena进程的身份和类型
 """
 
-import os
 import sys
 import time
 from datetime import datetime
@@ -106,7 +105,7 @@ def print_category_report(process_categories):
                 )
 
             if len(processes) > 5:
-                print(f"  ... 还有{len(processes)-5}个进程")
+                print(f"  ... 还有{len(processes) - 5}个进程")
 
     # 特别关注队列运行器
     queue_runners = process_categories["queue_runner"]
@@ -115,7 +114,7 @@ def print_category_report(process_categories):
         for proc in queue_runners:
             print(f"  PID:{proc['pid']} - {proc['cmdline_short']}")
     else:
-        print(f"\n⚠️ 未发现队列运行器进程")
+        print("\n⚠️ 未发现队列运行器进程")
 
     # 检查是否有僵尸进程
     zombie_count = 0
@@ -162,7 +161,7 @@ def check_process_health():
             try:
                 if psutil.pid_exists(pid):
                     psutil.Process(pid).terminate()
-            except:
+            except Exception:
                 pass
         else:
             print(f"⚠️ ProcessContract健康检查警告: {error}")
@@ -196,20 +195,20 @@ def main():
         print("❌ 未找到Athena相关进程")
         return 1
     elif total_processes == 40:
-        print(f"✅ 确认找到40个Athena相关进程")
+        print("✅ 确认找到40个Athena相关进程")
 
         queue_runners = len(process_categories["queue_runner"])
         if queue_runners == 0:
             print(f"⚠️ 队列中没有运行中的任务，但有{total_processes}个Athena进程")
-            print(f"   这可能包括:")
+            print("   这可能包括:")
             print(f"   - Web服务器进程: {len(process_categories['web_server'])}个")
             print(f"   - 监控仪表板进程: {len(process_categories['monitor_dashboard'])}个")
             print(f"   - 其他Athena进程: {len(process_categories['other_athena'])}个")
             print(f"   - 未知进程: {len(process_categories['unknown'])}个")
-            print(f"\n   如果队列运行器进程为0，说明队列可能已停止或没有任务在执行")
+            print("\n   如果队列运行器进程为0，说明队列可能已停止或没有任务在执行")
         else:
             print(f"✅ 发现{queue_runners}个队列运行器进程")
-            print(f"   队列状态正常，进程包括:")
+            print("   队列状态正常，进程包括:")
             for category, count in [
                 (cat, len(procs)) for cat, procs in process_categories.items() if procs
             ]:

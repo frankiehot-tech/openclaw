@@ -33,9 +33,10 @@ if [[ -n "${EXISTING_PID:-}" ]]; then
   exit 0
 fi
 
-# Start new screen session with necessary environment variables
-# Pass DASHSCOPE_API_KEY and other required env vars to the screen session
-screen -dmS "$SESSION_NAME" env DASHSCOPE_API_KEY="$DASHSCOPE_API_KEY" /opt/homebrew/bin/python3 "$ROOT/scripts/athena_ai_plan_runner.py"
+# Start new screen session
+# Python's load_dotenv() loads .env directly - no need to pass DASHSCOPE_API_KEY
+# Passing env var explicitly would override .env, breaking key rotation
+screen -dmS "$SESSION_NAME" /opt/homebrew/bin/python3 "$ROOT/scripts/athena_ai_plan_runner.py"
 sleep 1
 SCREEN_PID="$( { screen -ls 2>/dev/null || true; } | awk '/[.]'"${SESSION_NAME}"'[[:space:]]/ { split($1, parts, "."); print parts[1]; exit }')"
 echo "Athena AI plan runner started: ${SCREEN_PID:-unknown}"

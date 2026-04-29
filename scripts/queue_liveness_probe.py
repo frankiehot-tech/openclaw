@@ -8,8 +8,7 @@ import json
 import os
 import subprocess
 import sys
-import time
-from datetime import datetime, timedelta, timezone
+from datetime import UTC, datetime
 
 # 配置
 PLAN_QUEUE_DIR = "/Volumes/1TB-M2/openclaw/.openclaw/plan_queue"
@@ -40,9 +39,9 @@ def check_runner_process():
                             capture_output=True,
                             text=True,
                         )
-                        print(
-                            f"  进程 {pid}: {proc_info.stdout.strip().split('\n')[-1] if len(proc_info.stdout.strip().split('\n')) > 1 else '无信息'}"
-                        )
+                        _lines = proc_info.stdout.strip().split("\n")
+                        _last = _lines[-1] if len(_lines) > 1 else "无信息"
+                        print(f"  进程 {pid}: {_last}")
                     except Exception as e:
                         print(f"  获取进程{pid}信息失败: {e}")
 
@@ -68,14 +67,14 @@ def check_queue_files():
     print(f"📊 找到 {len(queue_files)} 个队列文件")
 
     results = []
-    now = datetime.now(timezone.utc)
+    now = datetime.now(UTC)
 
     for queue_file in queue_files:
         file_path = os.path.join(PLAN_QUEUE_DIR, queue_file)
         print(f"\n📄 检查队列: {queue_file}")
 
         try:
-            with open(file_path, "r") as f:
+            with open(file_path) as f:
                 data = json.load(f)
 
             # 检查队列状态
@@ -135,7 +134,7 @@ def check_queue_files():
                                 heartbeat_at.replace("Z", "+00:00")
                             )
                             if heartbeat_time.tzinfo is None:
-                                heartbeat_time = heartbeat_time.replace(tzinfo=timezone.utc)
+                                heartbeat_time = heartbeat_time.replace(tzinfo=UTC)
 
                             age_minutes = (now - heartbeat_time).total_seconds() / 60
 

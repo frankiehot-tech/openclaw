@@ -4,14 +4,13 @@
 """
 
 import json
-import os
 
 
 def main():
     state_file = ".openclaw/plan_queue/openhuman_aiplan_build_priority_20260328.json"
 
     print(f"加载状态文件: {state_file}")
-    with open(state_file, "r", encoding="utf-8") as f:
+    with open(state_file, encoding="utf-8") as f:
         data = json.load(f)
 
     items = data.get("items", {})
@@ -38,7 +37,7 @@ def main():
         (task_id, task) for task_id, task in items.items() if task.get("status") == "pending"
     ]
 
-    print(f"\n检查pending任务的依赖关系...")
+    print("\n检查pending任务的依赖关系...")
     for task_id, task in pending_items:
         depends_on = task.get("depends_on", [])
         if depends_on:
@@ -60,11 +59,11 @@ def main():
                     blocked = True
 
     if blocked:
-        print(f"\n❌ 队列被阻塞，原因:")
+        print("\n❌ 队列被阻塞，原因:")
         for task_id, dep_id, dep_status in blocked_tasks:
             print(f"  - {task_id} 被 {dep_id} 阻塞 (状态: {dep_status})")
     else:
-        print(f"\n✅ 队列未被依赖阻塞")
+        print("\n✅ 队列未被依赖阻塞")
 
         # 检查是否有pending但非依赖阻塞的任务
         if pending_items:
@@ -75,7 +74,7 @@ def main():
                 print(f"  ... 还有 {len(pending_items) - 5} 个任务")
 
     # 检查queue_status
-    print(f"\n📊 队列状态:")
+    print("\n📊 队列状态:")
     print(f"  queue_status: {data.get('queue_status', 'unknown')}")
     print(f"  counts: {json.dumps(data.get('counts', {}), ensure_ascii=False)}")
 

@@ -1,11 +1,13 @@
 #!/usr/bin/env python3
+# DEPRECATED: 使用 governance/ 模块代替
+# governance_cli.py repair <command> 或 governance_cli.py queue fix
 """
 原子性修复running任务状态
 """
 
 import json
 import os
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 
 
 def fix_running_atomic():
@@ -16,7 +18,7 @@ def fix_running_atomic():
         return
 
     # 原子性读取
-    with open(queue_file, "r", encoding="utf-8") as f:
+    with open(queue_file, encoding="utf-8") as f:
         data = json.load(f)
 
     fixed = False
@@ -33,7 +35,7 @@ def fix_running_atomic():
             # 更新状态
             task["status"] = "manual_hold"
             task["progress_percent"] = 0
-            task["updated_at"] = datetime.now(timezone.utc).isoformat()
+            task["updated_at"] = datetime.now(UTC).isoformat()
 
             # 添加修复记录
             if "fix_history" not in task:
@@ -41,7 +43,7 @@ def fix_running_atomic():
 
             task["fix_history"].append(
                 {
-                    "timestamp": datetime.now(timezone.utc).isoformat(),
+                    "timestamp": datetime.now(UTC).isoformat(),
                     "old_status": old_status,
                     "new_status": "manual_hold",
                     "old_progress": old_progress,
@@ -68,7 +70,7 @@ def fix_running_atomic():
         with open(queue_file, "w", encoding="utf-8") as f:
             json.dump(data, f, indent=2, ensure_ascii=False)
 
-        print(f"原子性修复完成")
+        print("原子性修复完成")
         print(f"更新后的counts: {counts}")
     else:
         print("任务状态已正确或不存在")

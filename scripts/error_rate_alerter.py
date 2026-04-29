@@ -7,15 +7,10 @@
 
 import json
 import logging
-import os
-import smtplib
-import sys
 import time
-from datetime import datetime, timedelta
-from email.mime.multipart import MIMEMultipart
-from email.mime.text import MIMEText
+from datetime import datetime
 from pathlib import Path
-from typing import Any, Dict, List, Optional, Tuple
+from typing import Any
 
 logging.basicConfig(
     level=logging.INFO, format="%(asctime)s - %(name)s - %(levelname)s - %(message)s"
@@ -26,7 +21,7 @@ logger = logging.getLogger(__name__)
 class ErrorRateAlerter:
     """错误率阈值告警器"""
 
-    def __init__(self, config: Dict[str, Any] = None):
+    def __init__(self, config: dict[str, Any] = None):
         self.config = config or {
             "error_rate_threshold": 0.10,  # 错误率阈值 10%
             "check_interval_minutes": 5,  # 检查间隔（分钟）
@@ -62,7 +57,7 @@ class ErrorRateAlerter:
         """加载历史数据"""
         try:
             if self.history_file.exists():
-                with open(self.history_file, "r", encoding="utf-8") as f:
+                with open(self.history_file, encoding="utf-8") as f:
                     history_data = json.load(f)
                     self.error_rate_history = history_data.get("error_rate_history", [])
                     self.alert_history = history_data.get("alert_history", [])
@@ -87,7 +82,7 @@ class ErrorRateAlerter:
         except Exception as e:
             logger.error(f"保存历史数据失败: {e}")
 
-    def count_tasks_in_queues(self) -> Tuple[int, int, List[Dict[str, Any]]]:
+    def count_tasks_in_queues(self) -> tuple[int, int, list[dict[str, Any]]]:
         """统计队列中的任务数量和错误数量"""
         total_tasks = 0
         error_tasks = 0
@@ -105,7 +100,7 @@ class ErrorRateAlerter:
 
         for queue_file in queue_files:
             try:
-                with open(queue_file, "r", encoding="utf-8") as f:
+                with open(queue_file, encoding="utf-8") as f:
                     queue_data = json.load(f)
 
                 queue_name = queue_file.stem
@@ -115,7 +110,7 @@ class ErrorRateAlerter:
                 queue_error_count = 0
 
                 # 统计错误任务
-                for item_id, item in items.items():
+                for _item_id, item in items.items():
                     status = item.get("status", "")
                     error = item.get("error", "")
                     summary = item.get("summary", "")
@@ -147,7 +142,7 @@ class ErrorRateAlerter:
 
         return total_tasks, error_tasks, queue_stats
 
-    def calculate_error_rate(self) -> Dict[str, Any]:
+    def calculate_error_rate(self) -> dict[str, Any]:
         """计算系统错误率"""
         current_time = datetime.now().isoformat()
 
@@ -181,7 +176,7 @@ class ErrorRateAlerter:
 
         return error_rate_report
 
-    def check_and_send_alert(self, error_rate_report: Dict[str, Any]):
+    def check_and_send_alert(self, error_rate_report: dict[str, Any]):
         """检查并发送告警"""
         current_time = datetime.now()
 
@@ -221,7 +216,7 @@ class ErrorRateAlerter:
         # 记录告警到文件
         self.log_alert(alert)
 
-    def generate_recommendation(self, error_rate_report: Dict[str, Any]) -> str:
+    def generate_recommendation(self, error_rate_report: dict[str, Any]) -> str:
         """生成修复建议"""
         queue_stats = error_rate_report.get("queue_statistics", [])
         error_rate = error_rate_report["error_rate"]
@@ -262,7 +257,7 @@ class ErrorRateAlerter:
 
         return "\n".join(recommendations)
 
-    def handle_alert(self, alert: Dict[str, Any]):
+    def handle_alert(self, alert: dict[str, Any]):
         """处理告警"""
         alert_message = f"🚨 错误率告警: {alert['message']}"
 
@@ -271,7 +266,8 @@ class ErrorRateAlerter:
             print("\n" + "=" * 80)
             print(alert_message)
             print(f"错误任务: {alert['error_tasks']}/{alert['total_tasks']}")
-            print(f"建议措施: {alert['recommendation'].split('\\n')[0]}")
+            _first_line = alert["recommendation"].split("\n")[0]
+            print(f"建议措施: {_first_line}")
             print("=" * 80 + "\n")
 
         # 日志告警
@@ -282,7 +278,7 @@ class ErrorRateAlerter:
         if "file" in self.config["alert_channels"]:
             self.log_alert_to_file(alert)
 
-    def log_alert(self, alert: Dict[str, Any]):
+    def log_alert(self, alert: dict[str, Any]):
         """记录告警到文件"""
         try:
             with open(self.alerts_file, "a", encoding="utf-8") as f:
@@ -292,7 +288,7 @@ class ErrorRateAlerter:
         except Exception as e:
             logger.error(f"记录告警到文件失败: {e}")
 
-    def log_alert_to_file(self, alert: Dict[str, Any]):
+    def log_alert_to_file(self, alert: dict[str, Any]):
         """记录详细告警到单独文件"""
         try:
             alert_dir = self.root_dir / "logs" / "alerts"
@@ -331,17 +327,15 @@ class ErrorRateAlerter:
         report_lines.append("\n📊 队列错误率分布:")
         report_lines.append("-" * 40)
         for queue in latest_report.get("queue_statistics", []):
-            status_icon = (
-                "⚠️" if queue["error_rate"] > self.config["error_rate_threshold"] else "✅"
-            )
+            status_icon = "⚠️" if queue["error_rate"] > self.config["error_rate_threshold"] else "✅"
             report_lines.append(
-                f"{status_icon} {queue['queue_name']}: {queue['error_tasks']}/{queue['total_tasks']} ({queue['error_rate']*100:.1f}%) - 状态: {queue['queue_state']}"
+                f"{status_icon} {queue['queue_name']}: {queue['error_tasks']}/{queue['total_tasks']} ({queue['error_rate'] * 100:.1f}%) - 状态: {queue['queue_state']}"
             )
 
         report_lines.append("\n📈 历史趋势:")
         report_lines.append("-" * 40)
         history_to_show = self.error_rate_history[-10:]  # 显示最近10个记录
-        for i, report in enumerate(history_to_show):
+        for _i, report in enumerate(history_to_show):
             timestamp = datetime.fromisoformat(report["timestamp"]).strftime("%H:%M:%S")
             error_rate = report["error_rate_percentage"]
             above_threshold = report["above_threshold"]
@@ -417,7 +411,7 @@ class ErrorRateAlerter:
 
         print("=" * 80)
 
-    def run_check_cycle(self) -> Dict[str, Any]:
+    def run_check_cycle(self) -> dict[str, Any]:
         """运行一次检查周期"""
         logger.info("执行错误率检查...")
 
@@ -442,7 +436,7 @@ class ErrorRateAlerter:
         """运行持续监控"""
         logger.info("启动错误率阈值监控...")
         logger.info(f"检查间隔: {self.config['check_interval_minutes']}分钟")
-        logger.info(f"错误率阈值: {self.config['error_rate_threshold']*100}%")
+        logger.info(f"错误率阈值: {self.config['error_rate_threshold'] * 100}%")
 
         try:
             while True:
@@ -483,10 +477,10 @@ def main():
     print("  5. 自动修复建议生成")
     print()
     print("配置:")
-    print(f"  错误率阈值: 10%")
-    print(f"  检查间隔: 5分钟")
-    print(f"  告警冷却时间: 30分钟")
-    print(f"  告警渠道: 控制台、日志、文件")
+    print("  错误率阈值: 10%")
+    print("  检查间隔: 5分钟")
+    print("  告警冷却时间: 30分钟")
+    print("  告警渠道: 控制台、日志、文件")
     print()
 
     alerter = ErrorRateAlerter()
@@ -500,7 +494,7 @@ def main():
         total_tasks = error_rate_report["total_tasks"]
         error_tasks = error_rate_report["error_tasks"]
 
-        print(f"首次检查结果:")
+        print("首次检查结果:")
         print(f"  总任务数: {total_tasks}")
         print(f"  错误任务数: {error_tasks}")
         print(f"  错误率: {error_rate_percentage:.2f}%")

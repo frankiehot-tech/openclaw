@@ -86,7 +86,7 @@ class DocumentIndexUpdater:
             return False
 
         try:
-            with open(readme_path, "r", encoding="utf-8") as f:
+            with open(readme_path, encoding="utf-8") as f:
                 content = f.read()
 
             # 查找## 文档结构部分之后的部分
@@ -120,7 +120,7 @@ class DocumentIndexUpdater:
             # 更新最后更新日期
             for i in range(len(new_lines) - 1, -1, -1):
                 if new_lines[i].startswith("**最后更新**:"):
-                    new_lines[i] = f'**最后更新**: {datetime.now().strftime("%Y-%m-%d")}'
+                    new_lines[i] = f"**最后更新**: {datetime.now().strftime('%Y-%m-%d')}"
                     break
 
             new_content = "\n".join(new_lines)
@@ -138,23 +138,23 @@ class DocumentIndexUpdater:
     def _append_auto_generated_index(self, lines):
         """添加自动生成的索引到README"""
         lines.append("### 📊 文档统计")
-        lines.append(f'- **总文档数**: {self.index_data["total_files"]} 个Markdown文件')
-        lines.append(f'- **索引生成时间**: {datetime.now().strftime("%Y-%m-%d %H:%M:%S")}')
+        lines.append(f"- **总文档数**: {self.index_data['total_files']} 个Markdown文件")
+        lines.append(f"- **索引生成时间**: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
         lines.append("")
 
         # 按类别显示统计
         lines.append("### 📁 按类别统计")
         for category, data in self.index_data["categories"].items():
-            lines.append(f'#### {data["description"]} (`{category}/`)')
-            lines.append(f'- **文件数**: {data["file_count"]}')
+            lines.append(f"#### {data['description']} (`{category}/`)")
+            lines.append(f"- **文件数**: {data['file_count']}")
 
             # 显示部分文件
             if data["files"]:
                 lines.append("- **部分文件**:")
                 for file_info in data["files"][:10]:  # 只显示前10个
-                    lines.append(f'  - [{file_info["name"]}]({file_info["path"]})')
+                    lines.append(f"  - [{file_info['name']}]({file_info['path']})")
                 if data["file_count"] > 10:
-                    lines.append(f'  - ... 还有 {data["file_count"] - 10} 个文件')
+                    lines.append(f"  - ... 还有 {data['file_count'] - 10} 个文件")
             lines.append("")
 
         lines.append("### 🔍 快速查找")
@@ -189,7 +189,7 @@ class DocumentIndexUpdater:
             file_path = self.docs_dir / file_info["path"]
 
             try:
-                with open(file_path, "r", encoding="utf-8") as f:
+                with open(file_path, encoding="utf-8") as f:
                     content = f.read()
 
                 # 检查是否包含最后更新日期
@@ -214,7 +214,7 @@ class DocumentIndexUpdater:
 
             # 生成修复建议
             print("\n💡 修复建议:")
-            print(f'  python3 scripts/batch_update_documents.py --pattern "*.md" --update-metadata')
+            print('  python3 scripts/batch_update_documents.py --pattern "*.md" --update-metadata')
             return False
         else:
             print("✅ 所有检查的文档都包含元数据")
@@ -249,9 +249,8 @@ def main():
     success = True
 
     # 更新README.md索引
-    if args.update_readme:
-        if not updater.update_readme_index():
-            success = False
+    if args.update_readme and not updater.update_readme_index():
+        success = False
 
     # 生成JSON索引
     if args.generate_json:
@@ -260,9 +259,8 @@ def main():
             success = False
 
     # 检查元数据
-    if args.check_metadata:
-        if not updater.check_missing_metadata():
-            success = False
+    if args.check_metadata and not updater.check_missing_metadata():
+        success = False
 
     # 如果没有指定任何操作，默认更新README
     if not args.update_readme and not args.generate_json and not args.check_metadata:

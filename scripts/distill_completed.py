@@ -10,13 +10,9 @@ Completed 任务蒸馏回流与递归改进闭环。
 2. 由 athena_ai_plan_runner.py 在任务完成时触发。
 """
 
-import json
-import re
 from datetime import datetime
 from pathlib import Path
-from typing import Any, Dict, List, Optional, Tuple
-
-import yaml
+from typing import Any
 
 # 运行时根目录
 try:
@@ -37,7 +33,7 @@ for d in (SKILLS_DIR, POLICIES_DIR, WORKFLOWS_DIR):
     d.mkdir(parents=True, exist_ok=True)
 
 
-def load_today_memory() -> List[Dict[str, Any]]:
+def load_today_memory() -> list[dict[str, Any]]:
     """加载当天的 memory 文件，提取 completed 任务条目。"""
     today = datetime.now().strftime("%Y-%m-%d")
     memory_file = MEMORY_DIR / f"{today}.md"
@@ -86,7 +82,7 @@ def load_today_memory() -> List[Dict[str, Any]]:
     return entries
 
 
-def should_distill(entry: Dict[str, Any]) -> Tuple[bool, str]:
+def should_distill(entry: dict[str, Any]) -> tuple[bool, str]:
     """
     判定是否应对该任务进行蒸馏。
     返回 (should_distill, reason)
@@ -143,7 +139,7 @@ def should_distill(entry: Dict[str, Any]) -> Tuple[bool, str]:
     return True, "符合蒸馏条件"
 
 
-def distill_to_memory_backfill(entry: Dict[str, Any]) -> Optional[str]:
+def distill_to_memory_backfill(entry: dict[str, Any]) -> str | None:
     """
     将任务重要摘要写入长期记忆 MEMORY.md。
     返回写入的路径或 None。
@@ -178,7 +174,7 @@ def distill_to_memory_backfill(entry: Dict[str, Any]) -> Optional[str]:
     return str(LONGTERM_MEMORY)
 
 
-def distill_to_skill_candidate(entry: Dict[str, Any]) -> Optional[str]:
+def distill_to_skill_candidate(entry: dict[str, Any]) -> str | None:
     """
     生成技能候选文件。
     返回文件路径或 None。
@@ -200,7 +196,6 @@ def distill_to_skill_candidate(entry: Dict[str, Any]) -> Optional[str]:
         "收敛",
         "对齐",
     ]
-    objects = []
     for verb in verbs:
         if verb in summary:
             # 尝试提取动词后的名词短语
@@ -241,7 +236,7 @@ def distill_to_skill_candidate(entry: Dict[str, Any]) -> Optional[str]:
     return str(skill_path)
 
 
-def distill_to_policy_candidate(entry: Dict[str, Any]) -> Optional[str]:
+def distill_to_policy_candidate(entry: dict[str, Any]) -> str | None:
     """
     生成策略更新候选。
     返回文件路径或 None。
@@ -288,7 +283,7 @@ def distill_to_policy_candidate(entry: Dict[str, Any]) -> Optional[str]:
     return str(policy_path)
 
 
-def distill_to_workflow_insight(entry: Dict[str, Any]) -> Optional[str]:
+def distill_to_workflow_insight(entry: dict[str, Any]) -> str | None:
     """
     生成工作流洞察。
     返回文件路径或 None。
@@ -330,7 +325,7 @@ def distill_to_workflow_insight(entry: Dict[str, Any]) -> Optional[str]:
     return str(insight_path)
 
 
-def distill_entry(entry: Dict[str, Any]) -> Dict[str, Any]:
+def distill_entry(entry: dict[str, Any]) -> dict[str, Any]:
     """
     对单个任务条目进行蒸馏。
     返回蒸馏结果摘要。
@@ -370,7 +365,7 @@ def distill_entry(entry: Dict[str, Any]) -> Dict[str, Any]:
     return result
 
 
-def distill_all() -> List[Dict[str, Any]]:
+def distill_all() -> list[dict[str, Any]]:
     """蒸馏所有今天的 completed 任务。"""
     entries = load_today_memory()
     results = []
@@ -407,7 +402,7 @@ def main():
             print(f"      跳过: {result['reason']}")
 
     print("-" * 50)
-    print(f"📦 蒸馏完成")
+    print("📦 蒸馏完成")
 
     # 将本次蒸馏摘要写入 memory 文件（可选）
     if results:

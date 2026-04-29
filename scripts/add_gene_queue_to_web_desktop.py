@@ -5,7 +5,6 @@
 """
 
 import json
-import os
 from datetime import datetime
 from pathlib import Path
 
@@ -43,7 +42,7 @@ def add_gene_management_to_auto_queue():
 
     # 读取或创建自动队列配置
     if auto_queue_file.exists():
-        with open(auto_queue_file, "r", encoding="utf-8") as f:
+        with open(auto_queue_file, encoding="utf-8") as f:
             auto_queue_config = json.load(f)
         print("✅ 读取现有自动队列配置")
     else:
@@ -84,7 +83,7 @@ def add_gene_management_to_auto_queue():
     with open(auto_queue_file, "w", encoding="utf-8") as f:
         json.dump(auto_queue_config, f, indent=2, ensure_ascii=False)
 
-    print(f"✅ 基因管理队列已添加到自动队列配置")
+    print("✅ 基因管理队列已添加到自动队列配置")
     print(f"   路由 ID: {gene_management_route['route_id']}")
     print(f"   队列 ID: {gene_management_route['queue_id']}")
     print(f"   优先级：{gene_management_route['priority']}")
@@ -108,7 +107,7 @@ def update_web_desktop_queue_list():
     for config_path in web_config_paths:
         if config_path.exists():
             try:
-                with open(config_path, "r", encoding="utf-8") as f:
+                with open(config_path, encoding="utf-8") as f:
                     web_config = json.load(f)
 
                 # 添加基因管理队列到显示列表
@@ -154,7 +153,7 @@ def verify_queue_discovery():
         return False
 
     try:
-        with open(auto_queue_file, "r", encoding="utf-8") as f:
+        with open(auto_queue_file, encoding="utf-8") as f:
             auto_queue_config = json.load(f)
 
         # 检查基因管理队列是否在配置中
@@ -162,7 +161,7 @@ def verify_queue_discovery():
         for route in auto_queue_config.get("routes", []):
             if route.get("route_id") == "aiplan_gene_management":
                 gene_route_found = True
-                print(f"✅ 基因管理队列路由已配置:")
+                print("✅ 基因管理队列路由已配置:")
                 print(f"   路由 ID: {route['route_id']}")
                 print(f"   队列 ID: {route['queue_id']}")
                 print(f"   清单路径：{route['manifest_path']}")
@@ -226,7 +225,7 @@ def print_next_steps():
    ```bash
    # 启动队列运行器（如果未运行）
    python3 /Volumes/1TB-M2/openclaw/scripts/athena_ai_plan_runner.py
-   
+
    # 启动监控
    python3 /Volumes/1TB-M2/openclaw/scripts/monitor_gene_management.py
    ```
@@ -246,7 +245,7 @@ def main():
     print("=" * 80)
 
     # 步骤 1: 添加到自动队列配置
-    auto_queue_config = add_gene_management_to_auto_queue()
+    add_gene_management_to_auto_queue()
 
     # 步骤 2: 更新 Web Desktop 配置
     update_web_desktop_queue_list()

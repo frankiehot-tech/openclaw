@@ -4,10 +4,8 @@
 功能：清理.openclaw/plan_queue目录中的旧备份文件，保留关键文件
 """
 
-import json
 import os
 import re
-import shutil
 import sys
 from datetime import datetime, timedelta
 from pathlib import Path
@@ -16,10 +14,10 @@ from pathlib import Path
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 
 try:
-    from config.paths import OPENCLAW_DIR, PLAN_QUEUE_DIR, ROOT_DIR
+    from config.paths import PLAN_QUEUE_DIR
 
     QUEUE_DIR = PLAN_QUEUE_DIR
-    print(f"✅ 使用config.paths模块配置路径")
+    print("✅ 使用config.paths模块配置路径")
 except ImportError as e:
     print(f"⚠️  警告: 无法导入路径配置模块: {e}")
     print("   使用回退的硬编码路径...")
@@ -94,7 +92,7 @@ def analyze_queue_files():
 
     # 备份文件分析
     if backup_files:
-        print(f"\n📊 备份文件分析:")
+        print("\n📊 备份文件分析:")
         backup_files.sort(key=lambda x: x["modified"])
 
         # 按时间分组（最近7天、30天、更早）
@@ -129,7 +127,7 @@ def analyze_queue_files():
 
 def create_backup_plan(backup_files, recent, older, oldest):
     """创建备份清理计划"""
-    print(f"\n📋 清理计划建议:")
+    print("\n📋 清理计划建议:")
 
     # 建议保留最近7天的备份
     keep_files = recent.copy()
@@ -148,7 +146,7 @@ def create_backup_plan(backup_files, recent, older, oldest):
             files.sort(key=lambda x: x["modified"], reverse=True)
             keep_files.append(files[0])
             if len(files) > 1:
-                print(f"  ✅ {base_name}: 保留最新备份，清理 {len(files)-1} 个旧备份")
+                print(f"  ✅ {base_name}: 保留最新备份，清理 {len(files) - 1} 个旧备份")
 
     # 30天以上的备份建议全部清理
     delete_candidates = oldest.copy()
@@ -215,7 +213,7 @@ def execute_cleanup(delete_candidates, dry_run=True):
             errors.append(f"{file_path.name}: {e}")
             print(f"  ❌ 删除失败 {file_path.name}: {e}")
 
-    print(f"\n📊 清理统计:")
+    print("\n📊 清理统计:")
     print(f"  处理文件: {len(delete_candidates)} 个")
     print(f"  成功删除: {deleted_count} 个")
     print(f"  释放空间: {deleted_size / 1024 / 1024:.2f} MB")
@@ -225,7 +223,7 @@ def execute_cleanup(delete_candidates, dry_run=True):
         for error in errors[:5]:
             print(f"  {error}")
         if len(errors) > 5:
-            print(f"  ... 还有 {len(errors)-5} 个错误")
+            print(f"  ... 还有 {len(errors) - 5} 个错误")
 
     return deleted_count, deleted_size, errors
 
@@ -255,9 +253,9 @@ def main():
         return
 
     # 询问用户确认
-    print(f"\n❓ 是否执行清理？")
-    print(f"  输入 'yes' 执行实际清理")
-    print(f"  输入 'no' 或直接回车进行模拟清理")
+    print("\n❓ 是否执行清理？")
+    print("  输入 'yes' 执行实际清理")
+    print("  输入 'no' 或直接回车进行模拟清理")
 
     try:
         user_input = input("  你的选择: ").strip().lower()
@@ -270,11 +268,11 @@ def main():
     deleted_count, deleted_size, errors = execute_cleanup(delete_candidates, dry_run=dry_run)
 
     # 最终建议
-    print(f"\n🎯 后续建议:")
-    print(f"  1. 监控队列健康度: python monitor_queue.py")
-    print(f"  2. 优化pending任务: 分析43个pending任务的原因")
-    print(f"  3. 定期清理: 将此脚本添加到cron job")
-    print(f"  4. 改进备份策略: 建立标准化的备份保留策略")
+    print("\n🎯 后续建议:")
+    print("  1. 监控队列健康度: python monitor_queue.py")
+    print("  2. 优化pending任务: 分析43个pending任务的原因")
+    print("  3. 定期清理: 将此脚本添加到cron job")
+    print("  4. 改进备份策略: 建立标准化的备份保留策略")
 
 
 if __name__ == "__main__":

@@ -15,12 +15,11 @@
 from __future__ import annotations
 
 import json
-import re
 import subprocess
 import sys
 from dataclasses import dataclass, field
 from pathlib import Path
-from typing import Any, Dict, List, Optional
+from typing import Any
 
 import yaml
 
@@ -35,9 +34,9 @@ class ChecklistItem:
     status: str
     evidence: str
     risk_if_missing: str
-    tool: Optional[str] = None
-    pattern: Optional[str] = None
-    component: Optional[str] = None
+    tool: str | None = None
+    pattern: str | None = None
+    component: str | None = None
 
 
 @dataclass
@@ -47,8 +46,8 @@ class SecurityCheckResult:
     item_id: str
     passed: bool
     details: str
-    evidence: Optional[str] = None
-    error: Optional[str] = None
+    evidence: str | None = None
+    error: str | None = None
 
 
 @dataclass
@@ -59,14 +58,14 @@ class SecurityReport:
     passed_checks: int
     failed_checks: int
     skipped_checks: int
-    results: List[SecurityCheckResult]
-    summary: Dict[str, Any] = field(default_factory=dict)
+    results: list[SecurityCheckResult]
+    summary: dict[str, Any] = field(default_factory=dict)
 
 
 class SecurityHardeningChecker:
     """安全加固检查器"""
 
-    def __init__(self, checklist_path: Optional[Path] = None):
+    def __init__(self, checklist_path: Path | None = None):
         if checklist_path is None:
             checklist_path = (
                 Path(__file__).parent.parent / "mini-agent" / "config" / "hardening_checklist.yaml"
@@ -74,18 +73,18 @@ class SecurityHardeningChecker:
 
         self.checklist_path = checklist_path
         self.checklist = self._load_checklist()
-        self.results: List[SecurityCheckResult] = []
+        self.results: list[SecurityCheckResult] = []
 
-    def _load_checklist(self) -> Dict[str, Any]:
+    def _load_checklist(self) -> dict[str, Any]:
         """加载安全清单配置"""
         try:
-            with open(self.checklist_path, "r", encoding="utf-8") as f:
+            with open(self.checklist_path, encoding="utf-8") as f:
                 return yaml.safe_load(f)
         except Exception as e:
             print(f"加载安全清单失败: {e}")
             return {}
 
-    def _extract_checklist_items(self) -> List[ChecklistItem]:
+    def _extract_checklist_items(self) -> list[ChecklistItem]:
         """从清单中提取检查项"""
         items = []
 
@@ -351,7 +350,7 @@ class SecurityHardeningChecker:
                 )
 
             # 加载并验证 YAML 结构
-            with open(alert_rules_path, "r", encoding="utf-8") as f:
+            with open(alert_rules_path, encoding="utf-8") as f:
                 alert_rules = yaml.safe_load(f)
 
             if not alert_rules or "alert_rules" not in alert_rules:

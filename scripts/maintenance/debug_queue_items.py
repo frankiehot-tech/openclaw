@@ -1,7 +1,6 @@
 #!/usr/bin/env python3
 """调试队列任务项结构"""
 
-import json
 from pathlib import Path
 
 import requests
@@ -31,7 +30,7 @@ if response.status_code == 200:
         # 检查前几个任务项
         items = route.get("items", [])
         if items:
-            print(f"\n   第一个任务项的结构:")
+            print("\n   第一个任务项的结构:")
             first_item = items[0]
             for key, value in first_item.items():
                 print(f"     {key}: {repr(value)[:80]}")
@@ -49,15 +48,15 @@ if response.status_code == 200:
                 # 查看所有任务项中是否有这些字段
                 for item in items:
                     if "route_id" in item or "task_id" in item:
-                        print(f"   ✅ 有些任务项包含这些字段")
+                        print("   ✅ 有些任务项包含这些字段")
                         break
                 else:
-                    print(f"   ❌ 所有任务项都缺失这些字段")
+                    print("   ❌ 所有任务项都缺失这些字段")
 
             # 检查手动拉起所需的字段
-            print(f"\n   🚀 手动拉起所需字段:")
+            print("\n   🚀 手动拉起所需字段:")
             print(f"     任务ID字段: {first_item.get('id', '未找到')}")
-            print(f"     路由ID字段: 未在任务项中找到，可能在队列级别")
+            print("     路由ID字段: 未在任务项中找到，可能在队列级别")
 
             # 队列级别的route_id
             route_id = route.get("route_id", "")
@@ -66,10 +65,10 @@ else:
     print(f"❌ 获取队列失败: {response.status_code}")
 
 # 检查athena_web_desktop_compat.py中的queue_item_from_manifest函数
-print(f"\n🔧 检查queue_item_from_manifest函数...")
+print("\n🔧 检查queue_item_from_manifest函数...")
 compat_file = Path("/Volumes/1TB-M2/openclaw/scripts/athena_web_desktop_compat.py")
 if compat_file.exists():
-    with open(compat_file, "r", encoding="utf-8") as f:
+    with open(compat_file, encoding="utf-8") as f:
         content = f.read()
 
     # 查找queue_item_from_manifest函数定义
@@ -84,7 +83,7 @@ if compat_file.exists():
         if return_match:
             return_dict = return_match.group(1)
             lines = return_dict.strip().split("\n")
-            print(f"   函数返回的字段:")
+            print("   函数返回的字段:")
             for line in lines:
                 line = line.strip()
                 if ":" in line:
@@ -93,8 +92,8 @@ if compat_file.exists():
 
             # 检查是否有route_id和task_id
             if '"route_id"' not in return_dict and "'route_id'" not in return_dict:
-                print(f"   ⚠️ 返回字典中没有route_id字段")
+                print("   ⚠️ 返回字典中没有route_id字段")
             if '"task_id"' not in return_dict and "'task_id'" not in return_dict:
-                print(f"   ⚠️ 返回字典中没有task_id字段")
+                print("   ⚠️ 返回字典中没有task_id字段")
 
-print(f"\n✅ 调试完成")
+print("\n✅ 调试完成")

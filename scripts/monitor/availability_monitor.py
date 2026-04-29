@@ -7,12 +7,11 @@
 
 import json
 import logging
-import threading
 import time
 from collections import deque
-from datetime import datetime, timedelta
+from datetime import datetime
 from pathlib import Path
-from typing import Any, Dict, List, Optional, Tuple
+from typing import Any
 
 import psutil
 import requests
@@ -26,7 +25,7 @@ logger = logging.getLogger(__name__)
 class AvailabilityMonitor:
     """系统可用性监控器"""
 
-    def __init__(self, config: Dict[str, Any] = None):
+    def __init__(self, config: dict[str, Any] = None):
         self.config = config or {
             "monitoring_interval": 30,  # 监控间隔(秒)
             "availability_threshold": 0.999,  # 可用性阈值99.9%
@@ -84,7 +83,7 @@ class AvailabilityMonitor:
         """加载历史数据"""
         try:
             if self.availability_history_file.exists():
-                with open(self.availability_history_file, "r", encoding="utf-8") as f:
+                with open(self.availability_history_file, encoding="utf-8") as f:
                     history_data = json.load(f)
 
                 # 加载总可用性历史
@@ -95,7 +94,7 @@ class AvailabilityMonitor:
                         self.availability_history.append(item)
 
                 # 加载组件历史
-                for component in self.component_history.keys():
+                for component in self.component_history:
                     if component in history_data:
                         for item in history_data[component][-self.config["history_size"] :]:
                             self.component_history[component].append(item)
@@ -123,7 +122,7 @@ class AvailabilityMonitor:
         except Exception as e:
             logger.error(f"保存历史数据失败: {e}")
 
-    def check_runner_availability(self) -> Tuple[float, Dict[str, Any]]:
+    def check_runner_availability(self) -> tuple[float, dict[str, Any]]:
         """检查运行器进程可用性"""
         try:
             runner_count = 0
@@ -168,7 +167,7 @@ class AvailabilityMonitor:
             logger.error(f"检查运行器进程失败: {e}")
             return 0.0, {"availability": 0.0, "error": str(e), "status": "error"}
 
-    def check_queue_availability(self) -> Tuple[float, Dict[str, Any]]:
+    def check_queue_availability(self) -> tuple[float, dict[str, Any]]:
         """检查队列可用性"""
         try:
             if not self.queue_dir.exists():
@@ -215,7 +214,7 @@ class AvailabilityMonitor:
 
             for queue_file in queue_files:
                 try:
-                    with open(queue_file, "r", encoding="utf-8") as f:
+                    with open(queue_file, encoding="utf-8") as f:
                         queue_data = json.load(f)
 
                     queue_name = queue_file.stem
@@ -263,7 +262,9 @@ class AvailabilityMonitor:
                 "status": (
                     "healthy"
                     if availability >= 0.9
-                    else "degraded" if availability >= 0.5 else "unhealthy"
+                    else "degraded"
+                    if availability >= 0.5
+                    else "unhealthy"
                 ),
                 "message": f"{healthy_queues}/{total_queues} 个队列健康",
             }
@@ -274,7 +275,7 @@ class AvailabilityMonitor:
             logger.error(f"检查队列可用性失败: {e}")
             return 0.0, {"availability": 0.0, "error": str(e), "status": "error"}
 
-    def check_web_api_availability(self) -> Tuple[float, Dict[str, Any]]:
+    def check_web_api_availability(self) -> tuple[float, dict[str, Any]]:
         """检查Web API可用性"""
         try:
             # 尝试连接Athena Web API
@@ -323,7 +324,7 @@ class AvailabilityMonitor:
             logger.error(f"检查Web API可用性失败: {e}")
             return 0.0, {"availability": 0.0, "error": str(e), "status": "error"}
 
-    def check_heartbeat_availability(self) -> Tuple[float, Dict[str, Any]]:
+    def check_heartbeat_availability(self) -> tuple[float, dict[str, Any]]:
         """检查心跳可用性"""
         try:
             if not self.queue_dir.exists():
@@ -341,7 +342,7 @@ class AvailabilityMonitor:
 
             for queue_file in self.queue_dir.glob("*.json"):
                 try:
-                    with open(queue_file, "r", encoding="utf-8") as f:
+                    with open(queue_file, encoding="utf-8") as f:
                         queue_data = json.load(f)
 
                     items = queue_data.get("items", {})
@@ -390,7 +391,9 @@ class AvailabilityMonitor:
                 "status": (
                     "healthy"
                     if stale_count == 0
-                    else "degraded" if stale_count <= 3 else "unhealthy"
+                    else "degraded"
+                    if stale_count <= 3
+                    else "unhealthy"
                 ),
                 "message": (
                     f"发现 {stale_count}/{total_tasks} 个陈旧心跳"
@@ -405,7 +408,7 @@ class AvailabilityMonitor:
             logger.error(f"检查心跳可用性失败: {e}")
             return 0.0, {"availability": 0.0, "error": str(e), "status": "error"}
 
-    def calculate_overall_availability(self, component_availabilities: Dict[str, float]) -> float:
+    def calculate_overall_availability(self, component_availabilities: dict[str, float]) -> float:
         """计算整体可用性"""
         total_weight = 0.0
         weighted_sum = 0.0
@@ -425,7 +428,7 @@ class AvailabilityMonitor:
 
         return overall_availability
 
-    def check_system_availability(self) -> Dict[str, Any]:
+    def check_system_availability(self) -> dict[str, Any]:
         """检查系统可用性"""
         self.monitoring_state["last_check_time"] = datetime.now().isoformat()
         self.monitoring_state["total_checks"] += 1
@@ -523,7 +526,7 @@ class AvailabilityMonitor:
 
         return availability_report
 
-    def log_availability_metrics(self, availability_report: Dict[str, Any]):
+    def log_availability_metrics(self, availability_report: dict[str, Any]):
         """记录可用性指标到日志文件"""
         try:
             log_entry = {
@@ -543,7 +546,7 @@ class AvailabilityMonitor:
         except Exception as e:
             logger.error(f"记录可用性指标失败: {e}")
 
-    def update_dashboard(self, availability_report: Dict[str, Any]):
+    def update_dashboard(self, availability_report: dict[str, Any]):
         """更新仪表板数据"""
         self.dashboard_data = {
             "last_update": availability_report["timestamp"],
@@ -561,7 +564,7 @@ class AvailabilityMonitor:
             "system_status": availability_report["status"],
         }
 
-    def handle_alerts(self, alerts: List[Dict[str, Any]]):
+    def handle_alerts(self, alerts: list[dict[str, Any]]):
         """处理告警"""
         for alert in alerts:
             alert_message = f"🚨 可用性告警 [{alert['type']}]: {alert['message']}"
@@ -594,7 +597,7 @@ class AvailabilityMonitor:
         system_status = self.dashboard_data["system_status"]
 
         print("\n" + "=" * 80)
-        print(f"系统可用性实时监控仪表板")
+        print("系统可用性实时监控仪表板")
         print("=" * 80)
         print(f"最后更新: {last_update.strftime('%Y-%m-%d %H:%M:%S')}")
         print(f"当前可用性: {current_availability:.3%}")
@@ -637,7 +640,7 @@ class AvailabilityMonitor:
 
         print("=" * 80)
 
-    def get_availability_statistics(self) -> Dict[str, Any]:
+    def get_availability_statistics(self) -> dict[str, Any]:
         """获取可用性统计信息"""
         if not self.availability_history:
             return {"error": "无可用历史数据"}

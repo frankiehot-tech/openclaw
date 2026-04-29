@@ -10,8 +10,7 @@ import ssl
 import time
 import xml.etree.ElementTree as ET
 from dataclasses import dataclass
-from datetime import datetime, timezone
-from typing import List, Optional, Tuple
+from datetime import UTC, datetime
 from urllib import request
 from urllib.error import URLError
 
@@ -35,7 +34,7 @@ class VideoInfo:
     title: str  # 视频标题
     link: str  # 视频链接
     published: datetime  # 发布时间（UTC）
-    updated: Optional[datetime] = None  # 更新时间
+    updated: datetime | None = None  # 更新时间
     description: str = ""  # 简介摘要
     thumbnail: str = ""  # 缩略图 URL
     channel_name: str = ""  # 频道名称
@@ -44,7 +43,7 @@ class VideoInfo:
     @property
     def age_hours(self) -> float:
         """视频发布至今的小时数."""
-        return (datetime.now(timezone.utc) - self.published).total_seconds() / 3600
+        return (datetime.now(UTC) - self.published).total_seconds() / 3600
 
     @property
     def is_recent(self, hours: int = 48) -> bool:
@@ -73,16 +72,18 @@ def _build_opener() -> request.OpenerDirector:
     if proxy:
         logger.info("使用代理: %s", proxy)
         handlers.append(
-            request.ProxyHandler({
-                "http": proxy,
-                "https": proxy,
-            })
+            request.ProxyHandler(
+                {
+                    "http": proxy,
+                    "https": proxy,
+                }
+            )
         )
 
     return request.build_opener(*handlers)
 
 
-def _parse_datetime(text: Optional[str]) -> Optional[datetime]:
+def _parse_datetime(text: str | None) -> datetime | None:
     """解析 ISO 8601 时间字符串."""
     if not text:
         return None
@@ -104,7 +105,7 @@ def _extract_video_id_from_link(link: str) -> str:
     return match.group(1) if match else ""
 
 
-def fetch_channel_feed(channel_id: str, max_results: int = 15) -> List[VideoInfo]:
+def fetch_channel_feed(channel_id: str, max_results: int = 15) -> list[VideoInfo]:
     """抓取单个频道的 RSS Feed, 返回最新视频列表.
 
     Args:
@@ -147,7 +148,7 @@ def fetch_channel_feed(channel_id: str, max_results: int = 15) -> List[VideoInfo
         raise last_error  # type: ignore
 
     root = ET.fromstring(raw)
-    videos: List[VideoInfo] = []
+    videos: list[VideoInfo] = []
 
     # RSS 中的每个 <entry> 对应一个视频
     for entry in root.findall("atom:entry", NS):
@@ -163,12 +164,10 @@ def fetch_channel_feed(channel_id: str, max_results: int = 15) -> List[VideoInfo
         published_el = entry.find("atom:published", NS)
         published = _parse_datetime(
             published_el.text if published_el is not None else None
-        ) or datetime.now(timezone.utc)
+        ) or datetime.now(UTC)
 
         updated_el = entry.find("atom:updated", NS)
-        updated = _parse_datetime(
-            updated_el.text if updated_el is not None else None
-        )
+        updated = _parse_datetime(updated_el.text if updated_el is not None else None)
 
         # 简介可能在 <media:group><media:description> 或 <media:description> 中
         description = ""
@@ -200,7 +199,9 @@ def fetch_channel_feed(channel_id: str, max_results: int = 15) -> List[VideoInfo
                 updated=updated,
                 description=description,
                 thumbnail=thumbnail,
-                channel_name=entry.find("atom:author/*", NS).text if entry.find("atom:author/*", NS) is not None else "",
+                channel_name=entry.find("atom:author/*", NS).text
+                if entry.find("atom:author/*", NS) is not None
+                else "",
                 channel_id=channel_id,
             )
         )
@@ -214,7 +215,7 @@ def fetch_channel_feed(channel_id: str, max_results: int = 15) -> List[VideoInfo
 def fetch_all_channels(
     max_per_channel: int = None,
     skip_empty_id: bool = True,
-) -> Tuple[dict, list]:
+) -> tuple[dict, list]:
     """抓取所有已配置频道的视频.
 
     Args:

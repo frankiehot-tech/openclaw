@@ -10,7 +10,6 @@ import shutil
 import sys
 from datetime import datetime, timedelta
 from pathlib import Path
-from typing import Dict, List, Tuple
 
 
 class OldDocumentArchiver:
@@ -26,8 +25,8 @@ class OldDocumentArchiver:
         self.archive_dir.mkdir(parents=True, exist_ok=True)
 
     def find_old_documents(
-        self, days_threshold: int = 30, categories: List[str] = None
-    ) -> List[Dict]:
+        self, days_threshold: int = 30, categories: list[str] = None
+    ) -> list[dict]:
         """查找超过指定天数的旧文档"""
         print(f"🔍 查找 {days_threshold} 天前修改的文档...")
 
@@ -86,8 +85,8 @@ class OldDocumentArchiver:
         return old_docs
 
     def archive_document(
-        self, doc_info: Dict, archive_period: str = "quarterly", dry_run: bool = False
-    ) -> Tuple[bool, str]:
+        self, doc_info: dict, archive_period: str = "quarterly", dry_run: bool = False
+    ) -> tuple[bool, str]:
         """归档单个文档"""
         try:
             source_path = doc_info["path"]
@@ -132,7 +131,7 @@ class OldDocumentArchiver:
                 # 在源位置创建符号链接或占位符文件
                 placeholder_path = source_path.with_suffix(".md.archived")
                 with open(placeholder_path, "w", encoding="utf-8") as f:
-                    f.write(f"# 本文档已归档\n\n")
+                    f.write("# 本文档已归档\n\n")
                     f.write(
                         f"原始文档已移动到归档目录: {archive_path.relative_to(self.docs_dir)}\n"
                     )
@@ -155,10 +154,10 @@ class OldDocumentArchiver:
         self,
         days_threshold: int = 30,
         archive_period: str = "quarterly",
-        categories: List[str] = None,
+        categories: list[str] = None,
         limit: int = 0,
         dry_run: bool = False,
-    ) -> Dict:
+    ) -> dict:
         """批量归档文档"""
         print(f"🗂️  开始归档文档 (阈值: {days_threshold}天, 周期: {archive_period})")
 
@@ -181,7 +180,7 @@ class OldDocumentArchiver:
 
         for i, doc_info in enumerate(old_docs):
             if self.verbose or (i + 1) % 10 == 0:
-                print(f"  处理进度: {i+1}/{len(old_docs)}")
+                print(f"  处理进度: {i + 1}/{len(old_docs)}")
 
             success, action = self.archive_document(doc_info, archive_period, dry_run)
 
@@ -207,17 +206,17 @@ class OldDocumentArchiver:
             "archive_date": self.today.strftime("%Y-%m-%d"),
         }
 
-        print(f"\n📊 归档完成:")
+        print("\n📊 归档完成:")
         print(f"  🔍 找到文档: {len(old_docs)}")
         print(f"  ✅ 成功归档: {archived_count}")
         print(f"  ❌ 归档失败: {failed_count}")
 
         if dry_run:
-            print(f"  🔍 模拟运行，未实际移动文件")
+            print("  🔍 模拟运行，未实际移动文件")
 
         # 显示归档的文档统计
         if archived_count > 0:
-            print(f"\n📁 归档统计:")
+            print("\n📁 归档统计:")
             categories_summary = {}
             total_size = 0
 
@@ -233,7 +232,7 @@ class OldDocumentArchiver:
 
         return result
 
-    def create_archive_report(self, archive_result: Dict, output_file: Optional[str] = None):
+    def create_archive_report(self, archive_result: dict, output_file: str | None = None):
         """创建归档报告"""
         print("📝 生成归档报告...")
 
@@ -245,12 +244,12 @@ class OldDocumentArchiver:
 | 项目 | 数值 |
 |------|------|
 | 归档日期 | {report_date} |
-| 归档阈值 | {archive_result['days_threshold']} 天 |
-| 归档周期 | {archive_result['archive_period']} |
-| 找到文档 | {archive_result['total_found']} |
-| 成功归档 | {archive_result['archived']} |
-| 归档失败 | {archive_result['failed']} |
-| 运行模式 | {'模拟运行' if archive_result['dry_run'] else '实际执行'} |
+| 归档阈值 | {archive_result["days_threshold"]} 天 |
+| 归档周期 | {archive_result["archive_period"]} |
+| 找到文档 | {archive_result["total_found"]} |
+| 成功归档 | {archive_result["archived"]} |
+| 归档失败 | {archive_result["failed"]} |
+| 运行模式 | {"模拟运行" if archive_result["dry_run"] else "实际执行"} |
 
 ## 📁 归档详情
 
@@ -279,12 +278,12 @@ class OldDocumentArchiver:
 
 - **源目录**: {self.docs_dir}
 - **归档目录**: {self.archive_dir}
-- **归档策略**: {archive_result['archive_period']}
-- **阈值天数**: {archive_result['days_threshold']}
+- **归档策略**: {archive_result["archive_period"]}
+- **阈值天数**: {archive_result["days_threshold"]}
 
 ---
 
-*报告生成时间: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}*
+*报告生成时间: {datetime.now().strftime("%Y-%m-%d %H:%M:%S")}*
 *使用脚本: archive_old_documents.py*
 """
 
@@ -329,7 +328,7 @@ def main():
 
     # 检查目录是否存在
     if not os.path.exists("docs/"):
-        print(f"❌ 文档目录不存在: docs/")
+        print("❌ 文档目录不存在: docs/")
         sys.exit(1)
 
     # 确定归档周期
@@ -343,7 +342,7 @@ def main():
     # 创建归档器
     archiver = OldDocumentArchiver(verbose=args.verbose)
 
-    print(f"🚀 开始文档归档")
+    print("🚀 开始文档归档")
     print(f"📁 源目录: {archiver.docs_dir}")
     print(f"🗂️  归档目录: {archiver.archive_dir}")
     print(f"📅 归档阈值: {args.days} 天")
@@ -374,9 +373,9 @@ def main():
             print(f"📄 归档报告: {report_file}")
 
     # 后续建议
-    print(f"\n💡 后续建议:")
-    print(f"  1. 更新主文档索引: python3 scripts/update_document_index.py")
-    print(f"  2. 更新归档索引: python3 scripts/update_archive_index.py")
+    print("\n💡 后续建议:")
+    print("  1. 更新主文档索引: python3 scripts/update_document_index.py")
+    print("  2. 更新归档索引: python3 scripts/update_archive_index.py")
 
     if args.dry_run:
         print(f"\n🔍 模拟运行完成，实际将归档 {result['archived']} 个文档")
@@ -384,7 +383,7 @@ def main():
         sys.exit(0)
     else:
         if result["failed"] == 0:
-            print(f"\n✅ 归档完成")
+            print("\n✅ 归档完成")
             sys.exit(0)
         else:
             print(f"\n⚠️  归档完成，但有 {result['failed']} 个失败")

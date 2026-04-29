@@ -1,4 +1,6 @@
 #!/usr/bin/env python3
+# DEPRECATED: 使用 governance/ 模块代替
+# governance_cli.py repair <command> 或 governance_cli.py queue fix
 """
 修复autostart和manual_override_autostart
 """
@@ -15,7 +17,7 @@ def main():
     manifest_file = ".openclaw/plan_queue/openhuman_aiplan_priority_execution_20260414.json"
     print(f"修复manifest: {manifest_file}")
 
-    with open(manifest_file, "r", encoding="utf-8") as f:
+    with open(manifest_file, encoding="utf-8") as f:
         manifest_data = json.load(f)
 
     manifest_items = manifest_data.get("items", [])
@@ -27,12 +29,12 @@ def main():
                 metadata["autostart"] = True
                 item["metadata"] = metadata
                 updated_manifest = True
-                print(f"✅ 设置manifest中autostart=True")
+                print("✅ 设置manifest中autostart=True")
             elif "autostart" not in metadata:
                 metadata["autostart"] = True
                 item["metadata"] = metadata
                 updated_manifest = True
-                print(f"✅ 添加manifest中autostart=True")
+                print("✅ 添加manifest中autostart=True")
             break
 
     if updated_manifest:
@@ -42,13 +44,13 @@ def main():
         shutil.copy2(manifest_file, backup)
         with open(manifest_file, "w", encoding="utf-8") as f:
             json.dump(manifest_data, f, ensure_ascii=False, indent=2)
-        print(f"✅ manifest更新完成")
+        print("✅ manifest更新完成")
 
     # 2. 修复状态文件中的manual_override_autostart
     state_file = ".openclaw/plan_queue/openhuman_aiplan_build_priority_20260328.json"
     print(f"\n修复状态文件: {state_file}")
 
-    with open(state_file, "r", encoding="utf-8") as f:
+    with open(state_file, encoding="utf-8") as f:
         state_data = json.load(f)
 
     items = state_data.get("items", {})
@@ -58,8 +60,8 @@ def main():
         items[task_id]["status"] = "pending"
         items[task_id]["error"] = ""
 
-        print(f"✅ 设置状态文件中manual_override_autostart=True")
-        print(f"✅ 确保状态为pending")
+        print("✅ 设置状态文件中manual_override_autostart=True")
+        print("✅ 确保状态为pending")
 
         # 重新计算counts
         counts = {"pending": 0, "running": 0, "completed": 0, "failed": 0, "manual_hold": 0}
@@ -79,18 +81,18 @@ def main():
         shutil.copy2(state_file, backup)
         with open(state_file, "w", encoding="utf-8") as f:
             json.dump(state_data, f, ensure_ascii=False, indent=2)
-        print(f"✅ 状态文件更新完成")
+        print("✅ 状态文件更新完成")
         print(f"  counts: {json.dumps(counts, ensure_ascii=False, indent=4)}")
     else:
-        print(f"❌ 任务不在状态文件中")
+        print("❌ 任务不在状态文件中")
 
     # 3. 验证修复
-    print(f"\n🔍 验证修复...")
+    print("\n🔍 验证修复...")
     try:
         sys.path.insert(0, "scripts")
         from athena_ai_plan_runner import materialize_route_items
 
-        with open(".athena-auto-queue.json", "r", encoding="utf-8") as f:
+        with open(".athena-auto-queue.json", encoding="utf-8") as f:
             config = json.load(f)
 
         route = None
@@ -100,7 +102,7 @@ def main():
                 break
 
         if route:
-            with open(state_file, "r", encoding="utf-8") as f:
+            with open(state_file, encoding="utf-8") as f:
                 route_state = json.load(f)
 
             materialized = materialize_route_items(route, route_state)

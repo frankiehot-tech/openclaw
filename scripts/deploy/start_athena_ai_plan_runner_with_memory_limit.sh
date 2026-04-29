@@ -180,8 +180,9 @@ if ! python3 -c "import psutil" 2>/dev/null; then
 fi
 
 # 启动带内存监控的screen会话
+# Python's load_dotenv() loads .env directly - no need to pass DASHSCOPE_API_KEY
 echo "启动带内存监控的Athena AI plan runner (内存限制: ${MEMORY_LIMIT_MB}MB)..."
-screen -dmS "$SESSION_NAME" env DASHSCOPE_API_KEY="$DASHSCOPE_API_KEY" /opt/homebrew/bin/python3 "$MEMORY_WRAPPER_SCRIPT"
+screen -dmS "$SESSION_NAME" /opt/homebrew/bin/python3 "$MEMORY_WRAPPER_SCRIPT"
 
 sleep 2
 SCREEN_PID="$( { screen -ls 2>/dev/null || true; } | awk '/[.]'"${SESSION_NAME}"'[[:space:]]/ { split($1, parts, "."); print parts[1]; exit }')"

@@ -3,19 +3,19 @@
 
 from __future__ import annotations
 
+import contextlib
+import json
 import logging
 import os
-import sys
-import time
-import json
 import re
 import shutil
 import signal
 import subprocess
-from datetime import datetime, timezone
+import sys
+import time
+from datetime import datetime
 from pathlib import Path
 from typing import Any
-
 
 logger = logging.getLogger(__name__)
 
@@ -26,27 +26,19 @@ if str(_scripts_dir) not in sys.path:
 
 try:
     from .openclaw_roots import (
-        LOG_DIR,
-        PLAN_CONFIG_PATH,
         PLAN_DIR,
-        QUEUE_STATE_DIR,
-        RUNTIME_ROOT,
-        TASKS_DIR,
-        TASKS_PATH,
-        pid_file,
     )
 except ImportError:
     import sys
+
     from openclaw_roots import (
-        LOG_DIR,
-        PLAN_CONFIG_PATH,
         PLAN_DIR,
-        QUEUE_STATE_DIR,
-        RUNTIME_ROOT,
-        TASKS_DIR,
-        TASKS_PATH,
-        pid_file,
     )
+
+try:
+    from . import system_resource_facts as resource_facts
+except ImportError:
+    import system_resource_facts as resource_facts
 
 
 def now_iso() -> str:
@@ -144,10 +136,8 @@ def terminate_process_tree(process: subprocess.Popen[str], grace_seconds: int = 
         except Exception:
             return
 
-    try:
+    with contextlib.suppress(Exception):
         process.wait(timeout=2)
-    except Exception:
-        pass
 
 
 def terminate_pid_tree(pid: int | None, grace_seconds: int = 8) -> None:
@@ -242,6 +232,9 @@ def extract_structured_result(
     return parsed if isinstance(parsed, dict) else None
 
 
+CODEX_APP_PATH = Path("/Applications/Codex.app/Contents/MacOS/codex")
+
+
 def codex_executable() -> str:
     discovered = shutil.which("codex")
     if discovered:
@@ -252,6 +245,8 @@ def codex_executable() -> str:
 
 
 def resource_gate_message() -> str:
+    from .config import MIN_FREE_MEMORY_PERCENT
+
     free_memory = system_free_memory_percent()
     if free_memory is not None and free_memory < MIN_FREE_MEMORY_PERCENT:
         return f"资源门限暂停：系统可用内存约 {free_memory}% ，低于启动自动任务的安全阈值 {MIN_FREE_MEMORY_PERCENT}% 。"
@@ -259,6 +254,14 @@ def resource_gate_message() -> str:
 
 
 def dynamic_build_worker_budget() -> tuple[int, dict[str, Any]]:
+    from .config import (
+        MAX_BUILD_LOAD_ABSOLUTE,
+        MAX_BUILD_LOAD_PER_CORE,
+        MAX_BUILD_WORKERS,
+        OLLAMA_BUSY_CPU_PERCENT,
+        SECOND_BUILD_MIN_FREE_MEMORY_PERCENT,
+    )
+
     return resource_facts.dynamic_build_worker_budget(
         max_build_workers=MAX_BUILD_WORKERS,
         second_build_min_free_memory_percent=SECOND_BUILD_MIN_FREE_MEMORY_PERCENT,

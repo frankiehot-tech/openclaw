@@ -1,4 +1,6 @@
 #!/usr/bin/env python3
+# DEPRECATED: 使用 governance/ 模块代替
+# governance_cli.py repair <command> 或 governance_cli.py queue fix
 """
 修复队列停止和手动拉起按钮无响应问题
 问题诊断：队列处于manual_hold状态，没有可自动执行的任务
@@ -24,7 +26,7 @@ def diagnose_queue_problems():
         return None
 
     try:
-        with open(queue_file, "r", encoding="utf-8") as f:
+        with open(queue_file, encoding="utf-8") as f:
             queue_state = json.load(f)
 
         print(f"📊 队列状态: {queue_state.get('queue_status', 'unknown')}")
@@ -64,7 +66,7 @@ def fix_queue_manual_hold():
     )
 
     try:
-        with open(queue_file, "r", encoding="utf-8") as f:
+        with open(queue_file, encoding="utf-8") as f:
             queue_state = json.load(f)
 
         # 检查是否有可自动执行的任务
@@ -120,7 +122,7 @@ def activate_opencode_task():
     )
 
     try:
-        with open(queue_file, "r", encoding="utf-8") as f:
+        with open(queue_file, encoding="utf-8") as f:
             queue_state = json.load(f)
 
         items = queue_state.get("items", {})
@@ -156,7 +158,7 @@ def activate_opencode_task():
                 json.dump(queue_state, f, indent=2, ensure_ascii=False)
 
             print("✅ OpenCode CLI任务已激活")
-            print(f"🎯 当前任务: opencode_cli_optimization")
+            print("🎯 当前任务: opencode_cli_optimization")
             print(f"📊 队列状态: {queue_state['queue_status']}")
 
             return True

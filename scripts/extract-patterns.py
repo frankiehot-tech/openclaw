@@ -4,13 +4,11 @@ AI 编程工具提示词模式提取脚本
 基于 Cursor、Devin、v0、Manus 等 30+ 顶尖工具的提示词工程
 """
 
-import hashlib
 import json
-import os
 import re
 from datetime import datetime
 from pathlib import Path
-from typing import Any, Dict, List, Optional
+from typing import Any
 
 import yaml
 
@@ -29,7 +27,7 @@ class PatternExtractor:
             "deployment": [],
         }
 
-    def extract_from_file(self, file_path: Path) -> List[Dict[str, Any]]:
+    def extract_from_file(self, file_path: Path) -> list[dict[str, Any]]:
         """从单个文件中提取模式"""
         patterns = []
 
@@ -51,7 +49,7 @@ class PatternExtractor:
 
         return patterns
 
-    def _extract_python_patterns(self, content: str, file_path: str) -> List[Dict[str, Any]]:
+    def _extract_python_patterns(self, content: str, file_path: str) -> list[dict[str, Any]]:
         """从 Python 代码中提取模式"""
         patterns = []
 
@@ -96,7 +94,7 @@ class PatternExtractor:
 
         return patterns
 
-    def _extract_markdown_patterns(self, content: str, file_path: str) -> List[Dict[str, Any]]:
+    def _extract_markdown_patterns(self, content: str, file_path: str) -> list[dict[str, Any]]:
         """从 Markdown 文档中提取模式"""
         patterns = []
 
@@ -128,7 +126,7 @@ class PatternExtractor:
 
         return patterns
 
-    def _extract_yaml_patterns(self, content: str, file_path: str) -> List[Dict[str, Any]]:
+    def _extract_yaml_patterns(self, content: str, file_path: str) -> list[dict[str, Any]]:
         """从 YAML 配置中提取模式"""
         patterns = []
 
@@ -152,7 +150,7 @@ class PatternExtractor:
 
         return patterns
 
-    def _extract_json_patterns(self, content: str, file_path: str) -> List[Dict[str, Any]]:
+    def _extract_json_patterns(self, content: str, file_path: str) -> list[dict[str, Any]]:
         """从 JSON 文件中提取模式"""
         patterns = []
 
@@ -176,7 +174,7 @@ class PatternExtractor:
 
         return patterns
 
-    def scan_project(self) -> Dict[str, List[Dict[str, Any]]]:
+    def scan_project(self) -> dict[str, list[dict[str, Any]]]:
         """扫描整个项目并提取模式"""
         print(f"开始扫描项目: {self.project_root}")
 
@@ -211,7 +209,7 @@ class PatternExtractor:
         print(f"模式提取完成，共找到 {sum(len(v) for v in self.patterns.values())} 个模式")
         return self.patterns
 
-    def generate_prompt_templates(self) -> Dict[str, str]:
+    def generate_prompt_templates(self) -> dict[str, str]:
         """基于提取的模式生成提示词模板"""
 
         templates = {}
@@ -356,7 +354,7 @@ class PatternExtractor:
 
 ## 基本信息
 - 项目路径: {self.project_root}
-- 提取时间: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}
+- 提取时间: {datetime.now().strftime("%Y-%m-%d %H:%M:%S")}
 - 总模式数: {total_patterns}
 
 ## 分类统计
@@ -368,7 +366,7 @@ class PatternExtractor:
         report += """
 ## 生成的 Agent 提示词文件
 - architect_agent_prompt.md - 架构师 Agent 提示词
-- frontend_agent_prompt.md - 前端 Agent 提示词  
+- frontend_agent_prompt.md - 前端 Agent 提示词
 - backend_agent_prompt.md - 后端 Agent 提示词
 
 ## 使用说明
@@ -384,7 +382,7 @@ def main():
     output_dir = "/Volumes/1TB-M2/openclaw/patterns"
 
     extractor = PatternExtractor(project_root)
-    patterns = extractor.scan_project()
+    extractor.scan_project()
     extractor.save_results(output_dir)
 
     print("✅ 模式提取完成！")

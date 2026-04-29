@@ -1,4 +1,6 @@
 #!/usr/bin/env python3
+# DEPRECATED: 使用 governance/ 模块代替
+# governance_cli.py repair <command> 或 governance_cli.py queue fix
 """
 修复manifest重复条目脚本
 
@@ -31,7 +33,7 @@ def analyze_manifest_quality(manifest_path):
     quality_report = contract.generate_quality_report()
 
     # 打印摘要
-    print(f"📊 数据质量分析结果:")
+    print("📊 数据质量分析结果:")
     print(f"   总条目数: {quality_report['summary']['total_entries']}")
     print(f"   平均质量评分: {quality_report['summary']['average_quality_score']:.1f}/100")
     print(f"   重复率: {quality_report['summary']['duplicate_rate']:.1f}%")
@@ -41,23 +43,23 @@ def analyze_manifest_quality(manifest_path):
     # 检查重复问题
     dup_analysis = quality_report["duplicate_analysis"]
     if dup_analysis["duplicate_ids_count"] > 0:
-        print(f"\n🔴 发现重复问题:")
+        print("\n🔴 发现重复问题:")
         print(f"   重复ID数量: {dup_analysis['duplicate_ids_count']}")
         print(f"   总重复条目数: {dup_analysis['duplicate_summary']['total_duplicate_entries']}")
         print(f"   最多重复次数: {dup_analysis['duplicate_summary']['max_duplicate_count']}次")
 
         # 显示前10个重复ID
-        print(f"\n   前10个重复ID:")
+        print("\n   前10个重复ID:")
         dup_by_id = dup_analysis["duplicate_by_id"]
         for i, (dup_id, info) in enumerate(list(dup_by_id.items())[:10]):
-            print(f"     {i+1}. {dup_id[:70]}... ({info['count']}次重复)")
+            print(f"     {i + 1}. {dup_id[:70]}... ({info['count']}次重复)")
 
     return contract, quality_report
 
 
 def fix_manifest_duplicates(contract, manifest_path, backup=True):
     """修复manifest重复条目"""
-    print(f"\n🔧 开始修复manifest重复条目...")
+    print("\n🔧 开始修复manifest重复条目...")
 
     # 创建备份
     if backup:
@@ -75,14 +77,14 @@ def fix_manifest_duplicates(contract, manifest_path, backup=True):
         print(f"✅ 去重完成: {output_path}")
 
         # 验证去重结果
-        print(f"\n🔍 验证去重结果...")
+        print("\n🔍 验证去重结果...")
         verify_contract = DataQualityContract(output_path)
         if verify_contract.load_manifest():
             verify_report = verify_contract.generate_quality_report()
             new_dup_count = verify_report["duplicate_analysis"]["duplicate_ids_count"]
 
             if new_dup_count == 0:
-                print(f"✅ 验证通过: 去重后没有重复条目")
+                print("✅ 验证通过: 去重后没有重复条目")
 
                 # 替换原始文件
                 import shutil
@@ -99,10 +101,10 @@ def fix_manifest_duplicates(contract, manifest_path, backup=True):
                 print(f"📁 去重文件保留在: {output_path}（需要进一步处理）")
                 return False
         else:
-            print(f"❌ 无法验证去重结果")
+            print("❌ 无法验证去重结果")
             return False
     else:
-        print(f"❌ 去重失败")
+        print("❌ 去重失败")
         return False
 
 
@@ -119,7 +121,7 @@ def main():
         print(f"❌ 配置文件不存在: {config_file}")
         return 1
 
-    with open(config_file, "r", encoding="utf-8") as f:
+    with open(config_file, encoding="utf-8") as f:
         config = json.load(f)
 
     routes = config.get("routes", [])
@@ -133,7 +135,7 @@ def main():
         print(f"   Manifest路径: {manifest_path}")
 
         if not os.path.exists(manifest_path):
-            print(f"   ⚠️  Manifest文件不存在，跳过")
+            print("   ⚠️  Manifest文件不存在，跳过")
             continue
 
         # 分析数据质量
@@ -153,9 +155,9 @@ def main():
             if response == "y":
                 fix_manifest_duplicates(contract, manifest_path)
             else:
-                print(f"   ⏭️  跳过修复")
+                print("   ⏭️  跳过修复")
         else:
-            print(f"   ✅ 没有发现重复条目，无需修复")
+            print("   ✅ 没有发现重复条目，无需修复")
 
     print("\n" + "=" * 70)
     print("🎉 数据质量检查完成")

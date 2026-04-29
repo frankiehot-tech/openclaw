@@ -4,11 +4,10 @@
 from __future__ import annotations
 
 import logging
-import sys
 import shutil
+import sys
 from pathlib import Path
 from typing import Any
-
 
 logger = logging.getLogger(__name__)
 
@@ -19,24 +18,19 @@ if str(_scripts_dir) not in sys.path:
 
 try:
     from .openclaw_roots import (
-        LOG_DIR,
-        PLAN_CONFIG_PATH,
         PLAN_DIR,
-        QUEUE_STATE_DIR,
         RUNTIME_ROOT,
-        TASKS_DIR,
-        TASKS_PATH,
-        pid_file,
     )
 except ImportError:
     import sys
+
     from openclaw_roots import (
         PLAN_DIR,
         RUNTIME_ROOT,
     )
 
-from .utils import extract_referenced_paths, codex_executable
 from .config import load_control_plane_config
+from .utils import codex_executable, extract_referenced_paths
 
 
 def common_preflight_warnings(instruction_text: str) -> list[str]:
@@ -219,7 +213,7 @@ def validate_build_preflight(
         risk_level = str(item.get("risk_level", "") or "").strip().lower()
         # 高风险任务可能需要人工审核
         if risk_level == "high":
-            return False, f"风险等级为 high，需要人工审核。", True
+            return False, "风险等级为 high，需要人工审核。", True
 
     # 4. 统计目标文件数量（通过查找路径模式）
     import re
@@ -232,13 +226,15 @@ def validate_build_preflight(
     for path in referenced_paths:
         path = path.rstrip(".,;:'\"")
         if (
-            path.endswith(".md")
-            or path.endswith(".py")
-            or path.endswith(".json")
-            or path.endswith(".txt")
+            (
+                path.endswith(".md")
+                or path.endswith(".py")
+                or path.endswith(".json")
+                or path.endswith(".txt")
+            )
+            or "/" in path
+            and len(path) > 20
         ):
-            filtered_paths.append(path)
-        elif "/" in path and len(path) > 20:  # 假设是目录
             filtered_paths.append(path)
 
     targets_count = len(set(filtered_paths))
@@ -276,17 +272,17 @@ def validate_build_preflight(
         if "基因管理" in title and epic == "gene_management" and "审计" in title:
             # 基因管理审计任务允许最多600行
             if line_count > 600:
-                return False, f"基因管理审计文档过长（{{line_count}} 行），请拆分为子任务。", True
+                return False, "基因管理审计文档过长（{line_count} 行），请拆分为子任务。", True
         elif category == "engineering_plan" or epic == "engineering_implementation":
             # 工程实施方案允许最多400行（通常比一般任务复杂）
             if line_count > 400:
-                return False, f"工程实施方案文档过长（{{line_count}} 行），请拆分为子任务。", True
+                return False, "工程实施方案文档过长（{line_count} 行），请拆分为子任务。", True
         elif line_count > 200:
             # 其他任务保持200行限制
-            return False, f"文档过长（{{line_count}} 行），可能不是窄任务。", True
+            return False, "文档过长（{line_count} 行），可能不是窄任务。", True
     elif line_count > 200:
         # 没有item信息时保持200行限制
-        return False, f"文档过长（{{line_count}} 行），可能不是窄任务。", True
+        return False, "文档过长（{line_count} 行），可能不是窄任务。", True
 
     # 7. 如果所有检查通过，返回成功
     return True, "预检通过，符合窄任务标准。", False

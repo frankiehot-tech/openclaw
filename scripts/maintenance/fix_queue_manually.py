@@ -1,4 +1,6 @@
 #!/usr/bin/env python3
+# DEPRECATED: 使用 governance/ 模块代替
+# governance_cli.py repair <command> 或 governance_cli.py queue fix
 """
 手动修复基因管理队列文件
 直接修改队列状态和任务配置，确保修复生效
@@ -6,8 +8,7 @@
 
 import json
 import os
-import sys
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 
 QUEUE_FILE = (
     "/Volumes/1TB-M2/openclaw/.openclaw/plan_queue/openhuman_aiplan_gene_management_20260405.json"
@@ -16,7 +17,7 @@ QUEUE_FILE = (
 
 def load_queue():
     """加载队列文件"""
-    with open(QUEUE_FILE, "r", encoding="utf-8") as f:
+    with open(QUEUE_FILE, encoding="utf-8") as f:
         return json.load(f)
 
 
@@ -99,9 +100,9 @@ def fix_api_key_tasks(state):
                 items[task_id]["finished_at"] = ""
                 items[task_id]["summary"] = "API key已验证，任务重置为pending"
                 fixed_count += 1
-                print(f"  ✅ 已修复API key任务")
+                print("  ✅ 已修复API key任务")
             else:
-                print(f"  ❌ 未找到DASHSCOPE_API_KEY环境变量")
+                print("  ❌ 未找到DASHSCOPE_API_KEY环境变量")
 
     return fixed_count
 
@@ -129,13 +130,13 @@ def fix_manual_hold_tasks(state):
     state["pause_reason"] = ""
     state["current_item_id"] = first_task
     state["current_item_ids"] = manual_hold_tasks
-    state["updated_at"] = datetime.now(timezone.utc).isoformat()
+    state["updated_at"] = datetime.now(UTC).isoformat()
 
     # 更新第一个任务状态
     items[first_task]["status"] = "running"
     items[first_task]["progress_percent"] = 0
     if not items[first_task].get("started_at"):
-        items[first_task]["started_at"] = datetime.now(timezone.utc).isoformat()
+        items[first_task]["started_at"] = datetime.now(UTC).isoformat()
 
     # 其他任务设置为pending
     for i, task_id in enumerate(manual_hold_tasks):
@@ -161,7 +162,7 @@ def fix_manual_hold_tasks(state):
 
     state["counts"] = counts
 
-    print(f"✅ 队列状态修复完成:")
+    print("✅ 队列状态修复完成:")
     print(f"   • queue_status: {state['queue_status']}")
     print(f"   • current_item_id: {state['current_item_id']}")
     print(f"   • counts: {counts}")

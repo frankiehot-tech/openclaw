@@ -172,9 +172,8 @@ def find_ai_elements():
         try:
             exploration = json.loads(cli._clean_js_output(result.output))
 
-            print(
-                f"   页面标题: {exploration.get('textContent', {}).get('fullText', '').split('\\n')[0].strip()[:100]}..."
-            )
+            _title = exploration.get('textContent', {}).get('fullText', '').split('\n')[0].strip()[:100]
+            print(f"   页面标题: {_title}...")
             print(f"   URL: 需要从页面获取")
 
             print(f"   \n   页面结构:")

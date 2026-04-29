@@ -4,12 +4,11 @@ Athena IP形象ComfyUI生成器
 基于ComfyUI API的Athena图像生成系统
 """
 
-import json
 import sys
 import time
 from dataclasses import dataclass
 from pathlib import Path
-from typing import Any, Dict, List, Optional
+from typing import Any
 
 import requests
 
@@ -23,20 +22,20 @@ class ComfyUIGenerationResult:
     image_path: str
     prompt_id: str
     node_id: str
-    workflow: Dict[str, Any]
-    metadata: Dict[str, Any]
+    workflow: dict[str, Any]
+    metadata: dict[str, Any]
 
 
 class ComfyUIAthenaGenerator:
     """Athena IP形象ComfyUI生成器"""
 
-    def __init__(self, base_url: str = "http://localhost:8189"):
+    def __init__(self, base_url: str = "http://localhost:8188"):
         """
         初始化ComfyUI生成器
 
         Args:
-            base_url: ComfyUI服务器地址 (默认: http://localhost:8189)
-                      外部硬盘优化版使用端口8189
+            base_url: ComfyUI服务器地址 (默认: http://localhost:8188)
+                      与 start_comfyui.sh 保持一致
         """
         self.base_url = base_url.rstrip("/")
         self.client_id = "athena_ip_generator"
@@ -67,7 +66,7 @@ class ComfyUIAthenaGenerator:
         width: int = 1024,
         height: int = 1024,
         seed: int = -1,
-    ) -> Dict[str, Any]:
+    ) -> dict[str, Any]:
         """
         创建Athena IP形象专用工作流
 
@@ -86,7 +85,6 @@ class ComfyUIAthenaGenerator:
         """
         # 生成随机节点ID（避免冲突）
         import hashlib
-        import time
 
         timestamp = int(time.time() * 1000)
         base_id = hashlib.md5(f"{timestamp}{prompt[:20]}".encode()).hexdigest()[:8]
@@ -163,7 +161,7 @@ class ComfyUIAthenaGenerator:
 
         return workflow
 
-    def queue_prompt(self, workflow: Dict[str, Any]) -> Optional[str]:
+    def queue_prompt(self, workflow: dict[str, Any]) -> str | None:
         """
         提交工作流到ComfyUI队列
 
@@ -191,7 +189,7 @@ class ComfyUIAthenaGenerator:
             print(f"[ERROR] 提交工作流出错: {e}")
             return None
 
-    def get_queue_status(self) -> Dict[str, Any]:
+    def get_queue_status(self) -> dict[str, Any]:
         """获取队列状态"""
         try:
             response = requests.get(f"{self.base_url}/queue", timeout=10)
@@ -245,10 +243,7 @@ class ComfyUIAthenaGenerator:
                         # 如果不在运行中也不在等待中,可能已完成或失败
                         in_queue = False
                         for item in queue_running + queue_pending:
-                            if isinstance(item, list) and len(item) > 1 and item[1] == prompt_id:
-                                in_queue = True
-                                break
-                            elif isinstance(item, dict) and item.get("prompt_id") == prompt_id:
+                            if isinstance(item, list) and len(item) > 1 and item[1] == prompt_id or isinstance(item, dict) and item.get("prompt_id") == prompt_id:
                                 in_queue = True
                                 break
 
@@ -269,7 +264,7 @@ class ComfyUIAthenaGenerator:
         print(f"[ERROR] 等待超时: {timeout}秒")
         return False
 
-    def get_generated_images(self, prompt_id: str) -> List[Dict[str, str]]:
+    def get_generated_images(self, prompt_id: str) -> list[dict[str, str]]:
         """
         获取生成的图像
 
@@ -308,7 +303,7 @@ class ComfyUIAthenaGenerator:
 
     def download_image(
         self, filename: str, subfolder: str = "", output_path: str = "./generated"
-    ) -> Optional[str]:
+    ) -> str | None:
         """
         下载生成的图像
 
@@ -321,6 +316,14 @@ class ComfyUIAthenaGenerator:
             本地文件路径
         """
         try:
+            if ".." in filename or "/" in filename or "\\" in filename:
+                print(f"[ERROR] 非法文件名: {filename}")
+                return None
+
+            if subfolder and (".." in subfolder or "/" in subfolder or "\\" in subfolder):
+                print(f"[ERROR] 非法子目录: {subfolder}")
+                return None
+
             # 构建图像URL
             if subfolder:
                 image_url = f"{self.base_url}/view?filename={filename}&subfolder={subfolder}"
@@ -349,7 +352,7 @@ class ComfyUIAthenaGenerator:
             print(f"[ERROR] 下载图像出错: {e}")
             return None
 
-    def get_available_checkpoints(self) -> List[str]:
+    def get_available_checkpoints(self) -> list[str]:
         """获取可用的检查点模型列表"""
         try:
             response = requests.get(f"{self.base_url}/object_info", timeout=10)
@@ -371,7 +374,7 @@ class ComfyUIAthenaGenerator:
 
     def generate_athena_image(
         self, variant_name: str, prompt: str, output_dir: str = "./data/athena_comfyui"
-    ) -> Optional[ComfyUIGenerationResult]:
+    ) -> ComfyUIGenerationResult | None:
         """
         生成Athena IP形象图像
 
@@ -501,7 +504,7 @@ def main():
     )
 
     if result:
-        print(f"\n[OK] 测试成功!")
+        print("\n[OK] 测试成功!")
         print(f"   图像路径: {result.image_path}")
         print(f"   Prompt ID: {result.prompt_id}")
         print(f"   变体名称: {result.metadata['variant_name']}")

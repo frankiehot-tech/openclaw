@@ -51,7 +51,7 @@ try:
     mini_agent_path = RUNTIME_ROOT / "mini-agent"
     if str(mini_agent_path) not in sys.path:
         sys.path.insert(0, str(mini_agent_path))
-    from agent.core.event_bus import EventEnvelope, EventType, HookPoint, emit, get_bus
+    from agent.core.event_bus import EventType, get_bus
 
     EVENT_BUS_AVAILABLE = True
 except ImportError:

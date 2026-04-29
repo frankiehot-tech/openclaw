@@ -12,8 +12,8 @@ import logging
 import os
 import sys
 from dataclasses import asdict, dataclass
-from datetime import datetime, timedelta
-from typing import Any, Dict, List, Optional, Tuple
+from datetime import datetime
+from typing import Any
 
 import yaml
 
@@ -34,7 +34,7 @@ class StabilityMetric:
     unit: str
     source: str
     timestamp: str
-    context: Dict[str, Any]
+    context: dict[str, Any]
 
 
 @dataclass
@@ -45,16 +45,16 @@ class Alert:
     metric_id: str
     alert_level: str  # P0, P1, P2
     message: str
-    threshold: Dict[str, Any]
+    threshold: dict[str, Any]
     timestamp: str
     severity: int  # 0=P0, 1=P1, 2=P2
-    actions: List[str]
+    actions: list[str]
 
 
 class StabilityMetricsCollector:
     """稳定性指标收集器"""
 
-    def __init__(self, config_path: Optional[str] = None):
+    def __init__(self, config_path: str | None = None):
         """初始化收集器"""
         self.config_path = config_path or os.path.join(
             project_root, "mini-agent", "config", "stability_alert_baseline.yaml"
@@ -63,10 +63,10 @@ class StabilityMetricsCollector:
         self.workspace_root = project_root
         logger.info(f"稳定性指标收集器初始化完成，工作区根目录: {self.workspace_root}")
 
-    def _load_config(self) -> Dict[str, Any]:
+    def _load_config(self) -> dict[str, Any]:
         """加载配置文件"""
         try:
-            with open(self.config_path, "r", encoding="utf-8") as f:
+            with open(self.config_path, encoding="utf-8") as f:
                 config = yaml.safe_load(f)
                 logger.info(f"配置文件加载成功: {self.config_path}")
                 return config or {}
@@ -74,7 +74,7 @@ class StabilityMetricsCollector:
             logger.warning(f"配置文件加载失败，使用默认配置: {e}")
             return self._get_default_config()
 
-    def _get_default_config(self) -> Dict[str, Any]:
+    def _get_default_config(self) -> dict[str, Any]:
         """获取默认配置"""
         return {
             "alert_levels": {
@@ -109,7 +109,7 @@ class StabilityMetricsCollector:
             },
         }
 
-    def collect_metrics(self) -> List[StabilityMetric]:
+    def collect_metrics(self) -> list[StabilityMetric]:
         """收集所有稳定性指标"""
         metrics = []
 
@@ -136,7 +136,7 @@ class StabilityMetricsCollector:
         logger.info(f"共收集到 {len(metrics)} 个稳定性指标")
         return metrics
 
-    def _collect_availability(self) -> Optional[StabilityMetric]:
+    def _collect_availability(self) -> StabilityMetric | None:
         """收集可用性指标"""
         try:
             # 方法1: 检查运行时状态（通过 runtime-status.ts 的 TypeScript 实现）
@@ -152,10 +152,9 @@ class StabilityMetricsCollector:
             availability_value = 1.0 if (is_active and consumer_running) else 0.0
             availability_state = "available" if availability_value == 1.0 else "unavailable"
 
-            if is_active and consumer_running:
-                if has_pending_items:
-                    availability_state = "degraded"
-                    availability_value = 0.7
+            if is_active and consumer_running and has_pending_items:
+                availability_state = "degraded"
+                availability_value = 0.7
 
             return StabilityMetric(
                 metric_id="system_availability",
@@ -175,7 +174,7 @@ class StabilityMetricsCollector:
             logger.warning(f"可用性指标收集失败: {e}")
             return None
 
-    def _collect_response_time(self) -> Optional[StabilityMetric]:
+    def _collect_response_time(self) -> StabilityMetric | None:
         """收集响应时间指标"""
         try:
             # 从 metrics_baseline 文件读取平均延迟
@@ -193,7 +192,7 @@ class StabilityMetricsCollector:
 
             # 读取最新的文件
             latest_file = max(baseline_files, key=os.path.getmtime)
-            with open(latest_file, "r", encoding="utf-8") as f:
+            with open(latest_file, encoding="utf-8") as f:
                 data = json.load(f)
 
             avg_latency = data.get("avg_latency_all")
@@ -220,7 +219,7 @@ class StabilityMetricsCollector:
             logger.warning(f"响应时间指标收集失败: {e}")
             return None
 
-    def _collect_error_rate(self) -> Optional[StabilityMetric]:
+    def _collect_error_rate(self) -> StabilityMetric | None:
         """收集错误率指标"""
         try:
             # 从 metrics_baseline 文件读取任务统计
@@ -237,7 +236,7 @@ class StabilityMetricsCollector:
                 return None
 
             latest_file = max(baseline_files, key=os.path.getmtime)
-            with open(latest_file, "r", encoding="utf-8") as f:
+            with open(latest_file, encoding="utf-8") as f:
                 data = json.load(f)
 
             total_completed = data.get("total_completed", 0)
@@ -267,7 +266,7 @@ class StabilityMetricsCollector:
             logger.warning(f"错误率指标收集失败: {e}")
             return None
 
-    def _collect_data_integrity(self) -> Optional[StabilityMetric]:
+    def _collect_data_integrity(self) -> StabilityMetric | None:
         """收集数据完整性指标"""
         try:
             # 检查关键文件是否存在
@@ -312,7 +311,7 @@ class StabilityMetricsCollector:
             logger.warning(f"数据完整性指标收集失败: {e}")
             return None
 
-    def _get_queue_consumer_status(self) -> Dict[str, Any]:
+    def _get_queue_consumer_status(self) -> dict[str, Any]:
         """获取队列消费者状态（简化实现）"""
         try:
             # 检查队列目录
@@ -326,14 +325,14 @@ class StabilityMetricsCollector:
                 return {"consumer_status": "empty", "pending_count": 0}
 
             latest_file = max(queue_files, key=os.path.getmtime)
-            with open(latest_file, "r", encoding="utf-8") as f:
+            with open(latest_file, encoding="utf-8") as f:
                 data = json.load(f)
 
             # 解析队列状态
             items = data.get("items", {})
             pending_count = 0
             running_count = 0
-            for item_id, item in items.items():
+            for _item_id, item in items.items():
                 status = item.get("status", "")
                 if status == "pending":
                     pending_count += 1
@@ -356,7 +355,7 @@ class StabilityMetricsCollector:
             logger.warning(f"队列状态获取失败: {e}")
             return {"consumer_status": "unknown", "pending_count": 0}
 
-    def _get_runtime_status(self) -> Dict[str, Any]:
+    def _get_runtime_status(self) -> dict[str, Any]:
         """获取运行时状态（简化实现）"""
         try:
             # 检查是否有活动的任务或队列
@@ -382,7 +381,7 @@ class StabilityMetricsCollector:
             logger.warning(f"运行时状态获取失败: {e}")
             return {"isActive": False, "source": "error"}
 
-    def evaluate_alerts(self, metrics: List[StabilityMetric]) -> List[Alert]:
+    def evaluate_alerts(self, metrics: list[StabilityMetric]) -> list[Alert]:
         """评估指标，生成告警"""
         alerts = []
 
@@ -395,7 +394,7 @@ class StabilityMetricsCollector:
         logger.info(f"生成 {len(alerts)} 个告警")
         return alerts
 
-    def _evaluate_metric_alerts(self, metric: StabilityMetric) -> List[Alert]:
+    def _evaluate_metric_alerts(self, metric: StabilityMetric) -> list[Alert]:
         """评估单个指标的告警"""
         alerts = []
         metric_config = self.config.get("stability_metrics", {}).get(metric.metric_type)
@@ -488,7 +487,7 @@ class StabilityMetricsCollector:
         metric: StabilityMetric,
         level: str,
         message: str,
-        threshold: Dict[str, Any],
+        threshold: dict[str, Any],
     ) -> Alert:
         """创建告警对象"""
         level_severity = {"P0": 0, "P1": 1, "P2": 2}
@@ -508,8 +507,8 @@ class StabilityMetricsCollector:
         )
 
     def generate_report(
-        self, metrics: List[StabilityMetric], alerts: List[Alert]
-    ) -> Dict[str, Any]:
+        self, metrics: list[StabilityMetric], alerts: list[Alert]
+    ) -> dict[str, Any]:
         """生成稳定性报告"""
         # 计算总体稳定性状态
         has_p0 = any(alert.severity == 0 for alert in alerts)

@@ -22,7 +22,7 @@ import threading
 import time
 from datetime import datetime
 from pathlib import Path
-from typing import Any, Dict, List, Optional, Tuple
+from typing import Any
 
 import psutil
 
@@ -77,7 +77,7 @@ class AthenaQueueStressTester:
             f"压力测试器初始化: 目标={target_rate}任务/分钟, 持续时间={duration_minutes}分钟"
         )
 
-    def collect_system_metrics(self) -> Dict[str, Any]:
+    def collect_system_metrics(self) -> dict[str, Any]:
         """收集系统资源指标"""
         try:
             cpu_percent = psutil.cpu_percent(interval=0.1)
@@ -108,7 +108,7 @@ class AthenaQueueStressTester:
             logger.warning(f"收集系统指标失败: {e}")
             return {}
 
-    def create_single_task(self, task_id: int) -> Tuple[bool, float, Optional[str]]:
+    def create_single_task(self, task_id: int) -> tuple[bool, float, str | None]:
         """
         创建单个测试任务
 
@@ -188,7 +188,7 @@ class AthenaQueueStressTester:
             logger.error(error_msg)
             return False, time.time() - start_time, error_msg
 
-    def run_concurrent_test(self, concurrency_level: int = 10) -> Dict[str, Any]:
+    def run_concurrent_test(self, concurrency_level: int = 10) -> dict[str, Any]:
         """
         运行并发压力测试
 
@@ -353,7 +353,7 @@ class AthenaQueueStressTester:
             "Athena队列系统压力测试报告",
             "=" * 80,
             f"测试时间: {datetime.fromtimestamp(self.results['start_time']).strftime('%Y-%m-%d %H:%M:%S')}",
-            f"持续时间: {duration:.1f}秒 ({duration/60:.1f}分钟)",
+            f"持续时间: {duration:.1f}秒 ({duration / 60:.1f}分钟)",
             f"目标速率: {self.target_rate} 任务/分钟",
             "",
             "📊 性能指标:",

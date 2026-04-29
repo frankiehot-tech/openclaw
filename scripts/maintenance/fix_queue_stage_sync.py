@@ -1,4 +1,6 @@
 #!/usr/bin/env python3
+# DEPRECATED: 使用 governance/ 模块代替
+# governance_cli.py repair <command> 或 governance_cli.py queue fix
 """
 修复队列状态文件中的stage字段，与manifest文件的entry_stage同步
 """
@@ -6,7 +8,7 @@
 import json
 import os
 import sys
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from pathlib import Path
 
 # 添加项目根目录到Python路径
@@ -14,7 +16,7 @@ project_root = Path(__file__).parent
 sys.path.insert(0, str(project_root))
 
 try:
-    from config.paths import PLAN_QUEUE_DIR, ROOT_DIR, SCRIPTS_DIR, get_queue_file
+    from config.paths import PLAN_QUEUE_DIR, ROOT_DIR, SCRIPTS_DIR
 except ImportError as e:
     print(f"⚠️  警告: 无法导入路径配置模块: {e}")
     print("   使用回退的硬编码路径...")
@@ -28,7 +30,7 @@ QUEUE_FILE = str(PLAN_QUEUE_DIR / "openhuman_aiplan_gene_management_20260405.jso
 
 def load_json_file(file_path):
     """加载JSON文件"""
-    with open(file_path, "r", encoding="utf-8") as f:
+    with open(file_path, encoding="utf-8") as f:
         return json.load(f)
 
 
@@ -97,13 +99,13 @@ def sync_stage_fields():
             state["pause_reason"] = ""
             state["current_item_id"] = first_task
             state["current_item_ids"] = runnable_tasks
-            state["updated_at"] = datetime.now(timezone.utc).isoformat()
+            state["updated_at"] = datetime.now(UTC).isoformat()
 
             # 更新第一个任务状态
             items[first_task]["status"] = "running"
             items[first_task]["progress_percent"] = 0
             if not items[first_task].get("started_at"):
-                items[first_task]["started_at"] = datetime.now(timezone.utc).isoformat()
+                items[first_task]["started_at"] = datetime.now(UTC).isoformat()
 
             # 其他可执行任务设置为pending
             for i, task_id in enumerate(runnable_tasks):

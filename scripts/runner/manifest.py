@@ -4,8 +4,8 @@
 from __future__ import annotations
 
 import logging
-import sys
 import shutil
+import sys
 from pathlib import Path
 from typing import Any
 
@@ -16,25 +16,24 @@ if str(_scripts_dir) not in sys.path:
     sys.path.insert(0, str(_scripts_dir))
 
 try:
-    from .openclaw_roots import (
-        LOG_DIR,
-        PLAN_CONFIG_PATH,
-        PLAN_DIR,
-        QUEUE_STATE_DIR,
-        RUNTIME_ROOT,
-        TASKS_DIR,
-        TASKS_PATH,
-        pid_file,
-    )
+    pass
 except ImportError:
     import sys
 
-from .utils import read_json, write_json, slugify, now_iso
+import contextlib
 
-from .route_state import route_current_item_ids
+from .config import AUTO_ARCHIVE_COMPLETED, archive_dir_from_config, load_plan_config
 
-from .config import load_plan_config
-from .route_state import route_state_path, load_route_state
+# queue_route_by_mode imported lazily inside append_generated_queue_items to avoid circular deps
+from .route_state import load_route_state, route_current_item_ids, route_state_path
+from .utils import (
+    is_instruction_under_plan_dir,
+    is_pid_alive,
+    now_iso,
+    read_json,
+    slugify,
+    write_json,
+)
 
 
 def load_manifest_items(route: dict[str, Any]) -> list[dict[str, Any]]:
@@ -182,10 +181,8 @@ def archive_instruction_path_if_needed(instruction_path: str) -> str:
                 target.write_text(source_text, encoding="utf-8")
         except Exception:
             shutil.copy2(path, target)
-        try:
+        with contextlib.suppress(Exception):
             path.unlink()
-        except Exception:
-            pass
     else:
         shutil.move(str(path), str(target))
     return str(target)
@@ -275,6 +272,8 @@ def upsert_route_state_item(
 def append_generated_queue_items(
     generated_items: list[dict[str, Any]],
 ) -> list[dict[str, str]]:
+    from .executor import queue_route_by_mode
+
     build_route = queue_route_by_mode("opencode_build")
     review_route = queue_route_by_mode("codex_review")
     queued: list[dict[str, str]] = []

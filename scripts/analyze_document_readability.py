@@ -5,8 +5,6 @@
 """
 
 import argparse
-import math
-import os
 import re
 import sys
 from datetime import datetime
@@ -31,7 +29,7 @@ class DocumentReadabilityAnalyzer:
 
         # 读取文件内容
         try:
-            with open(file_path, "r", encoding="utf-8") as f:
+            with open(file_path, encoding="utf-8") as f:
                 content = f.read()
         except Exception as e:
             self.add_issue(file_path, "无法读取文件", str(e))
@@ -81,11 +79,10 @@ class DocumentReadabilityAnalyzer:
         content_no_code = re.sub(code_block_pattern, "", content, flags=re.DOTALL)
 
         # 移除行内代码
-        content_no_inline_code = re.sub(r"`[^`]+`", "", content_no_code)
+        re.sub(r"`[^`]+`", "", content_no_code)
 
         # 移除表格（简化处理）
         filtered_lines = []
-        in_table = False
         for line in lines:
             stripped = line.strip()
             # 跳过代码块标记行
@@ -487,7 +484,7 @@ class DocumentReadabilityAnalyzer:
             if result is not None:
                 analyzed_count += 1
 
-        print(f"\n📊 可读性分析完成:")
+        print("\n📊 可读性分析完成:")
         print(f"  ✅ 成功分析: {analyzed_count}/{len(md_files)} 个文件")
 
         # 计算整体统计
@@ -504,7 +501,7 @@ class DocumentReadabilityAnalyzer:
                 if level in levels:
                     levels[level] += 1
 
-            print(f"  📊 分数分布:")
+            print("  📊 分数分布:")
             for level, count in levels.items():
                 if count > 0:
                     percentage = (count / len(self.metrics)) * 100
@@ -518,7 +515,7 @@ class DocumentReadabilityAnalyzer:
             return "# 文档可读性分析报告\n\n❌ 未分析任何文档"
 
         report = "# 文档可读性分析报告\n\n"
-        report += f"## 摘要\n"
+        report += "## 摘要\n"
         report += f"- 分析文件数: {len(self.metrics)}\n"
 
         total_score = sum(m.get("overall_score", 0) for m in self.metrics.values())
@@ -542,7 +539,7 @@ class DocumentReadabilityAnalyzer:
 
             # 基础统计
             basic = metrics["basic_stats"]
-            report += f"**基础统计**:\n"
+            report += "**基础统计**:\n"
             report += f"- 总行数: {basic['total_lines']}\n"
             report += f"- 段落数: {basic['paragraphs']}\n"
             report += f"- 句子数: {basic['sentences']}\n"
@@ -550,14 +547,14 @@ class DocumentReadabilityAnalyzer:
 
             # 可读性分数
             readability = metrics["readability_scores"]
-            report += f"**可读性分数**:\n"
+            report += "**可读性分数**:\n"
             report += f"- 调整Flesch-Kincaid: {readability['flesch_kincaid_adjusted']} ({readability['readability_interpretation']})\n"
             report += f"- 调整Gunning Fog: {readability['gunning_fog_adjusted']}\n"
             report += f"- 调整Coleman-Liau: {readability['coleman_liau_adjusted']}\n\n"
 
             # 技术术语
             technical = metrics["technical_density"]
-            report += f"**技术术语**:\n"
+            report += "**技术术语**:\n"
             report += f"- 技术术语数: {technical['technical_term_count']}\n"
             report += f"- 唯一术语: {technical['unique_technical_terms']}\n"
             report += f"- 术语密度: {technical['technical_density_percent']}%\n"
@@ -567,7 +564,7 @@ class DocumentReadabilityAnalyzer:
             # 生成建议
             suggestions = self._generate_suggestions(metrics)
             if suggestions:
-                report += f"**改进建议**:\n"
+                report += "**改进建议**:\n"
                 for suggestion in suggestions:
                     report += f"- {suggestion}\n"
 

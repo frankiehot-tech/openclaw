@@ -10,7 +10,7 @@ import re
 import subprocess
 from datetime import datetime
 from pathlib import Path
-from typing import Any, Dict, List
+from typing import Any
 
 
 class ClawAnalyzer:
@@ -20,7 +20,7 @@ class ClawAnalyzer:
         self.codebase_path = Path(codebase_path)
         self.analysis_results = {}
 
-    def analyze_codebase_structure(self) -> Dict[str, Any]:
+    def analyze_codebase_structure(self) -> dict[str, Any]:
         """分析代码库基础结构"""
 
         print("🔍 分析代码库基础结构...")
@@ -63,7 +63,7 @@ class ClawAnalyzer:
 
         return structure
 
-    def extract_feature_flags(self) -> Dict[str, List[str]]:
+    def extract_feature_flags(self) -> dict[str, list[str]]:
         """提取特性标志系统"""
 
         print("🔍 提取特性标志系统...")
@@ -83,7 +83,7 @@ class ClawAnalyzer:
 
         for file_path in self.codebase_path.rglob("*.ts"):
             try:
-                with open(file_path, "r", encoding="utf-8") as f:
+                with open(file_path, encoding="utf-8") as f:
                     content = f.read()
 
                 # 匹配各种特性标志
@@ -129,7 +129,7 @@ class ClawAnalyzer:
 
         return feature_flags
 
-    def identify_hidden_subsystems(self) -> Dict[str, Any]:
+    def identify_hidden_subsystems(self) -> dict[str, Any]:
         """识别隐藏子系统"""
 
         print("🔍 识别隐藏子系统...")
@@ -149,7 +149,7 @@ class ClawAnalyzer:
 
         for file_path in self.codebase_path.rglob("*.ts"):
             try:
-                with open(file_path, "r", encoding="utf-8") as f:
+                with open(file_path, encoding="utf-8") as f:
                     content = f.read()
 
                 relative_path = str(file_path.relative_to(self.codebase_path))
@@ -171,7 +171,7 @@ class ClawAnalyzer:
 
         return subsystems
 
-    def analyze_query_engine_complexity(self) -> Dict[str, Any]:
+    def analyze_query_engine_complexity(self) -> dict[str, Any]:
         """分析QueryEngine复杂度"""
 
         print("🔍 分析QueryEngine复杂度...")
@@ -204,7 +204,7 @@ class ClawAnalyzer:
 
         for file_path in query_engine_files:
             try:
-                with open(file_path, "r", encoding="utf-8") as f:
+                with open(file_path, encoding="utf-8") as f:
                     lines = f.readlines()
 
                 file_lines = len(lines)
@@ -229,7 +229,7 @@ class ClawAnalyzer:
 
         return query_engine_analysis
 
-    def generate_architecture_report(self) -> Dict[str, Any]:
+    def generate_architecture_report(self) -> dict[str, Any]:
         """生成架构分析报告"""
 
         print("📊 生成架构分析报告...")
@@ -256,7 +256,7 @@ class ClawAnalyzer:
 
         return report
 
-    def _generate_key_findings(self, report: Dict[str, Any]):
+    def _generate_key_findings(self, report: dict[str, Any]):
         """生成关键发现"""
 
         findings = report["key_findings"]
@@ -277,7 +277,7 @@ class ClawAnalyzer:
         feature_flags = report["feature_flags"]
         findings["feature_flag_count"] = sum(len(v) for v in feature_flags.values())
 
-    def _generate_recommendations(self, report: Dict[str, Any]):
+    def _generate_recommendations(self, report: dict[str, Any]):
         """生成建议"""
 
         recommendations = report["recommendations"]

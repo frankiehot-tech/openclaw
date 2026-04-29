@@ -1,4 +1,6 @@
 #!/usr/bin/env python3
+# DEPRECATED: 使用 governance/ 模块代替
+# governance_cli.py <command>
 """
 综合队列修复脚本
 同时修复manifest文件和队列状态文件，确保修复持久化
@@ -9,7 +11,7 @@ import os
 import subprocess
 import sys
 import time
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from pathlib import Path
 
 # 添加项目根目录到Python路径
@@ -22,7 +24,6 @@ try:
         PLAN_QUEUE_DIR,
         ROOT_DIR,
         SCRIPTS_DIR,
-        get_queue_file,
     )
 except ImportError as e:
     print(f"⚠️  警告: 无法导入路径配置模块: {e}")
@@ -67,7 +68,7 @@ TASK_TO_INSTRUCTION = {
 
 def load_json_file(file_path):
     """加载JSON文件"""
-    with open(file_path, "r", encoding="utf-8") as f:
+    with open(file_path, encoding="utf-8") as f:
         return json.load(f)
 
 
@@ -191,13 +192,13 @@ def fix_queue_state_file():
         state["pause_reason"] = ""
         state["current_item_id"] = first_task
         state["current_item_ids"] = manual_hold_tasks
-        state["updated_at"] = datetime.now(timezone.utc).isoformat()
+        state["updated_at"] = datetime.now(UTC).isoformat()
 
         # 更新第一个任务状态
         items[first_task]["status"] = "running"
         items[first_task]["progress_percent"] = 0
         if not items[first_task].get("started_at"):
-            items[first_task]["started_at"] = datetime.now(timezone.utc).isoformat()
+            items[first_task]["started_at"] = datetime.now(UTC).isoformat()
 
         # 其他任务设置为pending
         for i, task_id in enumerate(manual_hold_tasks):
@@ -224,7 +225,7 @@ def fix_queue_state_file():
         state["counts"] = counts
         fixed_manual_hold = True
 
-        print(f"✅ 队列状态修复完成:")
+        print("✅ 队列状态修复完成:")
         print(f"   • queue_status: {state['queue_status']}")
         print(f"   • current_item_id: {state['current_item_id']}")
         print(f"   • counts: {counts}")
@@ -251,21 +252,21 @@ def verify_api_key():
 
         # 检查key格式
         if dashscope_key.startswith("sk-"):
-            print(f"  ✅ API key格式正确 (以'sk-'开头)")
+            print("  ✅ API key格式正确 (以'sk-'开头)")
         else:
-            print(f"  ⚠️  API key格式可能不正确 (不以'sk-'开头)")
+            print("  ⚠️  API key格式可能不正确 (不以'sk-'开头)")
 
         # 检查控制面配置
         control_plane_path = str(ROOT_DIR / "mini-agent" / "config" / "control_plane.yaml")
         if os.path.exists(control_plane_path):
-            with open(control_plane_path, "r", encoding="utf-8") as f:
+            with open(control_plane_path, encoding="utf-8") as f:
                 content = f.read()
                 if "dashscope_api_key" in content:
-                    print(f"  ✅ 控制面配置包含dashscope_api_key")
+                    print("  ✅ 控制面配置包含dashscope_api_key")
                 else:
-                    print(f"  ⚠️  控制面配置可能不包含dashscope_api_key")
+                    print("  ⚠️  控制面配置可能不包含dashscope_api_key")
     else:
-        print(f"❌ 未找到DASHSCOPE_API_KEY环境变量")
+        print("❌ 未找到DASHSCOPE_API_KEY环境变量")
         return False
 
     return True
@@ -324,11 +325,11 @@ def test_web_api():
     try:
         result = subprocess.run(cmd, shell=True, capture_output=True, text=True, timeout=5)
         if result.returncode == 0:
-            print(f"✅ Web API访问成功")
+            print("✅ Web API访问成功")
             try:
                 data = json.loads(result.stdout)
                 print(f"   API响应: 找到 {len(data.get('routes', []))} 个路由")
-            except:
+            except Exception:
                 print(f"   API响应 (原始): {result.stdout[:200]}...")
         else:
             print(f"❌ Web API访问失败: {result.stderr[:100]}")

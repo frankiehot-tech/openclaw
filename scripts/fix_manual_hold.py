@@ -1,4 +1,6 @@
 #!/usr/bin/env python3
+# DEPRECATED: 使用 governance/ 模块代替
+# governance_cli.py repair <command> 或 governance_cli.py queue fix
 """
 将manual_hold任务状态改为pending，以解除依赖阻塞
 """
@@ -18,7 +20,7 @@ def fix_manual_hold():
 
     try:
         # 读取文件
-        with open(queue_file, "r", encoding="utf-8") as f:
+        with open(queue_file, encoding="utf-8") as f:
             data = json.load(f)
 
         modified = False
@@ -41,9 +43,9 @@ def fix_manual_hold():
                 if response.lower() == "y":
                     task_data["status"] = "pending"
                     modified = True
-                    print(f"  已修改状态为 pending")
+                    print("  已修改状态为 pending")
                 else:
-                    print(f"  跳过此任务")
+                    print("  跳过此任务")
 
         if not modified:
             print("未找到manual_hold任务或用户取消修改")
@@ -63,7 +65,7 @@ def fix_manual_hold():
         with open(queue_file, "w", encoding="utf-8") as f:
             json.dump(data, f, ensure_ascii=False, indent=2)
 
-        print(f"文件已更新")
+        print("文件已更新")
         print(f"新counts: {counts}")
         return True
 

@@ -16,10 +16,9 @@ import json
 import logging
 import os
 import signal
-import subprocess
 import sys
 import time
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from pathlib import Path
 from typing import Any
 
@@ -35,11 +34,8 @@ try:
     from .openclaw_roots import (
         LOG_DIR,
         PLAN_CONFIG_PATH,
-        PLAN_DIR,
         QUEUE_STATE_DIR,
-        RUNTIME_ROOT,
         TASKS_DIR,
-        TASKS_PATH,
         pid_file,
     )
 except ImportError:
@@ -49,11 +45,8 @@ except ImportError:
     from openclaw_roots import (
         LOG_DIR,
         PLAN_CONFIG_PATH,
-        PLAN_DIR,
         QUEUE_STATE_DIR,
-        RUNTIME_ROOT,
         TASKS_DIR,
-        TASKS_PATH,
         pid_file,
     )
 
@@ -61,142 +54,45 @@ PID_FILE = pid_file("athena_ai_plan_runner")
 
 
 # ── Import extracted modules from runner/ package ────────────────
+import contextlib
+
 from .runner.config import (
-    load_plan_config,
-    load_control_plane_config,
-    archive_dir_from_config,
-    is_pid_alive,
-    terminate_pid_tree,
     HEARTBEAT_TIMEOUT_SECONDS,
     POLL_SECONDS,
-    STALE_TASK_TIMEOUT_SECONDS,
-    AUTO_RETRY_LIMIT,
-    BLOCKED_RESCUE_RETRY_LIMIT,
-    AUTO_RETRY_COOLDOWN_SECONDS,
-    BLOCKED_RESCUE_RETRY_COOLDOWN_SECONDS,
-    RETRYABLE_FAILURE_MARKERS,
-    BLOCKED_RESCUE_FAILURE_MARKERS,
-    AUTO_ARCHIVE_COMPLETED,
-    BUILD_TIMEOUT_SECONDS,
-    REVIEW_TIMEOUT_SECONDS,
-    PLAN_TIMEOUT_SECONDS,
-    STALL_OUTPUT_TIMEOUT_SECONDS,
-    MIN_FREE_MEMORY_PERCENT,
-    MAX_BUILD_WORKERS,
-    SECOND_BUILD_MIN_FREE_MEMORY_PERCENT,
-    MAX_BUILD_LOAD_PER_CORE,
-    MAX_BUILD_LOAD_ABSOLUTE,
-    OLLAMA_BUSY_CPU_PERCENT,
-)
-from .runner.executor import queue_route_by_mode
-from .runner.state import (
-    get_global_gate,
-    PARALLEL_BUILD_GATE_AVAILABLE,
+    load_plan_config,
 )
 from .runner.executor import (
-    spawn_build_worker,
-    execute_build_item,
-    execute_review_item,
-    execute_plan_item,
-    execute_item,
-    append_to_daily_memory,
-    queue_route_by_mode,
-    detect_and_cleanup_stale_runs,
-    maybe_mark_restarted_runs_failed,
-    load_dependency_state_index,
-    route_matches_runner_modes,
-    choose_next_item,
-    finalize_completed_instruction,
     archive_existing_completed_instructions,
+    choose_next_item,
+    detect_and_cleanup_stale_runs,
+    execute_item,
+    maybe_mark_restarted_runs_failed,
+    route_matches_runner_modes,
+    spawn_build_worker,
 )
 from .runner.failure import (
-    failure_text,
-    retry_window_open,
-    is_retryable_failed_item,
-    is_blocked_rescue_retryable_failed_item,
-    failure_markdown,
-    success_markdown,
-    mark_stale_failed,
     auto_retry_blocking_failures,
+    mark_stale_failed,
 )
 from .runner.manifest import (
-    load_manifest_items,
-    manifest_item_depends_on,
-    materialize_route_items,
-    compute_route_counts_and_status,
-    update_manifest_instruction_path,
-    archive_instruction_path_if_needed,
-    upsert_manifest_item,
-    normalize_generated_queue_item,
-    upsert_route_state_item,
-    append_generated_queue_items,
-    find_manifest_item,
     active_route_item_ids,
     find_manifest_item_with_normalization,
-    route_index_by_item_id,
-)
-from .runner.preflight import (
-    common_preflight_warnings,
-    build_preflight_warnings,
-    review_preflight_warnings,
-    plan_preflight_warnings,
-    validate_build_preflight,
-    render_prompt,
-    render_review_prompt,
-    render_plan_prompt,
+    load_manifest_items,
 )
 from .runner.route_state import (
+    load_route_state,
     route_runner_mode,
     route_state_path,
-    route_state_lock_path,
-    _normalize_route_state,
-    load_route_state,
     write_route_state,
-    route_current_item_ids,
-    mutate_route_state,
 )
 from .runner.state import (
-    emit_event,
+    PARALLEL_BUILD_GATE_AVAILABLE,
+    get_global_gate,
     record_performance_metric,
 )
 from .runner.task import (
-    load_tasks_payload,
-    save_tasks_payload,
-    upsert_task_record,
-    set_task_status,
-    set_route_item_state,
-    add_route_current_item,
     remove_route_current_item,
-    replace_route_current_items,
-    reset_failed_item_for_auto_retry,
 )
-from .runner.trace import (
-    create_task_workspace,
-    update_trace_event,
-    update_trace_status_change,
-    add_trace_artifact,
-)
-from .runner.utils import (
-    now_iso,
-    slugify,
-    clip,
-    read_json,
-    write_json,
-    extract_referenced_paths,
-    is_pid_alive,
-    terminate_process_tree,
-    terminate_pid_tree,
-    is_instruction_under_plan_dir,
-    system_free_memory_percent,
-    system_load_average,
-    ollama_active_cpu_percent,
-    extract_structured_result,
-    codex_executable,
-    resource_gate_message,
-    dynamic_build_worker_budget,
-    root_task_id_for,
-)
-
 
 # ── Entry-point functions ────────────────────────────────────────
 
@@ -269,7 +165,7 @@ def main() -> int:
             args.item_id = normalized.id
         except Exception as e:
             print(f"⚠️  TaskIdentityContract规范化失败: {e}", file=sys.stderr)
-            print(f"⚠️  使用快速修复: 添加'task_'前缀", file=sys.stderr)
+            print("⚠️  使用快速修复: 添加'task_'前缀", file=sys.stderr)
             # 快速回退修复
             if args.item_id.startswith("-") or args.item_id.startswith("+"):
                 args.item_id = "task_" + args.item_id[1:]
@@ -314,11 +210,11 @@ def run_item_mode(
     item = find_manifest_item_with_normalization(route, item_id)
     if not item:
         print(f"Error: item not found in manifest: {item_id}", file=sys.stderr)
-        print(f"⚠️  尝试了规范化匹配但未找到对应条目，请检查ID格式", file=sys.stderr)
+        print("⚠️  尝试了规范化匹配但未找到对应条目，请检查ID格式", file=sys.stderr)
         # 列出前5个可用ID供用户参考
         try:
             manifest_items = load_manifest_items(route)
-            print(f"⚠️  可用的manifest条目ID (前5个):", file=sys.stderr)
+            print("⚠️  可用的manifest条目ID (前5个):", file=sys.stderr)
             for manifest_item in manifest_items[:5]:
                 manifest_id = str(manifest_item.get("id", "") or "")
                 if manifest_id:
@@ -403,8 +299,8 @@ def run_once_mode(
             try:
                 heartbeat_time = datetime.fromisoformat(runner_heartbeat_at.replace("Z", "+00:00"))
                 if heartbeat_time.tzinfo is None:
-                    heartbeat_time = heartbeat_time.replace(tzinfo=timezone.utc)
-                now = datetime.now(timezone.utc)
+                    heartbeat_time = heartbeat_time.replace(tzinfo=UTC)
+                now = datetime.now(UTC)
                 delta = (now - heartbeat_time).total_seconds()
                 if delta > HEARTBEAT_TIMEOUT_SECONDS:
                     print(
@@ -455,7 +351,7 @@ def status_mode(target: str) -> int:
                 and "queue_id" not in content
             ):
                 print(
-                    f"Error: The file appears to be a manifest (contains 'items' list), not a queue state file.",
+                    "Error: The file appears to be a manifest (contains 'items' list), not a queue state file.",
                     file=sys.stderr,
                 )
                 print(
@@ -559,7 +455,7 @@ def daemon_mode(
         # 记录调度摘要（用于调试）
         if PARALLEL_BUILD_GATE_AVAILABLE:
             try:
-                summary = gate.generate_scheduling_summary()
+                gate.generate_scheduling_summary()
                 # 每10次迭代记录一次详细摘要
                 if not hasattr(daemon_mode, "_summary_counter"):
                     daemon_mode._summary_counter = 0
@@ -634,8 +530,6 @@ def daemon_mode(
             break
         if not did_work:
             time.sleep(POLL_SECONDS)
-    try:
+    with contextlib.suppress(FileNotFoundError):
         pid_file.unlink()
-    except FileNotFoundError:
-        pass
     return 0

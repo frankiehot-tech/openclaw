@@ -6,7 +6,6 @@
 import json
 import os
 import sys
-import time
 from datetime import datetime
 
 
@@ -31,7 +30,7 @@ def check_queue_progress():
         print(f"⚠️ 配置文件不存在: {config_file}")
         return
 
-    with open(config_file, "r", encoding="utf-8") as f:
+    with open(config_file, encoding="utf-8") as f:
         config = json.load(f)
 
     routes = config.get("routes", [])
@@ -49,7 +48,7 @@ def check_queue_progress():
         # 加载状态文件
         state_file = f".openclaw/plan_queue/{queue_id}.json"
         try:
-            with open(state_file, "r", encoding="utf-8") as f:
+            with open(state_file, encoding="utf-8") as f:
                 state_data = json.load(f)
         except Exception as e:
             print(f"    ⚠️ 无法加载状态文件 {state_file}: {e}")
@@ -114,9 +113,9 @@ def check_queue_progress():
         print(f"    完成度: {completion_rate:.2f}% (已完成 {completed}/{total})")
 
         if completion_rate >= 90.0:
-            print(f"    ✅ 完成度超过90%，准备分析报告")
+            print("    ✅ 完成度超过90%，准备分析报告")
         else:
-            print(f"    📊 完成度未达90%，记录当前进度")
+            print("    📊 完成度未达90%，记录当前进度")
             all_queues_above_90 = False
 
     # 生成报告
@@ -137,7 +136,7 @@ def generate_report(report_data, all_above_90):
     os.makedirs("logs", exist_ok=True)
 
     with open(report_file, "w", encoding="utf-8") as f:
-        f.write(f"# 队列分析报告\n\n")
+        f.write("# 队列分析报告\n\n")
         f.write(f"生成时间: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}\n\n")
 
         # 总体统计
@@ -149,7 +148,7 @@ def generate_report(report_data, all_above_90):
 
         overall_rate = (total_completed / total_tasks * 100) if total_tasks > 0 else 0
 
-        f.write(f"## 总体概览\n\n")
+        f.write("## 总体概览\n\n")
         f.write(f"- **队列数量**: {total_queues}\n")
         f.write(f"- **完成度≥90%的队列**: {above_90_count}/{total_queues}\n")
         f.write(f"- **总任务数**: {total_tasks}\n")
@@ -161,7 +160,7 @@ def generate_report(report_data, all_above_90):
         )
 
         # 各队列详情
-        f.write(f"## 队列详情\n\n")
+        f.write("## 队列详情\n\n")
         for queue in report_data:
             f.write(f"### {queue['name']} ({queue['route_id']})\n\n")
             f.write(f"- **队列ID**: {queue['queue_id']}\n")
@@ -178,20 +177,20 @@ def generate_report(report_data, all_above_90):
                     if task["error"]:
                         f.write(f"     错误: {task['error']}\n")
             else:
-                f.write(f"- **失败任务**: 无\n")
+                f.write("- **失败任务**: 无\n")
 
-            f.write(f"\n")
+            f.write("\n")
 
         # 建议
-        f.write(f"## 建议\n\n")
+        f.write("## 建议\n\n")
         if all_above_90:
-            f.write(f"1. ✅ 所有队列完成度均超过90%，可以考虑进行最终验证和归档。\n")
-            f.write(f"2. 📊 分析失败任务原因，考虑是否需要进行重试或忽略。\n")
-            f.write(f"3. 🗂️  将已完成队列移动到归档目录。\n")
+            f.write("1. ✅ 所有队列完成度均超过90%，可以考虑进行最终验证和归档。\n")
+            f.write("2. 📊 分析失败任务原因，考虑是否需要进行重试或忽略。\n")
+            f.write("3. 🗂️  将已完成队列移动到归档目录。\n")
         else:
-            f.write(f"1. ⚠️  有队列未达到90%完成度，需要继续监控或人工干预。\n")
-            f.write(f"2. 🔄 重点关注失败任务，分析失败原因。\n")
-            f.write(f"3. 📈 监控队列进度，确保任务正常推进。\n")
+            f.write("1. ⚠️  有队列未达到90%完成度，需要继续监控或人工干预。\n")
+            f.write("2. 🔄 重点关注失败任务，分析失败原因。\n")
+            f.write("3. 📈 监控队列进度，确保任务正常推进。\n")
 
     print(f"📄 分析报告已生成: {report_file}")
     return report_file
@@ -231,7 +230,7 @@ def main():
     print(f"时间: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
     print("=" * 60)
 
-    report_data = check_queue_progress()
+    check_queue_progress()
 
     print("=" * 60)
     print("进度检查完成")

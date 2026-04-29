@@ -7,7 +7,7 @@ import subprocess
 import sys
 import tempfile
 import time
-from datetime import datetime, timedelta, timezone
+from datetime import UTC, datetime, timedelta
 from pathlib import Path
 
 RUNTIME_ROOT = Path("/Volumes/1TB-M2/openclaw")
@@ -30,7 +30,7 @@ def test_recent_running_task_not_stale():
     """A task that is running with fresh heartbeat and recent update should NOT be marked stale."""
     print("Testing recent running task not stale...")
     with tempfile.NamedTemporaryFile(mode="w", suffix=".json", delete=False) as f:
-        recent_time = datetime.now(timezone.utc).isoformat(timespec="seconds")
+        recent_time = datetime.now(UTC).isoformat(timespec="seconds")
         queue_state = {
             "queue_id": "test_recent_running",
             "name": "Test recent running",
@@ -62,7 +62,7 @@ def test_recent_running_task_not_stale():
 
     try:
         # Run detect_and_cleanup_stale_runs via run-once (which calls cleanup)
-        result = subprocess.run(
+        subprocess.run(
             [
                 sys.executable,
                 str(SCRIPTS_DIR / "athena_ai_plan_runner.py"),
@@ -73,7 +73,7 @@ def test_recent_running_task_not_stale():
             text=True,
         )
         # Load updated state
-        with open(temp_path, "r", encoding="utf-8") as f:
+        with open(temp_path, encoding="utf-8") as f:
             updated = json.load(f)
         if updated["items"]["test_item"]["status"] == "running":
             print("  PASS: recent running task not marked stale")
@@ -88,7 +88,7 @@ def test_recent_running_task_not_stale():
 def test_heartbeat_timeout_stale():
     """A task with expired heartbeat and old update should be marked stale."""
     print("Testing heartbeat timeout stale detection...")
-    old_time = (datetime.now(timezone.utc) - timedelta(seconds=400)).isoformat(timespec="seconds")
+    old_time = (datetime.now(UTC) - timedelta(seconds=400)).isoformat(timespec="seconds")
     with tempfile.NamedTemporaryFile(mode="w", suffix=".json", delete=False) as f:
         queue_state = {
             "queue_id": "test_heartbeat_stale",
@@ -121,7 +121,7 @@ def test_heartbeat_timeout_stale():
 
     try:
         # Run detect_and_cleanup_stale_runs via run-once
-        result = subprocess.run(
+        subprocess.run(
             [
                 sys.executable,
                 str(SCRIPTS_DIR / "athena_ai_plan_runner.py"),
@@ -132,7 +132,7 @@ def test_heartbeat_timeout_stale():
             text=True,
         )
         # Load updated state
-        with open(temp_path, "r", encoding="utf-8") as f:
+        with open(temp_path, encoding="utf-8") as f:
             updated = json.load(f)
         if updated["items"]["test_item"]["status"] == "failed":
             print("  PASS: stale item marked as failed")
@@ -195,7 +195,7 @@ def test_choose_next_skips_manual_hold_item():
             "queue_id": "test_build_queue",
             "name": "Test build queue",
             "current_item_id": "",
-            "updated_at": datetime.now(timezone.utc).isoformat(timespec="seconds"),
+            "updated_at": datetime.now(UTC).isoformat(timespec="seconds"),
             "items": {
                 "manual_hold": {"status": "pending"},
                 "auto_build": {"status": "pending"},
@@ -246,7 +246,7 @@ def test_choose_next_supports_codex_review_runner():
             "queue_id": "test_review_queue",
             "name": "Test review queue",
             "current_item_id": "",
-            "updated_at": datetime.now(timezone.utc).isoformat(timespec="seconds"),
+            "updated_at": datetime.now(UTC).isoformat(timespec="seconds"),
             "items": {
                 "build_done": {"status": "completed"},
                 "review_item": {"status": "pending"},
@@ -300,7 +300,7 @@ def test_cross_route_dependency_is_resolved():
             "queue_id": queue_id,
             "name": "Test review cross route",
             "current_item_id": "",
-            "updated_at": datetime.now(timezone.utc).isoformat(timespec="seconds"),
+            "updated_at": datetime.now(UTC).isoformat(timespec="seconds"),
             "items": {
                 "review_cross": {"status": "pending"},
             },
@@ -311,7 +311,7 @@ def test_cross_route_dependency_is_resolved():
             "queue_id": "external_build",
             "name": "External build",
             "current_item_id": "",
-            "updated_at": datetime.now(timezone.utc).isoformat(timespec="seconds"),
+            "updated_at": datetime.now(UTC).isoformat(timespec="seconds"),
             "items": {
                 "build_done_elsewhere": {"status": "completed"},
             },
@@ -348,7 +348,7 @@ def test_active_route_item_ids_ignore_finished_current_residue():
         "name": "Test finished residue",
         "current_item_id": "failed_item",
         "current_item_ids": ["failed_item", "completed_item", "running_item"],
-        "updated_at": datetime.now(timezone.utc).isoformat(timespec="seconds"),
+        "updated_at": datetime.now(UTC).isoformat(timespec="seconds"),
         "items": {
             "failed_item": {"status": "failed"},
             "completed_item": {"status": "completed"},
@@ -378,7 +378,7 @@ def test_normalize_route_state_filters_finished_current_ids():
             "running_item",
             "pending_item",
         ],
-        "updated_at": datetime.now(timezone.utc).isoformat(timespec="seconds"),
+        "updated_at": datetime.now(UTC).isoformat(timespec="seconds"),
         "items": {
             "failed_item": {"status": "failed"},
             "completed_item": {"status": "completed"},
@@ -404,7 +404,7 @@ def test_dead_runner_pid_marked_stale():
     """Running item with dead runner PID should be marked stale."""
     print("Testing dead runner PID detection...")
     with tempfile.NamedTemporaryFile(mode="w", suffix=".json", delete=False) as f:
-        recent_time = datetime.now(timezone.utc).isoformat(timespec="seconds")
+        recent_time = datetime.now(UTC).isoformat(timespec="seconds")
         queue_state = {
             "queue_id": "test_dead_pid",
             "name": "Test dead PID",
@@ -437,7 +437,7 @@ def test_dead_runner_pid_marked_stale():
 
     try:
         # Run detect_and_cleanup_stale_runs via run-once (which calls cleanup)
-        result = subprocess.run(
+        subprocess.run(
             [
                 sys.executable,
                 str(SCRIPTS_DIR / "athena_ai_plan_runner.py"),
@@ -448,7 +448,7 @@ def test_dead_runner_pid_marked_stale():
             text=True,
         )
         # Load updated state
-        with open(temp_path, "r", encoding="utf-8") as f:
+        with open(temp_path, encoding="utf-8") as f:
             updated = json.load(f)
         if updated["items"]["test_item"]["status"] == "failed":
             print("  PASS: dead runner PID detected and marked failed")
@@ -468,7 +468,7 @@ def test_direct_script_status_entrypoint():
             "queue_id": "test_direct_entry",
             "name": "Test direct entry",
             "current_item_id": "",
-            "updated_at": datetime.now(timezone.utc).isoformat(timespec="seconds"),
+            "updated_at": datetime.now(UTC).isoformat(timespec="seconds"),
             "items": {},
         }
         json.dump(queue_state, f, ensure_ascii=False, indent=2)
@@ -531,7 +531,7 @@ def test_choose_next_supports_codex_plan_runner():
             "queue_id": "test_plan_queue",
             "name": "Test plan queue",
             "current_item_id": "",
-            "updated_at": datetime.now(timezone.utc).isoformat(timespec="seconds"),
+            "updated_at": datetime.now(UTC).isoformat(timespec="seconds"),
             "items": {
                 "plan_item": {"status": "pending"},
             },
@@ -668,7 +668,7 @@ def test_auto_retry_requeues_failed_dependency():
                     "queue_id": "test_build_queue",
                     "name": "Test Build Queue",
                     "current_item_id": "",
-                    "updated_at": datetime.now(timezone.utc).isoformat(timespec="seconds"),
+                    "updated_at": datetime.now(UTC).isoformat(timespec="seconds"),
                     "items": {
                         "dep_build": {
                             "status": "failed",
@@ -689,7 +689,7 @@ def test_auto_retry_requeues_failed_dependency():
                     "queue_id": "test_review_queue",
                     "name": "Test Review Queue",
                     "current_item_id": "",
-                    "updated_at": datetime.now(timezone.utc).isoformat(timespec="seconds"),
+                    "updated_at": datetime.now(UTC).isoformat(timespec="seconds"),
                     "items": {"review_item": {"status": "pending"}},
                 },
                 ensure_ascii=False,
@@ -777,7 +777,7 @@ def test_blocked_rescue_retry_unblocks_certificate_failure_after_retry_limit():
                     "name": "Test Build Queue",
                     "current_item_id": "",
                     "current_item_ids": [],
-                    "updated_at": datetime.now(timezone.utc).isoformat(timespec="seconds"),
+                    "updated_at": datetime.now(UTC).isoformat(timespec="seconds"),
                     "queue_status": "dependency_blocked",
                     "items": {
                         "dep_build": {
@@ -786,7 +786,7 @@ def test_blocked_rescue_retry_unblocks_certificate_failure_after_retry_limit():
                             "summary": "Error: unknown certificate verification error",
                             "auto_retry_count": 3,
                             "last_auto_retry_at": (
-                                datetime.now(timezone.utc) - timedelta(hours=1)
+                                datetime.now(UTC) - timedelta(hours=1)
                             ).isoformat(timespec="seconds"),
                         },
                         "child_build": {"status": "pending"},

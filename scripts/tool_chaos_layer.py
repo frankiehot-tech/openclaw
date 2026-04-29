@@ -6,15 +6,12 @@
 """
 
 import logging
-import os
 import random
-import sys
 import threading
 import time
 from dataclasses import dataclass
 from datetime import datetime
-from enum import Enum
-from typing import Any, Dict, List, Optional
+from typing import Any
 
 # 设置日志
 logging.basicConfig(
@@ -30,7 +27,7 @@ class MockToolConfig:
     tool_name: str
     success_rate: float  # 成功率 (0.0-1.0)
     avg_response_time_ms: int  # 平均响应时间(毫秒)
-    error_patterns: List[Dict[str, Any]]  # 错误模式
+    error_patterns: list[dict[str, Any]]  # 错误模式
 
 
 class ToolChaosLayer:
@@ -44,9 +41,9 @@ class ToolChaosLayer:
             safe_mode: 安全模式，为True时避免真实系统破坏
         """
         self.safe_mode = safe_mode
-        self.active_mocks: Dict[str, MockToolConfig] = {}
-        self.original_tool_behaviors: Dict[str, Dict] = {}
-        self.circuit_breaker_states: Dict[str, Dict] = {}  # 熔断器状态
+        self.active_mocks: dict[str, MockToolConfig] = {}
+        self.original_tool_behaviors: dict[str, dict] = {}
+        self.circuit_breaker_states: dict[str, dict] = {}  # 熔断器状态
 
         # 模拟工具配置
         self._initialize_mock_tools()
@@ -109,7 +106,7 @@ class ToolChaosLayer:
             },
         }
 
-    def inject_fault(self, fault_type: str, severity: str, duration_seconds: int = 60) -> Dict:
+    def inject_fault(self, fault_type: str, severity: str, duration_seconds: int = 60) -> dict:
         """
         注入工具层故障
 
@@ -210,7 +207,7 @@ class ToolChaosLayer:
 
         return result
 
-    def _get_fault_parameters(self, fault_type: str, severity: str) -> Dict:
+    def _get_fault_parameters(self, fault_type: str, severity: str) -> dict:
         """根据故障类型和严重程度获取故障参数"""
         severity_map = {
             "low": {"probability": 0.1, "impact": 0.3},
@@ -254,7 +251,7 @@ class ToolChaosLayer:
         else:
             return {"error": f"未知故障类型: {fault_type}"}
 
-    def _inject_api_error(self, fault_params: Dict) -> Dict:
+    def _inject_api_error(self, fault_params: dict) -> dict:
         """注入API错误故障"""
         if self.safe_mode:
             return {
@@ -274,7 +271,7 @@ class ToolChaosLayer:
             "details": fault_params,
         }
 
-    def _inject_timeout(self, fault_params: Dict) -> Dict:
+    def _inject_timeout(self, fault_params: dict) -> dict:
         """注入超时故障"""
         if self.safe_mode:
             return {
@@ -293,7 +290,7 @@ class ToolChaosLayer:
             "details": fault_params,
         }
 
-    def _inject_degradation(self, fault_params: Dict) -> Dict:
+    def _inject_degradation(self, fault_params: dict) -> dict:
         """注入性能降级故障"""
         if self.safe_mode:
             return {
@@ -324,7 +321,7 @@ class ToolChaosLayer:
 
         logger.info(f"安排工具故障 {fault_id} 在 {delay_seconds} 秒后自动恢复")
 
-    def recover_fault_by_id(self, fault_id: str) -> Dict:
+    def recover_fault_by_id(self, fault_id: str) -> dict:
         """
         通过故障ID恢复故障
 
@@ -352,7 +349,7 @@ class ToolChaosLayer:
         logger.info(f"工具层故障恢复成功: {fault_id}")
         return result
 
-    def recover_fault(self, fault_type: str) -> Dict:
+    def recover_fault(self, fault_type: str) -> dict:
         """
         恢复特定类型的故障
 
@@ -379,7 +376,7 @@ class ToolChaosLayer:
             "results": results,
         }
 
-    def simulate_tool_call(self, tool_name: str, request_data: Dict = None) -> Dict:
+    def simulate_tool_call(self, tool_name: str, request_data: dict = None) -> dict:
         """
         模拟工具调用（用于测试故障注入效果）
 
@@ -455,7 +452,7 @@ class ToolChaosLayer:
 
         return response
 
-    def get_active_faults(self) -> List[Dict]:
+    def get_active_faults(self) -> list[dict]:
         """获取所有活动故障"""
         result = []
         for fault_id, mock_config in self.active_mocks.items():
@@ -470,7 +467,7 @@ class ToolChaosLayer:
             )
         return result
 
-    def get_circuit_breaker_status(self, tool_name: str = None) -> Dict:
+    def get_circuit_breaker_status(self, tool_name: str = None) -> dict:
         """
         获取熔断器状态
 
@@ -522,7 +519,7 @@ def main():
     for i in range(5):
         response = layer.simulate_tool_call("api_tool", {"request_id": i})
         status = "成功" if response.get("success") else "失败"
-        print(f"   调用 {i+1}: {status}, 响应时间: {response.get('response_time_ms')}ms")
+        print(f"   调用 {i + 1}: {status}, 响应时间: {response.get('response_time_ms')}ms")
 
     # 获取活动故障
     print("\n5. 获取活动故障...")

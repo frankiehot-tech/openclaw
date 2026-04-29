@@ -11,9 +11,6 @@ import re
 import sys
 from datetime import datetime
 from pathlib import Path
-from typing import Dict, List, Optional, Tuple
-
-import yaml
 
 
 class DocumentVersionManager:
@@ -24,7 +21,7 @@ class DocumentVersionManager:
         self.verbose = verbose
         self.version_pattern = re.compile(r"^(\d+)\.(\d+)\.(\d+)$")
 
-    def parse_version(self, version_str: str) -> Tuple[int, int, int]:
+    def parse_version(self, version_str: str) -> tuple[int, int, int]:
         """解析版本字符串为(major, minor, patch)元组"""
         match = self.version_pattern.match(version_str)
         if not match:
@@ -49,7 +46,7 @@ class DocumentVersionManager:
         else:
             raise ValueError(f"无效的递增类型: {increment_type}。可选: major, minor, patch")
 
-    def extract_version_history(self, content: str) -> List[Dict]:
+    def extract_version_history(self, content: str) -> list[dict]:
         """从文档内容中提取版本历史表"""
         version_history = []
 
@@ -58,7 +55,7 @@ class DocumentVersionManager:
         in_version_history = False
         in_table = False
 
-        for i, line in enumerate(lines):
+        for _i, line in enumerate(lines):
             # 查找"## 版本历史"或"## Version History"
             if line.strip().startswith("## ") and ("版本历史" in line or "Version History" in line):
                 in_version_history = True
@@ -100,7 +97,6 @@ class DocumentVersionManager:
         lines = content.split("\n")
         new_lines = []
 
-        version_history_section = -1
         table_start = -1
 
         # 查找版本历史部分
@@ -108,8 +104,6 @@ class DocumentVersionManager:
             new_lines.append(line)
 
             if line.strip().startswith("## ") and ("版本历史" in line or "Version History" in line):
-                version_history_section = i
-
                 # 检查是否已有表格
                 has_table = False
                 for j in range(i + 1, min(i + 10, len(lines))):
@@ -145,7 +139,7 @@ class DocumentVersionManager:
 
         return "\n".join(new_lines)
 
-    def check_version_compatibility(self, old_version: str, new_version: str) -> Dict:
+    def check_version_compatibility(self, old_version: str, new_version: str) -> dict:
         """检查版本兼容性"""
         old_major, old_minor, old_patch = self.parse_version(old_version)
         new_major, new_minor, new_patch = self.parse_version(new_version)
@@ -175,10 +169,10 @@ class DocumentVersionManager:
 
         return result
 
-    def analyze_document_versions(self, doc_path: Path) -> Dict:
+    def analyze_document_versions(self, doc_path: Path) -> dict:
         """分析文档的版本信息"""
         try:
-            with open(doc_path, "r", encoding="utf-8") as f:
+            with open(doc_path, encoding="utf-8") as f:
                 content = f.read()
 
             # 提取版本历史
@@ -213,7 +207,7 @@ class DocumentVersionManager:
         except Exception as e:
             return {"file_path": str(doc_path.relative_to(self.docs_dir)), "error": str(e)}
 
-    def generate_version_report(self, output_file: Optional[str] = None) -> Dict:
+    def generate_version_report(self, output_file: str | None = None) -> dict:
         """生成文档版本报告"""
         print("📊 分析文档版本信息...")
 
@@ -230,7 +224,7 @@ class DocumentVersionManager:
 
         for i, md_file in enumerate(md_files):
             if self.verbose and (i + 1) % 10 == 0:
-                print(f"  分析进度: {i+1}/{len(md_files)}")
+                print(f"  分析进度: {i + 1}/{len(md_files)}")
 
             doc_analysis = self.analyze_document_versions(md_file)
             version_data["documents"].append(doc_analysis)
@@ -248,7 +242,7 @@ class DocumentVersionManager:
         # 生成摘要
         print(f"📄 总文档数: {version_data['total_documents']}")
         print(
-            f"📋 有版本历史的文档: {version_data['documents_with_version']} ({version_data['documents_with_version']/max(version_data['total_documents'], 1)*100:.1f}%)"
+            f"📋 有版本历史的文档: {version_data['documents_with_version']} ({version_data['documents_with_version'] / max(version_data['total_documents'], 1) * 100:.1f}%)"
         )
 
         if version_data["version_summary"]:
@@ -277,7 +271,7 @@ class DocumentVersionManager:
         description: str = "文档更新",
         contributor: str = "文档团队",
         dry_run: bool = False,
-    ) -> Dict:
+    ) -> dict:
         """更新文档版本"""
         doc_path = Path(file_path)
         if not doc_path.is_absolute():
@@ -287,7 +281,7 @@ class DocumentVersionManager:
             return {"success": False, "error": f"文件不存在: {doc_path}"}
 
         try:
-            with open(doc_path, "r", encoding="utf-8") as f:
+            with open(doc_path, encoding="utf-8") as f:
                 content = f.read()
 
             # 分析当前版本
@@ -308,7 +302,7 @@ class DocumentVersionManager:
             if current_version != "1.0.0":
                 compatibility = self.check_version_compatibility(current_version, new_version)
                 if compatibility.get("migration_needed"):
-                    print(f"⚠️  注意: 主版本变更可能需要迁移指南")
+                    print("⚠️  注意: 主版本变更可能需要迁移指南")
 
             # 添加版本历史条目
             new_content = self.add_version_entry(content, new_version, description, contributor)
@@ -334,7 +328,7 @@ class DocumentVersionManager:
                     "description": description,
                 }
 
-                print(f"✅ 文档版本更新成功")
+                print("✅ 文档版本更新成功")
                 if self.verbose:
                     print(f"   备份文件: {result['backup_file']}")
 

@@ -4,20 +4,19 @@
 提供实时队列状态、系统资源和告警信息的可视化界面
 """
 
-import json
 import os
 import sys
 import threading
 import time
-from datetime import datetime, timedelta
+from datetime import datetime
 from pathlib import Path
 
 import psutil
-from flask import Flask, jsonify, render_template, send_from_directory
+from flask import Flask, jsonify, render_template
 
 # 尝试导入Flask，如果未安装则提示
 try:
-    from flask import Flask, jsonify, render_template, send_from_directory
+    from flask import Flask, jsonify, render_template
 
     FLASK_AVAILABLE = True
 except ImportError:
@@ -974,10 +973,10 @@ def main():
     monitor_thread = threading.Thread(target=monitoring_worker, daemon=True)
     monitor_thread.start()
 
-    print(f"✅ 监控数据收集线程已启动")
-    print(f"🌐 Web仪表板将在 http://localhost:5002 启动")
-    print(f"📊 监控数据每30秒自动更新")
-    print(f"💡 按 Ctrl+C 停止服务器")
+    print("✅ 监控数据收集线程已启动")
+    print("🌐 Web仪表板将在 http://localhost:5002 启动")
+    print("📊 监控数据每30秒自动更新")
+    print("💡 按 Ctrl+C 停止服务器")
     print("=" * 60)
 
     # 启动Flask应用

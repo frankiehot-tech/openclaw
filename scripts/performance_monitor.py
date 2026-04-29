@@ -12,7 +12,7 @@ import logging
 import sys
 from datetime import datetime
 from pathlib import Path
-from typing import Any, Dict, List, Optional
+from typing import Any
 
 # Add scripts directory to path
 scripts_dir = Path(__file__).resolve().parent
@@ -21,10 +21,9 @@ if str(scripts_dir) not in sys.path:
 
 # Try to import performance metrics and alert engine
 try:
-    from agent.core.alert_rules import AlertLevel, get_global_alert_engine
+    from agent.core.alert_rules import get_global_alert_engine
     from agent.core.performance_metrics import (
         MetricDimension,
-        PerformanceMetricsCollector,
         get_global_collector,
     )
 
@@ -34,7 +33,7 @@ except ImportError as e:
     PERFORMANCE_MODULES_AVAILABLE = False
 
 
-def collect_metrics_summary() -> Dict[str, Any]:
+def collect_metrics_summary() -> dict[str, Any]:
     """Collect performance metrics summary."""
     if not PERFORMANCE_MODULES_AVAILABLE:
         return {"error": "Performance modules not available"}
@@ -79,7 +78,7 @@ def collect_metrics_summary() -> Dict[str, Any]:
     return summary
 
 
-def collect_alerts_summary() -> Dict[str, Any]:
+def collect_alerts_summary() -> dict[str, Any]:
     """Collect alert summary."""
     if not PERFORMANCE_MODULES_AVAILABLE:
         return {"error": "Performance modules not available"}
@@ -98,7 +97,7 @@ def collect_alerts_summary() -> Dict[str, Any]:
 
 
 def generate_markdown_report(
-    metrics_summary: Dict[str, Any], alerts_summary: Dict[str, Any]
+    metrics_summary: dict[str, Any], alerts_summary: dict[str, Any]
 ) -> str:
     """Generate human-readable markdown report."""
     lines = []

@@ -9,18 +9,18 @@ import os
 import sys
 import threading
 import time
-from datetime import datetime, timedelta
+from datetime import datetime
 from pathlib import Path
 
 import psutil
-from flask import Flask, jsonify, render_template, request
+from flask import Flask, jsonify, render_template
 
 # 添加项目根目录到路径
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 
 # 尝试导入Flask
 try:
-    from flask import Flask, jsonify, render_template, request
+    from flask import Flask, jsonify, render_template
 
     FLASK_AVAILABLE = True
 except ImportError:
@@ -83,7 +83,6 @@ def collect_system_info():
 
 def collect_processes():
     """收集进程信息"""
-    processes = []
 
     # 检查Athena相关进程
     athena_processes = []
@@ -113,11 +112,11 @@ def collect_processes():
                         if queue_dir.exists():
                             for queue_file in queue_dir.glob("*.json"):
                                 try:
-                                    with open(queue_file, "r", encoding="utf-8") as f:
+                                    with open(queue_file, encoding="utf-8") as f:
                                         queue_data = json.load(f)
 
                                     items = queue_data.get("items", {})
-                                    for item_id, item in items.items():
+                                    for _item_id, item in items.items():
                                         runner_pid = item.get("runner_pid")
                                         if runner_pid == proc.info["pid"]:
                                             heartbeat_at = item.get("runner_heartbeat_at")
@@ -135,9 +134,9 @@ def collect_processes():
                                                         heartbeat_status = "warning"
                                                     else:
                                                         heartbeat_status = "stale"
-                                                except:
+                                                except Exception:
                                                     heartbeat_status = "invalid"
-                                except:
+                                except Exception:
                                     pass
 
                         process_info = {
@@ -208,7 +207,7 @@ def update_monitoring_data():
             # 检查ProcessLifecycleContract状态
             if CONTRACT_AVAILABLE:
                 try:
-                    contract = ProcessLifecycleContract()
+                    ProcessLifecycleContract()
                     # 测试契约功能
                     monitoring_data["contract_test"] = {
                         "available": True,

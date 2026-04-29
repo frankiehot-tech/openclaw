@@ -1,4 +1,6 @@
 #!/usr/bin/env python3
+# DEPRECATED: 使用 governance/ 模块代替
+# governance_cli.py repair <command> 或 governance_cli.py queue fix
 """修复文件路径错误脚本"""
 
 import json
@@ -51,7 +53,7 @@ def update_queue_file():
         return False
 
     try:
-        with open(queue_file, "r", encoding="utf-8") as f:
+        with open(queue_file, encoding="utf-8") as f:
             data = json.load(f)
 
         # 更新gene_mgmt_audit任务的instruction_path
@@ -75,10 +77,10 @@ def update_queue_file():
 
             print(f"✅ 已更新队列文件: {queue_file}")
             print(f"  更新instruction_path为: {correct_path}")
-            print(f"  清除错误信息，状态重置为pending")
+            print("  清除错误信息，状态重置为pending")
             return True
         else:
-            print(f"❌ 未找到gene_mgmt_audit任务")
+            print("❌ 未找到gene_mgmt_audit任务")
             return False
 
     except Exception as e:
@@ -103,12 +105,12 @@ def verify_fix():
     queue_file = "/Volumes/1TB-M2/openclaw/.openclaw/plan_queue/openhuman_aiplan_gene_management_20260405.json"
     if os.path.exists(queue_file):
         try:
-            with open(queue_file, "r", encoding="utf-8") as f:
+            with open(queue_file, encoding="utf-8") as f:
                 data = json.load(f)
 
             if "gene_mgmt_audit" in data.get("items", {}):
                 task = data["items"]["gene_mgmt_audit"]
-                print(f"✅ 队列任务状态:")
+                print("✅ 队列任务状态:")
                 print(f"  instruction_path: {task.get('instruction_path', 'N/A')}")
                 print(f"  status: {task.get('status', 'N/A')}")
                 print(f"  error: {task.get('error', 'N/A')}")
@@ -116,11 +118,11 @@ def verify_fix():
                 # 检查路径是否正确
                 correct_path = "/Volumes/1TB-M2/openclaw/completed/OpenHuman-Athena-OpenHuman基因管理Agent工程实施方案-VSCode执行指令.md"
                 if task.get("instruction_path") == correct_path:
-                    print(f"  ✅ instruction_path正确")
+                    print("  ✅ instruction_path正确")
                 else:
-                    print(f"  ❌ instruction_path不正确")
+                    print("  ❌ instruction_path不正确")
             else:
-                print(f"❌ 未找到gene_mgmt_audit任务")
+                print("❌ 未找到gene_mgmt_audit任务")
 
         except Exception as e:
             print(f"❌ 读取队列文件失败: {e}")

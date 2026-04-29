@@ -1,5 +1,4 @@
 #!/usr/bin/env python3
-# -*- coding: utf-8 -*-
 """
 Claude Code Router 集成模块
 用于 Athena Open Human 与 Claude Code Router 的深度集成
@@ -13,7 +12,7 @@ import logging
 import time
 from dataclasses import dataclass
 from pathlib import Path
-from typing import Any, Dict, List, Optional
+from typing import Any
 
 import requests
 
@@ -76,14 +75,14 @@ class ClaudeCodeIntegration:
 
         logger.info(f"Claude Code 集成初始化完成，基础URL: {self.base_url}")
 
-    def _load_config(self) -> Dict[str, Any]:
+    def _load_config(self) -> dict[str, Any]:
         """加载配置文件"""
         try:
             if not self.config_path.exists():
                 logger.warning(f"配置文件不存在: {self.config_path}，使用默认配置")
                 return {}
 
-            with open(self.config_path, "r", encoding="utf-8") as f:
+            with open(self.config_path, encoding="utf-8") as f:
                 config_data = json.load(f)
 
             integration_config = config_data.get("claude_code_integration", {})
@@ -97,7 +96,7 @@ class ClaudeCodeIntegration:
             logger.error(f"配置文件加载失败: {e}")
             return {}
 
-    def _load_model_mapping(self) -> Dict[str, ModelConfig]:
+    def _load_model_mapping(self) -> dict[str, ModelConfig]:
         """加载模型映射配置"""
         model_mapping_config = self.config.get("model_mapping", {})
         model_mapping = {}
@@ -191,7 +190,7 @@ class ClaudeCodeIntegration:
 
     def call_model(
         self, prompt: str, model_type: str = "athena_default", **kwargs
-    ) -> Optional[Dict[str, Any]]:
+    ) -> dict[str, Any] | None:
         """
         调用模型
 
@@ -282,7 +281,7 @@ class ClaudeCodeIntegration:
                         try:
                             error_data = response.json()
                             error_msg += f" - {error_data.get('error', {}).get('message', response.text[:200])}"
-                        except:
+                        except Exception:
                             error_msg += f" - {response.text[:200]}"
 
                     logger.warning(f"{error_msg} (尝试 {attempt + 1}/{self.retry_count})")
@@ -352,17 +351,17 @@ class ClaudeCodeIntegration:
         if stats["successful_calls"] > 0:
             stats["avg_duration"] = stats["total_duration"] / stats["successful_calls"]
 
-    def get_provider_statistics(self) -> Dict[str, Any]:
+    def get_provider_statistics(self) -> dict[str, Any]:
         """获取提供商统计信息"""
         return self.provider_stats
 
-    def get_circuit_breaker_status(self) -> Dict[str, Any]:
+    def get_circuit_breaker_status(self) -> dict[str, Any]:
         """获取断路器状态"""
         return self.circuit_breaker_states
 
     def batch_call(
-        self, prompts: List[str], model_type: str = "athena_default", **kwargs
-    ) -> List[Optional[Dict[str, Any]]]:
+        self, prompts: list[str], model_type: str = "athena_default", **kwargs
+    ) -> list[dict[str, Any] | None]:
         """
         批量调用模型
 
@@ -377,7 +376,7 @@ class ClaudeCodeIntegration:
         results = []
 
         for i, prompt in enumerate(prompts):
-            logger.info(f"处理批量调用 {i+1}/{len(prompts)}")
+            logger.info(f"处理批量调用 {i + 1}/{len(prompts)}")
             result = self.call_model(prompt, model_type, **kwargs)
             results.append(result)
 
@@ -406,7 +405,7 @@ def test_connection() -> bool:
         return False
 
 
-def simple_call(prompt: str, model_type: str = "athena_default") -> Optional[str]:
+def simple_call(prompt: str, model_type: str = "athena_default") -> str | None:
     """
     简单调用函数
 

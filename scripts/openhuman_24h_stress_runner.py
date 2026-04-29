@@ -21,6 +21,7 @@ current state without digging through workspace artifacts.
 from __future__ import annotations
 
 import argparse
+import contextlib
 import json
 import os
 import signal
@@ -648,7 +649,9 @@ class StressRunner:
                 "status": (
                     "healthy"
                     if health_score >= 70
-                    else "degraded" if health_score >= 40 else "critical"
+                    else "degraded"
+                    if health_score >= 40
+                    else "critical"
                 ),
                 "cpu_usage_percent": cpu.get("usage_percent"),
                 "memory_pressure_free_percent": memory.get("pressure_free_percent"),
@@ -866,10 +869,8 @@ def main() -> int:
         return runner.run()
     finally:
         if args.write_pid and PID_FILE.exists():
-            try:
+            with contextlib.suppress(Exception):
                 PID_FILE.unlink()
-            except Exception:
-                pass
 
 
 if __name__ == "__main__":

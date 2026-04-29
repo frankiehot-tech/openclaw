@@ -4,10 +4,9 @@
 from __future__ import annotations
 
 import argparse
-from pathlib import Path
 
 from athena_ai_plan_runner import daemon_mode, run_once_mode, status_mode
-from openclaw_roots import RUNTIME_ROOT, pid_file
+from openclaw_roots import pid_file
 
 PID_FILE = pid_file("codex_plan_runner")
 ACCEPTED_RUNNER_MODES = {"codex_plan", "manual_plan"}

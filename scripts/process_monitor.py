@@ -245,7 +245,6 @@ class ProcessMonitor:
             not current_stats["last_restart_attempt"]
             or (datetime.now() - current_stats["last_restart_attempt"]).total_seconds() > 300
         ):  # 5分钟冷却
-
             logging.info(f"尝试自动重启进程: {process_name}")
 
             if self.restart_process(process_config):

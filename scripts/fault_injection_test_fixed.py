@@ -19,7 +19,7 @@ import subprocess
 import sys
 import time
 from pathlib import Path
-from typing import Any, Dict, List, Optional
+from typing import Any
 
 import psutil
 
@@ -47,7 +47,7 @@ class FaultInjectionTesterFixed:
             "test_cases": [],
         }
 
-    def _filter_backup_files(self, file_list: List[Path]) -> List[Path]:
+    def _filter_backup_files(self, file_list: list[Path]) -> list[Path]:
         """过滤掉备份文件，只返回真正的队列文件"""
         filtered = []
         for file_path in file_list:
@@ -66,7 +66,7 @@ class FaultInjectionTesterFixed:
             filtered.append(file_path)
         return filtered
 
-    def _find_real_queue_files(self) -> List[Path]:
+    def _find_real_queue_files(self) -> list[Path]:
         """查找真正的队列文件（非备份文件）"""
         all_files = list(self.queue_dir.glob("*.json"))
         return self._filter_backup_files(all_files)
@@ -172,7 +172,7 @@ class FaultInjectionTesterFixed:
 
             try:
                 # 读取文件内容
-                with open(target_file, "r", encoding="utf-8") as f:
+                with open(target_file, encoding="utf-8") as f:
                     original_content = f.read()
 
                 # 注入损坏：在文件末尾添加损坏的JSON
@@ -191,7 +191,7 @@ class FaultInjectionTesterFixed:
                 # 验证系统行为
                 # 尝试读取文件，看是否能被解析
                 try:
-                    with open(target_file, "r", encoding="utf-8") as f:
+                    with open(target_file, encoding="utf-8") as f:
                         content = f.read()
                     # 尝试解析JSON
                     json.loads(content)
@@ -251,7 +251,7 @@ class FaultInjectionTesterFixed:
 
             try:
                 # 读取队列数据
-                with open(target_file, "r", encoding="utf-8") as f:
+                with open(target_file, encoding="utf-8") as f:
                     queue_data = json.load(f)
 
                 # 制造状态不一致：修改队列状态但不更新其他组件
@@ -261,9 +261,7 @@ class FaultInjectionTesterFixed:
                     # 切换到不一致的状态
                     if original_status == "running":
                         queue_data["queue_status"] = "failed"
-                    elif original_status == "failed":
-                        queue_data["queue_status"] = "running"
-                    elif original_status == "paused":
+                    elif original_status == "failed" or original_status == "paused":
                         queue_data["queue_status"] = "running"
                     else:
                         queue_data["queue_status"] = "manual_hold"
@@ -292,9 +290,9 @@ class FaultInjectionTesterFixed:
                                 timeout=30,
                             )
 
-                            test_result["details"][
-                                "consistency_check_returncode"
-                            ] = result.returncode
+                            test_result["details"]["consistency_check_returncode"] = (
+                                result.returncode
+                            )
                             test_result["details"]["consistency_check_stdout_length"] = len(
                                 result.stdout
                             )
@@ -345,7 +343,7 @@ class FaultInjectionTesterFixed:
         self.test_results["test_cases"].append(test_result)
         return test_result["success"]
 
-    def run_all_tests(self) -> Dict[str, Any]:
+    def run_all_tests(self) -> dict[str, Any]:
         """运行所有修复版测试"""
         logger.info("🚀 开始修复版故障注入与恢复测试")
 
@@ -359,9 +357,9 @@ class FaultInjectionTesterFixed:
         ]
 
         for test_name, test_func in tests:
-            logger.info(f"\n{'='*60}")
+            logger.info(f"\n{'=' * 60}")
             logger.info(f"运行测试: {test_name}")
-            logger.info(f"{'='*60}")
+            logger.info(f"{'=' * 60}")
 
             try:
                 success = test_func()

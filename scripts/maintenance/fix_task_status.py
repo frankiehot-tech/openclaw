@@ -1,4 +1,6 @@
 #!/usr/bin/env python3
+# DEPRECATED: 使用 governance/ 模块代替
+# governance_cli.py repair <command> 或 governance_cli.py queue fix
 """
 修复目标任务状态为pending
 """
@@ -15,7 +17,7 @@ def main():
     state_file = ".openclaw/plan_queue/openhuman_aiplan_build_priority_20260328.json"
     print(f"修复状态文件: {state_file}")
 
-    with open(state_file, "r", encoding="utf-8") as f:
+    with open(state_file, encoding="utf-8") as f:
         state_data = json.load(f)
 
     items = state_data.get("items", {})
@@ -54,7 +56,7 @@ def main():
     with open(state_file, "w", encoding="utf-8") as f:
         json.dump(state_data, f, ensure_ascii=False, indent=2)
 
-    print(f"✅ 状态文件更新完成")
+    print("✅ 状态文件更新完成")
     print(f"  任务状态: {items[task_id]['status']}")
     print(f"  counts: {json.dumps(counts, ensure_ascii=False, indent=4)}")
 
@@ -62,7 +64,7 @@ def main():
     manifest_file = ".openclaw/plan_queue/openhuman_aiplan_priority_execution_20260414.json"
     print(f"\n检查manifest文件: {manifest_file}")
 
-    with open(manifest_file, "r", encoding="utf-8") as f:
+    with open(manifest_file, encoding="utf-8") as f:
         manifest_data = json.load(f)
 
     manifest_items = manifest_data.get("items", [])
@@ -72,7 +74,7 @@ def main():
             if "status" not in item or item.get("status") != "pending":
                 item["status"] = "pending"
                 updated = True
-                print(f"✅ 更新manifest中任务状态为pending")
+                print("✅ 更新manifest中任务状态为pending")
             break
 
     if updated:
@@ -83,12 +85,12 @@ def main():
 
         with open(manifest_file, "w", encoding="utf-8") as f:
             json.dump(manifest_data, f, ensure_ascii=False, indent=2)
-        print(f"✅ manifest文件更新完成")
+        print("✅ manifest文件更新完成")
     else:
-        print(f"⚠️  manifest中未找到任务或状态已经是pending")
+        print("⚠️  manifest中未找到任务或状态已经是pending")
 
     # 3. 运行诊断确认修复
-    print(f"\n🔍 运行诊断确认修复...")
+    print("\n🔍 运行诊断确认修复...")
     try:
         sys.path.insert(0, "scripts")
         from athena_ai_plan_runner import (
@@ -96,7 +98,7 @@ def main():
             materialize_route_items,
         )
 
-        with open(".athena-auto-queue.json", "r", encoding="utf-8") as f:
+        with open(".athena-auto-queue.json", encoding="utf-8") as f:
             config = json.load(f)
 
         route = None
@@ -106,13 +108,13 @@ def main():
                 break
 
         if route:
-            with open(state_file, "r", encoding="utf-8") as f:
+            with open(state_file, encoding="utf-8") as f:
                 route_state = json.load(f)
 
             materialized = materialize_route_items(route, route_state)
             counts, status = compute_route_counts_and_status(route, route_state)
 
-            print(f"诊断结果:")
+            print("诊断结果:")
             print(f"  状态: {status}")
             print(f"  counts: {json.dumps(counts, ensure_ascii=False, indent=4)}")
 

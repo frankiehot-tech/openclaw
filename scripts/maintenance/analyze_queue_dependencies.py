@@ -6,12 +6,12 @@
 import json
 import re
 import sys
-from collections import defaultdict, deque
+from collections import defaultdict
 
 
 def load_queue_file(filepath):
     """加载队列文件"""
-    with open(filepath, "r", encoding="utf-8") as f:
+    with open(filepath, encoding="utf-8") as f:
         return json.load(f)
 
 
@@ -163,7 +163,7 @@ def main():
     for task_id, status in task_states.items():
         status_groups[status].append(task_id)
 
-    print(f"\n状态分布:")
+    print("\n状态分布:")
     for status, tasks in status_groups.items():
         print(f"  {status}: {len(tasks)}个任务")
 
@@ -177,7 +177,7 @@ def main():
                 print(f"     依赖: {', '.join(dependencies[task_id])}")
 
         if len(pending_tasks) > 10:
-            print(f"  ... 以及另外{len(pending_tasks)-10}个任务")
+            print(f"  ... 以及另外{len(pending_tasks) - 10}个任务")
 
     # 查找阻塞
     blocks = find_blocks(task_states, dependencies, reverse_deps)
@@ -213,7 +213,7 @@ def main():
                 print(f"     阻塞以下任务: {', '.join(reverse_deps[task_id])}")
 
     # 建议
-    print(f"\n建议:")
+    print("\n建议:")
     if blocks:
         print("  1. 解决被阻塞任务的依赖问题")
     if missing:

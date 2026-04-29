@@ -6,15 +6,12 @@
 
 import json
 import logging
-import subprocess
-import sys
 import time
 from datetime import datetime, timedelta
 from pathlib import Path
-from typing import Any, Dict, List, Optional
+from typing import Any
 
 import psutil
-import requests
 
 logging.basicConfig(
     level=logging.INFO, format="%(asctime)s - %(name)s - %(levelname)s - %(message)s"
@@ -25,7 +22,7 @@ logger = logging.getLogger(__name__)
 class CheckpointMonitor:
     """检查点监控器"""
 
-    def __init__(self, config: Dict[str, Any] = None):
+    def __init__(self, config: dict[str, Any] = None):
         self.config = config or {
             "checkpoint_interval": 60,  # 检查点间隔(秒)
             "error_rate_threshold": 0.10,  # 错误率阈值10%
@@ -54,7 +51,7 @@ class CheckpointMonitor:
             "availability_history": [],
         }
 
-    def collect_checkpoint_data(self) -> Dict[str, Any]:
+    def collect_checkpoint_data(self) -> dict[str, Any]:
         """收集检查点数据"""
         checkpoint = {
             "timestamp": datetime.now().isoformat(),
@@ -191,7 +188,7 @@ class CheckpointMonitor:
 
         return checkpoint
 
-    def check_queue_status(self) -> Dict[str, Any]:
+    def check_queue_status(self) -> dict[str, Any]:
         """检查队列状态（简化版）"""
         queue_status = {
             "timestamp": datetime.now().isoformat(),
@@ -207,7 +204,7 @@ class CheckpointMonitor:
 
             for queue_file in queue_files:
                 try:
-                    with open(queue_file, "r", encoding="utf-8") as f:
+                    with open(queue_file, encoding="utf-8") as f:
                         queue_data = json.load(f)
 
                     queue_name = queue_file.stem
@@ -216,7 +213,7 @@ class CheckpointMonitor:
 
                     # 计算失败任务数
                     failed_count = 0
-                    for item_id, item in items.items():
+                    for _item_id, item in items.items():
                         if isinstance(item, dict) and item.get("status") == "failed":
                             failed_count += 1
 
@@ -239,7 +236,7 @@ class CheckpointMonitor:
 
         return queue_status
 
-    def check_stale_heartbeats(self) -> Dict[str, Any]:
+    def check_stale_heartbeats(self) -> dict[str, Any]:
         """检查陈旧心跳"""
         stale_heartbeats = {
             "stale_count": 0,
@@ -254,7 +251,7 @@ class CheckpointMonitor:
 
         for queue_file in self.queue_dir.glob("*.json"):
             try:
-                with open(queue_file, "r", encoding="utf-8") as f:
+                with open(queue_file, encoding="utf-8") as f:
                     queue_data = json.load(f)
 
                 items = queue_data.get("items", {})
@@ -291,7 +288,7 @@ class CheckpointMonitor:
 
         return stale_heartbeats
 
-    def save_checkpoint(self, checkpoint: Dict[str, Any]):
+    def save_checkpoint(self, checkpoint: dict[str, Any]):
         """保存检查点"""
         try:
             # 生成文件名
@@ -334,7 +331,7 @@ class CheckpointMonitor:
         except Exception as e:
             logger.error(f"保存检查点失败: {e}")
 
-    def handle_alerts(self, checkpoint: Dict[str, Any]):
+    def handle_alerts(self, checkpoint: dict[str, Any]):
         """处理告警"""
         if not checkpoint["alerts"]:
             return
@@ -477,16 +474,16 @@ class CheckpointMonitor:
             logger.error(f"监控周期失败: {e}")
             return None
 
-    def print_status_summary(self, checkpoint: Dict[str, Any]):
+    def print_status_summary(self, checkpoint: dict[str, Any]):
         """打印状态摘要"""
-        print(f"\n{'='*60}")
+        print(f"\n{'=' * 60}")
         print(f"检查点监控摘要 - {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
-        print(f"{'='*60}")
+        print(f"{'=' * 60}")
 
         # 系统资源
         if "system" in checkpoint:
             sys_info = checkpoint["system"]
-            print(f"系统资源:")
+            print("系统资源:")
             print(f"  CPU: {sys_info.get('cpu_percent', 'N/A'):.1f}%")
             print(
                 f"  内存: {sys_info.get('memory_percent', 'N/A'):.1f}% ({sys_info.get('memory_available_gb', 0):.1f} GB可用)"
@@ -495,7 +492,7 @@ class CheckpointMonitor:
         # 队列状态
         if "queues" in checkpoint and "total_queues" in checkpoint["queues"]:
             q_info = checkpoint["queues"]
-            print(f"队列状态:")
+            print("队列状态:")
             print(f"  队列数: {q_info.get('total_queues', 0)}")
             print(f"  任务总数: {q_info.get('total_tasks', 0)}")
             print(f"  失败任务: {q_info.get('failed_tasks', 0)}")
@@ -522,9 +519,9 @@ class CheckpointMonitor:
         if checkpoint["alerts"]:
             print(f"告警: ⚠️ {len(checkpoint['alerts'])}个 (详情见日志)")
         else:
-            print(f"告警: ✅ 无")
+            print("告警: ✅ 无")
 
-        print(f"{'='*60}")
+        print(f"{'=' * 60}")
 
     def run_continuous_monitoring(self):
         """运行持续监控"""

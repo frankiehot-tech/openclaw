@@ -1,4 +1,6 @@
 #!/usr/bin/env python3
+# DEPRECATED: 使用 governance/ 模块代替
+# governance_cli.py repair <command> 或 governance_cli.py queue fix
 """
 修复Web界面与队列状态不匹配问题
 彻底解决无法定位当前队列项错误
@@ -71,7 +73,7 @@ def check_actual_queue_state():
         return None
 
     try:
-        with open(queue_file, "r", encoding="utf-8") as f:
+        with open(queue_file, encoding="utf-8") as f:
             queue_state = json.load(f)
 
         print(f"📊 实际队列状态: {queue_state.get('queue_status', 'unknown')}")
@@ -98,7 +100,7 @@ def check_web_server_config():
 
     try:
         # 读取Web服务器代码
-        with open(web_script, "r", encoding="utf-8") as f:
+        with open(web_script, encoding="utf-8") as f:
             web_code = f.read()
 
         # 检查队列读取逻辑
@@ -150,7 +152,7 @@ def fix_web_queue_mismatch():
     actual_status = actual_state.get("queue_status", "")
     actual_item = actual_state.get("current_item_id", "")
 
-    print(f"\n🔍 状态对比分析:")
+    print("\n🔍 状态对比分析:")
     print(f"   实际队列状态: {actual_status}")
     print(f"   实际当前任务: {actual_item}")
 
@@ -172,7 +174,7 @@ def fix_web_queue_mismatch():
         queue_file = "/Volumes/1TB-M2/openclaw/.openclaw/plan_queue/openhuman_aiplan_plan_manual_20260328.json"
 
         try:
-            with open(queue_file, "r", encoding="utf-8") as f:
+            with open(queue_file, encoding="utf-8") as f:
                 queue_state = json.load(f)
 
             items = queue_state.get("items", {})
@@ -259,7 +261,7 @@ def restart_web_server():
             else:
                 print(f"⚠️ Web服务器响应异常: {response.status_code}")
                 return False
-        except:
+        except Exception:
             print("❌ Web服务器重启后无法访问")
             return False
 
@@ -289,25 +291,25 @@ log() {
 monitor_sync() {
     while true; do
         log "🔍 检查Web界面与队列状态同步..."
-        
+
         # 运行同步检查脚本
         python3 "$SYNC_SCRIPT" --check-only >> "$LOG_FILE" 2>&1
-        
+
         if [ $? -eq 0 ]; then
             log "✅ Web界面与队列状态同步正常"
         else:
             log "⚠️ Web界面与队列状态同步异常，尝试修复"
-            
+
             # 运行修复脚本
             python3 "$SYNC_SCRIPT" --fix-only >> "$LOG_FILE" 2>&1
-            
+
             if [ $? -eq 0 ]; then
                 log "✅ Web界面与队列状态同步修复成功"
             else:
                 log "❌ Web界面与队列状态同步修复失败"
             fi
         fi
-        
+
         # 等待5分钟再次检查
         sleep 300
     done

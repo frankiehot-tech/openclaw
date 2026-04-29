@@ -14,20 +14,19 @@ Athena队列系统故障注入与恢复测试
 测试目标：验证智能工作流契约框架的错误恢复机制
 """
 
+import contextlib
 import json
 import logging
 import os
-import random
 import shutil
 import signal
 import subprocess
 import sys
 import tempfile
-import threading
 import time
 from datetime import datetime
 from pathlib import Path
-from typing import Any, Dict, List, Optional, Tuple
+from typing import Any
 
 import psutil
 
@@ -67,7 +66,7 @@ class FaultInjector:
             return True
         return False
 
-    def inject_process_crash(self, process_name: str = "athena_ai_plan_runner.py") -> Optional[int]:
+    def inject_process_crash(self, process_name: str = "athena_ai_plan_runner.py") -> int | None:
         """
         注入进程崩溃故障
         返回被终止的进程PID，如果没有找到进程则返回None
@@ -130,7 +129,7 @@ class FaultInjector:
         try:
             if corruption_type == "partial":
                 # 部分损坏：随机替换文件中的部分字符
-                with open(target_path, "r", encoding="utf-8") as f:
+                with open(target_path, encoding="utf-8") as f:
                     content = f.read()
 
                 if len(content) > 100:
@@ -205,7 +204,7 @@ class FaultInjector:
             logger.info("注入内存耗尽故障")
             try:
                 # 分配大块内存（但可能被系统限制）
-                memory_hog = bytearray(1024 * 1024 * 100)  # 100MB
+                bytearray(1024 * 1024 * 100)  # 100MB
                 self.injected_faults.append(
                     {
                         "type": "resource_exhaustion",
@@ -273,7 +272,7 @@ while True:
                         "timestamp": time.time(),
                     }
                 )
-                logger.info(f"已创建 {written/(1024*1024):.1f}MB 临时文件模拟磁盘压力")
+                logger.info(f"已创建 {written / (1024 * 1024):.1f}MB 临时文件模拟磁盘压力")
                 return True
             except Exception as e:
                 logger.error(f"磁盘故障注入失败: {e}")
@@ -294,7 +293,7 @@ while True:
         self.backup_file(target_path)
 
         try:
-            with open(target_path, "r", encoding="utf-8") as f:
+            with open(target_path, encoding="utf-8") as f:
                 queue_data = json.load(f)
 
             # 修改队列状态为不一致的值
@@ -349,7 +348,7 @@ while True:
         self.backup_file(target_path)
 
         try:
-            with open(target_path, "r", encoding="utf-8") as f:
+            with open(target_path, encoding="utf-8") as f:
                 manifest_data = json.load(f)
 
             if isinstance(manifest_data, list) and len(manifest_data) > 0:
@@ -405,7 +404,7 @@ while True:
                 if psutil.pid_exists(pid):
                     os.kill(pid, signal.SIGTERM)
                     logger.info(f"终止进程: PID={pid}")
-            except:
+            except Exception:
                 pass
 
         # 3. 清理临时文件
@@ -417,16 +416,14 @@ while True:
                         temp_dir = Path(temp_file).parent
                         shutil.rmtree(temp_dir, ignore_errors=True)
                         logger.info(f"清理临时目录: {temp_dir}")
-                    except:
+                    except Exception:
                         pass
 
         # 4. 清理备份文件
         for backup_path in self.original_files.values():
             if Path(backup_path).exists():
-                try:
+                with contextlib.suppress(BaseException):
                     os.remove(backup_path)
-                except:
-                    pass
 
         logger.info("故障清理完成")
         self.injected_faults.clear()
@@ -553,7 +550,7 @@ class FaultInjectionTester:
                 # 这里我们检查文件是否被修复或系统是否仍在运行
 
                 try:
-                    with open(target_file, "r", encoding="utf-8") as f:
+                    with open(target_file, encoding="utf-8") as f:
                         content = f.read()
 
                     # 尝试解析JSON，如果解析失败说明文件仍损坏
@@ -670,7 +667,7 @@ class FaultInjectionTester:
 
             return test_result["success"]
 
-    def run_all_tests(self) -> Dict[str, Any]:
+    def run_all_tests(self) -> dict[str, Any]:
         """运行所有故障注入测试"""
         logger.info("🚀 开始故障注入与恢复测试")
 
@@ -684,9 +681,9 @@ class FaultInjectionTester:
         ]
 
         for test_name, test_func in tests:
-            logger.info(f"\n{'='*60}")
+            logger.info(f"\n{'=' * 60}")
             logger.info(f"运行测试: {test_name}")
-            logger.info(f"{'='*60}")
+            logger.info(f"{'=' * 60}")
 
             try:
                 success = test_func()

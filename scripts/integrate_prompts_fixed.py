@@ -4,7 +4,6 @@ AI 编程工具提示词集成脚本 - 修复版本
 将生成的 Agent 提示词文件集成到 Athena-Open Human 系统中
 """
 
-import os
 import shutil
 from pathlib import Path
 
@@ -131,7 +130,7 @@ class AgentState(TypedDict):
 class BaseAgent:
     async def execute(self, state: AgentState) -> AgentState:
         pass
-    
+
     async def handle_error(self, error: Exception, state: AgentState) -> AgentState:
         pass
 ```
@@ -146,7 +145,7 @@ app = FastAPI(title="Athena-Open Human API")
 class AgentRequest(BaseModel):
     agent_id: str
     input_data: Dict[str, Any]
-    
+
 @app.post("/agents/{agent_id}/execute")
 async def execute_agent(agent_id: str, request: AgentRequest):
     try:
@@ -182,7 +181,7 @@ Athena-Open Human 是一个基于 LangGraph 的多 Agent 系统，用于实现 A
 
 ### 多 Agent 协作模式
 - **Researcher Agent**: 关键词挖掘、竞品分析、Query 获取
-- **Writer Agent**: 大纲生成、正文撰写、多版本输出  
+- **Writer Agent**: 大纲生成、正文撰写、多版本输出
 - **Validator Agent**: GEO 评分、事实核查、SEO 检查
 - **Publisher Agent**: 多平台发布、数据回流、索引提交
 
@@ -217,7 +216,7 @@ interface Agent {
   id: string;
   name: string;
   status: 'idle' | 'running' | 'error' | 'completed';
-  
+
   execute(state: AgentState): Promise<AgentState>;
   handleError(error: Error, state: AgentState): Promise<AgentState>;
 }
@@ -343,7 +342,7 @@ cd /Volumes/1TB-M2/openclaw
 codex  # 自动读取 codex.md
 ```
 
-#### Claude Code  
+#### Claude Code
 ```bash
 cd /Volumes/1TB-M2/openclaw
 claude  # 自动读取 CLAUDE.md
@@ -417,7 +416,7 @@ claude  # 自动读取 CLAUDE.md
 
 ### 业务指标
 - 内容生成成功率
-- 平均质量分数  
+- 平均质量分数
 - 发布成功率
 - 用户满意度
 
@@ -485,7 +484,7 @@ def main():
         "backend": "backend_agent_prompt.md",
     }
 
-    for agent_type, filename in prompt_files.items():
+    for _agent_type, filename in prompt_files.items():
         source_file = project_root / filename
         target_file = project_root / "agent_prompts" / filename
         if source_file.exists():

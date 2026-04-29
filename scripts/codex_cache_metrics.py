@@ -8,11 +8,10 @@ Codex缓存指标收集器
 
 import json
 import logging
-import os
 import sys
 from datetime import datetime
 from pathlib import Path
-from typing import Any, Dict, Optional
+from typing import Any
 
 # 导入根目录助手
 try:
@@ -36,14 +35,14 @@ if str(mini_agent_actual) not in sys.path:
     sys.path.insert(0, str(mini_agent_actual))
 
 try:
-    from mini_agent.agent.core.codex_cache import CodexCache, get_cache
-except ImportError as e:
+    from mini_agent.agent.core.codex_cache import get_cache
+except ImportError:
     # 尝试使用绝对导入
     import sys
 
     sys.path.insert(0, "/Volumes/1TB-M2/openclaw/mini-agent")
     sys.path.insert(0, "/Volumes/1TB-M2/openclaw")
-    from mini_agent.agent.core.codex_cache import CodexCache, get_cache
+    from mini_agent.agent.core.codex_cache import get_cache
 
 # 配置日志
 logging.basicConfig(
@@ -56,7 +55,7 @@ logger = logging.getLogger(__name__)
 class CodexCacheMetricsCollector:
     """Codex缓存指标收集器"""
 
-    def __init__(self, artifacts_dir: Optional[Path] = None):
+    def __init__(self, artifacts_dir: Path | None = None):
         """
         初始化收集器
 
@@ -73,7 +72,7 @@ class CodexCacheMetricsCollector:
 
         logger.info(f"Codex缓存指标收集器初始化完成，artifacts目录: {self.artifacts_dir}")
 
-    def collect_metrics(self) -> Dict[str, Any]:
+    def collect_metrics(self) -> dict[str, Any]:
         """
         收集缓存指标
 
@@ -117,7 +116,7 @@ class CodexCacheMetricsCollector:
 
         return metrics
 
-    def save_metrics(self, metrics: Dict[str, Any], filename: Optional[str] = None) -> Path:
+    def save_metrics(self, metrics: dict[str, Any], filename: str | None = None) -> Path:
         """
         保存指标到文件
 
@@ -150,7 +149,7 @@ class CodexCacheMetricsCollector:
         metrics = self.collect_metrics()
         return self.save_metrics(metrics)
 
-    def generate_daily_summary(self) -> Optional[Dict[str, Any]]:
+    def generate_daily_summary(self) -> dict[str, Any] | None:
         """
         生成每日摘要
 
@@ -171,7 +170,7 @@ class CodexCacheMetricsCollector:
             all_metrics = []
             for filepath in metric_files:
                 try:
-                    with open(filepath, "r", encoding="utf-8") as f:
+                    with open(filepath, encoding="utf-8") as f:
                         metrics = json.load(f)
                         all_metrics.append(metrics)
                 except Exception as e:
@@ -217,7 +216,7 @@ class CodexCacheMetricsCollector:
             logger.error(f"生成每日摘要失败: {e}")
             return None
 
-    def _analyze_trend(self, metrics: list) -> Dict[str, Any]:
+    def _analyze_trend(self, metrics: list) -> dict[str, Any]:
         """分析趋势"""
         if len(metrics) < 2:
             return {"status": "insufficient_data", "message": "需要至少2个数据点"}
@@ -232,7 +231,9 @@ class CodexCacheMetricsCollector:
         hit_rate_trend = (
             "improving"
             if last_hit_rate > first_hit_rate
-            else "declining" if last_hit_rate < first_hit_rate else "stable"
+            else "declining"
+            if last_hit_rate < first_hit_rate
+            else "stable"
         )
 
         return {
@@ -283,7 +284,6 @@ class CodexCacheMetricsCollector:
             days_to_keep: 保留天数
         """
         import time
-        from datetime import datetime, timedelta
 
         cutoff_time = time.time() - (days_to_keep * 86400)
 
@@ -342,7 +342,7 @@ def main() -> int:
             print("生成每日摘要...")
             summary = collector.generate_daily_summary()
             if summary:
-                print(f"✅ 每日摘要已生成")
+                print("✅ 每日摘要已生成")
                 print(f"   平均命中率: {summary['avg_hit_rate']:.2%}")
                 print(f"   今日总命中数: {summary['total_hits_today']}")
                 print(f"   今日总节省时间: {summary['total_time_saved_today']:.1f}秒")

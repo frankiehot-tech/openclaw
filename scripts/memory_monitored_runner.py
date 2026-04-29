@@ -5,7 +5,6 @@
 """
 
 import os
-import signal
 import subprocess
 import sys
 import time
@@ -29,7 +28,7 @@ def log_message(message):
     try:
         with open(LOG_FILE, "a", encoding="utf-8") as f:
             f.write(log_entry + "\n")
-    except:
+    except Exception:
         pass
 
 
@@ -50,7 +49,7 @@ def monitor_memory(pid):
                 log_message(
                     f"⚠️  进程 {pid} 内存使用超过限制 ({memory_mb:.2f} MB > {MEMORY_LIMIT_MB} MB)"
                 )
-                log_message(f"🔄 发送SIGTERM信号终止进程")
+                log_message("🔄 发送SIGTERM信号终止进程")
 
                 # 先尝试优雅终止
                 process.terminate()

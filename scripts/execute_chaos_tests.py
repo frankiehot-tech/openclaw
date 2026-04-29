@@ -6,7 +6,6 @@
 
 import json
 import logging
-import os
 import sys
 import time
 from datetime import datetime
@@ -68,7 +67,7 @@ class ChaosTestExecutor:
                 logger.error(f"配置文件不存在: {config_path}")
                 return False
 
-            with open(config_file, "r", encoding="utf-8") as f:
+            with open(config_file, encoding="utf-8") as f:
                 self.scenarios_config = yaml.safe_load(f)
 
             logger.info(f"成功加载混沌测试场景配置: {config_path}")
@@ -487,14 +486,14 @@ class ChaosTestExecutor:
 
             monitoring_result["checkpoints"].append(checkpoint)
             logger.info(
-                f"监控检查点 {i+1}/{checkpoints}: 活动故障数: {checkpoint['active_faults']}"
+                f"监控检查点 {i + 1}/{checkpoints}: 活动故障数: {checkpoint['active_faults']}"
             )
 
         monitoring_result["completed_at"] = datetime.now().isoformat()
 
         # 计算监控期间的指标
         if monitoring_result["checkpoints"]:
-            first_checkpoint = monitoring_result["checkpoints"][0]
+            monitoring_result["checkpoints"][0]
             last_checkpoint = monitoring_result["checkpoints"][-1]
 
             monitoring_result["metrics"] = {
@@ -686,8 +685,8 @@ class ChaosTestExecutor:
             f.write("# 混沌测试执行报告\n\n")
             f.write(f"- 生成时间: {datetime.now().isoformat()}\n")
             f.write(f"- 安全模式: {'启用' if self.safe_mode else '禁用'}\n")
-            f.write(f"- 测试执行器: ChaosTestExecutor\n")
-            f.write(f"- 混沌引擎: ChaosEngineeringEngine\n\n")
+            f.write("- 测试执行器: ChaosTestExecutor\n")
+            f.write("- 混沌引擎: ChaosEngineeringEngine\n\n")
 
             f.write("## 测试概览\n\n")
 
@@ -751,7 +750,7 @@ class ChaosTestExecutor:
                 f.write(f"- 测试总数: {summary.get('total_tests', 0)}\n")
                 f.write(f"- 成功测试: {summary.get('successful_tests', 0)}\n")
                 f.write(f"- 失败测试: {summary.get('failed_tests', 0)}\n")
-                f.write(f"- 成功率: {summary.get('success_rate', 0)*100:.1f}%\n\n")
+                f.write(f"- 成功率: {summary.get('success_rate', 0) * 100:.1f}%\n\n")
 
             # 结论
             f.write("## 结论\n\n")
@@ -760,7 +759,7 @@ class ChaosTestExecutor:
             total_tests = 0
             successful_tests = 0
 
-            for phase, result in all_results.items():
+            for _phase, result in all_results.items():
                 if "summary" in result:
                     total_tests += result["summary"].get("total_scenarios", 0) + result[
                         "summary"
@@ -773,7 +772,7 @@ class ChaosTestExecutor:
 
             f.write(f"- 总体测试数: {total_tests}\n")
             f.write(f"- 成功测试数: {successful_tests}\n")
-            f.write(f"- 总体成功率: {success_rate*100:.1f}%\n\n")
+            f.write(f"- 总体成功率: {success_rate * 100:.1f}%\n\n")
 
             if success_rate >= 0.8:
                 f.write("✅ **测试结论**: 系统表现良好，具备较好的故障恢复能力。\n")
@@ -867,7 +866,7 @@ def main():
         all_results["self_healing"] = self_healing_results
 
         success_rate = self_healing_results.get("summary", {}).get("success_rate", 0)
-        print(f"   ✅ 完成，成功率: {success_rate*100:.1f}%")
+        print(f"   ✅ 完成，成功率: {success_rate * 100:.1f}%")
 
     # 保存结果
     print("\n5. 保存测试结果...")

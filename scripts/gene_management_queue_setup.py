@@ -5,8 +5,6 @@
 """
 
 import json
-import os
-import sys
 from datetime import datetime
 from pathlib import Path
 
@@ -116,7 +114,7 @@ def create_setup_instructions(config, manifest):
 
     instructions = f"""# 🧬 Athena/Open Human基因管理Agent队列设置指南
 
-**生成时间**: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}
+**生成时间**: {datetime.now().strftime("%Y-%m-%d %H:%M:%S")}
 
 ## 📋 任务概述
 
@@ -124,32 +122,32 @@ def create_setup_instructions(config, manifest):
 
 ## 🎯 任务配置
 
-### 构建任务 ({len([t for t in config['tasks'] if t['entry_stage'] == 'build'])}个)
+### 构建任务 ({len([t for t in config["tasks"] if t["entry_stage"] == "build"])}个)
 """
 
     for task in config["tasks"]:
         if task["entry_stage"] == "build":
             instructions += f"""
-- **{task['title']}**
-  - ID: `{task['id']}`
-  - 优先级: {task['metadata']['priority']}
-  - 阶段: {task['metadata']['phase']}
-  - 预估时长: {task['metadata']['estimated_duration']}
-  - 依赖: {', '.join(task['metadata'].get('depends_on', [])) or '无'}
+- **{task["title"]}**
+  - ID: `{task["id"]}`
+  - 优先级: {task["metadata"]["priority"]}
+  - 阶段: {task["metadata"]["phase"]}
+  - 预估时长: {task["metadata"]["estimated_duration"]}
+  - 依赖: {", ".join(task["metadata"].get("depends_on", [])) or "无"}
 """
 
     instructions += f"""
-### 审计任务 ({len([t for t in config['tasks'] if t['entry_stage'] == 'review'])}个)
+### 审计任务 ({len([t for t in config["tasks"] if t["entry_stage"] == "review"])}个)
 """
 
     for task in config["tasks"]:
         if task["entry_stage"] == "review":
             instructions += f"""
-- **{task['title']}**
-  - ID: `{task['id']}`
-  - 优先级: {task['metadata']['priority']}
-  - 阶段: {task['metadata']['phase']}
-  - 预估时长: {task['metadata']['estimated_duration']}
+- **{task["title"]}**
+  - ID: `{task["id"]}`
+  - 优先级: {task["metadata"]["priority"]}
+  - 阶段: {task["metadata"]["phase"]}
+  - 预估时长: {task["metadata"]["estimated_duration"]}
 """
 
     instructions += """
@@ -202,7 +200,7 @@ echo '{"queue_id":"openhuman_aiplan_gene_management_20260405","name":"OpenHuman 
 任务将按以下顺序自动执行:
 
 1. **G0阶段**: 基础设施搭建 (30分钟)
-2. **G1阶段**: CLI命令实现 (1小时)  
+2. **G1阶段**: CLI命令实现 (1小时)
 3. **G2阶段**: 队列系统集成 (45分钟)
 4. **审计阶段**: 实施效果审计 (30分钟)
 
@@ -217,7 +215,7 @@ echo '{"queue_id":"openhuman_aiplan_gene_management_20260405","name":"OpenHuman 
 执行完成后，验证以下内容:
 
 1. ✅ 基因序列基础设施创建完成
-2. ✅ CLI命令框架实现完成  
+2. ✅ CLI命令框架实现完成
 3. ✅ 队列系统集成配置就绪
 4. ✅ 审计报告生成
 
@@ -274,7 +272,7 @@ def main():
     print("\n📊 任务配置摘要:")
     print(f"   🔧 构建任务: {len([t for t in config['tasks'] if t['entry_stage'] == 'build'])}个")
     print(f"   🔍 审计任务: {len([t for t in config['tasks'] if t['entry_stage'] == 'review'])}个")
-    print(f"   ⏱️  总预估时长: 2小时45分钟")
+    print("   ⏱️  总预估时长: 2小时45分钟")
 
     print("\n🎯 下一步操作:")
     print("   1. 查看操作指南: scripts/gene_management_queue_setup_guide.md")

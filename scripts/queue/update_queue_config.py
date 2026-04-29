@@ -6,7 +6,6 @@ OpenCode CLI优化方案队列配置更新脚本
 
 import json
 import os
-from datetime import datetime
 
 
 def update_queue_state_file():
@@ -22,15 +21,15 @@ def update_queue_state_file():
 
     try:
         # 加载队列状态
-        with open(queue_state_file, "r", encoding="utf-8") as f:
+        with open(queue_state_file, encoding="utf-8") as f:
             queue_state = json.load(f)
 
         # 更新OpenCode CLI优化任务的instruction_path
         items = queue_state.get("items", {})
         if "opencode_cli_optimization" in items:
-            items["opencode_cli_optimization"][
-                "instruction_path"
-            ] = "/Volumes/1TB-M2/openclaw/Documents/Athena知识库/执行项目/2026/003-open human（碳硅基共生）/007-AI-plan/OpenHuman-OpenCode-CLI-优化与Athena深度集成方案.md"
+            items["opencode_cli_optimization"]["instruction_path"] = (
+                "/Volumes/1TB-M2/openclaw/Documents/Athena知识库/执行项目/2026/003-open human（碳硅基共生）/007-AI-plan/OpenHuman-OpenCode-CLI-优化与Athena深度集成方案.md"
+            )
 
             print("✅ 队列状态文件中的文件路径已更新")
         else:

@@ -4,7 +4,6 @@
 """
 
 import json
-import sys
 
 QUEUE_FILE = (
     "/Volumes/1TB-M2/openclaw/.openclaw/plan_queue/openhuman_aiplan_build_priority_20260328.json"
@@ -14,7 +13,7 @@ QUEUE_FILE = (
 def main():
     print("分析pending任务依赖关系...")
 
-    with open(QUEUE_FILE, "r", encoding="utf-8") as f:
+    with open(QUEUE_FILE, encoding="utf-8") as f:
         data = json.load(f)
 
     items = data.get("items", {})
@@ -49,7 +48,7 @@ def main():
 
         # 检查summary中的依赖信息
         if "被依赖项阻塞" in summary:
-            print(f"  summary包含依赖阻塞信息")
+            print("  summary包含依赖阻塞信息")
 
     # 检查queue_status设置
     print(f"\n队列状态: {data.get('queue_status')}")

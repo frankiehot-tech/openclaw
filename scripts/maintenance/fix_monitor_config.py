@@ -1,9 +1,10 @@
 #!/usr/bin/env python3
+# DEPRECATED: 使用 governance/ 模块代替
+# governance_cli.py repair <command> 或 governance_cli.py queue fix
 """修复监控配置脚本"""
 
 import os
 import re
-import sys
 
 
 def fix_monitor_ports():
@@ -14,7 +15,7 @@ def fix_monitor_ports():
     # 修复 monitor_web_queue_sync.sh
     sync_script = "/Volumes/1TB-M2/openclaw/monitor_web_queue_sync.sh"
     if os.path.exists(sync_script):
-        with open(sync_script, "r") as f:
+        with open(sync_script) as f:
             content = f.read()
 
         # 检查当前配置
@@ -40,7 +41,7 @@ def fix_monitor_ports():
 
     for file_path in monitor_files:
         if os.path.exists(file_path):
-            with open(file_path, "r") as f:
+            with open(file_path) as f:
                 content = f.read()
 
             if ":3000" in content:
@@ -63,7 +64,7 @@ def analyze_api_auth():
     # 检查token文件
     token_file = "/Volumes/1TB-M2/openclaw/.openclaw/athena_web_desktop.token"
     if os.path.exists(token_file):
-        with open(token_file, "r") as f:
+        with open(token_file) as f:
             token = f.read().strip()
         print(f"✅ 找到token文件: {token[:10]}...")
     else:
@@ -140,7 +141,7 @@ def check_current_monitor_config():
 
     for script in monitor_scripts:
         if os.path.exists(script):
-            with open(script, "r") as f:
+            with open(script) as f:
                 content = f.read()
 
             port_3000 = ":3000" in content
@@ -154,7 +155,7 @@ def check_current_monitor_config():
                 lines = content.split("\n")
                 for i, line in enumerate(lines):
                     if ":3000" in line:
-                        print(f"    第{i+1}行: {line.strip()[:80]}...")
+                        print(f"    第{i + 1}行: {line.strip()[:80]}...")
 
 
 def main():

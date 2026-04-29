@@ -14,7 +14,6 @@ import sys
 import time
 from datetime import date
 from pathlib import Path
-from typing import Optional
 
 from dotenv import load_dotenv
 
@@ -86,7 +85,8 @@ def estimate_cost_from_logs() -> float:
                 for line in text.splitlines():
                     if "$" in line and "cost" in line.lower():
                         import re
-                        match = re.search(r'\$?(\d+\.?\d*)', line)
+
+                        match = re.search(r"\$?(\d+\.?\d*)", line)
                         if match:
                             total += float(match.group(1))
             except Exception:

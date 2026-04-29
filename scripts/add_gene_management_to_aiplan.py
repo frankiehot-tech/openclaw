@@ -4,7 +4,6 @@
 """
 
 import json
-import os
 import sys
 from datetime import datetime
 from pathlib import Path
@@ -133,7 +132,7 @@ def update_build_queue(build_queue_path, gene_tasks):
     print(f"📝 更新构建队列: {build_queue_path}")
 
     # 读取现有队列
-    with open(build_queue_path, "r", encoding="utf-8") as f:
+    with open(build_queue_path, encoding="utf-8") as f:
         queue_data = json.load(f)
 
     # 添加基因管理任务到队列首位
@@ -165,7 +164,7 @@ def update_audit_queue(audit_queue_path, gene_tasks):
     print(f"📝 更新审计队列: {audit_queue_path}")
 
     # 读取现有队列
-    with open(audit_queue_path, "r", encoding="utf-8") as f:
+    with open(audit_queue_path, encoding="utf-8") as f:
         queue_data = json.load(f)
 
     # 添加基因管理审计任务
@@ -252,7 +251,7 @@ def update_auto_queue_config(aiplan_dir, gene_tasks):
     auto_queue_path = aiplan_dir / ".athena-auto-queue.json"
 
     if auto_queue_path.exists():
-        with open(auto_queue_path, "r", encoding="utf-8") as f:
+        with open(auto_queue_path, encoding="utf-8") as f:
             auto_queue_config = json.load(f)
     else:
         auto_queue_config = {
@@ -308,16 +307,16 @@ def main():
     print(f"📋 创建了 {len(gene_tasks)} 个基因管理任务")
 
     # 更新构建队列
-    build_queue_data = update_build_queue(queue_files["build_queue"], gene_tasks)
+    update_build_queue(queue_files["build_queue"], gene_tasks)
 
     # 更新审计队列
-    audit_queue_data = update_audit_queue(queue_files["audit_queue"], gene_tasks)
+    update_audit_queue(queue_files["audit_queue"], gene_tasks)
 
     # 创建队列状态文件
     queue_state_path = create_queue_state_file(gene_tasks)
 
     # 更新自动队列配置
-    auto_queue_config = update_auto_queue_config(aiplan_dir, gene_tasks)
+    update_auto_queue_config(aiplan_dir, gene_tasks)
 
     # 输出总结
     print("\n" + "=" * 60)
@@ -332,7 +331,7 @@ def main():
         f"✅ 审计队列: 添加了 {len([t for t in gene_tasks if t['entry_stage'] == 'review'])} 个任务"
     )
     print(f"✅ 队列状态: {queue_state_path}")
-    print(f"✅ 自动配置: 基因管理路由已添加")
+    print("✅ 自动配置: 基因管理路由已添加")
 
     print("\n🎯 任务执行顺序:")
     for i, task in enumerate(gene_tasks, 1):

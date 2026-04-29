@@ -10,12 +10,11 @@ import os
 import random
 import signal
 import subprocess
-import sys
 import threading
 import time
-from typing import Any, Dict, List, Optional
 
 import psutil
+
 from chaos_engineering_engine import FaultSeverity, FaultType
 
 # 设置日志
@@ -36,9 +35,9 @@ class AgentChaosLayer:
             safe_mode: 安全模式，为True时模拟故障而不实际终止进程
         """
         self.safe_mode = safe_mode
-        self.active_faults: Dict[str, Dict] = {}
-        self.killed_processes: List[Dict] = []
-        self.stress_threads: Dict[str, threading.Thread] = {}
+        self.active_faults: dict[str, dict] = {}
+        self.killed_processes: list[dict] = []
+        self.stress_threads: dict[str, threading.Thread] = {}
 
         # 检测当前运行的Agent进程
         self.agent_processes = self._detect_agent_processes()
@@ -46,7 +45,7 @@ class AgentChaosLayer:
         logger.info(f"Agent层故障注入器初始化完成 (安全模式: {'启用' if safe_mode else '禁用'})")
         logger.info(f"检测到的Agent进程: {len(self.agent_processes)} 个")
 
-    def _detect_agent_processes(self) -> List[Dict]:
+    def _detect_agent_processes(self) -> list[dict]:
         """检测当前运行的Agent相关进程"""
         agent_processes = []
 
@@ -106,7 +105,7 @@ class AgentChaosLayer:
 
         return agent_processes
 
-    def _get_agent_by_pid(self, pid: int) -> Optional[Dict]:
+    def _get_agent_by_pid(self, pid: int) -> dict | None:
         """根据PID获取Agent信息"""
         for agent in self.agent_processes:
             if agent["pid"] == pid:
@@ -115,7 +114,7 @@ class AgentChaosLayer:
 
     def inject_fault(
         self, fault_type: FaultType, severity: FaultSeverity, duration_seconds: int = 60
-    ) -> Dict:
+    ) -> dict:
         """
         注入Agent故障
 
@@ -170,7 +169,7 @@ class AgentChaosLayer:
 
         return result
 
-    def _inject_agent_crash(self, severity: FaultSeverity) -> Dict:
+    def _inject_agent_crash(self, severity: FaultSeverity) -> dict:
         """注入Agent崩溃故障"""
         if not self.agent_processes:
             return {"success": False, "error": "未找到可终止的Agent进程"}
@@ -215,7 +214,7 @@ class AgentChaosLayer:
             "severity": severity.value,
         }
 
-    def _kill_agent_process(self, pid: int, agent_name: str) -> Dict:
+    def _kill_agent_process(self, pid: int, agent_name: str) -> dict:
         """杀死Agent进程"""
         if self.safe_mode:
             logger.info(f"[模拟] 终止Agent进程: PID={pid}, 名称={agent_name}")
@@ -279,7 +278,7 @@ class AgentChaosLayer:
                 "simulated": False,
             }
 
-    def _inject_memory_pressure(self, severity: FaultSeverity, duration_seconds: int) -> Dict:
+    def _inject_memory_pressure(self, severity: FaultSeverity, duration_seconds: int) -> dict:
         """注入内存压力故障"""
         # 根据严重程度确定内存使用量
         if severity == FaultSeverity.LOW:
@@ -361,7 +360,7 @@ class AgentChaosLayer:
             "simulated": False,
         }
 
-    def _inject_cpu_pressure(self, severity: FaultSeverity, duration_seconds: int) -> Dict:
+    def _inject_cpu_pressure(self, severity: FaultSeverity, duration_seconds: int) -> dict:
         """注入CPU压力故障"""
         # 根据严重程度确定CPU使用率
         if severity == FaultSeverity.LOW:
@@ -436,7 +435,7 @@ class AgentChaosLayer:
             "simulated": False,
         }
 
-    def recover_fault(self, fault_type: FaultType) -> Dict:
+    def recover_fault(self, fault_type: FaultType) -> dict:
         """
         恢复Agent故障
 
@@ -466,7 +465,7 @@ class AgentChaosLayer:
                 # 对于压力测试，停止压力线程
                 # 注意：实际的压力线程会在完成后自动结束
                 threads_stopped = 0
-                for thread_id, thread in list(self.stress_threads.items()):
+                for _thread_id, thread in list(self.stress_threads.items()):
                     if thread and thread.is_alive():
                         # 我们无法直接停止线程，但可以记录
                         threads_stopped += 1
@@ -503,7 +502,7 @@ class AgentChaosLayer:
         except Exception as e:
             return {"success": False, "error": str(e), "fault_type": fault_type.value}
 
-    def restart_killed_agents(self) -> List[Dict]:
+    def restart_killed_agents(self) -> list[dict]:
         """
         重启被杀死的Agent进程（模拟）
         在实际环境中，这可能需要调用系统的进程管理工具
@@ -583,7 +582,7 @@ def test_agent_chaos_layer():
 
     print(f"\n1. 检测到的Agent进程: {len(layer.agent_processes)} 个")
     for i, agent in enumerate(layer.agent_processes[:3]):  # 只显示前3个
-        print(f"   {i+1}. PID={agent['pid']}, 名称={agent['name']}")
+        print(f"   {i + 1}. PID={agent['pid']}, 名称={agent['name']}")
 
     print("\n2. 测试Agent崩溃注入...")
     result = layer.inject_fault(

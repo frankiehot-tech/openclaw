@@ -5,18 +5,15 @@ ComfyUI插件管理器
 """
 
 import json
-import os
 import shutil
 import subprocess
 import sys
 from dataclasses import asdict, dataclass
 from pathlib import Path
-from typing import Any, Dict, List, Optional
-
-import requests
+from typing import Any
 
 # ComfyUI目录配置
-COMFYUI_BASE_DIR = Path("/Volumes/1TB-M2/openclaw/ComfyUI")
+COMFYUI_BASE_DIR = Path("/Volumes/1TB-M2/openclaw/comfyui_workspace/ComfyUI2")
 COMFYUI_CUSTOM_NODES_DIR = COMFYUI_BASE_DIR / "custom_nodes"
 EXTERNAL_WORKSPACE_DIR = Path("/Volumes/1TB-M2/openclaw/comfyui_workspace")
 
@@ -27,11 +24,11 @@ class PluginInfo:
 
     name: str
     description: str
-    repo_url: Optional[str] = None
-    repo_path: Optional[str] = None  # 本地路径
+    repo_url: str | None = None
+    repo_path: str | None = None  # 本地路径
     version: str = "1.0.0"
-    node_types: List[str] = None
-    dependencies: List[str] = None
+    node_types: list[str] = None
+    dependencies: list[str] = None
     installed: bool = False
     enabled: bool = True
 
@@ -48,9 +45,9 @@ class WorkflowTemplate:
 
     name: str
     description: str
-    workflow_json: Dict[str, Any]
-    required_plugins: List[str]
-    tags: List[str] = None
+    workflow_json: dict[str, Any]
+    required_plugins: list[str]
+    tags: list[str] = None
 
     def __post_init__(self):
         if self.tags is None:
@@ -76,11 +73,11 @@ class ComfyUIPluginManager:
         # 预定义的核心插件
         self._define_core_plugins()
 
-    def _load_plugins_config(self) -> Dict[str, PluginInfo]:
+    def _load_plugins_config(self) -> dict[str, PluginInfo]:
         """加载插件配置"""
         if self.plugins_config_file.exists():
             try:
-                with open(self.plugins_config_file, "r", encoding="utf-8") as f:
+                with open(self.plugins_config_file, encoding="utf-8") as f:
                     data = json.load(f)
 
                 plugins = {}
@@ -139,11 +136,11 @@ class ComfyUIPluginManager:
             if name not in self.plugins:
                 self.plugins[name] = plugin
 
-    def list_plugins(self) -> List[PluginInfo]:
+    def list_plugins(self) -> list[PluginInfo]:
         """列出所有插件"""
         return list(self.plugins.values())
 
-    def get_plugin(self, name: str) -> Optional[PluginInfo]:
+    def get_plugin(self, name: str) -> PluginInfo | None:
         """获取插件信息"""
         return self.plugins.get(name)
 
@@ -190,7 +187,7 @@ class ComfyUIPluginManager:
             # 检查requirements.txt
             requirements_file = plugin_dir / "requirements.txt"
             if requirements_file.exists():
-                print(f"[INFO] 安装Python依赖")
+                print("[INFO] 安装Python依赖")
                 subprocess.run(
                     [sys.executable, "-m", "pip", "install", "-r", str(requirements_file)],
                     check=True,
@@ -289,7 +286,7 @@ class ComfyUIPluginManager:
         print(f"[INFO] 插件已禁用: {plugin_name}")
         return True
 
-    def check_compatibility(self, plugin_name: str) -> Dict[str, Any]:
+    def check_compatibility(self, plugin_name: str) -> dict[str, Any]:
         """检查插件兼容性"""
         plugin = self.get_plugin(plugin_name)
         if not plugin:
@@ -324,7 +321,7 @@ class ComfyUIPluginManager:
         # 简化实现：总是返回True，需要用户手动重启
         return True
 
-    def create_workflow_template(self, template_name: str) -> Optional[WorkflowTemplate]:
+    def create_workflow_template(self, template_name: str) -> WorkflowTemplate | None:
         """创建工作流模板"""
         templates = {
             "athena_portrait": WorkflowTemplate(
@@ -352,7 +349,7 @@ class ComfyUIPluginManager:
 
         return templates.get(template_name)
 
-    def _create_athena_portrait_workflow(self) -> Dict[str, Any]:
+    def _create_athena_portrait_workflow(self) -> dict[str, Any]:
         """创建Athena肖像工作流"""
         # 使用现有的comfyui_athena_generator工作流结构
         return {
@@ -403,7 +400,7 @@ class ComfyUIPluginManager:
             },
         }
 
-    def _create_comic_panels_workflow(self) -> Dict[str, Any]:
+    def _create_comic_panels_workflow(self) -> dict[str, Any]:
         """创建漫画面板工作流（占位符）"""
         # 实际工作流需要根据comfyui_panels插件的节点类型调整
         return {
@@ -412,7 +409,7 @@ class ComfyUIPluginManager:
             "status": "placeholder",
         }
 
-    def _create_ltx23_storyboard_workflow(self) -> Dict[str, Any]:
+    def _create_ltx23_storyboard_workflow(self) -> dict[str, Any]:
         """创建LTX2.3故事板工作流（占位符）"""
         # 实际工作流需要根据LTX2.3工作流的节点类型调整
         return {
@@ -463,7 +460,7 @@ def main():
         if issues:
             print(f"   问题: {', '.join(issues)}")
         else:
-            print(f"   ✅ 无兼容性问题")
+            print("   ✅ 无兼容性问题")
 
     print("\n" + "=" * 60)
     print("💡 使用示例:")

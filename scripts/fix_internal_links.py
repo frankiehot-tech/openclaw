@@ -1,4 +1,6 @@
 #!/usr/bin/env python3
+# DEPRECATED: 使用 governance/ 模块代替
+# governance_cli.py repair <command> 或 governance_cli.py queue fix
 """
 内部链接修复工具
 修复文档迁移后的内部引用链接，将旧路径更新为新路径
@@ -10,7 +12,6 @@ import os
 import re
 import sys
 from pathlib import Path
-from typing import Dict, List, Tuple
 
 
 class InternalLinkFixer:
@@ -23,7 +24,7 @@ class InternalLinkFixer:
         # 旧路径到新路径的映射（基于文档迁移的规则）
         self.path_mappings = self._build_path_mappings()
 
-    def _build_path_mappings(self) -> Dict[str, str]:
+    def _build_path_mappings(self) -> dict[str, str]:
         """构建路径映射表"""
         mappings = {
             # 根目录文件映射到对应分类
@@ -49,7 +50,7 @@ class InternalLinkFixer:
 
         return mappings
 
-    def find_markdown_links(self, content: str) -> List[Tuple[str, str, int, int]]:
+    def find_markdown_links(self, content: str) -> list[tuple[str, str, int, int]]:
         """查找Markdown格式的链接"""
         # Markdown链接模式: [文本](链接 "可选标题")
         link_pattern = r'\[([^\]]+)\]\(([^)\s]+)(?:\s+"[^"]*")?\)'
@@ -126,13 +127,12 @@ class InternalLinkFixer:
         # 未找到文件
         return ""
 
-    def fix_links_in_file(self, file_path: Path, dry_run: bool = False) -> Dict:
+    def fix_links_in_file(self, file_path: Path, dry_run: bool = False) -> dict:
         """修复单个文件中的链接"""
         try:
-            with open(file_path, "r", encoding="utf-8") as f:
+            with open(file_path, encoding="utf-8") as f:
                 content = f.read()
 
-            original_content = content
             links = self.find_markdown_links(content)
 
             if not links:
@@ -204,14 +204,14 @@ class InternalLinkFixer:
 
     def fix_links_in_directory(
         self, directory: str = None, pattern: str = "*.md", dry_run: bool = False
-    ) -> Dict:
+    ) -> dict:
         """修复目录中所有文件的链接"""
         if directory is None:
             directory = self.docs_dir
         else:
             directory = Path(directory)
 
-        print(f"🔗 开始修复内部链接")
+        print("🔗 开始修复内部链接")
         print(f"📁 目录: {directory}")
         print(f"🔍 模式: {pattern}")
 
@@ -233,7 +233,7 @@ class InternalLinkFixer:
 
         for i, md_file in enumerate(md_files):
             if self.verbose or (i + 1) % 10 == 0:
-                print(f"  处理进度: {i+1}/{len(md_files)}")
+                print(f"  处理进度: {i + 1}/{len(md_files)}")
 
             result = self.fix_links_in_file(md_file, dry_run)
             results.append(result)
@@ -244,14 +244,14 @@ class InternalLinkFixer:
         # 生成报告
         files_with_fixes = [r for r in results if r.get("links_fixed", 0) > 0]
 
-        print(f"\n📊 链接修复完成:")
+        print("\n📊 链接修复完成:")
         print(f"  📄 处理文件: {len(md_files)}")
         print(f"  🔗 找到链接: {total_links_found}")
         print(f"  🔧 修复链接: {total_links_fixed}")
         print(f"  📝 修复文件: {len(files_with_fixes)}")
 
         if files_with_fixes and self.verbose:
-            print(f"\n📋 修复详情:")
+            print("\n📋 修复详情:")
             for result in files_with_fixes[:10]:  # 只显示前10个
                 print(f"  {result['file']}: {result['links_fixed']} 个链接")
                 for change in result.get("changes", [])[:3]:  # 只显示前3个更改
@@ -277,13 +277,13 @@ class InternalLinkFixer:
 
         report_content = f"""# 文档路径映射报告
 
-> 生成时间: {datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')}
+> 生成时间: {datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")}
 
 ## 📊 映射统计
 
 - **总映射规则**: {len(self.path_mappings)}
-- **精确匹配**: {sum(1 for k in self.path_mappings.keys() if not k.startswith('r'))}
-- **正则匹配**: {sum(1 for k in self.path_mappings.keys() if k.startswith('r'))}
+- **精确匹配**: {sum(1 for k in self.path_mappings if not k.startswith("r"))}
+- **正则匹配**: {sum(1 for k in self.path_mappings if k.startswith("r"))}
 
 ## 🔧 映射规则
 
@@ -304,7 +304,7 @@ class InternalLinkFixer:
         for pattern, replacement in regex_mappings.items():
             report_content += f"| `{pattern}` | `{replacement}` |\n"
 
-        report_content += f"""
+        report_content += """
 
 ## 💡 使用说明
 
@@ -392,18 +392,18 @@ def main():
             print(f"❌ 修复失败: {result['error']}")
             sys.exit(1)
         else:
-            print(f"\n📊 文件修复结果:")
+            print("\n📊 文件修复结果:")
             print(f"  文件: {result['file']}")
             print(f"  找到链接: {result['links_found']}")
             print(f"  修复链接: {result['links_fixed']}")
 
             if result["changes"]:
-                print(f"  更改:")
+                print("  更改:")
                 for change in result["changes"]:
                     print(f"    - {change}")
 
             if args.dry_run:
-                print(f"\n🔍 模拟运行完成")
+                print("\n🔍 模拟运行完成")
 
             sys.exit(0)
 
@@ -416,9 +416,9 @@ def main():
             print("  移除 --dry-run 参数执行实际修复")
         else:
             if result["total_links_fixed"] > 0:
-                print(f"\n✅ 链接修复完成")
+                print("\n✅ 链接修复完成")
             else:
-                print(f"\n📭 未找到需要修复的链接")
+                print("\n📭 未找到需要修复的链接")
 
         sys.exit(0)
 

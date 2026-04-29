@@ -1,5 +1,8 @@
 #!/usr/bin/env python3
+# DEPRECATED: 使用 governance/ 模块代替
+# governance_cli.py repair <command> 或 governance_cli.py queue fix
 """Add missing stdlib imports to all runner module files."""
+
 from pathlib import Path
 
 RUNNER_DIR = Path(__file__).resolve().parent / "runner"

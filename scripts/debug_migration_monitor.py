@@ -7,7 +7,7 @@ import logging
 import os
 import sqlite3
 import sys
-from datetime import datetime, timedelta
+from datetime import datetime
 
 sys.path.insert(0, "/Volumes/1TB-M2/openclaw/mini-agent")
 
@@ -27,15 +27,12 @@ def test_matching_logic():
     # 检查请求ID生成器是否可用
     try:
         from agent.core.request_id_generator import (
-            RequestIDGenerator,
             get_request_id_generator,
         )
 
-        REQUEST_ID_GENERATOR_AVAILABLE = True
         logger.info("✅ 请求ID生成器可用")
     except ImportError as e:
         logger.error(f"❌ 请求ID生成器导入失败: {e}")
-        REQUEST_ID_GENERATOR_AVAILABLE = False
         return
 
     conn = sqlite3.connect(db_path)
@@ -115,7 +112,7 @@ def test_matching_logic():
                     # 检查是否在2小时内
                     if time_diff <= 7200:  # 2小时
                         logger.info(f"时间窗口匹配: {exp_rid} ({exp_dt}) 与 {cost_rid} ({cost_dt})")
-                        logger.info(f"  时间差: {time_diff}秒 ({time_diff/60:.1f}分钟)")
+                        logger.info(f"  时间差: {time_diff}秒 ({time_diff / 60:.1f}分钟)")
 
                         # 检查RequestIDGenerator的match_time_window方法
                         match = generator.match_time_window(exp_rid, cost_rid, 7200)

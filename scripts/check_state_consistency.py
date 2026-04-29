@@ -15,8 +15,6 @@
 """
 
 import argparse
-import json
-import os
 import sys
 from pathlib import Path
 
@@ -84,7 +82,7 @@ def check_single_queue(queue_id: str, repair: bool = False, verbose: bool = Fals
 
         # 如果发现不一致且启用了修复
         if inconsistencies and repair:
-            print(f"\n🔧 修复不一致问题...")
+            print("\n🔧 修复不一致问题...")
             repair_report = adapter.repair_inconsistencies()
 
             if "error" in repair_report:
@@ -95,7 +93,7 @@ def check_single_queue(queue_id: str, repair: bool = False, verbose: bool = Fals
                 )
 
                 # 重新验证
-                print(f"\n🔄 重新验证...")
+                print("\n🔄 重新验证...")
                 new_report = adapter.validate_state_consistency()
                 new_score = new_report.get("consistency_score", 0)
                 print(f"📊 新一致性得分: {new_score:.1f}%")

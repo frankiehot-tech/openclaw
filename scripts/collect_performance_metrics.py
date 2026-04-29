@@ -16,11 +16,10 @@ from __future__ import annotations
 import argparse
 import json
 import logging
-import os
 from dataclasses import asdict, dataclass
 from datetime import datetime, timedelta
 from pathlib import Path
-from typing import Any, Dict, List, Optional, Tuple
+from typing import Any
 
 # Configure logging
 logging.basicConfig(
@@ -42,8 +41,8 @@ class QueueMetrics:
     running_items: int
     stale_items: int  # pending > 24h
     throughput_last_24h: float  # tasks completed per hour
-    avg_execution_latency: Optional[float]  # hours
-    failure_reasons: Dict[str, int]  # error type -> count
+    avg_execution_latency: float | None  # hours
+    failure_reasons: dict[str, int]  # error type -> count
 
 
 @dataclass
@@ -58,14 +57,14 @@ class SystemMetrics:
     total_stale: int
     overall_success_rate: float
     overall_throughput_24h: float
-    avg_latency_all: Optional[float]
-    failure_reason_distribution: Dict[str, int]
-    queue_metrics: List[QueueMetrics]
+    avg_latency_all: float | None
+    failure_reason_distribution: dict[str, int]
+    queue_metrics: list[QueueMetrics]
     # Defensive metrics
     missing_artifacts_count: int
     duplicate_tasks_count: int
-    data_quality_issues: List[str]
-    metadata: Dict[str, Any]
+    data_quality_issues: list[str]
+    metadata: dict[str, Any]
 
 
 def _parse_datetime(dt_str: str) -> datetime:
@@ -123,7 +122,7 @@ class MetricsCollector:
         completed_tasks = [t for t in tasks if t.get("status") == "completed"]
         failed_tasks = [t for t in tasks if t.get("status") == "failed"]
         pending_tasks = [t for t in tasks if t.get("status") == "pending"]
-        running_tasks = [t for t in tasks if t.get("status") == "running"]
+        [t for t in tasks if t.get("status") == "running"]
 
         # Calculate stale tasks (pending > 24h)
         stale_tasks = []
@@ -257,7 +256,7 @@ class MetricsCollector:
         )
         return metrics
 
-    def _load_tasks_data(self) -> Dict[str, Any]:
+    def _load_tasks_data(self) -> dict[str, Any]:
         """Load tasks.json with error handling."""
         if not self.tasks_path.exists():
             logger.warning(f"Tasks file not found: {self.tasks_path}")
@@ -273,7 +272,7 @@ class MetricsCollector:
             logger.error(f"Error reading tasks.json: {e}")
             return {}
 
-    def _collect_queue_metrics(self, tasks: List[Dict[str, Any]]) -> List[QueueMetrics]:
+    def _collect_queue_metrics(self, tasks: list[dict[str, Any]]) -> list[QueueMetrics]:
         """Collect metrics per queue from plan_queue files."""
         queue_metrics = []
 
@@ -282,7 +281,7 @@ class MetricsCollector:
             return queue_metrics
 
         # Group tasks by queue (from queue_config.queue_id or infer)
-        queue_to_tasks: Dict[str, List[Dict[str, Any]]] = {}
+        queue_to_tasks: dict[str, list[dict[str, Any]]] = {}
         for task in tasks:
             queue_config = task.get("queue_config", {})
             queue_id = queue_config.get("queue_id")
@@ -408,10 +407,10 @@ class MetricsCollector:
         output_path.parent.mkdir(parents=True, exist_ok=True)
 
         with open(output_path, "w") as f:
-            f.write(f"# Performance Metrics Summary\n\n")
+            f.write("# Performance Metrics Summary\n\n")
             f.write(f"**Timestamp**: {metrics.timestamp}\n\n")
 
-            f.write(f"## Overview\n")
+            f.write("## Overview\n")
             f.write(f"- **Total tasks**: {metrics.total_tasks}\n")
             f.write(f"- **Completed**: {metrics.total_completed}\n")
             f.write(f"- **Failed**: {metrics.total_failed}\n")
@@ -423,17 +422,17 @@ class MetricsCollector:
             if metrics.avg_latency_all:
                 f.write(f"- **Avg execution latency**: {metrics.avg_latency_all:.2f} hours\n")
 
-            f.write(f"\n## Defensive Checks\n")
+            f.write("\n## Defensive Checks\n")
             f.write(f"- **Missing artifacts**: {metrics.missing_artifacts_count}\n")
             f.write(f"- **Duplicate pending tasks**: {metrics.duplicate_tasks_count}\n")
             f.write(f"- **Data quality issues**: {len(metrics.data_quality_issues)}\n")
             if metrics.data_quality_issues:
-                f.write(f"\n### Data Quality Issues\n")
+                f.write("\n### Data Quality Issues\n")
                 for issue in metrics.data_quality_issues[:10]:
                     f.write(f"- {issue}\n")
 
             if metrics.failure_reason_distribution:
-                f.write(f"\n## Top Failure Reasons\n")
+                f.write("\n## Top Failure Reasons\n")
                 for reason, count in sorted(
                     metrics.failure_reason_distribution.items(),
                     key=lambda x: x[1],
@@ -453,8 +452,8 @@ class MetricsCollector:
                     if qm.avg_execution_latency:
                         f.write(f"- **Avg latency**: {qm.avg_execution_latency:.2f} hours\n")
 
-            f.write(f"\n---\n")
-            f.write(f"*Generated by performance metrics collector*\n")
+            f.write("\n---\n")
+            f.write("*Generated by performance metrics collector*\n")
 
         logger.info(f"Summary written to {output_path}")
         return output_path

@@ -1,4 +1,6 @@
 #!/usr/bin/env python3
+# DEPRECATED: 使用 governance/ 模块代替
+# governance_cli.py <command>
 """
 快速流量切换测试脚本
 验证系统就绪状态，执行简化的批次1测试
@@ -137,7 +139,7 @@ class QuickTrafficSwitchTest:
             # 队列运行器必须包含✅，不能包含❌
             if check["name"] == "队列运行器" and "❌" in check["status"]:
                 all_ok = False
-                print(f"  ❌ 关键检查失败: 队列运行器状态包含❌")
+                print("  ❌ 关键检查失败: 队列运行器状态包含❌")
                 break
             # 其他检查必须包含✅或⚠️
             if "✅" not in check["status"] and "⚠️" not in check["status"]:
@@ -162,9 +164,7 @@ class QuickTrafficSwitchTest:
             elapsed_minutes = i
             remaining_minutes = 4 - i
 
-            print(
-                f"\n⏱️ 批次执行中... 已进行 {elapsed_minutes} 分钟，剩余 {remaining_minutes} 分钟"
-            )
+            print(f"\n⏱️ 批次执行中... 已进行 {elapsed_minutes} 分钟，剩余 {remaining_minutes} 分钟")
 
             # 检查当前状态
             cpu_percent = psutil.cpu_percent(interval=1)
@@ -188,10 +188,10 @@ class QuickTrafficSwitchTest:
                 queue_files = list(self.queue_dir.glob("*.json"))
                 if queue_files:
                     try:
-                        with open(queue_files[0], "r", encoding="utf-8") as f:
+                        with open(queue_files[0], encoding="utf-8") as f:
                             data = json.load(f)
                             queue_status = data.get("queue_status", "unknown")
-                    except:
+                    except Exception:
                         pass
 
             # 记录监控数据
@@ -238,7 +238,7 @@ class QuickTrafficSwitchTest:
         success = queue_runner_stable and cpu_stable and memory_stable
 
         print(f"\n{'✅' if success else '❌'} 批次1模拟完成")
-        print(f"⏱️ 持续时间: {duration_seconds//60}分{duration_seconds%60}秒")
+        print(f"⏱️ 持续时间: {duration_seconds // 60}分{duration_seconds % 60}秒")
         print(f"📊 结果: {'成功' if success else '失败'}")
 
         # 详细结果
@@ -258,7 +258,7 @@ class QuickTrafficSwitchTest:
 ## 测试概览
 - **测试时间**: {datetime.now().isoformat()}
 - **测试类型**: 批次1模拟（10%流量，5分钟简化版）
-- **总体结果**: {'✅ 通过' if batch_success else '❌ 失败'}
+- **总体结果**: {"✅ 通过" if batch_success else "❌ 失败"}
 
 ## 系统健康检查
 """
@@ -270,7 +270,7 @@ class QuickTrafficSwitchTest:
 ## 批次1模拟结果
 - **批次名称**: 测试队列迁移（10%流量）
 - **测试时长**: 5分钟
-- **结果**: {'✅ 成功' if batch_success else '❌ 失败'}
+- **结果**: {"✅ 成功" if batch_success else "❌ 失败"}
 
 ## 监控数据摘要
 """
@@ -280,22 +280,22 @@ class QuickTrafficSwitchTest:
             last_data = monitoring_data[-1]
 
             report += f"""
-### 开始状态（{first_data.get('timestamp', 'N/A')}）
-- 队列运行器: {'✅ 运行中' if first_data.get('queue_runner_alive') else '❌ 未运行'}
-- 队列状态: {first_data.get('queue_status', 'unknown')}
-- CPU使用率: {first_data.get('cpu_percent', 0):.1f}%
-- 内存使用率: {first_data.get('memory_percent', 0):.1f}%
+### 开始状态（{first_data.get("timestamp", "N/A")}）
+- 队列运行器: {"✅ 运行中" if first_data.get("queue_runner_alive") else "❌ 未运行"}
+- 队列状态: {first_data.get("queue_status", "unknown")}
+- CPU使用率: {first_data.get("cpu_percent", 0):.1f}%
+- 内存使用率: {first_data.get("memory_percent", 0):.1f}%
 
-### 结束状态（{last_data.get('timestamp', 'N/A')}）
-- 队列运行器: {'✅ 运行中' if last_data.get('queue_runner_alive') else '❌ 未运行'}
-- 队列状态: {last_data.get('queue_status', 'unknown')}
-- CPU使用率: {last_data.get('cpu_percent', 0):.1f}%
-- 内存使用率: {last_data.get('memory_percent', 0):.1f}%
+### 结束状态（{last_data.get("timestamp", "N/A")}）
+- 队列运行器: {"✅ 运行中" if last_data.get("queue_runner_alive") else "❌ 未运行"}
+- 队列状态: {last_data.get("queue_status", "unknown")}
+- CPU使用率: {last_data.get("cpu_percent", 0):.1f}%
+- 内存使用率: {last_data.get("memory_percent", 0):.1f}%
 
 ### 稳定性分析
-- 队列运行器稳定性: {'✅ 稳定（全程运行）' if all(d.get('queue_runner_alive') for d in monitoring_data) else '❌ 不稳定'}
-- CPU稳定性: {'✅ 稳定（<90%）' if all(d.get('cpu_percent', 0) < 90 for d in monitoring_data) else '❌ 不稳定'}
-- 内存稳定性: {'✅ 稳定（<90%）' if all(d.get('memory_percent', 0) < 90 for d in monitoring_data) else '❌ 不稳定'}
+- 队列运行器稳定性: {"✅ 稳定（全程运行）" if all(d.get("queue_runner_alive") for d in monitoring_data) else "❌ 不稳定"}
+- CPU稳定性: {"✅ 稳定（<90%）" if all(d.get("cpu_percent", 0) < 90 for d in monitoring_data) else "❌ 不稳定"}
+- 内存稳定性: {"✅ 稳定（<90%）" if all(d.get("memory_percent", 0) < 90 for d in monitoring_data) else "❌ 不稳定"}
 """
 
         # 建议

@@ -1,4 +1,6 @@
 #!/usr/bin/env python3
+# DEPRECATED: 使用 governance/ 模块代替
+# governance_cli.py repair <command> 或 governance_cli.py queue fix
 """
 修复基因管理队列手动保留状态问题
 问题诊断：队列处于manual_hold状态，有5个手动任务、6个失败任务
@@ -6,7 +8,6 @@
 
 import json
 import os
-import time
 from datetime import datetime
 
 
@@ -22,7 +23,7 @@ def diagnose_gene_management_queue():
         return None
 
     try:
-        with open(queue_file, "r", encoding="utf-8") as f:
+        with open(queue_file, encoding="utf-8") as f:
             queue_state = json.load(f)
 
         print(f"📊 队列ID: {queue_state.get('queue_id', 'unknown')}")
@@ -87,7 +88,7 @@ def fix_gene_management_queue_manual_hold():
     queue_file = "/Volumes/1TB-M2/openclaw/.openclaw/plan_queue/openhuman_aiplan_gene_management_20260405.json"
 
     try:
-        with open(queue_file, "r", encoding="utf-8") as f:
+        with open(queue_file, encoding="utf-8") as f:
             queue_state = json.load(f)
 
         items = queue_state.get("items", {})
@@ -109,16 +110,16 @@ def fix_gene_management_queue_manual_hold():
             print(f"📝 任务标题: {first_task.get('title', '无标题')}")
 
             # 检查任务是否可以自动执行
-            stage = first_task.get("stage", "")
+            first_task.get("stage", "")
             error = first_task.get("error", "")
-            summary = first_task.get("summary", "")
+            first_task.get("summary", "")
 
             if error:
                 print(f"⚠️  任务有错误，需要先修复: {error[:100]}...")
                 # 清理错误，设置为pending状态重新尝试
                 items[first_task_id]["error"] = ""
                 items[first_task_id]["status"] = "pending"
-                print(f"✅ 清理错误并设置为pending状态")
+                print("✅ 清理错误并设置为pending状态")
 
             # 修复队列状态
             queue_state["queue_status"] = "running"
@@ -223,9 +224,9 @@ def main():
     pause_reason = queue_state.get("pause_reason", "")
 
     if queue_status == "manual_hold" and pause_reason == "manual_hold":
-        print(f"\n⚠️  队列处于manual_hold状态，需要修复")
+        print("\n⚠️  队列处于manual_hold状态，需要修复")
 
-        print(f"\n⚠️  队列处于manual_hold状态，开始自动修复...")
+        print("\n⚠️  队列处于manual_hold状态，开始自动修复...")
         # 修复队列
         success = fix_gene_management_queue_manual_hold()
 
@@ -239,7 +240,7 @@ def main():
         else:
             print("\n❌ 修复失败，请检查日志")
     elif queue_status == "running":
-        print(f"\n✅ 队列已经在running状态")
+        print("\n✅ 队列已经在running状态")
         print("💡 如果手动拉起按钮仍然无效，可能是其他问题")
         print("   1. 检查Web服务是否正常")
         print("   2. 检查任务是否有错误配置")

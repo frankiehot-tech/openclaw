@@ -15,16 +15,7 @@ if str(_scripts_dir) not in sys.path:
     sys.path.insert(0, str(_scripts_dir))
 
 try:
-    from .openclaw_roots import (
-        LOG_DIR,
-        PLAN_CONFIG_PATH,
-        PLAN_DIR,
-        QUEUE_STATE_DIR,
-        RUNTIME_ROOT,
-        TASKS_DIR,
-        TASKS_PATH,
-        pid_file,
-    )
+    pass
 except ImportError:
     import sys
 
@@ -119,7 +110,7 @@ def add_trace_artifact(
     task_dir: Path,
     artifact_type: str,
     path: str,
-    metadata: Optional[dict[str, Any]] = None,
+    metadata: dict[str, Any] | None = None,
 ) -> None:
     """向 trace.json 添加产物记录"""
     update_trace_event(

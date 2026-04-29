@@ -35,7 +35,7 @@ def main():
 
     # 分析实验记录request_id的模式
     if exp_requests:
-        print(f"\n实验记录request_id模式分析:")
+        print("\n实验记录request_id模式分析:")
         print(f"  样本数量: {len(exp_requests)}")
         print(f"  前缀: {[r[:10] for r in exp_requests[:3]]}...")
         print(
@@ -70,7 +70,7 @@ def main():
 
     # 分析成本记录request_id的模式
     if cost_requests:
-        print(f"\n成本记录request_id模式分析:")
+        print("\n成本记录request_id模式分析:")
         print(f"  样本数量: {len(cost_requests)}")
         print(f"  前缀: {[r[:10] for r in cost_requests[:3]]}...")
         print(

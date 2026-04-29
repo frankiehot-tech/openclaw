@@ -12,7 +12,6 @@ import shutil
 import sys
 from datetime import datetime
 from pathlib import Path
-from typing import Dict, List, Set
 
 
 class DocumentSnapshotCreator:
@@ -36,7 +35,7 @@ class DocumentSnapshotCreator:
                 print(f"    计算哈希失败 {file_path}: {e}")
             return ""
 
-    def collect_document_stats(self, root_path: Path) -> Dict:
+    def collect_document_stats(self, root_path: Path) -> dict:
         """收集文档统计信息"""
         stats = {"total_files": 0, "total_size": 0, "file_types": {}, "categories": {}, "files": []}
 
@@ -78,10 +77,10 @@ class DocumentSnapshotCreator:
     def create_snapshot(
         self,
         version: str,
-        output_dir: Optional[str] = None,
-        include_patterns: List[str] = None,
-        exclude_patterns: List[str] = None,
-    ) -> Dict:
+        output_dir: str | None = None,
+        include_patterns: list[str] = None,
+        exclude_patterns: list[str] = None,
+    ) -> dict:
         """创建文档快照"""
         if output_dir is None:
             output_dir = self.archive_dir / f"v{version}"
@@ -184,7 +183,7 @@ class DocumentSnapshotCreator:
             "created_at": datetime.now().isoformat(),
         }
 
-        print(f"\n📊 快照创建完成:")
+        print("\n📊 快照创建完成:")
         print(f"  ✅ 复制文件: {len(copied_files)}/{stats['total_files']}")
         print(f"  ⏭️  跳过文件: {len(skipped_files)}")
         print(f"  💾 快照大小: {stats['total_size']:,} 字节")
@@ -192,7 +191,7 @@ class DocumentSnapshotCreator:
 
         return result
 
-    def list_snapshots(self) -> List[Dict]:
+    def list_snapshots(self) -> list[dict]:
         """列出所有快照"""
         snapshots = []
 
@@ -205,7 +204,7 @@ class DocumentSnapshotCreator:
 
                 if metadata_path.exists():
                     try:
-                        with open(metadata_path, "r", encoding="utf-8") as f:
+                        with open(metadata_path, encoding="utf-8") as f:
                             metadata = json.load(f)
 
                         snapshots.append(
@@ -238,10 +237,10 @@ class DocumentSnapshotCreator:
     def restore_snapshot(
         self,
         version: str,
-        snapshot_dir: Optional[str] = None,
-        target_dir: Optional[str] = None,
+        snapshot_dir: str | None = None,
+        target_dir: str | None = None,
         dry_run: bool = False,
-    ) -> Dict:
+    ) -> dict:
         """从快照恢复文档"""
         if snapshot_dir is None:
             snapshot_dir = self.archive_dir / f"v{version}"
@@ -262,12 +261,12 @@ class DocumentSnapshotCreator:
         # 检查快照元数据
         metadata_path = snapshot_path / "snapshot_metadata.json"
         if not metadata_path.exists():
-            print(f"⚠️  快照元数据不存在，将直接复制文件")
+            print("⚠️  快照元数据不存在，将直接复制文件")
 
         # 查找快照中的所有Markdown文件
         md_files = list(snapshot_path.rglob("*.md"))
         if not md_files:
-            print(f"📭 快照中没有找到Markdown文件")
+            print("📭 快照中没有找到Markdown文件")
             md_files = []
 
         # 恢复文件
@@ -305,13 +304,13 @@ class DocumentSnapshotCreator:
             "dry_run": dry_run,
         }
 
-        print(f"\n📊 快照恢复完成:")
+        print("\n📊 快照恢复完成:")
         print(f"  ✅ 恢复文件: {len(restored_files)}/{len(md_files)}")
         print(f"  ❌ 失败文件: {len(failed_files)}")
         print(f"  📁 目标位置: {target_path}")
 
         if dry_run:
-            print(f"  🔍 模拟运行，未实际复制文件")
+            print("  🔍 模拟运行，未实际复制文件")
 
         return result
 
@@ -357,7 +356,7 @@ def main():
             print(f"    文档数: {snapshot['document_count']}")
             print(f"    大小: {snapshot['total_size']:,} 字节")
             if snapshot.get("no_metadata"):
-                print(f"    ⚠️  缺少元数据文件")
+                print("    ⚠️  缺少元数据文件")
             print()
 
         sys.exit(0)

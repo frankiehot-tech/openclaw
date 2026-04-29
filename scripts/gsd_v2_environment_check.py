@@ -1,7 +1,6 @@
 #!/usr/bin/env python3
 """GSD V2 环境准备检查脚本"""
 
-import json
 import os
 import subprocess
 import sys
@@ -179,8 +178,8 @@ class GSDV2EnvironmentChecker:
         """生成环境检查报告"""
         report = f"""# GSD V2 环境检查报告
 
-**检查时间**: {self.results['timestamp']}
-**总体状态**: {self.results['overall_status'].upper()}
+**检查时间**: {self.results["timestamp"]}
+**总体状态**: {self.results["overall_status"].upper()}
 
 ## 📊 检查结果汇总
 

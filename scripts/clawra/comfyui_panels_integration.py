@@ -7,15 +7,12 @@ ComfyUI Panels插件集成模块
 待网络恢复后可用真实插件替换。
 """
 
-import json
 import math
-import os
 import sys
 from dataclasses import dataclass, field
 from pathlib import Path
-from typing import Any, Dict, List, Optional, Tuple
+from typing import Any
 
-import numpy as np
 from PIL import Image, ImageDraw, ImageFont
 
 sys.path.append(str(Path(__file__).parent))
@@ -30,11 +27,11 @@ class PanelLayout:
     description: str
     rows: int
     cols: int
-    panel_sizes: List[Tuple[int, int]]  # 每个面板的(宽,高)
+    panel_sizes: list[tuple[int, int]]  # 每个面板的(宽,高)
     gutter_size: int = 20  # 面板间距
     margin_size: int = 40  # 页面边距
 
-    def total_size(self) -> Tuple[int, int]:
+    def total_size(self) -> tuple[int, int]:
         """计算总页面尺寸"""
         total_width = self.margin_size * 2
         total_height = self.margin_size * 2
@@ -54,7 +51,7 @@ class PanelLayout:
 
         return total_width, total_height
 
-    def panel_position(self, panel_index: int) -> Tuple[int, int]:
+    def panel_position(self, panel_index: int) -> tuple[int, int]:
         """计算面板在页面中的位置"""
         if panel_index >= len(self.panel_sizes):
             raise ValueError(f"面板索引超出范围: {panel_index}")
@@ -94,12 +91,12 @@ class ComicPage:
     """漫画页面"""
 
     layout: PanelLayout
-    panels: List[Image.Image]  # 面板图像列表
+    panels: list[Image.Image]  # 面板图像列表
     page_number: int = 1
-    metadata: Dict[str, Any] = field(default_factory=dict)
+    metadata: dict[str, Any] = field(default_factory=dict)
 
     def create_page_image(
-        self, background_color: Tuple[int, int, int] = (255, 255, 255)
+        self, background_color: tuple[int, int, int] = (255, 255, 255)
     ) -> Image.Image:
         """创建完整的页面图像"""
         page_width, page_height = self.layout.total_size()
@@ -124,7 +121,7 @@ class ComicPage:
     def add_panel_border(
         self,
         page_image: Image.Image,
-        border_color: Tuple[int, int, int] = (0, 0, 0),
+        border_color: tuple[int, int, int] = (0, 0, 0),
         border_width: int = 3,
     ) -> Image.Image:
         """为面板添加边框"""
@@ -194,18 +191,18 @@ class ComfyUIPanelsSimulator:
         ),
     }
 
-    def __init__(self, comfyui_generator: Optional[ComfyUIAthenaGenerator] = None):
+    def __init__(self, comfyui_generator: ComfyUIAthenaGenerator | None = None):
         self.generator = comfyui_generator
         self.output_dir = Path("/Volumes/1TB-M2/openclaw/comfyui_workspace/output/comic_pages")
         self.output_dir.mkdir(parents=True, exist_ok=True)
 
-    def get_available_layouts(self) -> Dict[str, PanelLayout]:
+    def get_available_layouts(self) -> dict[str, PanelLayout]:
         """获取可用布局"""
         return self.STANDARD_LAYOUTS.copy()
 
     def generate_panel_image(
         self, prompt: str, width: int, height: int, style: str = "comic_book", panel_index: int = 0
-    ) -> Optional[Image.Image]:
+    ) -> Image.Image | None:
         """生成单张面板图像"""
         if self.generator:
             # 使用ComfyUI生成图像
@@ -253,7 +250,7 @@ class ComfyUIPanelsSimulator:
             # 尝试使用默认字体
             font = ImageFont.load_default()
             draw.text((20, 20), f"Panel {panel_index+1}", fill=(100, 100, 100), font=font)
-        except:
+        except Exception:
             draw.text((20, 20), f"Panel {panel_index+1}", fill=(100, 100, 100))
 
         # 绘制提示词摘要
@@ -266,7 +263,7 @@ class ComfyUIPanelsSimulator:
         return img
 
     def generate_comic_page(
-        self, layout_name: str, prompts: List[str], style: str = "comic_book", page_number: int = 1
+        self, layout_name: str, prompts: list[str], style: str = "comic_book", page_number: int = 1
     ) -> ComicPage:
         """生成完整漫画页面"""
         layout = self.STANDARD_LAYOUTS.get(layout_name)
@@ -275,7 +272,7 @@ class ComfyUIPanelsSimulator:
 
         # 生成所有面板图像
         panels = []
-        for idx, (prompt, panel_size) in enumerate(zip(prompts, layout.panel_sizes)):
+        for idx, (prompt, panel_size) in enumerate(zip(prompts, layout.panel_sizes, strict=False)):
             if idx >= len(layout.panel_sizes):
                 break
 
@@ -327,8 +324,8 @@ class ComfyUIPanelsSimulator:
         return output_path
 
     def generate_comic_story(
-        self, story_prompts: List[str], layout_name: str = "four_panel", style: str = "comic_book"
-    ) -> List[Path]:
+        self, story_prompts: list[str], layout_name: str = "four_panel", style: str = "comic_book"
+    ) -> list[Path]:
         """生成漫画故事（多页面）"""
         layout = self.STANDARD_LAYOUTS.get(layout_name)
         if not layout:
@@ -338,7 +335,7 @@ class ComfyUIPanelsSimulator:
         total_panels = len(story_prompts)
         total_pages = math.ceil(total_panels / panels_per_page)
 
-        print(f"[INFO] 生成漫画故事:")
+        print("[INFO] 生成漫画故事:")
         print(f"  总面板数: {total_panels}")
         print(f"  每页面板数: {panels_per_page}")
         print(f"  总页数: {total_pages}")
@@ -354,12 +351,12 @@ class ComfyUIPanelsSimulator:
             print(f"  生成页面 {page_num+1}/{total_pages} (面板 {start_idx+1}-{end_idx})")
 
             comic_page = self.generate_comic_page(layout_name, page_prompts, style, page_num + 1)
-            output_path = self.save_comic_page(comic_page, f"comic_story")
+            output_path = self.save_comic_page(comic_page, "comic_story")
             saved_pages.append(output_path)
 
         return saved_pages
 
-    def integrate_with_comfyui(self, server_url: str = "http://127.0.0.1:8189") -> bool:
+    def integrate_with_comfyui(self, server_url: str = "http://127.0.0.1:8188") -> bool:
         """集成到ComfyUI服务器"""
         try:
             import requests
@@ -367,14 +364,14 @@ class ComfyUIPanelsSimulator:
             # 检查服务器状态
             response = requests.get(f"{server_url}/system_stats")
             if response.status_code == 200:
-                print(f"[SUCCESS] ComfyUI服务器连接正常")
+                print("[SUCCESS] ComfyUI服务器连接正常")
 
                 # 注册自定义节点（模拟）
                 # 真实集成需要将节点定义添加到ComfyUI的custom_nodes目录
-                print(f"[INFO] 模拟注册ComfyUI Panels节点:")
-                print(f"  - PanelLayoutNode: 面板布局定义")
-                print(f"  - ComicPageGenerator: 漫画页面生成")
-                print(f"  - StoryboardWorkflow: 故事板工作流")
+                print("[INFO] 模拟注册ComfyUI Panels节点:")
+                print("  - PanelLayoutNode: 面板布局定义")
+                print("  - ComicPageGenerator: 漫画页面生成")
+                print("  - StoryboardWorkflow: 故事板工作流")
 
                 return True
             else:

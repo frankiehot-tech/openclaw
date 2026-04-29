@@ -3,8 +3,7 @@
 import json
 import logging
 import os
-from datetime import datetime, timezone
-from typing import Dict, Set
+from datetime import UTC, datetime
 
 from . import config
 
@@ -19,7 +18,7 @@ def _load() -> dict:
     if not os.path.exists(TRACKER_FILE):
         return {"videos": {}, "last_run": None}
     try:
-        with open(TRACKER_FILE, "r", encoding="utf-8") as f:
+        with open(TRACKER_FILE, encoding="utf-8") as f:
             return json.load(f)
     except (json.JSONDecodeError, OSError) as e:
         logger.warning("跟踪文件损坏，重置: %s", e)
@@ -42,21 +41,21 @@ def is_new(video_id: str) -> bool:
 def mark_processed(video_id: str):
     """将视频标记为已处理."""
     data = _load()
-    data.setdefault("videos", {})[video_id] = datetime.now(timezone.utc).isoformat()
+    data.setdefault("videos", {})[video_id] = datetime.now(UTC).isoformat()
     _save(data)
 
 
-def mark_all_processed(video_ids: Set[str]):
+def mark_all_processed(video_ids: set[str]):
     """批量标记多个视频为已处理."""
     data = _load()
-    now = datetime.now(timezone.utc).isoformat()
+    now = datetime.now(UTC).isoformat()
     for vid in video_ids:
         if vid not in data.get("videos", {}):
             data.setdefault("videos", {})[vid] = now
     _save(data)
 
 
-def get_new_videos(all_videos: Dict[str, list]) -> Dict[str, list]:
+def get_new_videos(all_videos: dict[str, list]) -> dict[str, list]:
     """从所有频道视频中筛选出未处理的新视频.
 
     Args:
@@ -81,8 +80,8 @@ def get_new_videos(all_videos: Dict[str, list]) -> Dict[str, list]:
     return result
 
 
-def mark_current_as_seen(all_videos: Dict[str, list]):
-    """将当前所有视频标记为已处理（首次运行时调用，避免报告历史视频）. """
+def mark_current_as_seen(all_videos: dict[str, list]):
+    """将当前所有视频标记为已处理（首次运行时调用，避免报告历史视频）."""
     all_ids = set()
     for videos in all_videos.values():
         for v in videos:
@@ -92,7 +91,7 @@ def mark_current_as_seen(all_videos: Dict[str, list]):
 
 
 def is_first_run() -> bool:
-    """判断是否为首次运行（跟踪文件为空或无数据）. """
+    """判断是否为首次运行（跟踪文件为空或无数据）."""
     data = _load()
     return not data.get("videos")
 
@@ -100,7 +99,7 @@ def is_first_run() -> bool:
 def record_run():
     """记录本次运行时间."""
     data = _load()
-    data["last_run"] = datetime.now(timezone.utc).isoformat()
+    data["last_run"] = datetime.now(UTC).isoformat()
     _save(data)
 
 
@@ -113,13 +112,13 @@ def get_last_run() -> str:
 # ====== AI 摘要缓存接口 ======
 
 
-def get_summaries() -> Dict[str, str]:
+def get_summaries() -> dict[str, str]:
     """获取所有缓存的视频摘要."""
     data = _load()
     return data.get("summaries", {})
 
 
-def save_summaries(summaries: Dict[str, str]):
+def save_summaries(summaries: dict[str, str]):
     """保存视频摘要到缓存."""
     data = _load()
     existing = data.get("summaries", {})

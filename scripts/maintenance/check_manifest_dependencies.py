@@ -4,7 +4,6 @@
 """
 
 import json
-import os
 
 
 def main():
@@ -12,11 +11,11 @@ def main():
     state_file = ".openclaw/plan_queue/openhuman_aiplan_build_priority_20260328.json"
 
     print(f"加载清单文件: {manifest_file}")
-    with open(manifest_file, "r", encoding="utf-8") as f:
+    with open(manifest_file, encoding="utf-8") as f:
         manifest = json.load(f)
 
     print(f"加载状态文件: {state_file}")
-    with open(state_file, "r", encoding="utf-8") as f:
+    with open(state_file, encoding="utf-8") as f:
         state = json.load(f)
 
     manifest_items = manifest.get("items", [])
@@ -26,13 +25,13 @@ def main():
     print(f"状态任务数: {len(state_items)}")
 
     # 创建状态映射
-    state_by_id = {task_id: task for task_id, task in state_items.items()}
+    state_by_id = dict(state_items.items())
 
     # 检查依赖关系
     blocked = False
     blocked_tasks = []
 
-    print(f"\n检查依赖关系...")
+    print("\n检查依赖关系...")
     for item in manifest_items:
         item_id = str(item.get("id", ""))
         depends_on = item.get("metadata", {}).get("depends_on", [])
@@ -58,12 +57,12 @@ def main():
                     blocked = True
 
     if blocked:
-        print(f"\n🚫 发现依赖阻塞:")
+        print("\n🚫 发现依赖阻塞:")
         for task_id, dep_id, dep_status in blocked_tasks:
             print(f"  - {task_id} → {dep_id} (状态: {dep_status})")
 
         # 显示具体阻塞链
-        print(f"\n🔗 阻塞链分析:")
+        print("\n🔗 阻塞链分析:")
         for task_id, dep_id, dep_status in blocked_tasks:
             dep_task = state_by_id.get(str(dep_id))
             if dep_task:
@@ -71,7 +70,7 @@ def main():
                 print(f"  {task_id}")
                 print(f"    ↓ 被 {dep_id} 阻塞 ({dep_status}): {dep_summary}...")
     else:
-        print(f"\n✅ 无依赖阻塞")
+        print("\n✅ 无依赖阻塞")
 
     return 0
 

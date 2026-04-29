@@ -55,7 +55,9 @@ print("\n3. 检查 handoff 逻辑是否生效:")
 if hasattr(bridge, 'handoff'):
     print("   bridge 有 handoff 属性")
     # 测试 handoff 判断
-    from mini-agent.agent.core.runtime_handoff import HandoffRequest
+    import importlib
+    handoff_module = importlib.import_module("mini-agent.agent.core.runtime_handoff")
+    HandoffRequest = getattr(handoff_module, "HandoffRequest")
 
     # 跳过，因为导入问题
 else:

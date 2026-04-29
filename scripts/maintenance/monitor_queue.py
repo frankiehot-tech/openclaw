@@ -1,13 +1,13 @@
 #!/usr/bin/env python3
+# DEPRECATED: 使用 governance/ 模块代替
+# governance_cli.py health 或 governance_cli.py queue protect
 """
 队列监控脚本 - 每2分钟检查队列状态并拉起失败任务
 """
 
 import json
 import os
-import subprocess
 import sys
-import time
 from datetime import datetime, timedelta
 
 
@@ -29,7 +29,7 @@ def check_queue_status():
             print(f"    ⚠️  配置文件不存在: {config_file}")
             return
 
-        with open(config_file, "r", encoding="utf-8") as f:
+        with open(config_file, encoding="utf-8") as f:
             config = json.load(f)
 
         routes = config.get("routes", [])
@@ -37,14 +37,14 @@ def check_queue_status():
         for route in routes:
             route_id = route.get("route_id")
             queue_id = route.get("queue_id")
-            manifest_path = route.get("manifest_path")
+            route.get("manifest_path")
 
             print(f"  路由: {route_id}, 队列: {queue_id}")
 
             # 加载状态文件
             state_file = f".openclaw/plan_queue/{queue_id}.json"
             try:
-                with open(state_file, "r", encoding="utf-8") as f:
+                with open(state_file, encoding="utf-8") as f:
                     state_data = json.load(f)
             except Exception as e:
                 print(f"    ⚠️  无法加载状态文件 {state_file}: {e}")
@@ -204,7 +204,7 @@ def check_queue_status():
                                         "started_at": started_at,
                                     }
                                 )
-                        except:
+                        except Exception:
                             pass
 
             if long_running_tasks:
@@ -224,9 +224,9 @@ def check_queue_status():
             logs = []
             if os.path.exists(log_file):
                 try:
-                    with open(log_file, "r", encoding="utf-8") as f:
+                    with open(log_file, encoding="utf-8") as f:
                         logs = json.load(f)
-                except:
+                except Exception:
                     logs = []
 
             logs.append(log_entry)
@@ -238,7 +238,7 @@ def check_queue_status():
             with open(log_file, "w", encoding="utf-8") as f:
                 json.dump(logs, f, ensure_ascii=False, indent=2)
 
-            print(f"    📊 已记录监控日志")
+            print("    📊 已记录监控日志")
 
     except Exception as e:
         print(f"    ❌ 监控失败: {e}")

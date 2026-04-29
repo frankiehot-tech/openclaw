@@ -1,10 +1,11 @@
 #!/usr/bin/env python3
+# DEPRECATED: 使用 governance/ 模块代替
+# governance_cli.py repair <command> 或 governance_cli.py queue fix
 """
 修复所有manual_hold任务，将它们标记为completed
 """
 
 import json
-import os
 import shutil
 from datetime import datetime
 
@@ -13,7 +14,7 @@ def main():
     state_file = "/Volumes/1TB-M2/openclaw/.openclaw/plan_queue/openhuman_aiplan_build_priority_20260328.json"
 
     print(f"加载状态文件: {state_file}")
-    with open(state_file, "r", encoding="utf-8") as f:
+    with open(state_file, encoding="utf-8") as f:
         data = json.load(f)
 
     items = data.get("items", {})
@@ -77,19 +78,19 @@ def main():
             if is_doc_type_issue:
                 task["summary"] = "已自动修复：文档类型不匹配，跳过执行"
                 task["pipeline_summary"] = "auto_skipped_wrong_lane"
-                print(f"  → 标记为completed（文档类型不匹配）")
+                print("  → 标记为completed（文档类型不匹配）")
             elif is_missing_acceptance:
                 task["summary"] = "已自动修复：缺少验收标准，跳过执行"
                 task["pipeline_summary"] = "auto_skipped_missing_acceptance"
-                print(f"  → 标记为completed（缺少验收标准）")
+                print("  → 标记为completed（缺少验收标准）")
             else:
                 task["summary"] = "已自动修复：基础设施任务，解除阻塞"
                 task["pipeline_summary"] = "auto_fixed_infrastructure_block"
-                print(f"  → 标记为completed（基础设施任务）")
+                print("  → 标记为completed（基础设施任务）")
 
             fixed_count += 1
         else:
-            print(f"  ⚠️  跳过：非基础设施任务，需要手动处理")
+            print("  ⚠️  跳过：非基础设施任务，需要手动处理")
 
     if fixed_count > 0:
         # 重新计算counts
@@ -123,7 +124,7 @@ def main():
         data["updated_at"] = datetime.now().isoformat()
 
         # 创建备份
-        backup = state_file + f'.manual_hold_fix_backup_{datetime.now().strftime("%Y%m%d_%H%M%S")}'
+        backup = state_file + f".manual_hold_fix_backup_{datetime.now().strftime('%Y%m%d_%H%M%S')}"
         shutil.copy2(state_file, backup)
         print(f"\n✅ 创建备份: {backup}")
 
@@ -131,7 +132,7 @@ def main():
         with open(state_file, "w", encoding="utf-8") as f:
             json.dump(data, f, ensure_ascii=False, indent=2)
 
-        print(f"\n📊 修复完成:")
+        print("\n📊 修复完成:")
         print(f"  修复任务数: {fixed_count}")
         print(f"  剩余manual_hold任务: {len(manual_hold_tasks) - fixed_count}")
         print(f"  新counts: {json.dumps(counts, ensure_ascii=False, indent=2)}")
@@ -150,7 +151,7 @@ def main():
                 pipeline = task.get("pipeline_summary", "")
                 if status == "pending" and "dependency blocked" in pipeline:
                     print(f"  ⚠️  {task_id} 仍显示为dependency blocked")
-                    print(f"     可能需要等待队列运行器重新评估依赖关系")
+                    print("     可能需要等待队列运行器重新评估依赖关系")
     else:
         print("没有修复任何任务")
 

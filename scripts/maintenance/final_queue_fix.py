@@ -1,12 +1,13 @@
 #!/usr/bin/env python3
+# DEPRECATED: 使用 governance/ 模块代替
+# governance_cli.py <command>
 """
 最终队列修复：处理所有失败任务，确保队列能正常运行和手动拉起
 """
 
 import json
 import os
-import sys
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 
 
 def load_queue():
@@ -14,7 +15,7 @@ def load_queue():
     queue_file = "/Volumes/1TB-M2/openclaw/.openclaw/plan_queue/openhuman_aiplan_gene_management_20260405.json"
 
     try:
-        with open(queue_file, "r", encoding="utf-8") as f:
+        with open(queue_file, encoding="utf-8") as f:
             return json.load(f), queue_file
     except Exception as e:
         print(f"❌ 加载队列失败: {e}")
@@ -63,7 +64,7 @@ def analyze_and_fix_all_failed_tasks(queue_state):
         # 决定如何修复
         if not instruction_path or instruction_path.strip() == "":
             # instruction_path缺失
-            print(f"  🔧 修复: instruction_path缺失")
+            print("  🔧 修复: instruction_path缺失")
 
             # 创建instruction_path
             if stage == "plan":
@@ -72,7 +73,7 @@ def analyze_and_fix_all_failed_tasks(queue_state):
                 )
                 os.makedirs(os.path.dirname(new_path), exist_ok=True)
 
-                content = f"""# 修复的聊天任务: {task.get('title', '无标题')}
+                content = f"""# 修复的聊天任务: {task.get("title", "无标题")}
 
 ## 任务描述
 这是一个自动修复的聊天任务，原始任务因为instruction_path缺失而失败。
@@ -103,7 +104,7 @@ def analyze_and_fix_all_failed_tasks(queue_state):
 
         elif "API key" in error or "Incorrect API key" in error:
             # API key错误
-            print(f"  🔧 修复: API key错误")
+            print("  🔧 修复: API key错误")
 
             # 清除错误，设置为pending
             items[task_id]["error"] = ""
@@ -115,7 +116,7 @@ def analyze_and_fix_all_failed_tasks(queue_state):
 
         elif "runner 重启恢复" in error:
             # runner重启失败
-            print(f"  🔧 修复: runner重启失败")
+            print("  🔧 修复: runner重启失败")
 
             # 清除错误，设置为pending
             items[task_id]["error"] = ""
@@ -127,7 +128,7 @@ def analyze_and_fix_all_failed_tasks(queue_state):
 
         else:
             # 其他错误，直接清除
-            print(f"  🔧 修复: 其他错误")
+            print("  🔧 修复: 其他错误")
 
             items[task_id]["error"] = ""
             items[task_id]["status"] = "pending"
@@ -140,7 +141,7 @@ def analyze_and_fix_all_failed_tasks(queue_state):
 
     queue_state["items"] = items
 
-    print(f"\n📊 修复总结:")
+    print("\n📊 修复总结:")
     print(f"  • 总共处理: {fixed_count} 个失败任务")
     print(f"  • 重置为pending: {pending_count} 个")
 
@@ -176,7 +177,7 @@ def setup_queue_for_running(queue_state, pending_tasks):
     # 设置为running
     items[first_pending_id]["status"] = "running"
     items[first_pending_id]["progress_percent"] = 0
-    items[first_pending_id]["started_at"] = datetime.now(timezone.utc).isoformat()
+    items[first_pending_id]["started_at"] = datetime.now(UTC).isoformat()
 
     # 更新队列状态
     queue_state["queue_status"] = "running"
@@ -190,7 +191,7 @@ def setup_queue_for_running(queue_state, pending_tasks):
             pending_ids.append(task_id)
 
     queue_state["current_item_ids"] = pending_ids
-    queue_state["updated_at"] = datetime.now(timezone.utc).isoformat()
+    queue_state["updated_at"] = datetime.now(UTC).isoformat()
 
     # 更新计数
     counts = {
@@ -235,14 +236,14 @@ def restart_queue_runner():
                 try:
                     subprocess.run(["kill", pid], check=False)
                     print(f"  • 终止进程 PID: {pid}")
-                except:
+                except Exception:
                     pass
 
             # 等待进程终止
             import time
 
             time.sleep(2)
-    except:
+    except Exception:
         pass
 
     # 启动新进程
@@ -330,7 +331,7 @@ def test_manual_launch():
                 try:
                     response = json.loads(result.stdout)
                     print(f"✅ 手动拉起API响应: {response}")
-                except:
+                except Exception:
                     print(f"✅ 手动拉起API响应 (原始): {result.stdout[:100]}...")
             else:
                 print(f"⚠️  手动拉起API可能有问题: {result.stderr[:100]}")

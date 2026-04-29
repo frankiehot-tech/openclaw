@@ -4,7 +4,6 @@
 优化存储版本测试
 """
 
-import json
 import sys
 from pathlib import Path
 
@@ -56,7 +55,7 @@ def test_workflow_creation():
     for node_key in required_nodes:
         # 查找节点ID
         found = False
-        for node_id in workflow.keys():
+        for node_id in workflow:
             if node_key in node_id:
                 found = True
                 break

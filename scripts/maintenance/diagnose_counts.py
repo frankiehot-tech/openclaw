@@ -12,7 +12,7 @@ def main():
     state_file = ".openclaw/plan_queue/openhuman_aiplan_build_priority_20260328.json"
 
     print(f"加载状态文件: {state_file}")
-    with open(state_file, "r", encoding="utf-8") as f:
+    with open(state_file, encoding="utf-8") as f:
         data = json.load(f)
 
     items = data.get("items", {})
@@ -22,7 +22,7 @@ def main():
     # 方法1: update_queue_status.py直接计数
     counts1 = {"pending": 0, "running": 0, "completed": 0, "failed": 0, "manual_hold": 0}
     status_distribution = {}
-    for task_id, task in items.items():
+    for _task_id, task in items.items():
         status = task.get("status", "pending")
         if status in counts1:
             counts1[status] += 1
@@ -48,7 +48,7 @@ def main():
             print(f"配置文件不存在: {config_file}")
             return
 
-        with open(config_file, "r", encoding="utf-8") as f:
+        with open(config_file, encoding="utf-8") as f:
             config = json.load(f)
 
         routes = config.get("routes", [])
@@ -58,7 +58,7 @@ def main():
             queue_id = route.get("queue_id")
 
             if queue_id == "openhuman_aiplan_build_priority_20260328":
-                print(f"\n=== 方法2: compute_route_counts_and_status ===")
+                print("\n=== 方法2: compute_route_counts_and_status ===")
                 print(f"路由: {route_id}, 队列: {queue_id}")
 
                 try:
@@ -70,7 +70,7 @@ def main():
                     print(f"queue_status: {queue_status2}")
 
                     # 比较差异
-                    print(f"\n=== 比较 ===")
+                    print("\n=== 比较 ===")
                     total1 = sum(counts1.values())
                     total2 = sum(counts2.values())
                     print(f"方法1总计: {total1}")

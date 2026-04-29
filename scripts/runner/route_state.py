@@ -17,26 +17,13 @@ if str(_scripts_dir) not in sys.path:
 
 try:
     from .openclaw_roots import (
-        LOG_DIR,
-        PLAN_CONFIG_PATH,
-        PLAN_DIR,
         QUEUE_STATE_DIR,
-        RUNTIME_ROOT,
-        TASKS_DIR,
-        TASKS_PATH,
-        pid_file,
     )
 except ImportError:
     import sys
+
     from openclaw_roots import (
-        LOG_DIR,
-        PLAN_CONFIG_PATH,
-        PLAN_DIR,
         QUEUE_STATE_DIR,
-        RUNTIME_ROOT,
-        TASKS_DIR,
-        TASKS_PATH,
-        pid_file,
     )
 
 from .utils import now_iso, read_json, write_json

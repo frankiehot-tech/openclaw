@@ -16,12 +16,11 @@ Harness Acceptance - 观测评估基线与集成验收脚本
 import json
 import logging
 import os
-import subprocess
 import sys
 import time
 from datetime import datetime
 from pathlib import Path
-from typing import Any, Dict, List, Optional, Tuple
+from typing import Any
 
 # 配置日志
 logging.basicConfig(
@@ -63,7 +62,7 @@ class HarnessAcceptance:
         sys.path.insert(0, str(RUNTIME_ROOT))
         self.start_time = time.time()
 
-    def log_test(self, name: str, passed: bool, message: str, details: Dict[str, Any] = None):
+    def log_test(self, name: str, passed: bool, message: str, details: dict[str, Any] = None):
         """记录测试结果"""
         self.evidence["tests"][name] = {
             "passed": passed,
@@ -89,7 +88,7 @@ class HarnessAcceptance:
         )
         logger.warning(f"警告: {warning}")
 
-    def add_metric(self, name: str, value: Any, unit: str = "", metadata: Dict[str, Any] = None):
+    def add_metric(self, name: str, value: Any, unit: str = "", metadata: dict[str, Any] = None):
         """添加指标"""
         self.evidence["metrics"][name] = {
             "value": value,
@@ -133,7 +132,7 @@ class HarnessAcceptance:
         self.generate_summary()
 
         # 保存证据
-        evidence_path = self.save_evidence()
+        self.save_evidence()
 
         logger.info("=== Harness 验收测试完成 ===")
         return self.evidence["summary"]["failed"] == 0
@@ -161,7 +160,7 @@ class HarnessAcceptance:
 
             # 检查统一字段
             common_path = OBSERVABILITY_DIR / "contracts" / "common.schema.json"
-            with open(common_path, "r", encoding="utf-8") as f:
+            with open(common_path, encoding="utf-8") as f:
                 common = json.load(f)
 
             # 验证 responseEnvelope 定义
@@ -243,7 +242,7 @@ class HarnessAcceptance:
                     health = {"status": "requires_parameters"}
                 if isinstance(health, dict):
                     self.add_metric("context_health_status", health.get("status", "unknown"))
-            except:
+            except Exception:
                 pass
 
         except ImportError as e:
@@ -288,11 +287,11 @@ class HarnessAcceptance:
             tasks_path = OPENCLAW_DIR / "orchestrator" / "tasks.json"
             if tasks_path.exists():
                 try:
-                    with open(tasks_path, "r", encoding="utf-8") as f:
+                    with open(tasks_path, encoding="utf-8") as f:
                         tasks_data = json.load(f)
                     task_count = len(tasks_data.get("tasks", []))
                     self.add_metric("total_tasks", task_count)
-                except:
+                except Exception:
                     pass
 
         except ImportError as e:
@@ -413,7 +412,7 @@ class HarnessAcceptance:
             self.log_test(name, False, f"评估基线测试异常: {e}")
             self.fallback_core_metrics()
 
-    def calculate_core_metrics(self) -> Dict[str, Dict[str, Any]]:
+    def calculate_core_metrics(self) -> dict[str, dict[str, Any]]:
         """计算核心指标：成功率、恢复率、延迟、资源使用"""
         metrics = {}
 
@@ -421,7 +420,7 @@ class HarnessAcceptance:
             # 1. 成功率：基于任务完成率
             tasks_path = OPENCLAW_DIR / "orchestrator" / "tasks.json"
             if tasks_path.exists():
-                with open(tasks_path, "r", encoding="utf-8") as f:
+                with open(tasks_path, encoding="utf-8") as f:
                     tasks_data = json.load(f)
                 tasks = tasks_data.get("tasks", [])
                 if tasks:
@@ -441,13 +440,13 @@ class HarnessAcceptance:
                 for item in queue_state_dir.iterdir():
                     if item.is_file() and item.suffix == ".json":
                         try:
-                            with open(item, "r", encoding="utf-8") as f:
+                            with open(item, encoding="utf-8") as f:
                                 state = json.load(f)
                             if state.get("status") == "failed":
                                 # 检查是否有重试记录
                                 if state.get("retry_count", 0) > 0:
                                     recovery_items.append(item.name)
-                        except:
+                        except Exception:
                             pass
 
                 # 简单恢复率估算
@@ -461,7 +460,7 @@ class HarnessAcceptance:
             # 3. 延迟：基于任务时间戳（简化）
             tasks_path = OPENCLAW_DIR / "orchestrator" / "tasks.json"
             if tasks_path.exists():
-                with open(tasks_path, "r", encoding="utf-8") as f:
+                with open(tasks_path, encoding="utf-8") as f:
                     tasks_data = json.load(f)
                 tasks = tasks_data.get("tasks", [])
                 if tasks:
@@ -478,7 +477,7 @@ class HarnessAcceptance:
                                 duration = (end_dt - start_dt).total_seconds()
                                 total_duration += duration
                                 count += 1
-                            except:
+                            except Exception:
                                 pass
 
                     if count > 0:
@@ -493,7 +492,7 @@ class HarnessAcceptance:
             system_facts_path = OPENCLAW_DIR / "health" / "system_facts.json"
             if system_facts_path.exists():
                 try:
-                    with open(system_facts_path, "r", encoding="utf-8") as f:
+                    with open(system_facts_path, encoding="utf-8") as f:
                         facts = json.load(f)
                     cpu_usage = facts.get("cpu", {}).get("usage_percent", 0)
                     memory_pressure = facts.get("memory", {}).get("pressure_used_percent", 0)
@@ -508,7 +507,7 @@ class HarnessAcceptance:
                         "unit": "percent",
                         "description": "内存压力",
                     }
-                except:
+                except Exception:
                     pass
 
         except Exception as e:
@@ -551,7 +550,7 @@ class HarnessAcceptance:
                     result = sock.connect_ex(("127.0.0.1", port))
                     sock.close()
                     adapter_available = result == 0
-                except:
+                except Exception:
                     pass
 
             # 测试任务执行链完整性
@@ -612,7 +611,7 @@ class HarnessAcceptance:
 
         logger.info(f"测试总结: 总计 {total}, 通过 {passed}, 失败 {failed}")
 
-    def generate_recommendations(self) -> List[str]:
+    def generate_recommendations(self) -> list[str]:
         """生成改进建议"""
         recommendations = []
 

@@ -1,4 +1,6 @@
 #!/usr/bin/env python3
+# DEPRECATED: 使用 governance/ 模块代替
+# governance_cli.py repair <command> 或 governance_cli.py queue fix
 """
 修复预检逻辑，为聊天任务添加例外规则
 """
@@ -6,7 +8,6 @@
 import os
 import shutil
 import sys
-from datetime import datetime, timezone
 
 RUNNER_FILE = "/Volumes/1TB-M2/openclaw/scripts/athena_ai_plan_runner.py"
 BACKUP_FILE = "/Volumes/1TB-M2/openclaw/scripts/athena_ai_plan_runner.py.backup.original"
@@ -27,7 +28,7 @@ def restore_backup():
     """恢复备份文件"""
     if os.path.exists(BACKUP_FILE):
         shutil.copy2(BACKUP_FILE, RUNNER_FILE)
-        print(f"✅ 已恢复备份文件")
+        print("✅ 已恢复备份文件")
         return True
     else:
         print(f"❌ 备份文件不存在: {BACKUP_FILE}")
@@ -43,7 +44,7 @@ def apply_preflight_fix():
         return False
 
     # 读取文件内容
-    with open(RUNNER_FILE, "r", encoding="utf-8") as f:
+    with open(RUNNER_FILE, encoding="utf-8") as f:
         content = f.read()
 
     # 查找validate_build_preflight函数开始位置
@@ -73,10 +74,12 @@ def apply_preflight_fix():
 
     # 构建修复后的函数开头
     # 在函数文档字符串后，原始代码前插入例外逻辑
-    original_code = content[func_start:]
+    content[func_start:]
 
     # 构建新的函数开头
-    new_func_start = content[:func_start] + """def validate_build_preflight(
+    new_func_start = (
+        content[:func_start]
+        + """def validate_build_preflight(
     instruction_text: str,
     item: dict[str, Any] | None = None,
     *,
@@ -163,7 +166,7 @@ def apply_preflight_fix():
     import re
 
     # 匹配类似 /Volumes/1TB-M2/openclaw/... 的路径
-    target_pattern = r"/Volumes/1TB-M2[^\\s`\"'<>)\]]+"
+    target_pattern = r"/Volumes/1TB-M2[^\\s`\"'<>)\\]]+"
     referenced_paths = re.findall(target_pattern, instruction_text)
     # 去重，过滤掉明显非文件路径的匹配
     filtered_paths = []
@@ -211,12 +214,12 @@ def apply_preflight_fix():
     # 7. 如果所有检查通过，返回成功
     return True, "预检通过，符合窄任务标准。", False
 """
+    )
 
     # 替换整个函数
     # 我们需要找到函数结束的位置
     # 简单方法：查找下一个def关键字或文件结尾
     func_end = func_start
-    indent_level = 0
     in_func = False
     lines = content[func_start:].split("\n")
 

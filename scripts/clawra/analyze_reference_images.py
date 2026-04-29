@@ -5,7 +5,6 @@
 """
 
 import os
-import sys
 from pathlib import Path
 
 from PIL import Image, ImageStat
@@ -277,11 +276,11 @@ def main():
     print(f"平均文件大小: {avg_size:.2f} MB")
 
     # 尺寸分布
-    sizes = set(
+    sizes = {
         f"{r['comp_result']['width']}x{r['comp_result']['height']}"
         for r in all_results
         if "comp_result" in r
-    )
+    }
     print(f"尺寸分布: {', '.join(sizes)}")
 
     # 构图类型统计

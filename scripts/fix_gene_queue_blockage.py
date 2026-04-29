@@ -1,4 +1,6 @@
 #!/usr/bin/env python3
+# DEPRECATED: 使用 governance/ 模块代替
+# governance_cli.py repair <command> 或 governance_cli.py queue fix
 """
 修复基因管理队列阻塞问题
 解决 openhuman_aiplan_gene_management_20260405.json 队列的依赖阻塞问题
@@ -6,7 +8,7 @@
 
 import json
 import os
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 
 QUEUE_FILE = (
     "/Volumes/1TB-M2/openclaw/.openclaw/plan_queue/openhuman_aiplan_gene_management_20260405.json"
@@ -18,7 +20,7 @@ def fix_dependency_blockage():
     print("🔧 修复基因管理队列依赖阻塞...")
 
     try:
-        with open(QUEUE_FILE, "r", encoding="utf-8") as f:
+        with open(QUEUE_FILE, encoding="utf-8") as f:
             data = json.load(f)
 
         print(f"📄 队列状态: {data.get('queue_status', 'unknown')}")
@@ -52,7 +54,7 @@ def fix_dependency_blockage():
 
                         # 获取文件行数
                         try:
-                            with open(instruction_path, "r", encoding="utf-8") as f:
+                            with open(instruction_path, encoding="utf-8") as f:
                                 lines = f.readlines()
 
                             line_count = len(lines)
@@ -63,38 +65,38 @@ def fix_dependency_blockage():
 
                                 # 根据任务ID决定处理方式
                                 if item_id == "gene_mgmt_g2_queue_integration":
-                                    print(f"    💡 G2阶段队列集成任务: 拆分成子任务")
-                                    print(f"    🔧 将任务状态改为pending，让AI Plan处理拆分")
+                                    print("    💡 G2阶段队列集成任务: 拆分成子任务")
+                                    print("    🔧 将任务状态改为pending，让AI Plan处理拆分")
                                     item["status"] = "pending"
                                     item["runner_pid"] = ""
                                     item["runner_heartbeat_at"] = ""
                                     item["summary"] = "文档已拆分处理，重新标记为pending"
                                 else:
-                                    print(f"    🔧 将manual_hold任务改为pending")
+                                    print("    🔧 将manual_hold任务改为pending")
                                     item["status"] = "pending"
                                     item["runner_pid"] = ""
                                     item["runner_heartbeat_at"] = ""
                             else:
                                 print(f"    📏 文件长度可接受 ({line_count} 行)")
-                                print(f"    🔧 直接将manual_hold改为pending")
+                                print("    🔧 直接将manual_hold改为pending")
                                 item["status"] = "pending"
                                 item["runner_pid"] = ""
                                 item["runner_heartbeat_at"] = ""
 
                         except Exception as e:
                             print(f"    ❌ 读取文件失败: {e}")
-                            print(f"    🔧 仍将manual_hold改为pending")
+                            print("    🔧 仍将manual_hold改为pending")
                             item["status"] = "pending"
                             item["runner_pid"] = ""
                             item["runner_heartbeat_at"] = ""
                     else:
-                        print(f"    📄 指令文件不存在或路径为空")
-                        print(f"    🔧 将manual_hold改为pending")
+                        print("    📄 指令文件不存在或路径为空")
+                        print("    🔧 将manual_hold改为pending")
                         item["status"] = "pending"
                         item["runner_pid"] = ""
                         item["runner_heartbeat_at"] = ""
                 else:
-                    print(f"    🔧 将manual_hold任务改为pending")
+                    print("    🔧 将manual_hold任务改为pending")
                     item["status"] = "pending"
                     item["runner_pid"] = ""
                     item["runner_heartbeat_at"] = ""
@@ -138,13 +140,13 @@ def fix_dependency_blockage():
 
         data["queue_status"] = queue_status
         data["pause_reason"] = pause_reason
-        data["updated_at"] = datetime.now(timezone.utc).isoformat()
+        data["updated_at"] = datetime.now(UTC).isoformat()
 
         # 保存文件
         with open(QUEUE_FILE, "w", encoding="utf-8") as f:
             json.dump(data, f, indent=2, ensure_ascii=False)
 
-        print(f"\n✅ 队列已修复:")
+        print("\n✅ 队列已修复:")
         print(f"   状态: {queue_status}")
         print(f"   暂停原因: {pause_reason}")
         print(

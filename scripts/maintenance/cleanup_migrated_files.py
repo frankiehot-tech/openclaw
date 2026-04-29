@@ -20,8 +20,6 @@ python3 cleanup_migrated_files.py [--dry-run] [--confirm]
 
 import argparse
 import logging
-import os
-import re
 import shutil
 from datetime import datetime
 from pathlib import Path
@@ -77,7 +75,7 @@ class DocumentCleanup:
         logger.info(f"读取迁移报告: {self.report_file}")
 
         migrated_files = []
-        with open(self.report_file, "r", encoding="utf-8") as f:
+        with open(self.report_file, encoding="utf-8") as f:
             lines = f.readlines()
 
         # 查找表格开始位置
@@ -126,7 +124,7 @@ class DocumentCleanup:
         # 检查目标文件是否存在（在docs目录中）
         # 从迁移报告中获取目标路径，这里简化处理
         # 实际应该检查docs目录中是否有对应的文件
-        docs_path = self.project_root / "docs"
+        self.project_root / "docs"
         # 简单检查：如果文件有标准化副本在docs中，则允许清理
         # 更严谨的方法是比较文件内容或修改时间
 
@@ -227,13 +225,13 @@ class DocumentCleanup:
         report_content = f"""# 文档清理报告
 
 ## 清理概览
-- **执行时间**: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}
-- **模式**: {'模拟运行 (dry-run)' if self.dry_run else '实际清理'}
-- **报告中的文件总数**: {self.stats['total_in_report']}
-- **可清理文件**: {self.stats['eligible_for_cleanup']}
-- **保护文件**: {self.stats['protected']}
-- **成功清理**: {self.stats['cleaned']}
-- **清理失败**: {self.stats['failed']}
+- **执行时间**: {datetime.now().strftime("%Y-%m-%d %H:%M:%S")}
+- **模式**: {"模拟运行 (dry-run)" if self.dry_run else "实际清理"}
+- **报告中的文件总数**: {self.stats["total_in_report"]}
+- **可清理文件**: {self.stats["eligible_for_cleanup"]}
+- **保护文件**: {self.stats["protected"]}
+- **成功清理**: {self.stats["cleaned"]}
+- **清理失败**: {self.stats["failed"]}
 
 ## 回收站信息
 - **位置**: {self.recycle_bin}

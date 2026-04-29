@@ -13,12 +13,12 @@
 import json
 from datetime import datetime, timedelta
 from pathlib import Path
-from typing import Any, Dict
+from typing import Any
 
 WORKSPACE_ROOT = Path("/Volumes/1TB-M2/openclaw")
 
 
-def load_cost_data() -> Dict[str, Any]:
+def load_cost_data() -> dict[str, Any]:
     """加载成本数据"""
     cost_state = WORKSPACE_ROOT / ".cost_state"
     if cost_state.exists():
@@ -26,7 +26,7 @@ def load_cost_data() -> Dict[str, Any]:
     return {"daily_costs": [], "total_spent": 0}
 
 
-def load_inheritance_hash() -> Dict[str, Any]:
+def load_inheritance_hash() -> dict[str, Any]:
     """加载继承哈希数据"""
     ih_file = WORKSPACE_ROOT / "memory" / "inheritance_hash.json"
     if ih_file.exists():
@@ -34,7 +34,7 @@ def load_inheritance_hash() -> Dict[str, Any]:
     return {}
 
 
-def calculate_surplus() -> Dict[str, Any]:
+def calculate_surplus() -> dict[str, Any]:
     """计算代谢盈余 - 节省的人类时长
     Surplus 公式: T_saved / C_token
     - T_saved: 节省的人类时长（分钟）
@@ -74,7 +74,7 @@ def calculate_surplus() -> Dict[str, Any]:
     }
 
 
-def calculate_evolution_fitness() -> Dict[str, Any]:
+def calculate_evolution_fitness() -> dict[str, Any]:
     """计算进化适应度 - EVO 阶段概率"""
     # 模拟数据 - 实际应从 evo/core 追踪
 
@@ -88,7 +88,7 @@ def calculate_evolution_fitness() -> Dict[str, Any]:
     }
 
 
-def calculate_code_solidification() -> Dict[str, Any]:
+def calculate_code_solidification() -> dict[str, Any]:
     """计算代码固化量"""
     ih = load_inheritance_hash()
 
@@ -110,7 +110,7 @@ def calculate_code_solidification() -> Dict[str, Any]:
     }
 
 
-def check_aiag_progress() -> Dict[str, Any]:
+def check_aiag_progress() -> dict[str, Any]:
     """检查 AIAG 补全进度"""
     aiag_skill = WORKSPACE_ROOT / "skills" / "openhuman-aiag"
 
@@ -132,7 +132,7 @@ def check_aiag_progress() -> Dict[str, Any]:
     }
 
 
-def check_apk_solidification() -> Dict[str, Any]:
+def check_apk_solidification() -> dict[str, Any]:
     """检查 APK 固化状态"""
     # 检查 Z Flip3 设备连接状态
     import subprocess
@@ -140,7 +140,7 @@ def check_apk_solidification() -> Dict[str, Any]:
     try:
         result = subprocess.run(["adb", "devices"], capture_output=True, text=True, timeout=5)
         device_connected = "device" in result.stdout and "R3CR80FKA0V" in result.stdout
-    except:
+    except Exception:
         device_connected = False
 
     # 检查 Docker 镜像
@@ -153,7 +153,7 @@ def check_apk_solidification() -> Dict[str, Any]:
             timeout=5,
         )
         docker_status = "已固化" if result.stdout.strip() else "未构建"
-    except:
+    except Exception:
         docker_status = "Docker不可用"
 
     return {
@@ -163,7 +163,7 @@ def check_apk_solidification() -> Dict[str, Any]:
     }
 
 
-def calculate_risk_radar() -> Dict[str, Any]:
+def calculate_risk_radar() -> dict[str, Any]:
     """计算风险雷达"""
     cost_data = load_cost_data()
     daily_costs = cost_data.get("daily_costs", [])
@@ -208,8 +208,8 @@ def generate_weekly_report() -> str:
     risk = calculate_risk_radar()
 
     report = f"""# OpenClaw 趋势分析周报
-**生成时间**: {now.strftime('%Y-%m-%d %H:%M:%S')}  
-**周期**: {week_start.strftime('%Y-%m-%d')} ~ {now.strftime('%Y-%m-%d')}
+**生成时间**: {now.strftime("%Y-%m-%d %H:%M:%S")}
+**周期**: {week_start.strftime("%Y-%m-%d")} ~ {now.strftime("%Y-%m-%d")}
 
 ---
 
@@ -217,13 +217,13 @@ def generate_weekly_report() -> str:
 
 | 指标 | 数值 |
 |------|------|
-| 本周自动化任务数 | {surplus['auto_tasks_this_week']} |
-| 平均节省时间/任务 | {surplus['avg_minutes_per_task']} 分钟 |
-| **本周总节省人类时长** | **{surplus['total_hours_saved']} 小时 ({surplus['total_minutes_saved']} 分钟)** |
-| 算力开销等效 | {surplus['token_cost_equivalent']} tokens |
-| **Surplus 比例 (T_saved/C_token)** | {surplus['surplus_ratio']} 分钟/元 |
-| 盈余状态 | {'⚠️ ALARM: 盈余跌破正值!' if not surplus['surplus_positive'] else '✅ 正盈余'} |
-| 盈余评分 | {surplus['surplus_score']}/100 |
+| 本周自动化任务数 | {surplus["auto_tasks_this_week"]} |
+| 平均节省时间/任务 | {surplus["avg_minutes_per_task"]} 分钟 |
+| **本周总节省人类时长** | **{surplus["total_hours_saved"]} 小时 ({surplus["total_minutes_saved"]} 分钟)** |
+| 算力开销等效 | {surplus["token_cost_equivalent"]} tokens |
+| **Surplus 比例 (T_saved/C_token)** | {surplus["surplus_ratio"]} 分钟/元 |
+| 盈余状态 | {"⚠️ ALARM: 盈余跌破正值!" if not surplus["surplus_positive"] else "✅ 正盈余"} |
+| 盈余评分 | {surplus["surplus_score"]}/100 |
 
 ---
 
@@ -231,13 +231,13 @@ def generate_weekly_report() -> str:
 
 | 阶段 | 初始概率 | 当前概率 | 趋势 |
 |------|----------|----------|------|
-| 受精 (Phase 1) | {fitness['phase_1_fertilization']['initial']} | {fitness['phase_1_fertilization']['current']} | {fitness['phase_1_fertilization']['trend']} |
-| 胚胎 (Phase 2) | {fitness['phase_2_embryo']['initial']} | {fitness['phase_2_embryo']['current']} | {fitness['phase_2_embryo']['trend']} |
-| 幼虫 (Phase 3) | {fitness['phase_3_larva']['initial']} | {fitness['phase_3_larva']['current']} | {fitness['phase_3_larva']['trend']} |
-| 蛹 (Phase 4) | {fitness['phase_4_pupa']['initial']} | {fitness['phase_4_pupa']['current']} | {fitness['phase_4_pupa']['trend']} |
-| 成体 (Phase 5) | {fitness['phase_5_adult']['initial']} | {fitness['phase_5_adult']['current']} | {fitness['phase_5_adult']['trend']} |
+| 受精 (Phase 1) | {fitness["phase_1_fertilization"]["initial"]} | {fitness["phase_1_fertilization"]["current"]} | {fitness["phase_1_fertilization"]["trend"]} |
+| 胚胎 (Phase 2) | {fitness["phase_2_embryo"]["initial"]} | {fitness["phase_2_embryo"]["current"]} | {fitness["phase_2_embryo"]["trend"]} |
+| 幼虫 (Phase 3) | {fitness["phase_3_larva"]["initial"]} | {fitness["phase_3_larva"]["current"]} | {fitness["phase_3_larva"]["trend"]} |
+| 蛹 (Phase 4) | {fitness["phase_4_pupa"]["initial"]} | {fitness["phase_4_pupa"]["current"]} | {fitness["phase_4_pupa"]["trend"]} |
+| 成体 (Phase 5) | {fitness["phase_5_adult"]["initial"]} | {fitness["phase_5_adult"]["current"]} | {fitness["phase_5_adult"]["trend"]} |
 
-**总体适应度**: {fitness['overall_fitness']}
+**总体适应度**: {fitness["overall_fitness"]}
 
 ---
 
@@ -245,9 +245,9 @@ def generate_weekly_report() -> str:
 
 | 指标 | 数值 |
 |------|------|
-| 本周新增 Skill NFT | {solidification['new_skill_nfts_this_week']} |
-| Skill NFT 列表 | {', '.join(solidification['skill_nft_list']) if solidification['skill_nft_list'] else '无'} |
-| Docker 镜像版本数 | {solidification['total_docker_versions']} |
+| 本周新增 Skill NFT | {solidification["new_skill_nfts_this_week"]} |
+| Skill NFT 列表 | {", ".join(solidification["skill_nft_list"]) if solidification["skill_nft_list"] else "无"} |
+| Docker 镜像版本数 | {solidification["total_docker_versions"]} |
 
 **Docker 镜像**:
 """
@@ -262,29 +262,29 @@ def generate_weekly_report() -> str:
 
 | 指标 | 数值 |
 |------|------|
-| 本周 API 总消耗 | ¥{risk['total_api_cost_this_week']} |
-| 日均消耗 | ¥{risk['avg_daily_cost']} |
-| 消耗趋势 | {risk['cost_trend']} |
-| 响应时间目标 | {risk['response_time']['target']}s |
-| 当前平均响应 | {risk['response_time']['current_avg']}s |
-| 响应稳定性 | {risk['response_time']['stability_score']}% |
-| **风险等级** | {risk['risk_level'].upper()} |
+| 本周 API 总消耗 | ¥{risk["total_api_cost_this_week"]} |
+| 日均消耗 | ¥{risk["avg_daily_cost"]} |
+| 消耗趋势 | {risk["cost_trend"]} |
+| 响应时间目标 | {risk["response_time"]["target"]}s |
+| 当前平均响应 | {risk["response_time"]["current_avg"]}s |
+| 响应稳定性 | {risk["response_time"]["stability_score"]}% |
+| **风险等级** | {risk["risk_level"].upper()} |
 
 ### [CRITICAL] AIAG 具身补全状态
 
 | 指标 | 状态 |
 |------|------|
-| AIAG Skill 状态 | {risk['aiag_progress']['aiag_skill_status']} |
-| Skill 文件 | {', '.join(risk['aiag_progress']['aiag_skill_files']) if risk['aiag_progress']['aiag_skill_files'] else '无'} |
-| **阻塞风险** | {'⚠️ CRITICAL - 未完成' if risk['aiag_progress']['critical'] else '✅ 已完成'} |
+| AIAG Skill 状态 | {risk["aiag_progress"]["aiag_skill_status"]} |
+| Skill 文件 | {", ".join(risk["aiag_progress"]["aiag_skill_files"]) if risk["aiag_progress"]["aiag_skill_files"] else "无"} |
+| **阻塞风险** | {"⚠️ CRITICAL - 未完成" if risk["aiag_progress"]["critical"] else "✅ 已完成"} |
 
 ### [CRITICAL] APK 固化状态
 
 | 指标 | 状态 |
 |------|------|
-| Z Flip3 设备 | {risk['apk_solidification']['zflip3_device']} |
-| Docker 固化 | {risk['apk_solidification']['docker_solidified']} |
-| **阻塞风险** | {'⚠️ CRITICAL - 未固化' if risk['apk_solidification']['critical'] else '✅ 已固化'} |
+| Z Flip3 设备 | {risk["apk_solidification"]["zflip3_device"]} |
+| Docker 固化 | {risk["apk_solidification"]["docker_solidified"]} |
+| **阻塞风险** | {"⚠️ CRITICAL - 未固化" if risk["apk_solidification"]["critical"] else "✅ 已固化"} |
 
 ---
 
@@ -292,10 +292,10 @@ def generate_weekly_report() -> str:
 
 | 维度 | 状态 |
 |------|------|
-| 代谢盈余 | {'✅ 优秀' if surplus['surplus_score'] >= 80 else '⚠️ 待提升'} |
-| 进化适应度 | {'✅ 达标' if fitness['overall_fitness'] >= 0.8 else '⚠️ 需优化'} |
-| 代码固化量 | {'✅ 活跃' if solidification['new_skill_nfts_this_week'] > 0 else '⚠️ 无新增'} |
-| 风险雷达 | {'✅ 低风险' if risk['risk_level'] == 'low' else '⚠️ 需关注'} |
+| 代谢盈余 | {"✅ 优秀" if surplus["surplus_score"] >= 80 else "⚠️ 待提升"} |
+| 进化适应度 | {"✅ 达标" if fitness["overall_fitness"] >= 0.8 else "⚠️ 需优化"} |
+| 代码固化量 | {"✅ 活跃" if solidification["new_skill_nfts_this_week"] > 0 else "⚠️ 无新增"} |
+| 风险雷达 | {"✅ 低风险" if risk["risk_level"] == "low" else "⚠️ 需关注"} |
 
 ---
 *Generated by OpenClaw Weekly Trend Report System*

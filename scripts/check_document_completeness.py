@@ -5,7 +5,6 @@
 """
 
 import argparse
-import os
 import re
 import sys
 from datetime import datetime
@@ -31,7 +30,7 @@ class DocumentCompletenessChecker:
 
         # 读取文件内容
         try:
-            with open(file_path, "r", encoding="utf-8") as f:
+            with open(file_path, encoding="utf-8") as f:
                 content = f.read()
         except Exception as e:
             self.add_issue(file_path, "无法读取文件", str(e))
@@ -205,9 +204,7 @@ class DocumentCompletenessChecker:
         code_blocks = re.findall(code_block_pattern, content, re.DOTALL)
 
         # 检查是否有列表项
-        list_items = sum(
-            1 for line in lines if line.strip().startswith("- ") or line.strip().startswith("* ")
-        )
+        sum(1 for line in lines if line.strip().startswith("- ") or line.strip().startswith("* "))
 
         # 检查是否有表格
         table_lines = sum(1 for line in lines if "|" in line and not line.startswith("#"))
@@ -287,7 +284,7 @@ class DocumentCompletenessChecker:
             if self.check_file(md_file):
                 passed_count += 1
 
-        print(f"\n📊 完整性检查结果:")
+        print("\n📊 完整性检查结果:")
         print(f"  ✅ 完全通过: {passed_count}/{len(md_files)}")
         print(f"  ⚠️  部分通过: {len(md_files) - passed_count}/{len(md_files)}")
         print(f"  📝 建议项: {len(self.issues)} 个")
@@ -308,7 +305,7 @@ class DocumentCompletenessChecker:
             return "✅ 所有完整性检查通过，文档结构完整"
 
         report = "# 文档完整性检查报告\n\n"
-        report += f"## 摘要\n"
+        report += "## 摘要\n"
         report += f"- 发现 {len(self.issues)} 个完整性建议\n"
         report += f"- 检查时间: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}\n\n"
 
@@ -382,11 +379,10 @@ def main():
 
     checker = DocumentCompletenessChecker(strict=args.strict)
 
-    success = True
     if args.file:
-        success = checker.check_file(args.file)
+        checker.check_file(args.file)
     elif args.directory:
-        success = checker.check_directory(args.directory)
+        checker.check_directory(args.directory)
 
     # 生成报告
     report = checker.get_issues_report()

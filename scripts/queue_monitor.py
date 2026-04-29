@@ -5,11 +5,10 @@
 
 import json
 import logging
-import os
 import time
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from pathlib import Path
-from typing import Any, Dict, List, Optional
+from typing import Any
 
 import psutil
 import requests
@@ -24,7 +23,7 @@ class QueueMonitor:
     """队列监控器"""
 
     @staticmethod
-    def load_config_from_file(config_path: str = None) -> Dict[str, Any]:
+    def load_config_from_file(config_path: str = None) -> dict[str, Any]:
         """从配置文件加载配置"""
         default_config = {
             "monitoring_interval": 60,
@@ -64,7 +63,7 @@ class QueueMonitor:
             # 尝试加载YAML
             import yaml
 
-            with open(config_path, "r", encoding="utf-8") as f:
+            with open(config_path, encoding="utf-8") as f:
                 file_config = yaml.safe_load(f)
 
             # 深度合并配置
@@ -91,7 +90,7 @@ class QueueMonitor:
             logger.error(f"加载配置文件失败 {config_path}: {e}，使用默认配置")
             return default_config
 
-    def __init__(self, config: Dict[str, Any] = None):
+    def __init__(self, config: dict[str, Any] = None):
         self.config = config or self.load_config_from_file()
 
         self.root_dir = Path(__file__).parent.parent
@@ -111,7 +110,7 @@ class QueueMonitor:
             "metrics_collected": 0,
         }
 
-    def check_queue_status(self) -> Dict[str, Any]:
+    def check_queue_status(self) -> dict[str, Any]:
         """检查队列状态"""
         queue_status = {
             "timestamp": datetime.now().isoformat(),
@@ -156,7 +155,7 @@ class QueueMonitor:
 
             for queue_file in queue_files:
                 try:
-                    with open(queue_file, "r", encoding="utf-8") as f:
+                    with open(queue_file, encoding="utf-8") as f:
                         queue_data = json.load(f)
 
                     queue_name = queue_file.stem
@@ -221,11 +220,11 @@ class QueueMonitor:
                             )
                             # 正确处理时区：确保last_updated是aware UTC时间
                             if last_updated.tzinfo is not None:
-                                last_updated_utc = last_updated.astimezone(timezone.utc)
+                                last_updated_utc = last_updated.astimezone(UTC)
                             else:
                                 # naive datetime，假定为UTC
-                                last_updated_utc = last_updated.replace(tzinfo=timezone.utc)
-                            now_utc = datetime.now(timezone.utc)
+                                last_updated_utc = last_updated.replace(tzinfo=UTC)
+                            now_utc = datetime.now(UTC)
                             age_minutes = (now_utc - last_updated_utc).total_seconds() / 60
                             # 根据alert_configuration.md优化：empty状态队列不触发陈旧告警
                             if (
@@ -275,11 +274,11 @@ class QueueMonitor:
                             )
                             # 正确处理时区：确保last_updated是aware UTC时间
                             if last_updated.tzinfo is not None:
-                                last_updated_utc = last_updated.astimezone(timezone.utc)
+                                last_updated_utc = last_updated.astimezone(UTC)
                             else:
                                 # naive datetime，假定为UTC
-                                last_updated_utc = last_updated.replace(tzinfo=timezone.utc)
-                            now_utc = datetime.now(timezone.utc)
+                                last_updated_utc = last_updated.replace(tzinfo=UTC)
+                            now_utc = datetime.now(UTC)
                             age_minutes = (now_utc - last_updated_utc).total_seconds() / 60
                             if (
                                 age_minutes
@@ -411,7 +410,7 @@ class QueueMonitor:
 
         return queue_status
 
-    def log_monitoring_data(self, queue_status: Dict[str, Any]):
+    def log_monitoring_data(self, queue_status: dict[str, Any]):
         """记录监控数据"""
         try:
             # 简化日志条目
@@ -434,7 +433,7 @@ class QueueMonitor:
         except Exception as e:
             logger.error(f"记录监控数据失败: {e}")
 
-    def handle_alerts(self, queue_status: Dict[str, Any]):
+    def handle_alerts(self, queue_status: dict[str, Any]):
         """处理告警"""
         if not queue_status["alerts"]:
             return
@@ -477,7 +476,7 @@ class QueueMonitor:
 
             self.monitoring_state["alerts_triggered"] += 1
 
-    def send_email_alert(self, alert_message: str, alert: Dict[str, Any]):
+    def send_email_alert(self, alert_message: str, alert: dict[str, Any]):
         """发送邮件告警"""
         email_config = self.config["alert_configs"]["email"]
         if not email_config["enabled"]:
@@ -501,9 +500,9 @@ class QueueMonitor:
             body = f"""
 队列监控系统检测到告警：
 
-告警类型: {alert['type']}
-告警消息: {alert['message']}
-告警时间: {alert.get('timestamp', datetime.now().isoformat())}
+告警类型: {alert["type"]}
+告警消息: {alert["message"]}
+告警时间: {alert.get("timestamp", datetime.now().isoformat())}
 
 修复建议: {fix_suggestion}
 
@@ -521,7 +520,7 @@ class QueueMonitor:
         except Exception as e:
             logger.error(f"发送邮件告警失败: {e}")
 
-    def send_slack_alert(self, alert_message: str, alert: Dict[str, Any]):
+    def send_slack_alert(self, alert_message: str, alert: dict[str, Any]):
         """发送Slack告警"""
         slack_config = self.config["alert_configs"]["slack"]
         if not slack_config["enabled"] or not slack_config["webhook_url"]:
@@ -550,11 +549,11 @@ class QueueMonitor:
 
             response = requests.post(slack_config["webhook_url"], json=payload, timeout=10)
             response.raise_for_status()
-            logger.info(f"Slack告警已发送")
+            logger.info("Slack告警已发送")
         except Exception as e:
             logger.error(f"发送Slack告警失败: {e}")
 
-    def send_webhook_alert(self, alert_message: str, alert: Dict[str, Any]):
+    def send_webhook_alert(self, alert_message: str, alert: dict[str, Any]):
         """发送Webhook告警"""
         webhook_config = self.config["alert_configs"]["webhook"]
         if not webhook_config["enabled"] or not webhook_config["url"]:
@@ -588,7 +587,7 @@ class QueueMonitor:
         except Exception as e:
             logger.error(f"发送Webhook告警失败: {e}")
 
-    def get_fix_suggestion(self, alert: Dict[str, Any]) -> str:
+    def get_fix_suggestion(self, alert: dict[str, Any]) -> str:
         """获取告警的修复建议"""
         alert_type = alert.get("type", "")
 
@@ -625,7 +624,7 @@ class QueueMonitor:
 
         return fix_suggestions.get(alert_type, "请检查相关系统日志以获取更多信息")
 
-    def analyze_queue_patterns(self, queue_status: Dict[str, Any]) -> List[Dict[str, Any]]:
+    def analyze_queue_patterns(self, queue_status: dict[str, Any]) -> list[dict[str, Any]]:
         """分析队列模式，检测异常行为"""
         patterns = []
 
@@ -633,7 +632,7 @@ class QueueMonitor:
             queues = queue_status.get("queues", {})
 
             # 移除total_files键
-            queue_names = [name for name in queues.keys() if name != "total_files"]
+            queue_names = [name for name in queues if name != "total_files"]
 
             for queue_name in queue_names:
                 queue_info = queues[queue_name]
@@ -680,11 +679,11 @@ class QueueMonitor:
                     try:
                         last_updated = datetime.fromisoformat(updated_at.replace("Z", "+00:00"))
                         if last_updated.tzinfo is not None:
-                            last_updated_utc = last_updated.astimezone(timezone.utc)
+                            last_updated_utc = last_updated.astimezone(UTC)
                         else:
-                            last_updated_utc = last_updated.replace(tzinfo=timezone.utc)
+                            last_updated_utc = last_updated.replace(tzinfo=UTC)
 
-                        now_utc = datetime.now(timezone.utc)
+                        now_utc = datetime.now(UTC)
                         running_hours = (now_utc - last_updated_utc).total_seconds() / 3600
 
                         if running_hours > 2 and counts["completed"] == 0:
@@ -741,7 +740,7 @@ class QueueMonitor:
 
         return patterns
 
-    def generate_summary_report(self) -> Dict[str, Any]:
+    def generate_summary_report(self) -> dict[str, Any]:
         """生成监控摘要报告"""
         report = {
             "monitoring_duration": (
@@ -840,7 +839,7 @@ def main():
     print("\n执行首次检查...")
     queue_status = monitor.check_queue_status()
 
-    print(f"\n队列状态:")
+    print("\n队列状态:")
     for queue_name, status in queue_status["queues"].items():
         if isinstance(status, dict) and queue_name != "total_files":
             print(
@@ -851,7 +850,7 @@ def main():
                 f"completed: {status.get('completed_count', 0)}"
             )
 
-    print(f"\n系统资源:")
+    print("\n系统资源:")
     print(f"  CPU: {queue_status['system_resources'].get('cpu_percent', 'N/A')}%")
     print(f"  内存: {queue_status['system_resources'].get('memory_percent', 'N/A')}%")
 
@@ -867,13 +866,13 @@ def main():
 
     # 运行模式选择
     if args.once or not args.daemon:
-        print(f"\n✅ 单次检查完成")
+        print("\n✅ 单次检查完成")
         if not args.daemon:
             print(
                 "💡 要启动持续监控，请使用 --daemon 参数: python3 scripts/queue_monitor.py --daemon --config your_config.yaml"
             )
     else:
-        print(f"\n🚀 启动守护进程模式...")
+        print("\n🚀 启动守护进程模式...")
         monitor.run_monitoring_loop()
 
 

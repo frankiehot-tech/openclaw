@@ -10,7 +10,6 @@
 """
 
 import json
-import os
 import re
 import sys
 from collections import Counter
@@ -37,7 +36,7 @@ def check_task_identity():
             continue
 
         try:
-            with open(queue_file, "r", encoding="utf-8") as f:
+            with open(queue_file, encoding="utf-8") as f:
                 data = json.load(f)
 
             # 检查items结构
@@ -45,7 +44,7 @@ def check_task_identity():
 
             if isinstance(items, dict):
                 # 字典格式：键是任务ID
-                for item_id in items.keys():
+                for item_id in items:
                     total_ids += 1
                     if isinstance(item_id, str) and item_id.startswith("-"):
                         problematic_ids.append(
@@ -70,7 +69,7 @@ def check_task_identity():
     print(f"   问题ID数: {len(problematic_ids)}")
 
     if problematic_ids:
-        print(f"   问题ID示例 (最多显示10个):")
+        print("   问题ID示例 (最多显示10个):")
         for pid in problematic_ids[:10]:
             print(f"     - {pid['file']}: {pid['id'][:80]}...")
 
@@ -86,7 +85,7 @@ def check_manifest_quality():
         return False, 0, 0
 
     try:
-        with open(MANIFEST_PATH, "r", encoding="utf-8") as f:
+        with open(MANIFEST_PATH, encoding="utf-8") as f:
             data = json.load(f)
 
         items = data.get("items", [])
@@ -107,7 +106,7 @@ def check_manifest_quality():
         print(f"   重复条目总数: {duplicate_count}")
 
         if duplicate_ids:
-            print(f"   重复ID示例 (最多显示10个):")
+            print("   重复ID示例 (最多显示10个):")
             for dup_id in duplicate_ids[:10]:
                 print(f"     - {dup_id}: {id_counter[dup_id]} 次出现")
 
@@ -127,7 +126,7 @@ def check_startup_grace_period():
         return False, 0
 
     try:
-        with open(RUNNER_PATH, "r", encoding="utf-8") as f:
+        with open(RUNNER_PATH, encoding="utf-8") as f:
             content = f.read()
 
         # 查找STARTUP_GRACE_PERIOD_SECONDS定义
@@ -143,10 +142,10 @@ def check_startup_grace_period():
                 print(f"   ⚠️  启动宽限期过长: {grace_seconds}秒 > 30秒 (推荐值)")
                 return False, grace_seconds
             else:
-                print(f"   ✅ 启动宽限期在合理范围内")
+                print("   ✅ 启动宽限期在合理范围内")
                 return True, grace_seconds
         else:
-            print(f"   ⚠️  未找到STARTUP_GRACE_PERIOD_SECONDS定义")
+            print("   ⚠️  未找到STARTUP_GRACE_PERIOD_SECONDS定义")
             return False, 0
 
     except Exception as e:
@@ -163,7 +162,7 @@ def check_heartbeat_threshold():
         return False, 0
 
     try:
-        with open(LIVENESS_PROBE_PATH, "r", encoding="utf-8") as f:
+        with open(LIVENESS_PROBE_PATH, encoding="utf-8") as f:
             content = f.read()
 
         # 查找HEARTBEAT_THRESHOLD_MINUTES定义
@@ -180,10 +179,10 @@ def check_heartbeat_threshold():
                 print(f"   ⚠️  检测延迟过长: {threshold_seconds}秒 > 60秒 (推荐值)")
                 return False, threshold_seconds
             else:
-                print(f"   ✅ 检测延迟在合理范围内")
+                print("   ✅ 检测延迟在合理范围内")
                 return True, threshold_seconds
         else:
-            print(f"   ⚠️  未找到HEARTBEAT_THRESHOLD_MINUTES定义")
+            print("   ⚠️  未找到HEARTBEAT_THRESHOLD_MINUTES定义")
             return False, 0
 
     except Exception as e:

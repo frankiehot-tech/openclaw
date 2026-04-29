@@ -1,12 +1,13 @@
 #!/usr/bin/env python3
+# DEPRECATED: 使用 governance/ 模块代替
+# governance_cli.py repair <command> 或 governance_cli.py queue fix
 """
 修复僵尸running任务：标记为running但实际没有进程执行的任务
 """
 
 import json
-import os
 import sys
-from datetime import datetime, timedelta, timezone
+from datetime import UTC, datetime, timedelta
 from pathlib import Path
 
 
@@ -15,7 +16,7 @@ def find_zombie_tasks(queue_file_path, zombie_threshold_hours=2):
     查找指定队列文件中的僵尸running任务
     """
     try:
-        with open(queue_file_path, "r", encoding="utf-8") as f:
+        with open(queue_file_path, encoding="utf-8") as f:
             data = json.load(f)
 
         zombies = []
@@ -30,7 +31,7 @@ def find_zombie_tasks(queue_file_path, zombie_threshold_hours=2):
             print(f"❌ {queue_file_path.name}: items字段格式无效")
             return []
 
-        current_time = datetime.now(timezone.utc)
+        current_time = datetime.now(UTC)
         threshold = timedelta(hours=zombie_threshold_hours)
 
         for item in items_list:
@@ -81,7 +82,7 @@ def find_zombie_tasks(queue_file_path, zombie_threshold_hours=2):
 
             # 检查是否为时区感知
             if updated_at.tzinfo is None:
-                updated_at = updated_at.replace(tzinfo=timezone.utc)
+                updated_at = updated_at.replace(tzinfo=UTC)
 
             # 检查是否超过阈值
             time_diff = current_time - updated_at
@@ -128,7 +129,7 @@ def fix_zombie_task(
     修复单个僵尸任务
     """
     try:
-        with open(queue_file_path, "r", encoding="utf-8") as f:
+        with open(queue_file_path, encoding="utf-8") as f:
             data = json.load(f)
 
         task_id = zombie_info["task_id"]
@@ -150,14 +151,14 @@ def fix_zombie_task(
 
                 # 更新状态
                 task["status"] = new_status
-                task["updated_at"] = datetime.now(timezone.utc).isoformat()
+                task["updated_at"] = datetime.now(UTC).isoformat()
 
                 # 添加修复记录
                 if "fix_history" not in task:
                     task["fix_history"] = []
                 task["fix_history"].append(
                     {
-                        "timestamp": datetime.now(timezone.utc).isoformat(),
+                        "timestamp": datetime.now(UTC).isoformat(),
                         "old_status": old_status,
                         "new_status": new_status,
                         "reason": f"{fix_reason}: {zombie_info['reason']}",
@@ -171,7 +172,7 @@ def fix_zombie_task(
         elif isinstance(items, list):
             # 列表格式
             updated = False
-            for i, item in enumerate(items):
+            for _i, item in enumerate(items):
                 if not isinstance(item, dict):
                     continue
 
@@ -180,14 +181,14 @@ def fix_zombie_task(
 
                     # 更新状态
                     item["status"] = new_status
-                    item["updated_at"] = datetime.now(timezone.utc).isoformat()
+                    item["updated_at"] = datetime.now(UTC).isoformat()
 
                     # 添加修复记录
                     if "fix_history" not in item:
                         item["fix_history"] = []
                     item["fix_history"].append(
                         {
-                            "timestamp": datetime.now(timezone.utc).isoformat(),
+                            "timestamp": datetime.now(UTC).isoformat(),
                             "old_status": old_status,
                             "new_status": new_status,
                             "reason": f"{fix_reason}: {zombie_info['reason']}",
@@ -205,7 +206,7 @@ def fix_zombie_task(
                 return False
 
         else:
-            print(f"❌ items字段格式无效")
+            print("❌ items字段格式无效")
             return False
 
         # 写入修复后的文件
@@ -274,7 +275,7 @@ def main():
         return 1
 
     print(f"🔍 检查 {len(queue_files)} 个队列文件中的僵尸running任务...")
-    print(f"   阈值: 超过2小时未更新的running任务视为僵尸")
+    print("   阈值: 超过2小时未更新的running任务视为僵尸")
     print()
 
     total_zombies = 0
@@ -298,7 +299,7 @@ def main():
         total_zombies += len(zombies)
 
         # 询问用户是否修复
-        print(f"\n   是否修复这些任务? (自动修复)")
+        print("\n   是否修复这些任务? (自动修复)")
         for zombie in zombies:
             # 决定新状态：如果是P0任务且依赖链阻塞，设为manual_hold
             task_id = zombie["task_id"]
@@ -315,15 +316,15 @@ def main():
             if fix_zombie_task(queue_file, zombie, new_status=new_status, fix_reason=fix_reason):
                 fixed_zombies += 1
 
-    print(f"\n📊 修复完成:")
+    print("\n📊 修复完成:")
     print(f"   发现僵尸任务: {total_zombies}")
     print(f"   修复任务: {fixed_zombies}")
 
     if total_zombies > 0:
-        print(f"\n🎯 建议后续操作:")
-        print(f"   1. 检查被修复任务的依赖关系")
-        print(f"   2. 运行队列监控脚本验证修复效果")
-        print(f"   3. 调查导致僵尸任务的根本原因")
+        print("\n🎯 建议后续操作:")
+        print("   1. 检查被修复任务的依赖关系")
+        print("   2. 运行队列监控脚本验证修复效果")
+        print("   3. 调查导致僵尸任务的根本原因")
 
     return 0
 

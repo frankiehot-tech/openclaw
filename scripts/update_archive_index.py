@@ -10,7 +10,6 @@ import os
 import sys
 from datetime import datetime
 from pathlib import Path
-from typing import Dict, List, Optional
 
 
 class ArchiveIndexUpdater:
@@ -83,7 +82,7 @@ class ArchiveIndexUpdater:
         # 生成年度摘要
         self._generate_yearly_summary()
 
-        print(f"📊 归档统计:")
+        print("📊 归档统计:")
         print(f"  📁 快照数量: {len(snapshots)}")
         print(f"  📅 时间归档: {len(quarterly_archives)}")
         print(f"  📄 总文件数: {total_files}")
@@ -107,12 +106,9 @@ class ArchiveIndexUpdater:
 
         import re
 
-        for pattern in patterns:
-            if re.match(pattern, dir_name):
-                return True
-        return False
+        return any(re.match(pattern, dir_name) for pattern in patterns)
 
-    def _analyze_snapshot(self, snapshot_dir: Path) -> Optional[Dict]:
+    def _analyze_snapshot(self, snapshot_dir: Path) -> dict | None:
         """分析快照目录"""
         try:
             # 检查是否有元数据文件
@@ -133,7 +129,7 @@ class ArchiveIndexUpdater:
             # 如果有元数据文件，读取详细信息
             if metadata_file.exists():
                 try:
-                    with open(metadata_file, "r", encoding="utf-8") as f:
+                    with open(metadata_file, encoding="utf-8") as f:
                         metadata = json.load(f)
 
                     snapshot_info.update(
@@ -176,7 +172,7 @@ class ArchiveIndexUpdater:
                 print(f"    分析快照失败 {snapshot_dir}: {e}")
             return None
 
-    def _analyze_time_archive(self, archive_dir: Path) -> Optional[Dict]:
+    def _analyze_time_archive(self, archive_dir: Path) -> dict | None:
         """分析时间归档目录"""
         try:
             # 统计目录中的Markdown文件
@@ -235,7 +231,7 @@ class ArchiveIndexUpdater:
                     yearly_data[year]["snapshots"] += 1
                     yearly_data[year]["files"] += snapshot.get("file_count", 0)
                     yearly_data[year]["size"] += snapshot.get("total_size", 0)
-                except:
+                except Exception:
                     pass
 
         # 统计时间归档
@@ -260,16 +256,16 @@ class ArchiveIndexUpdater:
             # 创建README内容
             content = f"""# 文档归档目录
 
-> 最后更新: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}
+> 最后更新: {datetime.now().strftime("%Y-%m-%d %H:%M:%S")}
 
 ## 📊 归档统计
 
 | 项目 | 数量 |
 |------|------|
-| 版本快照 | {self.index_data['total_snapshots']} |
-| 时间归档 | {len(self.index_data['quarterly_archives'])} |
-| 总文件数 | {self.index_data['total_files']} |
-| 总大小 | {self._format_size(self.index_data['total_size'])} |
+| 版本快照 | {self.index_data["total_snapshots"]} |
+| 时间归档 | {len(self.index_data["quarterly_archives"])} |
+| 总文件数 | {self.index_data["total_files"]} |
+| 总大小 | {self._format_size(self.index_data["total_size"])} |
 
 ## 📸 版本快照
 
@@ -377,7 +373,7 @@ python3 scripts/update_archive_index.py
             bytes_size /= 1024.0
         return f"{bytes_size:.1f} TB"
 
-    def generate_json_index(self, output_file: Optional[str] = None):
+    def generate_json_index(self, output_file: str | None = None):
         """生成JSON格式的索引文件"""
         if output_file is None:
             output_file = self.archive_dir / "archive_index.json"
@@ -422,9 +418,8 @@ def main():
     success = True
 
     # 更新README.md索引
-    if args.update_readme:
-        if not updater.generate_readme_index():
-            success = False
+    if args.update_readme and not updater.generate_readme_index():
+        success = False
 
     # 生成JSON索引
     if args.generate_json:

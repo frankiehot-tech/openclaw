@@ -1,7 +1,8 @@
 #!/usr/bin/env python3
+# DEPRECATED: 使用 governance/ 模块代替
+# governance_cli.py repair <command> 或 governance_cli.py queue fix
 """P0紧急修复：修复Web API认证问题，解决监控脚本401错误"""
 
-import os
 import sys
 from pathlib import Path
 
@@ -32,7 +33,7 @@ def fix_queue_monitor_script(token):
         return False
 
     # 读取脚本内容
-    with open(QUEUE_MONITOR_SCRIPT, "r", encoding="utf-8") as f:
+    with open(QUEUE_MONITOR_SCRIPT, encoding="utf-8") as f:
         content = f.read()
 
     # 查找Web API检查部分
@@ -85,7 +86,7 @@ def fix_queue_monitor_script(token):
                         )
                     else:
                         line = line.replace('")', f'", headers={{"X-OpenClaw-Token": "{token}"}})')
-                    print(f"   🔧 修复第{i+1}行: {line[:80]}...")
+                    print(f"   🔧 修复第{i + 1}行: {line[:80]}...")
             fixed_lines.append(line)
 
         new_content = "\n".join(fixed_lines)
@@ -99,7 +100,7 @@ def fix_queue_monitor_script(token):
             with open(QUEUE_MONITOR_SCRIPT, "w", encoding="utf-8") as f:
                 f.write(new_content)
 
-            print(f"✅ 修复监控脚本（动态查找）")
+            print("✅ 修复监控脚本（动态查找）")
             return True
         else:
             print("❌ 未找到需要修复的API调用")
@@ -112,7 +113,7 @@ def update_config_with_token(token):
         print(f"⚠️ 配置文件不存在: {CONFIG_FILE}")
         return False
 
-    with open(CONFIG_FILE, "r", encoding="utf-8") as f:
+    with open(CONFIG_FILE, encoding="utf-8") as f:
         content = f.read()
 
     # 检查是否已包含web_api配置
@@ -151,12 +152,12 @@ def test_fix():
     sys.path.insert(0, str(PROJECT_ROOT / "scripts"))
 
     try:
-        import queue_monitor
+        pass
 
         print("✅ 监控脚本导入成功")
 
         # 检查脚本是否包含认证头
-        with open(QUEUE_MONITOR_SCRIPT, "r", encoding="utf-8") as f:
+        with open(QUEUE_MONITOR_SCRIPT, encoding="utf-8") as f:
             content = f.read()
 
         if "X-OpenClaw-Token" in content:

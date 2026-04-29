@@ -1,4 +1,6 @@
 #!/usr/bin/env python3
+# DEPRECATED: 使用 governance/ 模块代替
+# governance_cli.py repair <command> 或 governance_cli.py queue fix
 """
 修复Web服务器配置与实际队列状态不一致问题
 解决无法定位当前队列项错误
@@ -6,7 +8,6 @@
 
 import json
 import os
-import shutil
 from datetime import datetime
 
 
@@ -34,7 +35,7 @@ def check_config_sync():
 
     # 读取Web配置
     try:
-        with open(web_config_path, "r", encoding="utf-8") as f:
+        with open(web_config_path, encoding="utf-8") as f:
             web_config = json.load(f)
 
         print("✅ Web服务器配置文件读取成功")
@@ -44,7 +45,7 @@ def check_config_sync():
 
     # 读取队列状态
     try:
-        with open(queue_state_path, "r", encoding="utf-8") as f:
+        with open(queue_state_path, encoding="utf-8") as f:
             queue_state = json.load(f)
 
         print("✅ 队列状态文件读取成功")
@@ -82,7 +83,7 @@ def fix_queue_state_for_web():
     )
 
     try:
-        with open(queue_state_path, "r", encoding="utf-8") as f:
+        with open(queue_state_path, encoding="utf-8") as f:
             queue_state = json.load(f)
 
         # 分析当前状态
@@ -190,7 +191,7 @@ def restart_web_server():
             else:
                 print(f"⚠️ Web服务器响应异常: {response.status_code}")
                 return False
-        except:
+        except Exception:
             print("❌ Web服务器重启后无法访问")
             return False
 
@@ -219,25 +220,25 @@ log() {
 # 检查配置同步状态
 check_sync() {
     log "🔍 检查配置同步状态..."
-    
+
     # 运行同步检查脚本
     python3 "$SYNC_SCRIPT" --check-only >> "$LOG_FILE" 2>&1
-    
+
     if [ $? -eq 0 ]; then
         log "✅ 配置同步正常"
         return 0
     else
         log "⚠️ 配置同步异常，尝试修复"
-        
+
         # 运行修复脚本
         python3 "$SYNC_SCRIPT" --fix-only >> "$LOG_FILE" 2>&1
-        
+
         if [ $? -eq 0 ]; then
             log "✅ 配置同步修复成功"
         else
             log "❌ 配置同步修复失败"
         fi
-        
+
         return 1
     fi
 }
@@ -246,7 +247,7 @@ check_sync() {
 monitor_sync() {
     while true; do
         check_sync
-        
+
         # 等待10分钟再次检查
         sleep 600
     done

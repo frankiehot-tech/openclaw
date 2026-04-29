@@ -1,4 +1,6 @@
 #!/usr/bin/env python3
+# DEPRECATED: 使用 governance/ 模块代替
+# governance_cli.py repair <command> 或 governance_cli.py queue fix
 """
 队列计数修复脚本 - P0紧急修复任务
 功能：修复队列文件中counts与items状态不一致的问题
@@ -20,7 +22,7 @@ BACKUP_SUFFIX = ".backup_fix_counts_" + datetime.now().strftime("%Y%m%d_%H%M%S")
 def load_queue():
     """加载队列文件"""
     try:
-        with open(QUEUE_FILE, "r", encoding="utf-8") as f:
+        with open(QUEUE_FILE, encoding="utf-8") as f:
             return json.load(f)
     except Exception as e:
         print(f"❌ 加载队列文件失败: {e}")
@@ -39,7 +41,7 @@ def analyze_counts_discrepancy(queue_data):
     items = queue_data.get("items", {})
     counts = queue_data.get("counts", {})
 
-    print(f"📊 当前计数 (counts):")
+    print("📊 当前计数 (counts):")
     for status, count in counts.items():
         print(f"  {status}: {count}")
 
@@ -53,14 +55,14 @@ def analyze_counts_discrepancy(queue_data):
         else:
             print(f"⚠️  未知状态: {task_id} -> {status}")
 
-    print(f"\n📊 实际统计 (从items计算):")
+    print("\n📊 实际统计 (从items计算):")
     for status, count in actual_counts.items():
         print(f"  {status}: {count}")
 
     # 比较差异
-    print(f"\n📈 差异分析:")
+    print("\n📈 差异分析:")
     has_discrepancy = False
-    for status in actual_counts.keys():
+    for status in actual_counts:
         expected = actual_counts[status]
         actual = counts.get(status, 0)
         if expected != actual:
@@ -75,7 +77,7 @@ def analyze_counts_discrepancy(queue_data):
 
 def fix_counts(queue_data, actual_counts):
     """修复计数"""
-    print(f"\n🔧 修复计数:")
+    print("\n🔧 修复计数:")
     print("=" * 40)
 
     # 更新counts
@@ -115,7 +117,7 @@ def save_queue(queue_data):
 
 def verify_fix():
     """验证修复结果"""
-    print(f"\n✅ 验证修复结果:")
+    print("\n✅ 验证修复结果:")
     print("=" * 40)
 
     queue_data = load_queue()
@@ -152,13 +154,13 @@ def main():
     has_discrepancy, actual_counts = analyze_counts_discrepancy(queue_data)
 
     if not has_discrepancy:
-        print(f"\n✅ 队列计数已一致，无需修复")
+        print("\n✅ 队列计数已一致，无需修复")
         return
 
     # 询问用户确认
-    print(f"\n❓ 是否执行修复？")
-    print(f"  输入 'yes' 执行实际修复")
-    print(f"  输入 'no' 或直接回车进行模拟修复")
+    print("\n❓ 是否执行修复？")
+    print("  输入 'yes' 执行实际修复")
+    print("  输入 'no' 或直接回车进行模拟修复")
 
     try:
         user_input = input("  你的选择: ").strip().lower()
@@ -168,9 +170,9 @@ def main():
     dry_run = user_input != "yes"
 
     if dry_run:
-        print(f"\n📝 模拟修复:")
+        print("\n📝 模拟修复:")
     else:
-        print(f"\n🔧 执行实际修复:")
+        print("\n🔧 执行实际修复:")
 
     # 修复计数
     fixed_data = fix_counts(queue_data.copy() if dry_run else queue_data, actual_counts)
@@ -178,20 +180,20 @@ def main():
     if not dry_run:
         # 实际保存
         if save_queue(fixed_data):
-            print(f"\n✅ 队列文件已修复")
+            print("\n✅ 队列文件已修复")
 
             # 验证修复
             if verify_fix():
-                print(f"\n🎉 修复成功完成")
+                print("\n🎉 修复成功完成")
             else:
-                print(f"\n⚠️  修复验证失败，请手动检查")
+                print("\n⚠️  修复验证失败，请手动检查")
         else:
-            print(f"\n❌ 保存修复失败")
+            print("\n❌ 保存修复失败")
     else:
-        print(f"\n📝 模拟修复完成（未实际修改文件）")
+        print("\n📝 模拟修复完成（未实际修改文件）")
 
         # 显示修复后的完整数据结构示例
-        print(f"\n🔍 修复后的数据结构示例 (前3个任务):")
+        print("\n🔍 修复后的数据结构示例 (前3个任务):")
         items = list(fixed_data.get("items", {}).items())[:3]
         for task_id, task in items:
             print(f"\n  {task_id[:50]}...")
@@ -199,20 +201,20 @@ def main():
             print(f"    标题: {task.get('title', '')[:50]}...")
 
     # 生成报告
-    print(f"\n📊 修复报告:")
+    print("\n📊 修复报告:")
     print(f"  文件: {QUEUE_FILE}")
     print(f"  备份: {QUEUE_FILE.name}{BACKUP_SUFFIX}")
     print(f"  操作: {'模拟修复' if dry_run else '实际修复'}")
     print(f"  状态: {'一致' if not has_discrepancy else '已修复' if not dry_run else '模拟修复'}")
 
     # 建议
-    print(f"\n🎯 后续建议:")
-    print(f"  1. 监控队列健康度: 使用 analyze_pending_tasks.py 定期检查")
+    print("\n🎯 后续建议:")
+    print("  1. 监控队列健康度: 使用 analyze_pending_tasks.py 定期检查")
     print(
-        f"  2. 修复其他队列文件: 检查 openhuman_aiplan_priority_execution_20260414_deduplicated.json"
+        "  2. 修复其他队列文件: 检查 openhuman_aiplan_priority_execution_20260414_deduplicated.json"
     )
-    print(f"  3. 建立自动化检查: 将此检查集成到监控系统中")
-    print(f"  4. 定期验证: 每周至少验证一次队列数据一致性")
+    print("  3. 建立自动化检查: 将此检查集成到监控系统中")
+    print("  4. 定期验证: 每周至少验证一次队列数据一致性")
 
 
 if __name__ == "__main__":

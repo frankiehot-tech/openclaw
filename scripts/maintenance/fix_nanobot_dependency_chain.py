@@ -1,10 +1,11 @@
 #!/usr/bin/env python3
+# DEPRECATED: 使用 governance/ 模块代替
+# governance_cli.py repair <command> 或 governance_cli.py queue fix
 """
 修复nanobot依赖链的过时阻塞警告
 """
 
 import json
-import os
 import shutil
 from datetime import datetime
 
@@ -13,7 +14,7 @@ def main():
     state_file = ".openclaw/plan_queue/openhuman_aiplan_build_priority_20260328.json"
 
     print(f"加载状态文件: {state_file}")
-    with open(state_file, "r", encoding="utf-8") as f:
+    with open(state_file, encoding="utf-8") as f:
         data = json.load(f)
 
     items = data.get("items", {})
@@ -99,7 +100,7 @@ def main():
 
         # 重新计算counts
         counts = {"pending": 0, "running": 0, "completed": 0, "failed": 0, "manual_hold": 0}
-        for task_id, task in items.items():
+        for _task_id, task in items.items():
             status = task.get("status", "pending")
             if status in counts:
                 counts[status] += 1
@@ -120,7 +121,7 @@ def main():
             data["pause_reason"] = "empty"
 
         # 创建备份
-        backup = state_file + f'.nanobot_fix_backup_{datetime.now().strftime("%Y%m%d_%H%M%S")}'
+        backup = state_file + f".nanobot_fix_backup_{datetime.now().strftime('%Y%m%d_%H%M%S')}"
         shutil.copy2(state_file, backup)
         print(f"\n✅ 创建备份: {backup}")
 
@@ -128,12 +129,12 @@ def main():
         with open(state_file, "w", encoding="utf-8") as f:
             json.dump(data, f, ensure_ascii=False, indent=2)
 
-        print(f"\n📊 修复完成:")
+        print("\n📊 修复完成:")
         print(f"  修复任务数: {fixed_count}")
         print(f"  新counts: {json.dumps(counts, ensure_ascii=False)}")
         print(f"  新queue_status: {data['queue_status']}")
     else:
-        print(f"\n⚠️  没有需要修复的nanobot依赖链阻塞")
+        print("\n⚠️  没有需要修复的nanobot依赖链阻塞")
 
     return 0
 

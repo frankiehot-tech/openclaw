@@ -6,7 +6,6 @@
 按照用户请求"告警机制增强：配置实际邮件/Slack凭据，实现外部通知"创建。
 """
 
-import json
 import os
 import sys
 from pathlib import Path
@@ -18,7 +17,7 @@ def load_config(config_path=None):
     """加载配置文件"""
     if config_path and Path(config_path).exists():
         try:
-            with open(config_path, "r", encoding="utf-8") as f:
+            with open(config_path, encoding="utf-8") as f:
                 config = yaml.safe_load(f)
                 print(f"✅ 配置文件加载成功: {config_path}")
                 return config
@@ -36,7 +35,7 @@ def load_config(config_path=None):
     for path in default_paths:
         if path.exists():
             try:
-                with open(path, "r", encoding="utf-8") as f:
+                with open(path, encoding="utf-8") as f:
                     config = yaml.safe_load(f)
                     print(f"✅ 发现并加载配置文件: {path}")
                     return config

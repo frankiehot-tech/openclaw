@@ -34,9 +34,9 @@ def main():
     os.makedirs(os.path.dirname(log_file), exist_ok=True)
 
     with open(log_file, "a") as log:
-        log.write(f"\n{'='*80}\n")
+        log.write(f"\n{'=' * 80}\n")
         log.write(f"迁移监控器启动时间: {time.strftime('%Y-%m-%d %H:%M:%S')}\n")
-        log.write(f"{'='*80}\n")
+        log.write(f"{'=' * 80}\n")
 
     # 启动后台进程
     try:
@@ -49,8 +49,8 @@ def main():
 
         print(f"✅ 监控器进程已启动 (PID: {process.pid})")
         print(f"📝 日志输出到: {log_file}")
-        print(f"📊 数据库路径: /Volumes/1TB-M2/openclaw/mini-agent/data/cost_tracking.db")
-        print(f"⏱️  检查间隔: 15分钟")
+        print("📊 数据库路径: /Volumes/1TB-M2/openclaw/mini-agent/data/cost_tracking.db")
+        print("⏱️  检查间隔: 15分钟")
 
         # 保存PID文件以便后续管理
         pid_file = "/Volumes/1TB-M2/openclaw/mini-agent/data/migration_monitor.pid"
@@ -76,7 +76,7 @@ def main():
         else:
             print("❌ 监控器进程已退出")
             # 读取日志的最后几行
-            with open(log_file, "r") as f:
+            with open(log_file) as f:
                 lines = f.readlines()[-10:]
             print("最近日志:")
             for line in lines:

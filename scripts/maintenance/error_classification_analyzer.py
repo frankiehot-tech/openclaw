@@ -7,10 +7,9 @@
 import glob
 import json
 import os
-import re
 import sys
 from datetime import datetime, timedelta, timezone
-from typing import Any, Dict, List, Optional
+from typing import Any
 
 
 class ErrorClassificationAnalyzer:
@@ -90,14 +89,14 @@ class ErrorClassificationAnalyzer:
             "unknown": {"description": "未知错误类型", "patterns": [], "examples": []},
         }
 
-    def load_queue_files(self) -> List[Dict[str, Any]]:
+    def load_queue_files(self) -> list[dict[str, Any]]:
         """加载所有队列文件"""
         queue_files = []
         pattern = os.path.join(self.plan_queue_dir, "*.json")
 
         for file_path in glob.glob(pattern):
             try:
-                with open(file_path, "r", encoding="utf-8") as f:
+                with open(file_path, encoding="utf-8") as f:
                     data = json.load(f)
                     queue_files.append(
                         {
@@ -112,7 +111,7 @@ class ErrorClassificationAnalyzer:
 
         return queue_files
 
-    def analyze_queue_errors(self, queue_data: Dict[str, Any]) -> List[Dict[str, Any]]:
+    def analyze_queue_errors(self, queue_data: dict[str, Any]) -> list[dict[str, Any]]:
         """分析队列中的错误任务"""
         errors = []
 
@@ -194,7 +193,7 @@ class ErrorClassificationAnalyzer:
 
         return True  # 默认可重试
 
-    def analyze_all_errors(self) -> Dict[str, Any]:
+    def analyze_all_errors(self) -> dict[str, Any]:
         """分析所有错误"""
         print("正在分析队列错误...")
         queue_files = self.load_queue_files()
@@ -205,7 +204,7 @@ class ErrorClassificationAnalyzer:
             all_errors.extend(errors)
 
         # 统计分类分布
-        category_stats = {category: 0 for category in self.error_categories.keys()}
+        category_stats = dict.fromkeys(self.error_categories.keys(), 0)
         retryable_stats = {"retryable": 0, "non_retryable": 0}
 
         for error in all_errors:
@@ -255,8 +254,8 @@ class ErrorClassificationAnalyzer:
         return result
 
     def calculate_repair_priority(
-        self, category_stats: Dict[str, int], all_errors: List[Dict[str, Any]]
-    ) -> List[Dict[str, Any]]:
+        self, category_stats: dict[str, int], all_errors: list[dict[str, Any]]
+    ) -> list[dict[str, Any]]:
         """计算修复优先级"""
         priorities = []
 
@@ -336,8 +335,8 @@ class ErrorClassificationAnalyzer:
         return actions.get(category, "需要进一步分析")
 
     def generate_recommendations(
-        self, category_stats: Dict[str, int], retryable_stats: Dict[str, int]
-    ) -> List[str]:
+        self, category_stats: dict[str, int], retryable_stats: dict[str, int]
+    ) -> list[str]:
         """生成推荐修复措施"""
         recommendations = []
 
@@ -383,7 +382,7 @@ class ErrorClassificationAnalyzer:
 
         return recommendations
 
-    def generate_report(self, analysis_result: Dict[str, Any]) -> str:
+    def generate_report(self, analysis_result: dict[str, Any]) -> str:
         """生成分析报告"""
         report_lines = []
 
@@ -431,7 +430,8 @@ class ErrorClassificationAnalyzer:
                     f"     分数: {item['total_score']} (频率:{item['frequency_score']}, 严重性:{item['severity_score']})"
                 )
                 report_lines.append(f"     描述: {item['description']}")
-                report_lines.append(f"     修复建议: {item['repair_action'].split('\\n')[0]}")
+                _repair = item["repair_action"].split("\n")[0]
+                report_lines.append(f"     修复建议: {_repair}")
                 report_lines.append("")
 
         # 详细错误信息
@@ -462,7 +462,7 @@ class ErrorClassificationAnalyzer:
         return "\n".join(report_lines)
 
     def save_report(
-        self, analysis_result: Dict[str, Any], output_dir: str = "/Volumes/1TB-M2/openclaw/scripts"
+        self, analysis_result: dict[str, Any], output_dir: str = "/Volumes/1TB-M2/openclaw/scripts"
     ):
         """保存分析报告"""
         # 生成文本报告
@@ -482,7 +482,7 @@ class ErrorClassificationAnalyzer:
         with open(json_report_path, "w", encoding="utf-8") as f:
             json.dump(analysis_result, f, ensure_ascii=False, indent=2)
 
-        print(f"✅ 分析报告已保存:")
+        print("✅ 分析报告已保存:")
         print(f"   文本报告: {text_report_path}")
         print(f"   JSON数据: {json_report_path}")
 
@@ -519,7 +519,8 @@ def main():
                 print(
                     f"     [{top_priority['priority']}] {top_priority['category']}: {top_priority['count']} ({top_priority['percentage']}%)"
                 )
-                print(f"     修复建议: {top_priority['repair_action'].split('\\n')[0]}")
+                _repair_line = top_priority["repair_action"].split("\n")[0]
+                print(f"     修复建议: {_repair_line}")
 
         print(f"\n📄 详细报告请查看: {text_report}")
 

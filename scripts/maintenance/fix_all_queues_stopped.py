@@ -1,4 +1,6 @@
 #!/usr/bin/env python3
+# DEPRECATED: 使用 governance/ 模块代替
+# governance_cli.py repair <command> 或 governance_cli.py queue fix
 """
 修复所有队列停止问题
 综合解决队列状态被意外重置问题
@@ -34,7 +36,7 @@ def check_all_queues():
 
     for queue_file in queue_files:
         try:
-            with open(queue_file, "r", encoding="utf-8") as f:
+            with open(queue_file, encoding="utf-8") as f:
                 queue_state = json.load(f)
 
             queue_id = queue_state.get("queue_id", "unknown")
@@ -227,43 +229,43 @@ import subprocess
 
 def protect_all_queues():
     """保护所有队列状态"""
-    
+
     queue_dir = "/Volumes/1TB-M2/openclaw/.openclaw/plan_queue"
-    
+
     if not os.path.exists(queue_dir):
         print(f"❌ 队列目录不存在: {queue_dir}")
         return False
-    
+
     # 获取所有队列文件
     queue_files = []
     for file in os.listdir(queue_dir):
         if file.endswith('.json') and not file.endswith('.lock'):
             queue_files.append(os.path.join(queue_dir, file))
-    
+
     protected_count = 0
-    
+
     for queue_file in queue_files:
         try:
             with open(queue_file, 'r', encoding='utf-8') as f:
                 queue_state = json.load(f)
-            
+
             queue_id = queue_state.get('queue_id', 'unknown')
             status = queue_state.get('queue_status', '')
             current_item = queue_state.get('current_item_id', '')
-            
+
             # 检查队列状态是否异常
             if status in ['manual_hold', 'stopped', 'unknown'] and current_item == '':
                 print(f"⚠️ 检测到队列 {queue_id} 状态异常，正在修复...")
-                
+
                 # 查找可执行任务
                 items = queue_state.get('items', {})
                 executable_tasks = []
-                
+
                 for task_id, task in items.items():
                     task_status = task.get('status', '')
                     if task_status in ['pending', '']:
                         executable_tasks.append(task_id)
-                
+
                 if executable_tasks:
                     # 修复队列状态
                     queue_state['queue_status'] = 'running'
@@ -271,54 +273,54 @@ def protect_all_queues():
                     queue_state['current_item_ids'] = executable_tasks
                     queue_state['pause_reason'] = ''
                     queue_state['updated_at'] = datetime.now().isoformat()
-                    
+
                     # 保存修复后的状态
                     with open(queue_file, 'w', encoding='utf-8') as f:
                         json.dump(queue_state, f, indent=2, ensure_ascii=False)
-                    
+
                     print(f"✅ 队列 {queue_id} 已修复，当前任务: {executable_tasks[0]}")
                     protected_count += 1
                 else:
                     print(f"⚠️ 队列 {queue_id} 没有可执行任务")
             else:
                 print(f"✅ 队列 {queue_id} 状态正常")
-                
+
         except Exception as e:
             print(f"❌ 保护队列 {queue_file} 失败: {e}")
-    
+
     print(f"📊 总共保护了 {protected_count} 个队列")
     return protected_count > 0
 
 def check_and_restart_runners():
     """检查并重启运行器"""
-    
+
     runners = [
         'athena_ai_plan_runner.py',
         'athena_ai_plan_runner_build.py',
         'athena_ai_plan_runner_codex.py'
     ]
-    
+
     scripts_dir = "/Volumes/1TB-M2/openclaw/scripts"
-    
+
     for runner in runners:
         try:
-            result = subprocess.run(['pgrep', '-f', runner], 
+            result = subprocess.run(['pgrep', '-f', runner],
                                  capture_output=True, text=True)
-            
+
             if result.returncode != 0:
                 print(f"⚠️ {runner} 未运行，正在启动...")
-                
+
                 runner_script = os.path.join(scripts_dir, runner)
                 if os.path.exists(runner_script):
-                    subprocess.Popen(['python3', runner_script], 
-                                   stdout=subprocess.DEVNULL, 
+                    subprocess.Popen(['python3', runner_script],
+                                   stdout=subprocess.DEVNULL,
                                    stderr=subprocess.DEVNULL)
                     print(f"✅ {runner} 已启动")
                 else:
                     print(f"❌ {runner} 脚本不存在")
             else:
                 print(f"✅ {runner} 已在运行")
-                
+
         except Exception as e:
             print(f"❌ 检查运行器 {runner} 失败: {e}")
 
@@ -355,16 +357,16 @@ log() {
 monitor_protection() {
     while true; do
         log "🔍 检查所有队列状态保护..."
-        
+
         # 运行保护脚本
         python3 "$PROTECT_SCRIPT" >> "$LOG_FILE" 2>&1
-        
+
         if [ $? -eq 0 ]; then
             log "✅ 所有队列状态保护正常"
         else:
             log "⚠️ 队列状态保护异常"
         fi
-        
+
         # 等待2分钟再次检查
         sleep 120
     done

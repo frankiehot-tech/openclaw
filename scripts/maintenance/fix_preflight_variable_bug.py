@@ -1,4 +1,6 @@
 #!/usr/bin/env python3
+# DEPRECATED: 使用 governance/ 模块代替
+# governance_cli.py repair <command> 或 governance_cli.py queue fix
 """修复validate_build_preflight函数中的变量作用域bug"""
 
 import re
@@ -42,7 +44,7 @@ def fix_preflight_function(content):
     gene_exception_end = gene_exception_start
     while (
         gene_exception_end < len(content)
-        and not content[gene_exception_end : gene_exception_end + 4] == "    #"
+        and content[gene_exception_end : gene_exception_end + 4] != "    #"
     ):
         gene_exception_end += 1
 
@@ -131,7 +133,7 @@ def main():
     print(f"🔧 修复 {file_path} 中的预检函数bug...")
 
     try:
-        with open(file_path, "r", encoding="utf-8") as f:
+        with open(file_path, encoding="utf-8") as f:
             content = f.read()
     except FileNotFoundError:
         print(f"❌ 文件不存在: {file_path}")
@@ -177,7 +179,7 @@ def main():
         else:
             print("⚠️  警告：未找到基因管理例外块")
 
-    print(f"\n🚀 修复完成。需要重启队列运行器进程以应用更改。")
+    print("\n🚀 修复完成。需要重启队列运行器进程以应用更改。")
 
 
 if __name__ == "__main__":

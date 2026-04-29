@@ -7,7 +7,7 @@ import sys
 
 sys.path.insert(0, "/Volumes/1TB-M2/openclaw")
 
-from contracts.data_quality import DataQualityContract, deduplicate_manifest
+from contracts.data_quality import DataQualityContract
 
 input_path = "/Volumes/1TB-M2/openclaw/.openclaw/plan_queue/openhuman_aiplan_priority_execution_20260414.json"
 output_path = input_path.replace(".json", "_test_deduplicated.json")

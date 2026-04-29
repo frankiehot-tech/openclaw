@@ -1,4 +1,6 @@
 #!/usr/bin/env python3
+# DEPRECATED: 使用 governance/ 模块代替
+# governance_cli.py repair <command> 或 governance_cli.py queue fix
 """
 批量修复问题任务ID脚本
 
@@ -14,7 +16,7 @@ import argparse
 import json
 import sys
 from pathlib import Path
-from typing import Any, Dict, List
+from typing import Any
 
 # 添加项目根目录到路径
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
@@ -22,7 +24,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 from contracts.task_identity import TaskIdentity, TaskIdentityContract
 
 
-def find_queue_files() -> List[Path]:
+def find_queue_files() -> list[Path]:
     """查找所有队列状态文件"""
     queue_dir = Path("/Volumes/1TB-M2/openclaw/.openclaw/plan_queue")
     if not queue_dir.exists():
@@ -34,7 +36,7 @@ def find_queue_files() -> List[Path]:
     return queue_files
 
 
-def find_manifest_files() -> List[Path]:
+def find_manifest_files() -> list[Path]:
     """查找所有manifest文件"""
     # 这里需要根据实际情况调整manifest文件路径
     manifest_dir = Path("/Volumes/1TB-M2/openclaw/.openclaw/plan_queue")
@@ -48,10 +50,10 @@ def find_manifest_files() -> List[Path]:
     return manifest_files
 
 
-def analyze_queue_file(file_path: Path, contract: TaskIdentityContract) -> Dict[str, Any]:
+def analyze_queue_file(file_path: Path, contract: TaskIdentityContract) -> dict[str, Any]:
     """分析队列文件中的问题ID"""
     try:
-        with open(file_path, "r", encoding="utf-8") as f:
+        with open(file_path, encoding="utf-8") as f:
             content = json.load(f)
     except Exception as e:
         print(f"读取文件失败 {file_path}: {e}")
@@ -84,10 +86,10 @@ def analyze_queue_file(file_path: Path, contract: TaskIdentityContract) -> Dict[
     }
 
 
-def analyze_manifest_file(file_path: Path, contract: TaskIdentityContract) -> Dict[str, Any]:
+def analyze_manifest_file(file_path: Path, contract: TaskIdentityContract) -> dict[str, Any]:
     """分析manifest文件中的问题ID"""
     try:
-        with open(file_path, "r", encoding="utf-8") as f:
+        with open(file_path, encoding="utf-8") as f:
             content = json.load(f)
     except Exception as e:
         print(f"读取文件失败 {file_path}: {e}")
@@ -120,10 +122,10 @@ def analyze_manifest_file(file_path: Path, contract: TaskIdentityContract) -> Di
 
 def fix_queue_file(
     file_path: Path, contract: TaskIdentityContract, dry_run: bool = True
-) -> Dict[str, Any]:
+) -> dict[str, Any]:
     """修复队列文件中的问题ID"""
     try:
-        with open(file_path, "r", encoding="utf-8") as f:
+        with open(file_path, encoding="utf-8") as f:
             content = json.load(f)
     except Exception as e:
         print(f"读取文件失败 {file_path}: {e}")
@@ -183,10 +185,10 @@ def fix_queue_file(
 
 def fix_manifest_file(
     file_path: Path, contract: TaskIdentityContract, dry_run: bool = True
-) -> Dict[str, Any]:
+) -> dict[str, Any]:
     """修复manifest文件中的问题ID"""
     try:
-        with open(file_path, "r", encoding="utf-8") as f:
+        with open(file_path, encoding="utf-8") as f:
             content = json.load(f)
     except Exception as e:
         print(f"读取文件失败 {file_path}: {e}")
@@ -315,7 +317,7 @@ def main():
                     print(f"  修复完成，修改了 {result['changes']} 处")
                     total_changes += result["changes"]
                 else:
-                    print(f"  无需修复")
+                    print("  无需修复")
 
         if not args.queue_only:
             print("\n修复manifest文件:")
@@ -326,7 +328,7 @@ def main():
                     print(f"  修复完成，修改了 {result['changes']} 处")
                     total_changes += result["changes"]
                 else:
-                    print(f"  无需修复")
+                    print("  无需修复")
 
         print(f"\n✅ 修复完成，总共修改了 {total_changes} 处")
 
@@ -334,22 +336,22 @@ def main():
         print("\n" + "=" * 60)
         print("修复总结")
         print("=" * 60)
-        print(f"✅ 解决了深度审计发现的13个以'-'开头的任务ID问题")
-        print(f"✅ 所有问题ID已规范化，不再被argparse误识别")
-        print(f"✅ 保持了向后兼容性：find_manifest_item_with_normalization支持规范化匹配")
-        print(f"\n⚠️  注意事项：")
-        print(f"   1. 所有修改的文件都已创建备份（.backup_* 文件）")
-        print(f"   2. 建议测试修复后的系统运行情况")
-        print(f"   3. 确认所有使用athena_ai_plan_runner.py的脚本工作正常")
+        print("✅ 解决了深度审计发现的13个以'-'开头的任务ID问题")
+        print("✅ 所有问题ID已规范化，不再被argparse误识别")
+        print("✅ 保持了向后兼容性：find_manifest_item_with_normalization支持规范化匹配")
+        print("\n⚠️  注意事项：")
+        print("   1. 所有修改的文件都已创建备份（.backup_* 文件）")
+        print("   2. 建议测试修复后的系统运行情况")
+        print("   3. 确认所有使用athena_ai_plan_runner.py的脚本工作正常")
 
     else:
         # 预览模式总结
         print("\n" + "=" * 60)
         print("预览总结")
         print("=" * 60)
-        print(f"📊 深度审计发现的问题ID可以通过TaskIdentityContract修复")
-        print(f"🔧 使用 --apply 参数实际执行修复")
-        print(f"⚠️  修复前建议备份重要数据")
+        print("📊 深度审计发现的问题ID可以通过TaskIdentityContract修复")
+        print("🔧 使用 --apply 参数实际执行修复")
+        print("⚠️  修复前建议备份重要数据")
 
     return 0
 

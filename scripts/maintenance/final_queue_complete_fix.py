@@ -1,4 +1,6 @@
 #!/usr/bin/env python3
+# DEPRECATED: 使用 governance/ 模块代替
+# governance_cli.py <command>
 """
 最终队列完整修复脚本
 修复所有问题：manifest entry_stage、队列stage字段、任务状态、队列状态
@@ -7,9 +9,8 @@
 import json
 import os
 import subprocess
-import sys
 import time
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 
 MANIFEST_FILE = "/Volumes/1TB-M2/openclaw/scripts/gene_management_queue_manifest.json"
 QUEUE_FILE = (
@@ -19,7 +20,7 @@ QUEUE_FILE = (
 
 def load_json_file(file_path):
     """加载JSON文件"""
-    with open(file_path, "r", encoding="utf-8") as f:
+    with open(file_path, encoding="utf-8") as f:
         return json.load(f)
 
 
@@ -184,13 +185,13 @@ def fix_queue_state_completely():
         state["pause_reason"] = ""
         state["current_item_id"] = first_task
         state["current_item_ids"] = runnable_tasks
-        state["updated_at"] = datetime.now(timezone.utc).isoformat()
+        state["updated_at"] = datetime.now(UTC).isoformat()
 
         # 更新第一个任务状态
         items[first_task]["status"] = "running"
         items[first_task]["progress_percent"] = 0
         if not items[first_task].get("started_at"):
-            items[first_task]["started_at"] = datetime.now(timezone.utc).isoformat()
+            items[first_task]["started_at"] = datetime.now(UTC).isoformat()
 
         # 重新计算计数
         counts = {"pending": 0, "running": 0, "completed": 0, "failed": 0, "manual_hold": 0}
@@ -210,7 +211,7 @@ def fix_queue_state_completely():
 
         state["counts"] = counts
 
-        print(f"    ✅ 队列状态: manual_hold → running")
+        print("    ✅ 队列状态: manual_hold → running")
         print(f"    ✅ 当前任务: {first_task}")
         print(f"    ✅ 任务计数: {counts}")
     else:
@@ -224,7 +225,7 @@ def fix_queue_state_completely():
     # 保存修复
     if stage_fixed > 0 or status_fixed > 0 or api_fixed > 0:
         save_json_file(QUEUE_FILE, state)
-        print(f"✅ 队列文件修复完成:")
+        print("✅ 队列文件修复完成:")
         print(f"   • 同步stage字段: {stage_fixed}")
         print(f"   • 重置任务状态: {status_fixed}")
         print(f"   • API key错误处理: {api_fixed}")
@@ -288,7 +289,7 @@ def test_manual_launch():
                     print(f"   找到 {len(data['routes'])} 个队列路由")
                 else:
                     print(f"   API响应: {result.stdout[:200]}...")
-            except:
+            except Exception:
                 print(f"   API响应 (原始): {result.stdout[:200]}...")
         else:
             print(f"❌ Web API访问失败: {result.stderr[:100]}")

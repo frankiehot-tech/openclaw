@@ -12,7 +12,7 @@ from pathlib import Path
 def load_json(file_path):
     """加载JSON文件"""
     try:
-        with open(file_path, "r", encoding="utf-8") as f:
+        with open(file_path, encoding="utf-8") as f:
             return json.load(f)
     except Exception as e:
         print(f"❌ 加载文件失败 {file_path}: {e}")
@@ -32,7 +32,7 @@ def save_json(file_path, data):
 
 def sync_status(queue_file, manifest_file):
     """同步队列状态文件与manifest状态"""
-    print(f"📊 开始同步状态...")
+    print("📊 开始同步状态...")
     print(f"   队列文件: {queue_file}")
     print(f"   Manifest文件: {manifest_file}")
 
@@ -98,7 +98,7 @@ def sync_status(queue_file, manifest_file):
         counts["failed"] = original_failed + pending_to_failed
         counts["completed"] = original_completed + pending_to_completed
 
-        print(f"   📈 更新队列计数:")
+        print("   📈 更新队列计数:")
         print(f"      pending: {original_pending} -> {counts['pending']}")
         print(f"      failed: {original_failed} -> {counts['failed']}")
         print(f"      completed: {original_completed} -> {counts['completed']}")
@@ -107,7 +107,7 @@ def sync_status(queue_file, manifest_file):
         if counts["pending"] == 0 and queue_data.get("queue_status") == "no_consumer":
             queue_data["queue_status"] = "empty"
             queue_data["pause_reason"] = ""
-            print(f"   ✅ 队列已清空，更新状态: no_consumer -> empty")
+            print("   ✅ 队列已清空，更新状态: no_consumer -> empty")
 
     # 保存更新
     if updated_count > 0:
@@ -118,10 +118,10 @@ def sync_status(queue_file, manifest_file):
             )
             return True
         else:
-            print(f"❌ 保存失败")
+            print("❌ 保存失败")
             return False
     else:
-        print(f"ℹ️  无需同步，所有任务状态已一致")
+        print("ℹ️  无需同步，所有任务状态已一致")
         return True
 
 
@@ -147,12 +147,12 @@ def main():
     success = sync_status(queue_file, manifest_file)
 
     if success:
-        print(f"\n🎉 状态同步完成!")
-        print(f"   Athena Web Desktop现在应该显示正确的任务状态")
-        print(f"   队列状态已更新，pending任务数量已调整")
+        print("\n🎉 状态同步完成!")
+        print("   Athena Web Desktop现在应该显示正确的任务状态")
+        print("   队列状态已更新，pending任务数量已调整")
         return 0
     else:
-        print(f"\n❌ 状态同步失败")
+        print("\n❌ 状态同步失败")
         return 1
 
 

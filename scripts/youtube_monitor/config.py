@@ -1,8 +1,7 @@
 """频道配置和目标路径."""
 
-from dataclasses import dataclass, field
-from typing import List
 import os
+from dataclasses import dataclass
 
 # ============================================================
 # 频道配置
@@ -92,21 +91,21 @@ CHANNELS = [
 # fmt: on
 
 
-def get_channels_by_category(category: str) -> List[YouTubeChannel]:
+def get_channels_by_category(category: str) -> list[YouTubeChannel]:
     """按分类获取频道列表."""
     return [c for c in CHANNELS if c.category == category]
 
 
-def get_categories() -> List[str]:
+def get_categories() -> list[str]:
     """获取所有不重复的分类."""
-    seen: List[str] = []
+    seen: list[str] = []
     for c in CHANNELS:
         if c.category not in seen:
             seen.append(c.category)
     return seen
 
 
-def get_incomplete_channels() -> List[YouTubeChannel]:
+def get_incomplete_channels() -> list[YouTubeChannel]:
     """获取缺少 channel_id 的频道（需要手动补充）."""
     return [c for c in CHANNELS if not c.channel_id]
 
@@ -117,14 +116,17 @@ def get_incomplete_channels() -> List[YouTubeChannel]:
 
 # 报告输出目录
 MAILBOX_DIR = os.path.join(
-    os.path.sep, "Volumes", "1TB-M2",
-    "Athena知识库", "执行项目", "2026",
-    "003-open human（碳硅基共生）", "015-mailbox",
+    os.path.sep,
+    "Volumes",
+    "1TB-M2",
+    "Athena知识库",
+    "执行项目",
+    "2026",
+    "003-open human（碳硅基共生）",
+    "015-mailbox",
 )
 
-_PROJECT_ROOT = os.path.abspath(
-    os.path.join(os.path.dirname(__file__), "..", "..")
-)
+_PROJECT_ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", ".."))
 
 # 数据持久化目录（跟踪已处理的视频）
 DATA_DIR = os.path.join(_PROJECT_ROOT, "data")

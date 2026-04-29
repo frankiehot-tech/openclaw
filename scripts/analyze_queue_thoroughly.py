@@ -4,8 +4,6 @@
 """
 
 import json
-import os
-import sys
 
 QUEUE_FILE = (
     "/Volumes/1TB-M2/openclaw/.openclaw/plan_queue/openhuman_aiplan_build_priority_20260328.json"
@@ -15,7 +13,7 @@ QUEUE_FILE = (
 def main():
     print("彻底分析队列状态...")
 
-    with open(QUEUE_FILE, "r", encoding="utf-8") as f:
+    with open(QUEUE_FILE, encoding="utf-8") as f:
         data = json.load(f)
 
     items = data.get("items", {})
@@ -57,7 +55,7 @@ def main():
 
     print(f"找到 {len(pending_tasks)} 个pending任务:")
     for i, (task_id, task_data) in enumerate(pending_tasks[:10]):
-        print(f"  {i+1}. {task_id}")
+        print(f"  {i + 1}. {task_id}")
         print(f"     摘要: {task_data.get('summary', '')[:100]}...")
         print(
             f"     元数据: {json.dumps(task_data.get('metadata', {}), ensure_ascii=False)[:100]}..."

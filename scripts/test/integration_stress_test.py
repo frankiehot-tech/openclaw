@@ -36,14 +36,13 @@ def test_queue_operations():
     try:
         # 检查队列文件状态
         import glob
-        import os
 
         queue_files = glob.glob(".openclaw/plan_queue/*.json")
         if len(queue_files) == 0:
             return False
 
         # 读取一个队列文件验证完整性
-        with open(queue_files[0], "r") as f:
+        with open(queue_files[0]) as f:
             data = json.load(f)
 
         return "queue_id" in data and "items" in data
@@ -61,11 +60,7 @@ def test_system_health():
         critical_processes = ["athena_ai_plan_runner", "claude-code-router"]
         running_processes = [p.info["name"] for p in psutil.process_iter(["name"])]
 
-        for proc in critical_processes:
-            if not any(proc in p for p in running_processes):
-                return False
-
-        return True
+        return all(any(proc in p for p in running_processes) for proc in critical_processes)
     except Exception as e:
         print(f"系统健康测试失败: {e}")
         return False
@@ -118,7 +113,7 @@ async def main():
     passed = sum(1 for r in results.values() if r["success"])
     total = len(results)
 
-    print(f"通过率: {passed}/{total} ({passed/total*100:.1f}%)")
+    print(f"通过率: {passed}/{total} ({passed / total * 100:.1f}%)")
 
     # 保存结果
     output_dir = "workspace/full_domain_stress_test_20260408"

@@ -4,7 +4,6 @@
 """
 
 import json
-import os
 import shutil
 from datetime import datetime
 
@@ -13,7 +12,7 @@ def main():
     state_file = ".openclaw/plan_queue/openhuman_aiplan_build_priority_20260328.json"
 
     print(f"加载状态文件: {state_file}")
-    with open(state_file, "r", encoding="utf-8") as f:
+    with open(state_file, encoding="utf-8") as f:
         data = json.load(f)
 
     items = data.get("items", {})
@@ -82,7 +81,7 @@ def main():
         data["updated_at"] = datetime.now().isoformat()
 
         # 创建备份
-        backup = state_file + f'.batch_reset_backup_{datetime.now().strftime("%Y%m%d_%H%M%S")}'
+        backup = state_file + f".batch_reset_backup_{datetime.now().strftime('%Y%m%d_%H%M%S')}"
         shutil.copy2(state_file, backup)
         print(f"✅ 创建备份: {backup}")
 
@@ -90,12 +89,12 @@ def main():
         with open(state_file, "w", encoding="utf-8") as f:
             json.dump(data, f, ensure_ascii=False, indent=2)
 
-        print(f"\n📊 统计:")
+        print("\n📊 统计:")
         print(f"  总失败任务: {failed_count}")
         print(f"  已重置任务: {reset_count}")
         print(f"  新counts: {json.dumps(counts, ensure_ascii=False, indent=2)}")
     else:
-        print(f"⚠️  没有需要重置的失败任务")
+        print("⚠️  没有需要重置的失败任务")
         print(f"  总失败任务: {failed_count}")
 
     return 0

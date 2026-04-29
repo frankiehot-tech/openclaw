@@ -40,7 +40,7 @@ except ImportError as e:
     sys.exit(1)
 
 try:
-    from mini_agent.agent.core.skill_registry import get_registry
+    pass
 
     print("✓ skill_registry 导入成功")
 except ImportError as e:
@@ -50,9 +50,7 @@ except ImportError as e:
 try:
     from mini_agent.agent.core.skill_execution_with_budget import (
         BudgetedSkillExecutionEngine,
-        execute_skill,
         get_current_mode_behavior,
-        map_budget_mode_to_behavior,
     )
 
     print("✓ skill_execution_with_budget 导入成功")

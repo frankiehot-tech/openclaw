@@ -6,8 +6,6 @@
 
 import json
 import os
-import sys
-from datetime import datetime, timezone
 
 MANIFEST_FILE = "/Volumes/1TB-M2/openclaw/scripts/gene_management_queue_manifest.json"
 QUEUE_FILE = (
@@ -17,7 +15,7 @@ QUEUE_FILE = (
 
 def load_json_file(file_path):
     """加载JSON文件"""
-    with open(file_path, "r", encoding="utf-8") as f:
+    with open(file_path, encoding="utf-8") as f:
         return json.load(f)
 
 
@@ -27,7 +25,7 @@ def read_instruction_file(file_path):
         return None, f"文件不存在: {file_path}"
 
     try:
-        with open(file_path, "r", encoding="utf-8") as f:
+        with open(file_path, encoding="utf-8") as f:
             content = f.read()
         return content, "成功读取"
     except Exception as e:
@@ -46,7 +44,6 @@ def analyze_preflight_failure(task_id, task, instruction_content):
 
     # 1. 检查验收标准
     has_acceptance = False
-    acceptance_keywords = ["验收标准", "acceptance criteria", "验收条件", "完成标准"]
     for line in lines:
         line_lower = line.lower()
         if any(keyword in line_lower for keyword in ["验收标准", "acceptance"]):
@@ -151,15 +148,15 @@ def main():
             if content:
                 failure_reasons = analyze_preflight_failure(task_id, task, content)
                 if failure_reasons:
-                    print(f"   ❌ 预检失败原因:")
+                    print("   ❌ 预检失败原因:")
                     for reason in failure_reasons:
                         print(f"      - {reason}")
                 else:
-                    print(f"   ✅ 指令文件看起来符合要求")
+                    print("   ✅ 指令文件看起来符合要求")
             else:
                 print(f"   ❌ 指令文件读取失败: {status_msg}")
         else:
-            print(f"   ❌ 无指令文件路径")
+            print("   ❌ 无指令文件路径")
 
     # 分析failed任务
     print("\n🔍 分析 failed 任务:")
@@ -175,37 +172,37 @@ def main():
         # 检查是否是API key错误
         error = task.get("error", "")
         if "API" in error or "api" in error.lower():
-            print(f"   ⚠️  疑似API key配置问题")
+            print("   ⚠️  疑似API key配置问题")
 
     # 总结分析结果
     print("\n" + "=" * 80)
     print("诊断总结")
     print("=" * 80)
 
-    print(f"📊 任务状态分布:")
+    print("📊 任务状态分布:")
     for status, task_list in tasks_by_status.items():
         if task_list:
             print(f"   {status}: {len(task_list)} 个任务")
 
-    print(f"\n🎯 核心问题分析:")
+    print("\n🎯 核心问题分析:")
     print(f"   1. {len(manual_hold_tasks)} 个manual_hold任务 - 预检失败，需要手动拉起")
     print(f"   2. {len(failed_tasks)} 个failed任务 - 执行失败，需要修复配置")
 
-    print(f"\n🔧 建议修复方案:")
-    print(f"   A. 对于manual_hold任务:")
-    print(f"      - 方案1: 修改预检逻辑，放宽对聊天任务的要求")
-    print(f"      - 方案2: 为聊天任务添加验收标准章节")
-    print(f"      - 方案3: 将任务状态手动重置为pending")
+    print("\n🔧 建议修复方案:")
+    print("   A. 对于manual_hold任务:")
+    print("      - 方案1: 修改预检逻辑，放宽对聊天任务的要求")
+    print("      - 方案2: 为聊天任务添加验收标准章节")
+    print("      - 方案3: 将任务状态手动重置为pending")
 
-    print(f"   B. 对于failed任务:")
-    print(f"      - 检查DASHSCOPE_API_KEY环境变量配置")
-    print(f"      - 确保API key正确且未过期")
+    print("   B. 对于failed任务:")
+    print("      - 检查DASHSCOPE_API_KEY环境变量配置")
+    print("      - 确保API key正确且未过期")
 
-    print(f"\n💡 立即行动建议:")
-    print(f"   1. 创建修复脚本，修改预检逻辑或添加验收标准")
-    print(f"   2. 修复队列状态，将manual_hold任务重置为pending")
-    print(f"   3. 重启队列运行器")
-    print(f"   4. 测试手动拉起功能")
+    print("\n💡 立即行动建议:")
+    print("   1. 创建修复脚本，修改预检逻辑或添加验收标准")
+    print("   2. 修复队列状态，将manual_hold任务重置为pending")
+    print("   3. 重启队列运行器")
+    print("   4. 测试手动拉起功能")
 
 
 if __name__ == "__main__":

@@ -10,7 +10,6 @@
 import json
 import os
 import shutil
-import sys
 from datetime import datetime
 
 QUEUE_FILE = (
@@ -22,7 +21,7 @@ RUNNER_CONFIG = "/Volumes/1TB-M2/openclaw/.athena-auto-queue.json"
 
 def read_json(file_path):
     if os.path.exists(file_path):
-        with open(file_path, "r", encoding="utf-8") as f:
+        with open(file_path, encoding="utf-8") as f:
             return json.load(f)
     return {}
 
@@ -91,7 +90,7 @@ def main():
     if missing_task_ids:
         print("前5个缺失任务:")
         for i, task_id in enumerate(list(missing_task_ids)[:5]):
-            print(f"  {i+1}. {task_id}")
+            print(f"  {i + 1}. {task_id}")
 
     # 7. 修复：为缺失任务添加默认completed状态（如果manifest中状态为completed）
     print("\n🔄 修复缺失任务状态...")
@@ -166,8 +165,8 @@ def main():
             break
 
     # 10. 设置队列状态
-    old_status = queue_data.get("queue_status", "unknown")
-    old_pause = queue_data.get("pause_reason", "")
+    queue_data.get("queue_status", "unknown")
+    queue_data.get("pause_reason", "")
 
     if blocked:
         new_status = "dependency_blocked"
@@ -205,7 +204,7 @@ def main():
     if saved_counts == status_counts:
         print(f"  ✅ 计数修复成功: {json.dumps(saved_counts, ensure_ascii=False)}")
     else:
-        print(f"  ❌ 计数修复失败")
+        print("  ❌ 计数修复失败")
         print(f"    期望: {json.dumps(status_counts, ensure_ascii=False)}")
         print(f"    实际: {json.dumps(saved_counts, ensure_ascii=False)}")
 
@@ -225,7 +224,7 @@ def main():
         print("  2. 检查pending任务的依赖关系")
         print("  3. 可能需要手动完成依赖任务")
 
-    print(f"\n🎉 综合修复完成!")
+    print("\n🎉 综合修复完成!")
     print("=" * 60)
 
 

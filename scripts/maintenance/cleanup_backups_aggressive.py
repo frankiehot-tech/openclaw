@@ -4,10 +4,8 @@
 功能：为每个基础队列文件保留最新的5个备份，删除其他备份
 """
 
-import json
 import os
 import re
-import shutil
 import sys
 from collections import defaultdict
 from datetime import datetime
@@ -17,11 +15,11 @@ from pathlib import Path
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 
 try:
-    from config.paths import OPENCLAW_DIR, PLAN_QUEUE_DIR, ROOT_DIR
+    from config.paths import OPENCLAW_DIR, PLAN_QUEUE_DIR
 
     QUEUE_DIR = PLAN_QUEUE_DIR
     BACKUP_DIR = OPENCLAW_DIR / "backups"
-    print(f"✅ 使用config.paths模块配置路径")
+    print("✅ 使用config.paths模块配置路径")
 except ImportError as e:
     print(f"⚠️  警告: 无法导入路径配置模块: {e}")
     print("   使用回退的硬编码路径...")
@@ -106,19 +104,19 @@ def analyze_backup_groups(backup_groups):
     total_backups = sum(len(files) for files in backup_groups.values())
     total_groups = len(backup_groups)
 
-    print(f"📊 总体统计:")
+    print("📊 总体统计:")
     print(f"  备份文件总数: {total_backups}")
     print(f"  基础文件组数: {total_groups}")
 
     # 显示每个组的情况
-    print(f"\n📋 分组详情（前10组）:")
+    print("\n📋 分组详情（前10组）:")
     for i, (base_name, files) in enumerate(list(backup_groups.items())[:10]):
         files.sort(key=lambda x: x["modified"], reverse=True)
         newest = files[0]["modified"].strftime("%Y-%m-%d %H:%M")
         oldest = files[-1]["modified"].strftime("%Y-%m-%d %H:%M")
         total_size = sum(f["size"] for f in files) / 1024 / 1024
 
-        print(f"  {i+1}. {base_name}:")
+        print(f"  {i + 1}. {base_name}:")
         print(f"     备份数: {len(files)}")
         print(f"     最新: {newest}")
         print(f"     最旧: {oldest}")
@@ -132,7 +130,7 @@ def analyze_backup_groups(backup_groups):
 
 def create_cleanup_plan(backup_groups):
     """创建清理计划"""
-    print(f"\n📋 清理计划:")
+    print("\n📋 清理计划:")
     print("=" * 40)
 
     keep_files = []
@@ -157,7 +155,7 @@ def create_cleanup_plan(backup_groups):
                 delete_size = sum(f["size"] for f in to_delete) / 1024 / 1024
                 print(f"     释放空间: {delete_size:.2f} MB")
 
-    print(f"\n📊 总体计划:")
+    print("\n📊 总体计划:")
     print(f"  保留备份: {len(keep_files)} 个")
     print(f"  清理备份: {len(delete_candidates)} 个")
 
@@ -202,7 +200,7 @@ def execute_cleanup(delete_candidates, dry_run=True):
             errors.append(f"{file_path.name}: {e}")
             print(f"  ❌ 删除失败 {file_path.name}: {e}")
 
-    print(f"\n📊 清理统计:")
+    print("\n📊 清理统计:")
     print(f"  计划清理: {len(delete_candidates)} 个")
     print(f"  实际清理: {deleted_count} 个")
     print(f"  释放空间: {deleted_size / 1024 / 1024:.2f} MB")
@@ -212,7 +210,7 @@ def execute_cleanup(delete_candidates, dry_run=True):
         for error in errors[:5]:
             print(f"  {error}")
         if len(errors) > 5:
-            print(f"  ... 还有 {len(errors)-5} 个错误")
+            print(f"  ... 还有 {len(errors) - 5} 个错误")
 
     return deleted_count, deleted_size, errors
 
@@ -240,7 +238,7 @@ def main():
     total_backups, total_groups = analyze_backup_groups(backup_groups)
 
     if total_backups <= BACKUPS_TO_KEEP * total_groups:
-        print(f"\n✅ 备份数量合理，无需清理")
+        print("\n✅ 备份数量合理，无需清理")
         print(f"  当前: {total_backups} 个备份")
         print(f"  目标: ≤ {BACKUPS_TO_KEEP * total_groups} 个备份")
         return
@@ -253,9 +251,9 @@ def main():
         return
 
     # 询问用户确认
-    print(f"\n❓ 是否执行清理？")
-    print(f"  输入 'yes' 执行实际清理")
-    print(f"  输入 'no' 或直接回车进行模拟清理")
+    print("\n❓ 是否执行清理？")
+    print("  输入 'yes' 执行实际清理")
+    print("  输入 'no' 或直接回车进行模拟清理")
 
     try:
         user_input = input("  你的选择: ").strip().lower()
@@ -268,11 +266,11 @@ def main():
     deleted_count, deleted_size, errors = execute_cleanup(delete_candidates, dry_run=dry_run)
 
     # 最终建议
-    print(f"\n🎯 后续建议:")
-    print(f"  1. 建立备份保留策略: 定期清理旧备份")
-    print(f"  2. 监控队列健康度: 分析pending任务原因")
-    print(f"  3. 优化pending比例: 当前build队列49.4% pending")
-    print(f"  4. 将此脚本添加到cron job自动清理")
+    print("\n🎯 后续建议:")
+    print("  1. 建立备份保留策略: 定期清理旧备份")
+    print("  2. 监控队列健康度: 分析pending任务原因")
+    print("  3. 优化pending比例: 当前build队列49.4% pending")
+    print("  4. 将此脚本添加到cron job自动清理")
 
 
 if __name__ == "__main__":

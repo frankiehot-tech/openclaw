@@ -10,7 +10,6 @@ gstack质量门禁检查 - 阶段6：生产环境全面切换
 """
 
 import json
-import os
 import sys
 from datetime import datetime
 from pathlib import Path
@@ -250,7 +249,7 @@ class QualityGateChecker:
         all_passed = True
         any_warnings = False
 
-        for check_name, check_data in self.results["checks"].items():
+        for _check_name, check_data in self.results["checks"].items():
             status = check_data.get("status", "failed")
             if status == "failed":
                 all_passed = False
@@ -294,7 +293,9 @@ class QualityGateChecker:
                     check_icon = (
                         "✅"
                         if check_status == "passed"
-                        else "⚠️ " if check_status == "warning" else "❌"
+                        else "⚠️ "
+                        if check_status == "warning"
+                        else "❌"
                     )
                     report_lines.append(
                         f"  {check_icon} {check['name']}: {check.get('details', '')}"
@@ -312,7 +313,9 @@ class QualityGateChecker:
                     doc_icon = (
                         "✅"
                         if doc_status == "passed"
-                        else "⚠️ " if doc_status == "warning" else "❌"
+                        else "⚠️ "
+                        if doc_status == "warning"
+                        else "❌"
                     )
                     report_lines.append(f"  {doc_icon} {doc['name']}: {doc.get('details', '')}")
 

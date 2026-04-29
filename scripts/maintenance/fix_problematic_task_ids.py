@@ -1,4 +1,6 @@
 #!/usr/bin/env python3
+# DEPRECATED: 使用 governance/ 模块代替
+# governance_cli.py repair <command> 或 governance_cli.py queue fix
 """
 修复问题任务ID脚本 - 直接修复openhuman_aiplan_build_priority_20260328.json中的问题ID
 基于深度审计发现：13个以'-'开头的任务ID需要规范化
@@ -18,7 +20,7 @@ def load_queue_file(file_path):
         return None
 
     try:
-        with open(file_path, "r", encoding="utf-8") as f:
+        with open(file_path, encoding="utf-8") as f:
             return json.load(f)
     except Exception as e:
         print(f"❌ 加载文件失败: {e}")
@@ -30,7 +32,7 @@ def find_problematic_ids(queue_data):
     items = queue_data.get("items", {})
 
     problematic_ids = []
-    for task_id in items.keys():
+    for task_id in items:
         if task_id.startswith("-"):
             problematic_ids.append(task_id)
 
@@ -60,7 +62,7 @@ def fix_queue_file(queue_file_path):
     problematic_ids = find_problematic_ids(queue_data)
 
     if not problematic_ids:
-        print(f"✅ 没有发现以'-'开头的ID，无需修复")
+        print("✅ 没有发现以'-'开头的ID，无需修复")
         return True
 
     print(f"📊 发现{len(problematic_ids)}个问题ID:")
@@ -111,15 +113,15 @@ def fix_queue_file(queue_file_path):
         return False
 
     # 验证修复结果
-    print(f"\n🔍 验证修复结果...")
+    print("\n🔍 验证修复结果...")
     verify_data = load_queue_file(fixed_path)
     if verify_data is None:
-        print(f"⚠️  无法验证修复结果")
+        print("⚠️  无法验证修复结果")
         return False
 
     remaining_problems = find_problematic_ids(verify_data)
     if not remaining_problems:
-        print(f"✅ 验证通过: 修复后没有以'-'开头的ID")
+        print("✅ 验证通过: 修复后没有以'-'开头的ID")
 
         # 替换原始文件
         shutil.copy2(fixed_path, queue_file_path)
@@ -167,7 +169,7 @@ def main():
                 queue_file = queue_files[0]
                 print(f"\n📋 将使用文件: {queue_file}")
             else:
-                print(f"❌ 没有找到优先级队列文件")
+                print("❌ 没有找到优先级队列文件")
                 return 1
 
     # 检查文件
@@ -181,12 +183,12 @@ def main():
     problematic_ids = find_problematic_ids(queue_data)
 
     if not problematic_ids:
-        print(f"✅ 没有发现以'-'开头的ID")
-        print(f"\n⚠️  注意: 审计报告显示有13个问题ID，但当前文件中未发现")
-        print(f"   可能的原因:")
-        print(f"   1. 问题已在审计后被修复")
-        print(f"   2. 审计分析的是不同的文件版本")
-        print(f"   3. 问题ID在其他文件中")
+        print("✅ 没有发现以'-'开头的ID")
+        print("\n⚠️  注意: 审计报告显示有13个问题ID，但当前文件中未发现")
+        print("   可能的原因:")
+        print("   1. 问题已在审计后被修复")
+        print("   2. 审计分析的是不同的文件版本")
+        print("   3. 问题ID在其他文件中")
         return 0
 
     print(f"\n🔍 发现{len(problematic_ids)}个以'-'开头的ID:")
@@ -196,7 +198,7 @@ def main():
     # 询问用户是否修复
     response = input(f"\n🔧 是否修复这些{len(problematic_ids)}个问题ID？ (y/N): ").strip().lower()
     if response != "y":
-        print(f"⏭️  跳过修复")
+        print("⏭️  跳过修复")
         return 0
 
     # 执行修复

@@ -4,9 +4,9 @@ import logging
 import sys
 
 from . import config
-from .fetcher import fetch_channel_feed, fetch_all_channels
-from .tracker import get_new_videos, mark_current_as_seen, is_first_run, record_run, get_last_run
+from .fetcher import fetch_all_channels, fetch_channel_feed
 from .reporter import generate_daily_report, save_report
+from .tracker import get_last_run, get_new_videos, is_first_run, mark_current_as_seen, record_run
 
 logging.basicConfig(
     level=logging.INFO,
@@ -25,11 +25,11 @@ def cmd_check_ids():
     print(f"⚠️  以下 {len(incomplete)} 个频道缺少 channel_id：")
     for ch in incomplete:
         print(f"\n  {ch.name} ({ch.handle})")
-        print(f"  获取方法：")
+        print("  获取方法：")
         print(f"    1. 浏览器打开 https://www.youtube.com/{ch.handle}")
-        print(f"    2. 查看页面源码（右键 → 查看网页源代码）")
-        print(f"    3. 搜索 channelId 或 externalId")
-        print(f"    4. 复制 UC 开头的 24 位 ID 到 config.py 的 channel_id 字段")
+        print("    2. 查看页面源码（右键 → 查看网页源代码）")
+        print("    3. 搜索 channelId 或 externalId")
+        print("    4. 复制 UC 开头的 24 位 ID 到 config.py 的 channel_id 字段")
 
 
 def cmd_fetch_one(channel_name: str):
@@ -64,7 +64,7 @@ def cmd_fetch_all():
     for name, videos in results.items():
         print(f"  ✅ {name}: {len(videos)} 个视频")
     if errors:
-        print(f"\n⚠️  以下频道抓取出错：")
+        print("\n⚠️  以下频道抓取出错：")
         for name, err in errors:
             print(f"  ❌ {name}: {err}")
 
@@ -112,6 +112,7 @@ def cmd_report():
     if total_new > 0:
         print("🤖 正在生成 AI 摘要...")
         from .summarizer import summarize_new_videos
+
         summaries = summarize_new_videos(all_videos, new_videos)
         if summaries:
             print(f"✅ AI 摘要: {len(summaries)} 条\n")
@@ -150,6 +151,7 @@ def cmd_status():
         print("✅ 所有 channel_id 已配置")
 
     from .tracker import _load
+
     data = _load()
     count = len(data.get("videos", {}))
     summaries = len(data.get("summaries", {}))

@@ -1,4 +1,6 @@
 #!/usr/bin/env python3
+# DEPRECATED: 使用 governance/ 模块代替
+# governance_cli.py task <command>
 """
 移除幽灵依赖，修复队列阻塞
 1. 识别并移除指向不存在任务的依赖关系
@@ -9,7 +11,6 @@
 import json
 import os
 import shutil
-import sys
 from datetime import datetime
 
 QUEUE_FILE = (
@@ -20,7 +21,7 @@ MANIFEST_FILE = "/Volumes/1TB-M2/openclaw/.openclaw/plan_queue/openhuman_aiplan_
 
 def read_json(file_path):
     if os.path.exists(file_path):
-        with open(file_path, "r", encoding="utf-8") as f:
+        with open(file_path, encoding="utf-8") as f:
             return json.load(f)
     return {}
 
@@ -65,7 +66,7 @@ def main():
         task_id = str(item.get("id", ""))
         manifest_task_map[task_id] = item
 
-    print(f"\n🔍 检查幽灵依赖...")
+    print("\n🔍 检查幽灵依赖...")
 
     # 收集所有需要修复的任务
     tasks_to_fix = []
@@ -170,7 +171,7 @@ def main():
                 items[task_id]["status"] = "completed"
                 items[task_id]["progress_percent"] = 100
                 items[task_id]["updated_at"] = datetime.now().isoformat()
-                items[task_id]["summary"] = f"从manifest同步状态: 依赖已满足，标记为completed"
+                items[task_id]["summary"] = "从manifest同步状态: 依赖已满足，标记为completed"
                 synced_tasks += 1
             else:
                 print(f"  ⚠️  {task_id}: 不能标记为completed，依赖未满足: {depends_on}")
@@ -217,8 +218,8 @@ def main():
             break
 
     # 设置队列状态
-    old_status = queue_data.get("queue_status", "unknown")
-    old_pause = queue_data.get("pause_reason", "")
+    queue_data.get("queue_status", "unknown")
+    queue_data.get("pause_reason", "")
 
     if blocked:
         new_status = "dependency_blocked"
@@ -257,7 +258,7 @@ def main():
     if saved_counts == status_counts:
         print(f"  ✅ 计数修复成功: {json.dumps(saved_counts, ensure_ascii=False)}")
     else:
-        print(f"  ❌ 计数修复失败")
+        print("  ❌ 计数修复失败")
         print(f"    期望: {json.dumps(status_counts, ensure_ascii=False)}")
         print(f"    实际: {json.dumps(saved_counts, ensure_ascii=False)}")
 
@@ -267,7 +268,7 @@ def main():
         print(f"  ❌ 状态修复失败: 期望 {new_status}, 实际 {saved_status}")
 
     # 输出总结
-    print(f"\n🎉 修复完成总结:")
+    print("\n🎉 修复完成总结:")
     print(f"  移除的幽灵依赖数: {fixed_ghost_deps}")
     print(f"  同步的任务状态数: {synced_tasks}")
     print(f"  最终队列状态: {new_status}")

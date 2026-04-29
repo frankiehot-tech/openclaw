@@ -27,7 +27,7 @@ class BatchDocumentUpdater:
     ):
         """更新单个文档的元数据"""
         try:
-            with open(file_path, "r", encoding="utf-8") as f:
+            with open(file_path, encoding="utf-8") as f:
                 content = f.read()
 
             lines = content.split("\n")
@@ -128,14 +128,14 @@ class BatchDocumentUpdater:
 
         for i, md_file in enumerate(md_files):
             if self.verbose:
-                print(f"  [{i+1}/{len(md_files)}] 处理: {md_file.relative_to(root_path)}")
+                print(f"  [{i + 1}/{len(md_files)}] 处理: {md_file.relative_to(root_path)}")
             else:
                 if (i + 1) % 10 == 0:
-                    print(f"  处理进度: {i+1}/{len(md_files)}")
+                    print(f"  处理进度: {i + 1}/{len(md_files)}")
 
             self.update_document_metadata(md_file, update_last_updated, update_version, dry_run)
 
-        print(f"\n📊 批量更新完成:")
+        print("\n📊 批量更新完成:")
         print(f"  ✅ 更新: {self.updated_count} 个文件")
         print(f"  ⏭️  跳过: {self.skipped_count} 个文件（无需更新）")
         print(f"  ❌ 失败: {self.failed_count} 个文件")
@@ -205,7 +205,7 @@ def main():
 
     updater = BatchDocumentUpdater(verbose=args.verbose)
 
-    print(f"🚀 开始批量文档更新")
+    print("🚀 开始批量文档更新")
     print(f"📁 目录: {args.directory}")
     print(f"🔍 模式: {args.pattern}")
 
@@ -219,7 +219,7 @@ def main():
 
     # 运行质量检查
     if args.run_checks and not args.dry_run:
-        print(f"\n🔍 运行质量检查...")
+        print("\n🔍 运行质量检查...")
         # 这里可以添加质量检查逻辑，但为了简单起见，只记录
         print("  质量检查功能需要单独运行")
 
@@ -227,7 +227,7 @@ def main():
         print(f"\n💡 模拟运行完成，实际更新 {updater.updated_count} 个文件")
         print("  使用 --dry-run false 或移除 -n 参数执行实际更新")
     else:
-        print(f"\n✅ 批量更新完成")
+        print("\n✅ 批量更新完成")
         if updater.failed_count > 0:
             sys.exit(1)
         else:

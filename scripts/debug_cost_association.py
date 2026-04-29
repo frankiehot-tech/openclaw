@@ -67,7 +67,7 @@ def main():
         else:
             print(f"不匹配: 实验ID={row['exp_id']}, 成本ID={row['cost_record_id'] or 'NULL'}")
 
-    print(f"\n匹配率: {matched}/{total} ({matched/max(1,total)*100:.1f}%)")
+    print(f"\n匹配率: {matched}/{total} ({matched / max(1, total) * 100:.1f}%)")
 
     conn.close()
 

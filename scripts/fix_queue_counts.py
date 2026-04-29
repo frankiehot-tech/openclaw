@@ -1,10 +1,11 @@
 #!/usr/bin/env python3
+# DEPRECATED: 使用 governance/ 模块代替
+# governance_cli.py repair <command> 或 governance_cli.py queue fix
 """
 修复队列文件中的counts字段，使其与items中的实际状态匹配
 """
 
 import json
-import os
 import sys
 from pathlib import Path
 
@@ -12,7 +13,7 @@ from pathlib import Path
 def fix_queue_counts(queue_file_path):
     """修复指定队列文件的counts字段"""
     try:
-        with open(queue_file_path, "r", encoding="utf-8") as f:
+        with open(queue_file_path, encoding="utf-8") as f:
             data = json.load(f)
 
         # 从items中计算实际状态
@@ -33,7 +34,7 @@ def fix_queue_counts(queue_file_path):
 
         # 比较差异
         changed = False
-        for status in counts.keys():
+        for status in counts:
             old_val = old_counts.get(status, 0)
             new_val = actual_counts[status]
             if old_val != new_val:
@@ -61,7 +62,7 @@ def fix_queue_counts(queue_file_path):
         print(f"   备份保存至: {backup_path.name}")
 
         # 验证修复
-        with open(queue_file_path, "r", encoding="utf-8") as f:
+        with open(queue_file_path, encoding="utf-8") as f:
             new_data = json.load(f)
 
         new_counts = new_data.get("counts", {})
@@ -136,10 +137,10 @@ def main():
     print(f"\n📊 修复完成: {fixed_count}/{len(queue_files)} 个文件已更新")
 
     # 显示修复后的整体状态
-    print(f"\n📈 修复后队列统计汇总:")
+    print("\n📈 修复后队列统计汇总:")
     for queue_file in queue_files:
         try:
-            with open(queue_file, "r", encoding="utf-8") as f:
+            with open(queue_file, encoding="utf-8") as f:
                 data = json.load(f)
 
             queue_name = data.get("queue_id", queue_file.stem)

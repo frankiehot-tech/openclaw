@@ -6,7 +6,6 @@
 import json
 import sys
 from pathlib import Path
-from typing import Any, Dict, List
 
 # 配置
 ROOT_DIR = Path(__file__).parent.parent
@@ -24,7 +23,7 @@ def analyze_manual_hold_tasks():
         return 1
 
     try:
-        with open(QUEUE_FILE, "r", encoding="utf-8") as f:
+        with open(QUEUE_FILE, encoding="utf-8") as f:
             data = json.load(f)
     except Exception as e:
         print(f"读取队列文件失败: {e}")
@@ -49,7 +48,7 @@ def analyze_manual_hold_tasks():
         elif status == "completed":
             completed_tasks.append(item)
 
-    print(f"\n📊 任务统计:")
+    print("\n📊 任务统计:")
     print(f"  总任务数: {len(items)}")
     print(f"  manual_hold: {len(manual_hold_tasks)}")
     print(f"  failed: {len(failed_tasks)}")
@@ -146,13 +145,13 @@ def analyze_manual_hold_tasks():
                 print(f"    '{pattern}...': {count}个")
 
     # 检查队列整体状态
-    print(f"\n📈 队列整体状态:")
+    print("\n📈 队列整体状态:")
     print(f"  queue_status: {data.get('queue_status', 'unknown')}")
     print(f"  current_item_id: {data.get('current_item_id', '空')}")
     print(f"  updated_at: {data.get('updated_at', '未知')}")
 
     # 建议
-    print(f"\n💡 分析建议:")
+    print("\n💡 分析建议:")
     if len(manual_hold_tasks) > 0:
         print("  1. manual_hold任务数量很多(143个)，可能原因:")
         print("     • 预检函数(validate_build_preflight)拒绝了这些任务")

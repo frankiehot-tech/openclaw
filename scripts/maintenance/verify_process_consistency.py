@@ -9,7 +9,7 @@ import json
 import os
 import sys
 import time
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from pathlib import Path
 
 import psutil
@@ -18,7 +18,7 @@ import psutil
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 
 try:
-    from config.paths import PLAN_QUEUE_DIR, ROOT_DIR, SCRIPTS_DIR, get_queue_file
+    from config.paths import PLAN_QUEUE_DIR, ROOT_DIR, SCRIPTS_DIR
 
     QUEUE_DIR = Path(PLAN_QUEUE_DIR)
 except ImportError as e:
@@ -46,7 +46,7 @@ def check_queue_processes():
         print(f"\n📄 检查队列: {queue_file.name}")
 
         try:
-            with open(queue_file, "r", encoding="utf-8") as f:
+            with open(queue_file, encoding="utf-8") as f:
                 data = json.load(f)
 
             queue_id = data.get("queue_id", "unknown")
@@ -74,7 +74,7 @@ def check_queue_processes():
                     # 检查进程是否存在
                     try:
                         pid_exists = psutil.pid_exists(runner_pid)
-                    except:
+                    except Exception:
                         pid_exists = False
 
                     # 检查心跳时间
@@ -85,11 +85,11 @@ def check_queue_processes():
                                 runner_heartbeat_at.replace("Z", "+00:00")
                             )
                             if heartbeat_time.tzinfo is None:
-                                heartbeat_time = heartbeat_time.replace(tzinfo=timezone.utc)
+                                heartbeat_time = heartbeat_time.replace(tzinfo=UTC)
 
-                            now = datetime.now(timezone.utc)
+                            now = datetime.now(UTC)
                             heartbeat_age = (now - heartbeat_time).total_seconds()
-                        except Exception as e:
+                        except Exception:
                             heartbeat_age = float("inf")
 
                     process_info = {
@@ -126,7 +126,9 @@ def verify_process_lifecycle_contract():
         test_command = "echo 'ProcessContract测试' && sleep 2"
 
         contract = ProcessContract(
-            command=test_command, env={"TEST_ENV": "true"}, heartbeat_interval=5  # 测试用短间隔
+            command=test_command,
+            env={"TEST_ENV": "true"},
+            heartbeat_interval=5,  # 测试用短间隔
         )
 
         print("   测试进程启动...")
@@ -231,7 +233,7 @@ def generate_consistency_report(queue_processes, actual_processes, contract_ok):
 
     # 统计信息
     total_queue_processes = len(queue_processes)
-    actual_pids = {p["pid"] for p in actual_processes}
+    {p["pid"] for p in actual_processes}
 
     # 检查队列进程的实际存在性
     existing_count = sum(1 for p in queue_processes if p["pid_exists"])

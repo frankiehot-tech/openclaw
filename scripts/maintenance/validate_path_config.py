@@ -5,7 +5,6 @@
 检查硬编码路径问题，确保路径配置模块正常工作
 """
 
-import json
 import os
 import subprocess
 import sys
@@ -68,7 +67,7 @@ def check_paths_module():
         non_existent = "non_existent_queue_123"
         non_existent_file = get_queue_file(non_existent)
         if non_existent_file is None:
-            print(f"✅ get_queue_file正确处理不存在的队列: 返回None")
+            print("✅ get_queue_file正确处理不存在的队列: 返回None")
         else:
             print(f"✅ get_queue_file返回路径但可能不存在: {non_existent_file}")
 
@@ -120,7 +119,7 @@ def check_scripts_openclaw_roots():
 
         import openclaw_roots
 
-        print(f"✅ 成功导入openclaw_roots模块")
+        print("✅ 成功导入openclaw_roots模块")
 
         # 检查关键变量
         for attr in ["RUNTIME_ROOT", "QUEUE_STATE_DIR", "TASKS_DIR"]:
@@ -128,9 +127,9 @@ def check_scripts_openclaw_roots():
                 value = getattr(openclaw_roots, attr)
                 print(f"  ✅ {attr}: {value}")
                 if hasattr(value, "exists") and value.exists():
-                    print(f"    路径存在")
+                    print("    路径存在")
                 else:
-                    print(f"    路径不存在或无法验证")
+                    print("    路径不存在或无法验证")
             else:
                 print(f"  ❌ {attr}未定义")
 
@@ -193,7 +192,7 @@ def check_migrated_scripts():
             continue
 
         try:
-            with open(script_path, "r", encoding="utf-8") as f:
+            with open(script_path, encoding="utf-8") as f:
                 content = f.read()
 
             # 检查是否包含导入语句

@@ -34,7 +34,7 @@ except ImportError as e:
 def load_queue():
     """加载队列数据"""
     try:
-        with open(BUILD_QUEUE, "r", encoding="utf-8") as f:
+        with open(BUILD_QUEUE, encoding="utf-8") as f:
             return json.load(f)
     except Exception as e:
         print(f"❌ 加载队列文件失败: {e}")
@@ -59,7 +59,7 @@ def analyze_pending_tasks(queue_data):
         status = task.get("status", "unknown")
         status_counts[status] += 1
 
-    print(f"📊 队列总体统计:")
+    print("📊 队列总体统计:")
     print(f"  总任务数: {total_tasks}")
     for status, count in sorted(status_counts.items()):
         percentage = (count / total_tasks) * 100
@@ -90,7 +90,7 @@ def analyze_pending_tasks(queue_data):
         return
 
     # 分析pending任务的特征
-    print(f"\n📈 Pending任务特征分析:")
+    print("\n📈 Pending任务特征分析:")
 
     # 1. 按stage分组
     stage_groups = defaultdict(list)
@@ -98,7 +98,7 @@ def analyze_pending_tasks(queue_data):
         stage = task["stage"] or "unknown"
         stage_groups[stage].append(task)
 
-    print(f"  按stage分组:")
+    print("  按stage分组:")
     for stage, tasks in stage_groups.items():
         print(f"    {stage}: {len(tasks)} 个")
 
@@ -116,7 +116,7 @@ def analyze_pending_tasks(queue_data):
             group = "100% (已完成但状态未更新)"
         progress_groups[group].append(task)
 
-    print(f"  按进度分组:")
+    print("  按进度分组:")
     for group, tasks in progress_groups.items():
         print(f"    {group}: {len(tasks)} 个")
 
@@ -133,16 +133,16 @@ def analyze_pending_tasks(queue_data):
         )
         proposal_sources[key].append(task)
 
-    print(f"\n📋 按来源和提案ID分组 (前10组):")
+    print("\n📋 按来源和提案ID分组 (前10组):")
     for i, (key, tasks) in enumerate(list(proposal_sources.items())[:10]):
-        print(f"  {i+1}. {key}: {len(tasks)} 个pending任务")
+        print(f"  {i + 1}. {key}: {len(tasks)} 个pending任务")
 
     # 4. 分析创建时间（如果metadata中有）
     time_groups = defaultdict(list)
     for task in pending_tasks:
         metadata = task["metadata"]
         created = metadata.get("created", "")
-        scan_time = metadata.get("scan_time", "")
+        metadata.get("scan_time", "")
 
         if created:
             # 尝试解析时间
@@ -150,12 +150,12 @@ def analyze_pending_tasks(queue_data):
                 created_dt = datetime.fromisoformat(created.replace("Z", "+00:00"))
                 date_str = created_dt.strftime("%Y-%m-%d")
                 time_groups[date_str].append(task)
-            except:
+            except Exception:
                 time_groups["unknown"].append(task)
         else:
             time_groups["no_date"].append(task)
 
-    print(f"\n📅 按创建日期分组:")
+    print("\n📅 按创建日期分组:")
     for date_str, tasks in sorted(time_groups.items()):
         print(f"  {date_str}: {len(tasks)} 个")
 
@@ -173,7 +173,7 @@ def analyze_pending_tasks(queue_data):
             else:
                 instruction_paths["missing"].append(task)
 
-    print(f"\n📁 指令文件状态:")
+    print("\n📁 指令文件状态:")
     for status, tasks in instruction_paths.items():
         print(f"  {status}: {len(tasks)} 个")
 
@@ -192,12 +192,12 @@ def analyze_pending_tasks(queue_data):
         else:
             title_patterns["other"].append(task)
 
-    print(f"\n📝 标题内容分析:")
+    print("\n📝 标题内容分析:")
     for pattern, tasks in title_patterns.items():
         print(f"  {pattern}: {len(tasks)} 个")
 
     # 7. 识别可能的阻塞模式
-    print(f"\n🔍 可能的问题识别:")
+    print("\n🔍 可能的问题识别:")
 
     # 检查是否有依赖问题
     dependency_issues = []
@@ -215,9 +215,9 @@ def analyze_pending_tasks(queue_data):
     for task in pending_tasks:
         title = task["title"] or ""
         metadata = task["metadata"]
-        if any(key in title.lower() for key in ["memory", "cpu", "gpu", "resource", "limit"]):
-            resource_issues.append(task)
-        elif any(key in str(metadata).lower() for key in ["memory", "cpu", "gpu"]):
+        if any(
+            key in title.lower() for key in ["memory", "cpu", "gpu", "resource", "limit"]
+        ) or any(key in str(metadata).lower() for key in ["memory", "cpu", "gpu"]):
             resource_issues.append(task)
 
     if resource_issues:
@@ -235,7 +235,7 @@ def analyze_pending_tasks(queue_data):
                 days_pending = (now - created_dt).days
                 if days_pending > 7:
                     long_pending.append((task, days_pending))
-            except:
+            except Exception:
                 pass
 
     if long_pending:
@@ -244,11 +244,11 @@ def analyze_pending_tasks(queue_data):
             print(f"    - {task['id'][:30]}...: {days} 天")
 
     # 生成建议
-    print(f"\n🎯 修复建议:")
+    print("\n🎯 修复建议:")
     print("=" * 40)
 
     if pending_count > total_tasks * 0.3:
-        print(f"  1. ⚠️  Pending比例过高 ({pending_count/total_tasks*100:.1f}%)，目标应<30%")
+        print(f"  1. ⚠️  Pending比例过高 ({pending_count / total_tasks * 100:.1f}%)，目标应<30%")
 
     if instruction_paths.get("missing"):
         print(f"  2. 🔧 {instruction_paths['missing']} 个任务缺少指令文件，需要检查路径")
@@ -268,17 +268,17 @@ def analyze_pending_tasks(queue_data):
         )
 
     # 具体行动项
-    print(f"\n📋 具体行动项:")
+    print("\n📋 具体行动项:")
     print(f"  1. 检查指令文件: 验证{instruction_paths.get('missing', 0)}个缺失文件的路径")
     print(f"  2. 分析依赖关系: 审查{dependency_issues}个可能有依赖问题的任务")
     print(f"  3. 优先处理长时间pending任务: {len(long_pending)}个任务超过7天")
-    print(f"  4. 同步任务状态: 检查进度100%但状态pending的任务")
+    print("  4. 同步任务状态: 检查进度100%但状态pending的任务")
     print(f"  5. 重新评估资源需求: {len(resource_issues)}个任务可能受资源限制")
 
     # 输出示例任务供进一步分析
-    print(f"\n🔎 示例任务分析 (前5个):")
+    print("\n🔎 示例任务分析 (前5个):")
     for i, task in enumerate(pending_tasks[:5]):
-        print(f"\n  {i+1}. {task['id'][:50]}...")
+        print(f"\n  {i + 1}. {task['id'][:50]}...")
         print(f"     标题: {task['title'][:50] if task['title'] else '无标题'}")
         print(f"     阶段: {task['stage']}")
         print(f"     进度: {task['progress']}%")
@@ -306,12 +306,12 @@ def main():
     # 分析pending任务
     analyze_pending_tasks(queue_data)
 
-    print(f"\n🏁 分析完成")
-    print(f"下一步建议:")
-    print(f"  1. 根据分析结果制定具体的修复计划")
-    print(f"  2. 优先处理长时间pending和关键阻塞任务")
-    print(f"  3. 建立任务健康度监控")
-    print(f"  4. 优化队列调度策略")
+    print("\n🏁 分析完成")
+    print("下一步建议:")
+    print("  1. 根据分析结果制定具体的修复计划")
+    print("  2. 优先处理长时间pending和关键阻塞任务")
+    print("  3. 建立任务健康度监控")
+    print("  4. 优化队列调度策略")
 
 
 if __name__ == "__main__":

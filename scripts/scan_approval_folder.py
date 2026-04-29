@@ -5,12 +5,11 @@ P0紧急修复：清理当前49个提案积压
 """
 
 import json
-import os
 import sys
 import uuid
 from datetime import datetime
 from pathlib import Path
-from typing import Any, Dict, List, Optional
+from typing import Any
 
 import yaml
 
@@ -45,10 +44,10 @@ def backup_queue_file():
         return None
 
 
-def parse_proposal_file(file_path: Path) -> Optional[Dict[str, Any]]:
+def parse_proposal_file(file_path: Path) -> dict[str, Any] | None:
     """解析提案文件，提取任务信息"""
     try:
-        with open(file_path, "r", encoding="utf-8") as f:
+        with open(file_path, encoding="utf-8") as f:
             content = f.read()
 
         # 解析YAML frontmatter
@@ -134,10 +133,10 @@ def parse_proposal_file(file_path: Path) -> Optional[Dict[str, Any]]:
         return None
 
 
-def load_queue_data() -> Dict[str, Any]:
+def load_queue_data() -> dict[str, Any]:
     """加载队列数据"""
     try:
-        with open(QUEUE_FILE, "r", encoding="utf-8") as f:
+        with open(QUEUE_FILE, encoding="utf-8") as f:
             return json.load(f)
     except Exception as e:
         print(f"❌ 加载队列文件失败: {e}")
@@ -147,7 +146,7 @@ def load_queue_data() -> Dict[str, Any]:
         }
 
 
-def save_queue_data(queue_data: Dict[str, Any]):
+def save_queue_data(queue_data: dict[str, Any]):
     """保存队列数据"""
     try:
         # 更新元数据
@@ -165,7 +164,7 @@ def save_queue_data(queue_data: Dict[str, Any]):
         raise
 
 
-def update_queue_counts(queue_data: Dict[str, Any]):
+def update_queue_counts(queue_data: dict[str, Any]):
     """更新队列计数"""
     if "items" not in queue_data:
         queue_data["items"] = {}
@@ -173,7 +172,7 @@ def update_queue_counts(queue_data: Dict[str, Any]):
     items = queue_data["items"]
     counts = {"pending": 0, "running": 0, "completed": 0, "failed": 0, "manual_hold": 0}
 
-    for item_id, item_data in items.items():
+    for _item_id, item_data in items.items():
         status = item_data.get("status", "pending")
         if status in counts:
             counts[status] += 1
@@ -210,7 +209,7 @@ def process_approval_folder():
     return tasks
 
 
-def import_to_queue(tasks: List[Dict[str, Any]], dry_run: bool = False):
+def import_to_queue(tasks: list[dict[str, Any]], dry_run: bool = False):
     """将任务导入队列"""
     print(f"\n📤 准备导入 {len(tasks)} 个任务到队列...")
 
@@ -242,7 +241,7 @@ def import_to_queue(tasks: List[Dict[str, Any]], dry_run: bool = False):
         if not dry_run:
             print(f"✅ 导入任务: {task_id}")
 
-    print(f"\n📊 导入统计:")
+    print("\n📊 导入统计:")
     print(f"  - 尝试导入: {len(tasks)} 个任务")
     print(f"  - 实际导入: {imported_count} 个新任务")
     print(f"  - 已存在: {len(tasks) - imported_count} 个任务")
@@ -257,7 +256,7 @@ def import_to_queue(tasks: List[Dict[str, Any]], dry_run: bool = False):
     elif dry_run:
         print(f"\n🔍 模拟运行完成，将导入 {imported_count} 个新任务")
     else:
-        print(f"\nℹ️  没有新任务需要导入")
+        print("\nℹ️  没有新任务需要导入")
 
     return imported_count
 
@@ -265,7 +264,7 @@ def import_to_queue(tasks: List[Dict[str, Any]], dry_run: bool = False):
 def update_proposal_status(file_path: Path, new_status: str = "queued"):
     """更新提案文件状态"""
     try:
-        with open(file_path, "r", encoding="utf-8") as f:
+        with open(file_path, encoding="utf-8") as f:
             content = f.read()
 
         if not content.startswith("---"):
@@ -339,7 +338,7 @@ def main():
     print("🎉 积压清理完成!")
     print("=" * 60)
 
-    print(f"\n📊 清理结果:")
+    print("\n📊 清理结果:")
     print(f"✅ 扫描提案: {len(list(APPROVAL_DIR.glob('*.md')))} 个")
     print(f"✅ 解析成功: {len(tasks)} 个")
     print(f"✅ 导入队列: {imported_count} 个新任务")
@@ -348,19 +347,19 @@ def main():
         # 重新加载队列显示最新状态
         queue_data = load_queue_data()
         counts = queue_data.get("counts", {})
-        print(f"📈 队列最新状态:")
+        print("📈 队列最新状态:")
         print(f"  - 等待中: {counts.get('pending', 0)}")
         print(f"  - 运行中: {counts.get('running', 0)}")
         print(f"  - 已完成: {counts.get('completed', 0)}")
         print(f"  - 总任务: {len(queue_data.get('items', {}))}")
 
-    print(f"\n🚀 下一步:")
+    print("\n🚀 下一步:")
     print("1. 运行队列监控: python3 scripts/queue_monitor.py")
     print("2. 检查导入的任务状态")
     print("3. 验证提案文件状态已更新")
     print("4. 建立定期扫描定时任务")
 
-    print(f"\n💡 建议:")
+    print("\n💡 建议:")
     print("- 首次运行后观察队列执行情况")
     print("- 调整任务优先级和依赖关系")
     print("- 建立长期监控防止再次积压")

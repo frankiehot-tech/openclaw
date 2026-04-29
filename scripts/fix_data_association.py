@@ -1,4 +1,6 @@
 #!/usr/bin/env python3
+# DEPRECATED: 使用 governance/ 模块代替
+# governance_cli.py repair <command> 或 governance_cli.py queue fix
 """
 数据关联验证和修复工具
 
@@ -26,7 +28,6 @@ import sqlite3
 import sys
 from dataclasses import asdict, dataclass
 from datetime import datetime, timedelta
-from typing import Dict, List, Optional, Tuple
 
 # 数据库路径
 DB_PATH = "/Volumes/1TB-M2/openclaw/mini-agent/data/cost_tracking.db"
@@ -60,9 +61,9 @@ class AssociationReport:
     validation_failed: int = 0
 
     # 详细信息
-    successful_matches: List[Dict] = None
-    failed_matches_details: List[Dict] = None
-    validation_errors: List[Dict] = None
+    successful_matches: list[dict] = None
+    failed_matches_details: list[dict] = None
+    validation_errors: list[dict] = None
 
     def __post_init__(self):
         if self.successful_matches is None:
@@ -72,7 +73,7 @@ class AssociationReport:
         if self.validation_errors is None:
             self.validation_errors = []
 
-    def to_dict(self) -> Dict:
+    def to_dict(self) -> dict:
         """转换为字典"""
         result = asdict(self)
         result["timestamp"] = self.timestamp.isoformat()
@@ -95,7 +96,7 @@ class AssociationReport:
         print(f"  已有关联: {self.pre_existing_associations}")
         print(f"  缺失关联: {self.missing_associations}")
         print(
-            f"  关联率: {self.pre_existing_associations/max(1, self.total_experiment_records)*100:.1f}%"
+            f"  关联率: {self.pre_existing_associations / max(1, self.total_experiment_records) * 100:.1f}%"
         )
 
         if not self.dry_run:
@@ -121,7 +122,9 @@ class AssociationReport:
                 + self.matched_by_prefix
             )
             print(f"  预期总关联数: {expected_total}")
-            print(f"  预期关联率: {expected_total/max(1, self.total_experiment_records)*100:.1f}%")
+            print(
+                f"  预期关联率: {expected_total / max(1, self.total_experiment_records) * 100:.1f}%"
+            )
         else:
             total_associated = (
                 self.pre_existing_associations
@@ -130,7 +133,7 @@ class AssociationReport:
                 + self.matched_by_prefix
             )
             print(
-                f"\n📈 修复后关联率: {total_associated/max(1, self.total_experiment_records)*100:.1f}%"
+                f"\n📈 修复后关联率: {total_associated / max(1, self.total_experiment_records) * 100:.1f}%"
             )
 
         print("\n" + "=" * 80)
@@ -164,7 +167,7 @@ class DataAssociationFixer:
             self.conn = None
             self.cursor = None
 
-    def detect_migration_experiment(self) -> Optional[str]:
+    def detect_migration_experiment(self) -> str | None:
         """自动检测迁移相关实验"""
         try:
             # 查找包含'migration'或'deepseek'的实验ID
@@ -194,7 +197,7 @@ class DataAssociationFixer:
             print(f"❌ 检测实验失败: {e}")
             return None
 
-    def analyze_current_state(self, experiment_id: str) -> Dict:
+    def analyze_current_state(self, experiment_id: str) -> dict:
         """分析当前数据关联状态"""
         print(f"\n🔍 分析实验 '{experiment_id}' 的数据关联状态...")
 
@@ -247,7 +250,7 @@ class DataAssociationFixer:
             "cost_samples": cost_samples,
         }
 
-    def match_experiment_to_cost_records(self, experiment_id: str) -> List[Dict]:
+    def match_experiment_to_cost_records(self, experiment_id: str) -> list[dict]:
         """匹配实验记录到成本记录"""
         print(f"\n🔄 匹配实验 '{experiment_id}' 的记录...")
 
@@ -307,8 +310,8 @@ class DataAssociationFixer:
         return matches
 
     def _find_best_cost_match(
-        self, exp_request_id: str, exp_timestamp: Optional[datetime], group_name: str
-    ) -> Optional[Dict]:
+        self, exp_request_id: str, exp_timestamp: datetime | None, group_name: str
+    ) -> dict | None:
         """寻找最佳成本记录匹配"""
 
         # 策略1：精确request_id匹配
@@ -398,7 +401,7 @@ class DataAssociationFixer:
 
         return None
 
-    def _infer_provider_from_group(self, group_name: str) -> Optional[str]:
+    def _infer_provider_from_group(self, group_name: str) -> str | None:
         """从实验分组推断provider"""
         group_mapping = {
             "control": "dashscope",
@@ -408,7 +411,7 @@ class DataAssociationFixer:
         }
         return group_mapping.get(group_name.lower())
 
-    def apply_fixes(self, matches: List[Dict], experiment_id: str) -> Tuple[int, int, int, int]:
+    def apply_fixes(self, matches: list[dict], experiment_id: str) -> tuple[int, int, int, int]:
         """应用修复"""
         if self.dry_run:
             print("🔍 干运行模式：只分析不修改")
@@ -451,11 +454,11 @@ class DataAssociationFixer:
 
         if not self.dry_run:
             self.conn.commit()
-            print(f"✅ 修复已提交到数据库")
+            print("✅ 修复已提交到数据库")
 
         return exact_count, time_count, prefix_count, failed_count
 
-    def validate_fixes(self, experiment_id: str) -> Tuple[int, List[Dict]]:
+    def validate_fixes(self, experiment_id: str) -> tuple[int, list[dict]]:
         """验证修复结果"""
         print(f"\n✅ 验证实验 '{experiment_id}' 的修复结果...")
 
@@ -524,13 +527,13 @@ class DataAssociationFixer:
     def generate_report(
         self,
         experiment_id: str,
-        matches: List[Dict],
+        matches: list[dict],
         exact_count: int,
         time_count: int,
         prefix_count: int,
         failed_count: int,
         passed_count: int,
-        errors: List[Dict],
+        errors: list[dict],
     ) -> AssociationReport:
         """生成修复报告"""
 
@@ -630,7 +633,7 @@ def main():
         # 2. 分析当前状态
         analysis = fixer.analyze_current_state(experiment_id)
 
-        print(f"\n📈 分析结果:")
+        print("\n📈 分析结果:")
         print(f"  实验记录总数: {analysis['experiment_stats']['total']}")
         print(f"  已有成本关联: {analysis['experiment_stats']['with_cost_id']}")
         print(f"  缺失成本关联: {analysis['experiment_stats']['without_cost_id']}")
@@ -644,7 +647,7 @@ def main():
         successful_matches = len([m for m in matches if m["cost_record_id"] is not None])
         failed_matches = total_matches - successful_matches
 
-        print(f"\n🔗 匹配结果:")
+        print("\n🔗 匹配结果:")
         print(f"  总匹配尝试: {total_matches}")
         print(f"  成功匹配: {successful_matches}")
         print(f"  匹配失败: {failed_matches}")
@@ -656,7 +659,7 @@ def main():
                     match_type = match["match_type"]
                     match_types[match_type] = match_types.get(match_type, 0) + 1
 
-            print(f"  匹配类型分布:")
+            print("  匹配类型分布:")
             for match_type, count in match_types.items():
                 print(f"    - {match_type}: {count}")
 
@@ -698,7 +701,7 @@ def main():
 
         # 8. 保存报告
         if not args.dry_run:
-            report_file = fixer.save_report(report)
+            fixer.save_report(report)
 
         if errors:
             print(f"\n⚠️  验证错误 ({len(errors)} 个):")

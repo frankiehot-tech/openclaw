@@ -13,12 +13,11 @@
 
 import json
 import logging
-import os
 import shutil
 import sys
 import tempfile
 from pathlib import Path
-from typing import Any, Dict
+from typing import Any
 
 # 添加项目根目录到路径
 project_root = Path(__file__).parent.parent
@@ -63,7 +62,7 @@ def setup_test_environment():
     return engine, temp_dir, db_path
 
 
-def run_acceptance_test() -> Dict[str, Any]:
+def run_acceptance_test() -> dict[str, Any]:
     """
     运行验收测试
 
@@ -101,9 +100,9 @@ def run_acceptance_test() -> Dict[str, Any]:
 
         # 步骤2: 检查初始状态（应为正常模式）
         initial_state = engine.get_state()
-        assert (
-            initial_state.current_mode.value == "normal"
-        ), f"初始模式应为normal，实际为{initial_state.current_mode.value}"
+        assert initial_state.current_mode.value == "normal", (
+            f"初始模式应为normal，实际为{initial_state.current_mode.value}"
+        )
         logger.info(
             f"初始状态: 模式={initial_state.current_mode.value}, 预算={initial_state.period_budget:.2f}, 剩余={initial_state.remaining:.2f}"
         )
@@ -130,9 +129,9 @@ def run_acceptance_test() -> Dict[str, Any]:
 
         # 验证已进入暂停模式（剩余1%，小于critical_threshold 2%）
         # 注意：阈值是2%，剩余1%应触发PAUSED模式
-        assert (
-            state_after_depletion.current_mode.value == "paused"
-        ), f"预算耗尽后应进入paused模式，实际为{state_after_depletion.current_mode.value}"
+        assert state_after_depletion.current_mode.value == "paused", (
+            f"预算耗尽后应进入paused模式，实际为{state_after_depletion.current_mode.value}"
+        )
         evidence["steps"].append(
             {
                 "step": 3,
@@ -162,10 +161,10 @@ def run_acceptance_test() -> Dict[str, Any]:
             f"预算检查结果: 决定={result.decision.value}, 允许={result.allowed}, 原因={result.reason}"
         )
 
-        assert (
-            result.decision.value == "rejected_paused"
-        ), f"暂停模式下新任务应被拒绝，实际决定为{result.decision.value}"
-        assert result.allowed == False, "暂停模式下新任务不应被允许"
+        assert result.decision.value == "rejected_paused", (
+            f"暂停模式下新任务应被拒绝，实际决定为{result.decision.value}"
+        )
+        assert not result.allowed, "暂停模式下新任务不应被允许"
         evidence["steps"].append(
             {
                 "step": 4,
@@ -187,9 +186,9 @@ def run_acceptance_test() -> Dict[str, Any]:
         )
 
         # 验证模式已恢复（应为正常模式，因为消费已重置）
-        assert (
-            reset_state.current_mode.value == "normal"
-        ), f"重置预算后应恢复为normal模式，实际为{reset_state.current_mode.value}"
+        assert reset_state.current_mode.value == "normal", (
+            f"重置预算后应恢复为normal模式，实际为{reset_state.current_mode.value}"
+        )
         evidence["steps"].append(
             {
                 "step": 5,
@@ -217,10 +216,10 @@ def run_acceptance_test() -> Dict[str, Any]:
             f"恢复后预算检查结果: 决定={result2.decision.value}, 允许={result2.allowed}, 原因={result2.reason}"
         )
 
-        assert (
-            result2.decision.value == "approved"
-        ), f"恢复后新任务应被批准，实际决定为{result2.decision.value}"
-        assert result2.allowed == True, "恢复后新任务应被允许"
+        assert result2.decision.value == "approved", (
+            f"恢复后新任务应被批准，实际决定为{result2.decision.value}"
+        )
+        assert result2.allowed, "恢复后新任务应被允许"
         evidence["steps"].append(
             {
                 "step": 6,
@@ -296,7 +295,7 @@ def run_acceptance_test() -> Dict[str, Any]:
     return evidence
 
 
-def generate_acceptance_report(evidence: Dict[str, Any]) -> str:
+def generate_acceptance_report(evidence: dict[str, Any]) -> str:
     """生成验收报告"""
     report_lines = []
     report_lines.append("=" * 80)

@@ -13,7 +13,7 @@ def main():
     print(f"批量修复manifest: {manifest_file}")
 
     # 读取manifest
-    with open(manifest_file, "r", encoding="utf-8") as f:
+    with open(manifest_file, encoding="utf-8") as f:
         manifest_data = json.load(f)
 
     manifest_items = manifest_data.get("items", [])
@@ -42,7 +42,7 @@ def main():
         # 检查任务是否在manual_hold状态（根据其他条件）
         # 这里可以添加更多逻辑
 
-    print(f"\n📊 统计:")
+    print("\n📊 统计:")
     print(f"  总任务数: {len(manifest_items)}")
     print(f"  已修复任务: {updated_count}")
     print(f"  已为true的任务: {already_true_count}")
@@ -57,22 +57,22 @@ def main():
         # 保存修复后的文件
         with open(manifest_file, "w", encoding="utf-8") as f:
             json.dump(manifest_data, f, ensure_ascii=False, indent=2)
-        print(f"✅ manifest批量修复完成")
+        print("✅ manifest批量修复完成")
 
         # 建议重启队列运行器
-        print(f"\n📋 下一步建议:")
-        print(f"  1. 重启队列运行器进程以加载更新后的manifest")
-        print(f"  2. 运行diagnose_queue.py验证修复效果")
-        print(f"  3. 检查任务状态是否从manual_hold变为pending")
+        print("\n📋 下一步建议:")
+        print("  1. 重启队列运行器进程以加载更新后的manifest")
+        print("  2. 运行diagnose_queue.py验证修复效果")
+        print("  3. 检查任务状态是否从manual_hold变为pending")
     else:
-        print(f"\n⚠️  没有需要修复的任务，所有任务autostart已为true")
+        print("\n⚠️  没有需要修复的任务，所有任务autostart已为true")
 
     # 同时修复状态文件中的queue_status
     state_file = ".openclaw/plan_queue/openhuman_aiplan_build_priority_20260328.json"
     print(f"\n🔧 检查状态文件: {state_file}")
 
     try:
-        with open(state_file, "r", encoding="utf-8") as f:
+        with open(state_file, encoding="utf-8") as f:
             state_data = json.load(f)
 
         # 确保queue_status为running
@@ -89,9 +89,9 @@ def main():
             with open(state_file, "w", encoding="utf-8") as f:
                 json.dump(state_data, f, ensure_ascii=False, indent=2)
 
-            print(f"✅ 修复状态文件queue_status为running")
+            print("✅ 修复状态文件queue_status为running")
         else:
-            print(f"✅ 状态文件queue_status已为running")
+            print("✅ 状态文件queue_status已为running")
 
     except Exception as e:
         print(f"❌ 处理状态文件失败: {e}")

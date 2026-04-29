@@ -8,7 +8,6 @@
 
 import json
 import shutil
-import sys
 from datetime import datetime
 from pathlib import Path
 
@@ -23,7 +22,7 @@ LOG_DIR = RUNTIME_ROOT / "logs"
 def load_queue_state(queue_file: Path) -> dict:
     """加载队列状态文件"""
     try:
-        with open(queue_file, "r", encoding="utf-8") as f:
+        with open(queue_file, encoding="utf-8") as f:
             return json.load(f)
     except Exception as e:
         print(f"错误加载队列文件 {queue_file}: {e}")
@@ -45,7 +44,7 @@ def analyze_queue_completion(queue_state: dict) -> dict:
 
     counts = {"total": len(items), "completed": 0, "failed": 0, "pending": 0, "running": 0}
 
-    for item_id, item_data in items.items():
+    for _item_id, item_data in items.items():
         status = item_data.get("status", "pending")
         if status == "completed":
             counts["completed"] += 1
@@ -163,23 +162,23 @@ def create_summary_report(queue_name: str, metadata: dict) -> str:
 
 ## 基本信息
 - **队列名称**: {queue_name}
-- **队列ID**: {metadata['queue_id']}
-- **归档时间**: {metadata['archive_timestamp']}
-- **归档原因**: {metadata['archive_reason']}
+- **队列ID**: {metadata["queue_id"]}
+- **归档时间**: {metadata["archive_timestamp"]}
+- **归档原因**: {metadata["archive_reason"]}
 
 ## 完成度统计
-- **总任务数**: {stats['total']}
-- **已完成**: {stats['completed']}
-- **已失败**: {stats['failed']}
-- **待处理**: {stats['pending']}
-- **运行中**: {stats['running']}
-- **完成率**: {stats['completion_rate']:.2f}%
+- **总任务数**: {stats["total"]}
+- **已完成**: {stats["completed"]}
+- **已失败**: {stats["failed"]}
+- **待处理**: {stats["pending"]}
+- **运行中**: {stats["running"]}
+- **完成率**: {stats["completion_rate"]:.2f}%
 
 ## 原始文件位置
-- `{metadata['original_path']}`
+- `{metadata["original_path"]}`
 
 ## 归档内容
-1. 队列状态文件: `{metadata['queue_id']}.json`
+1. 队列状态文件: `{metadata["queue_id"]}.json`
 2. 元数据文件: `metadata.json`
 3. 本摘要文件: `summary.md`
 
@@ -190,7 +189,7 @@ def create_summary_report(queue_name: str, metadata: dict) -> str:
 
 def main():
     """主函数"""
-    print(f"开始归档已完成队列...")
+    print("开始归档已完成队列...")
     print(f"队列状态目录: {QUEUE_STATE_DIR}")
     print(f"归档目录: {QUEUE_ARCHIVE_DIR}")
 
@@ -223,7 +222,7 @@ def main():
 
         queue_id = queue_file.stem
         if queue_id not in known_queues:
-            print(f"  跳过: 未知队列ID")
+            print("  跳过: 未知队列ID")
             continue
 
         # 归档队列
@@ -240,7 +239,7 @@ def main():
     with open(report_file, "w", encoding="utf-8") as f:
         f.write(report)
 
-    print(f"\n归档完成!")
+    print("\n归档完成!")
     print(f"成功归档 {archived_count}/{len(queue_files)} 个队列")
     print(f"报告保存至: {report_file}")
 
@@ -255,7 +254,7 @@ def generate_archive_report(archived: int, total: int, log: list) -> str:
 ## 执行摘要
 - **总队列数**: {total}
 - **已归档队列**: {archived}
-- **成功率**: {archived/total*100:.1f}% (如果total>0)
+- **成功率**: {archived / total * 100:.1f}% (如果total>0)
 
 ## 归档详情
 {generate_log_table(log)}

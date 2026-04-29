@@ -22,11 +22,11 @@ def main():
     print(f"读取队列状态文件: {queue_state_path}")
 
     # 读取manifest文件
-    with open(manifest_path, "r", encoding="utf-8") as f:
+    with open(manifest_path, encoding="utf-8") as f:
         manifest = json.load(f)
 
     # 读取队列状态文件
-    with open(queue_state_path, "r", encoding="utf-8") as f:
+    with open(queue_state_path, encoding="utf-8") as f:
         queue_state = json.load(f)
 
     # 从队列状态文件中提取pending任务的ID

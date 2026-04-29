@@ -1,4 +1,6 @@
 #!/usr/bin/env python3
+# DEPRECATED: 使用 governance/ 模块代替
+# governance_cli.py repair <command> 或 governance_cli.py queue fix
 """
 修复因instruction_path不存在而失败的任务
 将状态从failed重置为pending，清除错误信息
@@ -7,7 +9,6 @@
 import json
 import os
 import sys
-from pathlib import Path
 
 
 def fix_failed_tasks():
@@ -19,7 +20,7 @@ def fix_failed_tasks():
         return 1
 
     # 读取状态文件
-    with open(status_file, "r", encoding="utf-8") as f:
+    with open(status_file, encoding="utf-8") as f:
         data = json.load(f)
 
     items = data.get("items", {})

@@ -8,7 +8,7 @@ import json
 import os
 import subprocess
 import sys
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 
 PLAN_QUEUE_DIR = "/Volumes/1TB-M2/openclaw/.openclaw/plan_queue"
 
@@ -30,7 +30,7 @@ def cleanup_queue_file(file_path):
     print(f"📄 处理队列文件: {os.path.basename(file_path)}")
 
     try:
-        with open(file_path, "r") as f:
+        with open(file_path) as f:
             data = json.load(f)
 
         cleaned = False
@@ -56,13 +56,13 @@ def cleanup_queue_file(file_path):
                     # 根据状态决定处理方式
                     if status == "running":
                         # running状态但进程不存在，标记为失败
-                        print(f"    ❌ 将running任务标记为failed")
+                        print("    ❌ 将running任务标记为failed")
                         item["status"] = "failed"
                         item["error"] = f"进程 {runner_pid} 不存在"
-                        item["finished_at"] = datetime.now(timezone.utc).isoformat()
+                        item["finished_at"] = datetime.now(UTC).isoformat()
                     elif status == "pending":
                         # pending状态但有心跳，清理PID
-                        print(f"    🔧 清理pending任务的陈旧PID")
+                        print("    🔧 清理pending任务的陈旧PID")
                         item["runner_pid"] = ""
 
                     item["runner_heartbeat_at"] = ""
@@ -99,16 +99,16 @@ def cleanup_queue_file(file_path):
 
             data["queue_status"] = queue_status
             data["pause_reason"] = pause_reason
-            data["updated_at"] = datetime.now(timezone.utc).isoformat()
+            data["updated_at"] = datetime.now(UTC).isoformat()
 
             # 保存文件
             with open(file_path, "w") as f:
                 json.dump(data, f, indent=2, ensure_ascii=False)
 
-            print(f"  ✅ 文件已更新")
+            print("  ✅ 文件已更新")
             return True
         else:
-            print(f"  ✓ 无需清理")
+            print("  ✓ 无需清理")
             return False
 
     except Exception as e:
@@ -121,13 +121,13 @@ def resolve_dependency_blocked(file_path):
     print(f"\n🔗 检查依赖阻塞: {os.path.basename(file_path)}")
 
     try:
-        with open(file_path, "r") as f:
+        with open(file_path) as f:
             data = json.load(f)
 
         queue_status = data.get("queue_status", "")
 
         if queue_status != "dependency_blocked":
-            print(f"  ✓ 队列无依赖阻塞")
+            print("  ✓ 队列无依赖阻塞")
             return False
 
         # 检查是否有manual_hold任务
@@ -156,15 +156,15 @@ def resolve_dependency_blocked(file_path):
 
                         # 检查文件大小
                         try:
-                            with open(instruction_path, "r") as f:
+                            with open(instruction_path) as f:
                                 lines = f.readlines()
 
                             if len(lines) > 100:
                                 print(f"    ⚠️  文件确实较长 ({len(lines)} 行)")
-                                print(f"    💡 建议: 拆分为多个小任务或调整预处理逻辑")
+                                print("    💡 建议: 拆分为多个小任务或调整预处理逻辑")
                             else:
                                 print(f"    📏 文件长度可接受 ({len(lines)} 行)")
-                                print(f"    🔧 尝试重新标记为pending")
+                                print("    🔧 尝试重新标记为pending")
                                 item["status"] = "pending"
                                 item["runner_pid"] = ""
                                 item["runner_heartbeat_at"] = ""
@@ -180,18 +180,18 @@ def resolve_dependency_blocked(file_path):
 
         if pending_items and not manual_hold_items:
             print(f"  有 {len(pending_items)} 个pending任务但无manual_hold")
-            print(f"  🔧 将队列状态从dependency_blocked改为ready")
+            print("  🔧 将队列状态从dependency_blocked改为ready")
             data["queue_status"] = "ready"
             data["pause_reason"] = ""
-            data["updated_at"] = datetime.now(timezone.utc).isoformat()
+            data["updated_at"] = datetime.now(UTC).isoformat()
 
             with open(file_path, "w") as f:
                 json.dump(data, f, indent=2, ensure_ascii=False)
 
-            print(f"  ✅ 依赖阻塞已解决")
+            print("  ✅ 依赖阻塞已解决")
             return True
 
-        print(f"  ⚠️  需要手动介入解决依赖阻塞")
+        print("  ⚠️  需要手动介入解决依赖阻塞")
         return False
 
     except Exception as e:

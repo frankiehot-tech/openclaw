@@ -13,7 +13,6 @@
 
 import argparse
 import json
-import subprocess
 import sys
 import time
 from datetime import datetime
@@ -46,7 +45,7 @@ class TrafficSwitchMonitor:
     def load_or_create_config(self):
         """加载或创建流量切换配置"""
         if self.config_file.exists():
-            with open(self.config_file, "r", encoding="utf-8") as f:
+            with open(self.config_file, encoding="utf-8") as f:
                 self.config = json.load(f)
         else:
             self.config = {
@@ -89,7 +88,7 @@ class TrafficSwitchMonitor:
 
             for queue_file in queue_files[:3]:  # 只检查前3个文件
                 try:
-                    with open(queue_file, "r", encoding="utf-8") as f:
+                    with open(queue_file, encoding="utf-8") as f:
                         data = json.load(f)
                         status = data.get("queue_status", "unknown")
                         tasks = data.get("tasks", {})
@@ -171,7 +170,7 @@ class TrafficSwitchMonitor:
 
         # 获取切换前基准状态
         baseline_status = self.check_queue_health()
-        print(f"📊 切换前基准状态:")
+        print("📊 切换前基准状态:")
         print(f"  - 队列运行器: {'✅' if baseline_status.get('queue_runner_running') else '❌'}")
         print(f"  - Web仪表板: {'✅' if baseline_status.get('web_dashboard_running') else '❌'}")
         print(
@@ -209,7 +208,7 @@ class TrafficSwitchMonitor:
             remaining_time = monitoring_duration - i
 
             print(
-                f"  [{time_since_start//60:02d}:{time_since_start%60:02d}] 批次执行中... 剩余 {remaining_time//60}分{remaining_time%60}秒"
+                f"  [{time_since_start // 60:02d}:{time_since_start % 60:02d}] 批次执行中... 剩余 {remaining_time // 60}分{remaining_time % 60}秒"
             )
 
             # 检查当前状态
@@ -318,7 +317,7 @@ class TrafficSwitchMonitor:
 
         # 打印批次总结
         print(f"\n{'✅' if success else '❌'} {batch['name']} 完成")
-        print(f"⏱️ 持续时间: {duration_seconds//60}分{duration_seconds%60}秒")
+        print(f"⏱️ 持续时间: {duration_seconds // 60}分{duration_seconds % 60}秒")
         print(f"📊 结果: {'成功' if success else '失败'}")
         if summary_issues:
             print(f"⚠️ 问题: {', '.join(summary_issues)}")
@@ -336,7 +335,7 @@ class TrafficSwitchMonitor:
             batch_success = self.run_batch(i)
 
             if not batch_success:
-                print(f"\n❌ 批次 {i+1} 失败，暂停流量切换")
+                print(f"\n❌ 批次 {i + 1} 失败，暂停流量切换")
                 print("请检查问题并决定是否继续")
                 choice = input("继续下一个批次? (y/n): ")
                 if choice.lower() != "y":
@@ -349,7 +348,7 @@ class TrafficSwitchMonitor:
 
         print("\n" + "=" * 60)
         print("🎉 渐进式流量切换完成!")
-        print(f"⏱️ 总时长: {total_duration//3600}小时{total_duration%3600//60}分")
+        print(f"⏱️ 总时长: {total_duration // 3600}小时{total_duration % 3600 // 60}分")
         print(f"📊 完成批次: {len(self.config.get('completed_batches', []))}/{len(self.batches)}")
 
         # 生成最终报告
@@ -364,21 +363,21 @@ class TrafficSwitchMonitor:
         report = f"""# 渐进式流量切换最终报告
 
 ## 切换概览
-- **开始时间**: {self.config.get('start_time')}
-- **完成批次**: {len(self.config.get('completed_batches', []))}/{len(self.batches)}
-- **总体状态**: {'✅ 成功' if all(b.get('success', False) for b in self.config.get('completed_batches', [])) else '❌ 失败'}
+- **开始时间**: {self.config.get("start_time")}
+- **完成批次**: {len(self.config.get("completed_batches", []))}/{len(self.batches)}
+- **总体状态**: {"✅ 成功" if all(b.get("success", False) for b in self.config.get("completed_batches", [])) else "❌ 失败"}
 
 ## 批次详情
 """
 
         for i, batch in enumerate(self.config.get("completed_batches", [])):
             report += f"""
-### {batch.get('batch_name', f'批次 {i+1}')}
-- **目标流量**: {batch.get('target_percentage', 0)}%
-- **开始时间**: {batch.get('start_time', 'N/A')}
-- **结束时间**: {batch.get('end_time', 'N/A')}
-- **持续时间**: {batch.get('duration_seconds', 0)//60}分{batch.get('duration_seconds', 0)%60}秒
-- **状态**: {'✅ 成功' if batch.get('success', False) else '❌ 失败'}
+### {batch.get("batch_name", f"批次 {i + 1}")}
+- **目标流量**: {batch.get("target_percentage", 0)}%
+- **开始时间**: {batch.get("start_time", "N/A")}
+- **结束时间**: {batch.get("end_time", "N/A")}
+- **持续时间**: {batch.get("duration_seconds", 0) // 60}分{batch.get("duration_seconds", 0) % 60}秒
+- **状态**: {"✅ 成功" if batch.get("success", False) else "❌ 失败"}
 """
             if batch.get("summary_issues"):
                 report += f"- **问题**: {', '.join(batch.get('summary_issues', []))}\n"
@@ -395,16 +394,16 @@ class TrafficSwitchMonitor:
 
             report += f"""
 ### 最终系统状态
-- **队列运行器**: {'✅ 运行中' if final_status.get('queue_runner_running') else '❌ 未运行'}
-- **Web仪表板**: {'✅ 运行中' if final_status.get('web_dashboard_running') else '❌ 未运行'}
-- **监控仪表板**: {'✅ 运行中' if final_status.get('monitor_dashboard_running') else '❌ 未运行'}
+- **队列运行器**: {"✅ 运行中" if final_status.get("queue_runner_running") else "❌ 未运行"}
+- **Web仪表板**: {"✅ 运行中" if final_status.get("web_dashboard_running") else "❌ 未运行"}
+- **监控仪表板**: {"✅ 运行中" if final_status.get("monitor_dashboard_running") else "❌ 未运行"}
 
 ### 系统资源
-- **CPU使用率**: {sys_resources.get('cpu_percent', 0):.1f}%
-- **内存使用率**: {sys_resources.get('memory_percent', 0):.1f}%
-- **可用内存**: {sys_resources.get('memory_available_mb', 0):.0f} MB
-- **磁盘使用率**: {sys_resources.get('disk_usage_percent', 0):.1f}%
-- **可用磁盘空间**: {sys_resources.get('disk_free_gb', 0):.1f} GB
+- **CPU使用率**: {sys_resources.get("cpu_percent", 0):.1f}%
+- **内存使用率**: {sys_resources.get("memory_percent", 0):.1f}%
+- **可用内存**: {sys_resources.get("memory_available_mb", 0):.0f} MB
+- **磁盘使用率**: {sys_resources.get("disk_usage_percent", 0):.1f}%
+- **可用磁盘空间**: {sys_resources.get("disk_free_gb", 0):.1f} GB
 """
 
         report += """
@@ -454,7 +453,7 @@ def main():
     print("\n📋 流量切换计划:")
     for i, batch in enumerate(monitor.batches):
         print(
-            f"  {i+1}. {batch['name']} ({batch['target_percentage']}%流量, {batch['duration_minutes']}分钟)"
+            f"  {i + 1}. {batch['name']} ({batch['target_percentage']}%流量, {batch['duration_minutes']}分钟)"
         )
 
     print("\n" + "=" * 60)

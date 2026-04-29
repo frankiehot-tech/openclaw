@@ -9,7 +9,6 @@ import sys
 import time
 from pathlib import Path
 
-
 logger = logging.getLogger(__name__)
 
 
@@ -19,17 +18,11 @@ if str(_scripts_dir) not in sys.path:
 
 try:
     from .openclaw_roots import (
-        LOG_DIR,
-        PLAN_CONFIG_PATH,
-        PLAN_DIR,
-        QUEUE_STATE_DIR,
         RUNTIME_ROOT,
-        TASKS_DIR,
-        TASKS_PATH,
-        pid_file,
     )
 except ImportError:
     import sys
+
     from openclaw_roots import (
         RUNTIME_ROOT,
     )
@@ -113,12 +106,6 @@ try:
     contracts_dir = Path(__file__).resolve().parent.parent / "contracts"
     if str(contracts_dir) not in sys.path:
         sys.path.insert(0, str(contracts_dir))
-
-    from contracts import (
-        AthenaStateSyncAdapter,
-        StateSyncContract,
-        get_athena_state_sync_adapter,
-    )
 
     STATE_SYNC_AVAILABLE = True
     logger.info("StateSyncContract available for consistent state management")
@@ -240,8 +227,13 @@ except ImportError:
         return _parallel_gate_stub
 
     get_global_gate = _noop_get_global_gate
-    check_parallel_admission = lambda workers=2: _parallel_gate_stub.check_admission(workers)
-    get_scheduling_summary = lambda: _parallel_gate_stub.generate_scheduling_summary()
+
+    def check_parallel_admission(workers=2):
+        return _parallel_gate_stub.check_admission(workers)
+
+    def get_scheduling_summary():
+        return _parallel_gate_stub.generate_scheduling_summary()
+
     AdmissionDecision = type(
         "AdmissionDecision",
         (),
@@ -257,8 +249,6 @@ except ImportError:
 # Performance metrics collection
 try:
     from agent.core.performance_metrics import (
-        MetricDimension,
-        MetricType,
         get_global_collector,
     )
 

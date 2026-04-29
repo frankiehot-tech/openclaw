@@ -5,8 +5,6 @@ This script helps connect the frontend workspace with the wider OpenClaw ecosyst
 """
 
 import json
-import os
-import subprocess
 import sys
 from pathlib import Path
 
@@ -55,7 +53,7 @@ def check_config():
         with open(CONFIG_FILE) as f:
             config = json.load(f)
 
-        print(f"  ✅ Config file loaded")
+        print("  ✅ Config file loaded")
         print(f"  📋 Frontend: {config.get('frontend', {}).get('name', 'unknown')}")
         print(
             f"  🚀 Features: {', '.join([k for k, v in config.get('frontend', {}).get('features', {}).items() if v])}"
@@ -71,7 +69,7 @@ def check_dependencies():
     print("\n📦 Checking dependencies...")
 
     node_modules = FRONTEND_DIR / "node_modules"
-    package_json = FRONTEND_DIR / "package.json"
+    FRONTEND_DIR / "package.json"
 
     if not node_modules.exists():
         print("  ⚠️  node_modules not found - run 'npm install' in frontend directory")

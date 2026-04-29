@@ -149,7 +149,7 @@ class DocumentQualityReportGenerator:
             if result.returncode == 0:
                 print("  ✅ 完整性检查完成")
             else:
-                print(f"  ⚠️  完整性检查发现问题")
+                print("  ⚠️  完整性检查发现问题")
 
         except Exception as e:
             print(f"  ❌ 完整性检查失败: {e}")
@@ -194,7 +194,7 @@ class DocumentQualityReportGenerator:
             if result.returncode == 0:
                 print("  ✅ 可读性分析完成")
             else:
-                print(f"  ⚠️  可读性分析发现问题")
+                print("  ⚠️  可读性分析发现问题")
 
         except Exception as e:
             print(f"  ❌ 可读性分析失败: {e}")
@@ -234,11 +234,11 @@ class DocumentQualityReportGenerator:
 
         for i, md_file in enumerate(sample_files):
             rel_path = md_file.relative_to(self.docs_dir)
-            print(f"  分析文件 {i+1}/{len(sample_files)}: {rel_path}")
+            print(f"  分析文件 {i + 1}/{len(sample_files)}: {rel_path}")
 
             # 计算文件基本指标
             try:
-                with open(md_file, "r", encoding="utf-8") as f:
+                with open(md_file, encoding="utf-8") as f:
                     content = f.read()
 
                 lines = content.split("\n")
@@ -403,14 +403,14 @@ class DocumentQualityReportGenerator:
 
         summary = self.quality_data.get("summary", {})
 
-        print(f"\n📈 摘要:")
+        print("\n📈 摘要:")
         print(f"  整体状态: {summary.get('overall_status', '未知')}")
         print(
             f"  检查通过率: {summary.get('pass_rate', 0)}% ({summary.get('passed_checks', 0)}/{summary.get('total_checks', 0)})"
         )
         print(f"  分析时间: {self.quality_data.get('timestamp', '未知')}")
 
-        print(f"\n🔍 检查结果:")
+        print("\n🔍 检查结果:")
         for check_result in summary.get("check_results", []):
             print(
                 f"  {check_result['check']}: {check_result['status']} (退出码: {check_result['exit_code']})"
@@ -437,7 +437,7 @@ class DocumentQualityReportGenerator:
         try:
             with open(output_file, "w", encoding="utf-8") as f:
                 json.dump(self.quality_data, f, indent=2, ensure_ascii=False)
-            print(f"  ✅ 报告保存成功")
+            print("  ✅ 报告保存成功")
         except Exception as e:
             print(f"  ❌ 保存报告失败: {e}")
 

@@ -7,12 +7,6 @@ import logging
 import os
 import sys
 import time
-import json
-import re
-import shutil
-import signal
-import subprocess
-from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
 
@@ -24,30 +18,20 @@ if str(_scripts_dir) not in sys.path:
 
 try:
     from .openclaw_roots import (
-        LOG_DIR,
         PLAN_CONFIG_PATH,
-        PLAN_DIR,
-        QUEUE_STATE_DIR,
         RUNTIME_ROOT,
-        TASKS_DIR,
-        TASKS_PATH,
-        pid_file,
     )
 except ImportError:
     import sys
+
     from openclaw_roots import (
-        LOG_DIR,
         PLAN_CONFIG_PATH,
-        PLAN_DIR,
-        QUEUE_STATE_DIR,
         RUNTIME_ROOT,
-        TASKS_DIR,
-        TASKS_PATH,
-        pid_file,
     )
 
-from .utils import read_json
+import contextlib
 
+from .utils import read_json
 
 POLL_SECONDS = int(os.getenv("ATHENA_AI_PLAN_POLL_SECONDS", "15"))
 BUILD_TIMEOUT_SECONDS = int(os.getenv("ATHENA_AI_PLAN_BUILD_TIMEOUT_SECONDS", "1800"))
@@ -124,7 +108,7 @@ def load_control_plane_config() -> dict[str, Any]:
     try:
         import yaml
 
-        with open(config_path, "r", encoding="utf-8") as f:
+        with open(config_path, encoding="utf-8") as f:
             config = yaml.safe_load(f)
 
         version = config.get("version", "unknown")
@@ -193,17 +177,13 @@ def terminate_pid_tree(pid: int | None, grace_seconds: int = 8) -> None:
 
         os.killpg(os.getpgid(pid), signal.SIGTERM)
         time.sleep(0.5)
-        try:
+        with contextlib.suppress(ProcessLookupError, PermissionError):
             os.killpg(os.getpgid(pid), signal.SIGKILL)
-        except (ProcessLookupError, PermissionError):
-            pass
     except (ProcessLookupError, PermissionError, OSError):
         try:
             os.kill(pid, signal.SIGTERM)
             time.sleep(0.5)
-            try:
+            with contextlib.suppress(ProcessLookupError, PermissionError):
                 os.kill(pid, signal.SIGKILL)
-            except (ProcessLookupError, PermissionError):
-                pass
         except (ProcessLookupError, PermissionError, OSError):
             pass

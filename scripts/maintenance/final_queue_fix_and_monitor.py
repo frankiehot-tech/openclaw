@@ -1,4 +1,6 @@
 #!/usr/bin/env python3
+# DEPRECATED: 使用 governance/ 模块代替
+# governance_cli.py <command>
 """
 最终队列修复与监控启动脚本
 解决queue_status仍为dependency_blocked的问题，并启动24小时监控验证
@@ -7,9 +9,7 @@
 import json
 import os
 import subprocess
-import time
 from datetime import datetime
-from pathlib import Path
 
 # 队列文件路径
 QUEUE_FILE = (
@@ -20,7 +20,7 @@ BACKUP_FILE = f"{QUEUE_FILE}.backup_final_{datetime.now().strftime('%Y%m%d_%H%M%
 
 def load_queue():
     """加载队列文件"""
-    with open(QUEUE_FILE, "r", encoding="utf-8") as f:
+    with open(QUEUE_FILE, encoding="utf-8") as f:
         return json.load(f)
 
 
@@ -43,7 +43,7 @@ def save_queue(data):
     print(f"💾 已保存队列文件: {QUEUE_FILE}")
 
     # 验证写入成功
-    with open(QUEUE_FILE, "r", encoding="utf-8") as f:
+    with open(QUEUE_FILE, encoding="utf-8") as f:
         saved_data = json.load(f)
         if saved_data.get("queue_status") == data.get("queue_status"):
             print(f"✅ 状态验证成功: queue_status = {saved_data.get('queue_status')}")
@@ -64,7 +64,7 @@ def analyze_queue_stall():
     pause_reason = queue_data.get("pause_reason", "")
     counts = queue_data.get("counts", {})
 
-    print(f"📊 当前队列状态:")
+    print("📊 当前队列状态:")
     print(f"  queue_status: {queue_status}")
     print(f"  pause_reason: {pause_reason}")
     print(f"  任务统计: {json.dumps(counts, ensure_ascii=False)}")
@@ -245,7 +245,7 @@ def configure_enhanced_monitoring():
         print(f"✅ 找到监控脚本: {monitor_script}")
 
         # 检查脚本中是否包含增强监控功能
-        with open(monitor_script, "r", encoding="utf-8") as f:
+        with open(monitor_script, encoding="utf-8") as f:
             content = f.read()
 
             enhanced_features = []
@@ -330,7 +330,7 @@ def main():
         print("\n" + "=" * 40)
         print("步骤1: 修复队列停滞问题")
         print("=" * 40)
-        fixed_queue = fix_queue_stall()
+        fix_queue_stall()
 
         # 步骤2: 检查队列运行器
         print("\n" + "=" * 40)
@@ -342,7 +342,7 @@ def main():
         print("\n" + "=" * 40)
         print("步骤3: 启动24小时监控验证")
         print("=" * 40)
-        dashboard_pid = start_monitoring()
+        start_monitoring()
 
         # 步骤4: 配置增强监控
         print("\n" + "=" * 40)
@@ -354,7 +354,7 @@ def main():
         print("\n" + "=" * 40)
         print("步骤5: 创建24小时监控验证计划")
         print("=" * 40)
-        monitoring_plan = create_monitoring_plan()
+        create_monitoring_plan()
 
         print("\n" + "=" * 60)
         print("✅ 队列修复与监控验证启动完成")

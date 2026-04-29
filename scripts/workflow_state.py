@@ -10,7 +10,7 @@ import json
 import os
 from datetime import datetime
 from pathlib import Path
-from typing import Any, Dict, Optional
+from typing import Any
 
 # Default location under runtime root
 RUNTIME_ROOT = Path(os.getenv("ATHENA_RUNTIME_ROOT", "/Volumes/1TB-M2/openclaw"))
@@ -24,7 +24,7 @@ def get_state(key: str, default: Any = None) -> Any:
     if not path.exists():
         return default
     try:
-        with open(path, "r", encoding="utf-8") as f:
+        with open(path, encoding="utf-8") as f:
             return json.load(f)
     except Exception:
         return default
@@ -37,7 +37,7 @@ def set_state(key: str, value: Any) -> None:
         with open(path, "w", encoding="utf-8") as f:
             json.dump(value, f, ensure_ascii=False, indent=2)
     except Exception as e:
-        raise RuntimeError(f"Failed to write state {key}: {e}")
+        raise RuntimeError(f"Failed to write state {key}: {e}") from e
 
 
 def delete_state(key: str) -> bool:
@@ -72,7 +72,7 @@ def record_incident_task(incident_id: str, task_id: str) -> None:
     set_state("incident_task_map", mapping)
 
 
-def get_task_for_incident(incident_id: str) -> Optional[str]:
+def get_task_for_incident(incident_id: str) -> str | None:
     """Return the task ID that was created for an incident, if any."""
     mapping = get_state("incident_task_map", {})
     return mapping.get(incident_id)
@@ -106,7 +106,7 @@ VALID_INCIDENT_STATES = {
 
 
 def record_incident_detected(
-    incident: dict[str, Any], metadata: Optional[dict[str, Any]] = None
+    incident: dict[str, Any], metadata: dict[str, Any] | None = None
 ) -> None:
     """Persist the first-class 'detected' state for an incident."""
     incident_id = str(incident.get("id", "") or "").strip()
@@ -126,7 +126,7 @@ def record_incident_detected(
     set_incident_state(incident_id, INCIDENT_STATE_DETECTED, merged_metadata)
 
 
-def set_incident_state(incident_id: str, state: str, metadata: Optional[dict] = None) -> None:
+def set_incident_state(incident_id: str, state: str, metadata: dict | None = None) -> None:
     """Set the state of an incident."""
     if state not in VALID_INCIDENT_STATES:
         raise ValueError(f"Invalid incident state: {state}")
@@ -145,7 +145,7 @@ def get_incident_state(incident_id: str) -> dict:
     return states.get(incident_id)
 
 
-def get_incident_state_value(incident_id: str) -> Optional[str]:
+def get_incident_state_value(incident_id: str) -> str | None:
     """Get the current state value of an incident."""
     state_info = get_incident_state(incident_id)
     return state_info.get("state") if state_info else None
@@ -179,7 +179,7 @@ def update_incident_state_from_task(task_id: str, incident_id: str) -> bool:
     if not tasks_path.exists():
         return False
     try:
-        with open(tasks_path, "r", encoding="utf-8") as f:
+        with open(tasks_path, encoding="utf-8") as f:
             tasks_data = json.load(f)
         task = None
         for t in tasks_data.get("tasks", []):
@@ -247,7 +247,7 @@ def update_heartbeat(component: str) -> None:
     set_state("heartbeats", heartbeats)
 
 
-def get_heartbeat(component: str) -> Optional[str]:
+def get_heartbeat(component: str) -> str | None:
     """Get the last heartbeat timestamp for a component."""
     heartbeats = get_state("heartbeats", {})
     return heartbeats.get(component)

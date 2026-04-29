@@ -2,11 +2,9 @@
 
 import logging
 import os
-from datetime import datetime, timezone, timedelta
-from typing import Dict
+from datetime import UTC, datetime, timedelta
 
 from . import config
-from .fetcher import VideoInfo
 
 logger = logging.getLogger(__name__)
 
@@ -22,7 +20,7 @@ def _format_time(dt: datetime) -> str:
     """格式化为北京时间."""
     # RSS 时间是 UTC，转北京时间 +8
     bj = dt + timedelta(hours=8)
-    now = datetime.now(timezone.utc) + timedelta(hours=8)
+    now = datetime.now(UTC) + timedelta(hours=8)
     delta = now - bj
 
     if delta < timedelta(hours=1):
@@ -36,19 +34,19 @@ def _build_channel_section(
     channel_name: str,
     handle: str,
     videos: list,
-    summaries: Dict[str, str] = None,
+    summaries: dict[str, str] = None,
     days_threshold: int = 7,
 ) -> str:
     """构建单个频道的报告段落."""
     lines = []
-    now = datetime.now(timezone.utc)
+    now = datetime.now(UTC)
 
     if not videos:
         lines.append(f"  🟡 近 {days_threshold} 天无更新")
         return "\n".join(lines)
 
     for v in videos:
-        age = (now - v.published).days
+        (now - v.published).days
         time_str = _format_time(v.published)
         title = v.title.strip()
         desc = _truncate(v.description.replace("\n", " ").strip(), 100) if v.description else ""
@@ -67,7 +65,7 @@ def generate_daily_report(
     all_videos: dict,
     new_videos: dict,
     errors: list = None,
-    summaries: Dict[str, str] = None,
+    summaries: dict[str, str] = None,
 ) -> str:
     """生成每日中文 Markdown 报告.
 
@@ -79,10 +77,10 @@ def generate_daily_report(
     Returns:
         Markdown 格式的完整报告
     """
-    today = datetime.now(timezone.utc) + timedelta(hours=8)
+    today = datetime.now(UTC) + timedelta(hours=8)
     date_str = today.strftime("%Y-%m-%d")
     total_new = sum(len(v) for v in new_videos.values())
-    total_all = sum(len(v) for v in all_videos.values())
+    sum(len(v) for v in all_videos.values())
     active_channels = sum(1 for v in all_videos.values() if v)
 
     lines = [
@@ -119,14 +117,11 @@ def generate_daily_report(
 
     for cat in categories:
         cat_channels = config.get_channels_by_category(cat)
-        has_any_content = any(
-            ch.name in all_videos or ch.name in new_videos
-            for ch in cat_channels
-        )
+        has_any_content = any(ch.name in all_videos or ch.name in new_videos for ch in cat_channels)
         if not has_any_content:
             continue
 
-        lines.append(f"---")
+        lines.append("---")
         lines.append("")
         emoji = {"AI发展趋势类": "📈", "AI技术教程类": "🛠", "效率提升和一人公司类": "🚀"}
         lines.append(f"## {emoji.get(cat, '📌')} {cat}")
@@ -143,7 +138,9 @@ def generate_daily_report(
 
             # 取新视频 + 最近视频（优先展示新的，如果没有新视频则展示最近的）
             display_videos = new_ch if new_ch else all_ch
-            section = _build_channel_section(ch.name, ch.handle, display_videos, summaries=summaries)
+            section = _build_channel_section(
+                ch.name, ch.handle, display_videos, summaries=summaries
+            )
             lines.append(section)
             lines.append("")
 
@@ -173,7 +170,7 @@ def save_report(report: str) -> str:
     Returns:
         报告文件路径
     """
-    today = datetime.now(timezone.utc) + timedelta(hours=8)
+    today = datetime.now(UTC) + timedelta(hours=8)
     filename = f"youtube-daily-{today.strftime('%Y-%m-%d')}.md"
     filepath = os.path.join(config.MAILBOX_DIR, filename)
 

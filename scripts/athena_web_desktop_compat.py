@@ -14,13 +14,12 @@ import os
 import re
 import secrets
 import shutil
-import socket
 import subprocess
 import sys
 import urllib.error
 import urllib.parse
 import urllib.request
-from datetime import datetime, timedelta, timezone
+from datetime import UTC, datetime, timedelta
 from email.utils import formatdate
 from http import HTTPStatus
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
@@ -73,7 +72,7 @@ try:
 
     get_registry = _get_registry
     PROVIDER_REGISTRY_AVAILABLE = True
-except ImportError as e:
+except ImportError:
     # provider registry 不可用，使用默认值
     pass
 
@@ -89,7 +88,7 @@ try:
 
     get_cost_tracker = _get_cost_tracker
     COST_TRACKER_AVAILABLE = True
-except ImportError as e:
+except ImportError:
     # 成本跟踪器不可用，使用降级逻辑
     pass
 
@@ -105,7 +104,7 @@ try:
 
     get_runtime = _get_runtime
     CHAT_RUNTIME_AVAILABLE = True
-except ImportError as e:
+except ImportError:
     # chat runtime 不可用，使用降级逻辑
     pass
 
@@ -725,11 +724,10 @@ def compute_route_status(
     active_consumer = False
     for item in running_items:
         runner_pid = item.get("runner_pid")
-        if isinstance(runner_pid, int) and runner_pid > 0:
-            if is_pid_alive(runner_pid):
-                # 可选：检查心跳新鲜度（暂不实现）
-                active_consumer = True
-                break
+        if isinstance(runner_pid, int) and runner_pid > 0 and is_pid_alive(runner_pid):
+            # 可选：检查心跳新鲜度（暂不实现）
+            active_consumer = True
+            break
 
     # 如果有活跃的 consumer，则为 running 状态
     if active_consumer:
@@ -1006,12 +1004,12 @@ def load_control_plane_config() -> dict[str, Any]:
     try:
         import yaml
 
-        with open(config_path, "r", encoding="utf-8") as f:
+        with open(config_path, encoding="utf-8") as f:
             config = yaml.safe_load(f)
 
         # 提取关键信息
         version = config.get("version", "unknown")
-        scopes = list(config.keys()) if isinstance(config, dict) else []
+        list(config.keys()) if isinstance(config, dict) else []
 
         # 检查本地优先策略
         local_first = config.get("local_first_policy", {})
@@ -1104,7 +1102,7 @@ def build_status_payload() -> dict[str, Any]:
                 # fallback_available 可以根据 chat_state 推断：如果状态为 fallback_only 则 fallback 可用
                 fallback_available = chat_state_value == "fallback_only"
                 fallback_reason = "runtime 状态"
-        except Exception as e:
+        except Exception:
             # 如果 runtime 获取失败，保留默认值（降级逻辑）
             pass
 
@@ -1227,14 +1225,14 @@ def build_cost_summary() -> dict[str, Any]:
             "success": False,
             "error": "成本跟踪器不可用",
             "available": False,
-            "timestamp": datetime.now(timezone.utc).isoformat(),
+            "timestamp": datetime.now(UTC).isoformat(),
         }
 
     try:
         cost_tracker = get_cost_tracker()
 
         # 获取最近30天的数据
-        end_date = datetime.now(timezone.utc).date()
+        end_date = datetime.now(UTC).date()
         start_date = end_date - timedelta(days=30)
 
         # 获取摘要
@@ -1251,7 +1249,7 @@ def build_cost_summary() -> dict[str, Any]:
         return {
             "success": True,
             "available": True,
-            "timestamp": datetime.now(timezone.utc).isoformat(),
+            "timestamp": datetime.now(UTC).isoformat(),
             "summary": {
                 "total_cost": summary.total_cost if hasattr(summary, "total_cost") else 0.0,
                 "total_records": summary.total_records if hasattr(summary, "total_records") else 0,
@@ -1272,7 +1270,7 @@ def build_cost_summary() -> dict[str, Any]:
             "success": False,
             "error": str(e),
             "available": COST_TRACKER_AVAILABLE,
-            "timestamp": datetime.now(timezone.utc).isoformat(),
+            "timestamp": datetime.now(UTC).isoformat(),
         }
 
 
@@ -1283,14 +1281,14 @@ def build_cost_provider_breakdown() -> dict[str, Any]:
             "success": False,
             "error": "成本跟踪器不可用",
             "available": False,
-            "timestamp": datetime.now(timezone.utc).isoformat(),
+            "timestamp": datetime.now(UTC).isoformat(),
         }
 
     try:
         cost_tracker = get_cost_tracker()
 
         # 获取最近30天的数据
-        end_date = datetime.now(timezone.utc).date()
+        end_date = datetime.now(UTC).date()
         start_date = end_date - timedelta(days=30)
 
         provider_breakdown = cost_tracker.get_provider_breakdown(
@@ -1300,7 +1298,7 @@ def build_cost_provider_breakdown() -> dict[str, Any]:
         return {
             "success": True,
             "available": True,
-            "timestamp": datetime.now(timezone.utc).isoformat(),
+            "timestamp": datetime.now(UTC).isoformat(),
             "period": {
                 "start_date": start_date.strftime("%Y-%m-%d"),
                 "end_date": end_date.strftime("%Y-%m-%d"),
@@ -1313,7 +1311,7 @@ def build_cost_provider_breakdown() -> dict[str, Any]:
             "success": False,
             "error": str(e),
             "available": COST_TRACKER_AVAILABLE,
-            "timestamp": datetime.now(timezone.utc).isoformat(),
+            "timestamp": datetime.now(UTC).isoformat(),
         }
 
 
@@ -1324,7 +1322,7 @@ def build_cost_task_kind_analysis() -> dict[str, Any]:
             "success": False,
             "error": "成本跟踪器不可用",
             "available": False,
-            "timestamp": datetime.now(timezone.utc).isoformat(),
+            "timestamp": datetime.now(UTC).isoformat(),
         }
 
     try:
@@ -1335,7 +1333,7 @@ def build_cost_task_kind_analysis() -> dict[str, Any]:
         return {
             "success": True,
             "available": True,
-            "timestamp": datetime.now(timezone.utc).isoformat(),
+            "timestamp": datetime.now(UTC).isoformat(),
             "task_kind_analysis": task_kind_analysis,
         }
     except Exception as e:
@@ -1343,7 +1341,7 @@ def build_cost_task_kind_analysis() -> dict[str, Any]:
             "success": False,
             "error": str(e),
             "available": COST_TRACKER_AVAILABLE,
-            "timestamp": datetime.now(timezone.utc).isoformat(),
+            "timestamp": datetime.now(UTC).isoformat(),
         }
 
 
@@ -1354,14 +1352,14 @@ def build_cost_savings() -> dict[str, Any]:
             "success": False,
             "error": "成本跟踪器不可用",
             "available": False,
-            "timestamp": datetime.now(timezone.utc).isoformat(),
+            "timestamp": datetime.now(UTC).isoformat(),
         }
 
     try:
         cost_tracker = get_cost_tracker()
 
         # 获取最近30天的数据
-        end_date = datetime.now(timezone.utc).date()
+        end_date = datetime.now(UTC).date()
         start_date = end_date - timedelta(days=30)
 
         provider_breakdown = cost_tracker.get_provider_breakdown(
@@ -1406,7 +1404,7 @@ def build_cost_savings() -> dict[str, Any]:
         return {
             "success": True,
             "available": True,
-            "timestamp": datetime.now(timezone.utc).isoformat(),
+            "timestamp": datetime.now(UTC).isoformat(),
             "period": {
                 "start_date": start_date.strftime("%Y-%m-%d"),
                 "end_date": end_date.strftime("%Y-%m-%d"),
@@ -1431,7 +1429,7 @@ def build_cost_savings() -> dict[str, Any]:
             "success": False,
             "error": str(e),
             "available": COST_TRACKER_AVAILABLE,
-            "timestamp": datetime.now(timezone.utc).isoformat(),
+            "timestamp": datetime.now(UTC).isoformat(),
         }
 
 
@@ -1498,7 +1496,7 @@ def create_manifest_task(payload: dict[str, Any]) -> dict[str, Any]:
 
 ## 原始消息
 ```
-{description.split('用户聊天消息:')[-1].strip() if '用户聊天消息:' in description else description}
+{description.split("用户聊天消息:")[-1].strip() if "用户聊天消息:" in description else description}
 ```
 
 ## 执行要求
@@ -1554,7 +1552,9 @@ def create_manifest_task(payload: dict[str, Any]) -> dict[str, Any]:
         "executor": (
             "codex"
             if entry_stage in {"plan", "review"}
-            else "opencode" if entry_stage == "build" else "local"
+            else "opencode"
+            if entry_stage == "build"
+            else "local"
         ),
         "risk_level": risk_level,
         "status": "pending",
@@ -1790,11 +1790,7 @@ class AthenaCompatHandler(BaseHTTPRequestHandler):
     server_version = "AthenaCompat/1.0"
 
     def log_message(self, format: str, *args: Any) -> None:
-        line = "%s - - [%s] %s\n" % (
-            self.address_string(),
-            self.log_date_time_string(),
-            format % args,
-        )
+        line = f"{self.address_string()} - - [{self.log_date_time_string()}] {format % args}\n"
         LOG_DIR.mkdir(parents=True, exist_ok=True)
         with (LOG_DIR / "athena_web_desktop_compat.log").open("a", encoding="utf-8") as handle:
             handle.write(line)

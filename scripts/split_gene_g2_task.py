@@ -5,14 +5,13 @@
 """
 
 import json
-import os
 from datetime import datetime
 from pathlib import Path
 
 
 def read_queue_file(queue_path):
     """读取队列文件"""
-    with open(queue_path, "r", encoding="utf-8") as f:
+    with open(queue_path, encoding="utf-8") as f:
         return json.load(f)
 
 
@@ -33,8 +32,8 @@ def split_g2_task(original_task, instruction_file_path):
     """
 
     # 读取指令文件内容
-    with open(instruction_file_path, "r", encoding="utf-8") as f:
-        content = f.read()
+    with open(instruction_file_path, encoding="utf-8") as f:
+        f.read()
 
     # 基于文档结构拆分子任务
     # 文档包含阶段3.1和阶段3.2，以及验证部分
@@ -251,7 +250,7 @@ def main():
     save_queue_file(queue_path, updated_data)
 
     print("✅ 任务拆分完成!")
-    print(f"📊 队列状态更新:")
+    print("📊 队列状态更新:")
     print(f"   原任务: {original_task_id} -> completed")
     print(f"   新增子任务: {len(sub_tasks)} 个")
     print(f"   队列状态: {updated_data['queue_status']}")

@@ -11,7 +11,7 @@ from datetime import datetime
 
 def load_json(filepath):
     """加载JSON文件"""
-    with open(filepath, "r", encoding="utf-8") as f:
+    with open(filepath, encoding="utf-8") as f:
         return json.load(f)
 
 
@@ -68,11 +68,11 @@ def main():
 
     completion_rate = (finished_tasks / total_tasks) * 100
 
-    print(f"\n任务状态统计:")
+    print("\n任务状态统计:")
     for status, count in sorted(status_counts.items()):
         print(f"  {status}: {count}")
 
-    print(f"\n完成度统计:")
+    print("\n完成度统计:")
     print(f"  总任务数: {total_tasks}")
     print(f"  已完成: {completed_tasks}")
     print(f"  已失败: {failed_tasks}")

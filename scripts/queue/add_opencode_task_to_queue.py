@@ -46,7 +46,7 @@ def add_opencode_task_to_queue():
 
     try:
         # 加载当前队列状态
-        with open(queue_file, "r", encoding="utf-8") as f:
+        with open(queue_file, encoding="utf-8") as f:
             queue_state = json.load(f)
 
         print(f"📊 当前队列状态: {queue_state.get('queue_status', 'unknown')}")
@@ -99,7 +99,7 @@ def add_opencode_task_to_queue():
             json.dump(queue_state, f, indent=2, ensure_ascii=False)
 
         print("✅ OpenCode CLI优化任务已成功添加到队列")
-        print(f"🎯 当前任务: opencode_cli_optimization")
+        print("🎯 当前任务: opencode_cli_optimization")
         print(f"📊 新队列状态: {queue_state['queue_status']}")
         print(f"📈 任务计数: pending={counts['pending']}, running={counts['running']}")
 

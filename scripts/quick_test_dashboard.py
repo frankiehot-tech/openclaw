@@ -1,4 +1,6 @@
 #!/usr/bin/env python3
+# DEPRECATED: 使用 governance/ 模块代替
+# governance_cli.py <command>
 """
 快速测试仪表板API（不使用真实服务器）
 """
@@ -38,7 +40,7 @@ def test_endpoints():
         response = client.get("/api/migration/current_metrics")
         if response.status_code == 200:
             data = response.get_json()
-            print(f"   ✅ 成功")
+            print("   ✅ 成功")
             print(f"     成本节省: {data.get('cost_savings_percent', 0):.1f}%")
             print(f"     总请求数: {data.get('total_requests', 0)}")
             print(f"     DashScope请求: {data.get('dashscope_requests', 0)}")

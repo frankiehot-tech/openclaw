@@ -3,8 +3,7 @@
 
 import json
 import os
-import time
-from datetime import datetime, timedelta
+from datetime import datetime
 
 
 def analyze_stale_tasks():
@@ -19,7 +18,7 @@ def analyze_stale_tasks():
         if file_name.endswith(".json"):
             file_path = os.path.join(queue_dir, file_name)
             try:
-                with open(file_path, "r", encoding="utf-8") as f:
+                with open(file_path, encoding="utf-8") as f:
                     data = json.load(f)
 
                 for task_id, task_data in data.get("items", {}).items():
@@ -68,7 +67,7 @@ def cleanup_stale_tasks(stale_tasks):
 
         try:
             # 读取队列文件
-            with open(task_info["file_path"], "r", encoding="utf-8") as f:
+            with open(task_info["file_path"], encoding="utf-8") as f:
                 data = json.load(f)
 
             task_id = task_info["task_id"]
@@ -83,10 +82,10 @@ def cleanup_stale_tasks(stale_tasks):
                 with open(task_info["file_path"], "w", encoding="utf-8") as f:
                     json.dump(data, f, ensure_ascii=False, indent=2)
 
-                print(f"  ✅ 已标记为failed状态")
+                print("  ✅ 已标记为failed状态")
                 cleaned_count += 1
             else:
-                print(f"  ❌ 任务不存在于队列文件中")
+                print("  ❌ 任务不存在于队列文件中")
 
         except Exception as e:
             print(f"  ❌ 清理失败: {e}")
@@ -142,7 +141,7 @@ def main():
     print("清理完成！")
     print("=" * 60)
 
-    print(f"\n📊 清理统计:")
+    print("\n📊 清理统计:")
     print(f"  发现陈旧任务: {len(stale_tasks)} 个")
     print(f"  清理成功: {cleaned_count} 个")
 

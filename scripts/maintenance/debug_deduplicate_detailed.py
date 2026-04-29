@@ -3,7 +3,6 @@
 详细调试deduplicate错误
 """
 
-import json
 import sys
 
 sys.path.insert(0, "/Volumes/1TB-M2/openclaw")
@@ -20,11 +19,10 @@ if contract.load_manifest():
 
     # 检查所有items的data字段类型
     for i, item in enumerate(contract.items):
-        if hasattr(item, "data"):
-            if not isinstance(item.data, dict):
-                print(f"警告: item {i} (id={item.id}) data类型为 {type(item.data)}")
-                print(f"      data值: {str(item.data)[:200]}")
-                break
+        if hasattr(item, "data") and not isinstance(item.data, dict):
+            print(f"警告: item {i} (id={item.id}) data类型为 {type(item.data)}")
+            print(f"      data值: {str(item.data)[:200]}")
+            break
     else:
         print("所有item.data都是字典类型")
 

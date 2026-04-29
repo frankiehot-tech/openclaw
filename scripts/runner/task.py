@@ -16,25 +16,20 @@ if str(_scripts_dir) not in sys.path:
 
 try:
     from .openclaw_roots import (
-        LOG_DIR,
-        PLAN_CONFIG_PATH,
-        PLAN_DIR,
-        QUEUE_STATE_DIR,
-        RUNTIME_ROOT,
-        TASKS_DIR,
         TASKS_PATH,
-        pid_file,
     )
 except ImportError:
     import sys
+
     from openclaw_roots import (
         TASKS_PATH,
     )
 
-from .route_state import mutate_route_state, route_current_item_ids, load_route_state
-
-from .state import record_performance_metric
-from .utils import now_iso, read_json, write_json, clip
+from .config import AUTO_RETRY_LIMIT, BLOCKED_RESCUE_RETRY_LIMIT
+from .failure import failure_text
+from .route_state import load_route_state, mutate_route_state, route_current_item_ids
+from .state import get_athena_state_sync_adapter, record_performance_metric
+from .utils import clip, now_iso, read_json, write_json
 
 
 def load_tasks_payload() -> dict[str, Any]:

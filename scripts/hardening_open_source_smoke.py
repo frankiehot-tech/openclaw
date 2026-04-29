@@ -19,7 +19,7 @@ import subprocess
 import sys
 from dataclasses import dataclass
 from pathlib import Path
-from typing import Any, Dict, List, Optional, Tuple
+from typing import Any
 
 import yaml
 
@@ -32,7 +32,7 @@ class SmokeTestResult:
     passed: bool
     details: str
     evidence: str
-    error: Optional[str] = None
+    error: str | None = None
 
 
 @dataclass
@@ -42,8 +42,8 @@ class SmokeTestReport:
     total_tests: int
     passed_tests: int
     failed_tests: int
-    results: List[SmokeTestResult]
-    summary: Dict[str, Any]
+    results: list[SmokeTestResult]
+    summary: dict[str, Any]
 
 
 class HardeningOpenSourceSmokeTester:
@@ -51,7 +51,7 @@ class HardeningOpenSourceSmokeTester:
 
     def __init__(self, project_root: Path):
         self.project_root = project_root
-        self.results: List[SmokeTestResult] = []
+        self.results: list[SmokeTestResult] = []
 
     def run_security_hardening_check(self) -> SmokeTestResult:
         """运行安全检查 (安全加固清单落点)"""
@@ -72,7 +72,7 @@ class HardeningOpenSourceSmokeTester:
                 )
 
             # 加载清单验证结构
-            with open(checklist_path, "r", encoding="utf-8") as f:
+            with open(checklist_path, encoding="utf-8") as f:
                 checklist = yaml.safe_load(f)
 
             # 验证必要字段
@@ -83,7 +83,7 @@ class HardeningOpenSourceSmokeTester:
                     test_name=test_name,
                     passed=False,
                     details=f"安全清单缺少必要字段: {missing_fields}",
-                    evidence=f"清单结构不完整",
+                    evidence="清单结构不完整",
                     error="安全清单格式错误",
                 )
 
@@ -182,7 +182,7 @@ class HardeningOpenSourceSmokeTester:
                     try:
                         error_data = json.loads(result.stdout if result.stdout else "{}")
                         error_msg = error_data.get("error", result.stderr[:200])
-                    except:
+                    except Exception:
                         error_msg = result.stderr[:200] if result.stderr else "未知错误"
 
                     return SmokeTestResult(
@@ -238,7 +238,7 @@ class HardeningOpenSourceSmokeTester:
                 )
 
             # 加载基线验证结构
-            with open(baseline_path, "r", encoding="utf-8") as f:
+            with open(baseline_path, encoding="utf-8") as f:
                 baseline = yaml.safe_load(f)
 
             # 验证必要字段
@@ -255,7 +255,7 @@ class HardeningOpenSourceSmokeTester:
                     test_name=test_name,
                     passed=False,
                     details=f"性能基线缺少必要字段: {missing_fields}",
-                    evidence=f"基线结构不完整",
+                    evidence="基线结构不完整",
                     error="性能基线格式错误",
                 )
 
@@ -285,7 +285,7 @@ class HardeningOpenSourceSmokeTester:
                             test_name=test_name,
                             passed=True,
                             details="性能监控脚本可执行",
-                            evidence=f"性能监控帮助输出正常",
+                            evidence="性能监控帮助输出正常",
                         )
                     else:
                         return SmokeTestResult(
@@ -300,7 +300,7 @@ class HardeningOpenSourceSmokeTester:
                         test_name=test_name,
                         passed=False,
                         details="性能测试脚本不存在",
-                        evidence=f"未找到 test_performance_smoke.py 或 performance_monitor.py",
+                        evidence="未找到 test_performance_smoke.py 或 performance_monitor.py",
                         error="性能测试未实现",
                     )
 
@@ -381,7 +381,7 @@ class HardeningOpenSourceSmokeTester:
                     test_name=test_name,
                     passed=False,
                     details=f"开源就绪文档缺少必要章节: {missing_sections}",
-                    evidence=f"文档不完整",
+                    evidence="文档不完整",
                     error="开源就绪文档结构不完整",
                 )
 
@@ -599,7 +599,7 @@ class HardeningOpenSourceSmokeTester:
             lines.append("=" * 70)
             return "\n".join(lines)
 
-    def _generate_recommendations(self, report: SmokeTestReport) -> List[str]:
+    def _generate_recommendations(self, report: SmokeTestReport) -> list[str]:
         """生成建议"""
         recommendations = []
 

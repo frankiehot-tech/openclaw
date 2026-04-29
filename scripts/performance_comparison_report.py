@@ -10,7 +10,6 @@ import json
 import statistics
 import sys
 from datetime import datetime
-from pathlib import Path
 
 # 性能目标阈值
 PERFORMANCE_TARGETS = {
@@ -41,7 +40,7 @@ class PerformanceComparison:
     def load_stress_test_data(self, file_path: str) -> dict:
         """加载压力测试数据"""
         try:
-            with open(file_path, "r", encoding="utf-8") as f:
+            with open(file_path, encoding="utf-8") as f:
                 return json.load(f)
         except Exception as e:
             print(f"加载压力测试数据失败 {file_path}: {e}")
@@ -67,7 +66,9 @@ class PerformanceComparison:
         p95_latency = (
             statistics.quantiles(latencies, n=20)[18]
             if len(latencies) >= 20
-            else max(latencies) if latencies else 0
+            else max(latencies)
+            if latencies
+            else 0
         )
 
         self.results["comparison"]["actual_10tpm"] = {
@@ -103,7 +104,9 @@ class PerformanceComparison:
         p95_latency = (
             statistics.quantiles(latencies, n=20)[18]
             if len(latencies) >= 20
-            else max(latencies) if latencies else 0
+            else max(latencies)
+            if latencies
+            else 0
         )
 
         # 计算吞吐量达成率
@@ -245,7 +248,11 @@ class PerformanceComparison:
             unit = (
                 "任务/分钟"
                 if "throughput" in key
-                else "%" if "percent" in key else "秒" if "latency" in key else "%"
+                else "%"
+                if "percent" in key
+                else "秒"
+                if "latency" in key
+                else "%"
             )
             report_lines.append(f"  • {key}: {value}{unit}")
 

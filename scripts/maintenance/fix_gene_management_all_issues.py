@@ -1,4 +1,6 @@
 #!/usr/bin/env python3
+# DEPRECATED: 使用 governance/ 模块代替
+# governance_cli.py repair <command> 或 governance_cli.py queue fix
 """
 综合修复基因管理队列所有问题
 包括：队列manual_hold状态、instruction_path缺失任务、API key错误、手动拉起功能测试
@@ -6,17 +8,14 @@
 
 import json
 import os
-import shutil
 import subprocess
-import sys
-import time
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 
 
 def load_queue_state(queue_file):
     """加载队列状态文件"""
     try:
-        with open(queue_file, "r", encoding="utf-8") as f:
+        with open(queue_file, encoding="utf-8") as f:
             return json.load(f)
     except Exception as e:
         print(f"❌ 加载队列状态失败: {e}")
@@ -45,14 +44,14 @@ def diagnose_queue_problems(queue_state):
     counts = queue_state.get("counts", {})
 
     # 1. 队列状态问题
-    print(f"\n📊 队列状态分析:")
+    print("\n📊 队列状态分析:")
     print(f"  • queue_status: {queue_state.get('queue_status', 'unknown')}")
     print(f"  • pause_reason: {queue_state.get('pause_reason', 'unknown')}")
     print(f"  • current_item_id: {queue_state.get('current_item_id', '空')}")
     print(f"  • updated_at: {queue_state.get('updated_at', 'unknown')}")
 
     # 2. 任务统计
-    print(f"\n📈 任务统计:")
+    print("\n📈 任务统计:")
     print(f"  • pending: {counts.get('pending', 0)}")
     print(f"  • running: {counts.get('running', 0)}")
     print(f"  • completed: {counts.get('completed', 0)}")
@@ -93,13 +92,13 @@ def diagnose_queue_problems(queue_state):
     print(f"  • 其他失败: {len(other_failed)}个")
 
     if instruction_path_missing:
-        print(f"\n📝 instruction_path缺失任务:")
+        print("\n📝 instruction_path缺失任务:")
         for task_id in instruction_path_missing:
             task = items.get(task_id, {})
             print(f"  • {task_id}: {task.get('title', '无标题')[:50]}...")
 
     if api_key_errors:
-        print(f"\n🔑 API key错误任务:")
+        print("\n🔑 API key错误任务:")
         for task_id in api_key_errors:
             task = items.get(task_id, {})
             error = task.get("error", "无错误信息")
@@ -188,7 +187,7 @@ def check_dashscope_api_key():
     # 检查环境变量
     dashscope_key = os.environ.get("DASHSCOPE_API_KEY")
     if dashscope_key:
-        print(f"✅ 找到DASHSCOPE_API_KEY环境变量")
+        print("✅ 找到DASHSCOPE_API_KEY环境变量")
         print(f"   密钥前8位: {dashscope_key[:8]}...")
 
         # 测试API key
@@ -230,11 +229,11 @@ def check_dashscope_api_key():
         for config_file in config_files:
             if os.path.exists(config_file):
                 try:
-                    with open(config_file, "r", encoding="utf-8") as f:
+                    with open(config_file, encoding="utf-8") as f:
                         content = f.read()
                         if "DASHSCOPE" in content or "dashscope" in content:
                             print(f"💡 在 {config_file} 中找到DashScope相关配置")
-                except:
+                except Exception:
                     pass
 
         return False
@@ -259,7 +258,7 @@ def fix_api_key_error_tasks(queue_state, api_key_errors):
 
     # 修复任务
     for task_id in api_key_errors:
-        task = items.get(task_id, {})
+        items.get(task_id, {})
 
         # 清除错误，重新设置为pending状态
         items[task_id]["error"] = ""
@@ -305,13 +304,13 @@ def fix_queue_manual_hold_state(queue_state, manual_hold_tasks):
     queue_state["pause_reason"] = ""
     queue_state["current_item_id"] = first_task_id
     queue_state["current_item_ids"] = manual_hold_tasks
-    queue_state["updated_at"] = datetime.now(timezone.utc).isoformat()
+    queue_state["updated_at"] = datetime.now(UTC).isoformat()
 
     # 更新任务状态
     items[first_task_id]["status"] = "running"
     items[first_task_id]["progress_percent"] = 0
     if not items[first_task_id].get("started_at"):
-        items[first_task_id]["started_at"] = datetime.now(timezone.utc).isoformat()
+        items[first_task_id]["started_at"] = datetime.now(UTC).isoformat()
 
     # 其他manual_hold任务设置为pending
     for i, task_id in enumerate(manual_hold_tasks):
@@ -371,11 +370,11 @@ def test_manual_launch_functionality():
             )
 
             if api_check.returncode == 0:
-                print(f"✅ 手动拉起API端点存在")
+                print("✅ 手动拉起API端点存在")
                 try:
                     response = json.loads(api_check.stdout)
                     print(f"   API响应: {response}")
-                except:
+                except Exception:
                     print(f"   API响应 (原始): {api_check.stdout[:100]}...")
             else:
                 print(f"⚠️  手动拉起API端点可能有问题: {api_check.stderr[:100]}")

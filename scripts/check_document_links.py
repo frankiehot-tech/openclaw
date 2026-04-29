@@ -8,7 +8,6 @@ import argparse
 import os
 import re
 import sys
-from pathlib import Path
 from urllib.parse import urlparse
 
 
@@ -42,7 +41,7 @@ def find_markdown_files(directory):
 
 def extract_links_from_markdown(file_path):
     """从Markdown文件中提取所有链接"""
-    with open(file_path, "r", encoding="utf-8") as f:
+    with open(file_path, encoding="utf-8") as f:
         content = f.read()
 
     links = []
@@ -261,7 +260,7 @@ def check_document_links(directory, repair=False, output_file=None):
 
         # 进度显示
         if (i + 1) % 50 == 0:
-            print(f"  已检查 {i+1}/{len(all_links)} 个链接...")
+            print(f"  已检查 {i + 1}/{len(all_links)} 个链接...")
 
     # 输出结果
     if broken_links:
@@ -325,7 +324,7 @@ def find_possible_fixes(url, base_dir):
             target_name += ".md"
 
         # 在docs目录中搜索同名文件
-        for root, dirs, files in os.walk(os.path.join(base_dir, "docs")):
+        for root, _dirs, files in os.walk(os.path.join(base_dir, "docs")):
             for file in files:
                 if file == target_name:
                     rel_path = os.path.relpath(os.path.join(root, file), base_dir)
@@ -338,7 +337,7 @@ def save_repair_suggestions(suggestions, output_file):
     """保存修复建议到文件"""
     with open(output_file, "w", encoding="utf-8") as f:
         f.write("# 文档链接修复建议\n\n")
-        f.write(f"## 摘要\n")
+        f.write("## 摘要\n")
         f.write(f"- 发现 {len(suggestions)} 个需要修复的链接\n")
         f.write(f"- 生成时间: {os.path.basename(__file__)}\n\n")
 
@@ -373,7 +372,7 @@ def print_repair_suggestions(suggestions):
             print(f"   描述: {suggestion['description']}")
 
         if suggestion["possible_fixes"]:
-            print(f"   可能的修复:")
+            print("   可能的修复:")
             for fix in suggestion["possible_fixes"]:
                 print(f"     - {fix}")
 

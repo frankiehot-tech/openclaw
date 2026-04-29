@@ -1,4 +1,6 @@
 #!/usr/bin/env python3
+# DEPRECATED: 使用 governance/ 模块代替
+# governance_cli.py repair <command> 或 governance_cli.py queue fix
 """
 修复优先执行队列数据不一致问题
 - 从Web API获取实际的任务状态
@@ -7,10 +9,9 @@
 """
 
 import json
-import os
 import sys
 from pathlib import Path
-from typing import Any, Dict, List
+from typing import Any
 
 import requests
 
@@ -35,7 +36,7 @@ def load_auth_token() -> str:
     return "FxwdCOtBnl_e0wQJQ2107OUqWkPOBa67"
 
 
-def get_web_queue_status(token: str) -> Dict[str, Any]:
+def get_web_queue_status(token: str) -> dict[str, Any]:
     """从Web API获取队列状态"""
     headers = {"X-OpenClaw-Token": token}
 
@@ -64,14 +65,14 @@ def get_web_queue_status(token: str) -> Dict[str, Any]:
         return {}
 
 
-def update_queue_file(queue_file: Path, web_data: Dict[str, Any]) -> bool:
+def update_queue_file(queue_file: Path, web_data: dict[str, Any]) -> bool:
     """更新队列文件，同步状态"""
     if not queue_file.exists():
         print(f"队列文件不存在: {queue_file}")
         return False
 
     try:
-        with open(queue_file, "r", encoding="utf-8") as f:
+        with open(queue_file, encoding="utf-8") as f:
             file_data = json.load(f)
     except Exception as e:
         print(f"读取队列文件失败: {e}")
@@ -94,7 +95,7 @@ def update_queue_file(queue_file: Path, web_data: Dict[str, Any]) -> bool:
     file_items = file_data.get("items", [])
     updated_count = 0
 
-    for i, item in enumerate(file_items):
+    for _i, item in enumerate(file_items):
         task_id = item.get("id", "")
         if task_id in web_status_map:
             new_status = web_status_map[task_id]
@@ -142,7 +143,7 @@ def update_queue_file(queue_file: Path, web_data: Dict[str, Any]) -> bool:
         with open(queue_file, "w", encoding="utf-8") as f:
             json.dump(file_data, f, ensure_ascii=False, indent=2)
 
-        print(f"✅ 队列文件更新成功")
+        print("✅ 队列文件更新成功")
         print(f"   - 更新任务数: {updated_count}")
         print(f"   - 队列状态: {file_data['queue_status']}")
         print(f"   - 任务统计: {status_counts}")

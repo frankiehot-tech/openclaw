@@ -3,10 +3,10 @@
 
 import os
 import sys
-from pathlib import Path
 
 SKILLS_DIR = os.path.expanduser("~/.claude/skills")
 BUN_CACHE_PREFIX = os.path.expanduser("~/.bun/install/cache/")
+
 
 def check_skills():
     if not os.path.exists(SKILLS_DIR):

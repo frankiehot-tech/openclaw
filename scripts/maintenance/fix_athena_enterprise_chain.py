@@ -1,10 +1,11 @@
 #!/usr/bin/env python3
+# DEPRECATED: 使用 governance/ 模块代替
+# governance_cli.py repair <command> 或 governance_cli.py queue fix
 """
 修复athena_enterprise依赖链的过时阻塞警告
 """
 
 import json
-import os
 import re
 import shutil
 from datetime import datetime
@@ -14,7 +15,7 @@ def main():
     state_file = ".openclaw/plan_queue/openhuman_aiplan_build_priority_20260328.json"
 
     print(f"加载状态文件: {state_file}")
-    with open(state_file, "r", encoding="utf-8") as f:
+    with open(state_file, encoding="utf-8") as f:
         data = json.load(f)
 
     items = data.get("items", {})
@@ -55,7 +56,7 @@ def main():
                             all_deps_completed = False
 
                     if all_deps_completed:
-                        print(f"   ✅ 所有依赖任务已完成，解除阻塞")
+                        print("   ✅ 所有依赖任务已完成，解除阻塞")
                         task["summary"] = "依赖已解除，等待执行"
                         task["pipeline_summary"] = "pending"
                         fixed_count += 1
@@ -88,7 +89,7 @@ def main():
 
         # 创建备份
         backup = (
-            state_file + f'.athena_enterprise_fix_backup_{datetime.now().strftime("%Y%m%d_%H%M%S")}'
+            state_file + f".athena_enterprise_fix_backup_{datetime.now().strftime('%Y%m%d_%H%M%S')}"
         )
         shutil.copy2(state_file, backup)
         print(f"\n✅ 创建备份: {backup}")
@@ -97,12 +98,12 @@ def main():
         with open(state_file, "w", encoding="utf-8") as f:
             json.dump(data, f, ensure_ascii=False, indent=2)
 
-        print(f"\n📊 修复完成:")
+        print("\n📊 修复完成:")
         print(f"  修复任务数: {fixed_count}")
         print(f"  新counts: {json.dumps(counts, ensure_ascii=False)}")
         print(f"  新queue_status: {data['queue_status']}")
     else:
-        print(f"\n⚠️  没有需要修复的过时依赖警告")
+        print("\n⚠️  没有需要修复的过时依赖警告")
 
     return 0
 

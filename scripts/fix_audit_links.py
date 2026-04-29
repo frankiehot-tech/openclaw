@@ -1,4 +1,6 @@
 #!/usr/bin/env python3
+# DEPRECATED: 使用 governance/ 模块代替
+# governance_cli.py repair <command> 或 governance_cli.py queue fix
 """
 修复审计文档链接脚本
 解决审计文件命名不一致（下划线vs短横线）的问题
@@ -43,7 +45,7 @@ def audit_file_mapping():
 
 def fix_links_in_file(file_path, mapping):
     """修复文件中的链接"""
-    with open(file_path, "r", encoding="utf-8") as f:
+    with open(file_path, encoding="utf-8") as f:
         content = f.read()
 
     original_content = content
@@ -183,7 +185,7 @@ def main():
             missing_files.append(old_link)
 
     if missing_files:
-        print(f"\n💡 建议:")
+        print("\n💡 建议:")
         print("  1. 创建缺失的文档文件（如gstack-integration.md）")
         print("  2. 或更新文档中的链接指向现有文件")
         print("  3. 或从文档中移除这些无效链接")

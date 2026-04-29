@@ -4,8 +4,6 @@
 """
 
 import json
-import os
-import sys
 
 QUEUE_FILE = (
     "/Volumes/1TB-M2/openclaw/.openclaw/plan_queue/openhuman_aiplan_build_priority_20260328.json"
@@ -18,13 +16,13 @@ def simulate_materialize_route_items():
     print("模拟materialize_route_items逻辑...")
 
     # 读取manifest
-    with open(MANIFEST_FILE, "r", encoding="utf-8") as f:
+    with open(MANIFEST_FILE, encoding="utf-8") as f:
         manifest_data = json.load(f)
     manifest_items = manifest_data.get("items", [])
     print(f"manifest项目数: {len(manifest_items)}")
 
     # 读取队列状态
-    with open(QUEUE_FILE, "r", encoding="utf-8") as f:
+    with open(QUEUE_FILE, encoding="utf-8") as f:
         route_state = json.load(f)
     items_state = route_state.get("items", {})
     print(f"队列状态项目数: {len(items_state)}")
@@ -136,7 +134,7 @@ def main():
     # 2. 显示前几个项目的状态
     print("\n前10个项目的状态:")
     for i, item in enumerate(materialized_items[:10]):
-        print(f"  {i+1}. {item.get('id')}: {item.get('status')}, 依赖: {item.get('depends_on')}")
+        print(f"  {i + 1}. {item.get('id')}: {item.get('status')}, 依赖: {item.get('depends_on')}")
 
     # 3. 统计状态分布
     status_counts = {}
@@ -154,7 +152,7 @@ def main():
     print(f"\n最终状态决策: {status}")
 
     # 5. 与实际队列状态比较
-    with open(QUEUE_FILE, "r", encoding="utf-8") as f:
+    with open(QUEUE_FILE, encoding="utf-8") as f:
         queue_data = json.load(f)
 
     actual_status = queue_data.get("queue_status", "unknown")

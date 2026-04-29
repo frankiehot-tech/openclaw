@@ -4,31 +4,29 @@ AI 编程工具提示词集成脚本
 将生成的 Agent 提示词文件集成到 Athena-Open Human 系统中
 """
 
-import json
 import os
 import shutil
 from pathlib import Path
-from typing import Any, Dict, List, Optional
 
 import yaml
 
 
 class PromptIntegrator:
     """提示词集成器 - 将提示词文件集成到项目中"""
-    
+
     def __init__(self, project_root: str):
         self.project_root = Path(project_root)
         self.prompt_files = {
-            'architect': 'architect_agent_prompt.md',
-            'frontend': 'frontend_agent_prompt.md', 
-            'backend': 'backend_agent_prompt.md'
+            "architect": "architect_agent_prompt.md",
+            "frontend": "frontend_agent_prompt.md",
+            "backend": "backend_agent_prompt.md",
         }
-        
+
     def create_vscode_config(self):
         """创建 VS Code 配置文件"""
         vscode_dir = self.project_root / ".vscode"
         vscode_dir.mkdir(exist_ok=True)
-        
+
         # 创建 .cursorrules 文件
         cursor_rules = """# Cursor/Trae 规则配置
 
@@ -47,10 +45,10 @@ class PromptIntegrator:
 - 实现性能监控和日志记录
 - 确保代码的可测试性和可维护性
 """
-        
+
         with open(vscode_dir / ".cursorrules", "w", encoding="utf-8") as f:
             f.write(cursor_rules)
-        
+
         # 创建 roo-code-prompt.md 文件
         roo_prompt = """# Roo Code 系统提示词 - Athena-Open Human
 
@@ -106,17 +104,17 @@ interface Agent {
 - 考虑分布式部署需求
 - 确保代码的可测试性和可维护性
 """
-        
+
         with open(vscode_dir / "roo-code-prompt.md", "w", encoding="utf-8") as f:
             f.write(roo_prompt)
-        
+
         print("✅ VS Code 配置文件创建完成")
-    
+
     def create_cli_configs(self):
         """创建 CLI 工具配置文件"""
-        
+
         # 创建 codex.md 文件
-        codex_prompt = """# Codex CLI 提示词 - Athena-Open Human
+        codex_prompt = '''# Codex CLI 提示词 - Athena-Open Human
 
 ## 项目上下文
 你正在为 Athena-Open Human 多 Agent 系统开发代码。这是一个基于 LangGraph 的 AI 驱动自动化系统。
@@ -144,11 +142,11 @@ class AgentState(TypedDict):
 
 class BaseAgent:
     """Agent 基类"""
-    
+
     async def execute(self, state: AgentState) -> AgentState:
         """执行 Agent 任务"""
         pass
-    
+
     async def handle_error(self, error: Exception, state: AgentState) -> AgentState:
         """错误处理"""
         pass
@@ -166,7 +164,7 @@ class AgentRequest(BaseModel):
     """Agent 请求模型"""
     agent_id: str
     input_data: Dict[str, Any]
-    
+
 @app.post("/agents/{agent_id}/execute")
 async def execute_agent(
     agent_id: str,
@@ -179,7 +177,7 @@ async def execute_agent(
         result = await agent.execute(request.input_data)
         return {"status": "success", "result": result}
     except Exception as e:
-        raise HTTPException(status_code=500, detail=str(e))
+        return {"status": "error", "error": str(e)}
 ```
 
 ## 响应要求
@@ -187,13 +185,13 @@ async def execute_agent(
 - 包含适当的错误处理
 - 遵循项目的代码规范
 - 提供清晰的文档注释
-"""
-        
+'''
+
         with open(self.project_root / "codex.md", "w", encoding="utf-8") as f:
             f.write(codex_prompt)
-        
+
         # 创建 CLAUDE.md 文件
-        claude_prompt = """# Claude Code 提示词 - Athena-Open Human
+        claude_prompt = '''# Claude Code 提示词 - Athena-Open Human
 
 ## 系统概述
 Athena-Open Human 是一个基于 LangGraph 的多 Agent 系统，用于实现 AI 驱动的自动化工作流。
@@ -207,7 +205,7 @@ Athena-Open Human 是一个基于 LangGraph 的多 Agent 系统，用于实现 A
 
 ### 多 Agent 协作模式
 - **Researcher Agent**: 关键词挖掘、竞品分析、Query 获取
-- **Writer Agent**: 大纲生成、正文撰写、多版本输出  
+- **Writer Agent**: 大纲生成、正文撰写、多版本输出
 - **Validator Agent**: GEO 评分、事实核查、SEO 检查
 - **Publisher Agent**: 多平台发布、数据回流、索引提交
 
@@ -235,8 +233,6 @@ class AgentState(TypedDict):
 class AgentError(Exception):
     """Agent 错误基类"""
     def __init__(self, message: str, agent_id: str):
-        self.message = message
-        self.agent_id = agent_id
         super().__init__(f"[{agent_id}] {message}")
 ```
 
@@ -247,7 +243,7 @@ interface Agent {
   id: string;
   name: string;
   status: 'idle' | 'running' | 'error' | 'completed';
-  
+
   execute(state: AgentState): Promise<AgentState>;
   handleError(error: Error, state: AgentState): Promise<AgentState>;
 }
@@ -287,16 +283,16 @@ interface AgentState {
 - 包含适当的错误处理
 - 实现性能监控点
 - 提供清晰的日志记录
-"""
-        
+'''
+
         with open(self.project_root / "CLAUDE.md", "w", encoding="utf-8") as f:
             f.write(claude_prompt)
-        
+
         print("✅ CLI 配置文件创建完成")
-    
+
     def create_openclaw_config(self):
         """创建 OpenClaw 多 Agent 系统配置"""
-        
+
         openclaw_config = {
             "version": "1.0",
             "name": "Athena-Open Human Multi-Agent System",
@@ -305,53 +301,46 @@ interface AgentState {
                 "architect": {
                     "role": "系统架构师",
                     "prompt_file": "architect_agent_prompt.md",
-                    "capabilities": ["系统架构设计", "技术选型评估", "性能优化"]
+                    "capabilities": ["系统架构设计", "技术选型评估", "性能优化"],
                 },
                 "frontend": {
-                    "role": "前端工程师", 
+                    "role": "前端工程师",
                     "prompt_file": "frontend_agent_prompt.md",
-                    "capabilities": ["UI/UX 设计", "组件化开发", "性能优化"]
+                    "capabilities": ["UI/UX 设计", "组件化开发", "性能优化"],
                 },
                 "backend": {
                     "role": "后端工程师",
-                    "prompt_file": "backend_agent_prompt.md", 
-                    "capabilities": ["API 设计开发", "数据库设计", "安全认证"]
-                }
+                    "prompt_file": "backend_agent_prompt.md",
+                    "capabilities": ["API 设计开发", "数据库设计", "安全认证"],
+                },
             },
             "workflows": {
                 "geo_content_generation": {
                     "description": "GEO 内容生成工作流",
                     "agents": ["researcher", "writer", "validator", "publisher"],
-                    "state_schema": "GeoState"
+                    "state_schema": "GeoState",
                 },
                 "system_architecture": {
-                    "description": "系统架构设计工作流", 
+                    "description": "系统架构设计工作流",
                     "agents": ["architect", "frontend", "backend"],
-                    "state_schema": "ArchitectureState"
-                }
+                    "state_schema": "ArchitectureState",
+                },
             },
             "tools": {
                 "cli_wrappers": ["serpapi", "people-also-ask", "readability", "ollama-api"],
-                "caching": {
-                    "enabled": True,
-                    "strategy": "redis",
-                    "ttl": 3600
-                },
-                "monitoring": {
-                    "enabled": True,
-                    "tools": ["prometheus", "grafana"]
-                }
-            }
+                "caching": {"enabled": True, "strategy": "redis", "ttl": 3600},
+                "monitoring": {"enabled": True, "tools": ["prometheus", "grafana"]},
+            },
         }
-        
+
         with open(self.project_root / "openclaw.yaml", "w", encoding="utf-8") as f:
             yaml.dump(openclaw_config, f, allow_unicode=True, indent=2)
-        
+
         print("✅ OpenClaw 配置文件创建完成")
-    
+
     def create_deployment_scripts(self):
         """创建部署脚本"""
-        
+
         # 创建安装脚本
         install_script = """#!/bin/bash
 # Athena-Open Human 提示词系统安装脚本
@@ -395,13 +384,13 @@ echo "1. 配置你的 IDE 使用相应的提示词文件"
 echo "2. 运行 './scripts/integrate_prompts.py' 完成系统集成"
 echo "3. 开始使用多 Agent 系统进行开发"
 """
-        
+
         with open(self.project_root / "install.sh", "w", encoding="utf-8") as f:
             f.write(install_script)
-        
+
         # 设置执行权限
         os.chmod(self.project_root / "install.sh", 0o755)
-        
+
         # 创建部署脚本
         deploy_script = """#!/bin/bash
 # Athena-Open Human 提示词系统部署脚本
@@ -448,18 +437,18 @@ echo "- $PROJECT_DIR/.vscode/roo-code-prompt.md (Roo Code)"
 echo "- $PROJECT_DIR/agent_prompts/ (多 Agent 提示词)"
 echo "- $PROJECT_DIR/openclaw.yaml (OpenClaw 配置)"
 """
-        
+
         with open(self.project_root / "deploy.sh", "w", encoding="utf-8") as f:
             f.write(deploy_script)
-        
+
         # 设置执行权限
         os.chmod(self.project_root / "deploy.sh", 0o755)
-        
+
         print("✅ 部署脚本创建完成")
-    
+
     def create_integration_guide(self):
         """创建集成指南"""
-        
+
         guide = """# Athena-Open Human 提示词系统集成指南
 
 ## 🚀 快速开始
@@ -487,7 +476,7 @@ cd /Volumes/1TB-M2/openclaw
 codex  # 自动读取 codex.md
 ```
 
-#### Claude Code  
+#### Claude Code
 ```bash
 cd /Volumes/1TB-M2/openclaw
 claude  # 自动读取 CLAUDE.md
@@ -605,7 +594,7 @@ GRAFANA_URL=http://localhost:3000
 
 ### 业务指标
 - 内容生成成功率
-- 平均质量分数  
+- 平均质量分数
 - 发布成功率
 - 用户满意度
 
@@ -662,40 +651,40 @@ tar -czf prompt-system-backup-$(date +%Y%m%d).tar.gz \
 
 如有问题，请参考:
 - 项目文档: `README.md`
-- 架构文档: `ARCHITECTURE.md` 
+- 架构文档: `ARCHITECTURE.md`
 - 快速参考: `QUICKREF.md`
 
 或联系开发团队获取支持。
 """
-        
+
         with open(self.project_root / "INTEGRATION_GUIDE.md", "w", encoding="utf-8") as f:
             f.write(guide)
-        
+
         print("✅ 集成指南创建完成")
-    
+
     def run_integration(self):
         """运行完整的集成流程"""
         print("🚀 开始集成 Athena-Open Human 提示词系统...")
-        
+
         # 创建必要的目录
         (self.project_root / "agent_prompts").mkdir(exist_ok=True)
         (self.project_root / "patterns").mkdir(exist_ok=True)
-        
+
         # 执行集成步骤
         self.create_vscode_config()
         self.create_cli_configs()
         self.create_openclaw_config()
         self.create_deployment_scripts()
         self.create_integration_guide()
-        
+
         # 移动 Agent 提示词文件到专用目录
-        for agent_type, filename in self.prompt_files.items():
+        for _agent_type, filename in self.prompt_files.items():
             source_file = self.project_root / filename
             target_file = self.project_root / "agent_prompts" / filename
             if source_file.exists():
                 shutil.move(str(source_file), str(target_file))
                 print(f"✅ 移动 {filename} 到 agent_prompts/")
-        
+
         print("\n🎉 集成完成！")
         print("📋 下一步操作:")
         print("1. 运行 './install.sh' 完成系统初始化")
@@ -703,12 +692,14 @@ tar -czf prompt-system-backup-$(date +%Y%m%d).tar.gz \
         print("3. 开始使用多 Agent 系统进行开发")
         print("4. 参考 INTEGRATION_GUIDE.md 获取详细指南")
 
+
 def main():
     """主函数"""
     project_root = "/Volumes/1TB-M2/openclaw"
-    
+
     integrator = PromptIntegrator(project_root)
     integrator.run_integration()
+
 
 if __name__ == "__main__":
     main()

@@ -1,15 +1,17 @@
 #!/usr/bin/env python3
+# DEPRECATED: 使用 governance/ 模块代替
+# governance_cli.py repair <command> 或 governance_cli.py queue fix
 """
 修复队列依赖阻塞问题：
 1. 将缺失状态条目的任务添加到状态文件中（状态为pending）
 2. 检查跨队列依赖项，如果已完成，在当前状态文件中添加条目（状态为completed）
 3. 更新counts和队列状态
 """
-import json
-from pathlib import Path
-import sys
-import shutil
+
 import datetime
+import json
+import shutil
+from pathlib import Path
 
 # 路径
 state_path = Path(".openclaw/plan_queue/openhuman_aiplan_build_priority_20260328.json")
@@ -17,7 +19,9 @@ manifest_path = Path(".openclaw/plan_queue/openhuman_aiplan_priority_execution_2
 queue_dir = Path(".openclaw/plan_queue")
 
 # 备份原文件
-backup_path = state_path.with_suffix(".json.backup_" + datetime.datetime.now().strftime("%Y%m%d_%H%M%S"))
+backup_path = state_path.with_suffix(
+    ".json.backup_" + datetime.datetime.now().strftime("%Y%m%d_%H%M%S")
+)
 shutil.copy2(state_path, backup_path)
 print(f"备份状态文件到 {backup_path}")
 
@@ -71,7 +75,7 @@ for item_id in missing_ids:
         "stage": manifest_item.get("entry_stage", "build"),
         "instruction_path": manifest_item.get("instruction_path", ""),
         "updated_at": datetime.datetime.now().isoformat(),
-        "metadata": manifest_item.get("metadata", {})
+        "metadata": manifest_item.get("metadata", {}),
     }
     added_count += 1
 
@@ -98,7 +102,7 @@ for item_id in missing_ids:
                     "instruction_path": "",
                     "updated_at": datetime.datetime.now().isoformat(),
                     "finished_at": datetime.datetime.now().isoformat(),
-                    "summary": "自动标记为已完成（跨队列依赖）"
+                    "summary": "自动标记为已完成（跨队列依赖）",
                 }
                 deps_added += 1
                 print(f"  添加已完成依赖项: {dep_id}")

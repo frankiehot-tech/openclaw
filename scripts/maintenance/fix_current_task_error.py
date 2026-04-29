@@ -1,18 +1,19 @@
 #!/usr/bin/env python3
+# DEPRECATED: 使用 governance/ 模块代替
+# governance_cli.py repair <command> 或 governance_cli.py queue fix
 """
 修复当前任务的runner重启失败错误
 """
 
 import json
-import os
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 
 
 def fix_current_task_error():
     queue_file = "/Volumes/1TB-M2/openclaw/.openclaw/plan_queue/openhuman_aiplan_gene_management_20260405.json"
 
     try:
-        with open(queue_file, "r", encoding="utf-8") as f:
+        with open(queue_file, encoding="utf-8") as f:
             queue_state = json.load(f)
 
         current_item_id = queue_state.get("current_item_id", "")
@@ -40,11 +41,11 @@ def fix_current_task_error():
         current_task["progress_percent"] = 0
 
         if not current_task.get("started_at"):
-            current_task["started_at"] = datetime.now(timezone.utc).isoformat()
+            current_task["started_at"] = datetime.now(UTC).isoformat()
 
         # 更新队列状态
         queue_state["items"] = items
-        queue_state["updated_at"] = datetime.now(timezone.utc).isoformat()
+        queue_state["updated_at"] = datetime.now(UTC).isoformat()
 
         # 更新任务计数
         counts = queue_state.get("counts", {})
@@ -59,9 +60,9 @@ def fix_current_task_error():
         with open(queue_file, "w", encoding="utf-8") as f:
             json.dump(queue_state, f, indent=2, ensure_ascii=False)
 
-        print(f"\n✅ 任务修复完成:")
-        print(f"  • 状态从 'failed' 改为 'running'")
-        print(f"  • 错误信息已清除")
+        print("\n✅ 任务修复完成:")
+        print("  • 状态从 'failed' 改为 'running'")
+        print("  • 错误信息已清除")
         print(f"  • started_at: {current_task.get('started_at')}")
         print(
             f"  • 任务计数更新: running={counts.get('running', 0)}, failed={counts.get('failed', 0)}"

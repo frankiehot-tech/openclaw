@@ -10,9 +10,7 @@ import json
 import logging
 import os
 import sys
-from typing import Any, Dict, List, Tuple
-
-import yaml
+from typing import Any
 
 # 添加项目根目录到路径
 project_root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -32,13 +30,13 @@ logger = logging.getLogger(__name__)
 class StabilityGate:
     """稳定性门禁检查器"""
 
-    def __init__(self, config_path: Optional[str] = None):
+    def __init__(self, config_path: str | None = None):
         """初始化门禁检查器"""
         self.collector = StabilityMetricsCollector(config_path)
         self.config = self.collector.config
         logger.info("稳定性门禁检查器初始化完成")
 
-    def check_gate(self) -> Tuple[bool, Dict[str, Any]]:
+    def check_gate(self) -> tuple[bool, dict[str, Any]]:
         """
         执行门禁检查
 
@@ -72,7 +70,7 @@ class StabilityGate:
 
         return passed, result
 
-    def _apply_gate_rules(self, metrics: List[Any], alerts: List[Any]) -> Dict[str, Any]:
+    def _apply_gate_rules(self, metrics: list[Any], alerts: list[Any]) -> dict[str, Any]:
         """应用门禁规则"""
         results = {
             "data_integrity_check": self._check_data_integrity(metrics),
@@ -94,7 +92,7 @@ class StabilityGate:
         results["overall_pass"] = all_passed
         return results
 
-    def _check_data_integrity(self, metrics: List[Any]) -> Dict[str, Any]:
+    def _check_data_integrity(self, metrics: list[Any]) -> dict[str, Any]:
         """检查数据完整性"""
         # 查找数据完整性指标
         data_integrity_metric = next(
@@ -145,7 +143,7 @@ class StabilityGate:
             "severity": severity,
         }
 
-    def _check_threshold_violations(self, alerts: List[Any]) -> Dict[str, Any]:
+    def _check_threshold_violations(self, alerts: list[Any]) -> dict[str, Any]:
         """检查阈值违规"""
         # 检查是否有P0或P1告警
         p0_alerts = [a for a in alerts if a.severity == 0]
@@ -176,7 +174,7 @@ class StabilityGate:
             "severity": severity,
         }
 
-    def _check_data_freshness(self, metrics: List[Any]) -> Dict[str, Any]:
+    def _check_data_freshness(self, metrics: list[Any]) -> dict[str, Any]:
         """检查数据新鲜度"""
         # 检查指标时间戳的新鲜度
         now = datetime.now()
@@ -228,12 +226,12 @@ class StabilityGate:
             "severity": severity,
         }
 
-    def _check_critical_metrics_presence(self, metrics: List[Any]) -> Dict[str, Any]:
+    def _check_critical_metrics_presence(self, metrics: list[Any]) -> dict[str, Any]:
         """检查关键指标是否存在"""
         # 定义关键指标类型
         critical_metric_types = ["availability", "response_time", "error_rate"]
 
-        present_types = set(m.metric_type for m in metrics)
+        present_types = {m.metric_type for m in metrics}
         missing_types = set(critical_metric_types) - present_types
 
         # 应用门禁规则：必须存在所有关键指标
@@ -279,7 +277,7 @@ class StabilityGate:
 
         return passed
 
-    def _print_gate_result(self, result: Dict[str, Any]) -> None:
+    def _print_gate_result(self, result: dict[str, Any]) -> None:
         """打印门禁检查结果"""
         print("\n" + "=" * 60)
         print("OpenHuman MVP 稳定性门禁检查")
@@ -300,7 +298,7 @@ class StabilityGate:
             if "severity" in check_result and check_result["severity"] != "none":
                 print(f"    严重等级: {check_result['severity']}")
 
-        print(f"\n指标统计:")
+        print("\n指标统计:")
         print(f"  总指标数: {result['metric_count']}")
         print(f"  总告警数: {result['alert_count']}")
         for severity, count in result["alerts_by_severity"].items():
@@ -316,7 +314,6 @@ class StabilityGate:
 
 # 兼容性导入
 from datetime import datetime
-from typing import Optional
 
 
 def main():

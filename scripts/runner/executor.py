@@ -3,13 +3,14 @@
 
 from __future__ import annotations
 
+import json
 import logging
 import os
+import selectors
+import subprocess
 import sys
 import time
-import json
-import subprocess
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from pathlib import Path
 from typing import Any
 
@@ -22,16 +23,13 @@ if str(_scripts_dir) not in sys.path:
 try:
     from .openclaw_roots import (
         LOG_DIR,
-        PLAN_CONFIG_PATH,
         PLAN_DIR,
-        QUEUE_STATE_DIR,
         RUNTIME_ROOT,
         TASKS_DIR,
-        TASKS_PATH,
-        pid_file,
     )
 except ImportError:
     import sys
+
     from openclaw_roots import (
         LOG_DIR,
         PLAN_DIR,
@@ -39,44 +37,55 @@ except ImportError:
         TASKS_DIR,
     )
 
-from .utils import (
-    now_iso,
-    clip,
-    extract_structured_result,
-    codex_executable,
-    terminate_process_tree,
-    is_pid_alive,
-    resource_gate_message,
-    root_task_id_for,
+from .config import (
+    BUILD_TIMEOUT_SECONDS,
+    HEARTBEAT_TIMEOUT_SECONDS,
+    PLAN_TIMEOUT_SECONDS,
+    REVIEW_TIMEOUT_SECONDS,
+    STALE_TASK_TIMEOUT_SECONDS,
+    STALL_OUTPUT_TIMEOUT_SECONDS,
+    load_plan_config,
 )
-from .state import emit_event, record_performance_metric
+from .failure import failure_markdown, mark_stale_failed, success_markdown
 from .manifest import (
-    load_manifest_items,
-    update_manifest_instruction_path,
-    archive_instruction_path_if_needed,
     active_route_item_ids,
     append_generated_queue_items,
+    archive_instruction_path_if_needed,
+    load_manifest_items,
+    update_manifest_instruction_path,
 )
-from .route_state import (
-    route_runner_mode,
-    load_route_state,
-    route_matches_runner_modes,
-    add_route_current_item,
-    remove_route_current_item,
-)
-from .task import set_task_status, set_route_item_state
 from .preflight import (
     build_preflight_warnings,
-    review_preflight_warnings,
     plan_preflight_warnings,
-    validate_build_preflight,
+    render_plan_prompt,
     render_prompt,
     render_review_prompt,
-    render_plan_prompt,
+    review_preflight_warnings,
+    validate_build_preflight,
 )
-from .failure import failure_markdown, success_markdown, mark_stale_failed
-from .trace import create_task_workspace, update_trace_status_change, add_trace_artifact
-from .config import load_plan_config
+from .route_state import (
+    add_route_current_item,
+    load_route_state,
+    remove_route_current_item,
+    route_matches_runner_modes,
+    route_runner_mode,
+)
+from .state import EventType, HookPoint, emit_event, get_global_gate, record_performance_metric
+from .task import set_route_item_state, set_task_status
+from .trace import add_trace_artifact, create_task_workspace, update_trace_status_change
+from .utils import (
+    clip,
+    codex_executable,
+    extract_structured_result,
+    is_pid_alive,
+    now_iso,
+    resource_gate_message,
+    root_task_id_for,
+    terminate_process_tree,
+)
+
+# Module-level flag: set to True by signal handler to request graceful shutdown
+STOP_REQUESTED = False
 
 
 def spawn_build_worker(
@@ -109,7 +118,7 @@ def spawn_build_worker(
             normalized_item_id = normalized.id
         except Exception as e:
             print(f"⚠️  [TaskIdentityContract] 规范化失败: {e}", file=sys.stderr)
-            print(f"⚠️  [TaskIdentityContract] 使用快速修复: 添加'task_'前缀", file=sys.stderr)
+            print("⚠️  [TaskIdentityContract] 使用快速修复: 添加'task_'前缀", file=sys.stderr)
             # 快速回退修复
             if item_id.startswith("-") or item_id.startswith("+"):
                 normalized_item_id = "task_" + item_id[1:]
@@ -253,7 +262,7 @@ def execute_build_item(route: dict[str, Any], item: dict[str, Any]) -> None:
     task_id = root_task_id_for(item, stage)
     task_dir = TASKS_DIR / task_id
     task_dir.mkdir(parents=True, exist_ok=True)
-    workspace_paths = create_task_workspace(task_dir)
+    create_task_workspace(task_dir)
     stdout_log = task_dir / "stdout.log"
     request_json = task_dir / "request.json"
     build_md = task_dir / "build.md"
@@ -2068,8 +2077,8 @@ def detect_and_cleanup_stale_runs(routes: list[dict[str, Any]]) -> None:
                         runner_heartbeat_at.replace("Z", "+00:00")
                     )
                     if heartbeat_time.tzinfo is None:
-                        heartbeat_time = heartbeat_time.replace(tzinfo=timezone.utc)
-                    now = datetime.now(timezone.utc)
+                        heartbeat_time = heartbeat_time.replace(tzinfo=UTC)
+                    now = datetime.now(UTC)
                     delta = (now - heartbeat_time).total_seconds()
                     if delta > HEARTBEAT_TIMEOUT_SECONDS:
                         mark_stale_failed(
@@ -2089,8 +2098,8 @@ def detect_and_cleanup_stale_runs(routes: list[dict[str, Any]]) -> None:
                 try:
                     update_time = datetime.fromisoformat(updated_at.replace("Z", "+00:00"))
                     if update_time.tzinfo is None:
-                        update_time = update_time.replace(tzinfo=timezone.utc)
-                    now = datetime.now(timezone.utc)
+                        update_time = update_time.replace(tzinfo=UTC)
+                    now = datetime.now(UTC)
                     delta = (now - update_time).total_seconds()
                     if delta > STALE_TASK_TIMEOUT_SECONDS:
                         mark_stale_failed(
@@ -2112,10 +2121,10 @@ def detect_and_cleanup_stale_runs(routes: list[dict[str, Any]]) -> None:
                         # Parse ISO timestamp, convert to UTC
                         start_time = datetime.fromisoformat(started_at.replace("Z", "+00:00"))
                         if start_time.tzinfo is None:
-                            start_time = start_time.replace(tzinfo=timezone.utc)
+                            start_time = start_time.replace(tzinfo=UTC)
                         else:
-                            start_time = start_time.astimezone(timezone.utc)
-                        now = datetime.now(timezone.utc)
+                            start_time = start_time.astimezone(UTC)
+                        now = datetime.now(UTC)
                         delta = (now - start_time).total_seconds()
                         if delta > STALE_TASK_TIMEOUT_SECONDS:
                             mark_stale_failed(
@@ -2144,8 +2153,8 @@ def detect_and_cleanup_stale_runs(routes: list[dict[str, Any]]) -> None:
                                     started_at.replace("Z", "+00:00")
                                 )
                                 if start_time.tzinfo is None:
-                                    start_time = start_time.replace(tzinfo=timezone.utc)
-                                time_since_start = datetime.now(timezone.utc) - start_time
+                                    start_time = start_time.replace(tzinfo=UTC)
+                                time_since_start = datetime.now(UTC) - start_time
                                 # 如果在30秒启动宽限期内，不要标记为失败（从120秒优化）
                                 if time_since_start.total_seconds() < 30:
                                     continue
@@ -2180,7 +2189,7 @@ def maybe_mark_restarted_runs_failed(routes: list[dict[str, Any]]) -> None:
             if started_at:
                 try:
                     start_time = datetime.fromisoformat(started_at.replace("Z", "+00:00"))
-                    time_since_start = datetime.now(timezone.utc) - start_time
+                    time_since_start = datetime.now(UTC) - start_time
                     # 如果在启动宽限期内，不要标记为失败
                     if time_since_start.total_seconds() < STARTUP_GRACE_PERIOD_SECONDS:
                         continue

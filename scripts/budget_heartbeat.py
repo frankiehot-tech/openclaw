@@ -13,10 +13,9 @@
 
 import json
 import logging
-import os
 import sys
 from pathlib import Path
-from typing import Any, Dict, Optional
+from typing import Any
 
 # 添加项目根目录到路径
 project_root = Path(__file__).parent.parent
@@ -38,7 +37,7 @@ def run_heartbeat(
     output_format: str = "json",
     alert_on_critical: bool = True,
     include_alerts: bool = False,
-) -> Dict[str, Any]:
+) -> dict[str, Any]:
     """
     运行预算心跳检查
 
@@ -128,7 +127,7 @@ def run_heartbeat(
             return {"error": "heartbeat_failed", "message": str(e)}
 
 
-def _print_text_summary(state: Dict, alerts: Optional[Dict[str, Any]] = None):
+def _print_text_summary(state: dict, alerts: dict[str, Any] | None = None):
     """打印文本摘要"""
     budget = state["budget_state"]
     health = state["health"]
@@ -147,7 +146,7 @@ def _print_text_summary(state: Dict, alerts: Optional[Dict[str, Any]] = None):
     print(f"📝 模式原因: {budget['mode_reason']}")
     print(f"⏰ 下次重置: {budget['next_reset']} ({health['days_until_reset']}天后)")
     print("")
-    print(f"📊 任务统计:")
+    print("📊 任务统计:")
     print(
         f"  批准: {stats['tasks_approved']} | 拒绝: {stats['tasks_rejected']} | 降级: {stats['tasks_degraded']}"
     )
@@ -171,7 +170,7 @@ def _print_text_summary(state: Dict, alerts: Optional[Dict[str, Any]] = None):
     print("=" * 60)
 
 
-def check_budget_for_task(task_id: str, estimated_cost: float, **kwargs) -> Dict:
+def check_budget_for_task(task_id: str, estimated_cost: float, **kwargs) -> dict:
     """
     为特定任务检查预算（预检入口）
 
@@ -253,7 +252,7 @@ def record_task_consumption(task_id: str, actual_cost: float, **kwargs) -> bool:
         return False
 
 
-def get_budget_alerts() -> Dict[str, Any]:
+def get_budget_alerts() -> dict[str, Any]:
     """
     获取结构化预算告警
 
@@ -334,7 +333,7 @@ def main():
         if args.format == "json":
             print(json.dumps(result, ensure_ascii=False, indent=2))
         else:
-            print(f"任务预算检查结果:")
+            print("任务预算检查结果:")
             print(f"  任务ID: {task_id}")
             print(f"  预估成本: ¥{estimated_cost:.2f}")
             print(f"  任务类型: {task_type}")
@@ -342,7 +341,7 @@ def main():
             print(f"  决定: {result.get('decision', 'unknown')}")
             print(f"  原因: {result.get('reason', '')}")
             if result.get("requires_approval", False):
-                print(f"  ⚠️ 需要人工审批")
+                print("  ⚠️ 需要人工审批")
 
     elif args.record_consumption:
         # 记录消费

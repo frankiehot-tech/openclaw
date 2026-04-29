@@ -5,15 +5,10 @@
 """
 
 import logging
-import os
-import random
-import subprocess
-import sys
 import threading
 import time
 from datetime import datetime
 from enum import Enum
-from typing import Any, Dict, List, Optional
 
 # 设置日志
 logging.basicConfig(
@@ -74,8 +69,8 @@ class ChaosEngineeringEngine:
             safe_mode: 安全模式，为True时避免真实系统破坏
         """
         self.safe_mode = safe_mode
-        self.active_faults: List[Dict] = []
-        self.recovery_threads: Dict[str, threading.Thread] = {}
+        self.active_faults: list[dict] = []
+        self.recovery_threads: dict[str, threading.Thread] = {}
 
         # 各层故障注入器
         self.network_layer = None
@@ -129,7 +124,7 @@ class ChaosEngineeringEngine:
         fault_type: FaultType,
         severity: FaultSeverity,
         duration_seconds: int = 60,
-    ) -> Dict:
+    ) -> dict:
         """
         注入故障
 
@@ -207,7 +202,7 @@ class ChaosEngineeringEngine:
 
         logger.info(f"安排故障 {fault_id} 在 {delay_seconds} 秒后自动恢复")
 
-    def recover_fault(self, fault_id: str) -> Dict:
+    def recover_fault(self, fault_id: str) -> dict:
         """
         恢复特定故障
 
@@ -221,10 +216,9 @@ class ChaosEngineeringEngine:
 
         # 查找故障
         fault_to_recover = None
-        for i, fault in enumerate(self.active_faults):
+        for _i, fault in enumerate(self.active_faults):
             if fault["id"] == fault_id:
                 fault_to_recover = fault
-                fault_index = i
                 break
 
         if not fault_to_recover:
@@ -283,7 +277,7 @@ class ChaosEngineeringEngine:
 
         return recovery_result
 
-    def recover_all_faults(self) -> List[Dict]:
+    def recover_all_faults(self) -> list[dict]:
         """恢复所有活动故障"""
         logger.info(f"开始恢复所有活动故障 (共 {len(self.active_faults)} 个)")
 
@@ -299,11 +293,11 @@ class ChaosEngineeringEngine:
         )
         return results
 
-    def get_active_faults(self) -> List[Dict]:
+    def get_active_faults(self) -> list[dict]:
         """获取所有活动故障"""
         return self.active_faults.copy()
 
-    def get_fault_statistics(self) -> Dict:
+    def get_fault_statistics(self) -> dict:
         """获取故障统计信息"""
         stats = {
             "total_active": len(self.active_faults),
@@ -327,7 +321,7 @@ class ChaosEngineeringEngine:
 
         return stats
 
-    def run_chaos_scenario(self, scenario_name: str, scenario_config: Dict) -> Dict:
+    def run_chaos_scenario(self, scenario_name: str, scenario_config: dict) -> dict:
         """
         运行混沌测试场景
 

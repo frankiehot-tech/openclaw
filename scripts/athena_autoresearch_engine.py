@@ -24,9 +24,9 @@ import sys
 import time
 from dataclasses import asdict, dataclass
 from datetime import datetime
-from enum import Enum
+from enum import StrEnum
 from pathlib import Path
-from typing import Any, Dict, List, Optional, Tuple
+from typing import Any
 
 from dotenv import load_dotenv
 
@@ -34,13 +34,13 @@ load_dotenv()
 
 # Import shared root paths
 try:
-    from .openclaw_roots import PLAN_CONFIG_PATH, RUNTIME_ROOT
+    from .openclaw_roots import RUNTIME_ROOT
 except ImportError:
     # fallback for direct script execution
     scripts_dir = Path(__file__).resolve().parent
     if str(scripts_dir) not in sys.path:
         sys.path.insert(0, str(scripts_dir))
-    from openclaw_roots import PLAN_CONFIG_PATH, RUNTIME_ROOT
+    from openclaw_roots import RUNTIME_ROOT
 
 # Configure logging
 logging.basicConfig(
@@ -55,7 +55,7 @@ logger = logging.getLogger(__name__)
 # ============================================================================
 
 
-class RiskLevel(str, Enum):
+class RiskLevel(StrEnum):
     LOW = "low"
     MEDIUM = "medium"
     HIGH = "high"
@@ -69,7 +69,7 @@ class Finding:
     title: str
     description: str
     location: str  # file:line or component name
-    evidence: List[str]  # supporting data points
+    evidence: list[str]  # supporting data points
     timestamp: str
 
 
@@ -85,7 +85,7 @@ class Recommendation:
     expected_benefit: str
     risk_level: RiskLevel
     confidence: float  # 0.0 to 1.0
-    dependencies: List[str]  # other recommendation IDs that must be applied first
+    dependencies: list[str]  # other recommendation IDs that must be applied first
     requires_manual_confirmation: bool
 
 
@@ -95,10 +95,10 @@ class ResearchResult:
 
     cycle_id: str
     timestamp: str
-    findings: List[Finding]
-    recommendations: List[Recommendation]
+    findings: list[Finding]
+    recommendations: list[Recommendation]
     summary: str
-    metadata: Dict[str, Any]
+    metadata: dict[str, Any]
 
 
 # ============================================================================
@@ -108,8 +108,6 @@ class ResearchResult:
 
 class ConstraintViolation(Exception):
     """Raised when an optimization proposal violates constraints."""
-
-    pass
 
 
 class ConstraintGate:
@@ -169,7 +167,7 @@ class ConstraintGate:
         raise ConstraintViolation(f"Target not in allowed areas: {target_path}")
 
     @classmethod
-    def validate_recommendation(cls, recommendation: Recommendation) -> Tuple[bool, List[str]]:
+    def validate_recommendation(cls, recommendation: Recommendation) -> tuple[bool, list[str]]:
         """Validate a recommendation against all constraints."""
         warnings = []
 
@@ -206,15 +204,15 @@ class AutoResearchEngine:
     def __init__(self, dry_run: bool = True):
         self.dry_run = dry_run
         self.cycle_id = f"ares-{datetime.now().strftime('%Y%m%d-%H%M%S')}"
-        self.findings: List[Finding] = []
-        self.recommendations: List[Recommendation] = []
+        self.findings: list[Finding] = []
+        self.recommendations: list[Recommendation] = []
         self.constraint_gate = ConstraintGate()
 
     # ------------------------------------------------------------------------
     # Stage 1: Collect
     # ------------------------------------------------------------------------
 
-    def collect(self) -> Dict[str, Any]:
+    def collect(self) -> dict[str, Any]:
         """Collect system state and performance data."""
         logger.info(f"[{self.cycle_id}] Collecting system data...")
 
@@ -230,7 +228,7 @@ class AutoResearchEngine:
 
         return data
 
-    def _collect_system_metrics(self) -> Dict[str, Any]:
+    def _collect_system_metrics(self) -> dict[str, Any]:
         """Collect basic system resource metrics."""
         # In a real implementation, this would collect CPU, memory, disk, etc.
         # For the prototype, return simulated data
@@ -241,7 +239,7 @@ class AutoResearchEngine:
             "runtime_root": str(RUNTIME_ROOT),
         }
 
-    def _collect_workflow_metrics(self) -> Dict[str, Any]:
+    def _collect_workflow_metrics(self) -> dict[str, Any]:
         """Collect workflow execution metrics."""
         metrics = {
             "tasks": self._analyze_task_history(),
@@ -249,7 +247,7 @@ class AutoResearchEngine:
         }
         return metrics
 
-    def _collect_codebase_metrics(self) -> Dict[str, Any]:
+    def _collect_codebase_metrics(self) -> dict[str, Any]:
         """Collect codebase health metrics."""
         # Simple metrics for prototype
         scripts_dir = Path(RUNTIME_ROOT) / "scripts"
@@ -262,7 +260,7 @@ class AutoResearchEngine:
         }
         return metrics
 
-    def _analyze_task_history(self) -> Dict[str, Any]:
+    def _analyze_task_history(self) -> dict[str, Any]:
         """Analyze recent task execution history."""
         tasks_path = Path(RUNTIME_ROOT) / ".openclaw" / "orchestrator" / "tasks.json"
         if not tasks_path.exists():
@@ -287,7 +285,7 @@ class AutoResearchEngine:
         except Exception as e:
             return {"error": str(e), "count": 0}
 
-    def _analyze_queue_state(self) -> Dict[str, Any]:
+    def _analyze_queue_state(self) -> dict[str, Any]:
         """Analyze queue state for bottlenecks."""
         # Simplified for prototype
         return {
@@ -295,7 +293,7 @@ class AutoResearchEngine:
             "pending_count": 0,  # Would be calculated from actual queue data
         }
 
-    def _detect_recent_changes(self) -> List[str]:
+    def _detect_recent_changes(self) -> list[str]:
         """Detect recently modified files."""
         # Simplified: check for recent .py files in scripts
         scripts_dir = Path(RUNTIME_ROOT) / "scripts"
@@ -311,7 +309,7 @@ class AutoResearchEngine:
 
         return recent[:10]  # Limit to 10 most recent
 
-    def _create_findings_from_data(self, data: Dict[str, Any]) -> None:
+    def _create_findings_from_data(self, data: dict[str, Any]) -> None:
         """Create findings from collected data."""
         # Example finding: low success rate
         workflow = data.get("workflow", {})
@@ -352,7 +350,7 @@ class AutoResearchEngine:
     # Stage 2: Analyze
     # ------------------------------------------------------------------------
 
-    def analyze(self, data: Dict[str, Any]) -> List[Dict[str, Any]]:
+    def analyze(self, data: dict[str, Any]) -> list[dict[str, Any]]:
         """Analyze collected data to identify optimization opportunities."""
         logger.info(f"[{self.cycle_id}] Analyzing data...")
 
@@ -388,7 +386,7 @@ class AutoResearchEngine:
     # Stage 3: Propose
     # ------------------------------------------------------------------------
 
-    def propose(self, insights: List[Dict[str, Any]]) -> List[Recommendation]:
+    def propose(self, insights: list[dict[str, Any]]) -> list[Recommendation]:
         """Generate optimization proposals based on insights."""
         logger.info(f"[{self.cycle_id}] Generating proposals...")
 
@@ -405,7 +403,7 @@ class AutoResearchEngine:
         self.recommendations = recommendations
         return recommendations
 
-    def _create_workflow_recommendation(self, insight: Dict[str, Any]) -> Recommendation:
+    def _create_workflow_recommendation(self, insight: dict[str, Any]) -> Recommendation:
         """Create a workflow optimization recommendation."""
         return Recommendation(
             id=f"rec-{len(self.recommendations) + 1}",
@@ -420,7 +418,7 @@ class AutoResearchEngine:
             requires_manual_confirmation=False,
         )
 
-    def _create_codebase_recommendation(self, insight: Dict[str, Any]) -> Recommendation:
+    def _create_codebase_recommendation(self, insight: dict[str, Any]) -> Recommendation:
         """Create a codebase maintenance recommendation."""
         return Recommendation(
             id=f"rec-{len(self.recommendations) + 1}",
@@ -439,7 +437,7 @@ class AutoResearchEngine:
     # Stage 4: Gate
     # ------------------------------------------------------------------------
 
-    def gate(self, recommendations: List[Recommendation]) -> Tuple[List[Recommendation], List[str]]:
+    def gate(self, recommendations: list[Recommendation]) -> tuple[list[Recommendation], list[str]]:
         """Apply constraint gates to recommendations."""
         logger.info(f"[{self.cycle_id}] Applying constraint gates...")
 
@@ -469,7 +467,7 @@ class AutoResearchEngine:
     # Stage 5: Emit
     # ------------------------------------------------------------------------
 
-    def emit(self, approved_recommendations: List[Recommendation]) -> ResearchResult:
+    def emit(self, approved_recommendations: list[Recommendation]) -> ResearchResult:
         """Emit structured research results."""
         logger.info(f"[{self.cycle_id}] Emitting results...")
 

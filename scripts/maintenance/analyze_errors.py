@@ -8,7 +8,6 @@ import re
 import time
 from collections import Counter
 from datetime import datetime
-from pathlib import Path
 
 
 def analyze_queue_errors():
@@ -22,7 +21,7 @@ def analyze_queue_errors():
 
     for file_path in glob.glob(os.path.join(queue_dir, "*.json")):
         try:
-            with open(file_path, "r", encoding="utf-8") as f:
+            with open(file_path, encoding="utf-8") as f:
                 data = json.load(f)
 
             queue_name = os.path.basename(file_path)
@@ -79,7 +78,7 @@ def analyze_task_logs():
             if days_old > 30:
                 continue
 
-            with open(log_file, "r", encoding="utf-8", errors="ignore") as f:
+            with open(log_file, encoding="utf-8", errors="ignore") as f:
                 content = f.read()
 
             # 查找错误模式
@@ -174,11 +173,11 @@ def generate_error_report(error_types, error_details, log_errors, log_details):
 
     # 队列错误统计
     total_queue_errors = sum(error_types.values())
-    print(f"\n📈 队列错误统计:")
+    print("\n📈 队列错误统计:")
     print(f"   总错误数: {total_queue_errors}")
 
     if total_queue_errors > 0:
-        print(f"   错误率: {total_queue_errors}/111 = {(total_queue_errors/111)*100:.1f}%")
+        print(f"   错误率: {total_queue_errors}/111 = {(total_queue_errors / 111) * 100:.1f}%")
         print("\n   错误类型分布:")
 
         for error_type, count in error_types.most_common():
@@ -189,7 +188,7 @@ def generate_error_report(error_types, error_details, log_errors, log_details):
 
     # 日志错误统计
     total_log_errors = sum(log_errors.values())
-    print(f"\n📝 日志错误统计:")
+    print("\n📝 日志错误统计:")
     print(f"   总错误数: {total_log_errors}")
 
     if total_log_errors > 0:
@@ -202,9 +201,9 @@ def generate_error_report(error_types, error_details, log_errors, log_details):
 
     # 详细错误信息
     if error_details:
-        print(f"\n🔍 详细队列错误信息 (前10个):")
+        print("\n🔍 详细队列错误信息 (前10个):")
         for i, detail in enumerate(error_details[:10]):
-            print(f"\n   {i+1}. 队列: {detail['queue']}")
+            print(f"\n   {i + 1}. 队列: {detail['queue']}")
             print(f"      任务: {detail['item_title']}")
             print(f"      类型: {detail['error_type']}")
             print(f"      错误: {detail['error_msg']}")
@@ -212,7 +211,7 @@ def generate_error_report(error_types, error_details, log_errors, log_details):
                 print(f"      重试次数: {detail['retry_count']}")
 
     # 根因分析
-    print(f"\n🔬 根因分析:")
+    print("\n🔬 根因分析:")
 
     if "证书验证错误" in error_types:
         print("   ❗ 证书验证错误:")
@@ -233,7 +232,7 @@ def generate_error_report(error_types, error_details, log_errors, log_details):
         print("      - 修复: 更新认证配置")
 
     # 修复建议
-    print(f"\n💡 修复建议:")
+    print("\n💡 修复建议:")
 
     if total_queue_errors > 0:
         print("   1. 优先修复高频错误类型")
@@ -268,12 +267,12 @@ def generate_markdown_report(file_path, error_types, error_details, log_errors, 
     with open(file_path, "w", encoding="utf-8") as f:
         f.write("# 多Agent系统错误分析报告\n\n")
         f.write(f"**生成时间**: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}\n")
-        f.write(f"**分析范围**: 队列文件 + 任务日志\n\n")
+        f.write("**分析范围**: 队列文件 + 任务日志\n\n")
 
         f.write("## 📈 错误统计概览\n\n")
         f.write(f"- **队列错误总数**: {total_queue_errors}\n")
         f.write(f"- **日志错误总数**: {total_log_errors}\n")
-        f.write(f"- **综合错误率**: {(total_queue_errors/111)*100:.1f}%\n\n")
+        f.write(f"- **综合错误率**: {(total_queue_errors / 111) * 100:.1f}%\n\n")
 
         if total_queue_errors > 0:
             f.write("## 📊 队列错误类型分布\n\n")
@@ -296,7 +295,7 @@ def generate_markdown_report(file_path, error_types, error_details, log_errors, 
         if error_details:
             f.write("## 🔍 详细错误信息\n\n")
             for i, detail in enumerate(error_details[:20]):
-                f.write(f"### {i+1}. {detail['item_title']}\n\n")
+                f.write(f"### {i + 1}. {detail['item_title']}\n\n")
                 f.write(f"- **队列**: {detail['queue']}\n")
                 f.write(f"- **错误类型**: {detail['error_type']}\n")
                 f.write(f"- **错误信息**: {detail['error_msg']}\n")

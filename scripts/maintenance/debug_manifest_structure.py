@@ -4,13 +4,12 @@
 """
 
 import json
-import sys
 
 input_path = "/Volumes/1TB-M2/openclaw/.openclaw/plan_queue/openhuman_aiplan_priority_execution_20260414.json"
 
 print(f"分析文件结构: {input_path}")
 
-with open(input_path, "r", encoding="utf-8") as f:
+with open(input_path, encoding="utf-8") as f:
     data = json.load(f)
 
 print(f"数据根类型: {type(data)}")

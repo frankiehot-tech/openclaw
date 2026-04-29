@@ -1,10 +1,6 @@
 #!/usr/bin/env python3
 """GSD V2 实施监控启动脚本"""
 
-import json
-import subprocess
-import time
-from datetime import datetime
 from pathlib import Path
 
 
@@ -62,26 +58,26 @@ def monitor_system_resources():
 def monitor_gsd_v2_status():
     """监控GSD V2状态"""
     gsd_v2_dir = Path.home() / ".openclaw"
-    
+
     status = {
         "directories_exist": {},
         "files_exist": {},
         "state_machine_status": "unknown",
         "timestamp": datetime.now().isoformat()
     }
-    
+
     # 检查目录
     required_dirs = ["core", "config", "workflows", "logs", "state"]
     for dir_name in required_dirs:
         dir_path = gsd_v2_dir / dir_name
         status["directories_exist"][dir_name] = dir_path.exists()
-    
+
     # 检查关键文件
     required_files = ["core/state-machine.sh", "config/base_config.yaml", "version.json"]
     for file_path in required_files:
         full_path = gsd_v2_dir / file_path
         status["files_exist"][file_path] = full_path.exists()
-    
+
     # 检查状态机
     state_machine = gsd_v2_dir / "core" / "state-machine.sh"
     if state_machine.exists():
@@ -90,13 +86,13 @@ def monitor_gsd_v2_status():
             status["state_machine_status"] = "running" if result.returncode == 0 else "error"
         except Exception:
             status["state_machine_status"] = "error"
-    
+
     return status
 
 def main():
     """主监控循环"""
     log_file = Path("/Volumes/1TB-M2/openclaw/workspace/gsd_v2_monitoring/environment_monitor.log")
-    
+
     while True:
         try:
             # 收集监控数据
@@ -106,19 +102,19 @@ def main():
                 "gsd_v2_status": monitor_gsd_v2_status(),
                 "timestamp": datetime.now().isoformat()
             }
-            
+
             # 写入日志
             with open(log_file, "a") as f:
                 f.write(json.dumps(monitor_data) + "\n")
-            
+
             # 控制台输出摘要
             print(f"[{monitor_data['timestamp']}] "
                   f"CCR: {monitor_data['claude_code']['status']} | "
                   f"CPU: {monitor_data['system_resources']['cpu_percent']}% | "
                   f"Mem: {monitor_data['system_resources']['memory_percent']}%")
-            
+
             time.sleep(60)  # 每分钟监控一次
-            
+
         except KeyboardInterrupt:
             print("\n🛑 监控停止")
             break
@@ -155,7 +151,7 @@ from pathlib import Path
 def load_aiplan_tasks():
     """加载AIplan任务状态"""
     queue_dir = Path("/Volumes/1TB-M2/openclaw/.openclaw/plan_queue")
-    
+
     tasks = {}
     if queue_dir.exists():
         for task_file in queue_dir.glob("gsd_v2_implementation*.json"):
@@ -165,23 +161,23 @@ def load_aiplan_tasks():
                     tasks[task_file.stem] = task_data
             except Exception as e:
                 print(f"加载任务文件错误 {task_file}: {e}")
-    
+
     return tasks
 
 def calculate_progress(tasks):
     """计算总体进度"""
     if not tasks:
         return 0
-    
+
     total_phases = 4  # 4个阶段
     completed_phases = 0
-    
+
     for task_data in tasks.values():
         phases = task_data.get("phases", {})
         for phase_name, phase_data in phases.items():
             if phase_data.get("status") == "completed":
                 completed_phases += 1
-    
+
     return int((completed_phases / total_phases) * 100)
 
 def generate_progress_report(tasks):
@@ -192,55 +188,55 @@ def generate_progress_report(tasks):
         "phases": {},
         "next_actions": []
     }
-    
+
     # 分析各阶段状态
     phase_status = {
         "phase1_foundation": "pending",
-        "phase2_core_integration": "pending", 
+        "phase2_core_integration": "pending",
         "phase3_workflow_migration": "pending",
         "phase4_optimization": "pending"
     }
-    
+
     for task_data in tasks.values():
         phases = task_data.get("phases", {})
         for phase_name, phase_data in phases.items():
             if phase_name in phase_status:
                 phase_status[phase_name] = phase_data.get("status", "pending")
-    
+
     report["phases"] = phase_status
-    
+
     # 生成下一步行动建议
     if phase_status["phase1_foundation"] == "pending":
         report["next_actions"].append("执行Phase 1基础架构准备")
     elif phase_status["phase1_foundation"] == "completed":
         report["next_actions"].append("准备Phase 2核心组件集成")
-    
+
     return report
 
 def main():
     """主跟踪循环"""
     report_file = Path("/Volumes/1TB-M2/openclaw/workspace/gsd_v2_monitoring/progress_tracker.log")
-    
+
     while True:
         try:
             # 加载任务状态
             tasks = load_aiplan_tasks()
-            
+
             # 生成进度报告
             report = generate_progress_report(tasks)
-            
+
             # 保存报告
             with open(report_file, "a") as f:
                 f.write(json.dumps(report) + "\n")
-            
+
             # 控制台输出
             print(f"[{report['timestamp']}] "
                   f"总体进度: {report['overall_progress']}% | "
                   f"Phase 1: {report['phases']['phase1_foundation']} | "
                   f"下一步: {report['next_actions'][0] if report['next_actions'] else '无'}")
-            
+
             time.sleep(300)  # 每5分钟跟踪一次
-            
+
         except KeyboardInterrupt:
             print("\n🛑 进度跟踪停止")
             break
@@ -282,13 +278,13 @@ def load_latest_monitor_data():
     """加载最新监控数据"""
     monitor_file = Path("/Volumes/1TB-M2/openclaw/workspace/gsd_v2_monitoring/environment_monitor.log")
     progress_file = Path("/Volumes/1TB-M2/openclaw/workspace/gsd_v2_monitoring/progress_tracker.log")
-    
+
     data = {
         "environment": {},
         "progress": {},
         "timestamp": datetime.now().isoformat()
     }
-    
+
     # 加载环境监控数据
     if monitor_file.exists():
         try:
@@ -299,7 +295,7 @@ def load_latest_monitor_data():
                     data["environment"] = latest_env
         except Exception:
             pass
-    
+
     # 加载进度数据
     if progress_file.exists():
         try:
@@ -310,61 +306,61 @@ def load_latest_monitor_data():
                     data["progress"] = latest_progress
         except Exception:
             pass
-    
+
     return data
 
 def display_dashboard(data):
     """显示监控仪表板"""
     clear_screen()
-    
+
     print("🚀 GSD V2 实时监控仪表板")
     print("=" * 60)
     print(f"更新时间: {data['timestamp']}")
     print()
-    
+
     # 环境状态
     env = data.get("environment", {})
     print("🔍 环境状态:")
     print("-" * 30)
-    
+
     ccr_status = env.get("claude_code", {}).get("status", "unknown")
     ccr_emoji = "✅" if ccr_status == "healthy" else "❌" if ccr_status == "unreachable" else "⚠️"
     print(f"{ccr_emoji} Claude Code Router: {ccr_status}")
-    
+
     resources = env.get("system_resources", {})
     cpu_usage = resources.get("cpu_percent", 0)
     mem_usage = resources.get("memory_percent", 0)
     print(f"📊 系统资源: CPU {cpu_usage}% | 内存 {mem_usage}%")
-    
+
     gsd_status = env.get("gsd_v2_status", {})
     state_machine = gsd_status.get("state_machine_status", "unknown")
     sm_emoji = "✅" if state_machine == "running" else "❌" if state_machine == "error" else "⚠️"
     print(f"{sm_emoji} 状态机: {state_machine}")
-    
+
     print()
-    
+
     # 进度状态
     progress = data.get("progress", {})
     overall_progress = progress.get("overall_progress", 0)
-    
+
     print("📊 实施进度:")
     print("-" * 30)
     print(f"总体完成度: {overall_progress}%")
-    
+
     # 进度条
     bar_length = 30
     filled = int(bar_length * overall_progress / 100)
     bar = "█" * filled + "░" * (bar_length - filled)
     print(f"[{bar}] {overall_progress}%")
-    
+
     # 阶段状态
     phases = progress.get("phases", {})
     for phase_name, phase_status in phases.items():
         phase_emoji = "✅" if phase_status == "completed" else "🔄" if phase_status == "in_progress" else "⏳"
         print(f"{phase_emoji} {phase_name}: {phase_status}")
-    
+
     print()
-    
+
     # 下一步行动
     next_actions = progress.get("next_actions", [])
     if next_actions:
@@ -372,7 +368,7 @@ def display_dashboard(data):
         print("-" * 30)
         for action in next_actions[:3]:  # 显示前3个行动
             print(f"• {action}")
-    
+
     print()
     print("=" * 60)
     print("⏰ 下次更新: 30秒后... (Ctrl+C退出)")
@@ -446,7 +442,7 @@ echo "cat {self.monitor_dir}/monitor_pids.txt | xargs kill"
 
         startup_script.chmod(0o755)
 
-        print(f"✅ 监控系统准备完成!")
+        print("✅ 监控系统准备完成!")
         print(f"📁 监控目录: {self.monitor_dir}")
         print(f"🚀 启动脚本: {startup_script}")
         print(f"📊 仪表板: {dashboard}")
@@ -457,7 +453,7 @@ echo "cat {self.monitor_dir}/monitor_pids.txt | xargs kill"
 def main():
     """主函数"""
     monitor = GSDV2Monitor()
-    startup_script = monitor.start_all_monitors()
+    monitor.start_all_monitors()
 
     print("\n" + "=" * 60)
     print("🎉 GSD V2 环境准备工作全部完成!")

@@ -1,10 +1,11 @@
 #!/usr/bin/env python3
+# DEPRECATED: 使用 governance/ 模块代替
+# governance_cli.py repair <command> 或 governance_cli.py queue fix
 """
 修复失败任务脚本 - 将error为空的失败任务重置为pending状态
 """
 
 import json
-import os
 import sys
 from datetime import datetime
 
@@ -17,7 +18,7 @@ def fix_failed_tasks(queue_id):
 
     # 加载状态文件
     try:
-        with open(state_file, "r", encoding="utf-8") as f:
+        with open(state_file, encoding="utf-8") as f:
             state_data = json.load(f)
     except Exception as e:
         print(f"❌ 无法加载状态文件 {state_file}: {e}")

@@ -321,9 +321,7 @@ def dynamic_build_worker_budget(
     elif load_avg is not None and load_avg[0] > max_load:
         reason = f"1 分钟 load={load_avg[0]:.2f} ，高于双 worker 阈值 {max_load:.2f} 。"
     elif ollama_cpu >= ollama_busy_cpu_percent:
-        reason = (
-            f"Ollama 活跃 CPU≈{ollama_cpu:.1f}% ，高于阈值 " f"{ollama_busy_cpu_percent:.1f}% 。"
-        )
+        reason = f"Ollama 活跃 CPU≈{ollama_cpu:.1f}% ，高于阈值 {ollama_busy_cpu_percent:.1f}% 。"
     else:
         budget = min(2, max_build_workers)
         reason = "load / memory / ollama 均在安全区间，启用双 worker。"
@@ -400,7 +398,7 @@ def collect_resource_facts() -> dict[str, Any]:
             "purgeable_gb": vm_stats["purgeable_gb"],
             "file_backed_gb": vm_stats["file_backed_gb"],
             "inactive_gb": vm_stats["inactive_gb"],
-            "note": f'{pressure["note"]}; {vm_stats["note"]}',
+            "note": f"{pressure['note']}; {vm_stats['note']}",
         },
         "runner": runner,
     }

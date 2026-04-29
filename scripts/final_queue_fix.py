@@ -1,4 +1,6 @@
 #!/usr/bin/env python3
+# DEPRECATED: 使用 governance/ 模块代替
+# governance_cli.py <command>
 """
 最终队列修复 - 直接修复阻塞的依赖链
 1. 检查openspace_local_adapter_boundary的依赖是否已满足
@@ -10,7 +12,6 @@
 import json
 import os
 import shutil
-import sys
 from datetime import datetime
 
 QUEUE_FILE = (
@@ -20,7 +21,7 @@ QUEUE_FILE = (
 
 def read_json(file_path):
     if os.path.exists(file_path):
-        with open(file_path, "r", encoding="utf-8") as f:
+        with open(file_path, encoding="utf-8") as f:
             return json.load(f)
     return {}
 
@@ -68,7 +69,7 @@ def main():
         print(f"  {task_id}: 状态={task.get('status', 'unknown')}")
 
     # 检查openspace_local_adapter_boundary的依赖
-    print(f"\n🔍 检查openspace_local_adapter_boundary的依赖...")
+    print("\n🔍 检查openspace_local_adapter_boundary的依赖...")
     boundary_task = items["openspace_local_adapter_boundary"]
     depends_on = boundary_task.get("metadata", {}).get("depends_on", [])
     print(f"  依赖列表: {depends_on}")
@@ -86,17 +87,17 @@ def main():
                 all_deps_completed = False
 
     if all_deps_completed:
-        print(f"\n✅ openspace_local_adapter_boundary的所有依赖都已满足!")
+        print("\n✅ openspace_local_adapter_boundary的所有依赖都已满足!")
 
         # 更新openspace_local_adapter_boundary为completed
-        print(f"🔄 更新openspace_local_adapter_boundary: pending → completed")
+        print("🔄 更新openspace_local_adapter_boundary: pending → completed")
         items["openspace_local_adapter_boundary"]["status"] = "completed"
         items["openspace_local_adapter_boundary"]["progress_percent"] = 100
         items["openspace_local_adapter_boundary"]["updated_at"] = datetime.now().isoformat()
         items["openspace_local_adapter_boundary"]["summary"] = "依赖已满足，标记为completed"
 
         # 现在检查openspace_metrics_sandbox_constraints
-        print(f"\n🔍 检查openspace_metrics_sandbox_constraints的依赖...")
+        print("\n🔍 检查openspace_metrics_sandbox_constraints的依赖...")
         constraints_task = items["openspace_metrics_sandbox_constraints"]
         constraints_deps = constraints_task.get("metadata", {}).get("depends_on", [])
         print(f"  依赖列表: {constraints_deps}")
@@ -114,19 +115,19 @@ def main():
                     constraints_all_deps_completed = False
 
         if constraints_all_deps_completed:
-            print(f"\n✅ openspace_metrics_sandbox_constraints的所有依赖都已满足!")
-            print(f"🔄 更新openspace_metrics_sandbox_constraints: pending → completed")
+            print("\n✅ openspace_metrics_sandbox_constraints的所有依赖都已满足!")
+            print("🔄 更新openspace_metrics_sandbox_constraints: pending → completed")
             items["openspace_metrics_sandbox_constraints"]["status"] = "completed"
             items["openspace_metrics_sandbox_constraints"]["progress_percent"] = 100
-            items["openspace_metrics_sandbox_constraints"][
-                "updated_at"
-            ] = datetime.now().isoformat()
-            items["openspace_metrics_sandbox_constraints"][
-                "summary"
-            ] = "依赖已满足，标记为completed"
+            items["openspace_metrics_sandbox_constraints"]["updated_at"] = (
+                datetime.now().isoformat()
+            )
+            items["openspace_metrics_sandbox_constraints"]["summary"] = (
+                "依赖已满足，标记为completed"
+            )
 
             # 最后检查openspace_monitoring_audit_surface
-            print(f"\n🔍 检查openspace_monitoring_audit_surface的依赖...")
+            print("\n🔍 检查openspace_monitoring_audit_surface的依赖...")
             audit_task = items["openspace_monitoring_audit_surface"]
             audit_deps = audit_task.get("metadata", {}).get("depends_on", [])
             print(f"  依赖列表: {audit_deps}")
@@ -144,22 +145,22 @@ def main():
                         audit_all_deps_completed = False
 
             if audit_all_deps_completed:
-                print(f"\n✅ openspace_monitoring_audit_surface的所有依赖都已满足!")
-                print(f"🔄 更新openspace_monitoring_audit_surface: pending → completed")
+                print("\n✅ openspace_monitoring_audit_surface的所有依赖都已满足!")
+                print("🔄 更新openspace_monitoring_audit_surface: pending → completed")
                 items["openspace_monitoring_audit_surface"]["status"] = "completed"
                 items["openspace_monitoring_audit_surface"]["progress_percent"] = 100
-                items["openspace_monitoring_audit_surface"][
-                    "updated_at"
-                ] = datetime.now().isoformat()
-                items["openspace_monitoring_audit_surface"][
-                    "summary"
-                ] = "依赖已满足，标记为completed"
+                items["openspace_monitoring_audit_surface"]["updated_at"] = (
+                    datetime.now().isoformat()
+                )
+                items["openspace_monitoring_audit_surface"]["summary"] = (
+                    "依赖已满足，标记为completed"
+                )
             else:
-                print(f"\n⚠️  openspace_monitoring_audit_surface的依赖未全部满足")
+                print("\n⚠️  openspace_monitoring_audit_surface的依赖未全部满足")
         else:
-            print(f"\n⚠️  openspace_metrics_sandbox_constraints的依赖未全部满足")
+            print("\n⚠️  openspace_metrics_sandbox_constraints的依赖未全部满足")
     else:
-        print(f"\n❌ openspace_local_adapter_boundary的依赖未全部满足")
+        print("\n❌ openspace_local_adapter_boundary的依赖未全部满足")
         print("需要进一步检查依赖关系")
 
     # 重新计算计数
@@ -179,10 +180,10 @@ def main():
     pending_tasks = [tid for tid, task in items.items() if task.get("status") == "pending"]
 
     # 设置队列状态
-    old_status = queue_data.get("queue_status", "unknown")
+    queue_data.get("queue_status", "unknown")
 
     if pending_tasks:
-        print(f"\n🔍 检查pending任务的依赖...")
+        print("\n🔍 检查pending任务的依赖...")
         blocked = False
         blocked_reason = ""
 
@@ -243,7 +244,7 @@ def main():
     if saved_counts == status_counts:
         print(f"  ✅ 计数修复成功: {json.dumps(saved_counts, ensure_ascii=False)}")
     else:
-        print(f"  ❌ 计数修复失败")
+        print("  ❌ 计数修复失败")
         print(f"    期望: {json.dumps(status_counts, ensure_ascii=False)}")
         print(f"    实际: {json.dumps(saved_counts, ensure_ascii=False)}")
 
@@ -252,7 +253,7 @@ def main():
     else:
         print(f"  ❌ 状态修复失败: 期望 {new_status}, 实际 {saved_status}")
 
-    print(f"\n🎉 修复完成!")
+    print("\n🎉 修复完成!")
     print(f"  最终队列状态: {new_status}")
 
     if new_status == "running":

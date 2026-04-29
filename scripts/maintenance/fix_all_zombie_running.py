@@ -1,4 +1,6 @@
 #!/usr/bin/env python3
+# DEPRECATED: 使用 governance/ 模块代替
+# governance_cli.py repair <command> 或 governance_cli.py queue fix
 """
 原子性修复所有僵尸running任务状态
 检测条件：status=running 且 progress_percent=8
@@ -10,7 +12,7 @@
 import json
 import os
 import sys
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 
 
 def fix_all_zombie_running():
@@ -36,7 +38,7 @@ def fix_all_zombie_running():
         return
 
     # 原子性读取
-    with open(queue_file, "r", encoding="utf-8") as f:
+    with open(queue_file, encoding="utf-8") as f:
         data = json.load(f)
 
     fixed_tasks = []
@@ -61,7 +63,7 @@ def fix_all_zombie_running():
             # 更新状态
             task["status"] = new_status
             task["progress_percent"] = 0
-            task["updated_at"] = datetime.now(timezone.utc).isoformat()
+            task["updated_at"] = datetime.now(UTC).isoformat()
 
             # 添加修复记录
             if "fix_history" not in task:
@@ -69,7 +71,7 @@ def fix_all_zombie_running():
 
             task["fix_history"].append(
                 {
-                    "timestamp": datetime.now(timezone.utc).isoformat(),
+                    "timestamp": datetime.now(UTC).isoformat(),
                     "old_status": old_status,
                     "new_status": new_status,
                     "old_progress": old_progress,
@@ -96,7 +98,7 @@ def fix_all_zombie_running():
         with open(queue_file, "w", encoding="utf-8") as f:
             json.dump(data, f, indent=2, ensure_ascii=False)
 
-        print(f"\n✅ 原子性修复完成")
+        print("\n✅ 原子性修复完成")
         print(f"修复了 {len(fixed_tasks)} 个僵尸任务:")
         for ft in fixed_tasks:
             print(f"  - {ft['id']}: {ft['old_status']} -> {ft['new_status']}")

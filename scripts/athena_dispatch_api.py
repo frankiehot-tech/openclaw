@@ -16,7 +16,7 @@ import os
 import sys
 import threading
 from http.server import BaseHTTPRequestHandler, HTTPServer
-from typing import Any, Dict, Optional
+from typing import Any
 from urllib.parse import parse_qs, urlparse
 
 # 添加项目根目录到路径
@@ -33,7 +33,6 @@ try:
 
     from agent.core.athena_bridge import get_bridge
     from agent.core.athena_orchestrator import get_orchestrator
-    from agent.core.provider_registry import get_registry
 
     IMPORT_SUCCESS = True
     print("✅ Athena 组件导入成功")
@@ -52,7 +51,7 @@ logger = logging.getLogger(__name__)
 class DispatchAPIHandler(BaseHTTPRequestHandler):
     """Dispatch API 请求处理器"""
 
-    def _send_response(self, status_code: int, data: Dict[str, Any]):
+    def _send_response(self, status_code: int, data: dict[str, Any]):
         """发送 JSON 响应"""
         self.send_response(status_code)
         self.send_header("Content-Type", "application/json; charset=utf-8")
@@ -137,7 +136,7 @@ class DispatchAPIHandler(BaseHTTPRequestHandler):
         else:
             self._send_response(404, {"error": f"端点不存在: {path}"})
 
-    def _handle_create(self, data: Dict[str, Any]):
+    def _handle_create(self, data: dict[str, Any]):
         """处理任务创建"""
         message = data.get("message", "")
         context = data.get("context", {})
@@ -181,7 +180,7 @@ class DispatchAPIHandler(BaseHTTPRequestHandler):
             logger.error(f"创建任务失败: {e}", exc_info=True)
             self._send_response(500, {"error": f"服务器内部错误: {str(e)}"})
 
-    def _handle_approve(self, data: Dict[str, Any]):
+    def _handle_approve(self, data: dict[str, Any]):
         """处理任务批准"""
         task_id = data.get("task_id")
         approved_by = data.get("approved_by", "api")
@@ -202,7 +201,7 @@ class DispatchAPIHandler(BaseHTTPRequestHandler):
             logger.error(f"批准任务失败: {e}", exc_info=True)
             self._send_response(500, {"error": f"服务器内部错误: {str(e)}"})
 
-    def _handle_reject(self, data: Dict[str, Any]):
+    def _handle_reject(self, data: dict[str, Any]):
         """处理任务拒绝"""
         task_id = data.get("task_id")
         reason = data.get("reason", "")
@@ -224,7 +223,7 @@ class DispatchAPIHandler(BaseHTTPRequestHandler):
             logger.error(f"拒绝任务失败: {e}", exc_info=True)
             self._send_response(500, {"error": f"服务器内部错误: {str(e)}"})
 
-    def _handle_interrupt(self, data: Dict[str, Any]):
+    def _handle_interrupt(self, data: dict[str, Any]):
         """处理任务中断"""
         task_id = data.get("task_id")
         reason = data.get("reason", "")

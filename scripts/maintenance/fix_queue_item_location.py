@@ -1,4 +1,6 @@
 #!/usr/bin/env python3
+# DEPRECATED: 使用 governance/ 模块代替
+# governance_cli.py repair <command> 或 governance_cli.py queue fix
 """
 修复"无法定位当前队列项"问题
 解决Web界面手动拉起按钮无响应问题
@@ -6,7 +8,6 @@
 
 import json
 import os
-import time
 from datetime import datetime
 
 
@@ -24,7 +25,7 @@ def diagnose_queue_item_location():
         return None
 
     try:
-        with open(queue_file, "r", encoding="utf-8") as f:
+        with open(queue_file, encoding="utf-8") as f:
             queue_state = json.load(f)
 
         print(f"📊 队列状态: {queue_state.get('queue_status', 'unknown')}")
@@ -63,7 +64,7 @@ def fix_queue_item_location():
     )
 
     try:
-        with open(queue_file, "r", encoding="utf-8") as f:
+        with open(queue_file, encoding="utf-8") as f:
             queue_state = json.load(f)
 
         items = queue_state.get("items", {})
@@ -160,7 +161,7 @@ def check_web_interface_communication():
 
     try:
         # 模拟Web接口读取队列
-        with open(queue_file, "r", encoding="utf-8") as f:
+        with open(queue_file, encoding="utf-8") as f:
             queue_data = json.load(f)
 
         # 检查关键字段是否存在
@@ -192,7 +193,7 @@ def create_manual_launch_fix():
 
     try:
         # 读取Web服务器代码，检查手动拉起功能
-        with open(web_script, "r", encoding="utf-8") as f:
+        with open(web_script, encoding="utf-8") as f:
             web_code = f.read()
 
         # 检查是否存在手动拉起功能

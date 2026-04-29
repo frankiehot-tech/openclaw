@@ -1,4 +1,6 @@
 #!/usr/bin/env python3
+# DEPRECATED: 使用 governance/ 模块代替
+# governance_cli.py repair <command> 或 governance_cli.py queue fix
 """
 修复Athena任务队列连续执行问题
 问题：队列执行完一个任务就停止，状态为manual_hold
@@ -7,23 +9,22 @@
 
 import json
 import os
-import time
 from datetime import datetime
-from pathlib import Path
+
+QUEUE_FILE = (
+    "/Volumes/1TB-M2/openclaw/.openclaw/plan_queue/openhuman_aiplan_plan_manual_20260328.json"
+)
 
 
 def load_queue_state():
     """加载队列状态文件"""
-    queue_file = (
-        "/Volumes/1TB-M2/openclaw/.openclaw/plan_queue/openhuman_aiplan_plan_manual_20260328.json"
-    )
 
-    if not os.path.exists(queue_file):
-        print(f"❌ 队列状态文件不存在: {queue_file}")
+    if not os.path.exists(QUEUE_FILE):
+        print(f"❌ 队列状态文件不存在: {QUEUE_FILE}")
         return None
 
     try:
-        with open(queue_file, "r", encoding="utf-8") as f:
+        with open(QUEUE_FILE, encoding="utf-8") as f:
             return json.load(f)
     except Exception as e:
         print(f"❌ 加载队列状态文件失败: {e}")
@@ -83,7 +84,7 @@ def fix_queue_continuous_execution():
 
             # 4. 保存修复后的状态
             try:
-                with open(queue_file, "w", encoding="utf-8") as f:
+                with open(QUEUE_FILE, "w", encoding="utf-8") as f:
                     json.dump(queue_state, f, indent=2, ensure_ascii=False)
 
                 print("✅ 队列状态修复完成")
@@ -131,13 +132,13 @@ with open('$QUEUE_FILE', 'r') as f:
     data = json.load(f)
 print(data.get('queue_status', 'unknown'))
 ")
-            
+
             if [ "$STATUS" = "manual_hold" ]; then
                 echo "⚠️ 队列处于手动保留状态，尝试自动修复..."
                 python3 /Volumes/1TB-M2/openclaw/fix_queue_continuous_execution.py
             fi
         fi
-        
+
         sleep 30
     done
 }

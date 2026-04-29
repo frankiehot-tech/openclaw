@@ -5,7 +5,6 @@
 """
 
 import argparse
-import os
 import re
 import sys
 from datetime import datetime
@@ -30,7 +29,7 @@ class DocumentValidator:
 
         # 读取文件内容
         try:
-            with open(file_path, "r", encoding="utf-8") as f:
+            with open(file_path, encoding="utf-8") as f:
                 content = f.read()
         except Exception as e:
             self.add_issue(file_path, "无法读取文件", str(e))
@@ -58,7 +57,7 @@ class DocumentValidator:
                 passed = False
 
         if passed:
-            print(f"  ✅ 通过验证")
+            print("  ✅ 通过验证")
         else:
             print(
                 f"  ❌ 发现 {len([i for i in self.issues if i['file'] == str(file_path)])} 个问题"
@@ -119,7 +118,7 @@ class DocumentValidator:
             if line.startswith("#") and i < len(lines) - 1:
                 next_line = lines[i + 1]
                 if next_line.strip() and not next_line.startswith("#"):
-                    issues.append(f"标题后应添加空行（第{i+1}行）")
+                    issues.append(f"标题后应添加空行（第{i + 1}行）")
                     break
 
         # 规则3: 代码块格式正确
@@ -131,7 +130,7 @@ class DocumentValidator:
                 # 检查列表格式
                 if line.strip().startswith("- ") or line.strip().startswith("* "):
                     if len(line) - len(line.lstrip()) > 2:
-                        issues.append(f"列表缩进应为2个空格（第{i+1}行）")
+                        issues.append(f"列表缩进应为2个空格（第{i + 1}行）")
 
         if issues:
             for issue in issues:
@@ -178,7 +177,7 @@ class DocumentValidator:
         """检查代码块"""
         # 简单的代码块闭合检查
         code_block_pattern = r"```.*?```"
-        matches = list(re.finditer(code_block_pattern, content, re.DOTALL))
+        list(re.finditer(code_block_pattern, content, re.DOTALL))
 
         # 检查是否每个```都有对应的结束```
         lines = content.split("\n")
@@ -303,7 +302,7 @@ class DocumentValidator:
             if self.validate_file(md_file):
                 passed_count += 1
 
-        print(f"\n📊 验证结果:")
+        print("\n📊 验证结果:")
         print(f"  ✅ 通过: {passed_count}/{len(md_files)}")
         print(f"  ❌ 失败: {len(md_files) - passed_count}/{len(md_files)}")
         print(f"  ⚠️  问题: {len(self.issues)} 个")
@@ -316,7 +315,7 @@ class DocumentValidator:
             return "✅ 所有验证通过，未发现问题"
 
         report = "# 文档格式验证报告\n\n"
-        report += f"## 摘要\n"
+        report += "## 摘要\n"
         report += f"- 发现 {len(self.issues)} 个问题\n"
         report += f"- 验证时间: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}\n\n"
 
@@ -354,11 +353,10 @@ def main():
 
     validator = DocumentValidator(strict=args.strict)
 
-    success = True
     if args.file:
-        success = validator.validate_file(args.file)
+        validator.validate_file(args.file)
     elif args.directory:
-        success = validator.validate_directory(args.directory)
+        validator.validate_directory(args.directory)
 
     # 生成报告
     report = validator.get_issues_report()

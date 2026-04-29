@@ -1,4 +1,6 @@
 #!/usr/bin/env python3
+# DEPRECATED: 使用 governance/ 模块代替
+# governance_cli.py repair <command> 或 governance_cli.py queue fix
 """
 修复状态文件queue_status和counts
 """
@@ -17,7 +19,7 @@ def main():
         return 1
 
     try:
-        with open(state_file, "r", encoding="utf-8") as f:
+        with open(state_file, encoding="utf-8") as f:
             data = json.load(f)
     except Exception as e:
         print(f"❌ 读取状态文件失败: {e}")

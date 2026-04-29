@@ -32,8 +32,6 @@ try:
     from mini_agent.agent.core.codex_cache import (
         CacheSource,
         CacheStatus,
-        CodexCache,
-        MatchStrategy,
         get_cache,
     )
 except ImportError as e:
@@ -78,7 +76,7 @@ def example_task_analysis():
         if result.status == CacheStatus.MISS:
             print(f"  查询: '{query[:40]}...' -> 未命中")
             # 模拟分析过程
-            print(f"  执行分析... (耗时2秒)")
+            print("  执行分析... (耗时2秒)")
             # 存入缓存
             entry = cache.put(
                 raw_input=query,
@@ -148,7 +146,7 @@ def example_code_generation():
 
         if result.status == CacheStatus.MISS:
             print(f"  请求: '{request}'")
-            print(f"  状态: 未命中，生成代码... (耗时3秒)")
+            print("  状态: 未命中，生成代码... (耗时3秒)")
 
             # 存入缓存
             entry = cache.put(
@@ -274,10 +272,10 @@ def example_integration_with_existing_system():
             print(f"   节省时间: {result.entry.estimated_save_seconds if result.entry else 0}秒")
 
             # 使用缓存结果
-            print(f"   使用缓存结果继续处理...")
+            print("   使用缓存结果继续处理...")
 
         else:
-            print(f"⏳ 缓存未命中，执行任务...")
+            print("⏳ 缓存未命中，执行任务...")
 
             # 模拟任务执行
             import time
@@ -337,7 +335,7 @@ def main():
 
         # 最终统计
         final_stats = cache.get_stats()
-        print(f"\n最终缓存状态:")
+        print("\n最终缓存状态:")
         print(f"  总条目: {final_stats['total_entries']}")
         print(f"  总命中: {final_stats['total_hits']}")
         print(f"  总未命中: {final_stats['total_misses']}")

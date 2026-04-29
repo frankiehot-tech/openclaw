@@ -27,7 +27,7 @@ from scripts.workflow_state import (  # noqa: E402
 
 
 def load_incident(path: Path) -> dict:
-    with open(path, "r", encoding="utf-8") as handle:
+    with open(path, encoding="utf-8") as handle:
         return json.load(handle)
 
 

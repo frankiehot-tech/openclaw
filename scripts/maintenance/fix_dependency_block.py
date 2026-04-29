@@ -1,4 +1,6 @@
 #!/usr/bin/env python3
+# DEPRECATED: 使用 governance/ 模块代替
+# governance_cli.py repair <command> 或 governance_cli.py queue fix
 """
 修复队列依赖阻塞问题
 
@@ -11,7 +13,6 @@
 import json
 import os
 import re
-import sys
 from collections import defaultdict
 from pathlib import Path
 
@@ -25,7 +26,7 @@ def load_all_queues():
 
     for file_path in Path(QUEUE_DIR).glob("*.json"):
         try:
-            with open(file_path, "r", encoding="utf-8") as f:
+            with open(file_path, encoding="utf-8") as f:
                 queue_data = json.load(f)
             queue_id = queue_data.get("queue_id", file_path.stem)
 
@@ -225,7 +226,7 @@ def save_queues(queues):
     """保存更新后的队列文件"""
     saved_files = []
 
-    for queue_id, queue_info in queues.items():
+    for _queue_id, queue_info in queues.items():
         file_path = queue_info["file_path"]
         data = queue_info["data"]
 
@@ -297,7 +298,7 @@ def main():
                 print(f"     被阻塞于: {dep} ({dep_status})")
 
         if len(blocks) > 10:
-            print(f"  ... 以及另外 {len(blocks)-10} 个阻塞问题")
+            print(f"  ... 以及另外 {len(blocks) - 10} 个阻塞问题")
     else:
         print("✅ 未发现依赖阻塞问题")
 
@@ -312,7 +313,7 @@ def main():
             print(f"     依赖任务在队列 {item['dep_queue']} 中状态为 {item['dep_status']}")
 
         if len(completed_in_other_queue) > 5:
-            print(f"  ... 以及另外 {len(completed_in_other_queue)-5} 个")
+            print(f"  ... 以及另外 {len(completed_in_other_queue) - 5} 个")
 
     # 5. 修复问题
     if completed_in_other_queue:

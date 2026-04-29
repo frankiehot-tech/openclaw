@@ -9,10 +9,9 @@ Payment Gateway - 支付审批接口与 Human Gate 接线
 import argparse
 import json
 import logging
-import os
 import sys
 from pathlib import Path
-from typing import Any, Dict, List, Optional, Tuple
+from typing import Any
 
 # 添加项目根目录到路径
 project_root = Path(__file__).parent.parent
@@ -21,10 +20,7 @@ sys.path.insert(0, str(project_root))
 # 导入支付契约
 try:
     from mini_agent.agent.core.payment_contract import (
-        HumanGateProtocol,
         PaymentApprovalDecision,
-        PaymentApprovalEngine,
-        PaymentStatus,
         PaymentType,
         get_human_gate,
         get_payment_engine,
@@ -39,8 +35,6 @@ except ImportError as e:
 try:
     from mini_agent.agent.core.budget_engine import (
         BudgetCheckRequest,
-        BudgetCheckResult,
-        BudgetDecision,
         get_budget_engine,
     )
 
@@ -105,12 +99,12 @@ class PaymentGateway:
         self,
         amount: float,
         description: str,
-        task_id: Optional[str] = None,
+        task_id: str | None = None,
         payment_type: str = PaymentType.TASK_PAYMENT.value,
         payer: str = "system",
         payee: str = "",
-        metadata: Optional[Dict] = None,
-    ) -> Dict[str, Any]:
+        metadata: dict | None = None,
+    ) -> dict[str, Any]:
         """
         提交支付请求
 
@@ -246,7 +240,7 @@ class PaymentGateway:
         approver: str = "admin",
         reason: str = "",
         comments: str = "",
-    ) -> Dict[str, Any]:
+    ) -> dict[str, Any]:
         """
         批准支付请求
 
@@ -300,7 +294,7 @@ class PaymentGateway:
         approver: str = "admin",
         reason: str = "",
         comments: str = "",
-    ) -> Dict[str, Any]:
+    ) -> dict[str, Any]:
         """
         拒绝支付请求
 
@@ -342,7 +336,7 @@ class PaymentGateway:
                 "error_type": type(e).__name__,
             }
 
-    def get_payment_status(self, request_id: str) -> Dict[str, Any]:
+    def get_payment_status(self, request_id: str) -> dict[str, Any]:
         """
         获取支付状态
 
@@ -387,7 +381,7 @@ class PaymentGateway:
         task_type: str = "general",
         is_essential: bool = False,
         description: str = "",
-    ) -> Dict[str, Any]:
+    ) -> dict[str, Any]:
         """
         支付前预算检查（如果预算引擎可用）
 
@@ -436,8 +430,8 @@ class PaymentGateway:
             }
 
     def process_payment_with_budget_check(
-        self, amount: float, description: str, task_id: Optional[str] = None, **kwargs
-    ) -> Dict[str, Any]:
+        self, amount: float, description: str, task_id: str | None = None, **kwargs
+    ) -> dict[str, Any]:
         """
         带预算检查的支付处理
 
@@ -596,7 +590,7 @@ def run_tests(threshold: float = 100.0):
     )
     print(f"   响应: {json.dumps(response, ensure_ascii=False, indent=2)}")
 
-    print(f"\n3. 测试负路径（非法金额）:")
+    print("\n3. 测试负路径（非法金额）:")
     response = gateway.submit_payment_request(
         amount=-10.0,
         description="测试非法金额",
@@ -604,7 +598,7 @@ def run_tests(threshold: float = 100.0):
     )
     print(f"   响应: {json.dumps(response, ensure_ascii=False, indent=2)}")
 
-    print(f"\n4. 测试预算检查（如果预算引擎可用）:")
+    print("\n4. 测试预算检查（如果预算引擎可用）:")
     budget_check = gateway.check_budget_before_payment(
         amount=200.0,
         task_id="test_task_004",

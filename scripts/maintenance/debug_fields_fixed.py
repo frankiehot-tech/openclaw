@@ -1,7 +1,6 @@
 #!/usr/bin/env python3
 """调试任务字段 - 修复版本"""
 
-import json
 from pathlib import Path
 
 import requests
@@ -14,7 +13,7 @@ token = TOKEN_FILE.read_text().strip()
 base_url = "http://127.0.0.1:8080"
 headers = {"X-OpenClaw-Token": token, "Content-Type": "application/json"}
 
-print(f"🔍 调试任务字段...")
+print("🔍 调试任务字段...")
 
 # 获取所有队列数据
 response = requests.get(f"{base_url}/api/athena/queues", headers=headers, timeout=5)
@@ -24,7 +23,7 @@ if response.status_code == 200:
 
     for route in routes:
         if route.get("queue_id") == "openhuman_aiplan_gene_management_20260405":
-            print(f"📊 找到目标队列:")
+            print("📊 找到目标队列:")
             print(f"   队列ID: {route.get('queue_id')}")
             print(f"   路由ID: {route.get('route_id')}")
             items = route.get("items", [])
@@ -32,7 +31,7 @@ if response.status_code == 200:
 
             # 检查每个任务的字段
             for i, item in enumerate(items):
-                print(f"\n  任务 #{i+1}:")
+                print(f"\n  任务 #{i + 1}:")
                 print(f"    ID: {item.get('id')}")
                 print(f"    task_id: {item.get('task_id', '字段不存在')}")
                 print(f"    route_id: {item.get('route_id', '字段不存在')}")
@@ -54,7 +53,7 @@ if response.status_code == 200:
 
                     # 检查所有字段
                     if i == 0:  # 只检查第一个有问题的任务
-                        print(f"    所有字段:")
+                        print("    所有字段:")
                         for key, value in sorted(item.items()):
                             print(f"      {key}: {repr(value)[:60]}")
                         break
@@ -62,4 +61,4 @@ if response.status_code == 200:
 else:
     print(f"❌ 获取队列失败: {response.status_code}")
 
-print(f"\n✅ 调试完成")
+print("\n✅ 调试完成")

@@ -6,7 +6,6 @@ that it produces the expected output files and calls the expected subsystems.
 """
 
 import json
-import shutil
 import sys
 import tempfile
 from pathlib import Path
@@ -90,7 +89,6 @@ def main() -> int:
                 events.append(json.loads(line.strip()))
 
         event_types = {e["type"] for e in events}
-        expected_types = {"run_started"}
         # The following may not appear if duration is too short, but we can check for at least one
         if not events:
             print("ERROR: No events recorded")

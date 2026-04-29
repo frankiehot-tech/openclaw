@@ -49,7 +49,7 @@ def main():
         prefix = sys.argv[1]
         if prefix.startswith("-"):
             # 处理可能以'-'开头的参数
-            print(f"警告: 前缀以'-'开头，这可能被误识别为flag参数", file=sys.stderr)
+            print("警告: 前缀以'-'开头，这可能被误识别为flag参数", file=sys.stderr)
             print(f"将使用规范化前缀: task_{prefix[1:]}", file=sys.stderr)
             prefix = f"task_{prefix[1:]}"
 

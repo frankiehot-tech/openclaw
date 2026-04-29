@@ -87,8 +87,8 @@ def generate_skill_md(metadata: dict) -> str:
 
     return f"""# {name}
 
-**Skill ID**: `{skill_id}`  
-**Source**: {metadata.get("source", "unknown")}  
+**Skill ID**: `{skill_id}`
+**Source**: {metadata.get("source", "unknown")}
 **Generated**: {datetime.now().strftime("%Y-%m-%d %H:%M:%S")}
 
 ## Description
@@ -118,9 +118,8 @@ def update_cognitive_dna(skills: list):
     """更新 COGNITIVE_DNA.md"""
 
     # 读取现有内容
-    existing = ""
     if COGNITIVE_DNA.exists():
-        existing = COGNITIVE_DNA.read_text()
+        COGNITIVE_DNA.read_text()
 
     # 生成新内容
     skills_section = "\n".join(

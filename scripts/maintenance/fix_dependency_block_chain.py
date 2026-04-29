@@ -1,10 +1,11 @@
 #!/usr/bin/env python3
+# DEPRECATED: 使用 governance/ 模块代替
+# governance_cli.py repair <command> 或 governance_cli.py queue fix
 """
 修复依赖阻塞链：将manual_hold任务标记为completed，解除依赖死锁
 """
 
 import json
-import os
 import shutil
 from datetime import datetime
 
@@ -13,7 +14,7 @@ def main():
     state_file = ".openclaw/plan_queue/openhuman_aiplan_build_priority_20260328.json"
 
     print(f"加载状态文件: {state_file}")
-    with open(state_file, "r", encoding="utf-8") as f:
+    with open(state_file, encoding="utf-8") as f:
         data = json.load(f)
 
     items = data.get("items", {})
@@ -33,9 +34,11 @@ def main():
             status = task.get("status", "unknown")
             summary = task.get("summary", "")[:60]
             pipeline_summary = task.get("pipeline_summary", "")
-            print(f"{i+1}. {task_id}: 状态={status}, 摘要={summary}..., 流水线={pipeline_summary}")
+            print(
+                f"{i + 1}. {task_id}: 状态={status}, 摘要={summary}..., 流水线={pipeline_summary}"
+            )
         else:
-            print(f"{i+1}. {task_id}: 任务不存在")
+            print(f"{i + 1}. {task_id}: 任务不存在")
 
     # 修复源头任务：aiplan_queue_runner_persistence
     source_task_id = "aiplan_queue_runner_persistence"
@@ -141,7 +144,7 @@ def main():
             # 创建备份
             backup = (
                 state_file
-                + f'.dependency_chain_fix_backup_{datetime.now().strftime("%Y%m%d_%H%M%S")}'
+                + f".dependency_chain_fix_backup_{datetime.now().strftime('%Y%m%d_%H%M%S')}"
             )
             shutil.copy2(state_file, backup)
             print(f"\n✅ 创建备份: {backup}")
@@ -150,7 +153,7 @@ def main():
             with open(state_file, "w", encoding="utf-8") as f:
                 json.dump(data, f, ensure_ascii=False, indent=2)
 
-            print(f"\n📊 修复完成:")
+            print("\n📊 修复完成:")
             print(f"  修复任务数: {fixed_count}")
             print(f"  新counts: {json.dumps(counts, ensure_ascii=False)}")
             print(f"  新queue_status: {data['queue_status']}")

@@ -5,21 +5,18 @@
 """
 
 import json
-import os
-import sys
 from pathlib import Path
-from typing import Dict, List, Set
 
 import yaml
 
 
-def extract_proposal_ids(approval_dir: Path) -> List[str]:
+def extract_proposal_ids(approval_dir: Path) -> list[str]:
     """从批准文件夹中提取所有提案ID"""
     proposal_ids = []
 
     for file_path in approval_dir.glob("*.md"):
         try:
-            with open(file_path, "r", encoding="utf-8") as f:
+            with open(file_path, encoding="utf-8") as f:
                 content = f.read()
 
             # 解析YAML frontmatter
@@ -41,15 +38,15 @@ def extract_proposal_ids(approval_dir: Path) -> List[str]:
     return proposal_ids
 
 
-def extract_queue_task_ids(queue_file: Path) -> Set[str]:
+def extract_queue_task_ids(queue_file: Path) -> set[str]:
     """从队列文件中提取所有任务ID"""
     try:
-        with open(queue_file, "r", encoding="utf-8") as f:
+        with open(queue_file, encoding="utf-8") as f:
             queue_data = json.load(f)
 
         task_ids = set()
         if "items" in queue_data:
-            for task_id, task_data in queue_data["items"].items():
+            for task_id, _task_data in queue_data["items"].items():
                 task_ids.add(task_id)
 
         return task_ids
@@ -123,26 +120,26 @@ def analyze_backlog():
         else:
             unmatched_ids.append(proposal_id)
 
-    print(f"\n📊 匹配分析结果:")
+    print("\n📊 匹配分析结果:")
     print(f"✅ 已匹配到队列的任务: {len(matched_ids)}")
     print(f"❌ 未匹配到队列的任务: {len(unmatched_ids)}")
 
     if unmatched_ids:
-        print(f"\n📝 未匹配的提案ID (前10个):")
+        print("\n📝 未匹配的提案ID (前10个):")
         for i, proposal_id in enumerate(unmatched_ids[:10]):
-            print(f"  {i+1}. {proposal_id}")
+            print(f"  {i + 1}. {proposal_id}")
 
         if len(unmatched_ids) > 10:
             print(f"  ... 还有 {len(unmatched_ids) - 10} 个")
 
     # 分析队列状态
     try:
-        with open(queue_file, "r", encoding="utf-8") as f:
+        with open(queue_file, encoding="utf-8") as f:
             queue_data = json.load(f)
 
         if "counts" in queue_data:
             counts = queue_data["counts"]
-            print(f"\n📈 队列状态统计:")
+            print("\n📈 队列状态统计:")
             print(f"  - 等待中 (pending): {counts.get('pending', 0)}")
             print(f"  - 运行中 (running): {counts.get('running', 0)}")
             print(f"  - 已完成 (completed): {counts.get('completed', 0)}")
@@ -156,9 +153,9 @@ def analyze_backlog():
                 if task_data.get("status") == "pending":
                     pending_tasks.append(task_id)
 
-            print(f"\n⏳ 队列中的pending任务 (前10个):")
+            print("\n⏳ 队列中的pending任务 (前10个):")
             for i, task_id in enumerate(pending_tasks[:10]):
-                print(f"  {i+1}. {task_id}")
+                print(f"  {i + 1}. {task_id}")
 
             if len(pending_tasks) > 10:
                 print(f"  ... 还有 {len(pending_tasks) - 10} 个")
@@ -167,14 +164,14 @@ def analyze_backlog():
         print(f"错误: 分析队列状态失败: {e}")
 
     # 结论和建议
-    print(f"\n📋 问题诊断:")
+    print("\n📋 问题诊断:")
     if len(unmatched_ids) > 0:
         print(f"❌ 发现 {len(unmatched_ids)} 个提案未纳入队列系统")
         print("   原因: MAREF智能工作流未自动处理批准文件夹中的提案")
     else:
-        print(f"✅ 所有提案都已纳入队列系统")
+        print("✅ 所有提案都已纳入队列系统")
 
-    print(f"\n🎯 建议解决方案:")
+    print("\n🎯 建议解决方案:")
     print("1. 创建自动扫描批准文件夹的脚本")
     print("2. 将pending_review状态的提案转换为队列任务")
     print("3. 修复MAREF工作流自动化断点")

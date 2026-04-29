@@ -16,7 +16,7 @@ import time
 from dataclasses import asdict, dataclass, field
 from datetime import datetime
 from pathlib import Path
-from typing import Any, Dict, List, Optional
+from typing import Any
 
 # Add project root to path
 project_root = Path(__file__).resolve().parent.parent
@@ -34,9 +34,9 @@ class MetricSummary:
     min: float
     max: float
     count: int
-    labels: Dict[str, str]
-    unit: Optional[str] = None
-    trend: Optional[str] = None  # "up", "down", "stable"
+    labels: dict[str, str]
+    unit: str | None = None
+    trend: str | None = None  # "up", "down", "stable"
 
 
 @dataclass
@@ -67,22 +67,22 @@ class PerformanceSummary:
     avg_response_time_seconds: float = 0.0
 
     # Queue status
-    queues: List[Dict[str, Any]] = field(default_factory=list)
+    queues: list[dict[str, Any]] = field(default_factory=list)
 
     # Metric summaries
-    metric_summaries: List[MetricSummary] = field(default_factory=list)
+    metric_summaries: list[MetricSummary] = field(default_factory=list)
 
     # Alert summaries
-    alert_summaries: List[AlertSummary] = field(default_factory=list)
+    alert_summaries: list[AlertSummary] = field(default_factory=list)
 
     # Health status
     overall_health: str = "unknown"  # "healthy", "degraded", "unhealthy"
     health_score: float = 0.0
 
     # Recommendations
-    recommendations: List[str] = field(default_factory=list)
+    recommendations: list[str] = field(default_factory=list)
 
-    def to_dict(self) -> Dict[str, Any]:
+    def to_dict(self) -> dict[str, Any]:
         return asdict(self)
 
     def to_markdown(self) -> str:
@@ -179,7 +179,7 @@ class SummaryGenerator:
         except ImportError as e:
             logger.warning(f"Performance modules not available: {e}")
 
-    def collect_system_overview(self) -> Dict[str, Any]:
+    def collect_system_overview(self) -> dict[str, Any]:
         """Collect basic system overview from tasks.json."""
         tasks_path = self.runtime_root / ".openclaw" / "orchestrator" / "tasks.json"
 
@@ -190,7 +190,7 @@ class SummaryGenerator:
 
         if tasks_path.exists():
             try:
-                with open(tasks_path, "r", encoding="utf-8") as f:
+                with open(tasks_path, encoding="utf-8") as f:
                     tasks_data = json.load(f)
 
                 tasks = tasks_data.get("tasks", [])
@@ -225,7 +225,7 @@ class SummaryGenerator:
             "throughput_tasks_per_hour": throughput,
         }
 
-    def collect_queue_status(self) -> List[Dict[str, Any]]:
+    def collect_queue_status(self) -> list[dict[str, Any]]:
         """Collect queue status from plan_queue directory."""
         queue_status = []
         queue_dir = self.runtime_root / ".openclaw" / "plan_queue"
@@ -238,7 +238,7 @@ class SummaryGenerator:
                 continue
 
             try:
-                with open(queue_file, "r", encoding="utf-8") as f:
+                with open(queue_file, encoding="utf-8") as f:
                     queue_data = json.load(f)
 
                 queue_id = queue_data.get("queue_id", queue_file.stem)
@@ -264,7 +264,7 @@ class SummaryGenerator:
 
         return queue_status
 
-    def collect_metric_summaries(self) -> List[MetricSummary]:
+    def collect_metric_summaries(self) -> list[MetricSummary]:
         """Collect metric summaries from performance metrics collector."""
         if not self.metrics_available:
             return []
@@ -303,7 +303,7 @@ class SummaryGenerator:
             logger.warning(f"Failed to collect metric summaries: {e}")
             return []
 
-    def collect_alert_summaries(self) -> List[AlertSummary]:
+    def collect_alert_summaries(self) -> list[AlertSummary]:
         """Collect alert summaries from alert engine."""
         if not self.alerts_available:
             return []
@@ -392,7 +392,7 @@ class SummaryGenerator:
         )
         return summary
 
-    def export_summary(self, summary: PerformanceSummary, output_dir: Path) -> Dict[str, Path]:
+    def export_summary(self, summary: PerformanceSummary, output_dir: Path) -> dict[str, Path]:
         """Export summary to JSON and markdown files."""
         output_dir.mkdir(parents=True, exist_ok=True)
 
@@ -456,7 +456,7 @@ def main():
     else:
         # Export files
         result = generator.export_summary(summary, args.output_dir)
-        print(f"\nPerformance summary generated:")
+        print("\nPerformance summary generated:")
         print(f"  JSON: {result['json']}")
         print(f"  Markdown: {result['md']}")
 
@@ -472,7 +472,7 @@ def main():
                 latest_md.unlink()
             latest_md.symlink_to(result["md"].name)
 
-            print(f"  Latest symlinks updated")
+            print("  Latest symlinks updated")
         except Exception as e:
             logger.warning(f"Failed to create latest symlinks: {e}")
 

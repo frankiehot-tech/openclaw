@@ -1,4 +1,6 @@
 #!/usr/bin/env python3
+# DEPRECATED: 使用 governance/ 模块代替
+# governance_cli.py health 或 governance_cli.py queue protect
 """
 队列健康度监控脚本 - 增强版监控仪表板
 功能：采集队列关键指标，生成健康度报告，支持HTML仪表板，邮件/Slack告警通知
@@ -89,7 +91,7 @@ MAX_HISTORY_SIZE = 100
 def load_queue_data(queue_path):
     """加载队列数据"""
     try:
-        with open(queue_path, "r", encoding="utf-8") as f:
+        with open(queue_path, encoding="utf-8") as f:
             return json.load(f)
     except Exception as e:
         print(f"❌ 加载队列文件失败 {queue_path}: {e}")
@@ -106,7 +108,7 @@ def analyze_queue_health(queue_data, queue_name):
 
     # 统计状态
     status_counts = defaultdict(int)
-    for task_id, task in items.items():
+    for _task_id, task in items.items():
         status = task.get("status", "unknown")
         status_counts[status] += 1
 
@@ -117,11 +119,11 @@ def analyze_queue_health(queue_data, queue_name):
     execution_times = []
     completion_times = []
 
-    for task_id, task in items.items():
+    for _task_id, task in items.items():
         if task.get("status") == "completed":
             metadata = task.get("metadata", {})
             created = metadata.get("created")
-            scan_time = metadata.get("scan_time")
+            metadata.get("scan_time")
             updated_at = task.get("updated_at")
 
             # 尝试解析时间计算处理时长
@@ -132,7 +134,7 @@ def analyze_queue_health(queue_data, queue_name):
                     execution_time = (updated_dt - created_dt).total_seconds()
                     execution_times.append(execution_time)
                     completion_times.append(updated_dt)
-            except:
+            except Exception:
                 pass
 
     # 计算平均处理时间
@@ -257,15 +259,14 @@ def _merge_env_vars_into_config(config):
 
     for env_var, (config_key, transformer) in slack_env_mapping.items():
         env_value = os.getenv(env_var)
-        if env_value:
-            if not config["slack"].get(config_key):
-                try:
-                    if transformer:
-                        config["slack"][config_key] = transformer(env_value)
-                    else:
-                        config["slack"][config_key] = env_value
-                except Exception as e:
-                    print(f"⚠️  环境变量转换失败 {env_var}={env_value}: {e}")
+        if env_value and not config["slack"].get(config_key):
+            try:
+                if transformer:
+                    config["slack"][config_key] = transformer(env_value)
+                else:
+                    config["slack"][config_key] = env_value
+            except Exception as e:
+                print(f"⚠️  环境变量转换失败 {env_var}={env_value}: {e}")
 
     # 通知策略环境变量
     if "notification_strategy" not in config:
@@ -286,12 +287,11 @@ def _merge_env_vars_into_config(config):
 
     for env_var, (config_key, transformer) in strategy_mapping.items():
         env_value = os.getenv(env_var)
-        if env_value:
-            if config_key not in config["notification_strategy"]:
-                try:
-                    config["notification_strategy"][config_key] = transformer(env_value)
-                except Exception as e:
-                    print(f"⚠️  环境变量转换失败 {env_var}={env_value}: {e}")
+        if env_value and config_key not in config["notification_strategy"]:
+            try:
+                config["notification_strategy"][config_key] = transformer(env_value)
+            except Exception as e:
+                print(f"⚠️  环境变量转换失败 {env_var}={env_value}: {e}")
 
     return config
 
@@ -366,9 +366,9 @@ def send_notifications(alerts, config_path=None):
         try:
             import yaml
 
-            with open(config_path, "r", encoding="utf-8") as f:
+            with open(config_path, encoding="utf-8") as f:
                 config = yaml.safe_load(f)
-        except:
+        except Exception:
             pass
 
     # 从环境变量补充配置
@@ -378,14 +378,14 @@ def send_notifications(alerts, config_path=None):
     log_dir = Path(__file__).parent / ".openclaw" / "monitoring_logs"
     log_dir.mkdir(parents=True, exist_ok=True)
 
-    log_file = log_dir / f'alert_log_{datetime.now().strftime("%Y%m%d")}.json'
+    log_file = log_dir / f"alert_log_{datetime.now().strftime('%Y%m%d')}.json"
     alert_entry = {"timestamp": datetime.now().isoformat(), "alerts": alerts}
 
     try:
         # 读取现有日志
         existing_logs = []
         if log_file.exists():
-            with open(log_file, "r", encoding="utf-8") as f:
+            with open(log_file, encoding="utf-8") as f:
                 existing_logs = json.load(f)
                 if not isinstance(existing_logs, list):
                     existing_logs = [existing_logs]
@@ -504,7 +504,7 @@ def _send_email_notification(alerts, config):
             <div class="container">
                 <div class="header">
                     <h1>OpenClaw 系统告警通知</h1>
-                    <p>检测时间: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}</p>
+                    <p>检测时间: {datetime.now().strftime("%Y-%m-%d %H:%M:%S")}</p>
                 </div>
 
                 <div class="alert-section">
@@ -517,14 +517,14 @@ def _send_email_notification(alerts, config):
             level_class = alert.get("level", "info")
             html_content += f"""
                     <div class="alert {level_class}">
-                        <div class="alert-title">{alert.get('title', '未知告警')}</div>
-                        <div class="alert-message">{alert.get('message', '无详细信息')}</div>
+                        <div class="alert-title">{alert.get("title", "未知告警")}</div>
+                        <div class="alert-message">{alert.get("message", "无详细信息")}</div>
                         <div class="timestamp">级别: {level_class.upper()}</div>
                     </div>
             """
 
         # 添加建议操作
-        html_content += f"""
+        html_content += """
                 </div>
 
                 <div class="alert-section">
@@ -548,7 +548,7 @@ def _send_email_notification(alerts, config):
         """
 
         # 构建纯文本版本（备用）
-        text_content = f"OpenClaw 系统告警通知\n"
+        text_content = "OpenClaw 系统告警通知\n"
         text_content += f"检测时间: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}\n"
         text_content += f"总计: {len(alerts)} 个告警\n"
         text_content += f"严重: {len(critical_alerts)}, 警告: {len(warning_alerts)}, 信息: {len(info_alerts)}\n\n"
@@ -556,11 +556,11 @@ def _send_email_notification(alerts, config):
         for i, alert in enumerate(alerts, 1):
             text_content += f"{i}. [{alert.get('level', 'info').upper()}] {alert.get('title')}: {alert.get('message')}\n"
 
-        text_content += f"\n建议操作:\n"
-        text_content += f"1. 登录OpenClaw监控仪表板查看详细状态\n"
-        text_content += f"2. 检查相关队列和系统资源\n"
-        text_content += f"3. 如有需要，调整任务调度策略\n"
-        text_content += f"4. 验证系统备份和恢复机制\n"
+        text_content += "\n建议操作:\n"
+        text_content += "1. 登录OpenClaw监控仪表板查看详细状态\n"
+        text_content += "2. 检查相关队列和系统资源\n"
+        text_content += "3. 如有需要，调整任务调度策略\n"
+        text_content += "4. 验证系统备份和恢复机制\n"
 
         # 创建邮件消息
         msg = MIMEMultipart("alternative")
@@ -608,7 +608,7 @@ def _send_email_notification(alerts, config):
         print("   请检查用户名和密码，对于Gmail可能需要使用应用专用密码")
     except smtplib.SMTPException as e:
         print(f"❌ 邮件发送失败: {e}")
-    except socket.timeout as e:
+    except TimeoutError as e:
         print(f"❌ 连接邮件服务器超时: {e}")
     except Exception as e:
         print(f"❌ 邮件通知发送失败，未知错误: {e}")
@@ -637,9 +637,7 @@ def _send_slack_notification(alerts, config):
         try:
             import requests
 
-            REQUESTS_AVAILABLE = True
         except ImportError:
-            REQUESTS_AVAILABLE = False
             print("⚠️  requests库未安装，无法发送Slack通知")
             print("    请运行: pip install requests")
             return
@@ -678,11 +676,13 @@ def _send_slack_notification(alerts, config):
 
         # 告警详情附件
         alert_fields = []
-        for i, alert in enumerate(alerts[:10], 1):  # 最多显示10个告警
+        for _i, alert in enumerate(alerts[:10], 1):  # 最多显示10个告警
             level_emoji = (
                 "🔴"
                 if alert.get("level") == "critical"
-                else "🟠" if alert.get("level") == "warning" else "🔵"
+                else "🟠"
+                if alert.get("level") == "warning"
+                else "🔵"
             )
             alert_fields.append(
                 {
@@ -759,7 +759,7 @@ def _send_slack_notification(alerts, config):
 
         # 检查响应
         if response.status_code == 200:
-            print(f"✅ Slack通知发送成功")
+            print("✅ Slack通知发送成功")
         else:
             print(f"❌ Slack通知发送失败，状态码: {response.status_code}")
             print(f"   响应: {response.text}")
@@ -962,7 +962,9 @@ def generate_html_dashboard(queue_metrics, system_metrics, history_data):
         queue_metrics["health_class"] = (
             "health-good"
             if queue_metrics["health_score"] >= 80
-            else "health-warning" if queue_metrics["health_score"] >= 60 else "health-critical"
+            else "health-warning"
+            if queue_metrics["health_score"] >= 60
+            else "health-critical"
         )
 
         # 格式化平均处理时间
@@ -970,9 +972,9 @@ def generate_html_dashboard(queue_metrics, system_metrics, history_data):
         if avg_seconds < 60:
             queue_metrics["avg_execution_time_formatted"] = f"{avg_seconds:.1f}秒"
         elif avg_seconds < 3600:
-            queue_metrics["avg_execution_time_formatted"] = f"{avg_seconds/60:.1f}分钟"
+            queue_metrics["avg_execution_time_formatted"] = f"{avg_seconds / 60:.1f}分钟"
         else:
-            queue_metrics["avg_execution_time_formatted"] = f"{avg_seconds/3600:.1f}小时"
+            queue_metrics["avg_execution_time_formatted"] = f"{avg_seconds / 3600:.1f}小时"
     else:
         queue_metrics = {
             "queue_name": "未知队列",
@@ -1035,7 +1037,7 @@ def generate_html_dashboard(queue_metrics, system_metrics, history_data):
                 {
                     "level": "critical",
                     "title": "错误率过高",
-                    "message": f"任务错误率超过5% ({error_rate*100:.1f}%，{queue_metrics['failed_tasks']}/{queue_metrics['total_tasks']})",
+                    "message": f"任务错误率超过5% ({error_rate * 100:.1f}%，{queue_metrics['failed_tasks']}/{queue_metrics['total_tasks']})",
                 }
             )
 
@@ -1096,7 +1098,7 @@ def generate_html_dashboard(queue_metrics, system_metrics, history_data):
             {
                 "level": "critical",
                 "title": "平均处理时间极长",
-                "message": f"平均处理时间超过2小时 ({avg_seconds/3600:.1f}小时)，需要优化",
+                "message": f"平均处理时间超过2小时 ({avg_seconds / 3600:.1f}小时)，需要优化",
             }
         )
     elif avg_seconds > 1800:  # 超过30分钟
@@ -1104,7 +1106,7 @@ def generate_html_dashboard(queue_metrics, system_metrics, history_data):
             {
                 "level": "warning",
                 "title": "平均处理时间较长",
-                "message": f"平均处理时间超过30分钟 ({avg_seconds/60:.1f}分钟)，建议检查",
+                "message": f"平均处理时间超过30分钟 ({avg_seconds / 60:.1f}分钟)，建议检查",
             }
         )
 
@@ -1180,7 +1182,7 @@ def save_metrics_to_history(queue_metrics, system_metrics):
     try:
         with open(history_file, "w", encoding="utf-8") as f:
             json.dump(metrics_history[-50:], f, indent=2, ensure_ascii=False)
-    except:
+    except Exception:
         pass  # 历史记录保存失败不影响主要功能
 
 
@@ -1229,7 +1231,7 @@ def run_monitoring_cycle(config_path=None):
     print(f"✅ HTML仪表板已保存: {html_file}")
 
     # 打印摘要
-    print(f"\n📋 监控摘要:")
+    print("\n📋 监控摘要:")
     print(f"   队列: {queue_metrics['queue_name']}")
     print(f"   健康度: {queue_metrics['health_score']}/100")
     print(
@@ -1241,15 +1243,15 @@ def run_monitoring_cycle(config_path=None):
     )
 
     # 生成建议
-    print(f"\n🎯 建议:")
+    print("\n🎯 建议:")
     if queue_metrics["health_score"] < 70:
-        print(f"   ⚠️  队列健康度较低，需要关注")
+        print("   ⚠️  队列健康度较低，需要关注")
     if queue_metrics["pending_tasks"] > 0:
-        print(f"   🔧 有待处理任务，考虑启动任务处理器")
+        print("   🔧 有待处理任务，考虑启动任务处理器")
     if system_metrics["cpu_percent"] > 80:
-        print(f"   💻 CPU使用率较高，考虑优化资源分配")
+        print("   💻 CPU使用率较高，考虑优化资源分配")
 
-    print(f"\n🏁 监控周期完成")
+    print("\n🏁 监控周期完成")
     return True
 
 
@@ -1333,7 +1335,7 @@ def main():
     print(f"✅ HTML仪表板已保存: {html_file}")
 
     # 打印摘要
-    print(f"\n📋 监控摘要:")
+    print("\n📋 监控摘要:")
     print(f"   队列: {queue_metrics['queue_name']}")
     print(f"   健康度: {queue_metrics['health_score']}/100")
     print(
@@ -1345,20 +1347,20 @@ def main():
     )
 
     # 生成建议
-    print(f"\n🎯 建议:")
+    print("\n🎯 建议:")
     if queue_metrics["health_score"] < 70:
-        print(f"   ⚠️  队列健康度较低，需要关注")
+        print("   ⚠️  队列健康度较低，需要关注")
     if queue_metrics["pending_tasks"] > 0:
-        print(f"   🔧 有待处理任务，考虑启动任务处理器")
+        print("   🔧 有待处理任务，考虑启动任务处理器")
     if system_metrics["cpu_percent"] > 80:
-        print(f"   💻 CPU使用率较高，考虑优化资源分配")
+        print("   💻 CPU使用率较高，考虑优化资源分配")
 
-    print(f"\n🏁 监控完成")
-    print(f"下一步:")
+    print("\n🏁 监控完成")
+    print("下一步:")
     print(f"  1. 打开 {html_file} 查看仪表板")
-    print(f"  2. 设置定时任务定期运行此脚本")
-    print(f"  3. 配置告警通知（邮件/Slack）")
-    print(f"  4. 扩展监控指标和可视化")
+    print("  2. 设置定时任务定期运行此脚本")
+    print("  3. 配置告警通知（邮件/Slack）")
+    print("  4. 扩展监控指标和可视化")
 
 
 if __name__ == "__main__":

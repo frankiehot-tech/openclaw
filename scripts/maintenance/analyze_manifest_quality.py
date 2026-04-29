@@ -8,10 +8,10 @@ import json
 import os
 import sys
 from collections import Counter
-from typing import Any, Dict, List
+from typing import Any
 
 
-def analyze_manifest_file(file_path: str) -> Dict[str, Any]:
+def analyze_manifest_file(file_path: str) -> dict[str, Any]:
     """分析manifest文件的数据质量"""
     print(f"🔍 分析文件: {file_path}")
 
@@ -19,7 +19,7 @@ def analyze_manifest_file(file_path: str) -> Dict[str, Any]:
         return {"error": f"文件不存在: {file_path}"}
 
     try:
-        with open(file_path, "r", encoding="utf-8") as f:
+        with open(file_path, encoding="utf-8") as f:
             data = json.load(f)
     except json.JSONDecodeError as e:
         return {"error": f"JSON解析错误: {e}"}
@@ -32,7 +32,7 @@ def analyze_manifest_file(file_path: str) -> Dict[str, Any]:
     else:
         # 可能是队列文件格式
         items = []
-        for key, value in data.items():
+        for _key, value in data.items():
             if isinstance(value, dict) and "id" in value:
                 items.append(value)
         if not items:
@@ -57,7 +57,7 @@ def analyze_manifest_file(file_path: str) -> Dict[str, Any]:
 
     print(f"🔁 重复ID数: {len(duplicate_ids)}")
     print(
-        f"📈 唯一ID比例: {len(set(ids))}/{len(ids)} = {len(set(ids))/len(ids)*100:.1f}%"
+        f"📈 唯一ID比例: {len(set(ids))}/{len(ids)} = {len(set(ids)) / len(ids) * 100:.1f}%"
         if ids
         else "N/A"
     )
@@ -168,15 +168,17 @@ def main():
             comp = result["completeness"]
             print(f"\n   📋 {name}:")
             print(f"      总条目: {comp['total_items']}")
-            print(f"      有ID: {comp['has_id']} ({comp['has_id']/comp['total_items']*100:.1f}%)")
             print(
-                f"      有标题: {comp['has_title']} ({comp['has_title']/comp['total_items']*100:.1f}%)"
+                f"      有ID: {comp['has_id']} ({comp['has_id'] / comp['total_items'] * 100:.1f}%)"
             )
             print(
-                f"      有指令路径: {comp['has_instruction_path']} ({comp['has_instruction_path']/comp['total_items']*100:.1f}%)"
+                f"      有标题: {comp['has_title']} ({comp['has_title'] / comp['total_items'] * 100:.1f}%)"
             )
             print(
-                f"      有入口阶段: {comp['has_entry_stage']} ({comp['has_entry_stage']/comp['total_items']*100:.1f}%)"
+                f"      有指令路径: {comp['has_instruction_path']} ({comp['has_instruction_path'] / comp['total_items'] * 100:.1f}%)"
+            )
+            print(
+                f"      有入口阶段: {comp['has_entry_stage']} ({comp['has_entry_stage'] / comp['total_items'] * 100:.1f}%)"
             )
 
     print("\n" + "=" * 60)

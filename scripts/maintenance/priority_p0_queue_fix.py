@@ -42,7 +42,7 @@ def backup_file(file_path):
 
 def load_json(file_path):
     """加载JSON文件"""
-    with open(file_path, "r", encoding="utf-8") as f:
+    with open(file_path, encoding="utf-8") as f:
         return json.load(f)
 
 
@@ -64,7 +64,7 @@ def fix_preflight_function():
     """
     backup_file(RUNNER_SCRIPT)
 
-    with open(RUNNER_SCRIPT, "r", encoding="utf-8") as f:
+    with open(RUNNER_SCRIPT, encoding="utf-8") as f:
         content = f.read()
 
     # 查找预检函数中的聊天任务例外部分
@@ -131,7 +131,7 @@ def fix_preflight_function():
     # 修改文档长度检查，为基因管理审计任务放宽限制
     length_check_start = new_content.find("if line_count > 200:")
     if length_check_start != -1:
-        length_check_line_end = new_content.find("\n", length_check_start) + 1
+        new_content.find("\n", length_check_start) + 1
         length_check_block_end = new_content.find("return False", length_check_start)
         if length_check_block_end != -1:
             length_check_block_end = new_content.find("\n", length_check_block_end) + 1
@@ -197,7 +197,7 @@ def fix_queue_state():
 
         # 检查是否是基因管理审计任务
         title = task.get("title", "")
-        metadata = task.get("metadata", {})
+        task.get("metadata", {})
 
         if "基因管理" in title and "审计" in title:
             print(f"🎯 修复基因管理审计任务: {title}")
@@ -215,7 +215,7 @@ def fix_queue_state():
             if "manual_override_autostart" in task:
                 del task["manual_override_autostart"]
 
-            print(f"  ✅ 已将任务状态从manual_hold改为pending")
+            print("  ✅ 已将任务状态从manual_hold改为pending")
 
     # 更新队列状态
     if data["queue_status"] == "manual_hold":
@@ -226,7 +226,7 @@ def fix_queue_state():
         if "gene_mgmt_audit" in data["items"]:
             data["current_item_id"] = "gene_mgmt_audit"
             data["current_item_ids"] = ["gene_mgmt_audit"]
-            print(f"  ✅ 设置当前任务为: gene_mgmt_audit")
+            print("  ✅ 设置当前任务为: gene_mgmt_audit")
 
     # 重新计算计数
     counts = {"pending": 0, "running": 0, "completed": 0, "failed": 0, "manual_hold": 0}
@@ -301,7 +301,7 @@ def restart_queue_runner():
             print("✅ 队列运行器启动成功")
         else:
             stdout, stderr = process.communicate()
-            print(f"❌ 队列运行器启动失败")
+            print("❌ 队列运行器启动失败")
             print(f"  stdout: {stdout[:200]}")
             print(f"  stderr: {stderr[:200]}")
             return False
@@ -321,7 +321,7 @@ def verify_fix():
     try:
         data = load_json(QUEUE_FILE)
 
-        print(f"📊 修复后队列状态:")
+        print("📊 修复后队列状态:")
         print(f"  queue_status: {data.get('queue_status')}")
         print(f"  pause_reason: {data.get('pause_reason')}")
         print(f"  current_item_id: {data.get('current_item_id')}")
