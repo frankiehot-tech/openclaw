@@ -12,7 +12,6 @@ import sys
 import time
 from datetime import datetime
 from pathlib import Path
-from typing import Dict, List, Optional
 
 # 添加项目根目录到路径
 project_root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -22,7 +21,6 @@ sys.path.insert(0, project_root)
 import logging
 
 from autoglm_bridge.agent_loop import AgentLoop, reset_agent_loop
-from device_control.screen_capture import capture_screen
 from vision.screen_analyzer import get_screen_analyzer
 
 logging.basicConfig(level=logging.INFO)
@@ -39,16 +37,16 @@ LOGS_DIR.mkdir(exist_ok=True)
 SCREENSHOTS_DIR.mkdir(exist_ok=True)
 
 
-def load_tasks(tasks_file: str = None) -> Dict:
+def load_tasks(tasks_file: str = None) -> dict:
     """加载任务集"""
     tasks_file = tasks_file or str(TASKS_FILE)
-    with open(tasks_file, "r", encoding="utf-8") as f:
+    with open(tasks_file, encoding="utf-8") as f:
         return json.load(f)
 
 
 def check_success_signal(
     screenshot_path: str, expected_signal: str, ocr_provider: str = "easyocr"
-) -> tuple[bool, List[str]]:
+) -> tuple[bool, list[str]]:
     """
     检查成功信号
 
@@ -106,11 +104,11 @@ def check_success_signal(
 
 def run_single_task(
     agent: AgentLoop,
-    task_config: Dict,
+    task_config: dict,
     round_index: int,
     device_id: str,
     ocr_provider: str = "easyocr",
-) -> Dict:
+) -> dict:
     """
     执行单个任务
 
@@ -216,7 +214,7 @@ def run_single_task(
     }
 
 
-def calculate_summary(results: List[Dict]) -> Dict:
+def calculate_summary(results: list[dict]) -> dict:
     """
     计算统计摘要
 
@@ -315,7 +313,7 @@ def calculate_summary(results: List[Dict]) -> Dict:
     }
 
 
-def collect_failure_samples(results: List[Dict], max_samples: int = 5) -> List[Dict]:
+def collect_failure_samples(results: list[dict], max_samples: int = 5) -> list[dict]:
     """
     收集失败案例样本
 
@@ -348,7 +346,7 @@ def collect_failure_samples(results: List[Dict], max_samples: int = 5) -> List[D
     return samples[: max_samples * 3]  # 限制总数
 
 
-def generate_markdown_report(summary: Dict, results: List[Dict], config: Dict) -> str:
+def generate_markdown_report(summary: dict, results: list[dict], config: dict) -> str:
     """
     生成 Markdown 报告
 
@@ -379,8 +377,8 @@ def generate_markdown_report(summary: Dict, results: List[Dict], config: Dict) -
     # 总体统计
     report.append("## 总体统计")
     report.append("")
-    report.append(f"| 指标 | 值 |")
-    report.append(f"|------|-----|")
+    report.append("| 指标 | 值 |")
+    report.append("|------|-----|")
     report.append(f"| 总执行次数 | {summary.get('total_runs', 0)} |")
     report.append(f"| 成功 | {summary.get('success_count', 0)} |")
     report.append(f"| 部分成功 | {summary.get('partial_count', 0)} |")

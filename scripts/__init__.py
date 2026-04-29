@@ -16,7 +16,7 @@ __all__ = [
 ]
 
 # 导入核心类
-from .chaos_engineering_engine import (
+from .test.chaos_engineering_engine import (
     ChaosEngineeringEngine,
     ChaosLayer,
     FaultSeverity,
@@ -25,21 +25,21 @@ from .chaos_engineering_engine import (
 
 # 这些导入可能在对应的层创建后启用
 try:
-    from .network_chaos_layer import NetworkChaosLayer
+    from .test.network_chaos_layer import NetworkChaosLayer
 except ImportError:
     NetworkChaosLayer = None
 
 try:
-    from .agent_chaos_layer import AgentChaosLayer
+    from .test.agent_chaos_layer import AgentChaosLayer
 except ImportError:
     AgentChaosLayer = None
 
 try:
-    from .tool_chaos_layer import ToolChaosLayer
+    from .test.tool_chaos_layer import ToolChaosLayer
 except ImportError:
     ToolChaosLayer = None
 
 try:
-    from .model_chaos_layer import ModelChaosLayer
+    from .test.model_chaos_layer import ModelChaosLayer
 except ImportError:
     ModelChaosLayer = None

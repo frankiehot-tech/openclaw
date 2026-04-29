@@ -5,9 +5,7 @@ Gate 5 智能测试脚本：在设置中进入 Wi-Fi 页面
 """
 
 import json
-import os
 import subprocess
-import sys
 import time
 
 import requests
@@ -175,10 +173,10 @@ def find_wifi_by_strategy(image_path, strategy_data):
                 "是" in check_desc.get("text", "").lower()
                 or "wifi" in check_desc.get("text", "").lower()
             ):
-                print(f"    ✓ 成功进入Wi-Fi页面")
+                print("    ✓ 成功进入Wi-Fi页面")
                 return True, check_screenshot, check_desc
 
-            print(f"    ✗ 未进入Wi-Fi页面，返回上一页")
+            print("    ✗ 未进入Wi-Fi页面，返回上一页")
             press_back()
             time.sleep(1)
 
@@ -212,13 +210,13 @@ def find_wifi_by_strategy(image_path, strategy_data):
                 "是" in check_desc.get("text", "").lower()
                 or "连接" in check_desc.get("text", "").lower()
             ):
-                print(f"    ✓ 进入连接设置页面，查找Wi-Fi")
+                print("    ✓ 进入连接设置页面，查找Wi-Fi")
                 # 在连接设置页面中查找Wi-Fi
                 wifi_in_connection = find_wifi_in_connection(check_screenshot)
                 if wifi_in_connection[0]:
                     return wifi_in_connection
 
-            print(f"    ✗ 未进入连接设置页面，返回上一页")
+            print("    ✗ 未进入连接设置页面，返回上一页")
             press_back()
             time.sleep(1)
 
@@ -249,10 +247,10 @@ def find_wifi_by_strategy(image_path, strategy_data):
             "是" in search_desc.get("text", "").lower()
             or "wifi" in search_desc.get("text", "").lower()
         ):
-            print(f"    ✓ 通过搜索进入Wi-Fi页面")
+            print("    ✓ 通过搜索进入Wi-Fi页面")
             return True, search_screenshot, search_desc
 
-        print(f"    ✗ 搜索未找到Wi-Fi，返回")
+        print("    ✗ 搜索未找到Wi-Fi，返回")
         press_back()
         time.sleep(1)
 
@@ -288,10 +286,10 @@ def find_wifi_in_connection(image_path):
             "是" in check_desc.get("text", "").lower()
             or "wifi" in check_desc.get("text", "").lower()
         ):
-            print(f"    ✓ 成功进入Wi-Fi页面")
+            print("    ✓ 成功进入Wi-Fi页面")
             return True, check_screenshot, check_desc
 
-        print(f"    ✗ 未进入Wi-Fi页面，返回上一页")
+        print("    ✗ 未进入Wi-Fi页面，返回上一页")
         press_back()
         time.sleep(1)
 
@@ -353,7 +351,7 @@ def main():
             wifi_success = True
             final_screenshot = wifi_screenshot
             final_desc = wifi_desc
-            action_sequence.append(f"智能策略找到Wi-Fi")
+            action_sequence.append("智能策略找到Wi-Fi")
             break
 
         # 如果第一次失败，尝试向上滑动后重新分析

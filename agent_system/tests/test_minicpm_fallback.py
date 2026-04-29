@@ -10,7 +10,7 @@ Test MiniCPM Fallback - 测试 MiniCPM 回退机制
 import os
 import sys
 import unittest
-from unittest.mock import MagicMock, patch
+from unittest.mock import patch
 
 # 添加项目根目录到路径
 project_root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -20,8 +20,8 @@ sys.path.insert(0, project_root)
 os.environ["VISION_USE_MINICPM"] = "true"
 os.environ["MINICPM_MODE"] = "mock"
 
-from vision.minicpm_client import MiniCPMClient, MiniCPMResult
-from vision.vision_router import VisionRouteDecision, VisionRouter
+from vision.minicpm_client import MiniCPMResult
+from vision.vision_router import VisionRouter
 
 
 class TestMiniCPMFallback(unittest.TestCase):

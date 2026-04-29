@@ -10,20 +10,17 @@ import logging
 import os
 import sys
 from datetime import datetime
-from typing import Dict, List, Optional
 
 # 添加项目根目录到路径
 project_root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.insert(0, project_root)
 
 # 导入各模块
-from athena_adapter.athena_interface import AthenaInterface, run_task
 from athena_adapter.task_router import TaskRouter
 from autoglm_bridge.action_executor import ActionExecutor
 from autoglm_bridge.agent_loop import AgentLoop
 from autoglm_bridge.model_client import ModelClient
 from device_control.adb_client import ADBClient
-from device_control.screen_capture import capture_screen
 
 # 配置日志
 PIPELINE_LOG = "os.path.join(os.path.dirname(os.path.abspath(__file__)), '../logs/pipeline.log')"
@@ -53,8 +50,8 @@ def run_pipeline_validation(
     device: str = "zflip3",
     max_steps: int = 1,
     use_mock: bool = True,
-    device_id: Optional[str] = None,
-) -> Dict:
+    device_id: str | None = None,
+) -> dict:
     """
     链路验证入口
 
@@ -244,7 +241,7 @@ def test_no_device_behavior():
     if os.path.exists(PIPELINE_LOG):
         print(f"  日志文件存在: {PIPELINE_LOG}")
     else:
-        print(f"  ✗ 日志文件不存在")
+        print("  ✗ 日志文件不存在")
 
 
 def check_device():

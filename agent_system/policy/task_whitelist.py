@@ -4,11 +4,9 @@ Task Whitelist - 任务白名单
 定义允许执行的任务列表及其属性
 """
 
-import json
 import logging
 import os
-from dataclasses import asdict, dataclass
-from typing import Dict, List, Optional
+from dataclasses import dataclass
 
 logger = logging.getLogger(__name__)
 
@@ -30,8 +28,8 @@ class TaskPolicy:
     normalized_task: str
     risk_level: str  # "low", "medium", "high", "critical"
     allowed: bool
-    required_state: Optional[str] = None
-    target_state: Optional[str] = None
+    required_state: str | None = None
+    target_state: str | None = None
     notes: str = ""
 
 
@@ -39,7 +37,7 @@ class TaskWhitelist:
     """任务白名单管理器"""
 
     def __init__(self):
-        self._tasks: Dict[str, TaskPolicy] = {}
+        self._tasks: dict[str, TaskPolicy] = {}
         self._load_default_tasks()
         logger.info(f"TaskWhitelist 初始化: {len(self._tasks)} 个任务")
 
@@ -222,7 +220,7 @@ class TaskWhitelist:
         logger.warning(f"任务不在白名单中: {task}")
         return False
 
-    def get_task_policy(self, task: str) -> Optional[TaskPolicy]:
+    def get_task_policy(self, task: str) -> TaskPolicy | None:
         """获取任务策略"""
         normalized = self._normalize_task(task)
 
@@ -243,14 +241,14 @@ class TaskWhitelist:
             return policy.risk_level
         return "unknown"
 
-    def get_target_state(self, task: str) -> Optional[str]:
+    def get_target_state(self, task: str) -> str | None:
         """获取任务目标状态"""
         policy = self.get_task_policy(task)
         if policy:
             return policy.target_state
         return None
 
-    def get_required_state(self, task: str) -> Optional[str]:
+    def get_required_state(self, task: str) -> str | None:
         """获取任务所需状态"""
         policy = self.get_task_policy(task)
         if policy:
@@ -274,17 +272,17 @@ class TaskWhitelist:
             del self._tasks[normalized]
             logger.info(f"从白名单移除任务: {task}")
 
-    def list_allowed_tasks(self) -> List[str]:
+    def list_allowed_tasks(self) -> list[str]:
         """列出所有允许的任务"""
         return [t.task_name for t in self._tasks.values() if t.allowed]
 
-    def list_low_risk_tasks(self) -> List[str]:
+    def list_low_risk_tasks(self) -> list[str]:
         """列出所有低风险任务"""
         return [t.task_name for t in self._tasks.values() if t.risk_level == "low" and t.allowed]
 
 
 # 全局单例
-_whitelist: Optional[TaskWhitelist] = None
+_whitelist: TaskWhitelist | None = None
 
 
 def get_task_whitelist() -> TaskWhitelist:
@@ -312,7 +310,7 @@ def is_task_allowed(task: str) -> bool:
     return whitelist.is_allowed(task)
 
 
-def reject_if_not_allowed(task: str) -> Dict:
+def reject_if_not_allowed(task: str) -> dict:
     """
     如果任务不在白名单中，返回拒绝原因
 
@@ -341,13 +339,13 @@ def get_task_risk_level(task: str) -> str:
     return whitelist.get_risk_level(task)
 
 
-def get_task_target_state(task: str) -> Optional[str]:
+def get_task_target_state(task: str) -> str | None:
     """获取任务目标状态（便捷函数）"""
     whitelist = get_task_whitelist()
     return whitelist.get_target_state(task)
 
 
-def get_task_required_state(task: str) -> Optional[str]:
+def get_task_required_state(task: str) -> str | None:
     """获取任务所需状态（便捷函数）"""
     whitelist = get_task_whitelist()
     return whitelist.get_required_state(task)

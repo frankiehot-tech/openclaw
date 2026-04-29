@@ -7,10 +7,9 @@ State Machine - 状态机
 import logging
 import os
 from dataclasses import dataclass, field
-from typing import Dict, List, Optional, Tuple
 
-from .page_states import STATE_TRANSITIONS, PageStateEnum, get_available_transitions
-from .state_detector import DetectionResult, StateDetector, detect_page_state
+from .page_states import PageStateEnum, get_available_transitions
+from .state_detector import DetectionResult, StateDetector
 
 logger = logging.getLogger(__name__)
 
@@ -31,7 +30,7 @@ class TransitionStep:
     step: int
     action: str  # "tap", "swipe", "back", "home"
     target: str  # 点击目标文本或滑动方向
-    params: Dict = field(default_factory=dict)
+    params: dict = field(default_factory=dict)
     description: str = ""
 
 
@@ -41,7 +40,7 @@ class TransitionPlan:
 
     from_state: PageStateEnum
     to_state: PageStateEnum
-    steps: List[TransitionStep]
+    steps: list[TransitionStep]
     is_direct: bool  # 是否可以直接转移
     reason: str = ""
 
@@ -52,17 +51,17 @@ class StateMachine:
     def __init__(self, confidence_threshold: float = 0.70):
         self.confidence_threshold = confidence_threshold
         self._detector = StateDetector(confidence_threshold=confidence_threshold)
-        self._current_state: Optional[PageStateEnum] = None
+        self._current_state: PageStateEnum | None = None
         self._current_confidence: float = 0.0
-        self._current_signals: List[str] = []
+        self._current_signals: list[str] = []
         logger.info(f"StateMachine 初始化: threshold={confidence_threshold}")
 
     def get_current_state(
         self,
-        ocr_results: List[str] = None,
+        ocr_results: list[str] = None,
         image_path: str = None,
-        screen_analysis: Dict = None,
-        history: List[Dict] = None,
+        screen_analysis: dict = None,
+        history: list[dict] = None,
     ) -> DetectionResult:
         """
         获取当前页面状态
@@ -168,7 +167,7 @@ class StateMachine:
 
     def _generate_transition_steps(
         self, from_state: PageStateEnum, to_state: PageStateEnum
-    ) -> List[TransitionStep]:
+    ) -> list[TransitionStep]:
         """生成状态转移步骤"""
         steps = []
 
@@ -273,7 +272,7 @@ class StateMachine:
         target_state = PageStateEnum(target_state_str)
         return current_state == target_state
 
-    def get_state_info(self) -> Dict:
+    def get_state_info(self) -> dict:
         """获取当前状态信息"""
         return {
             "state": self._current_state.value if self._current_state else "unknown",
@@ -290,7 +289,7 @@ class StateMachine:
 
 
 # 全局状态机
-_state_machine: Optional[StateMachine] = None
+_state_machine: StateMachine | None = None
 
 
 def get_state_machine(confidence_threshold: float = 0.70) -> StateMachine:

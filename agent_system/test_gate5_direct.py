@@ -4,10 +4,7 @@ Gate 5 直接测试脚本：在设置中进入 Wi-Fi 页面
 使用三星手机典型布局的直接点击策略
 """
 
-import json
-import os
 import subprocess
-import sys
 import time
 
 import requests
@@ -187,7 +184,7 @@ def main():
             is_wifi, desc = check_is_wifi_page(check_screenshot)
 
             if is_wifi:
-                print(f"    ✓ 成功进入Wi-Fi页面")
+                print("    ✓ 成功进入Wi-Fi页面")
                 wifi_found = True
                 final_screenshot = check_screenshot
                 final_desc = desc

@@ -8,13 +8,12 @@ Athena 与 AutoGLM Bridge 之间的主要接口
 import logging
 import os
 import sys
-from typing import Dict, List, Optional
 
 # 添加项目根目录到路径
 project_root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.insert(0, project_root)
 
-from athena_adapter.task_router import TaskRouter, route_task
+from athena_adapter.task_router import TaskRouter
 from autoglm_bridge.agent_loop import AgentLoop
 
 # 配置日志
@@ -32,7 +31,7 @@ logger.addHandler(file_handler)
 class AthenaInterface:
     """Athena 接口"""
 
-    def __init__(self, device_id: Optional[str] = None):
+    def __init__(self, device_id: str | None = None):
         """
         初始化 Athena 接口
 
@@ -49,10 +48,10 @@ class AthenaInterface:
         self,
         task: str,
         device: str = "zflip3",
-        context: Optional[str] = None,
+        context: str | None = None,
         max_steps: int = 10,
         use_mock: bool = True,
-    ) -> Dict:
+    ) -> dict:
         """
         运行任务
 
@@ -96,7 +95,7 @@ class AthenaInterface:
             logger.error(f"任务执行失败: {str(e)}")
             return {"success": False, "task": task, "error": str(e), "steps": []}
 
-    def get_status(self) -> Dict:
+    def get_status(self) -> dict:
         """
         获取状态
 
@@ -112,11 +111,11 @@ class AthenaInterface:
 def run_task(
     task: str,
     device: str = "zflip3",
-    context: Optional[str] = None,
+    context: str | None = None,
     max_steps: int = 10,
     use_mock: bool = True,
-    device_id: Optional[str] = None,
-) -> Dict:
+    device_id: str | None = None,
+) -> dict:
     """
     快捷任务执行函数
 

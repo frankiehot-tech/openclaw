@@ -53,7 +53,7 @@ def test_home_screen_scoring():
 
     result = detect_page_state(ocr_results=ocr_texts)
 
-    print(f"主屏幕测试:")
+    print("主屏幕测试:")
     print(f"  状态: {result.state}")
     print(f"  置信度: {result.confidence:.2f}")
     print(f"  信号: {result.signals}")
@@ -83,7 +83,7 @@ def test_settings_home_scoring():
 
     result = detect_page_state(ocr_results=ocr_texts)
 
-    print(f"设置页面测试:")
+    print("设置页面测试:")
     print(f"  状态: {result.state}")
     print(f"  置信度: {result.confidence:.2f}")
     print(f"  信号: {result.signals}")
@@ -113,7 +113,7 @@ def test_browser_home_scoring():
 
     result = detect_page_state(ocr_results=ocr_texts)
 
-    print(f"浏览器首页测试:")
+    print("浏览器首页测试:")
     print(f"  状态: {result.state}")
     print(f"  置信度: {result.confidence:.2f}")
     print(f"  信号: {result.signals}")
@@ -132,7 +132,7 @@ def test_low_confidence_returns_unknown():
 
     result = detect_page_state(ocr_results=ocr_texts)
 
-    print(f"低置信度测试:")
+    print("低置信度测试:")
     print(f"  状态: {result.state}")
     print(f"  置信度: {result.confidence:.2f}")
     print(f"  信号: {result.signals}")
@@ -152,7 +152,7 @@ def test_keyword_combination():
 
     result = detect_page_state(ocr_results=ocr_texts)
 
-    print(f"关键词组合测试:")
+    print("关键词组合测试:")
     print(f"  状态: {result.state}")
     print(f"  置信度: {result.confidence:.2f}")
     print(f"  信号: {result.signals}")

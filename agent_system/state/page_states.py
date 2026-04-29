@@ -6,7 +6,6 @@ Page States - 页面状态定义
 
 from dataclasses import asdict, dataclass
 from enum import Enum
-from typing import Dict, List, Optional
 
 
 class PageStateEnum(str, Enum):
@@ -40,14 +39,14 @@ class PageState:
 
     state: str
     confidence: float
-    signals: List[str]
+    signals: list[str]
     source: str = "ocr"  # "ocr" | "hybrid" | "inference"
 
-    def to_dict(self) -> Dict:
+    def to_dict(self) -> dict:
         return asdict(self)
 
     @classmethod
-    def from_dict(cls, data: Dict) -> "PageState":
+    def from_dict(cls, data: dict) -> "PageState":
         return cls(**data)
 
 
@@ -134,6 +133,6 @@ STATE_TRANSITIONS = {
 }
 
 
-def get_available_transitions(current_state: PageStateEnum) -> List[PageStateEnum]:
+def get_available_transitions(current_state: PageStateEnum) -> list[PageStateEnum]:
     """获取当前状态可用的转移"""
     return STATE_TRANSITIONS.get(current_state, [])

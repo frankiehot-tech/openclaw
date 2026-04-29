@@ -6,18 +6,16 @@
 目标：查明真实情况并修复Gate 6A
 """
 
-import json
 import os
 import subprocess
-import sys
 import tempfile
 import time
-from typing import Any, Dict, List, Tuple
+from typing import Any
 
 DEVICE_ID = "R3CR80FKA0V"
 
 
-def run_adb(cmd: List[str]) -> Tuple[bool, str]:
+def run_adb(cmd: list[str]) -> tuple[bool, str]:
     """运行adb命令"""
     try:
         result = subprocess.run(
@@ -40,7 +38,7 @@ def capture_screen(filename: str) -> bool:
         png_header = b"\x89PNG\r\n\x1a\n"
         pos = stdout_data.find(png_header)
         if pos == -1:
-            print(f"错误: 未找到PNG文件头")
+            print("错误: 未找到PNG文件头")
             return False
         png_data = stdout_data[pos:]
         with open(filename, "wb") as f:
@@ -52,7 +50,7 @@ def capture_screen(filename: str) -> bool:
         return False
 
 
-def get_detailed_window_info() -> Dict[str, Any]:
+def get_detailed_window_info() -> dict[str, Any]:
     """获取详细的窗口信息"""
     info = {
         "mCurrentFocus": None,
@@ -99,7 +97,7 @@ def get_detailed_window_info() -> Dict[str, Any]:
     return info
 
 
-def get_package_info() -> Dict[str, Any]:
+def get_package_info() -> dict[str, Any]:
     """获取包信息"""
     info = {
         "currentPackage": None,
@@ -143,7 +141,7 @@ def get_package_info() -> Dict[str, Any]:
     return info
 
 
-def check_for_widgets() -> List[str]:
+def check_for_widgets() -> list[str]:
     """检查可能的widget"""
     widgets = []
 
@@ -166,7 +164,7 @@ def check_for_widgets() -> List[str]:
     return widgets
 
 
-def analyze_with_qwen(image_path: str) -> Dict[str, Any]:
+def analyze_with_qwen(image_path: str) -> dict[str, Any]:
     """使用Qwen分析图片"""
     import requests
 
@@ -221,7 +219,7 @@ def analyze_with_qwen(image_path: str) -> Dict[str, Any]:
         return {"ok": False, "error": str(e)}
 
 
-def take_multiple_screenshots(count: int = 3, delay: float = 1.0) -> List[str]:
+def take_multiple_screenshots(count: int = 3, delay: float = 1.0) -> list[str]:
     """连续多次截图以确认一致性"""
     screenshots = []
     temp_dir = tempfile.mkdtemp(prefix="debug_screens_")
@@ -239,7 +237,7 @@ def take_multiple_screenshots(count: int = 3, delay: float = 1.0) -> List[str]:
     return screenshots
 
 
-def compare_screenshots(files: List[str]) -> bool:
+def compare_screenshots(files: list[str]) -> bool:
     """比较多个截图是否相同（简单哈希）"""
     if len(files) < 2:
         return True
@@ -291,7 +289,7 @@ def main():
 
     # 显示一些窗口信息
     if window_info.get("allWindows"):
-        print(f"  前5个窗口:")
+        print("  前5个窗口:")
         for i, win in enumerate(window_info.get("allWindows", [])[:5]):
             print(f"    {win}")
 
@@ -329,7 +327,7 @@ def main():
         analysis = analyze_with_qwen(latest_screenshot)
 
         if analysis.get("ok"):
-            print(f"  Qwen分析结果:")
+            print("  Qwen分析结果:")
             print(f"    状态栏: {'有' if analysis.get('has_status_bar') else '无'}")
             print(f"    底部导航: {'有' if analysis.get('has_bottom_nav') else '无'}")
             print(f"    图标网格: {'有' if analysis.get('has_icon_grid') else '无'}")
@@ -340,7 +338,7 @@ def main():
 
             # 显示原始文本
             if "raw_text" in analysis:
-                print(f"    原始回答:")
+                print("    原始回答:")
                 for line in analysis["raw_text"].split("\n"):
                     print(f"      {line}")
         else:

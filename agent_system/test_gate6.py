@@ -19,13 +19,10 @@ Gate 6：保守整理桌面第一页
 8. 不修改壁纸、小组件、系统配置
 """
 
-import json
 import os
 import subprocess
-import sys
 import tempfile
 import time
-from typing import Dict, List, Optional, Tuple
 
 import requests
 
@@ -33,7 +30,7 @@ import requests
 DEVICE_ID = "R3CR80FKA0V"
 
 
-def capture_screen(filename: str) -> Tuple[str, int]:
+def capture_screen(filename: str) -> tuple[str, int]:
     """捕获屏幕截图"""
     try:
         proc = subprocess.Popen(
@@ -54,7 +51,7 @@ def capture_screen(filename: str) -> Tuple[str, int]:
         raise RuntimeError(f"截图失败: {str(e)}")
 
 
-def describe_with_qwen(image_path: str, prompt: str = None) -> Dict:
+def describe_with_qwen(image_path: str, prompt: str = None) -> dict:
     """调用vision_router的qwen分支"""
     if prompt is None:
         prompt = "请用一句中文描述这张截图中最显眼的界面内容，不要猜测看不清的细节。"
@@ -71,7 +68,7 @@ def describe_with_qwen(image_path: str, prompt: str = None) -> Dict:
         return {"ok": False, "error": str(e)}
 
 
-def execute_adb_command(cmd: List[str]) -> Tuple[bool, str]:
+def execute_adb_command(cmd: list[str]) -> tuple[bool, str]:
     """执行adb命令"""
     try:
         result = subprocess.run(
@@ -82,7 +79,7 @@ def execute_adb_command(cmd: List[str]) -> Tuple[bool, str]:
         return False, str(e)
 
 
-def check_current_activity() -> Optional[str]:
+def check_current_activity() -> str | None:
     """检查当前活动"""
     success, output = execute_adb_command(
         ["shell", "dumpsys", "window", "|", "grep", "mCurrentFocus"]
@@ -116,7 +113,7 @@ def swipe(x1: int, y1: int, x2: int, y2: int, duration: int = 500) -> bool:
     return success
 
 
-def is_home_screen(image_path: str) -> Tuple[bool, str]:
+def is_home_screen(image_path: str) -> tuple[bool, str]:
     """判断是否为桌面第一页"""
     prompt = "这是手机桌面第一页吗？请只回答'是'或'否'，然后简要说明理由。"
     result = describe_with_qwen(image_path, prompt)
@@ -131,7 +128,7 @@ def is_home_screen(image_path: str) -> Tuple[bool, str]:
         return False, f"视觉分析失败: {result.get('error', '未知错误')}"
 
 
-def analyze_desktop_layout(image_path: str) -> Dict:
+def analyze_desktop_layout(image_path: str) -> dict:
     """分析桌面布局，寻找整理机会"""
     prompt = """请分析这张手机桌面截图：
 1. 有哪些App图标？列出你能看清的App名称
@@ -146,7 +143,7 @@ def analyze_desktop_layout(image_path: str) -> Dict:
     return result
 
 
-def generate_conservative_plan(analysis_result: Dict) -> Dict:
+def generate_conservative_plan(analysis_result: dict) -> dict:
     """生成保守整理计划"""
     plan = {
         "actions": [],
@@ -276,7 +273,7 @@ def main():
         action_results.append({"action": action, "success": success})
 
         if not success:
-            print(f"动作失败，停止执行")
+            print("动作失败，停止执行")
             break
 
         action_count += 1

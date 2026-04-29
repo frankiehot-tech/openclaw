@@ -10,7 +10,6 @@ Device Manager - 设备管理器
 import logging
 from dataclasses import dataclass, field
 from datetime import datetime
-from typing import Dict, List, Optional
 
 from .adb_client import ADBClient
 
@@ -42,11 +41,11 @@ class DeviceManager:
 
     def __init__(self):
         """初始化设备管理器"""
-        self.devices: Dict[str, DeviceInfo] = {}
-        self.active_device: Optional[str] = None
+        self.devices: dict[str, DeviceInfo] = {}
+        self.active_device: str | None = None
         self._adb_client = ADBClient()
 
-    def discover_devices(self) -> List[DeviceInfo]:
+    def discover_devices(self) -> list[DeviceInfo]:
         """
         发现并更新设备列表
 
@@ -92,7 +91,7 @@ class DeviceManager:
         # if success:
         #     self.devices[device_id].model = output.strip()
 
-    def register_device(self, device_id: str, codename: Optional[str] = None):
+    def register_device(self, device_id: str, codename: str | None = None):
         """
         注册设备
 
@@ -132,7 +131,7 @@ class DeviceManager:
             logger.error(f"设备不存在: {device_id}")
             return False
 
-    def get_active_device(self) -> Optional[str]:
+    def get_active_device(self) -> str | None:
         """
         获取当前活动设备
 
@@ -141,7 +140,7 @@ class DeviceManager:
         """
         return self.active_device
 
-    def get_device_by_codename(self, codename: str) -> Optional[str]:
+    def get_device_by_codename(self, codename: str) -> str | None:
         """
         通过代号获取设备
 
@@ -161,7 +160,7 @@ class DeviceManager:
 
         return None
 
-    def get_device_info(self, device_id: str) -> Optional[DeviceInfo]:
+    def get_device_info(self, device_id: str) -> DeviceInfo | None:
         """
         获取设备信息
 
@@ -173,7 +172,7 @@ class DeviceManager:
         """
         return self.devices.get(device_id)
 
-    def list_devices(self) -> List[DeviceInfo]:
+    def list_devices(self) -> list[DeviceInfo]:
         """
         列出所有设备
 
@@ -182,7 +181,7 @@ class DeviceManager:
         """
         return list(self.devices.values())
 
-    def ensure_device_available(self, device_id: Optional[str] = None) -> Optional[str]:
+    def ensure_device_available(self, device_id: str | None = None) -> str | None:
         """
         确保设备可用
 
@@ -217,7 +216,7 @@ class DeviceManager:
 
 
 # 全局设备管理器实例
-_manager: Optional[DeviceManager] = None
+_manager: DeviceManager | None = None
 
 # 设备超时配置
 DEVICE_TIMEOUT = 30  # 设备操作超时（秒）
@@ -265,7 +264,7 @@ def check_device_health(device_id: str) -> bool:
         return False
 
 
-def get_device_with_timeout(device_id: Optional[str] = None) -> Optional[str]:
+def get_device_with_timeout(device_id: str | None = None) -> str | None:
     """
     获取设备（带超时控制）
 

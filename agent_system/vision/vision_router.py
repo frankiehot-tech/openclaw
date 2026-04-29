@@ -11,13 +11,12 @@ import os
 # 添加项目根目录到路径
 import sys
 from dataclasses import asdict, dataclass
-from typing import Any, Dict, List, Optional, Tuple
+from typing import Any
 
 project_root = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 sys.path.insert(0, project_root)
 
 from vision.minicpm_client import (
-    MINICPM_MODE,
     VISION_USE_MINICPM,
     MiniCPMResult,
     get_minicpm_client,
@@ -86,16 +85,16 @@ class VisionRouteDecision:
     use_minicpm: bool  # 是否使用 MiniCPM
     decision_reason: str  # 决策原因
     source: str  # 最终使用的来源: ocr_grounding, minicpm_vision, model_inference, fallback
-    grounding_target: Optional[Dict] = None  # grounding 目标
-    suggested_action: Optional[Dict] = None  # 建议动作
-    minicpm_result: Optional[MiniCPMResult] = None  # MiniCPM 结果（如果调用了）
+    grounding_target: dict | None = None  # grounding 目标
+    suggested_action: dict | None = None  # 建议动作
+    minicpm_result: MiniCPMResult | None = None  # MiniCPM 结果（如果调用了）
     ocr_confidence: float = 0.0  # OCR 置信度
     minicpm_confidence: float = 0.0  # MiniCPM 置信度
 
-    def to_dict(self) -> Dict:
+    def to_dict(self) -> dict:
         return asdict(self)
 
-    def add_to_context(self, context: Dict) -> Dict:
+    def add_to_context(self, context: dict) -> dict:
         """添加到执行上下文"""
         context["vision_route"] = self.to_dict()
         context["minicpm_used"] = self.use_minicpm
@@ -136,8 +135,8 @@ class VisionRouter:
         )
 
     def should_use_minicpm(
-        self, task: str, ocr_result: Optional[Dict] = None, state_result: Optional[Dict] = None
-    ) -> Tuple[bool, str]:
+        self, task: str, ocr_result: dict | None = None, state_result: dict | None = None
+    ) -> tuple[bool, str]:
         """
         判断是否应该使用 MiniCPM
 
@@ -200,9 +199,9 @@ class VisionRouter:
         self,
         image_path: str,
         task: str,
-        ocr_result: Optional[Dict] = None,
-        state_result: Optional[Dict] = None,
-        context: Optional[Dict] = None,
+        ocr_result: dict | None = None,
+        state_result: dict | None = None,
+        context: dict | None = None,
     ) -> VisionRouteDecision:
         """
         路由视觉分析
@@ -341,10 +340,10 @@ class VisionRouter:
 
     def _build_context(
         self,
-        ocr_result: Optional[Dict],
-        state_result: Optional[Dict],
-        extra_context: Optional[Dict],
-    ) -> Dict:
+        ocr_result: dict | None,
+        state_result: dict | None,
+        extra_context: dict | None,
+    ) -> dict:
         """
         构建 MiniCPM 上下文
 
@@ -376,7 +375,7 @@ class VisionRouter:
 
         return context
 
-    def _ocr_to_action(self, ocr_result: Dict) -> Dict:
+    def _ocr_to_action(self, ocr_result: dict) -> dict:
         """
         将 OCR 结果转换为动作格式
 
@@ -408,7 +407,7 @@ class VisionRouter:
 
 # ========== 全局单例 ==========
 
-_vision_router: Optional[VisionRouter] = None
+_vision_router: VisionRouter | None = None
 
 
 def get_vision_router() -> VisionRouter:
@@ -433,9 +432,9 @@ def reset_vision_router():
 def route_vision_analysis(
     image_path: str,
     task: str,
-    ocr_result: Optional[Dict] = None,
-    state_result: Optional[Dict] = None,
-    context: Optional[Dict] = None,
+    ocr_result: dict | None = None,
+    state_result: dict | None = None,
+    context: dict | None = None,
 ) -> VisionRouteDecision:
     """
     路由视觉分析（便捷函数）
@@ -455,8 +454,8 @@ def route_vision_analysis(
 
 
 def should_use_minicpm(
-    task: str, ocr_result: Optional[Dict] = None, state_result: Optional[Dict] = None
-) -> Tuple[bool, str]:
+    task: str, ocr_result: dict | None = None, state_result: dict | None = None
+) -> tuple[bool, str]:
     """
     判断是否使用 MiniCPM（便捷函数）
 
@@ -483,7 +482,7 @@ QWEN_TIMEOUT = 30  # 固定 30 秒超时
 def describe_with_qwen(
     image_path: str,
     prompt: str = "请用一句中文描述这张截图中最显眼的界面内容，不要猜测看不清的细节。",
-) -> Dict[str, Any]:
+) -> dict[str, Any]:
     """
     使用 Qwen 服务描述图片
 

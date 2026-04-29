@@ -16,7 +16,6 @@ sys.path.insert(0, project_root)
 
 from state.simple_state_planner import (
     STATE_CONFIDENCE_THRESHOLD,
-    PlanResult,
     plan_next_step,
 )
 
@@ -30,7 +29,7 @@ def test_low_confidence_triggers_gate():
 
     result = plan_next_step(task, current_state, state_confidence)
 
-    print(f"低置信度测试:")
+    print("低置信度测试:")
     print(f"  任务: {task}")
     print(f"  当前状态: {current_state}")
     print(f"  置信度: {state_confidence}")
@@ -57,7 +56,7 @@ def test_high_confidence_normal_planning():
 
     result = plan_next_step(task, current_state, state_confidence)
 
-    print(f"高置信度测试:")
+    print("高置信度测试:")
     print(f"  任务: {task}")
     print(f"  当前状态: {current_state}")
     print(f"  置信度: {state_confidence}")
@@ -79,7 +78,7 @@ def test_state_gate_for_browser_task():
 
     result = plan_next_step(task, current_state, state_confidence)
 
-    print(f"浏览器任务 state gate 测试:")
+    print("浏览器任务 state gate 测试:")
     print(f"  任务: {task}")
     print(f"  当前状态: {current_state}")
     print(f"  置信度: {state_confidence}")
@@ -106,7 +105,7 @@ def test_threshold_boundary():
     confidence_below_threshold = STATE_CONFIDENCE_THRESHOLD - 0.01
     result_below = plan_next_step(task, current_state, confidence_below_threshold)
 
-    print(f"阈值边界测试:")
+    print("阈值边界测试:")
     print(f"  阈值: {STATE_CONFIDENCE_THRESHOLD}")
     print(
         f"  置信度={confidence_on_threshold}: gate={result_on.state_gate_used}, plan={result_on.plan_type}"
@@ -128,7 +127,7 @@ def test_no_precondition_task():
 
     result = plan_next_step(task, current_state, state_confidence)
 
-    print(f"无前置条件任务测试:")
+    print("无前置条件任务测试:")
     print(f"  任务: {task}")
     print(f"  当前状态: {current_state}")
     print(f"  置信度: {state_confidence}")

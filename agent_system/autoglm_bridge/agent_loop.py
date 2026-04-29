@@ -15,7 +15,6 @@ import logging
 import os
 import sys
 import time
-from typing import Dict, List, Optional, Tuple
 
 # 添加项目根目录到路径
 project_root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -33,7 +32,6 @@ from device_control.screen_capture import (
 
 # Vision 模块
 from vision.screen_analyzer import get_screen_analyzer
-from vision.ui_grounding import get_ui_grounding
 
 # MiniCPM 路由（阶段 13 新增）
 try:
@@ -52,10 +50,10 @@ except ImportError:
 
 # Policy 模块 (任务白名单)
 from policy.task_whitelist import is_task_allowed, reject_if_not_allowed
-from state.simple_state_planner import PlanResult, plan_next_step
+from state.simple_state_planner import plan_next_step
 
 # State 模块 (页面状态检测与规划)
-from state.state_detector import DetectionResult, detect_page_state
+from state.state_detector import detect_page_state
 
 # 配置日志
 logger = logging.getLogger(__name__)
@@ -129,7 +127,7 @@ TARGET_STATE_MAPPING = {
 class AgentLoop:
     """Agent 控制循环"""
 
-    def __init__(self, device_id: Optional[str] = None, use_mock: bool = True, max_steps: int = 5):
+    def __init__(self, device_id: str | None = None, use_mock: bool = True, max_steps: int = 5):
         """
         初始化 Agent 循环
 
@@ -150,7 +148,7 @@ class AgentLoop:
 
         logger.info(f"AgentLoop 初始化: device={device_id}, mock={use_mock}, max_steps={max_steps}")
 
-    def _extract_target_from_task(self, task: str) -> List[str]:
+    def _extract_target_from_task(self, task: str) -> list[str]:
         """
         从任务中提取可能的目标文本
 
@@ -201,7 +199,7 @@ class AgentLoop:
 
     def _try_ocr_grounding(
         self, screenshot_path: str, task: str
-    ) -> Tuple[Optional[Dict], Optional[Dict]]:
+    ) -> tuple[dict | None, dict | None]:
         """
         尝试使用 OCR grounding 生成动作
 
@@ -278,9 +276,9 @@ class AgentLoop:
         self,
         screenshot_path: str,
         task: str,
-        ocr_result: Optional[List[Dict]] = None,
-        state_result: Optional[Dict] = None,
-    ) -> Optional[Dict]:
+        ocr_result: list[dict] | None = None,
+        state_result: dict | None = None,
+    ) -> dict | None:
         """
         尝试使用 MiniCPM 路由生成动作（阶段 13 新增）
 
@@ -373,11 +371,11 @@ class AgentLoop:
     def run_step(
         self,
         task: str,
-        history: List[Dict],
-        device_id: Optional[str] = None,
-        prev_screenshot_path: Optional[str] = None,
+        history: list[dict],
+        device_id: str | None = None,
+        prev_screenshot_path: str | None = None,
         use_vision: bool = True,
-    ) -> Dict:
+    ) -> dict:
         """
         执行单步（带页面变化检测和重试）
 
@@ -587,8 +585,8 @@ class AgentLoop:
         }
 
     def run_task(
-        self, task: str, max_steps: Optional[int] = None, device_id: Optional[str] = None
-    ) -> Dict:
+        self, task: str, max_steps: int | None = None, device_id: str | None = None
+    ) -> dict:
         """
         执行完整任务 (带白名单检查和状态规划)
 
@@ -892,11 +890,11 @@ class AgentLoop:
 
 
 # 全局单例
-_loop: Optional[AgentLoop] = None
+_loop: AgentLoop | None = None
 
 
 def get_agent_loop(
-    device_id: Optional[str] = None, use_mock: bool = True, max_steps: int = 5
+    device_id: str | None = None, use_mock: bool = True, max_steps: int = 5
 ) -> AgentLoop:
     """获取全局 Agent 循环实例"""
     global _loop

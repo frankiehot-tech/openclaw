@@ -43,7 +43,7 @@ def execute_task_with_ocr(task_name: str, target_text: str, adb: ADBClient, scre
     # 1. 截图
     screenshot_path = capture_screen(device_id=adb.device_id)
     if not screenshot_path:
-        print(f"  ✗ 截图失败")
+        print("  ✗ 截图失败")
         return False, "screenshot_failed", "无法截取屏幕"
     print(f"  截图: {os.path.basename(screenshot_path)}")
 
@@ -65,7 +65,7 @@ def execute_task_with_ocr(task_name: str, target_text: str, adb: ADBClient, scre
         center = target.get("center")
         confidence = target.get("confidence", 0)
 
-        print(f"  ✓ OCR Grounding 命中!")
+        print("  ✓ OCR Grounding 命中!")
         print(f"    目标: {target.get('text')}")
         print(f"    位置: {center}")
         print(f"    置信度: {confidence:.2f}")
@@ -78,15 +78,15 @@ def execute_task_with_ocr(task_name: str, target_text: str, adb: ADBClient, scre
             print(f"  ✓ 点击成功: ({x}, {y})")
             return True, "ocr_grounding", f"OCR grounding 命中 {target_text} at {center}"
         else:
-            print(f"  ✗ 点击失败")
+            print("  ✗ 点击失败")
             return False, "ocr_grounding", f"点击失败 at {center}"
     else:
         # 回退到 model inference
-        print(f"  ○ OCR Grounding 未命中，回退到 model inference")
+        print("  ○ OCR Grounding 未命中，回退到 model inference")
 
         # 尝试使用模型推断位置（这里简化为使用默认位置）
         # 实际使用时应该调用 LLM 来推断位置
-        print(f"  ✗ Model inference 未实现，使用 fallback")
+        print("  ✗ Model inference 未实现，使用 fallback")
         return False, "model_inference_fallback", "OCR grounding 未命中，model inference 未实现"
 
 
@@ -146,7 +146,7 @@ def test_device_tasks():
     print(f"{'='*50}")
     success = adb.press_back()
     if success:
-        print(f"  ✓ 返回成功")
+        print("  ✓ 返回成功")
         results.append(
             {
                 "task": "返回上一级",
@@ -156,7 +156,7 @@ def test_device_tasks():
             }
         )
     else:
-        print(f"  ✗ 返回失败")
+        print("  ✗ 返回失败")
         results.append(
             {
                 "task": "返回上一级",
@@ -185,7 +185,7 @@ def test_device_tasks():
     model_count = sum(1 for r in results if r["method"] == "model_inference_fallback")
     system_count = sum(1 for r in results if r["method"] == "system_action")
 
-    print(f"\n方法统计:")
+    print("\n方法统计:")
     print(f"  - OCR Grounding: {ocr_count}")
     print(f"  - Model Inference: {model_count}")
     print(f"  - System Action: {system_count}")

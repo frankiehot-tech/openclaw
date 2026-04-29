@@ -6,7 +6,6 @@ Risk Policy - 风险策略
 
 import logging
 import os
-from typing import Dict, Optional
 
 from .task_whitelist import TaskWhitelist, get_task_whitelist
 
@@ -86,7 +85,7 @@ SENSITIVE_KEYWORDS = [
 class RiskPolicy:
     """风险策略管理器"""
 
-    def __init__(self, whitelist: Optional[TaskWhitelist] = None):
+    def __init__(self, whitelist: TaskWhitelist | None = None):
         self._whitelist = whitelist or get_task_whitelist()
         self._sensitive_keywords = SENSITIVE_KEYWORDS.copy()
         logger.info("RiskPolicy 初始化")
@@ -113,7 +112,7 @@ class RiskPolicy:
 
         return True
 
-    def get_task_policy(self, task: str) -> Dict:
+    def get_task_policy(self, task: str) -> dict:
         """
         获取任务策略详情
 
@@ -199,7 +198,7 @@ class RiskPolicy:
         ]
         logger.info(f"移除敏感关键词: {keyword}")
 
-    def get_rejection_reason(self, task: str) -> Optional[str]:
+    def get_rejection_reason(self, task: str) -> str | None:
         """
         获取任务被拒绝的原因
 
@@ -219,7 +218,7 @@ class RiskPolicy:
 
 
 # 全局单例
-_risk_policy: Optional[RiskPolicy] = None
+_risk_policy: RiskPolicy | None = None
 
 
 def get_risk_policy() -> RiskPolicy:
@@ -235,7 +234,7 @@ def is_task_allowed(task: str) -> bool:
     return get_risk_policy().is_task_allowed(task)
 
 
-def get_task_policy(task: str) -> Dict:
+def get_task_policy(task: str) -> dict:
     """快速获取任务策略"""
     return get_risk_policy().get_task_policy(task)
 

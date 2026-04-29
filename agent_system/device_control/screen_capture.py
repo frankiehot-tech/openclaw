@@ -10,8 +10,6 @@ import logging
 import os
 import subprocess
 from datetime import datetime
-from pathlib import Path
-from typing import Optional, Tuple
 
 # 配置日志
 logger = logging.getLogger(__name__)
@@ -26,7 +24,7 @@ def ensure_screenshot_dir() -> str:
     return SCREENSHOT_DIR
 
 
-def capture_screen(device_id: Optional[str] = None, save: bool = True) -> Optional[str]:
+def capture_screen(device_id: str | None = None, save: bool = True) -> str | None:
     """
     获取设备屏幕截图
 
@@ -96,7 +94,7 @@ def capture_screen(device_id: Optional[str] = None, save: bool = True) -> Option
         return None
 
 
-def capture_screen_to_bytes(device_id: Optional[str] = None) -> Optional[bytes]:
+def capture_screen_to_bytes(device_id: str | None = None) -> bytes | None:
     """
     获取设备屏幕截图（返回字节数据）
 
@@ -116,7 +114,7 @@ def capture_screen_to_bytes(device_id: Optional[str] = None) -> Optional[bytes]:
             logger.info(f"截图成功，大小: {len(result.stdout)} bytes")
             return result.stdout
         else:
-            logger.error(f"截图失败")
+            logger.error("截图失败")
             return None
 
     except Exception as e:
@@ -124,7 +122,7 @@ def capture_screen_to_bytes(device_id: Optional[str] = None) -> Optional[bytes]:
         return None
 
 
-def get_screen_hash(image_path: str) -> Optional[str]:
+def get_screen_hash(image_path: str) -> str | None:
     """
     获取图片的哈希值（用于检测页面变化）
 
@@ -143,7 +141,7 @@ def get_screen_hash(image_path: str) -> Optional[str]:
 
 
 def is_screen_changed(
-    prev_image_path: Optional[str], current_image_path: Optional[str], threshold: float = 0.95
+    prev_image_path: str | None, current_image_path: str | None, threshold: float = 0.95
 ) -> bool:
     """
     检测屏幕是否发生变化
@@ -174,7 +172,7 @@ def is_screen_changed(
     return True
 
 
-def get_latest_screenshot() -> Optional[str]:
+def get_latest_screenshot() -> str | None:
     """
     获取最新的截图文件路径
 

@@ -24,7 +24,6 @@ State Detector - 页面状态检测 (Phase 11.5 强化版)
 import logging
 import os
 from dataclasses import dataclass, field
-from typing import Dict, List, Optional, Tuple
 
 logger = logging.getLogger(__name__)
 
@@ -58,7 +57,7 @@ class ScoreBreakdown:
     def total(self) -> float:
         return self.keyword_score + self.layout_score + self.history_score + self.ocr_density_score
 
-    def to_dict(self) -> Dict:
+    def to_dict(self) -> dict:
         return {
             "keyword_score": round(self.keyword_score, 3),
             "layout_score": round(self.layout_score, 3),
@@ -74,12 +73,12 @@ class DetectionResult:
 
     state: str  # "home_screen", "settings_home", "browser_home", "unknown"
     confidence: float
-    signals: List[str]
+    signals: list[str]
     source: str = "ocr"
-    details: Dict = field(default_factory=dict)
-    score_breakdown: Optional[ScoreBreakdown] = None
+    details: dict = field(default_factory=dict)
+    score_breakdown: ScoreBreakdown | None = None
 
-    def to_dict(self) -> Dict:
+    def to_dict(self) -> dict:
         result = {
             "state": self.state,
             "confidence": round(self.confidence, 3),
@@ -239,10 +238,10 @@ class StateDetector:
 
     def detect_page_state(
         self,
-        ocr_results: List[str] = None,
+        ocr_results: list[str] = None,
         image_path: str = None,
-        screen_analysis: Dict = None,
-        history: List[Dict] = None,
+        screen_analysis: dict = None,
+        history: list[dict] = None,
     ) -> DetectionResult:
         """
         检测页面状态 (打分制)
@@ -281,7 +280,7 @@ class StateDetector:
         # 使用打分制检测状态
         return self._detect_with_scoring(ocr_results, ui_elements, history)
 
-    def _extract_from_screen_analysis(self, screen_analysis: Dict) -> List[str]:
+    def _extract_from_screen_analysis(self, screen_analysis: dict) -> list[str]:
         """从 screen_analysis 提取文本"""
         ocr_results = []
 
@@ -294,7 +293,7 @@ class StateDetector:
 
         return ocr_results
 
-    def _extract_ui_elements(self, screen_analysis: Dict) -> Dict:
+    def _extract_ui_elements(self, screen_analysis: dict) -> dict:
         """从 screen_analysis 提取 UI 元素信息"""
         ui_elements = {
             "has_search_box": False,
@@ -337,7 +336,7 @@ class StateDetector:
 
         return ui_elements
 
-    def _extract_text_from_image(self, image_path: str) -> List[str]:
+    def _extract_text_from_image(self, image_path: str) -> list[str]:
         """从图片提取文本（需要 EasyOCR）"""
         try:
             from vision.ocr_engine import get_ocr_engine
@@ -351,8 +350,8 @@ class StateDetector:
             return []
 
     def _calculate_keyword_score(
-        self, ocr_results: List[str], state: str
-    ) -> Tuple[float, List[str]]:
+        self, ocr_results: list[str], state: str
+    ) -> tuple[float, list[str]]:
         """计算关键词得分 - Phase 11.5 优化版：每个匹配直接加分"""
         keyword_combo = LITE_STATE_KEYWORD_COMBOS.get(state, {})
         core_keywords = keyword_combo.get("core", [])
@@ -387,7 +386,7 @@ class StateDetector:
 
         return total_score, all_matched
 
-    def _calculate_layout_score(self, ui_elements: Dict, state: str) -> float:
+    def _calculate_layout_score(self, ui_elements: dict, state: str) -> float:
         """计算布局得分"""
         layout_features = LAYOUT_FEATURES.get(state, {})
 
@@ -417,7 +416,7 @@ class StateDetector:
 
         return min(score, 1.0)
 
-    def _calculate_history_score(self, history: List[Dict], state: str) -> float:
+    def _calculate_history_score(self, history: list[dict], state: str) -> float:
         """计算历史动作得分"""
         if not history or not STATE_USE_HISTORY_SIGNAL:
             return 0.0
@@ -451,7 +450,7 @@ class StateDetector:
 
         return score
 
-    def _calculate_ocr_density_score(self, ocr_results: List[str]) -> float:
+    def _calculate_ocr_density_score(self, ocr_results: list[str]) -> float:
         """计算 OCR 文本密度得分"""
         if not ocr_results:
             return 0.0
@@ -464,7 +463,7 @@ class StateDetector:
 
         return density_score
 
-    def _calculate_negative_penalty(self, ocr_results: List[str], state: str) -> float:
+    def _calculate_negative_penalty(self, ocr_results: list[str], state: str) -> float:
         """Phase 12: 计算负向关键词惩罚"""
         # 负向关键词定义
         negative_keywords_map = {
@@ -489,7 +488,7 @@ class StateDetector:
         return min(penalty, 0.5)  # 最高扣 0.5 分
 
     def _detect_with_scoring(
-        self, ocr_results: List[str], ui_elements: Dict, history: List[Dict] = None
+        self, ocr_results: list[str], ui_elements: dict, history: list[dict] = None
     ) -> DetectionResult:
         """使用打分制检测状态 - Phase 12 扩展：支持 6 种状态"""
 
@@ -504,7 +503,7 @@ class StateDetector:
         ]
 
         # 计算每个状态的得分
-        state_scores: Dict[str, Dict] = {}
+        state_scores: dict[str, dict] = {}
 
         for state in supported_states:
             # 1. 关键词得分
@@ -592,7 +591,7 @@ class StateDetector:
         )
 
     def detect_with_screen_analyzer(
-        self, screen_analysis: Dict, history: List[Dict] = None
+        self, screen_analysis: dict, history: list[dict] = None
     ) -> DetectionResult:
         """使用 ScreenAnalyzer 的结果检测状态"""
         ocr_results = self._extract_from_screen_analysis(screen_analysis)
@@ -601,14 +600,14 @@ class StateDetector:
 
 
 # 全局检测器
-_detector: Optional[StateDetector] = None
+_detector: StateDetector | None = None
 
 
 def detect_page_state(
-    ocr_results: List[str] = None,
+    ocr_results: list[str] = None,
     image_path: str = None,
-    screen_analysis: Dict = None,
-    history: List[Dict] = None,
+    screen_analysis: dict = None,
+    history: list[dict] = None,
     confidence_threshold: float = 0.65,
 ) -> DetectionResult:
     """快速检测页面状态 (Phase 11.5)"""

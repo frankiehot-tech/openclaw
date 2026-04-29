@@ -4,18 +4,16 @@ UI Grounding - UI 元素定位
 基于 OCR 结果定位目标 UI 元素
 """
 
-import hashlib
 import logging
 import os
 import sys
 from dataclasses import dataclass
-from typing import Dict, List, Optional, Tuple
 
 # 添加项目根目录到路径
 project_root = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 sys.path.insert(0, project_root)
 
-from vision.ocr_engine import OCRResult, get_ocr_engine
+from vision.ocr_engine import OCRResult
 
 # 配置日志
 logger = logging.getLogger(__name__)
@@ -38,12 +36,12 @@ class TextTarget:
 
     matched: bool
     text: str
-    bbox: List[int]  # [x1, y1, x2, y2]
-    center: Tuple[int, int]  # (cx, cy)
+    bbox: list[int]  # [x1, y1, x2, y2]
+    center: tuple[int, int]  # (cx, cy)
     confidence: float
     match_type: str  # "exact" | "contains" | "fuzzy"
 
-    def to_dict(self) -> Dict:
+    def to_dict(self) -> dict:
         return {
             "matched": self.matched,
             "text": self.text,
@@ -57,7 +55,7 @@ class TextTarget:
 class UIGrounding:
     """UI Grounding 引擎"""
 
-    def __init__(self, screen_size: Optional[Tuple[int, int]] = None):
+    def __init__(self, screen_size: tuple[int, int] | None = None):
         """
         初始化 UI Grounding
 
@@ -68,8 +66,8 @@ class UIGrounding:
         logger.info(f"UIGrounding 初始化: screen_size={self.screen_size}")
 
     def find_text_target(
-        self, ocr_blocks: List[OCRResult], target_text: str, match_threshold: float = 0.75
-    ) -> Optional[TextTarget]:
+        self, ocr_blocks: list[OCRResult], target_text: str, match_threshold: float = 0.75
+    ) -> TextTarget | None:
         """
         在 OCR 结果中查找目标文本
 
@@ -148,8 +146,8 @@ class UIGrounding:
         )
 
     def bbox_to_tap_point(
-        self, bbox: List[int], safe_margin: bool = True
-    ) -> Optional[Tuple[int, int]]:
+        self, bbox: list[int], safe_margin: bool = True
+    ) -> tuple[int, int] | None:
         """
         将文本框转换为可点击中心点
 
@@ -188,8 +186,8 @@ class UIGrounding:
         return (cx, cy)
 
     def rank_candidates(
-        self, candidates: List[TextTarget], prefer_center: bool = True
-    ) -> List[TextTarget]:
+        self, candidates: list[TextTarget], prefer_center: bool = True
+    ) -> list[TextTarget]:
         """
         对多个候选目标排序
 
@@ -234,8 +232,8 @@ class UIGrounding:
         return ranked
 
     def find_multiple_targets(
-        self, ocr_blocks: List[OCRResult], target_texts: List[str], max_candidates: int = 5
-    ) -> List[TextTarget]:
+        self, ocr_blocks: list[OCRResult], target_texts: list[str], max_candidates: int = 5
+    ) -> list[TextTarget]:
         """
         查找多个目标文本
 
@@ -261,10 +259,10 @@ class UIGrounding:
 
 
 # 全局单例
-_ui_grounding: Optional[UIGrounding] = None
+_ui_grounding: UIGrounding | None = None
 
 
-def get_ui_grounding(screen_size: Optional[Tuple[int, int]] = None) -> UIGrounding:
+def get_ui_grounding(screen_size: tuple[int, int] | None = None) -> UIGrounding:
     """获取全局 UI Grounding 引擎"""
     global _ui_grounding
 

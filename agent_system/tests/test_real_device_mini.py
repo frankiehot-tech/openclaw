@@ -47,10 +47,10 @@ def test_task(task: str, adb: ADBClient, ocr: OCREngine, grounding: UIGrounding)
 
     # 1. 白名单检查
     if not is_task_allowed(task):
-        print(f"  ✗ 任务不在白名单中，跳过")
+        print("  ✗ 任务不在白名单中，跳过")
         return False, "whitelist_rejected"
 
-    print(f"  ✓ 白名单检查通过")
+    print("  ✓ 白名单检查通过")
 
     # 2. 截图
     screenshot_path = capture_screen(device_id=adb.device_id)
@@ -90,7 +90,7 @@ def test_task(task: str, adb: ADBClient, ocr: OCREngine, grounding: UIGrounding)
         action_source = "ocr_grounding"
         target_box = {"x": target.center[0], "y": target.center[1], "action": "tap"}
     else:
-        print(f"  ✗ OCR Grounding 未命中，使用 model inference")
+        print("  ✗ OCR Grounding 未命中，使用 model inference")
         action_source = "model_inference"
         # 模拟一个点击位置（实际应该调用 model）
         target_box = {"x": 540, "y": 1200, "action": "tap"}
@@ -114,14 +114,14 @@ def test_task(task: str, adb: ADBClient, ocr: OCREngine, grounding: UIGrounding)
         elif action == "home":
             adb.press_home()
 
-        print(f"  ✓ 动作执行成功")
+        print("  ✓ 动作执行成功")
 
         # 等待页面加载
         time.sleep(1)
 
         return True, action_source
     else:
-        print(f"  ✗ 无法确定目标位置")
+        print("  ✗ 无法确定目标位置")
         return False, action_source
 
 

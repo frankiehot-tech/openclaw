@@ -4,10 +4,7 @@ Gate 5 完整测试：在设置中进入 Wi-Fi 页面
 使用ADB直接命令和视觉验证
 """
 
-import json
-import os
 import subprocess
-import sys
 import time
 
 import requests

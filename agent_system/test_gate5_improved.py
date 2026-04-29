@@ -4,9 +4,7 @@ Gate 5 改进测试脚本：在设置中进入 Wi-Fi 页面
 处理当前在"关于手机"页面的情况
 """
 
-import os
 import subprocess
-import sys
 import time
 
 import requests
@@ -169,10 +167,10 @@ def find_wifi_in_settings():
         desc = describe_with_qwen(screenshot)
 
         if is_wifi_screen(desc):
-            print(f"    ✓ 成功进入Wi-Fi页面")
+            print("    ✓ 成功进入Wi-Fi页面")
             return True, screenshot, desc
 
-        print(f"    ✗ 未进入Wi-Fi页面，返回上一页")
+        print("    ✗ 未进入Wi-Fi页面，返回上一页")
         press_back()
         time.sleep(1)
 
@@ -266,7 +264,7 @@ def main():
             wifi_success = True
             final_screenshot = wifi_screenshot
             final_desc = wifi_desc_result
-            action_sequence.append(f"点击Wi-Fi入口")
+            action_sequence.append("点击Wi-Fi入口")
             break
 
         # 方法2：尝试向上滑动后再次查找

@@ -13,8 +13,7 @@ import json
 import logging
 import os
 from dataclasses import asdict, dataclass
-from datetime import datetime
-from typing import Any, Dict, List, Optional
+from typing import Any
 
 # 配置日志
 logger = logging.getLogger(__name__)
@@ -58,17 +57,17 @@ class MiniCPMResult:
     target_found: bool  # 是否找到目标
     target_type: str  # 目标类型: search_box, list_item, button, etc.
     target_label: str  # 目标标签/描述
-    bbox: List[float]  # 边界框 [x1, y1, x2, y2]
-    center: List[float]  # 中心点 [cx, cy]
+    bbox: list[float]  # 边界框 [x1, y1, x2, y2]
+    center: list[float]  # 中心点 [cx, cy]
     confidence: float  # 置信度 0.0-1.0
-    suggested_action: Dict[str, Any]  # 建议动作
+    suggested_action: dict[str, Any]  # 建议动作
     reason: str  # 分析理由
-    raw_response: Optional[Dict] = None  # 原始响应
+    raw_response: dict | None = None  # 原始响应
 
-    def to_dict(self) -> Dict:
+    def to_dict(self) -> dict:
         return asdict(self)
 
-    def to_grounding_format(self) -> Dict:
+    def to_grounding_format(self) -> dict:
         """转换为 grounding 格式"""
         return {
             "text": self.target_label,
@@ -79,7 +78,7 @@ class MiniCPMResult:
             "source": "minicpm_vision",
         }
 
-    def to_action_format(self) -> Dict:
+    def to_action_format(self) -> dict:
         """转换为动作格式"""
         action = self.suggested_action.copy()
         action["reason"] = self.reason
@@ -194,7 +193,7 @@ class MiniCPMClient:
         return False
 
     def analyze_screen(
-        self, image_path: str, task: str, context: Optional[Dict] = None
+        self, image_path: str, task: str, context: dict | None = None
     ) -> MiniCPMResult:
         """
         分析屏幕并定位目标
@@ -217,7 +216,7 @@ class MiniCPMClient:
             # 未知模式，返回空结果
             return self._create_empty_result("unknown_mode")
 
-    def _mock_analyze(self, task: str, context: Optional[Dict] = None) -> MiniCPMResult:
+    def _mock_analyze(self, task: str, context: dict | None = None) -> MiniCPMResult:
         """
         Mock 模式分析 - 返回预设响应
 
@@ -259,7 +258,7 @@ class MiniCPMClient:
         )
 
     def _remote_analyze(
-        self, image_path: str, task: str, context: Optional[Dict] = None
+        self, image_path: str, task: str, context: dict | None = None
     ) -> MiniCPMResult:
         """
         远程 API 模式分析
@@ -302,7 +301,7 @@ class MiniCPMClient:
         # 检测 API 端点类型
         # 如果 base_url 包含 /infer，使用 /infer 端点
         # 否则使用 OpenAI 兼容的 /v1/chat/completions 端点
-        if "/infer" in self.base_url or not "/v1" in self.base_url:
+        if "/infer" in self.base_url or "/v1" not in self.base_url:
             # 使用我们的 /infer 端点
             url = self.base_url
             if not url.endswith("/infer"):
@@ -358,7 +357,7 @@ class MiniCPMClient:
             logger.error(f"MiniCPM API 异常: {e}")
             return self._create_empty_result("exception")
 
-    def _parse_infer_response(self, response: Dict) -> MiniCPMResult:
+    def _parse_infer_response(self, response: dict) -> MiniCPMResult:
         """
         解析 /infer 端点响应
 
@@ -404,7 +403,7 @@ class MiniCPMClient:
             logger.error(f"/infer 响应解析错误: {e}")
             return self._create_empty_result("response_error")
 
-    def _build_prompt(self, task: str, context: Optional[Dict]) -> str:
+    def _build_prompt(self, task: str, context: dict | None) -> str:
         """
         构建分析 prompt - 超严格版本（子任务 2）
 
@@ -445,7 +444,7 @@ class MiniCPMClient:
 
         return prompt
 
-    def _calculate_center_with_safety(self, bbox: List[float]) -> List[float]:
+    def _calculate_center_with_safety(self, bbox: list[float]) -> list[float]:
         """
         计算中心点并应用边缘保护（子任务 3）
 
@@ -476,7 +475,7 @@ class MiniCPMClient:
 
         return [int(cx), int(cy)]
 
-    def _validate_bbox(self, bbox: List[float]) -> bool:
+    def _validate_bbox(self, bbox: list[float]) -> bool:
         """
         验证 bbox 是否有效
 
@@ -513,7 +512,7 @@ class MiniCPMClient:
 
         return True
 
-    def _parse_response(self, response: Dict) -> MiniCPMResult:
+    def _parse_response(self, response: dict) -> MiniCPMResult:
         """
         解析 API 响应（子任务 1 + 3）
 
@@ -599,7 +598,7 @@ class MiniCPMClient:
 
 # ========== 全局单例 ==========
 
-_minicpm_client: Optional[MiniCPMClient] = None
+_minicpm_client: MiniCPMClient | None = None
 
 
 def get_minicpm_client() -> MiniCPMClient:
@@ -626,7 +625,7 @@ def reset_minicpm_client():
 # ========== 便捷函数 ==========
 
 
-def analyze_screen(image_path: str, task: str, context: Optional[Dict] = None) -> MiniCPMResult:
+def analyze_screen(image_path: str, task: str, context: dict | None = None) -> MiniCPMResult:
     """
     分析屏幕（便捷函数）
 
@@ -659,7 +658,7 @@ if __name__ == "__main__":
 
     # 测试"点击搜索"
     result = client.analyze_screen("/fake/screen.png", "点击搜索")
-    print(f"\n2. 分析 '点击搜索':")
+    print("\n2. 分析 '点击搜索':")
     print(f"   page_type: {result.page_type}")
     print(f"   target_found: {result.target_found}")
     print(f"   target_type: {result.target_type}")
@@ -671,7 +670,7 @@ if __name__ == "__main__":
 
     # 测试"打开Wi-Fi页面"
     result = client.analyze_screen("/fake/screen.png", "打开Wi-Fi页面")
-    print(f"\n3. 分析 '打开Wi-Fi页面':")
+    print("\n3. 分析 '打开Wi-Fi页面':")
     print(f"   page_type: {result.page_type}")
     print(f"   target_found: {result.target_found}")
     print(f"   target_label: {result.target_label}")
@@ -679,7 +678,7 @@ if __name__ == "__main__":
 
     # 测试"打开蓝牙页面"
     result = client.analyze_screen("/fake/screen.png", "打开蓝牙页面")
-    print(f"\n4. 分析 '打开蓝牙页面':")
+    print("\n4. 分析 '打开蓝牙页面':")
     print(f"   page_type: {result.page_type}")
     print(f"   target_found: {result.target_found}")
     print(f"   target_label: {result.target_label}")

@@ -26,7 +26,7 @@ def test_settings_opened_verification():
     result = detect_page_state(ocr_results=ocr_texts)
     target_state = get_task_target_state("打开设置")
 
-    print(f"打开设置后验证测试:")
+    print("打开设置后验证测试:")
     print(f"  检测状态: {result.state}")
     print(f"  目标状态: {target_state}")
     print(f"  置信度: {result.confidence:.2f}")
@@ -36,7 +36,7 @@ def test_settings_opened_verification():
     print(f"  状态达到: {state_reached}")
 
     if not state_reached:
-        print(f"  警告: 目标状态未达到，可能需要修正动作")
+        print("  警告: 目标状态未达到，可能需要修正动作")
 
     assert state_reached, f"打开设置后应达到 {target_state}，实际 {result.state}"
     print("✓ 打开设置后验证测试通过\n")
@@ -50,7 +50,7 @@ def test_browser_opened_verification():
     result = detect_page_state(ocr_results=ocr_texts)
     target_state = get_task_target_state("打开浏览器")
 
-    print(f"打开浏览器后验证测试:")
+    print("打开浏览器后验证测试:")
     print(f"  检测状态: {result.state}")
     print(f"  目标状态: {target_state}")
     print(f"  置信度: {result.confidence:.2f}")
@@ -60,7 +60,7 @@ def test_browser_opened_verification():
     print(f"  状态达到: {state_reached}")
 
     if not state_reached:
-        print(f"  警告: 目标状态未达到，可能需要修正动作")
+        print("  警告: 目标状态未达到，可能需要修正动作")
 
     assert state_reached, f"打开浏览器后应达到 {target_state}，实际 {result.state}"
     print("✓ 打开浏览器后验证测试通过\n")
@@ -74,7 +74,7 @@ def test_search_page_verification():
     result = detect_page_state(ocr_results=ocr_texts)
     target_state = get_task_target_state("点击搜索")
 
-    print(f"点击搜索后验证测试:")
+    print("点击搜索后验证测试:")
     print(f"  检测状态: {result.state}")
     print(f"  目标状态: {target_state}")
     print(f"  置信度: {result.confidence:.2f}")
@@ -84,7 +84,7 @@ def test_search_page_verification():
     print(f"  状态达到: {state_reached}")
 
     if not state_reached:
-        print(f"  警告: 目标状态未达到，可能需要修正动作")
+        print("  警告: 目标状态未达到，可能需要修正动作")
 
     print("✓ 点击搜索后验证测试通过\n")
 
@@ -97,7 +97,7 @@ def test_state_check_failed_scenario():
     result = detect_page_state(ocr_results=ocr_texts)
     target_state = "settings_home"
 
-    print(f"状态检查失败场景测试:")
+    print("状态检查失败场景测试:")
     print(f"  检测状态: {result.state}")
     print(f"  目标状态: {target_state}")
     print(f"  置信度: {result.confidence:.2f}")
@@ -107,8 +107,8 @@ def test_state_check_failed_scenario():
     print(f"  状态达到: {state_reached}")
 
     if not state_reached:
-        print(f"  记录: post_action_state_check_failed")
-        print(f"  建议: 允许一次修正动作或 fallback")
+        print("  记录: post_action_state_check_failed")
+        print("  建议: 允许一次修正动作或 fallback")
 
     # 这个测试应该显示状态未达到
     print("✓ 状态检查失败场景测试完成\n")
@@ -124,7 +124,7 @@ def test_verification_workflow():
     print(f"  步骤1 - 执行前状态: {pre_result.state} (置信度: {pre_result.confidence:.2f})")
 
     # 步骤 2: 模拟执行"打开设置"动作
-    print(f"  步骤2 - 执行动作: 打开设置")
+    print("  步骤2 - 执行动作: 打开设置")
 
     # 步骤 3: 执行动作后检测状态
     post_ocr = ["设置", "WLAN", "蓝牙", "更多连接", "飞行模式"]
@@ -139,8 +139,8 @@ def test_verification_workflow():
     print(f"  步骤4 - 验证结果: {'成功' if state_reached else '失败'}")
 
     if not state_reached:
-        print(f"  步骤5 - 记录: post_action_state_check_failed")
-        print(f"  步骤5 - 动作: 允许一次修正动作或 fallback")
+        print("  步骤5 - 记录: post_action_state_check_failed")
+        print("  步骤5 - 动作: 允许一次修正动作或 fallback")
 
     assert state_reached, "执行后应达到目标状态"
     print("✓ 完整验证工作流测试通过\n")

@@ -5,7 +5,6 @@ Gate 4 测试脚本：返回桌面并打开设置
 
 import os
 import subprocess
-import sys
 import time
 
 import requests

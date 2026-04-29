@@ -6,10 +6,9 @@ Layout Detector - 布局级规则识别
 """
 
 import logging
-import os
-from typing import Any, Dict, List, Optional, Tuple
+from typing import Any
 
-from .ui_elements import ElementSource, UIElement, UIElementType, create_ui_element
+from .ui_elements import UIElement, create_ui_element
 
 logger = logging.getLogger(__name__)
 
@@ -20,9 +19,9 @@ DEFAULT_SCREEN_HEIGHT = 2640
 
 def detect_search_boxes(
     image_path: str,
-    ocr_blocks: Optional[List[Dict[str, Any]]] = None,
-    screen_size: Optional[Tuple[int, int]] = None,
-) -> List[UIElement]:
+    ocr_blocks: list[dict[str, Any]] | None = None,
+    screen_size: tuple[int, int] | None = None,
+) -> list[UIElement]:
     """
     识别搜索框
 
@@ -108,9 +107,9 @@ def detect_search_boxes(
 
 def detect_back_buttons(
     image_path: str,
-    ocr_blocks: Optional[List[Dict[str, Any]]] = None,
-    screen_size: Optional[Tuple[int, int]] = None,
-) -> List[UIElement]:
+    ocr_blocks: list[dict[str, Any]] | None = None,
+    screen_size: tuple[int, int] | None = None,
+) -> list[UIElement]:
     """
     识别返回按钮
 
@@ -190,9 +189,9 @@ def detect_back_buttons(
 
 def detect_bottom_nav(
     image_path: str,
-    ocr_blocks: Optional[List[Dict[str, Any]]] = None,
-    screen_size: Optional[Tuple[int, int]] = None,
-) -> List[UIElement]:
+    ocr_blocks: list[dict[str, Any]] | None = None,
+    screen_size: tuple[int, int] | None = None,
+) -> list[UIElement]:
     """
     识别底部导航栏
 
@@ -261,9 +260,9 @@ def detect_bottom_nav(
 
 def detect_list_items(
     image_path: str,
-    ocr_blocks: Optional[List[Dict[str, Any]]] = None,
-    screen_size: Optional[Tuple[int, int]] = None,
-) -> List[UIElement]:
+    ocr_blocks: list[dict[str, Any]] | None = None,
+    screen_size: tuple[int, int] | None = None,
+) -> list[UIElement]:
     """
     识别列表项
 
@@ -407,9 +406,9 @@ def detect_list_items(
 
 def detect_toggles(
     image_path: str,
-    ocr_blocks: Optional[List[Dict[str, Any]]] = None,
-    screen_size: Optional[Tuple[int, int]] = None,
-) -> List[UIElement]:
+    ocr_blocks: list[dict[str, Any]] | None = None,
+    screen_size: tuple[int, int] | None = None,
+) -> list[UIElement]:
     """
     识别开关控件
 
@@ -467,9 +466,9 @@ def detect_toggles(
 
 def detect_all_layout_elements(
     image_path: str,
-    ocr_blocks: Optional[List[Dict[str, Any]]] = None,
-    screen_size: Optional[Tuple[int, int]] = None,
-) -> List[UIElement]:
+    ocr_blocks: list[dict[str, Any]] | None = None,
+    screen_size: tuple[int, int] | None = None,
+) -> list[UIElement]:
     """
     检测所有布局元素
 

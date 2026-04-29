@@ -22,8 +22,8 @@ logging.basicConfig(
 )
 
 from policy.task_whitelist import is_task_allowed, reject_if_not_allowed
-from state.simple_state_planner import PlanResult, plan_next_step
-from state.state_detector import DetectionResult, detect_page_state
+from state.simple_state_planner import plan_next_step
+from state.state_detector import detect_page_state
 
 
 def test_whitelist():

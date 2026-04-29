@@ -10,7 +10,6 @@ import logging
 import os
 import sys
 from dataclasses import dataclass, field
-from typing import Dict, List, Optional, Tuple
 
 # 添加项目根目录到路径
 project_root = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
@@ -88,22 +87,22 @@ class ScreenAnalysis:
 
     image_path: str
     screen_hash: str
-    ocr_blocks: List[Dict] = field(default_factory=list)
+    ocr_blocks: list[dict] = field(default_factory=list)
     ocr_blocks_count: int = 0
-    ocr_top_texts: List[str] = field(default_factory=list)
-    grounding_target: Optional[Dict] = None
-    grounding_candidates: List[Dict] = field(default_factory=list)
+    ocr_top_texts: list[str] = field(default_factory=list)
+    grounding_target: dict | None = None
+    grounding_candidates: list[dict] = field(default_factory=list)
     target_found: bool = False
-    suggested_actions: List[Dict] = field(default_factory=list)
+    suggested_actions: list[dict] = field(default_factory=list)
     screen_summary: str = ""
     # 新增：UI 结构理解相关字段
-    ui_elements: List[Dict] = field(default_factory=list)
+    ui_elements: list[dict] = field(default_factory=list)
     ui_elements_count: int = 0
     ui_summary: str = ""
-    recommended_targets: List[Dict] = field(default_factory=list)
+    recommended_targets: list[dict] = field(default_factory=list)
     hybrid_used: bool = False
 
-    def to_dict(self) -> Dict:
+    def to_dict(self) -> dict:
         return {
             "image_path": self.image_path,
             "screen_hash": self.screen_hash,
@@ -129,7 +128,7 @@ class ScreenAnalyzer:
     def __init__(
         self,
         ocr_provider: str = "mock",
-        screen_size: Optional[Tuple[int, int]] = None,
+        screen_size: tuple[int, int] | None = None,
         match_threshold: float = 0.75,
         max_candidates: int = 5,
     ):
@@ -172,7 +171,7 @@ class ScreenAnalyzer:
             return "unknown"
 
     def analyze_screen(
-        self, image_path: str, expected_targets: Optional[List[str]] = None
+        self, image_path: str, expected_targets: list[str] | None = None
     ) -> ScreenAnalysis:
         """
         分析屏幕
@@ -248,8 +247,8 @@ class ScreenAnalyzer:
         return analysis
 
     def _generate_suggested_actions(
-        self, ocr_results: List[OCRResult], expected_targets: Optional[List[str]] = None
-    ) -> List[Dict]:
+        self, ocr_results: list[OCRResult], expected_targets: list[str] | None = None
+    ) -> list[dict]:
         """
         生成建议动作
 
@@ -311,9 +310,9 @@ class ScreenAnalyzer:
     def detect_ui_elements(
         self,
         image_path: str,
-        ocr_blocks: Optional[List[Dict]] = None,
-        screen_size: Optional[Tuple[int, int]] = None,
-    ) -> List[UIElement]:
+        ocr_blocks: list[dict] | None = None,
+        screen_size: tuple[int, int] | None = None,
+    ) -> list[UIElement]:
         """
         检测 UI 元素 - 整合 OCR、Layout、Icon Heuristic
 
@@ -325,7 +324,7 @@ class ScreenAnalyzer:
         Returns:
             UIElement 列表
         """
-        all_elements: List[UIElement] = []
+        all_elements: list[UIElement] = []
 
         # 转换 OCR 结果格式
         ocr_list = ocr_blocks if ocr_blocks else []
@@ -381,8 +380,8 @@ class ScreenAnalyzer:
     def analyze_screen_with_layout(
         self,
         image_path: str,
-        expected_targets: Optional[List[str]] = None,
-        target_spec: Optional[TargetSpec] = None,
+        expected_targets: list[str] | None = None,
+        target_spec: TargetSpec | None = None,
     ) -> ScreenAnalysis:
         """
         增强的屏幕分析 - 包含 UI 结构理解
@@ -489,8 +488,8 @@ class ScreenAnalyzer:
         return analysis
 
     def _generate_suggested_actions_with_ui(
-        self, ui_elements: List[UIElement], target_spec: Optional[TargetSpec] = None
-    ) -> List[Dict]:
+        self, ui_elements: list[UIElement], target_spec: TargetSpec | None = None
+    ) -> list[dict]:
         """
         生成建议动作 - 基于 UI 元素
 
@@ -546,8 +545,8 @@ class ScreenAnalyzer:
             return "无 UI 元素"
 
         # 统计各类型元素
-        type_counts: Dict[str, int] = {}
-        source_counts: Dict[str, int] = {}
+        type_counts: dict[str, int] = {}
+        source_counts: dict[str, int] = {}
 
         for elem in analysis.ui_elements:
             etype = elem.get("element_type", "unknown")
@@ -572,7 +571,7 @@ class ScreenAnalyzer:
 
         return "; ".join(parts)
 
-    def quick_check_target(self, image_path: str, target_text: str) -> Optional[TextTarget]:
+    def quick_check_target(self, image_path: str, target_text: str) -> TextTarget | None:
         """
         快速检查目标文本是否存在
 
@@ -594,7 +593,7 @@ class ScreenAnalyzer:
 
     def quick_check_target_with_layout(
         self, image_path: str, target_spec: TargetSpec
-    ) -> Optional[UIElement]:
+    ) -> UIElement | None:
         """
         快速检查目标 - 使用 UI 结构理解
 
@@ -632,11 +631,11 @@ class ScreenAnalyzer:
         self,
         image_path: str,
         task: str,
-        expected_targets: Optional[List[str]] = None,
-        target_spec: Optional[TargetSpec] = None,
-        ocr_result: Optional[List[Dict]] = None,
-        state_result: Optional[Dict] = None,
-    ) -> Dict:
+        expected_targets: list[str] | None = None,
+        target_spec: TargetSpec | None = None,
+        ocr_result: list[dict] | None = None,
+        state_result: dict | None = None,
+    ) -> dict:
         """
         使用 MiniCPM 进行增强分析（阶段 13 新增）
 
@@ -665,7 +664,7 @@ class ScreenAnalyzer:
             logger.info(f"任务 '{task}' 不在 MiniCPM 启用列表中")
             return {
                 "use_minicpm": False,
-                "reason": f"任务不在 MiniCPM 启用列表中",
+                "reason": "任务不在 MiniCPM 启用列表中",
                 "source": "ocr_grounding",
             }
 
@@ -698,11 +697,11 @@ class ScreenAnalyzer:
 
 
 # 全局单例
-_screen_analyzer: Optional[ScreenAnalyzer] = None
+_screen_analyzer: ScreenAnalyzer | None = None
 
 
 def get_screen_analyzer(
-    ocr_provider: str = "mock", screen_size: Optional[Tuple[int, int]] = None
+    ocr_provider: str = "mock", screen_size: tuple[int, int] | None = None
 ) -> ScreenAnalyzer:
     """获取全局屏幕分析器"""
     global _screen_analyzer

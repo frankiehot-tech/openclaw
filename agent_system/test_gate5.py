@@ -3,9 +3,7 @@
 Gate 5 测试脚本：在设置中进入 Wi-Fi 页面
 """
 
-import os
 import subprocess
-import sys
 import time
 
 import requests

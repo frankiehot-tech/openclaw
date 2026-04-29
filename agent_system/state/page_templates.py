@@ -5,7 +5,6 @@ Page Templates - 页面模板库 (Phase 12)
 """
 
 from dataclasses import dataclass, field
-from typing import Dict, List, Optional
 
 
 @dataclass
@@ -13,14 +12,14 @@ class PageTemplate:
     """页面模板定义"""
 
     state: str
-    required_keywords: List[str] = field(default_factory=list)  # 必须包含的关键词
-    optional_keywords: List[str] = field(default_factory=list)  # 可选关键词
-    negative_keywords: List[str] = field(default_factory=list)  # 负向关键词（出现则排除）
-    ui_hints: List[str] = field(default_factory=list)  # UI 元素提示
+    required_keywords: list[str] = field(default_factory=list)  # 必须包含的关键词
+    optional_keywords: list[str] = field(default_factory=list)  # 可选关键词
+    negative_keywords: list[str] = field(default_factory=list)  # 负向关键词（出现则排除）
+    ui_hints: list[str] = field(default_factory=list)  # UI 元素提示
     min_score: float = 0.65  # 最低得分阈值
     description: str = ""  # 描述
 
-    def to_dict(self) -> Dict:
+    def to_dict(self) -> dict:
         return {
             "state": self.state,
             "required_keywords": self.required_keywords,
@@ -33,7 +32,7 @@ class PageTemplate:
 
 
 # 页面模板库
-PAGE_TEMPLATES: Dict[str, PageTemplate] = {
+PAGE_TEMPLATES: dict[str, PageTemplate] = {
     "home_screen": PageTemplate(
         state="home_screen",
         required_keywords=["主屏幕", "home", "桌面"],
@@ -179,17 +178,17 @@ PAGE_TEMPLATES: Dict[str, PageTemplate] = {
 }
 
 
-def get_template(state: str) -> Optional[PageTemplate]:
+def get_template(state: str) -> PageTemplate | None:
     """获取页面模板"""
     return PAGE_TEMPLATES.get(state)
 
 
-def get_all_templates() -> Dict[str, PageTemplate]:
+def get_all_templates() -> dict[str, PageTemplate]:
     """获取所有模板"""
     return PAGE_TEMPLATES
 
 
-def get_supported_states() -> List[str]:
+def get_supported_states() -> list[str]:
     """获取支持的状态列表"""
     return list(PAGE_TEMPLATES.keys())
 
@@ -209,7 +208,7 @@ TASK_TARGET_MAPPING = {
 }
 
 
-def get_target_state_from_task(task: str) -> Optional[str]:
+def get_target_state_from_task(task: str) -> str | None:
     """从任务描述提取目标状态"""
     task_lower = task.lower()
 

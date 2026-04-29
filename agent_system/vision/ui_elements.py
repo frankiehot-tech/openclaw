@@ -6,7 +6,7 @@ UI Elements - 统一 UI 元素结构定义
 
 from dataclasses import dataclass, field
 from enum import Enum
-from typing import Any, Dict, List, Optional
+from typing import Any
 
 
 class UIElementType(Enum):
@@ -51,13 +51,13 @@ class UIElement:
     """
 
     element_type: UIElementType
-    bbox: List[float]  # [x1, y1, x2, y2]
-    center: List[float]  # [cx, cy]
+    bbox: list[float]  # [x1, y1, x2, y2]
+    center: list[float]  # [cx, cy]
     confidence: float
     source: ElementSource
     label: str = ""
     clickable: bool = True
-    metadata: Dict[str, Any] = field(default_factory=dict)
+    metadata: dict[str, Any] = field(default_factory=dict)
 
     def __post_init__(self):
         """验证数据有效性"""
@@ -68,7 +68,7 @@ class UIElement:
         if not 0.0 <= self.confidence <= 1.0:
             raise ValueError(f"confidence must be 0.0-1.0, got {self.confidence}")
 
-    def to_dict(self) -> Dict[str, Any]:
+    def to_dict(self) -> dict[str, Any]:
         """转换为字典格式"""
         return {
             "element_type": self.element_type.value,
@@ -82,7 +82,7 @@ class UIElement:
         }
 
     @classmethod
-    def from_dict(cls, data: Dict[str, Any]) -> "UIElement":
+    def from_dict(cls, data: dict[str, Any]) -> "UIElement":
         """从字典创建"""
         element_type = UIElementType(data.get("element_type", "unknown"))
         source = ElementSource(data.get("source", "model"))
@@ -115,13 +115,13 @@ class TargetSpec:
     intent: str
     target_type: str
     target_text: str = ""
-    preferred_sources: List[str] = field(
+    preferred_sources: list[str] = field(
         default_factory=lambda: ["hybrid", "layout", "ocr", "icon_heuristic"]
     )
     fallback_to_model: bool = True
-    metadata: Dict[str, Any] = field(default_factory=dict)
+    metadata: dict[str, Any] = field(default_factory=dict)
 
-    def to_dict(self) -> Dict[str, Any]:
+    def to_dict(self) -> dict[str, Any]:
         """转换为字典格式"""
         return {
             "intent": self.intent,
@@ -207,12 +207,12 @@ class TargetSpec:
 
 def create_ui_element(
     element_type: str,
-    bbox: List[float],
+    bbox: list[float],
     confidence: float,
     source: str,
     label: str = "",
     clickable: bool = True,
-    metadata: Optional[Dict[str, Any]] = None,
+    metadata: dict[str, Any] | None = None,
 ) -> UIElement:
     """
     便捷函数：创建 UI 元素
@@ -244,7 +244,7 @@ def create_ui_element(
     )
 
 
-def merge_elements(elements: List[UIElement], iou_threshold: float = 0.5) -> List[UIElement]:
+def merge_elements(elements: list[UIElement], iou_threshold: float = 0.5) -> list[UIElement]:
     """
     合并重复的 UI 元素（基于 IOU）
 
@@ -278,7 +278,7 @@ def merge_elements(elements: List[UIElement], iou_threshold: float = 0.5) -> Lis
     return result
 
 
-def _compute_iou(bbox1: List[float], bbox2: List[float]) -> float:
+def _compute_iou(bbox1: list[float], bbox2: list[float]) -> float:
     """计算两个边界框的 IOU"""
     x1 = max(bbox1[0], bbox2[0])
     y1 = max(bbox1[1], bbox2[1])
@@ -297,8 +297,8 @@ def _compute_iou(bbox1: List[float], bbox2: List[float]) -> float:
 
 
 def sort_elements_by_priority(
-    elements: List[UIElement], target_spec: Optional[TargetSpec] = None
-) -> List[UIElement]:
+    elements: list[UIElement], target_spec: TargetSpec | None = None
+) -> list[UIElement]:
     """
     按优先级排序 UI 元素
 

@@ -24,7 +24,7 @@ _workspace_root = Path(__file__).resolve().parents[1]
 if str(_workspace_root) not in sys.path:
     sys.path.insert(0, str(_workspace_root))
 
-from agent_system.semantic import TaskQueueNL, parse_intent, execute_intent, IntentType
+from agent_system.semantic import TaskQueueNL, parse_intent
 
 
 def format_output(processed: dict, fmt: str) -> str:

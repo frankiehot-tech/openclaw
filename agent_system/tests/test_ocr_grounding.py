@@ -12,7 +12,6 @@ Test OCR Grounding - OCR 和 Grounding 测试
 import os
 import sys
 import unittest
-from typing import List, Tuple
 
 # 添加项目根目录到路径
 project_root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -22,20 +21,16 @@ from vision.ocr_engine import (
     MockOCRProvider,
     OCREngine,
     OCRResult,
-    PrimaryOCRProvider,
-    get_ocr_engine,
     reset_ocr_engine,
 )
 from vision.screen_analyzer import (
     ScreenAnalysis,
     ScreenAnalyzer,
-    get_screen_analyzer,
     reset_screen_analyzer,
 )
 from vision.ui_grounding import (
     TextTarget,
     UIGrounding,
-    get_ui_grounding,
     reset_ui_grounding,
 )
 

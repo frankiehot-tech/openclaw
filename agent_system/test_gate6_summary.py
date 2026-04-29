@@ -4,13 +4,10 @@ Gate 6 最终总结：保守整理桌面第一页
 输出完整的测试记录
 """
 
-import json
 import os
 import subprocess
-import sys
 import tempfile
 import time
-from typing import Dict, List, Optional, Tuple
 
 import requests
 
@@ -18,7 +15,7 @@ import requests
 DEVICE_ID = "R3CR80FKA0V"
 
 
-def capture_screen(filename: str) -> Tuple[str, int]:
+def capture_screen(filename: str) -> tuple[str, int]:
     """捕获屏幕截图"""
     try:
         proc = subprocess.Popen(
@@ -39,7 +36,7 @@ def capture_screen(filename: str) -> Tuple[str, int]:
         raise RuntimeError(f"截图失败: {str(e)}")
 
 
-def describe_with_qwen(image_path: str, prompt: str = None) -> Dict:
+def describe_with_qwen(image_path: str, prompt: str = None) -> dict:
     """调用vision_router的qwen分支"""
     if prompt is None:
         prompt = "请用一句中文描述这张截图中最显眼的界面内容，不要猜测看不清的细节。"
@@ -56,7 +53,7 @@ def describe_with_qwen(image_path: str, prompt: str = None) -> Dict:
         return {"ok": False, "error": str(e)}
 
 
-def execute_adb_command(cmd: List[str]) -> Tuple[bool, str]:
+def execute_adb_command(cmd: list[str]) -> tuple[bool, str]:
     """执行adb命令"""
     try:
         result = subprocess.run(
@@ -67,7 +64,7 @@ def execute_adb_command(cmd: List[str]) -> Tuple[bool, str]:
         return False, str(e)
 
 
-def check_current_activity() -> Optional[str]:
+def check_current_activity() -> str | None:
     """检查当前活动"""
     success, output = execute_adb_command(
         ["shell", "dumpsys", "window", "|", "grep", "mCurrentFocus"]
@@ -175,16 +172,16 @@ def main():
         print("- 是否成功：成功")
         print("- 失败类型：不适用")
         print("- 是否安全停止：是")
-        print(f"- 备注：成功执行保守整理，视觉确认在桌面第一页")
+        print("- 备注：成功执行保守整理，视觉确认在桌面第一页")
         if current_desc.get("ok"):
             print(f"  当前画面: {current_desc.get('text', '无描述')}")
         if has_drag_trace:
-            print(f"  拖拽痕迹: 检测到App图标移动痕迹")
+            print("  拖拽痕迹: 检测到App图标移动痕迹")
     else:
         print("- 是否成功：失败")
         print("- 失败类型：perception_failed")
         print("- 是否安全停止：是")
-        print(f"- 备注：无法确认在桌面第一页")
+        print("- 备注：无法确认在桌面第一页")
         if current_desc.get("ok"):
             print(f"  当前画面: {current_desc.get('text', '无描述')}")
 

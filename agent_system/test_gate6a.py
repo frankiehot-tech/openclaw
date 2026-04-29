@@ -22,14 +22,12 @@ Gate 6A：桌面恢复与确认 (Phase 14)
 - 安全第一：任何不确定都停止并报告
 """
 
-import json
 import logging
 import os
 import subprocess
-import sys
 import tempfile
 import time
-from typing import Any, Dict, List, Optional, Tuple
+from typing import Any
 
 import requests
 
@@ -41,7 +39,7 @@ logger = logging.getLogger(__name__)
 DEVICE_ID = "R3CR80FKA0V"
 
 
-def capture_screen(filename: str) -> Tuple[str, int]:
+def capture_screen(filename: str) -> tuple[str, int]:
     """捕获屏幕截图"""
     try:
         proc = subprocess.Popen(
@@ -62,7 +60,7 @@ def capture_screen(filename: str) -> Tuple[str, int]:
         raise RuntimeError(f"截图失败: {str(e)}")
 
 
-def describe_with_qwen(image_path: str, prompt: str = None) -> Dict:
+def describe_with_qwen(image_path: str, prompt: str = None) -> dict:
     """调用vision_router的qwen分支"""
     if prompt is None:
         prompt = "请用一句中文描述这张截图中最显眼的界面内容，不要猜测看不清的细节。"
@@ -80,7 +78,7 @@ def describe_with_qwen(image_path: str, prompt: str = None) -> Dict:
         return {"ok": False, "error": str(e)}
 
 
-def execute_adb_command(cmd: List[str]) -> Tuple[bool, str]:
+def execute_adb_command(cmd: list[str]) -> tuple[bool, str]:
     """执行adb命令"""
     try:
         result = subprocess.run(
@@ -91,7 +89,7 @@ def execute_adb_command(cmd: List[str]) -> Tuple[bool, str]:
         return False, str(e)
 
 
-def get_window_focus_info() -> Dict[str, Any]:
+def get_window_focus_info() -> dict[str, Any]:
     """获取窗口焦点信息"""
     # 获取更详细的窗口信息
     success, output = execute_adb_command(["shell", "dumpsys", "window"])
@@ -199,7 +197,7 @@ def press_back() -> bool:
     return False
 
 
-def is_home_screen_by_visual(image_path: str) -> Tuple[bool, str, Dict]:
+def is_home_screen_by_visual(image_path: str) -> tuple[bool, str, dict]:
     """视觉判断是否为桌面第一页（三星桌面增强版）"""
     prompt = """请仔细分析这张手机截图，判断是否是手机桌面第一页：
 
@@ -281,7 +279,7 @@ def is_home_screen_by_visual(image_path: str) -> Tuple[bool, str, Dict]:
     return is_home, reason, analysis
 
 
-def is_home_screen_by_adb() -> Tuple[bool, str, Dict]:
+def is_home_screen_by_adb() -> tuple[bool, str, dict]:
     """ADB判断是否为桌面"""
     info = get_window_focus_info()
 
@@ -299,7 +297,7 @@ def is_home_screen_by_adb() -> Tuple[bool, str, Dict]:
     return is_home, reason, analysis
 
 
-def verify_home_screen(image_path: str) -> Tuple[bool, str, Dict]:
+def verify_home_screen(image_path: str) -> tuple[bool, str, dict]:
     """验证是否为桌面第一页（多信号融合）"""
     # ADB验证
     adb_home, adb_reason, adb_analysis = is_home_screen_by_adb()
@@ -344,7 +342,7 @@ def verify_home_screen(image_path: str) -> Tuple[bool, str, Dict]:
         )
 
 
-def restore_to_home_screen(max_attempts: int = 5) -> Tuple[bool, str, List[str]]:
+def restore_to_home_screen(max_attempts: int = 5) -> tuple[bool, str, list[str]]:
     """恢复到桌面第一页"""
     attempts = []
 
@@ -433,7 +431,7 @@ def main():
         if start_desc.get("ok"):
             print(f"5. 起始画面描述: {start_desc.get('text', '无描述')}")
         else:
-            print(f"5. 起始画面描述: 失败")
+            print("5. 起始画面描述: 失败")
     except Exception as e:
         print(f"4. 起始截图失败: {e}")
         start_screenshot = None
@@ -444,7 +442,7 @@ def main():
     success, reason, attempts = restore_to_home_screen(max_attempts=5)
 
     print(f"恢复结果: {'✅ 成功' if success else '❌ 失败'}")
-    print(f"恢复详情:")
+    print("恢复详情:")
     for attempt in attempts:
         print(f"  {attempt}")
 

@@ -7,8 +7,7 @@ Simple State Planner - 最小状态规划器 (Phase 11.5 强化版)
 
 import logging
 import os
-from dataclasses import dataclass, field
-from typing import Dict, Optional
+from dataclasses import dataclass
 
 logger = logging.getLogger(__name__)
 
@@ -38,7 +37,7 @@ class PlanResult:
     next_action: str  # "home", "open_browser", "open_settings", "direct"
     reason: str
     requires_precondition: bool = False
-    precondition_action: Optional[str] = None
+    precondition_action: str | None = None
     # State Gate 相关字段
     state_gate_used: bool = False
     state_gate_reason: str = ""
@@ -240,7 +239,7 @@ def plan_next_step(task: str, current_state: str, state_confidence: float = 0.0)
                 original_state=current_state,
             )
         elif current_state == "settings_wifi":
-            logger.info(f"当前已在 Wi-Fi 页面，直接成功")
+            logger.info("当前已在 Wi-Fi 页面，直接成功")
             return PlanResult(
                 plan_type="direct_execute",
                 next_action="direct",
@@ -263,7 +262,7 @@ def plan_next_step(task: str, current_state: str, state_confidence: float = 0.0)
                 original_state=current_state,
             )
         elif current_state == "settings_bluetooth":
-            logger.info(f"当前已在蓝牙页面，直接成功")
+            logger.info("当前已在蓝牙页面，直接成功")
             return PlanResult(
                 plan_type="direct_execute",
                 next_action="direct",
@@ -275,7 +274,7 @@ def plan_next_step(task: str, current_state: str, state_confidence: float = 0.0)
     # 规则 F (Phase 12): 任务 = "点击搜索"，若当前已是 search_page → 不重复点击
     if task in ["点击搜索", "打开搜索", "搜索"]:
         if current_state == "search_page":
-            logger.info(f"当前已在搜索页面，不重复点击")
+            logger.info("当前已在搜索页面，不重复点击")
             return PlanResult(
                 plan_type="direct_execute",
                 next_action="direct",
@@ -295,13 +294,13 @@ def plan_next_step(task: str, current_state: str, state_confidence: float = 0.0)
     )
 
 
-def get_task_target_state(task: str) -> Optional[str]:
+def get_task_target_state(task: str) -> str | None:
     """获取任务的目标状态"""
     task = normalize_task(task)
     return TASK_TARGET_STATE.get(task)
 
 
-def get_task_required_state(task: str) -> Optional[str]:
+def get_task_required_state(task: str) -> str | None:
     """获取任务需要的前置状态"""
     task = normalize_task(task)
     return TASK_REQUIRED_STATE.get(task)
@@ -331,7 +330,7 @@ def is_state_gate_used(result: PlanResult) -> bool:
     return result.state_gate_used
 
 
-def get_state_gate_info(result: PlanResult) -> Dict:
+def get_state_gate_info(result: PlanResult) -> dict:
     """获取 state gate 信息"""
     return {
         "state_gate_used": result.state_gate_used,

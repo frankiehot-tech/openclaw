@@ -5,7 +5,6 @@ Task Router - 任务路由
 """
 
 import logging
-from typing import Dict, Optional
 
 # 配置日志
 logger = logging.getLogger(__name__)
@@ -30,10 +29,10 @@ class TaskRouter:
         self,
         task: str,
         device: str = "zflip3",
-        context: Optional[str] = None,
-        priority: Optional[int] = None,
-        constraints: Optional[Dict] = None,
-    ) -> Dict:
+        context: str | None = None,
+        priority: int | None = None,
+        constraints: dict | None = None,
+    ) -> dict:
         """
         路由任务
 
@@ -114,10 +113,10 @@ class TaskRouter:
 def route_task(
     task: str,
     device: str = "zflip3",
-    context: Optional[str] = None,
-    priority: Optional[int] = None,
-    constraints: Optional[Dict] = None,
-) -> Dict:
+    context: str | None = None,
+    priority: int | None = None,
+    constraints: dict | None = None,
+) -> dict:
     """
     快捷路由函数
 

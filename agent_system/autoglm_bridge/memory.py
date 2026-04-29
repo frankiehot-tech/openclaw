@@ -8,7 +8,6 @@ import json
 import logging
 from dataclasses import asdict, dataclass, field
 from datetime import datetime
-from typing import Dict, List, Optional
 
 # 配置日志
 logger = logging.getLogger(__name__)
@@ -40,38 +39,38 @@ class StepRecord:
 
     step: int
     task: str
-    screenshot_path: Optional[str]
-    model_output: Dict
-    executed_action: Dict
+    screenshot_path: str | None
+    model_output: dict
+    executed_action: dict
     timestamp: str = field(default_factory=lambda: datetime.now().isoformat())
     result: str = "pending"  # pending, success, failed
-    error: Optional[str] = None
+    error: str | None = None
     # 基础字段
-    screen_hash: Optional[str] = None  # 屏幕哈希
-    fallback_used: Optional[str] = None  # 使用的 fallback (back/home)
-    failure_type: Optional[str] = None  # 失败类型
-    step_duration: Optional[float] = None  # 步骤耗时（秒）
-    confidence: Optional[float] = None  # 模型置信度
-    raw_model_summary: Optional[str] = None  # 原始模型输出摘要
+    screen_hash: str | None = None  # 屏幕哈希
+    fallback_used: str | None = None  # 使用的 fallback (back/home)
+    failure_type: str | None = None  # 失败类型
+    step_duration: float | None = None  # 步骤耗时（秒）
+    confidence: float | None = None  # 模型置信度
+    raw_model_summary: str | None = None  # 原始模型输出摘要
     # OCR/Grounding 字段
-    action_source: Optional[str] = None  # 动作来源: ocr_grounding/model_inference/fallback
+    action_source: str | None = None  # 动作来源: ocr_grounding/model_inference/fallback
     ocr_blocks_count: int = 0  # OCR 文本块数量
-    ocr_top_texts: List[str] = field(default_factory=list)  # 高置信文本列表
-    grounding_target: Optional[str] = None  # grounding 目标文本
-    grounding_candidates: List[str] = field(default_factory=list)  # grounding 候选列表
+    ocr_top_texts: list[str] = field(default_factory=list)  # 高置信文本列表
+    grounding_target: str | None = None  # grounding 目标文本
+    grounding_candidates: list[str] = field(default_factory=list)  # grounding 候选列表
     screen_summary: str = ""  # 屏幕摘要
     # Policy/State 字段 (Phase 11-lite)
     task_allowed: bool = True  # 任务是否在白名单内
-    current_state: Optional[str] = None  # 当前页面状态
+    current_state: str | None = None  # 当前页面状态
     state_confidence: float = 0.0  # 状态检测置信度
-    plan_type: Optional[str] = None  # 规划类型: direct_execute/go_home_first/open_browser_first
-    planner_reason: Optional[str] = None  # 规划原因
+    plan_type: str | None = None  # 规划类型: direct_execute/go_home_first/open_browser_first
+    planner_reason: str | None = None  # 规划原因
     # Post-Action State Check 字段 (Phase 11.5)
-    post_action_state: Optional[str] = None  # 动作执行后的页面状态
+    post_action_state: str | None = None  # 动作执行后的页面状态
     post_action_state_confidence: float = 0.0  # 动作执行后的状态置信度
     post_action_state_check_passed: bool = False  # 动作后状态验证是否通过
     post_action_state_check_failed: bool = False  # 动作后状态验证是否失败
-    target_state: Optional[str] = None  # 目标状态
+    target_state: str | None = None  # 目标状态
     correction_action_taken: bool = False  # 是否执行了修正动作
 
 
@@ -85,9 +84,9 @@ class Memory:
         Args:
             max_steps: 最大记录步数
         """
-        self.steps: List[StepRecord] = []
+        self.steps: list[StepRecord] = []
         self.max_steps = max_steps
-        self.current_task: Optional[str] = None
+        self.current_task: str | None = None
 
     def start_task(self, task: str):
         """开始新任务"""
@@ -102,24 +101,24 @@ class Memory:
         self,
         step: int,
         task: str,
-        screenshot_path: Optional[str],
-        model_output: Dict,
-        executed_action: Dict,
+        screenshot_path: str | None,
+        model_output: dict,
+        executed_action: dict,
         result: str = "pending",
-        error: Optional[str] = None,
+        error: str | None = None,
         # 基础参数
-        screen_hash: Optional[str] = None,
-        fallback_used: Optional[str] = None,
-        failure_type: Optional[str] = None,
-        step_duration: Optional[float] = None,
-        confidence: Optional[float] = None,
-        raw_model_summary: Optional[str] = None,
+        screen_hash: str | None = None,
+        fallback_used: str | None = None,
+        failure_type: str | None = None,
+        step_duration: float | None = None,
+        confidence: float | None = None,
+        raw_model_summary: str | None = None,
         # OCR/Grounding 参数
-        action_source: Optional[str] = None,
+        action_source: str | None = None,
         ocr_blocks_count: int = 0,
-        ocr_top_texts: Optional[List[str]] = None,
-        grounding_target: Optional[str] = None,
-        grounding_candidates: Optional[List[str]] = None,
+        ocr_top_texts: list[str] | None = None,
+        grounding_target: str | None = None,
+        grounding_candidates: list[str] | None = None,
         screen_summary: str = "",
     ):
         """添加一步记录（增强版 - 包含 OCR/Grounding）"""
@@ -166,15 +165,15 @@ class Memory:
             )
         )
 
-    def get_last_step(self) -> Optional[StepRecord]:
+    def get_last_step(self) -> StepRecord | None:
         """获取上一步记录"""
         return self.steps[-1] if self.steps else None
 
-    def get_history(self) -> List[Dict]:
+    def get_history(self) -> list[dict]:
         """获取历史记录"""
         return [asdict(step) for step in self.steps]
 
-    def is_loop_detected(self, action: Dict, threshold: int = 3) -> bool:
+    def is_loop_detected(self, action: dict, threshold: int = 3) -> bool:
         """
         检测循环动作
 
@@ -233,7 +232,7 @@ class Memory:
 
 
 # 全局单例
-_memory: Optional[Memory] = None
+_memory: Memory | None = None
 
 
 def get_memory() -> Memory:

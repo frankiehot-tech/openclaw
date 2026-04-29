@@ -7,10 +7,8 @@ Task to Target - 任务目标映射
 
 import logging
 import re
-from dataclasses import dataclass
-from typing import Any, Dict, List, Optional
 
-from .ui_elements import TargetSpec, UIElementType
+from .ui_elements import TargetSpec
 
 logger = logging.getLogger(__name__)
 
@@ -198,7 +196,7 @@ def parse_task(task: str) -> TargetSpec:
     )
 
 
-def parse_tasks(tasks: List[str]) -> List[TargetSpec]:
+def parse_tasks(tasks: list[str]) -> list[TargetSpec]:
     """
     批量解析任务
 
@@ -211,7 +209,7 @@ def parse_tasks(tasks: List[str]) -> List[TargetSpec]:
     return [parse_task(task) for task in tasks]
 
 
-def get_common_tasks() -> Dict[str, str]:
+def get_common_tasks() -> dict[str, str]:
     """
     获取常见任务模板
 

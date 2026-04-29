@@ -9,7 +9,6 @@ import os
 import sys
 from abc import ABC, abstractmethod
 from dataclasses import dataclass
-from typing import Dict, List, Optional
 
 # 添加项目根目录到路径
 project_root = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
@@ -32,10 +31,10 @@ class OCRResult:
     """OCR 结果"""
 
     text: str
-    bbox: List[int]  # [x1, y1, x2, y2]
+    bbox: list[int]  # [x1, y1, x2, y2]
     confidence: float
 
-    def to_dict(self) -> Dict:
+    def to_dict(self) -> dict:
         return {"text": self.text, "bbox": self.bbox, "confidence": self.confidence}
 
 
@@ -43,7 +42,7 @@ class OCRProvider(ABC):
     """OCR Provider 抽象基类"""
 
     @abstractmethod
-    def extract_text(self, image_path: str) -> List[OCRResult]:
+    def extract_text(self, image_path: str) -> list[OCRResult]:
         """
         从图片中提取文字
 
@@ -68,7 +67,7 @@ class MockOCRProvider(OCRProvider):
         self.name = "mock"
         logger.info("MockOCRProvider 初始化")
 
-    def extract_text(self, image_path: str) -> List[OCRResult]:
+    def extract_text(self, image_path: str) -> list[OCRResult]:
         """返回模拟的 OCR 结果"""
         logger.info(f"MockOCR: 提取文字 from {image_path}")
 
@@ -113,7 +112,7 @@ class PrimaryOCRProvider(OCRProvider):
             logger.warning(f"PrimaryOCRProvider: 初始化失败 {e}，回退到 Mock")
             self._ocr = None
 
-    def extract_text(self, image_path: str) -> List[OCRResult]:
+    def extract_text(self, image_path: str) -> list[OCRResult]:
         """使用 EasyOCR 提取文字"""
         if not self._ocr:
             logger.warning("OCR 引擎未初始化，返回空结果")
@@ -176,7 +175,7 @@ class OCREngine:
         else:
             return MockOCRProvider()
 
-    def extract_text(self, image_path: str) -> List[OCRResult]:
+    def extract_text(self, image_path: str) -> list[OCRResult]:
         """
         提取文字
 
@@ -207,7 +206,7 @@ class OCREngine:
 
 
 # 全局单例
-_ocr_engine: Optional[OCREngine] = None
+_ocr_engine: OCREngine | None = None
 
 
 def get_ocr_engine(provider: str = "mock") -> OCREngine:

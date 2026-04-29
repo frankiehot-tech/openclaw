@@ -11,7 +11,6 @@ import os
 import random
 import re
 import time
-from typing import Dict, List, Optional
 
 import requests
 
@@ -21,7 +20,7 @@ def load_env_file(env_path):
     """手动解析 .env 文件并设置环境变量"""
     if not os.path.exists(env_path):
         return
-    with open(env_path, "r") as f:
+    with open(env_path) as f:
         for line in f:
             line = line.strip()
             if line and not line.startswith("#"):
@@ -129,7 +128,7 @@ MOCK_ACTIONS = [
 ]
 
 
-def convert_to_new_format(output: Dict) -> Dict:
+def convert_to_new_format(output: dict) -> dict:
     """
     将旧格式转换为新格式（向后兼容）
 
@@ -169,8 +168,8 @@ class ModelClient:
 
     def __init__(
         self,
-        api_key: Optional[str] = None,
-        base_url: Optional[str] = None,
+        api_key: str | None = None,
+        base_url: str | None = None,
         model: str = "gpt-4",
         use_mock: bool = True,
     ):
@@ -201,10 +200,10 @@ class ModelClient:
     def infer_action(
         self,
         task: str,
-        screenshot_path: Optional[str],
-        history: List[Dict],
-        use_mock: Optional[bool] = None,
-    ) -> Dict:
+        screenshot_path: str | None,
+        history: list[dict],
+        use_mock: bool | None = None,
+    ) -> dict:
         """
         推理下一步动作
 
@@ -233,7 +232,7 @@ class ModelClient:
         else:
             return self._real_infer(task, screenshot_path, history)
 
-    def _mock_infer(self, task: str, screenshot_path: Optional[str], history: List[Dict]) -> Dict:
+    def _mock_infer(self, task: str, screenshot_path: str | None, history: list[dict]) -> dict:
         """
         Mock 模式推理
 
@@ -286,7 +285,7 @@ class ModelClient:
             action["reason"] = f"默认动作: {action['action']}"
             return action
 
-    def _real_infer(self, task: str, screenshot_path: Optional[str], history: List[Dict]) -> Dict:
+    def _real_infer(self, task: str, screenshot_path: str | None, history: list[dict]) -> dict:
         """
         真实模式推理
 
@@ -418,7 +417,7 @@ class ModelClient:
                 "confidence": 0.0,
             }
 
-    def _parse_model_output(self, content: str) -> Optional[Dict]:
+    def _parse_model_output(self, content: str) -> dict | None:
         """
         解析模型输出
 
@@ -464,7 +463,7 @@ class ModelClient:
             logger.warning(f"JSON 解析失败: {e}, content: {json_str[:100]}...")
             return None
 
-    def validate_output(self, output: Dict) -> bool:
+    def validate_output(self, output: dict) -> bool:
         """
         验证模型输出格式（新格式 + 旧格式兼容）
 
@@ -528,12 +527,12 @@ class ModelClient:
 
 
 # 全局单例
-_client: Optional[ModelClient] = None
+_client: ModelClient | None = None
 
 
 def get_model_client(
-    api_key: Optional[str] = None,
-    base_url: Optional[str] = None,
+    api_key: str | None = None,
+    base_url: str | None = None,
     model: str = "gpt-4",
     use_mock: bool = True,
 ) -> ModelClient:
@@ -585,7 +584,7 @@ def get_runtime_mode() -> str:
     return "mock" if AUTOGLM_USE_MOCK else "real"
 
 
-def check_real_mode_config() -> Dict:
+def check_real_mode_config() -> dict:
     """
     检查真实模式配置状态
 

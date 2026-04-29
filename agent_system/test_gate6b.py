@@ -23,14 +23,12 @@ Gate 6B：单图标保守整理 (Phase 14)
 4. 安全第一：任何不确定立即停止
 """
 
-import json
 import logging
 import os
 import subprocess
-import sys
 import tempfile
 import time
-from typing import Any, Dict, List, Optional, Tuple
+from typing import Any
 
 import requests
 
@@ -42,7 +40,7 @@ logger = logging.getLogger(__name__)
 DEVICE_ID = "R3CR80FKA0V"
 
 
-def capture_screen(filename: str) -> Tuple[str, int]:
+def capture_screen(filename: str) -> tuple[str, int]:
     """捕获屏幕截图"""
     try:
         proc = subprocess.Popen(
@@ -63,7 +61,7 @@ def capture_screen(filename: str) -> Tuple[str, int]:
         raise RuntimeError(f"截图失败: {str(e)}")
 
 
-def describe_with_qwen(image_path: str, prompt: str = None) -> Dict:
+def describe_with_qwen(image_path: str, prompt: str = None) -> dict:
     """调用vision_router的qwen分支"""
     if prompt is None:
         prompt = "请用一句中文描述这张截图中最显眼的界面内容，不要猜测看不清的细节。"
@@ -81,7 +79,7 @@ def describe_with_qwen(image_path: str, prompt: str = None) -> Dict:
         return {"ok": False, "error": str(e)}
 
 
-def execute_adb_command(cmd: List[str]) -> Tuple[bool, str]:
+def execute_adb_command(cmd: list[str]) -> tuple[bool, str]:
     """执行adb命令"""
     try:
         result = subprocess.run(
@@ -92,7 +90,7 @@ def execute_adb_command(cmd: List[str]) -> Tuple[bool, str]:
         return False, str(e)
 
 
-def get_window_focus_info() -> Dict[str, Any]:
+def get_window_focus_info() -> dict[str, Any]:
     """获取窗口焦点信息（简化版，用于快速检查）"""
     # 获取更详细的窗口信息
     success, output = execute_adb_command(["shell", "dumpsys", "window"])
@@ -118,7 +116,7 @@ def get_window_focus_info() -> Dict[str, Any]:
     return info
 
 
-def is_home_screen_by_visual(image_path: str) -> Tuple[bool, str, Dict]:
+def is_home_screen_by_visual(image_path: str) -> tuple[bool, str, dict]:
     """视觉判断是否为桌面第一页（精简版）"""
     prompt = """请仔细分析这张手机截图，判断是否是手机桌面第一页：
 
@@ -181,7 +179,7 @@ def is_home_screen_by_visual(image_path: str) -> Tuple[bool, str, Dict]:
     return is_home, reason, analysis
 
 
-def verify_home_screen_hard(image_path: str) -> Tuple[bool, str]:
+def verify_home_screen_hard(image_path: str) -> tuple[bool, str]:
     """硬守卫：验证是否为桌面第一页（必须通过才能继续）"""
     # ADB验证
     info = get_window_focus_info()
@@ -200,7 +198,7 @@ def verify_home_screen_hard(image_path: str) -> Tuple[bool, str]:
         return False, f"❌ 硬守卫失败\n- {adb_reason}\n- {visual_reason}"
 
 
-def analyze_desktop_for_action(image_path: str) -> Dict[str, Any]:
+def analyze_desktop_for_action(image_path: str) -> dict[str, Any]:
     """分析桌面，寻找最佳的单图标整理机会"""
     prompt = """请分析这张手机桌面截图，寻找最合适的单图标整理动作：
 
@@ -251,7 +249,7 @@ def analyze_desktop_for_action(image_path: str) -> Dict[str, Any]:
     return analysis
 
 
-def get_safe_test_action() -> Dict[str, Any]:
+def get_safe_test_action() -> dict[str, Any]:
     """获取安全的测试动作（保守方案）"""
     # 三星手机屏幕分辨率通常为 1080x2400
     # 使用非常保守的位置：从屏幕上方中部移动到下方中部
@@ -267,7 +265,7 @@ def get_safe_test_action() -> Dict[str, Any]:
     }
 
 
-def execute_swipe_action(action: Dict[str, Any]) -> Tuple[bool, str]:
+def execute_swipe_action(action: dict[str, Any]) -> tuple[bool, str]:
     """执行滑动/拖拽操作"""
     x1 = action["from"]["x"]
     y1 = action["from"]["y"]
@@ -284,7 +282,7 @@ def execute_swipe_action(action: Dict[str, Any]) -> Tuple[bool, str]:
         return False, f"拖拽失败: {output}"
 
 
-def compare_screenshots_before_after(before_path: str, after_path: str) -> Tuple[bool, str]:
+def compare_screenshots_before_after(before_path: str, after_path: str) -> tuple[bool, str]:
     """简单比较动作前后截图（通过文件大小和视觉描述）"""
     if not os.path.exists(before_path) or not os.path.exists(after_path):
         return False, "截图文件不存在"
@@ -358,7 +356,7 @@ def main():
     print("\n## 第2步：分析桌面布局，寻找最佳单图标整理动作")
 
     analysis = analyze_desktop_for_action(start_screenshot)
-    print(f"桌面分析结果:")
+    print("桌面分析结果:")
     print(f"  - 分析成功: {analysis['ok']}")
     print(f"  - 有合适动作: {analysis['has_suitable_action']}")
     print(f"  - 最佳动作: {analysis['best_action']}")
@@ -403,7 +401,7 @@ def main():
         print(f"  - 动作理由: {action['reason']}")
 
     # 第3步：执行单图标整理动作
-    print(f"\n## 第3步：执行单图标整理动作（只做1个）")
+    print("\n## 第3步：执行单图标整理动作（只做1个）")
     print(f"动作描述: {action['description']}")
     print(
         f"动作位置: ({action['from']['x']}, {action['from']['y']}) -> ({action['to']['x']}, {action['to']['y']})"
@@ -504,12 +502,12 @@ def main():
         print("- 是否成功：成功")
         print("- 失败类型：不适用")
         print("- 是否安全停止：是")
-        print(f"- 备注：成功执行1个保守整理动作")
+        print("- 备注：成功执行1个保守整理动作")
     else:
         print("- 是否成功：失败")
         print("- 失败类型：action_failed")
         print("- 是否安全停止：是")
-        print(f"- 备注：拖拽动作失败")
+        print("- 备注：拖拽动作失败")
 
     print("- 状态确认依据：ADB + 视觉双重验证")
 

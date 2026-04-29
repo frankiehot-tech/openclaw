@@ -6,9 +6,9 @@ Icon Heuristics - 图标级启发式识别
 """
 
 import logging
-from typing import Any, Dict, List, Optional, Tuple
+from typing import Any
 
-from .ui_elements import ElementSource, UIElement, UIElementType, create_ui_element
+from .ui_elements import UIElement, create_ui_element
 
 logger = logging.getLogger(__name__)
 
@@ -44,9 +44,9 @@ COMMON_ICON_HOTSPOTS = [
 
 def detect_search_icon(
     image_path: str,
-    ocr_blocks: Optional[List[Dict[str, Any]]] = None,
-    screen_size: Optional[Tuple[int, int]] = None,
-) -> List[UIElement]:
+    ocr_blocks: list[dict[str, Any]] | None = None,
+    screen_size: tuple[int, int] | None = None,
+) -> list[UIElement]:
     """
     识别搜索图标
 
@@ -126,9 +126,9 @@ def detect_search_icon(
 
 def detect_back_icon(
     image_path: str,
-    ocr_blocks: Optional[List[Dict[str, Any]]] = None,
-    screen_size: Optional[Tuple[int, int]] = None,
-) -> List[UIElement]:
+    ocr_blocks: list[dict[str, Any]] | None = None,
+    screen_size: tuple[int, int] | None = None,
+) -> list[UIElement]:
     """
     识别返回图标
 
@@ -209,9 +209,9 @@ def detect_back_icon(
 
 def detect_settings_icon(
     image_path: str,
-    ocr_blocks: Optional[List[Dict[str, Any]]] = None,
-    screen_size: Optional[Tuple[int, int]] = None,
-) -> List[UIElement]:
+    ocr_blocks: list[dict[str, Any]] | None = None,
+    screen_size: tuple[int, int] | None = None,
+) -> list[UIElement]:
     """
     识别设置图标
 
@@ -292,9 +292,9 @@ def detect_settings_icon(
 
 def detect_close_icon(
     image_path: str,
-    ocr_blocks: Optional[List[Dict[str, Any]]] = None,
-    screen_size: Optional[Tuple[int, int]] = None,
-) -> List[UIElement]:
+    ocr_blocks: list[dict[str, Any]] | None = None,
+    screen_size: tuple[int, int] | None = None,
+) -> list[UIElement]:
     """
     识别关闭图标
 
@@ -358,9 +358,9 @@ def detect_close_icon(
 
 def detect_menu_icon(
     image_path: str,
-    ocr_blocks: Optional[List[Dict[str, Any]]] = None,
-    screen_size: Optional[Tuple[int, int]] = None,
-) -> List[UIElement]:
+    ocr_blocks: list[dict[str, Any]] | None = None,
+    screen_size: tuple[int, int] | None = None,
+) -> list[UIElement]:
     """
     识别菜单图标
 
@@ -424,9 +424,9 @@ def detect_menu_icon(
 
 def detect_all_icon_elements(
     image_path: str,
-    ocr_blocks: Optional[List[Dict[str, Any]]] = None,
-    screen_size: Optional[Tuple[int, int]] = None,
-) -> List[UIElement]:
+    ocr_blocks: list[dict[str, Any]] | None = None,
+    screen_size: tuple[int, int] | None = None,
+) -> list[UIElement]:
     """
     检测所有图标元素
 

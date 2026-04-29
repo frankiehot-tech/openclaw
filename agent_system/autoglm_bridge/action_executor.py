@@ -9,14 +9,12 @@ import logging
 import os
 import sys
 import time
-from typing import Dict, List, Optional, Tuple
 
 # 添加项目根目录到路径
 project_root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.insert(0, project_root)
 
 from device_control.adb_client import ADBClient
-from device_control.screen_capture import capture_screen
 
 # 配置日志
 logger = logging.getLogger(__name__)
@@ -45,7 +43,7 @@ MAX_RETRIES = 2  # 最大重试次数
 class ActionExecutor:
     """动作执行器"""
 
-    def __init__(self, device_id: Optional[str] = None):
+    def __init__(self, device_id: str | None = None):
         """
         初始化动作执行器
 
@@ -60,7 +58,7 @@ class ActionExecutor:
         if self.screen_size:
             logger.info(f"屏幕尺寸: {self.screen_size[0]}x{self.screen_size[1]}")
 
-    def validate_action(self, action: Dict) -> Tuple[bool, Optional[str]]:
+    def validate_action(self, action: dict) -> tuple[bool, str | None]:
         """
         校验动作是否合法（新格式 + 旧格式兼容）
 
@@ -98,10 +96,10 @@ class ActionExecutor:
                         return False, f"swipe 动作缺少 {key}"
 
                 if not self._validate_coords(params["x1"], params["y1"]):
-                    return False, f"起点坐标超出屏幕范围"
+                    return False, "起点坐标超出屏幕范围"
 
                 if not self._validate_coords(params["x2"], params["y2"]):
-                    return False, f"终点坐标超出屏幕范围"
+                    return False, "终点坐标超出屏幕范围"
 
             # 校验 input_text
             elif action_type == "input_text":
@@ -128,10 +126,10 @@ class ActionExecutor:
                         return False, f"swipe 动作缺少 {key}"
 
                 if not self._validate_coords(action["x1"], action["y1"]):
-                    return False, f"起点坐标超出屏幕范围"
+                    return False, "起点坐标超出屏幕范围"
 
                 if not self._validate_coords(action["x2"], action["y2"]):
-                    return False, f"终点坐标超出屏幕范围"
+                    return False, "终点坐标超出屏幕范围"
 
             # 校验 input_text
             elif action_type == "input_text":
@@ -160,8 +158,8 @@ class ActionExecutor:
         return 0 <= x <= width and 0 <= y <= height
 
     def validate_action_safety(
-        self, action: Dict, history: Optional[List[Dict]] = None, screen_meta: Optional[Dict] = None
-    ) -> Tuple[bool, Optional[str], Optional[str]]:
+        self, action: dict, history: list[dict] | None = None, screen_meta: dict | None = None
+    ) -> tuple[bool, str | None, str | None]:
         """
         增强安全校验
 
@@ -267,8 +265,8 @@ class ActionExecutor:
         return True, None, None
 
     def execute_with_safety(
-        self, action: Dict, history: Optional[List[Dict]] = None, screen_meta: Optional[Dict] = None
-    ) -> Tuple[bool, str, Optional[str]]:
+        self, action: dict, history: list[dict] | None = None, screen_meta: dict | None = None
+    ) -> tuple[bool, str, str | None]:
         """
         带安全校验的执行
 
@@ -304,7 +302,7 @@ class ActionExecutor:
 
         return True, message, None
 
-    def execute(self, action: Dict) -> Tuple[bool, str]:
+    def execute(self, action: dict) -> tuple[bool, str]:
         """
         执行动作（新格式 + 旧格式兼容）
 
@@ -384,7 +382,7 @@ class ActionExecutor:
             logger.error(f"执行动作异常: {str(e)}")
             return False, str(e)
 
-    def execute_with_retry(self, action: Dict, max_retries: int = 3) -> Tuple[bool, str]:
+    def execute_with_retry(self, action: dict, max_retries: int = 3) -> tuple[bool, str]:
         """
         带重试的执行
 
@@ -407,10 +405,10 @@ class ActionExecutor:
 
 
 # 全局缓存
-_executor: Optional[ActionExecutor] = None
+_executor: ActionExecutor | None = None
 
 
-def get_action_executor(device_id: Optional[str] = None) -> ActionExecutor:
+def get_action_executor(device_id: str | None = None) -> ActionExecutor:
     """获取动作执行器"""
     global _executor
 

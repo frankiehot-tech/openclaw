@@ -9,8 +9,6 @@ ADB Client - ADB 命令封装层
 
 import logging
 import subprocess
-import time
-from typing import List, Optional, Tuple
 
 # 配置日志
 logging.basicConfig(
@@ -30,7 +28,7 @@ logger.addHandler(file_handler)
 class ADBClient:
     """ADB 客户端封装类"""
 
-    def __init__(self, device_id: Optional[str] = None):
+    def __init__(self, device_id: str | None = None):
         """
         初始化 ADB 客户端
 
@@ -40,7 +38,7 @@ class ADBClient:
         self.device_id = device_id
         self._device_id_arg = f"-s {device_id}" if device_id else ""
 
-    def _run_command(self, command: str, timeout: int = 30) -> Tuple[bool, str]:
+    def _run_command(self, command: str, timeout: int = 30) -> tuple[bool, str]:
         """
         执行 ADB 命令
 
@@ -73,7 +71,7 @@ class ADBClient:
             logger.error(f"命令异常: {str(e)}")
             return False, str(e)
 
-    def list_devices(self) -> List[dict]:
+    def list_devices(self) -> list[dict]:
         """
         获取设备列表
 
@@ -100,7 +98,7 @@ class ADBClient:
         logger.info(f"发现 {len(devices)} 个设备")
         return devices
 
-    def get_screen_size(self) -> Optional[Tuple[int, int]]:
+    def get_screen_size(self) -> tuple[int, int] | None:
         """
         获取设备屏幕分辨率
 
@@ -265,7 +263,7 @@ class ADBClient:
 
 
 # 便捷函数
-def get_default_device() -> Optional[str]:
+def get_default_device() -> str | None:
     """
     获取默认设备（第一个在线设备）
 

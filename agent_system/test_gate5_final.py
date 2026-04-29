@@ -5,9 +5,7 @@ Gate 5 最终版：在设置中进入 Wi-Fi 页面
 """
 
 import json
-import os
 import subprocess
-import sys
 import time
 
 import requests
@@ -189,7 +187,7 @@ def main():
                 is_wifi, desc = check_is_wifi_page(check_screenshot)
 
                 if is_wifi:
-                    print(f"    ✓ 成功进入Wi-Fi页面")
+                    print("    ✓ 成功进入Wi-Fi页面")
                     wifi_found = True
                     final_screenshot = check_screenshot
                     final_desc = desc
@@ -227,7 +225,7 @@ def main():
                         is_wifi, desc = check_is_wifi_page(wifi_check_screenshot)
 
                         if is_wifi:
-                            print(f"        ✓ 成功进入Wi-Fi页面")
+                            print("        ✓ 成功进入Wi-Fi页面")
                             wifi_found = True
                             final_screenshot = wifi_check_screenshot
                             final_desc = desc
@@ -295,13 +293,13 @@ def main():
                 is_wifi, desc = check_is_wifi_page(sys_screenshot)
 
                 if is_wifi:
-                    print(f"    ✓ 系统性点击成功进入Wi-Fi页面")
+                    print("    ✓ 系统性点击成功进入Wi-Fi页面")
                     wifi_found = True
                     final_screenshot = sys_screenshot
                     final_desc = desc
                     break
                 else:
-                    print(f"    ✗ 未进入Wi-Fi页面")
+                    print("    ✗ 未进入Wi-Fi页面")
                     press_back()
                     time.sleep(1)
 

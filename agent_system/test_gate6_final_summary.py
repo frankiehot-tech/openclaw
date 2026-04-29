@@ -12,14 +12,11 @@ Athena 项目 v1.0 最终验收总结报告
 """
 
 import json
-import os
-import sys
-import tempfile
 from datetime import datetime
-from typing import Any, Dict, List
+from typing import Any
 
 
-def load_gate_results() -> Dict[str, Dict[str, Any]]:
+def load_gate_results() -> dict[str, dict[str, Any]]:
     """加载各 Gate 的测试结果"""
 
     # 根据实际测试记录填充这些信息
@@ -61,7 +58,7 @@ def load_gate_results() -> Dict[str, Dict[str, Any]]:
     }
 
 
-def check_v1_acceptance_criteria(gate_results: Dict[str, Dict[str, Any]]) -> Dict[str, bool]:
+def check_v1_acceptance_criteria(gate_results: dict[str, dict[str, Any]]) -> dict[str, bool]:
     """检查 v1 验收标准"""
 
     criteria = {
@@ -80,7 +77,7 @@ def check_v1_acceptance_criteria(gate_results: Dict[str, Dict[str, Any]]) -> Dic
 
 
 def generate_acceptance_report(
-    gate_results: Dict[str, Dict[str, Any]], criteria: Dict[str, bool]
+    gate_results: dict[str, dict[str, Any]], criteria: dict[str, bool]
 ) -> str:
     """生成验收报告"""
 
@@ -333,7 +330,7 @@ def main():
 
     # 保存报告到文件
     report_file = save_report_to_file(report)
-    print(f"")
+    print("")
     print(f"报告已保存到: {report_file}")
 
     # 额外保存JSON格式的测试结果
@@ -352,7 +349,7 @@ def main():
     print(f"测试结果JSON已保存到: {json_file}")
 
     # 根据验收结果给出下一步建议
-    print(f"")
+    print("")
     if criteria["all_criteria_met"]:
         print("🎉 恭喜！Athena v1.0 验收通过！")
         print("下一步建议: python test_gate6_final_summary.py --phase15")

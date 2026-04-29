@@ -19,7 +19,7 @@ def load_env_file(env_path):
     """手动解析 .env 文件并设置环境变量"""
     if not os.path.exists(env_path):
         return
-    with open(env_path, "r") as f:
+    with open(env_path) as f:
         for line in f:
             line = line.strip()
             if line and not line.startswith("#"):
@@ -111,7 +111,7 @@ def main():
             sys.exit(1)
 
     if args.verbose:
-        print(f"=== Athena CLI ===")
+        print("=== Athena CLI ===")
         print(f"任务: {args.task}")
         print(f"设备: {args.device}")
         print(f"最大步数: {args.max_steps}")

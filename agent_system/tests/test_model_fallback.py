@@ -16,7 +16,7 @@ sys.path.insert(0, project_root)
 def load_env():
     env_path = os.path.join(project_root, ".env")
     if os.path.exists(env_path):
-        with open(env_path, "r") as f:
+        with open(env_path) as f:
             for line in f:
                 line = line.strip()
                 if line and not line.startswith("#"):

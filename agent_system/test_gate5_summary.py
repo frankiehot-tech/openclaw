@@ -4,11 +4,7 @@ Gate 5 最终总结：在设置中进入 Wi-Fi 页面
 输出完整的测试记录
 """
 
-import json
-import os
 import subprocess
-import sys
-import time
 
 import requests
 
@@ -155,7 +151,7 @@ def main():
         print("- 是否成功：成功")
         print("- 失败类型：不适用")
         print("- 是否安全停止：是")
-        print(f"- 备注：视觉验证成功进入Wi-Fi页面")
+        print("- 备注：视觉验证成功进入Wi-Fi页面")
         if wifi_result.get("ok"):
             print(f"  视觉验证结果: {wifi_result.get('text', '无描述')}")
     else:
