@@ -83,3 +83,36 @@ tags: [decisions, adr]
 - **决策**: 基于 `hook_event_bus` 的事件驱动 subagent 架构
 - **关键组件**: Subagent Registry 注册所有子 Agent，Event Bus 传递消息
 - **后果**: 需要维护 subagent 生命周期和事件路由
+
+### ADR-003: SAST + LLM 双层审计架构
+
+- **上下文**: 需要构建自动化审计流水线替代人工代码审查。AI 直接裸扫代码库成本高、误报多
+- **选项**:
+  1. LLM 直接扫描全量代码（23K 初始告警，95%+ 误报）
+  2. SAST 工具（Ruff/SonarQube）先做规则过滤 → LLM 复核 SAST 告警 + 检测逻辑漏洞
+  3. 仅用 SAST 工具，不用 LLM
+- **决策**: SAST + LLM 双层架构
+- **理由**:
+  - SAST 层（Ruff）快速、便宜、确定性强，过滤 90%+ 噪声
+  - LLM 层只复核 SAST 无法检测的语义问题（逻辑漏洞、安全后门）
+  - 成本降低约 10 倍 vs LLM 直接裸扫
+  - 实际验证：23K → 137 的真实问题压缩比
+- **后果**: 需要维护 SAST 规则配置 + LLM 提示词两套系统
+
+### ADR-004: 第三方目录排除策略
+
+- **上下文**: `scripts/clawra/`, `backups/`, `tools/claude-code-setup/` 等目录包含第三方/生成代码，不应计入项目质量指标
+- **决策**: 在 `pyproject.toml` 的 `[tool.ruff] exclude` 中排除所有第三方/外部目录
+- **理由**: 避免质量门禁被外部代码的噪音误导，聚焦核心代码质量
+- **后果**: 需要明确界定核心代码 vs 外部代码的边界
+
+### ADR-005: 采用 llm-wiki 模式实现知识复利
+
+- **上下文**: 当前 wiki/ 基础设施存在但未充分利用；会话知识在每次会话后丢失
+- **参考**: [karpathy/llm-wiki](https://gist.github.com/karpathy/442a6bf555914893e9891c11519de94f)
+- **决策**: 按 llm-wiki 模式强化 wiki/ 使用：每次会话结束时自动写入 session 摘要、更新索引和日志
+- **理由**:
+  - 会话上下文有限，知识需要持久化
+  - wiki 是 Markdown 文件，可 Git 版本化
+  - LLM 原生理解 Markdown，零依赖
+- **后果**: 每次会话结束需额外 token 用于 wiki 写入；长期收益远大于成本

@@ -1,7 +1,5 @@
 """Tests for skill matcher engine."""
 
-import pytest
-
 from src.skills.matcher import (
     Skill,
     _haversine_km,

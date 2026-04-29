@@ -8,18 +8,16 @@ Core functions:
 
 from __future__ import annotations
 
-from typing import Any, List, Optional, Tuple
-
 from pydantic import BaseModel
 
 
 class Skill(BaseModel):
     name: str
     category: str
-    geo: Tuple[float, float]
+    geo: tuple[float, float]
     price: float
     rating: float
-    tags: List[str] = []
+    tags: list[str] = []
 
 
 class MatchResult(BaseModel):
@@ -28,7 +26,7 @@ class MatchResult(BaseModel):
     breakdown: dict
 
 
-def _haversine_km(p1: Tuple[float, float], p2: Tuple[float, float]) -> float:
+def _haversine_km(p1: tuple[float, float], p2: tuple[float, float]) -> float:
     """Haversine formula — approximate great-circle distance in km."""
     import math
 
@@ -36,14 +34,11 @@ def _haversine_km(p1: Tuple[float, float], p2: Tuple[float, float]) -> float:
     lat2, lon2 = map(math.radians, p2)
     dlat = lat2 - lat1
     dlon = lon2 - lon1
-    a = (
-        math.sin(dlat / 2) ** 2
-        + math.cos(lat1) * math.cos(lat2) * math.sin(dlon / 2) ** 2
-    )
+    a = math.sin(dlat / 2) ** 2 + math.cos(lat1) * math.cos(lat2) * math.sin(dlon / 2) ** 2
     return 6371.0 * 2 * math.atan2(math.sqrt(a), math.sqrt(1 - a))
 
 
-def geo_filter(skill: Skill, user_geo: Tuple[float, float], radius_km: float = 50.0) -> bool:
+def geo_filter(skill: Skill, user_geo: tuple[float, float], radius_km: float = 50.0) -> bool:
     """地理距离硬门槛。距离 > radius_km 返回 False。"""
     dist = _haversine_km(skill.geo, user_geo)
     return dist <= radius_km
@@ -63,7 +58,6 @@ def _calc_skill_match(skill: Skill, requirements: dict) -> float:
 
 
 def _calc_geo_score(skill: Skill, requirements: dict) -> float:
-    import math
 
     user_geo = requirements.get("geo")
     if not user_geo:
@@ -88,22 +82,17 @@ def _calc_budget_match(skill: Skill, requirements: dict) -> float:
 
 def match_score(skill: Skill, requirements: dict) -> MatchResult:
     """40/30/20/10 加权评分：
-      40% 技能匹配度
-      30% 信誉评分
-      20% 地理位置
-      10% 预算匹配
+    40% 技能匹配度
+    30% 信誉评分
+    20% 地理位置
+    10% 预算匹配
     """
     skill_score = _calc_skill_match(skill, requirements)
     reputation_score = (skill.rating / 5.0) * 100.0
     geo_score = _calc_geo_score(skill, requirements)
     budget_score = _calc_budget_match(skill, requirements)
 
-    total = (
-        skill_score * 0.4
-        + reputation_score * 0.3
-        + geo_score * 0.2
-        + budget_score * 0.1
-    )
+    total = skill_score * 0.4 + reputation_score * 0.3 + geo_score * 0.2 + budget_score * 0.1
 
     return MatchResult(
         skill=skill,
@@ -119,9 +108,9 @@ def match_score(skill: Skill, requirements: dict) -> MatchResult:
 
 def find_best_matches(
     requirements: dict,
-    skills_pool: List[Skill],
+    skills_pool: list[Skill],
     top_n: int = 5,
-) -> List[MatchResult]:
+) -> list[MatchResult]:
     """主入口：地理过滤 → 评分排序 → 返回 Top N。"""
     user_geo = requirements.get("geo")
     radius = requirements.get("radius_km", 50.0)

@@ -1,49 +1,120 @@
-# 跨项目知识索引 (Cross-Project Knowledge Bridge)
+# 跨项目知识索引 — openclaw ↔ 003-open human
 
 ## 项目关系
 
 ```
-openclaw (引擎层) ←→ 003-open human (方法论层)
-    代码/CI/自动化          协议/文档/知识蒸馏
+openclaw/                    ←→  Athena知识库/执行项目/2026/
+├── src/   (代码执行引擎)         ├── 003-open human（碳硅基共生）/
+├── scripts/  (CI/工具)           ├── 001-媒体中心/
+├── wiki/  (蒸馏知识)             ├── 002-open claw 运维/
+└──                              └── ...
 ```
 
-两个项目是碳硅基共生架构的两个面，互相依赖，知识共享。
+**openclaw** = 代码层（引擎、CI、工具脚本）
+**Athena知识库/003-open human** = 文档层（协议、架构、方法论、执行方案）
 
-## 关联点映射
+两者的关系：**代码实现文档 → 蒸馏 → wiki；业务决策 → 产出 → 邮件箱。**
 
-### 共享知识域
+---
 
-| 知识域 | openclaw 路径 | 003-open human 路径 |
-|--------|--------------|-------------------|
-| 架构决策 | `wiki/ARCHITECTURE.md` | `MEMORY.md` (关键决策) |
-| 工作流模式 | `wiki/PATTERNS.md` | `CLAUDE.md` (工作流规范) |
-| 协作约定 | `MEMORY.md` | `MEMORY.md` (协作约定) |
-| AI 执行计划 | `.openclaw/orchestrator/tasks/` | `007-AI-plan/` |
-| 审计报告 | `docs/audit/` | `012-审计-分析-报告/` |
+## 外部知识索引
 
-### 队列路由
+以下是从 `Athena知识库` 中索引的核心文档，按主题分类。AI Agent 在涉及以下主题时应参考原始文档。
 
-```
-003-open human AI-plan 任务
-    ↓ 完成
-    ↓ 归档到
-    ↓
-openclaw/completed/queue_archives/openhuman_*
-```
+### 📋 项目状态与架构
 
-### 同步规则
+| 主题 | 源文档路径 | wiki 关联 |
+|------|-----------|-----------|
+| 项目状态总览 | `003-open human/000-项目状态与文件管理方案.md` | [[ARCHITECTURE]] |
+| 项目 AGENTS 规范 | `003-open human/AGENTS.md` | 项目协作层规范 |
+| 项目 CLAUDE 协议 | `003-open human/CLAUDE.md` | 项目协作层协议 |
+| 项目记忆 | `003-open human/MEMORY.md` | 项目级长期记忆 |
 
-1. **CLAUDE.md 版本追踪**: openclaw 升级 → 003-open human 同步评估
-2. **MEMORY.md 决策双向同步**: 任一方更新后须检查另一方是否需要同步
-3. **wiki/ 知识优先**: 新知识优先蒸馏到 openclaw wiki/，003-open human 通过 claude-mem 可检索
-4. **队列状态**: 003-open human 的队列状态在 openclaw `.openclaw/orchestrator/tasks/` 中可追踪
+### 🏗️ 工程实施方案
 
-## 协作约定
+| 主题 | 源文档路径 | wiki 关联 |
+|------|-----------|-----------|
+| OPC 入驻执行引擎 | `015-mailbox/OPC入驻·工程实施方案-执行引擎-20260426.md` | [[ARCHITECTURE]] |
+| OPC 入驻 v1.1 | `015-mailbox/OPC入驻·工程实施方案-执行引擎-v1.1.md` | — |
+| 深圳龙岗 OPC 全套方案 | `015-mailbox/深圳龙岗OPC入驻·全量工程实施方案-20260426.md` | — |
+| MAREF 补强方案 v2 | `015-mailbox/MAREF补强工程方案v2.md` | — |
+| SkillOS 补强方案 | `014-open humam-开源架构/SkillOS-补强工程实施文档.md` | — |
+| SkillOS 全闭环方案 V3.0 | `014-open humam-开源架构/Skill数字文明生态 - 全闭环工程实施方案 V3.0.md` | — |
+| 双轨并行战略方案 | `013-EVO/OpenClaw-OpenHuman双轨并行战略工程实施方案-Athena通信故障修复补充-20260412-171856.md` | — |
 
-- 003-open human 文档产出定期同步到 openclaw wiki/
-- 跨项目决策写入各自的 MEMORY.md，标记 `跨项目:` 前缀
-- Agent 工作区启动时，MAIN SESSION 读取双方 MEMORY.md 了解全局状态
+### 🧪 审计报告
 
-## 版本历史
+| 主题 | 源文档路径 | wiki 关联 |
+|------|-----------|-----------|
+| 本次全量审计报告（最新） | `015-mailbox/codebase_audit_report_20260427.md` | [[sessions/2026-04-27]] |
+| 代码审计需求工程评估 | `015-mailbox/《代码审计工程需求文档》技术评估报告.md` | — |
+| OpenClaw-OpenHuman 全量报告 | `012-审计-分析-报告/OpenClaw-OpenHuman全量分析报告-2026-04-12.md` | — |
+| Athena 到 MAREF 跃迁审计 | `012-审计-分析-报告/Athena从open-claw到MAREF跃迁能力升级全域深度审计报告-20260414.md` | — |
+| Athena 系统完整审计 | `012-审计-分析-报告/Athena openhuman系统完整审计报告.md` | — |
+| Athena 系统审计发现 | `012-审计-分析-报告/Athena openhuman系统审计发现记录.md` | — |
+| 系统补强方案 | `012-审计-分析-报告/Athena-openclaw-openhuman-系统补强方案-20260413.md` | — |
+| 24h 压力测试完成报告 | `012-审计-分析-报告/04-09压力测试完成报告.md` | — |
+| 多 Agent 压力测试审核 | `012-审计-分析-报告/20-4-5-多Agent系统24小时压力测试审核报告.md` | — |
+| 压力测试修复审计 | `013-EVO/多Agent系统压力测试修复执行审计报告.md` | — |
 
-- **v1.0** (2026-04-26): 初始跨项目索引，Phase 4 知识桥接建立
+### 🎯 AI Plan 执行计划
+
+| 主题 | 源文档路径 |
+|------|-----------|
+| AI Plan 目录（已完成+进行中） | `003-open human/007-AI-plan/` |
+| 已完成计划归档 | `003-open human/007-AI-plan/completed/` |
+
+### 📬 邮箱（最新产出）
+
+| 主题 | 源文档路径 |
+|------|-----------|
+| 各方案、报告、白皮书 | `015-mailbox/` (完整目录) |
+
+### 🔬 参考升级资料
+
+| 主题 | 源文档路径 |
+|------|-----------|
+| AI Skill 平台合作社 | `010-参考升级资料/AI Skill 平台合作社 - 全量工程化实施方案.md` |
+| GEO-Agent 工程化架构 | `010-参考升级资料/GEO-Agent 工程化架构.md` |
+| Inspector-Red 智能体检系统 | `010-参考升级资料/Inspector-Red 智能体检系统全量工程实施方案.md` |
+| 多 Agent 24h 压力测试 PRD | `010-参考升级资料/多Agent系统24小时压力测试平台 PRD.md` |
+| 《稀缺性营销》全量手册 | `010-参考升级资料/《稀缺性营销：从温克尔曼到AI时代的全量操作手册》.md` |
+
+### 🧠 EVO / 演化
+
+| 主题 | 源文档路径 |
+|------|-----------|
+| Athena Agent 职务与压力分析 | `013-EVO/Athena Agent职务与压力情况分析报告.md` |
+| Athena 通信故障分析 | `013-EVO/Athena通信故障分析报告-2026-04-12.md` |
+
+### 🌐 开源架构
+
+| 主题 | 源文档路径 |
+|------|-----------|
+| Skill 数字文明生态 V3.0 | `014-open humam-开源架构/Skill数字文明生态 - 全闭环工程实施方案 V3.0.md` |
+| S104 Demo 视频脚本 | `015-mailbox/S104-Demo视频脚本-20260426.md` |
+| OpenHuman 白皮书 | `015-mailbox/OpenHuman-白皮书摘要-v1.2.md` |
+
+---
+
+## 使用方式
+
+当 AI 会话涉及以下主题时：
+
+1. **先查此索引**，找到对应的源文档路径
+2. **读原始文档**获得完整上下文
+3. **如果需要**，将关键知识蒸馏到 `wiki/sessions/YYYY-MM-DD.md` 或对应 wiki 页面
+4. **在回答中注明来源**：`[来源: 003-open human/015-mailbox/xxx.md]`
+
+## 同步规则
+
+1. **不复制**：wiki 不复制 Athena知识库内容，只索引路径
+2. **路径基准**：所有路径以 `/Volumes/1TB-M2/Athena知识库/执行项目/2026/` 为根
+3. **新的邮箱产出**：每次 `015-mailbox/` 有新文件时，更新此索引
+4. **过期清理**：标记超过 30 天未引用的索引条目
+
+## 最后更新
+
+- **2026-04-27**: 初始建索引（基于现有知识库扫描）
+- **索引文档数**: ~40 文件
+- **覆盖目录**: 005-MVP, 007-AI-plan, 010-参考升级资料, 012-审计-分析-报告, 013-EVO, 014-open humam-开源架构, 015-mailbox

@@ -145,3 +145,62 @@ tags: [patterns, best-practices, traps]
 **根因**: 路径在计划阶段确定，但在执行前文件可能被移动。
 
 **预防**: 执行前验证路径 + 诚实报告路径漂移。
+
+### TRAP-005: f-string 嵌套引号在 Python 3.11 中失败
+
+**现象**: 文件在 Python 3.12 中正常运行，在 3.11 中报 SyntaxError。
+
+**根因**: `f"{d['key']}"` 在 Python 3.12+ 中合法，但在 3.11 中 f-string 不允许嵌套双引号。
+
+**案例**: `mini-agent/agent/core/scoreboard.py:449` — 使用 `{"📈 上升" if directions["user"] == "up" ...}` 导致解析失败。
+
+**修复**: 将内嵌表达式提取到变量，或升级 Python 版本要求。
+
+### TRAP-006: 多行 f-string 在 Python 3.11 中失败
+
+**现象**: `print(f"\n
+内容")` 这种跨行 f-string 在 Python 3.11 中报错。
+
+**根因**: Python 3.11 不允许 f-string 中包含字面换行符（PEP 701 → 3.12+）。
+
+**修复**: 将多行 f-string 合并为单行，使用 `\n` 转义序列替代字面换行。
+
+**案例**: `performance_analyzer.py`, `task_width_governance.py` 等多处。
+
+### TRAP-007: triple-quote 字符串内的 `"""` 意外关闭外层字符串
+
+**现象**: 多行字符串被内容中的 `"""` 提前关闭，导致后续代码被解析为语法错误。
+
+**根因**: 使用 `"""` 作为外层字符串分隔符，内容中的 Python 代码示例包含 `"""` docstring。
+
+**案例**: `integrate_prompts.py`, `move_opencode_plan_to_aiplan.py`, `fix_original_web_server.py`
+
+**修复**: 将外层分隔符从 `"""` 改为 `'''`。
+
+---
+
+## 审计模式
+
+### AUDIT-001: 分级修复策略
+
+**问题**: 23K+ 项问题一次性修复不可行。
+
+**方案**:
+1. **P0（阻止性）**：语法错误、未定义名称 → 立即修复
+2. **P1（结构性）**：裸 except、raise chain、硬编码路径 → 批量脚本修复
+3. **P2（样式性）**：未使用导入、f-string 格式、排序 → auto-fix
+4. **剩余**：import 位置、循环变量 → 低优先，选择性修复
+
+**经验**: 90% 的修复可以通过 `ruff --fix` 自动化完成。
+
+### AUDIT-002: 跨文件循环引用修复
+
+**问题**: 模块间循环引用导致 F821（未定义名称）集中爆发。
+
+**方案**:
+1. 识别模块边界（`scripts/runner/` 是重灾区）
+2. 导出模块的 `__init__.py` 统一管理可见性
+3. 在 `try/except ImportError` 块中添加兜底 import
+4. 补全所有缺失的 `from .xxx import ...` 语句
+
+**关键文件**: `runner/executor.py`, `runner/failure.py`, `runner/manifest.py`, `runner/task.py`, `runner/utils.py`

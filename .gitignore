@@ -83,7 +83,8 @@ comfyui_workspace/
 openclaw-2031-strategic-vision/
 openclaw-analysis/
 openclaw-openhuman-alignment/
-agent_system/
+# agent_system 有独立的 .gitignore 管理 .env/__pycache__
+# 去除根目录排除，由 agent_system/.gitignore 自身管理
 agents/
 artifacts/
 athena/
@@ -129,4 +130,8 @@ document_cleanup.log
 # 防止环境变量和密钥文件被追踪
 .env*
 !.env.example
+
+# External tools (third-party, contain credentials)
+tools/claude-code-setup/
+backups/
 
