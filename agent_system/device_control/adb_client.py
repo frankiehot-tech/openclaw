@@ -49,12 +49,13 @@ class ADBClient:
         Returns:
             (成功标志, 输出内容)
         """
-        full_command = f"adb {self._device_id_arg} {command}"
-        logger.info(f"执行命令: {full_command}")
+        import shlex
+        args = ["adb"] + shlex.split(self._device_id_arg) + shlex.split(command)
+        logger.info(f"执行命令: {' '.join(args)}")
 
         try:
             result = subprocess.run(
-                full_command, shell=True, capture_output=True, text=True, timeout=timeout
+                args, capture_output=True, text=True, timeout=timeout
             )
 
             if result.returncode == 0:
@@ -257,9 +258,7 @@ class ADBClient:
         """
         success, output = self._run_command("shell dumpsys power | grep 'Display Power'")
 
-        if success and "ON" in output:
-            return True
-        return False
+        return bool(success and "ON" in output)
 
 
 # 便捷函数
