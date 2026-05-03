@@ -211,7 +211,7 @@ def main():
     blocked = False
     pending_tasks = [(tid, task) for tid, task in items.items() if task.get("status") == "pending"]
 
-    for task_id, task_data in pending_tasks:
+    for task_id, _task_data in pending_tasks:
         # 从manifest获取依赖关系（因为队列中的metadata可能为空）
         depends_on = manifest_deps_map.get(task_id, [])
         for dep_id in depends_on:

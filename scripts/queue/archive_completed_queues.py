@@ -72,13 +72,7 @@ def is_queue_archive_eligible(queue_state: dict, completion_threshold: float = 9
         return False
 
     # 条件2: 没有待处理或运行中的任务
-    if counts["pending"] > 0 or counts["running"] > 0:
-        return False
-
-    # 条件3: 队列状态为empty（可选，根据实际字段）
-    # 这里我们依赖完成度和任务状态
-
-    return True
+    return not (counts["pending"] > 0 or counts["running"] > 0)
 
 
 def create_archive_metadata(queue_file: Path, queue_state: dict, counts: dict) -> dict:

@@ -29,7 +29,7 @@ def capture_screen(filename):
             f.write(png_data)
         return filename, len(png_data)
     except Exception as e:
-        raise RuntimeError(f"截图失败: {str(e)}")
+        raise RuntimeError(f"截图失败: {str(e)}") from e
 
 
 def describe_with_qwen(image_path, prompt=None):
@@ -112,7 +112,7 @@ def analyze_setting_layout(image_path):
             json_str = text[start:end]
             layout = json.loads(json_str)
             return layout
-    except:
+    except Exception:
         pass
 
     # 如果解析失败，返回默认值

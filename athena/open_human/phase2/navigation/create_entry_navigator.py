@@ -13,7 +13,8 @@ from enum import Enum
 try:
     from athena.open_human.phase1.states.page_state_classifier import (
         PageStateClassifier,
-        classify_page_state    )
+        classify_page_state,
+    )
 except ImportError:
     # 测试时可能需要处理导入问题
     PageStateClassifier = None
@@ -308,7 +309,7 @@ class CreateEntryNavigator:
 
     def _classify_current_state(
         self, app_package: str, current_package: str, vision_text: str, ui_anchors: list[str]
-    ) -> "PageStateResult":
+    ) -> "PageStateResult":  # noqa: F821
         """
         分类当前页面状态
 

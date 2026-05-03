@@ -114,10 +114,9 @@ class TestCreateEntryNavigator:
         self.navigator.classifier.classify.return_value = mock_classifier_result
 
         # 设置导航器找到创建入口但最终状态不是 CREATE_ENTRY
-        with patch.object(self.navigator, "_find_create_entry", return_value=True):
-            with patch.object(self.navigator, "_perform_navigation_action", return_value=True):
-                # 第二次状态检查也返回 app_home
-                with patch.object(self.navigator, "_classify_current_state") as mock_classify:
+        with patch.object(self.navigator, "_find_create_entry", return_value=True), \
+             patch.object(self.navigator, "_perform_navigation_action", return_value=True), \
+             patch.object(self.navigator, "_classify_current_state") as mock_classify:
                     mock_classify.return_value = PageStateResult(
                         page_state="app_home",
                         confidence=0.7,
@@ -273,8 +272,8 @@ class TestCreateEntryNavigator:
         )
 
         # 模拟找到创建入口但执行动作失败
-        with patch.object(self.navigator, "_find_create_entry", return_value=True):
-            with patch.object(self.navigator, "_perform_navigation_action", return_value=False):
+        with patch.object(self.navigator, "_find_create_entry", return_value=True), \
+             patch.object(self.navigator, "_perform_navigation_action", return_value=False):
                 result = self.navigator.navigate(
                     app_package=self.app_package,
                     current_package=self.app_package,

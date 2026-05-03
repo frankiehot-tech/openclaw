@@ -202,7 +202,7 @@ def batch_process_tasks(queue_data, categories, strategy="auto_reset_old"):
         for category_name, tasks in categories.items():
             print(f"处理类别: {category_name} ({len(tasks)}个任务)")
 
-            for task_id, task_details in tasks:
+            for task_id, _task_details in tasks:
                 print(f"  ↪️  重置任务: {task_id}")
                 items[task_id]["status"] = "pending"
                 items[task_id]["updated_at"] = datetime.now().isoformat()
@@ -214,7 +214,7 @@ def batch_process_tasks(queue_data, categories, strategy="auto_reset_old"):
         for category_name, tasks in categories.items():
             print(f"处理类别: {category_name} ({len(tasks)}个任务)")
 
-            for task_id, task_details in tasks:
+            for task_id, _task_details in tasks:
                 print(f"  ❌ 标记任务为failed: {task_id}")
                 items[task_id]["status"] = "failed"
                 items[task_id]["updated_at"] = datetime.now().isoformat()
@@ -231,7 +231,7 @@ def batch_process_tasks(queue_data, categories, strategy="auto_reset_old"):
         for category_name, tasks in categories.items():
             print(f"处理类别: {category_name} ({len(tasks)}个任务)")
 
-            for task_id, task_details in tasks:
+            for task_id, _task_details in tasks:
                 print(f"  ✅ 标记任务为completed: {task_id}")
                 items[task_id]["status"] = "completed"
                 items[task_id]["updated_at"] = datetime.now().isoformat()

@@ -267,7 +267,7 @@ class MarefSchedulerMonitor:
                         entry_time = datetime.datetime.fromisoformat(entry["timestamp"])
                         if entry_time >= cutoff_time:
                             recent_entries.append(entry)
-                    except:
+                    except Exception:
                         continue
 
             # 分析日志

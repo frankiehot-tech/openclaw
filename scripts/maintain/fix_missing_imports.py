@@ -76,7 +76,7 @@ def add_imports_after_block(
 
     # Check if these imports already exist
     existing = set(lines)
-    new_imports = [l for l in import_lines if l not in existing]
+    new_imports = [imp for imp in import_lines if imp not in existing]
 
     if not new_imports:
         print(f"  OK: {filepath.name} (all imports already present)")

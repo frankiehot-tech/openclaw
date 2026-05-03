@@ -197,7 +197,7 @@ def main():
     blocked_reason = ""
     pending_tasks = [(tid, task) for tid, task in items.items() if task.get("status") == "pending"]
 
-    for task_id, task_data in pending_tasks:
+    for task_id, _task_data in pending_tasks:
         # 从manifest获取依赖关系
         manifest_item = manifest_task_map.get(task_id)
         if not manifest_item:

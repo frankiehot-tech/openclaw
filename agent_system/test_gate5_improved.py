@@ -28,7 +28,7 @@ def capture_screen(filename):
             f.write(png_data)
         return filename, len(png_data)
     except Exception as e:
-        raise RuntimeError(f"截图失败: {str(e)}")
+        raise RuntimeError(f"截图失败: {str(e)}") from e
 
 
 def describe_with_qwen(image_path, prompt=None):

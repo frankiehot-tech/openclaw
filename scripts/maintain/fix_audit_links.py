@@ -60,13 +60,13 @@ def fix_links_in_file(file_path, mapping):
         # 标准Markdown链接: [text](url)
         pattern = r"(\[[^\]]+\]\()([^)]*" + re.escape(old_link) + r")(\))"
 
-        def replace_link(match):
+        def replace_link(match, old=old_link, new=new_link):
             before = match.group(1)  # [text](
             url = match.group(2)  # 链接部分
             after = match.group(3)  # )
 
             # 替换链接
-            new_url = url.replace(old_link, new_link)
+            new_url = url.replace(old, new)
             return before + new_url + after
 
         new_content, count = re.subn(pattern, replace_link, content)

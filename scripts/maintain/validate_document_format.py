@@ -128,8 +128,7 @@ class DocumentValidator:
                 in_code_block = not in_code_block
             elif not in_code_block:
                 # 检查列表格式
-                if line.strip().startswith("- ") or line.strip().startswith("* "):
-                    if len(line) - len(line.lstrip()) > 2:
+                if (line.strip().startswith("- ") or line.strip().startswith("* ")) and len(line) - len(line.lstrip()) > 2:
                         issues.append(f"列表缩进应为2个空格（第{i + 1}行）")
 
         if issues:
@@ -239,9 +238,7 @@ class DocumentValidator:
             if link_url.startswith("http://") or link_url.startswith("https://"):
                 # 外部链接，OK
                 continue
-            elif link_url.startswith("/"):
-                # 绝对路径，检查是否在docs目录内
-                if not link_url.startswith("/docs/"):
+            elif link_url.startswith("/") and not link_url.startswith("/docs/"):
                     issues.append(f"链接使用绝对路径: {link_url}")
 
         if issues:

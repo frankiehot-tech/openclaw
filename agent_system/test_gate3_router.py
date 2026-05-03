@@ -47,7 +47,7 @@ def capture_screen_without_warnings():
         return screenshot_path, len(png_data)
 
     except Exception as e:
-        raise RuntimeError(f"截图失败: {str(e)}")
+        raise RuntimeError(f"截图失败: {str(e)}") from e
 
 
 def main():

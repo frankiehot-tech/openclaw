@@ -46,7 +46,7 @@ def _build_channel_section(
         return "\n".join(lines)
 
     for v in videos:
-        (now - v.published).days
+        _ = (now - v.published).days
         time_str = _format_time(v.published)
         title = v.title.strip()
         desc = _truncate(v.description.replace("\n", " ").strip(), 100) if v.description else ""

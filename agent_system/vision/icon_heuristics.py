@@ -82,9 +82,7 @@ def detect_search_icon(
 
             # 检查是否包含搜索关键词
             search_keywords = ["搜索", "search", "搜索或输入网址"]
-            if any(kw in text for kw in search_keywords):
-                # 检查是否在顶部区域
-                if bbox[1] < top_region_end:
+            if any(kw in text for kw in search_keywords) and bbox[1] < top_region_end:
                     # 扩展为搜索框区域
                     search_bbox = [
                         max(0, bbox[0] - 100),
@@ -165,9 +163,7 @@ def detect_back_icon(
 
             # 检查是否包含返回关键词
             back_keywords = ["返回", "back", "←"]
-            if any(kw in text for kw in back_keywords):
-                # 检查是否在左上角区域
-                if bbox[0] < left_region_end and bbox[1] < top_region_end:
+            if any(kw in text for kw in back_keywords) and bbox[0] < left_region_end and bbox[1] < top_region_end:
                     # 扩展为返回按钮区域
                     back_bbox = [
                         max(0, bbox[0] - 30),
@@ -248,9 +244,7 @@ def detect_settings_icon(
 
             # 检查是否包含设置关键词
             settings_keywords = ["设置", "settings", "⚙"]
-            if any(kw in text for kw in settings_keywords):
-                # 检查是否在顶部右侧区域
-                if bbox[0] > right_region_start and bbox[1] < top_region_end:
+            if any(kw in text for kw in settings_keywords) and bbox[0] > right_region_start and bbox[1] < top_region_end:
                     # 扩展为设置按钮区域
                     settings_bbox = [
                         max(right_region_start - 30, bbox[0] - 20),
@@ -331,9 +325,7 @@ def detect_close_icon(
 
             # 检查是否包含关闭关键词
             close_keywords = ["关闭", "close", "×", "X"]
-            if any(kw in text for kw in close_keywords):
-                # 检查是否在顶部右侧区域
-                if bbox[0] > right_region_start and bbox[1] < top_region_end:
+            if any(kw in text for kw in close_keywords) and bbox[0] > right_region_start and bbox[1] < top_region_end:
                     close_bbox = [
                         max(right_region_start - 20, bbox[0] - 15),
                         max(0, bbox[1] - 10),
@@ -397,9 +389,7 @@ def detect_menu_icon(
 
             # 检查是否包含菜单关键词
             menu_keywords = ["菜单", "menu", "☰"]
-            if any(kw in text for kw in menu_keywords):
-                # 检查是否在左上角区域
-                if bbox[0] < left_region_end and bbox[1] < top_region_end:
+            if any(kw in text for kw in menu_keywords) and bbox[0] < left_region_end and bbox[1] < top_region_end:
                     menu_bbox = [
                         max(0, bbox[0] - 20),
                         max(0, bbox[1] - 10),

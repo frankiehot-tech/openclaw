@@ -86,11 +86,7 @@ class InternalLinkFixer:
 
         # 检查链接文件是否存在
         link_path = self.docs_dir / link_url
-        if link_path.exists():
-            # 文件已存在，无需修复
-            return False
-
-        return True
+        return not link_path.exists()
 
     def find_best_mapping(self, old_path: str) -> str:
         """为旧路径寻找最佳映射"""

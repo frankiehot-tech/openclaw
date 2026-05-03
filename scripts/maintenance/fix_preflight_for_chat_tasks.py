@@ -237,14 +237,14 @@ def apply_preflight_fix():
             # 找到第一个非空行的缩进
             if line and not line.startswith(" " * 4):
                 # 缩进减少，可能是函数结束
-                func_end = func_start + sum(len(l) + 1 for l in lines[:i])
+                func_end = func_start + sum(len(ln) + 1 for ln in lines[:i])
                 break
             else:
                 in_func = True
         else:
             if line and not line.startswith(" " * 4) and not line.startswith("\t"):
                 # 缩进回到0，函数结束
-                func_end = func_start + sum(len(l) + 1 for l in lines[:i])
+                func_end = func_start + sum(len(ln) + 1 for ln in lines[:i])
                 break
 
     # 如果没找到结束，使用文件结尾

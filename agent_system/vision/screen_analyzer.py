@@ -447,9 +447,7 @@ class ScreenAnalyzer:
                             f"'{elem.label}' (conf={elem.confidence:.2f}, source={elem.source.value})"
                         )
                         break
-                elif target_spec.target_text and target_spec.target_text in elem.label:
-                    # 文本匹配
-                    if elem.confidence >= LAYOUT_CONFIDENCE_THRESHOLD:
+                elif target_spec.target_text and target_spec.target_text in elem.label and elem.confidence >= LAYOUT_CONFIDENCE_THRESHOLD:
                         analysis.grounding_target = elem.to_dict()
                         analysis.target_found = True
                         analysis.hybrid_used = True
@@ -616,13 +614,11 @@ class ScreenAnalyzer:
 
         for elem in sorted_elements:
             # 类型匹配
-            if elem.element_type.value == target_spec.target_type:
-                if elem.confidence >= LAYOUT_CONFIDENCE_THRESHOLD:
+            if elem.element_type.value == target_spec.target_type and elem.confidence >= LAYOUT_CONFIDENCE_THRESHOLD:
                     return elem
 
             # 文本匹配
-            if target_spec.target_text and target_spec.target_text in elem.label:
-                if elem.confidence >= LAYOUT_CONFIDENCE_THRESHOLD:
+            if target_spec.target_text and target_spec.target_text in elem.label and elem.confidence >= LAYOUT_CONFIDENCE_THRESHOLD:
                     return elem
 
         return None

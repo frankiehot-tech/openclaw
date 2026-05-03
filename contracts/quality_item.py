@@ -28,8 +28,8 @@ class DataQualityItem:
     @staticmethod
     def _clean_data_for_hashing(data: dict[str, Any]) -> dict[str, Any]:
         clean_data = data.copy()
-        for field in {"timestamp", "updated_at", "created_at", "index", "position"}:
-            clean_data.pop(field, None)
+        for fld in {"timestamp", "updated_at", "created_at", "index", "position"}:
+            clean_data.pop(fld, None)
         return clean_data
 
     def add_issue(self, issue: str, severity: str = "warning"):
@@ -45,17 +45,17 @@ class DataQualityItem:
 
     def validate_required_fields(self, required_fields: list[str]) -> bool:
         valid = True
-        for field in required_fields:
-            if field not in self.data or self.data[field] is None or self.data[field] == "":
-                self.add_issue(f"必需字段缺失: {field}", "critical")
+        for fld in required_fields:
+            if fld not in self.data or self.data[fld] is None or self.data[fld] == "":
+                self.add_issue(f"必需字段缺失: {fld}", "critical")
                 valid = False
         return valid
 
     def validate_field_formats(self, format_rules: dict[str, str]) -> bool:
         valid = True
-        for field, pattern in format_rules.items():
-            if field in self.data:
-                value = str(self.data[field])
+        for fld, pattern in format_rules.items():
+            if fld in self.data:
+                value = str(self.data[fld])
                 if not re.match(pattern, value):
                     self.add_issue(f"字段格式无效: {field} = {value[:50]}...", "warning")
                     valid = False

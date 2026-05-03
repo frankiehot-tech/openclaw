@@ -58,9 +58,7 @@ def detect_search_boxes(
 
             # 检查是否是搜索相关文本
             search_keywords = ["搜索", "search", "搜索或输入网址", "输入搜索内容"]
-            if any(kw in text for kw in search_keywords):
-                # 检查是否在顶部区域
-                if bbox[1] < top_region_end:
+            if any(kw in text for kw in search_keywords) and bbox[1] < top_region_end:
                     # 扩展搜索框区域
                     search_bbox = [
                         max(0, bbox[0] - 50),
@@ -145,9 +143,7 @@ def detect_back_buttons(
 
             # 检查是否是返回相关文本
             back_keywords = ["返回", "back", "←"]
-            if any(kw in text for kw in back_keywords):
-                # 检查是否在左上角区域
-                if bbox[0] < left_region_end and bbox[1] < top_region_end:
+            if any(kw in text for kw in back_keywords) and bbox[0] < left_region_end and bbox[1] < top_region_end:
                     # 扩展返回按钮区域
                     back_bbox = [
                         max(0, bbox[0] - 30),
@@ -229,8 +225,7 @@ def detect_bottom_nav(
                 continue
 
             # 检查是否在底部区域
-            if bbox[1] > bottom_region_start:
-                if any(kw in text.lower() for kw in [k.lower() for k in nav_keywords]):
+            if bbox[1] > bottom_region_start and any(kw in text.lower() for kw in [k.lower() for k in nav_keywords]):
                     found_nav_items.append((text, bbox))
 
         # 如果找到多个底部导航项，创建一个导航栏元素
