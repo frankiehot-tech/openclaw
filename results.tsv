@@ -1,0 +1,9 @@
+commit	metric	errors_before	errors_after	delta	status	description
+fcd470c	ruff_errors	726	725	-1	keep	轮次1: SIM103 adb_client is_screen_on 3行→1行
+f63088e	ruff_errors	725	724	-1	keep	轮次2: SIM103 task_router 任务长度验证 3行→1行
+d9f2eac	ruff_errors	724	720	-4	keep	轮次3: SIM103+SIM102 model_client 5处if嵌套简化
+864aaab	ruff_errors	720	195	-525	keep	轮次4: ruff --fix(439) + B007×37 + SIM102×35 + F401×6
+b330cc0	ruff_errors	195	142	-53	keep	轮次5: B904×17 + E722×5 + SIM102×13 + E741×3 + B007×7 + SIM117×4 + F402×3 + SIM103×2 + B023×1 + B018×1 + F821×3
+──	──	──	──	──	──	──
+	总基线→终值	726	142	-584	keep	5轮修复 -584 (80.4%)
+	技术债		E402×113 + SIM102×19 + SIM115×3 + 其他×7		skip	记录到 wiki/PATTERNS.md TD-001~004

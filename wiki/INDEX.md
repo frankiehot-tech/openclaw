@@ -42,8 +42,9 @@
 
 ## 当前状态
 
-- **最后更新**: 2026-04-27
-- **页面数量**: 7 + 2 会话摘要 (+CROSS_PROJECT.md 强化索引)
+- **最后更新**: 2026-05-03
+- **页面数量**: 7 + 3 会话摘要 (+CROSS_PROJECT.md 强化索引)
 - **会话摘要**:
+  - `sessions/2026-05-03.md` — Karpathy AutoResearch 全链路部署 + Ratchet Loop 实战
   - `sessions/2026-04-27.md` — 全量代码库审计（23K 问题修复）
   - `sessions/2026-04-24.md` — wiki 初始化 + MAREF 审计
