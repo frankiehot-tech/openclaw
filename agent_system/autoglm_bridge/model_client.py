@@ -23,8 +23,7 @@ def load_env_file(env_path):
     with open(env_path) as f:
         for line in f:
             line = line.strip()
-            if line and not line.startswith("#"):
-                if "=" in line:
+            if line and not line.startswith("#") and "=" in line:
                     key, value = line.split("=", 1)
                     os.environ[key.strip()] = value.strip()
 
@@ -502,8 +501,7 @@ class ModelClient:
                     return False
 
             # 验证 input_text 参数
-            elif output["action"] == "input_text":
-                if "text" not in params:
+            elif output["action"] == "input_text" and "text" not in params:
                     return False
         else:
             # 旧格式兼容：直接使用顶层字段
@@ -519,8 +517,7 @@ class ModelClient:
                     return False
 
             # 验证输入
-            elif output["action"] == "input_text":
-                if "text" not in output:
+            elif output["action"] == "input_text" and "text" not in output:
                     return False
 
         return True
@@ -559,15 +556,11 @@ def is_real_mode_configured() -> bool:
         是否已配置真实模式
     """
     # 优先使用实例配置
-    if _client is not None:
-        if _client.api_key and _client.base_url:
-            return True
-
-    # 其次检查环境变量
-    if AUTOGLM_API_KEY and AUTOGLM_BASE_URL:
+    if _client is not None and _client.api_key and _client.base_url:
         return True
 
-    return False
+    # 其次检查环境变量
+    return bool(AUTOGLM_API_KEY and AUTOGLM_BASE_URL)
 
 
 def get_runtime_mode() -> str:
