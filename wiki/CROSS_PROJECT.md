@@ -84,16 +84,17 @@ openclaw/                    ←→  Athena知识库/执行项目/2026/
 
 | 主题 | 源文档路径 |
 |------|-----------|
-| 综合研究总报告 | `AutoResearch/Karpathy软件开发迁移/Karpathy-AutoResearch-软件开发迁移-综合研究总报告.md` |
-| 方法论全量研究 | `AutoResearch/Karpathy软件开发迁移/Karpathy方法论全量研究.md` |
-| 全域代码生成工具扫描 | `AutoResearch/Karpathy软件开发迁移/全域代码生成工具扫描报告.md` |
-| 智能工作流架构设计 | `AutoResearch/Karpathy软件开发迁移/智能工作流架构设计.md` |
-| 量化评分标准 | `AutoResearch/Karpathy软件开发迁移/量化评分标准.md` |
-| 已批准项目消费路径 | `AutoResearch/Karpathy软件开发迁移/已批准项目消费路径分析.md` |
-| Skill 部署报告 | `AutoResearch/Karpathy软件开发迁移/Karpathy经验Skill部署报告.md` |
-| Skill 素材库 | `AutoResearch/Karpathy软件开发迁移/Karpathy经验Skill素材库.md` |
-| 各工具配置规范 | `AutoResearch/Karpathy软件开发迁移/各工具配置规范.md` |
-| 消费示例 (OpenHuman) | `AutoResearch/Karpathy软件开发迁移/消费示例-OpenHuman-v0.2.0-Dashboard.md` |
+| 🔴 **全量审计报告 (最新)** | `019-工作台/收件箱/待审批/Karpathy-AutoResearch-全链路部署与消费-全量审计报告.md` |
+| 综合研究总报告 | `019-工作台/收件箱/待审批/Karpathy-AutoResearch-软件开发迁移-综合研究总报告.md` |
+| 方法论全量研究 | `019-工作台/收件箱/待审批/Karpathy方法论全量研究.md` |
+| 全域代码生成工具扫描 | `019-工作台/收件箱/待审批/全域代码生成工具扫描报告.md` |
+| 智能工作流架构设计 | `019-工作台/收件箱/待审批/智能工作流架构设计.md` |
+| 量化评分标准 | `019-工作台/收件箱/待审批/量化评分标准.md` |
+| 已批准项目消费路径 | `019-工作台/收件箱/待审批/已批准项目消费路径分析.md` |
+| Skill 部署报告 | `019-工作台/收件箱/待审批/Karpathy经验Skill部署报告.md` |
+| Skill 素材库 | `019-工作台/收件箱/待审批/Karpathy经验Skill素材库.md` |
+| 各工具配置规范 | `019-工作台/收件箱/待审批/各工具配置规范.md` |
+| 消费示例 (OpenHuman) | `019-工作台/收件箱/待审批/消费示例-OpenHuman-v0.2.0-Dashboard.md` |
 | 4 个 Skill 文件 | `AutoResearch/Karpathy软件开发迁移/skills/` |
 
 > **根路径**：`/Volumes/1TB-M2/`

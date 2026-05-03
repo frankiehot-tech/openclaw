@@ -14,6 +14,9 @@
 - `[VERIFY]` ruff 142 errors + pytest 120 passed
 - `[OUTPUT]` results.tsv: ratchet loop 实验记录
 
+- `[AUDIT]` 全量审计报告: 待审批/Karpathy-AutoResearch-全链路部署与消费-全量审计报告.md
+- `[BRIDGE]` CROSS_PROJECT.md: 索引路径更新至 019-工作台/收件箱/待审批/
+
 ## 2026-04-27
 
 - `[AUDIT]` 全量代码库审计：发现 ~23,028 项问题
