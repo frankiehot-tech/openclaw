@@ -50,6 +50,19 @@
 - DeepSeek/Anthropic API 不再使用，已从 .env.example 注释
 - .env 从未被 Git 跟踪（gitignore 正确配置）
 
+## Karpathy AutoResearch 工作流部署 (2026-05-03)
+
+- **Claude Code**: 5 个 Karpathy Skill 已部署到 `~/.claude/skills/`
+  - `karpathy-principles.json` — 高层原则 (autoApply)
+  - `karpathy-code-quality.md` — 5维评分标准
+  - `karpathy-simplicity.md` — 简洁哲学
+  - `karpathy-autoresearch-loop.md` — Ratchet loop 自循环
+  - `karpathy-knowledge-bases.md` — Markdown Wiki 编译与健康检查
+- **OpenCode (openclaw)**: AGENTS.md 已内建四原则 + 5维评分 + ratchet loop 协议
+- **知识桥接**: wiki/CROSS_PROJECT.md 已索引 11 份 AutoResearch 研究文档
+- **设计决策**: ADR-006 记录采纳理由（手动/半自动模式 → v0.2.0 全自动演进）
+- **来源**: `/Volumes/1TB-M2/AutoResearch/Karpathy软件开发迁移/`
+
 ## OpenHuman-Athena-AutoResearch (蒸馏于 2026-04-20)
 
 - **queue_item_id**: athena_autoresearch_engine_skeleton

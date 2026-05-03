@@ -1,0 +1,24 @@
+# 授权账号配置 - Phase 1 最小闭环唯一授权账号
+account_id: acc_mvp_001
+account_label: "authorized_test_account"
+account_type: authorized_test_account
+platform_id: x_platform_mvp
+human_owner_required: true
+allowed_for_phase1: true
+
+# 账号描述
+description: "Phase 1 最小闭环唯一授权测试账号，仅用于合规发布流程验证"
+
+# 账号限制
+restrictions:
+  - 仅用于发布前人工确认流程
+  - 禁止用于自动注册、验证码处理
+  - 禁止批量操作
+  - 禁止绕过人工确认
+
+# 使用场景
+usage_scenarios:
+  - 打开 App -> 进入指定账号
+  - 进入内容创建页 -> 填写草稿
+  - 到达发布前确认页 -> 等待人工确认
+  - 发布或取消 -> 结果核验 -> 留存审计记录

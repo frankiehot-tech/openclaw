@@ -120,7 +120,7 @@ def sync_stage_fields():
     # 重新计算计数
     counts = {"pending": 0, "running": 0, "completed": 0, "failed": 0, "manual_hold": 0}
 
-    for task_id, task in items.items():
+    for _task_id, task in items.items():
         status = task.get("status")
         if status == "pending":
             counts["pending"] += 1

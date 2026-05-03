@@ -1,0 +1,215 @@
+# Athena Provider Registry
+# 单一事实源：所有 provider/model 配置集中在此
+
+version: "1.0"
+updated_at: "2026-03-28"
+
+providers:
+  dashscope:
+    id: "dashscope"
+    label: "阿里云百炼"
+    base_url: "https://dashscope.aliyuncs.com/compatible-mode/v1"
+    auth_env_key: "DASHSCOPE_API_KEY"
+    api_mode: "openai-compatible"
+    default_model: "qwen3.5-plus"
+    fallback_model: "qwen3-max-2026-01-23"
+    cost_mode: "pay_per_token"
+    allowed_task_kinds:
+      - "coding_plan"
+      - "general"
+      - "openhuman"
+    risk_notes: "商用API，需监控成本"
+    models:
+      - id: "qwen3.5-plus"
+        label: "Qwen3.5 Plus"
+        context_length: 128000
+        supports_function_calling: true
+        max_tokens: 4096
+        cost_per_1k_input: 0.008
+        cost_per_1k_output: 0.008
+      - id: "qwen3-max-2026-01-23"
+        label: "Qwen3 Max 2026-01-23"
+        context_length: 128000
+        supports_function_calling: true
+        max_tokens: 4096
+        cost_per_1k_input: 0.015
+        cost_per_1k_output: 0.015
+      - id: "qwen3-coder-plus"
+        label: "Qwen3 Coder Plus"
+        context_length: 128000
+        supports_function_calling: true
+        max_tokens: 4096
+        cost_per_1k_input: 0.012
+        cost_per_1k_output: 0.012
+
+  ollama_local:
+    id: "ollama_local"
+    label: "Ollama 本地"
+    base_url: "http://localhost:11434/v1"
+    auth_env_key: ""  # 无认证
+    api_mode: "openai-compatible"
+    default_model: "qwen2.5:3b"
+    fallback_model: "llama3.2:3b"
+    cost_mode: "free"
+    allowed_task_kinds:
+      - "coding_plan"
+      - "general"
+      - "debug"
+    risk_notes: "本地运行，无网络成本；需确保服务可用"
+    models:
+      - id: "qwen2.5:3b"
+        label: "Qwen2.5 3B"
+        context_length: 32768
+        supports_function_calling: false
+        max_tokens: 4096
+        cost_per_1k_input: 0.0
+        cost_per_1k_output: 0.0
+      - id: "llama3.2:3b"
+        label: "Llama 3.2 3B"
+        context_length: 32768
+        supports_function_calling: false
+        max_tokens: 4096
+        cost_per_1k_input: 0.0
+        cost_per_1k_output: 0.0
+      - id: "deepseek-r1:8b"
+        label: "DeepSeek-R1 8B"
+        context_length: 32768
+        supports_function_calling: false
+        max_tokens: 4096
+        cost_per_1k_input: 0.0
+        cost_per_1k_output: 0.0
+
+  minimax:
+    id: "minimax"
+    label: "MiniMax"
+    base_url: "https://api.minimax.chat/v1"
+    auth_env_key: "MINIMAX_API_KEY"
+    api_mode: "openai-compatible"
+    default_model: "MiniMax-M2.5"
+    fallback_model: "MiniMax-M2.5"
+    cost_mode: "pay_per_token"
+    allowed_task_kinds:
+      - "distillation"
+      - "analysis"
+    risk_notes: "专用蒸馏链路"
+    models:
+      - id: "MiniMax-M2.5"
+        label: "MiniMax M2.5"
+        context_length: 128000
+        supports_function_calling: true
+        max_tokens: 4096
+        cost_per_1k_input: 0.01
+        cost_per_1k_output: 0.01
+
+  kimi:
+    id: "kimi"
+    label: "Kimi (Moonshot)"
+    base_url: "https://api.moonshot.cn/v1"
+    auth_env_key: "MOONSHOT_API_KEY"
+    api_mode: "openai-compatible"
+    default_model: "kimi-k2.5"
+    fallback_model: "kimi-k2.5"
+    cost_mode: "pay_per_token"
+    allowed_task_kinds:
+      - "long_context"
+      - "analysis"
+    risk_notes: "长上下文优势"
+    models:
+      - id: "kimi-k2.5"
+        label: "Kimi K2.5"
+        context_length: 128000
+        supports_function_calling: true
+        max_tokens: 4096
+        cost_per_1k_input: 0.012
+        cost_per_1k_output: 0.012
+
+  glm:
+    id: "glm"
+    label: "GLM (智谱)"
+    base_url: "https://open.bigmodel.cn/api/paas/v4"
+    auth_env_key: "ZHIPU_API_KEY"
+    api_mode: "openai-compatible"
+    default_model: "glm-5"
+    fallback_model: "glm-4"
+    cost_mode: "pay_per_token"
+    allowed_task_kinds:
+      - "general"
+      - "coding"
+    risk_notes: "国产模型"
+    models:
+      - id: "glm-5"
+        label: "GLM-5"
+        context_length: 128000
+        supports_function_calling: true
+        max_tokens: 4096
+        cost_per_1k_input: 0.01
+        cost_per_1k_output: 0.01
+
+  deepseek:
+    id: "deepseek"
+    label: "DeepSeek"
+    base_url: "https://api.deepseek.com/v1"
+    auth_env_key: "DEEPSEEK_API_KEY"
+    api_mode: "openai-compatible"
+    default_model: "deepseek-chat"
+    fallback_model: "deepseek-chat"
+    cost_mode: "pay_per_token"
+    allowed_task_kinds:
+      - "debug"
+      - "testing"
+      - "general"
+      - "coding"
+    risk_notes: "低成本替代方案，成本仅为DashScope的12.5%"
+    models:
+      - id: "deepseek-chat"
+        label: "DeepSeek Chat"
+        context_length: 128000
+        supports_function_calling: true
+        max_tokens: 4096
+        cost_per_1k_input: 0.001
+        cost_per_1k_output: 0.002
+      - id: "deepseek-coder"
+        label: "DeepSeek Coder"
+        context_length: 128000
+        supports_function_calling: true
+        max_tokens: 4096
+        cost_per_1k_input: 0.001
+        cost_per_1k_output: 0.002
+
+# 全局默认配置
+defaults:
+  primary_provider: "dashscope"
+  primary_model: "qwen3.5-plus"
+  fallback_provider: "ollama_local"
+  fallback_model: "qwen2.5:3b"
+  cost_aware: true
+  approval_policy:
+    high_risk_keywords:
+      - "结算"
+      - "支付"
+      - "转账"
+      - "审核"
+      - "删除"
+      - "格式化"
+      - "rm -rf"
+      - "drop database"
+    auto_approve_tasks:
+      - "think"
+      - "plan"
+      - "browse"
+    require_hitl_tasks:
+      - "settlement"
+      - "acceptance"
+      - "audit"
+      - "dispatch"
+
+# 任务类型到 provider 的映射
+# 成本优化策略：低成本任务使用DeepSeek，高成本任务使用DashScope
+task_kind_provider_map:
+  coding_plan: "dashscope"     # 复杂规划任务，保持DashScope质量
+  general: "dashscope"         # 可考虑部分迁移到DeepSeek，逐步优化
+  openhuman: "dashscope"       # 关键业务，保持稳定
+  distillation: "minimax"      # 专用蒸馏链路
+  long_context: "kimi"         # 长上下文优势
+  debug: "deepseek"            # 低成本调试任务，从ollama_local迁移到DeepSeek
+  testing: "deepseek"          # 新增：测试任务使用DeepSeek，成本降低87.5%

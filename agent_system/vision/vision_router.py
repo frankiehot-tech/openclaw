@@ -189,11 +189,7 @@ class VisionRouter:
         """
         task_lower = task.lower()
 
-        for enabled_task in MINICPM_ENABLED_TASKS:
-            if enabled_task.lower() in task_lower:
-                return True
-
-        return False
+        return any(enabled_task.lower() in task_lower for enabled_task in MINICPM_ENABLED_TASKS)
 
     def route_vision_analysis(
         self,

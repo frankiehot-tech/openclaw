@@ -1,0 +1,103 @@
+# 预算引擎配置
+# 单一事实源：财务预算与四级生存模式配置
+
+version: "1.0"
+updated_at: "2026-04-03"
+description: "Automaton 预算引擎配置 - 最小可运行闭环"
+
+# 预算配置
+daily_budget: 100.0  # 每日预算（元）
+weekly_budget: 700.0  # 每周预算（元）
+monthly_budget: 3000.0  # 每月预算（元）
+reset_period: "daily"  # daily, weekly, monthly
+
+# 模式阈值（基于剩余预算百分比）
+normal_threshold: 0.3    # 30% 以下进入低模式
+low_threshold: 0.1       # 10% 以下进入临界模式
+critical_threshold: 0.02  # 2% 以下进入暂停模式
+
+# 降级策略
+degradation_rules:
+  low_mode:
+    allow_non_essential: false
+    max_cost_per_task: 5.0
+    require_approval_above: 2.0
+    degradation_suggestions:
+      - "限制非必要功能"
+      - "降低输出质量"
+      - "缩短执行时间"
+  
+  critical_mode:
+    allow_non_essential: false
+    max_cost_per_task: 1.0
+    require_approval_above: 0.5
+    allowed_task_types:
+      - "maintenance"
+      - "critical_fix"
+      - "budget_reset"
+    degradation_suggestions:
+      - "最小功能集"
+      - "最简输出"
+      - "严格时间限制"
+  
+  paused_mode:
+    allow_new_tasks: false
+    allowed_task_types:
+      - "budget_reset"
+      - "system_maintenance"
+    require_manual_intervention: true
+
+# 与现有系统集成
+integration_points:
+  athena_orchestrator:
+    enabled: true
+    pre_check_hook: "check_budget"
+    post_consumption_hook: "record_consumption"
+    rejection_handling: "return_error_with_suggestion"
+  
+  provider_registry:
+    enabled: true
+    cost_estimation_source: "provider_registry"
+    actual_cost_tracking: true
+  
+  heartbeat_system:
+    enabled: true
+    interval_seconds: 300  # 5分钟
+    output_format: "structured_json"
+    alert_channels:
+      - "log"
+      - "internal_metric"
+
+# 测试与验证
+test_configurations:
+  smoke_test:
+    initial_budget: 50.0
+    test_cases:
+      - cost: 10.0
+        expected: approved
+      - cost: 40.0
+        expected: rejected_insufficient
+      - cost: 5.0
+        expected: approved_with_degradation
+    mode_transitions:
+      - trigger_utilization: 0.75
+        expected_mode: low
+      - trigger_utilization: 0.95
+        expected_mode: critical
+  
+  negative_paths:
+    - scenario: "paused_mode_new_task"
+      setup_mode: "paused"
+      task_type: "general"
+      expected_decision: "rejected_paused"
+    
+    - scenario: "critical_mode_non_essential"
+      setup_mode: "critical"
+      task_type: "general"
+      expected_decision: "rejected_insufficient"
+    
+    - scenario: "low_mode_high_cost"
+      setup_mode: "low"
+      estimated_cost: 10.0
+      max_allowed: 5.0
+      expected_decision: "rejected_insufficient"

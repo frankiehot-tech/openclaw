@@ -1,0 +1,166 @@
+# Performance Alert Rules Configuration
+# Default thresholds for warning/critical alerts on key performance metrics
+# Loaded by AlertEngine at initialization
+
+alert_rules:
+  # Queue length alerts
+  - rule_id: "queue_length_high"
+    metric_dimension: "QUEUE_LENGTH"
+    condition: ">"
+    threshold: 10.0
+    alert_level: "WARNING"
+    description: "Queue length exceeds warning threshold"
+    cooldown_seconds: 300
+    labels:
+      component: "queue"
+    metadata:
+      owner: "performance_team"
+      priority: "medium"
+
+  - rule_id: "queue_length_critical"
+    metric_dimension: "QUEUE_LENGTH"
+    condition: ">"
+    threshold: 20.0
+    alert_level: "CRITICAL"
+    description: "Queue length exceeds critical threshold"
+    cooldown_seconds: 300
+    labels:
+      component: "queue"
+    metadata:
+      owner: "performance_team"
+      priority: "high"
+
+  # Failure rate alerts
+  - rule_id: "failure_rate_high"
+    metric_dimension: "FAILURE_RATE"
+    condition: ">"
+    threshold: 0.1  # 10%
+    alert_level: "WARNING"
+    description: "Failure rate exceeds warning threshold"
+    cooldown_seconds: 600
+    labels:
+      component: "task_execution"
+    metadata:
+      owner: "performance_team"
+      priority: "medium"
+
+  - rule_id: "failure_rate_critical"
+    metric_dimension: "FAILURE_RATE"
+    condition: ">"
+    threshold: 0.3  # 30%
+    alert_level: "CRITICAL"
+    description: "Failure rate exceeds critical threshold"
+    cooldown_seconds: 600
+    labels:
+      component: "task_execution"
+    metadata:
+      owner: "performance_team"
+      priority: "high"
+
+  # Response time alerts (seconds)
+  - rule_id: "response_time_slow"
+    metric_dimension: "RESPONSE_TIME"
+    condition: ">"
+    threshold: 300.0  # 5 minutes
+    alert_level: "WARNING"
+    description: "Response time exceeds warning threshold"
+    cooldown_seconds: 300
+    labels:
+      component: "task_execution"
+    metadata:
+      owner: "performance_team"
+      priority: "medium"
+
+  - rule_id: "response_time_critical"
+    metric_dimension: "RESPONSE_TIME"
+    condition: ">"
+    threshold: 600.0  # 10 minutes
+    alert_level: "CRITICAL"
+    description: "Response time exceeds critical threshold"
+    cooldown_seconds: 300
+    labels:
+      component: "task_execution"
+    metadata:
+      owner: "performance_team"
+      priority: "high"
+
+  # Heartbeat freshness alerts (seconds since last heartbeat)
+  - rule_id: "heartbeat_stale"
+    metric_dimension: "HEARTBEAT_FRESHNESS"
+    condition: ">"
+    threshold: 300.0  # 5 minutes
+    alert_level: "WARNING"
+    description: "Heartbeat freshness exceeds warning threshold"
+    cooldown_seconds: 300
+    labels:
+      component: "heartbeat"
+    metadata:
+      owner: "performance_team"
+      priority: "medium"
+
+  - rule_id: "heartbeat_critical"
+    metric_dimension: "HEARTBEAT_FRESHNESS"
+    condition: ">"
+    threshold: 600.0  # 10 minutes
+    alert_level: "CRITICAL"
+    description: "Heartbeat freshness exceeds critical threshold"
+    cooldown_seconds: 300
+    labels:
+      component: "heartbeat"
+    metadata:
+      owner: "performance_team"
+      priority: "high"
+
+  # Concurrency alerts (active tasks)
+  - rule_id: "concurrency_high"
+    metric_dimension: "CONCURRENCY"
+    condition: ">"
+    threshold: 5.0
+    alert_level: "WARNING"
+    description: "Concurrent active tasks exceeds warning threshold"
+    cooldown_seconds: 300
+    labels:
+      component: "task_execution"
+    metadata:
+      owner: "performance_team"
+      priority: "medium"
+
+  - rule_id: "concurrency_critical"
+    metric_dimension: "CONCURRENCY"
+    condition: ">"
+    threshold: 10.0
+    alert_level: "CRITICAL"
+    description: "Concurrent active tasks exceeds critical threshold"
+    cooldown_seconds: 300
+    labels:
+      component: "task_execution"
+    metadata:
+      owner: "performance_team"
+      priority: "high"
+
+  # Success rate alerts
+  - rule_id: "success_rate_low"
+    metric_dimension: "SUCCESS_RATE"
+    condition: "<"
+    threshold: 0.9  # 90%
+    alert_level: "WARNING"
+    description: "Success rate below warning threshold"
+    cooldown_seconds: 600
+    labels:
+      component: "task_execution"
+    metadata:
+      owner: "performance_team"
+      priority: "medium"
+
+  - rule_id: "success_rate_critical"
+    metric_dimension: "SUCCESS_RATE"
+    condition: "<"
+    threshold: 0.7  # 70%
+    alert_level: "CRITICAL"
+    description: "Success rate below critical threshold"
+    cooldown_seconds: 600
+    labels:
+      component: "task_execution"
+    metadata:
+      owner: "performance_team"
+      priority: "high"

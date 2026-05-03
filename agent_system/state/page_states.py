@@ -5,10 +5,10 @@ Page States - 页面状态定义
 """
 
 from dataclasses import asdict, dataclass
-from enum import Enum
+from enum import StrEnum
 
 
-class PageStateEnum(str, Enum):
+class PageStateEnum(StrEnum):
     """页面状态枚举"""
 
     UNKNOWN = "unknown"

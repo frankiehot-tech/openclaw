@@ -89,7 +89,7 @@ def main():
         # 找出阻塞链的根节点
         print("\n🔍 阻塞链根节点（关键阻塞任务）:")
         root_blockers = set()
-        for task_id, blocking_deps in blocked_tasks:
+        for _task_id, blocking_deps in blocked_tasks:
             for dep_id, dep_status in blocking_deps:
                 if dep_status in ["pending", "manual_hold", "failed"]:
                     # 检查这个依赖任务本身是否被阻塞
@@ -104,7 +104,7 @@ def main():
 
     if unblocked_pending_tasks:
         print("\n✅ 未被阻塞的pending任务（可执行）:")
-        for i, task_id in enumerate(unblocked_pending_tasks[:10]):  # 只显示前10个
+        for _i, task_id in enumerate(unblocked_pending_tasks[:10]):  # 只显示前10个
             task_state = state_by_id.get(task_id)
             summary = task_state.get("summary", "")[:60] if task_state else "N/A"
             print(f"  - {task_id}: {summary}...")

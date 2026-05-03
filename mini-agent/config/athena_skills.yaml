@@ -1,0 +1,186 @@
+# Athena Skills Configuration
+# 技能配置文件 - 定义已接线技能及其状态
+
+skills:
+  # 可立即执行的技能
+  openhuman-skill-matcher:
+    id: openhuman-skill-matcher
+    name: OpenHuman Skill Matcher
+    description: 基于 OpenHuman 协议的技能匹配核心模块
+    status: executable_now
+    category: matching
+    executable: true
+    path: /Volumes/1TB-M2/openclaw/skills/openhuman-skill-matcher/matcher.py
+    command: python3 {path}
+    arguments_schema:
+      - name: profile_skills
+        type: list
+        description: 技能列表
+      - name: required_skills
+        type: list
+        description: 所需技能列表
+    output_format: json
+    dependencies: []
+    gate_conditions: []
+    # 合作社注册字段
+    developer_id: "dev_athena"
+    pricing_model: "usage_based"
+    base_price: 5.0
+    contract_status: "active"
+    revenue_split:
+      developer: 0.7
+      platform: 0.2
+      community: 0.1
+
+  # 需检测 opencli 的技能
+  opencli-scanner:
+    id: opencli-scanner
+    name: OpenCLI Scanner
+    description: 网页结构扫描与命令行透传
+    status: executable_now
+    category: web_automation
+    executable: true
+    path: /Volumes/1TB-M2/openclaw/skills/opencli-scanner/bridge_logic.py
+    command: python3 {path} {args}
+    arguments_schema:
+      - name: url
+        type: string
+        description: 目标网址
+      - name: scan_type
+        type: string
+        description: 扫描类型 (structure, content, links)
+    output_format: json
+    dependencies:
+      - name: opencli
+        description: OpenCLI 命令行工具
+        check_command: which opencli
+    gate_conditions:
+      - condition: opencli_installed
+        description: OpenCLI 必须已安装
+        check: command -v opencli
+    # 合作社注册字段
+    developer_id: "dev_opencli"
+    pricing_model: "usage_based"
+    base_price: 8.0
+    contract_status: "active"
+    revenue_split:
+      developer: 0.6
+      platform: 0.3
+      community: 0.1
+
+  # 受限制的技能（需人工介入）
+  humanized-web-scraper:
+    id: humanized-web-scraper
+    name: Humanized Web Scraper
+    description: 表单自动化与人工介入的网页抓取
+    status: gated
+    category: web_automation
+    executable: false
+    path: /Volumes/1TB-M2/openclaw/skills/humanized-web-scraper
+    command: docker run --rm humanized-scraper {args}
+    arguments_schema:
+      - name: url
+        type: string
+        description: 目标网址
+      - name: form_selector
+        type: string
+        description: 表单选择器
+    output_format: json
+    dependencies:
+      - name: docker
+        description: Docker 环境
+        check_command: which docker
+      - name: human_intervention
+        description: 人工介入流程
+        check_command: null
+    gate_conditions:
+      - condition: docker_available
+        description: Docker 必须已安装并运行
+        check: docker info
+      - condition: human_supervision
+        description: 需要人工监督流程
+        check: null
+
+  # 文档参考类技能
+  openhuman-cswdp:
+    id: openhuman-cswdp
+    name: OpenHuman CSWDP (碳硅基工作流协议)
+    description: 碳硅基工作流协议参考文档
+    status: docs_only
+    category: documentation
+    executable: false
+    path: /Volumes/1TB-M2/openclaw/skills/openhuman-cswdp
+    command: null
+    arguments_schema: []
+    output_format: markdown
+    dependencies: []
+    gate_conditions: []
+
+  openhuman-geo:
+    id: openhuman-geo
+    name: OpenHuman Geo Analysis
+    description: 地理分析与位置智能参考文档
+    status: docs_only
+    category: documentation
+    executable: false
+    path: /Volumes/1TB-M2/openclaw/skills/openhuman-geo
+    command: null
+    arguments_schema: []
+    output_format: markdown
+    dependencies: []
+    gate_conditions: []
+
+  # OpenSpace 集成技能
+  openspace-adapter:
+    id: openspace-adapter
+    name: OpenSpace Adapter
+    description: OpenSpace 本地适配器 - 技能进化与优化分析
+    status: executable_now
+    category: openspace_integration
+    executable: true
+    path: /Volumes/1TB-M2/openclaw/mini-agent/agent/core/openspace_adapter.py
+    command: python3 {path}
+    arguments_schema:
+      - name: operation
+        type: string
+        description: 操作类型 (analyze_skill, submit_metrics, get_suggestions)
+      - name: skill_id
+        type: string
+        description: 技能ID
+        optional: true
+      - name: input_json
+        type: string
+        description: 输入数据JSON字符串
+        optional: true
+    output_format: json
+    dependencies:
+      - name: python3
+        description: Python 3 解释器
+        check_command: which python3
+    gate_conditions:
+      - condition: openspace_config_exists
+        description: OpenSpace 配置文件必须存在
+        check: test -f /Volumes/1TB-M2/openclaw/mini-agent/config/openspace_config.yaml
+
+# 技能分类
+categories:
+  matching:
+    name: 技能匹配
+    description: 技能匹配与人才对接相关能力
+  web_automation:
+    name: 网页自动化
+    description: 网页浏览、扫描、自动化相关能力
+  documentation:
+    name: 文档参考
+    description: 协议、规范、参考文档
+  openspace_integration:
+    name: OpenSpace 集成
+    description: OpenSpace 技能进化与优化集成
+
+# 全局配置
+config:
+  skill_root: /Volumes/1TB-M2/openclaw/skills
+  registry_version: 1.0
+  last_updated: 2026-04-03
+  auto_check_dependencies: false
+  default_timeout: 30

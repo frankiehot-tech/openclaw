@@ -15,15 +15,18 @@
 """
 
 import argparse
+import logging
 import os
 import sys
 from pathlib import Path
 
+logger = logging.getLogger(__name__)
+
 
 def check_current_environment():
     """检查当前环境变量配置"""
-    print("🔍 环境变量配置检查")
-    print("=" * 60)
+    logger.info("🔍 环境变量配置检查")
+    logger.info("=" * 60)
 
     env_vars = {
         "OPENCLAW_ROOT": {
@@ -60,25 +63,25 @@ def check_current_environment():
         status = "✅ 已设置" if is_set else "⚠️  未设置"
         if is_set and var_name in ["DASHSCOPE_API_KEY"]:
             # 对敏感值只显示长度
-            print(f"{status} {var_name}: {var_info['description']}")
-            print(f"   值长度: {len(current_value)} 字符")
+            logger.info(f"{status} {var_name}: {var_info['description']}")
+            logger.info(f"   值长度: {len(current_value)} 字符")
         elif is_set:
-            print(f"{status} {var_name}: {var_info['description']}")
-            print(f"   当前值: {current_value}")
+            logger.info(f"{status} {var_name}: {var_info['description']}")
+            logger.info(f"   当前值: {current_value}")
         else:
-            print(f"{status} {var_name}: {var_info['description']}")
-            print(f"   默认值: {var_info['default']}")
+            logger.info(f"{status} {var_name}: {var_info['description']}")
+            logger.info(f"   默认值: {var_info['default']}")
 
-        print(f"   用途: {var_info['used_by']}")
-        print()
+        logger.info(f"   用途: {var_info['used_by']}")
+        logger.info()
 
     return results
 
 
 def generate_shell_code(shell_type="bash"):
     """生成shell配置文件代码"""
-    print(f"📝 生成 {shell_type} 配置文件代码")
-    print("=" * 60)
+    logger.info(f"📝 生成 {shell_type} 配置文件代码")
+    logger.info("=" * 60)
 
     project_root = Path(__file__).parent
     default_root = str(project_root)
@@ -118,22 +121,22 @@ echo "   ATHENA_RUNTIME_ROOT: $ATHENA_RUNTIME_ROOT"
     else:
         code = f"# 不支持 {shell_type} shell类型"
 
-    print("将以下代码添加到你的shell配置文件中 (~/.bashrc, ~/.zshrc, ~/.config/fish/config.fish):")
-    print()
-    print(code)
-    print()
-    print("应用配置:")
-    print(f"  source ~/.{shell_type}rc  # 或重启终端")
+    logger.info("将以下代码添加到你的shell配置文件中 (~/.bashrc, ~/.zshrc, ~/.config/fish/config.fish):")
+    logger.info()
+    logger.info(code)
+    logger.info()
+    logger.info("应用配置:")
+    logger.info(f"  source ~/.{shell_type}rc  # 或重启终端")
 
     return code
 
 
 def show_setup_guide():
     """显示环境变量设置指南"""
-    print("📚 环境变量设置指南")
-    print("=" * 60)
+    logger.info("📚 环境变量设置指南")
+    logger.info("=" * 60)
 
-    print("""
+    logger.info("""
 1. 临时设置（仅当前终端会话）:
 
    Bash/Zsh:
@@ -182,6 +185,7 @@ def show_setup_guide():
 
 def main():
     """主函数"""
+    logging.basicConfig(level=logging.INFO, format="%(asctime)s %(levelname)s %(message)s")
     parser = argparse.ArgumentParser(description="OpenClaw环境变量设置工具")
     parser.add_argument("--guide", action="store_true", help="显示设置指南")
     parser.add_argument(
@@ -190,8 +194,8 @@ def main():
 
     args = parser.parse_args()
 
-    print("🚀 OpenClaw环境变量设置工具")
-    print("=" * 60)
+    logger.info("🚀 OpenClaw环境变量设置工具")
+    logger.info("=" * 60)
 
     if args.guide:
         show_setup_guide()
@@ -205,44 +209,44 @@ def main():
     results = check_current_environment()
 
     # 总结
-    print("🎯 总结与建议")
-    print("=" * 60)
+    logger.info("🎯 总结与建议")
+    logger.info("=" * 60)
 
     missing_vars = [
         var for var, data in results.items() if not data["is_set"] and data["info"]["required"]
     ]
 
     if missing_vars:
-        print(f"❌ 缺少必需的环境变量: {', '.join(missing_vars)}")
-        print("   运行 --guide 查看设置指南")
-        print("   运行 --shell [bash|zsh|fish] 生成配置文件代码")
+        logger.info(f"❌ 缺少必需的环境变量: {', '.join(missing_vars)}")
+        logger.info("   运行 --guide 查看设置指南")
+        logger.info("   运行 --shell [bash|zsh|fish] 生成配置文件代码")
     else:
-        print("✅ 环境变量配置基本正常")
+        logger.info("✅ 环境变量配置基本正常")
 
     optional_vars = [
         var for var, data in results.items() if not data["is_set"] and not data["info"]["required"]
     ]
 
     if optional_vars:
-        print(f"💡 建议设置可选环境变量: {', '.join(optional_vars)}")
-        print("   这些变量支持灵活部署和配置管理")
+        logger.info(f"💡 建议设置可选环境变量: {', '.join(optional_vars)}")
+        logger.info("   这些变量支持灵活部署和配置管理")
 
-    print()
-    print("🔧 使用选项:")
-    print("  python3 setup_environment.py --guide   # 显示完整设置指南")
-    print("  python3 setup_environment.py --shell bash  # 生成bash配置代码")
-    print("  python3 setup_environment.py --shell zsh   # 生成zsh配置代码")
-    print("  python3 setup_environment.py --shell fish  # 生成fish配置代码")
+    logger.info()
+    logger.info("🔧 使用选项:")
+    logger.info("  python3 setup_environment.py --guide   # 显示完整设置指南")
+    logger.info("  python3 setup_environment.py --shell bash  # 生成bash配置代码")
+    logger.info("  python3 setup_environment.py --shell zsh   # 生成zsh配置代码")
+    logger.info("  python3 setup_environment.py --shell fish  # 生成fish配置代码")
 
 
 if __name__ == "__main__":
     try:
         main()
     except KeyboardInterrupt:
-        print("\n\n⏹️ 用户中断")
+        logger.info("\n\n⏹️ 用户中断")
         sys.exit(130)
     except Exception as e:
-        print(f"\n❌ 脚本执行失败: {e}")
+        logger.error(f"\n❌ 脚本执行失败: {e}")
         import traceback
 
         traceback.print_exc()

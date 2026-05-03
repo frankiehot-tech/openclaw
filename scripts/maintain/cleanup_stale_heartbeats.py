@@ -73,7 +73,7 @@ def cleanup_queue_file(file_path):
             # 重新计算统计
             counts = {"pending": 0, "running": 0, "completed": 0, "failed": 0, "manual_hold": 0}
 
-            for item_id, item in items.items():
+            for _item_id, item in items.items():
                 status = item.get("status", "")
                 if status in counts:
                     counts[status] += 1

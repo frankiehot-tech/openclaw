@@ -1,0 +1,17 @@
+{
+  "version": "1.0",
+  "updated_at": "2026-03-28",
+  "primary": {
+    "provider_id": "dashscope",
+    "model_id": "qwen3.5-plus"
+  },
+  "fallback": {
+    "provider_id": "ollama_local",
+    "model_id": "qwen2.5:3b"
+  },
+  "timeout": 30000,
+  "probe_cache_ttl": 60000,
+  "degraded_reason": "",
+  "status": "healthy",
+  "description": "Chat runtime configuration - single source of truth for chat provider selection, fallback, and status probing."
+}

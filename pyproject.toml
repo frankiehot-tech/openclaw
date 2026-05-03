@@ -4,7 +4,7 @@ version = "0.1.0"
 description = "Athena execution layer — AI plan queue runner and enterprise orchestration"
 requires-python = ">=3.11"
 readme = "README.md"
-license = { text = "MIT" }
+license = { text = "AGPL-3.0" }
 authors = [
     { name = "frankiehot-tech" }
 ]
@@ -91,7 +91,8 @@ exclude = [
 
 [tool.pytest.ini_options]
 minversion = "7.0"
-testpaths = ["tests", "scripts"]
+testpaths = ["tests", "scripts", "agent_system/tests", "athena/open_human"]
+norecursedirs = ["agent_system/test_gate*"]
 python_files = ["test_*.py", "*_test.py"]
 python_functions = ["test_*"]
 addopts = "-v --tb=short"
@@ -103,7 +104,7 @@ markers = [
 ]
 
 [tool.coverage.run]
-source = ["scripts", "athena", "execution", "ops"]
+source = ["scripts", "athena", "execution", "ops", "governance", "contracts", "config", "src", "workflow", "monitoring"]
 omit = [
     "*/tests/*",
     "*/test_*.py",
@@ -128,4 +129,4 @@ exclude_dirs = [
     "comfyui_workspace",
     "scripts/clawra/external",
 ]
-skips = ["B101", "B404", "B603", "B607"]
+skips = ["B101"]

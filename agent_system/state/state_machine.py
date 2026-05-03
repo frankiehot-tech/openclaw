@@ -14,7 +14,7 @@ from .state_detector import DetectionResult, StateDetector
 logger = logging.getLogger(__name__)
 
 # 日志文件
-STATE_LOG = "os.path.join(os.path.dirname(os.path.abspath(__file__)), '../logs/state_machine.log')"
+STATE_LOG = os.path.join(os.path.dirname(os.path.abspath(__file__)), '../logs/state_machine.log')
 
 # 配置日志
 if os.path.exists(os.path.dirname(STATE_LOG)):

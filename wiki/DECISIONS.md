@@ -1,7 +1,7 @@
 ---
 type: decision
 created: 2026-04-24
-updated: 2026-04-24
+updated: 2026-05-03
 tags: [decisions, adr]
 ---
 
@@ -105,6 +105,23 @@ tags: [decisions, adr]
 - **决策**: 在 `pyproject.toml` 的 `[tool.ruff] exclude` 中排除所有第三方/外部目录
 - **理由**: 避免质量门禁被外部代码的噪音误导，聚焦核心代码质量
 - **后果**: 需要明确界定核心代码 vs 外部代码的边界
+
+### ADR-006: 采纳 Karpathy AutoResearch 工作流
+
+- **日期**: 2026-05-03
+- **上下文**: Andrej Karpathy 的 AutoResearch 方法论（ratchet loop 自主实验循环）已从 Python/ML 领域完整迁移到软件开发领域，本地基础设施已就绪
+- **选项**:
+  1. 全自动 ratchet loop（v0.2.0 目标，需 LLM Gateway + CodeFlow 管道）
+  2. 手动/半自动 ratchet loop（现在可用：Claude Code + 5维评分 + git commit/reset）
+  3. 仅嵌入原则，不运行自主循环
+- **决策**: 立即采用手动/半自动模式（选项2），在 openclaw 和自动化工作流中嵌入 Karpathy 原则，逐步向 v0.2.0 全自动模式演进
+- **理由**:
+  - 基础设施已就绪（Claude Code + 5维评分标准 + git 机制）
+  - 不需要等 v0.2.0 即可获得方法论收益
+  - openclaw AGENTS.md 已内建代码生成四原则 + 5维评分 + ratchet loop 协议
+  - Claude Code 端已部署 5 个 Karpathy Skill（principles + code-quality + simplicity + autoresearch-loop + knowledge-bases）
+- **后果**: 每次代码改动需自我评估 5 维评分；自主迭代时遵循 ratchet loop 协议；wiki 需定期健康检查
+- **来源**: [[CROSS_PROJECT]] → AutoResearch/Karpathy软件开发迁移/
 
 ### ADR-005: 采用 llm-wiki 模式实现知识复利
 

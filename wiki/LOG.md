@@ -1,5 +1,14 @@
 # Wiki 操作日志
 
+## 2026-05-03
+
+- `[DEPLOY]` Claude Code: 部署 4 个 Karpathy Skill (autoresearch-loop, code-quality, simplicity, knowledge-bases)
+- `[INTEGRATE]` OpenCode: AGENTS.md 追加 Karpathy 智能工作流集成段落（四原则+5维评分+ratchet loop+简洁检查）
+- `[BRIDGE]` CROSS_PROJECT.md: 添加 Karpathy AutoResearch 研究文档索引 (11 文件)
+- `[DECISION]` ADR-006: 采纳 Karpathy AutoResearch 工作流（手动/半自动→v0.2.0演进）
+- `[UPDATE]` MEMORY.md: 记录部署状态和技术链路
+- `[SESSION]` 创建 memory/2026-05-03.md 会话日志
+
 ## 2026-04-24
 
 - `[INIT]` 初始化 wiki 结构 — 创建 INDEX.md、SCHEMA.md、ARCHITECTURE.md、DECISIONS.md、CONCEPTS.md、PATTERNS.md、LOG.md

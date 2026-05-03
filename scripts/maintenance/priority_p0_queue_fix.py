@@ -231,7 +231,7 @@ def fix_queue_state():
     # 重新计算计数
     counts = {"pending": 0, "running": 0, "completed": 0, "failed": 0, "manual_hold": 0}
 
-    for task_id, task_info in data["items"].items():
+    for _task_id, task_info in data["items"].items():
         status = task_info.get("status", "pending")
         if status in counts:
             counts[status] += 1

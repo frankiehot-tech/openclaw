@@ -227,9 +227,7 @@ class ActionExecutor:
             x = params.get("x") if params else action.get("x")
             y = params.get("y") if params else action.get("y")
 
-            if x is not None and y is not None:
-                # 检查是否在边缘区域
-                if x < margin_x or x > width - margin_x or y < margin_y or y > height - margin_y:
+            if x is not None and y is not None and (x < margin_x or x > width - margin_x or y < margin_y or y > height - margin_y):
                     return (
                         False,
                         f"点击坐标在边缘区域 ({x}, {y})，边缘限制: {margin_x}x{margin_y}",

@@ -1,0 +1,91 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://athena.local/observability/contracts/task-artifact.schema.json",
+  "title": "Athena Task Artifact Index",
+  "allOf": [
+    {
+      "$ref": "./common.schema.json#/$defs/responseEnvelope"
+    },
+    {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "contractVersion": { "$ref": "./common.schema.json#/$defs/contractVersion" },
+        "generatedAt": { "$ref": "./common.schema.json#/$defs/isoDatetime" },
+        "runtimeRoot": { "$ref": "./common.schema.json#/$defs/path" },
+        "source": { "type": "string", "const": "task-artifact" },
+        "freshness": { "$ref": "./common.schema.json#/$defs/freshness" },
+        "message": { "type": "string" },
+        "warnings": { "$ref": "./common.schema.json#/$defs/warningList" },
+        "taskId": { "type": "string", "minLength": 1 },
+        "taskDir": { "$ref": "./common.schema.json#/$defs/path" },
+        "selectedArtifactPath": {
+          "type": ["string", "null"]
+        },
+        "primaryArtifactPath": {
+          "type": ["string", "null"]
+        },
+        "artifacts": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "name": { "type": "string", "minLength": 1 },
+              "path": { "$ref": "./common.schema.json#/$defs/path" },
+              "kind": {
+                "type": "string",
+                "enum": ["artifact", "request", "log", "trace", "workspace_file"]
+              },
+              "stage": {
+                "type": ["string", "null"]
+              },
+              "exists": { "type": "boolean" },
+              "sizeBytes": {
+                "type": ["integer", "null"],
+                "minimum": 0
+              },
+              "mimeType": {
+                "type": ["string", "null"]
+              },
+              "updatedAt": {
+                "type": ["string", "null"],
+                "format": "date-time"
+              },
+              "previewText": {
+                "type": ["string", "null"]
+              },
+              "previewTruncated": {
+                "type": "boolean"
+              }
+            },
+            "required": [
+              "name",
+              "path",
+              "kind",
+              "stage",
+              "exists",
+              "sizeBytes",
+              "mimeType",
+              "updatedAt",
+              "previewText",
+              "previewTruncated"
+            ]
+          }
+        }
+      },
+      "required": [
+        "contractVersion",
+        "generatedAt",
+        "runtimeRoot",
+        "source",
+        "freshness",
+        "taskId",
+        "taskDir",
+        "selectedArtifactPath",
+        "primaryArtifactPath",
+        "artifacts"
+      ]
+    }
+  ]
+}

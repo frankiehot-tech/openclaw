@@ -1,0 +1,149 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://athena.local/observability/contracts/system-facts.schema.json",
+  "title": "Athena System Facts",
+  "allOf": [
+    {
+      "$ref": "./common.schema.json#/$defs/responseEnvelope"
+    },
+    {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "contractVersion": { "$ref": "./common.schema.json#/$defs/contractVersion" },
+        "generatedAt": { "$ref": "./common.schema.json#/$defs/isoDatetime" },
+        "runtimeRoot": { "$ref": "./common.schema.json#/$defs/path" },
+        "source": { "type": "string", "const": "system_resource_facts.py" },
+        "freshness": { "$ref": "./common.schema.json#/$defs/freshness" },
+        "message": { "type": "string" },
+        "warnings": { "$ref": "./common.schema.json#/$defs/warningList" },
+        "sampledAt": { "$ref": "./common.schema.json#/$defs/isoDatetime" },
+        "cpu": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "usagePercent": { "$ref": "./common.schema.json#/$defs/percentNumber" },
+            "userPercent": { "$ref": "./common.schema.json#/$defs/percentNumber" },
+            "systemPercent": { "$ref": "./common.schema.json#/$defs/percentNumber" },
+            "idlePercent": { "$ref": "./common.schema.json#/$defs/percentNumber" },
+            "loadAverage1m": { "type": "number" },
+            "loadAverage5m": { "type": "number" },
+            "loadAverage15m": { "type": "number" },
+            "cpuCount": { "type": "integer", "minimum": 1 },
+            "source": { "type": "string", "const": "top" }
+          },
+          "required": [
+            "usagePercent",
+            "userPercent",
+            "systemPercent",
+            "idlePercent",
+            "loadAverage1m",
+            "loadAverage5m",
+            "loadAverage15m",
+            "cpuCount",
+            "source"
+          ]
+        },
+        "memory": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "physMemUsedGb": { "type": "number", "minimum": 0 },
+            "physMemUnusedGb": { "type": "number", "minimum": 0 },
+            "wiredGb": { "type": "number", "minimum": 0 },
+            "compressorGb": { "type": "number", "minimum": 0 },
+            "totalGb": { "type": "number", "minimum": 0 },
+            "memoryPressurePercent": {
+              "$ref": "./common.schema.json#/$defs/percentInt"
+            },
+            "runnerFreeMemoryPercent": {
+              "$ref": "./common.schema.json#/$defs/percentInt"
+            },
+            "availableGb": { "type": "number", "minimum": 0 },
+            "cachedGb": { "type": "number", "minimum": 0 },
+            "reclaimableGb": { "type": "number", "minimum": 0 },
+            "appGb": { "type": "number", "minimum": 0 },
+            "compressedGb": { "type": "number", "minimum": 0 },
+            "topSource": { "type": "string", "const": "top" },
+            "pressureSource": {
+              "type": "string",
+              "const": "memory_pressure"
+            },
+            "note": { "type": "string" }
+          },
+          "required": [
+            "physMemUsedGb",
+            "physMemUnusedGb",
+            "wiredGb",
+            "compressorGb",
+            "totalGb",
+            "memoryPressurePercent",
+            "runnerFreeMemoryPercent",
+            "availableGb",
+            "cachedGb",
+            "reclaimableGb",
+            "appGb",
+            "compressedGb",
+            "topSource",
+            "pressureSource"
+          ]
+        },
+        "runner": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "buildWorkerBudget": { "type": "integer", "minimum": 0 },
+            "maxBuildWorkers": { "type": "integer", "minimum": 1 },
+            "secondBuildMinFreeMemoryPercent": {
+              "$ref": "./common.schema.json#/$defs/percentInt"
+            },
+            "maxBuildLoadPerCore": { "type": "number", "minimum": 0 },
+            "maxBuildLoadAbsolute": { "type": "number", "minimum": 0 },
+            "ollamaBusyCpuPercent": { "type": "number", "minimum": 0 },
+            "reason": { "type": "string" }
+          },
+          "required": [
+            "buildWorkerBudget",
+            "maxBuildWorkers",
+            "secondBuildMinFreeMemoryPercent",
+            "maxBuildLoadPerCore",
+            "maxBuildLoadAbsolute",
+            "ollamaBusyCpuPercent",
+            "reason"
+          ]
+        },
+        "services": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "ollamaCpuPercent": { "type": "number", "minimum": 0 }
+          },
+          "required": ["ollamaCpuPercent"]
+        },
+        "sourcesDetail": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "cpu": { "type": "string" },
+            "memoryPressure": { "type": "string" },
+            "processCpu": { "type": "string" }
+          },
+          "required": ["cpu", "memoryPressure", "processCpu"]
+        }
+      },
+      "required": [
+        "contractVersion",
+        "generatedAt",
+        "runtimeRoot",
+        "source",
+        "freshness",
+        "sampledAt",
+        "cpu",
+        "memory",
+        "runner",
+        "services",
+        "sourcesDetail"
+      ]
+    }
+  ]
+}

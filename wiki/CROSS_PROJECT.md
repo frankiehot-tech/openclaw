@@ -80,6 +80,24 @@ openclaw/                    ←→  Athena知识库/执行项目/2026/
 | 多 Agent 24h 压力测试 PRD | `010-参考升级资料/多Agent系统24小时压力测试平台 PRD.md` |
 | 《稀缺性营销》全量手册 | `010-参考升级资料/《稀缺性营销：从温克尔曼到AI时代的全量操作手册》.md` |
 
+### 🤖 Karpathy AutoResearch 研究方法论
+
+| 主题 | 源文档路径 |
+|------|-----------|
+| 综合研究总报告 | `AutoResearch/Karpathy软件开发迁移/Karpathy-AutoResearch-软件开发迁移-综合研究总报告.md` |
+| 方法论全量研究 | `AutoResearch/Karpathy软件开发迁移/Karpathy方法论全量研究.md` |
+| 全域代码生成工具扫描 | `AutoResearch/Karpathy软件开发迁移/全域代码生成工具扫描报告.md` |
+| 智能工作流架构设计 | `AutoResearch/Karpathy软件开发迁移/智能工作流架构设计.md` |
+| 量化评分标准 | `AutoResearch/Karpathy软件开发迁移/量化评分标准.md` |
+| 已批准项目消费路径 | `AutoResearch/Karpathy软件开发迁移/已批准项目消费路径分析.md` |
+| Skill 部署报告 | `AutoResearch/Karpathy软件开发迁移/Karpathy经验Skill部署报告.md` |
+| Skill 素材库 | `AutoResearch/Karpathy软件开发迁移/Karpathy经验Skill素材库.md` |
+| 各工具配置规范 | `AutoResearch/Karpathy软件开发迁移/各工具配置规范.md` |
+| 消费示例 (OpenHuman) | `AutoResearch/Karpathy软件开发迁移/消费示例-OpenHuman-v0.2.0-Dashboard.md` |
+| 4 个 Skill 文件 | `AutoResearch/Karpathy软件开发迁移/skills/` |
+
+> **根路径**：`/Volumes/1TB-M2/`
+
 ### 🧠 EVO / 演化
 
 | 主题 | 源文档路径 |
@@ -115,6 +133,7 @@ openclaw/                    ←→  Athena知识库/执行项目/2026/
 
 ## 最后更新
 
+- **2026-05-03**: 添加 Karpathy AutoResearch 研究文档索引 (11 文件 + 4 Skill)；新增 AutoResearch 目录索引
 - **2026-04-27**: 初始建索引（基于现有知识库扫描）
-- **索引文档数**: ~40 文件
-- **覆盖目录**: 005-MVP, 007-AI-plan, 010-参考升级资料, 012-审计-分析-报告, 013-EVO, 014-open humam-开源架构, 015-mailbox
+- **索引文档数**: ~51 文件
+- **覆盖目录**: 005-MVP, 007-AI-plan, 010-参考升级资料, 012-审计-分析-报告, 013-EVO, 014-open humam-开源架构, 015-mailbox, AutoResearch

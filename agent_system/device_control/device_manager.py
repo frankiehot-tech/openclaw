@@ -253,11 +253,7 @@ def check_device_health(device_id: str) -> bool:
         # 尝试获取设备状态
         devices = client.list_devices()
 
-        for dev in devices:
-            if dev["id"] == device_id and dev["status"] == "device":
-                return True
-
-        return False
+        return any(dev["id"] == device_id and dev["status"] == "device" for dev in devices)
 
     except Exception as e:
         logger.error(f"设备健康检查失败: {device_id}, {str(e)}")

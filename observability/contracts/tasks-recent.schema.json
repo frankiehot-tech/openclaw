@@ -1,0 +1,90 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://athena.local/observability/contracts/tasks-recent.schema.json",
+  "title": "Athena Recent Tasks",
+  "allOf": [
+    {
+      "$ref": "./common.schema.json#/$defs/responseEnvelope"
+    },
+    {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "contractVersion": { "$ref": "./common.schema.json#/$defs/contractVersion" },
+        "generatedAt": { "$ref": "./common.schema.json#/$defs/isoDatetime" },
+        "runtimeRoot": { "$ref": "./common.schema.json#/$defs/path" },
+        "source": { "type": "string", "const": "tasks.json" },
+        "freshness": { "$ref": "./common.schema.json#/$defs/freshness" },
+        "message": { "type": "string" },
+        "warnings": { "$ref": "./common.schema.json#/$defs/warningList" },
+        "tasksPath": { "$ref": "./common.schema.json#/$defs/path" },
+        "version": { "type": "integer", "minimum": 1 },
+        "total": { "type": "integer", "minimum": 0 },
+        "limit": { "type": "integer", "minimum": 1 },
+        "tasks": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "id": { "type": "string", "minLength": 1 },
+              "title": { "type": "string", "minLength": 1 },
+              "queueItemId": { "type": "string" },
+              "stage": { "type": "string", "minLength": 1 },
+              "executor": { "type": "string", "minLength": 1 },
+              "status": { "type": "string", "minLength": 1 },
+              "progressPercent": {
+                "$ref": "./common.schema.json#/$defs/percentInt"
+              },
+              "instructionPath": { "type": "string" },
+              "artifactPath": { "type": "string" },
+              "summary": { "type": "string" },
+              "error": { "type": "string" },
+              "createdAt": { "type": "string" },
+              "startedAt": { "type": "string" },
+              "finishedAt": { "type": "string" },
+              "updatedAt": { "type": "string" },
+              "taskDir": { "type": "string" },
+              "tracePath": { "type": "string" },
+              "queueConfig": {
+                "type": ["object", "null"],
+                "additionalProperties": true
+              }
+            },
+            "required": [
+              "id",
+              "title",
+              "queueItemId",
+              "stage",
+              "executor",
+              "status",
+              "progressPercent",
+              "instructionPath",
+              "artifactPath",
+              "summary",
+              "error",
+              "createdAt",
+              "startedAt",
+              "finishedAt",
+              "updatedAt",
+              "taskDir",
+              "tracePath"
+            ]
+          }
+        }
+      },
+      "required": [
+        "contractVersion",
+        "generatedAt",
+        "runtimeRoot",
+        "source",
+        "freshness",
+        "tasksPath",
+        "version",
+        "total",
+        "limit",
+        "tasks"
+      ]
+    }
+  ]
+}

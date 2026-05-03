@@ -210,7 +210,7 @@ def detect_bottom_nav(
     """
     elements = []
 
-    width = screen_size[0] if screen_size else DEFAULT_SCREEN_WIDTH
+    screen_size[0] if screen_size else DEFAULT_SCREEN_WIDTH
     height = screen_size[1] if screen_size else DEFAULT_SCREEN_HEIGHT
 
     # 底部导航栏通常在底部 10% 区域
@@ -239,7 +239,7 @@ def detect_bottom_nav(
             min_x = min(bbox[0] for _, bbox in found_nav_items)
             max_x = max(bbox[2] for _, bbox in found_nav_items)
             min_y = min(bbox[1] for _, bbox in found_nav_items)
-            max_y = max(bbox[3] for _, bbox in found_nav_items)
+            max(bbox[3] for _, bbox in found_nav_items)
 
             nav_bbox = [min_x - 20, min_y - 10, max_x + 20, height - 10]
 
@@ -383,8 +383,8 @@ def detect_list_items(
 
         if matched_keyword:
             # 创建列表项元素
-            item_width = bbox[2] - bbox[0]
-            item_height = bbox[3] - bbox[1]
+            bbox[2] - bbox[0]
+            bbox[3] - bbox[1]
 
             # 扩展为完整的列表项区域
             list_bbox = [0, max(0, bbox[1] - 5), width, min(height, bbox[3] + 5)]
@@ -427,7 +427,7 @@ def detect_toggles(
     elements = []
 
     width = screen_size[0] if screen_size else DEFAULT_SCREEN_WIDTH
-    height = screen_size[1] if screen_size else DEFAULT_SCREEN_HEIGHT
+    screen_size[1] if screen_size else DEFAULT_SCREEN_HEIGHT
 
     if not ocr_blocks:
         return elements

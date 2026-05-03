@@ -280,7 +280,7 @@ def calculate_summary(results: list[dict]) -> dict:
                 action_source_stats[source]["success"] += 1
 
     # 计算各来源成功率
-    for source, stats in action_source_stats.items():
+    for _source, stats in action_source_stats.items():
         if stats["total"] > 0:
             stats["success_rate"] = round(stats["success"] / stats["total"] * 100, 1)
         else:

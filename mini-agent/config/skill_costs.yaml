@@ -1,0 +1,36 @@
+base_costs:
+  humanized-web-scraper: 15.0
+  opencli-scanner: 8.0
+  openhuman-cswdp: 0.0
+  openhuman-geo: 0.0
+  openhuman-skill-matcher: 5.0
+  openspace-adapter: 10.0
+category_multipliers:
+  documentation: 0.0
+  matching: 1.0
+  openspace_integration: 1.3
+  web_automation: 1.2
+complexity_factors:
+  critical: 4.0
+  high: 2.5
+  low: 1.0
+  medium: 1.5
+external_cost_rules:
+  api_call:
+    base_cost: 0.5
+    description: API调用成本
+    per_request: 0.01
+  docker:
+    base_cost: 2.0
+    description: Docker容器运行成本
+    per_minute: 0.1
+  human_intervention:
+    approval_required: true
+    base_cost: 50.0
+    description: 人工介入成本
+parameter_weights:
+  file: 1.0
+  list: 0.3
+  number: 0.2
+  object: 0.5
+  string: 0.1

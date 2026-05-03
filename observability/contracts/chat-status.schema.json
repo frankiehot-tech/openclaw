@@ -1,0 +1,106 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://athena.local/observability/contracts/chat-status.schema.json",
+  "title": "Athena Chat Runtime Status",
+  "allOf": [
+    {
+      "$ref": "./common.schema.json#/$defs/responseEnvelope"
+    },
+    {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "contractVersion": { "$ref": "./common.schema.json#/$defs/contractVersion" },
+        "generatedAt": { "$ref": "./common.schema.json#/$defs/isoDatetime" },
+        "runtimeRoot": { "$ref": "./common.schema.json#/$defs/path" },
+        "source": { "type": "string", "const": "chat_runtime.py" },
+        "freshness": { "$ref": "./common.schema.json#/$defs/freshness" },
+        "message": { "type": "string" },
+        "warnings": { "$ref": "./common.schema.json#/$defs/warningList" },
+        "chatState": {
+          "type": "string",
+          "enum": ["ok", "fallback_only", "degraded", "unknown"]
+        },
+        "chatBackend": { "type": "string", "minLength": 1 },
+        "chatSelectedModel": { "type": "string", "minLength": 1 },
+        "chatReason": { "type": "string" },
+        "chatPrimary": {
+          "$ref": "#/$defs/providerRef"
+        },
+        "chatFallback": {
+          "$ref": "#/$defs/providerRef"
+        },
+        "timestamp": { "type": "number" },
+        "probe": {
+          "$ref": "#/$defs/probeResult"
+        }
+      },
+      "required": [
+        "contractVersion",
+        "generatedAt",
+        "runtimeRoot",
+        "source",
+        "freshness",
+        "chatState",
+        "chatBackend",
+        "chatSelectedModel",
+        "chatReason",
+        "chatPrimary",
+        "chatFallback",
+        "timestamp"
+      ],
+      "$defs": {
+        "providerRef": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "providerId": { "type": "string", "minLength": 1 },
+            "modelId": { "type": "string", "minLength": 1 }
+          },
+          "required": ["providerId", "modelId"]
+        },
+        "providerProbe": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "providerId": { "type": "string", "minLength": 1 },
+            "healthy": { "type": "boolean" },
+            "reason": { "type": "string" },
+            "envKeyMissing": { "type": "boolean" },
+            "hasAuthKey": { "type": "boolean" },
+            "baseUrl": { "type": ["string", "null"] }
+          },
+          "required": [
+            "providerId",
+            "healthy",
+            "reason",
+            "envKeyMissing",
+            "hasAuthKey",
+            "baseUrl"
+          ]
+        },
+        "probeResult": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "timestamp": { "type": "number" },
+            "overall": {
+              "type": "string",
+              "enum": ["healthy", "degraded", "unavailable"]
+            },
+            "degradedReason": { "type": "string" },
+            "primary": { "$ref": "#/$defs/providerProbe" },
+            "fallback": { "$ref": "#/$defs/providerProbe" }
+          },
+          "required": [
+            "timestamp",
+            "overall",
+            "degradedReason",
+            "primary",
+            "fallback"
+          ]
+        }
+      }
+    }
+  ]
+}

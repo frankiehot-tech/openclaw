@@ -1,0 +1,163 @@
+# OpenHuman MVP 稳定性告警基线配置
+# 版本: 1.0
+# 目标: 建立最小可运行的稳定性指标与告警基线，覆盖可用性、响应时间、错误率三类指标
+# 优先级: P0（严重）> P1（警告）> P2（信息）
+
+# 告警等级定义
+alert_levels:
+  P0:
+    name: "严重"
+    description: "系统严重降级或不可用，需要立即人工干预"
+    response_expectation: "立即响应，15分钟内介入"
+    default_action: "暂停自动执行，通知负责人，启动应急预案"
+    color: "#ff4d4d"
+  P1:
+    name: "警告"
+    description: "系统性能下降或错误率升高，需要关注"
+    response_expectation: "1小时内响应，2小时内处理"
+    default_action: "记录告警，分析原因，调整资源或参数"
+    color: "#ffa500"
+  P2:
+    name: "信息"
+    description: "系统轻微异常或达到预警阈值，建议监控"
+    response_expectation: "24小时内关注，无需立即行动"
+    default_action: "记录日志，监控趋势，定期回顾"
+    color: "#1e90ff"
+
+# 稳定性指标阈值配置
+stability_metrics:
+  # 1. 可用性指标
+  availability:
+    description: "系统整体可用性，基于运行时状态和队列健康度"
+    source: "runtime-status.ts + queue state"
+    calculation: "binary: 运行时状态为active且队列消费者状态为running"
+    thresholds:
+      P0:
+        condition: "availability == false"
+        message: "系统不可用 - 运行时无活动或队列消费者停止"
+      P1:
+        condition: "availability == degraded"
+        message: "系统降级 - 部分组件异常但仍在运行"
+      P2:
+        condition: "availability == true but with warnings"
+        message: "系统可用但有警告 - 存在非关键问题"
+  
+  # 2. 响应时间指标
+  response_time:
+    description: "任务平均执行延迟（秒）"
+    source: "metrics_baseline*.json -> avg_latency_all"
+    unit: "seconds"
+    thresholds:
+      P0:
+        value: 10.0
+        condition: ">"
+        message: "响应时间严重超标（>10秒），用户体验差"
+      P1:
+        value: 5.0
+        condition: ">"
+        message: "响应时间较长（>5秒），需要优化"
+      P2:
+        value: 2.0
+        condition: ">"
+        message: "响应时间偏长（>2秒），建议监控"
+  
+  # 3. 错误率指标
+  error_rate:
+    description: "任务失败率（失败数/总任务数）"
+    source: "metrics_baseline*.json -> total_failed / (total_completed + total_failed)"
+    unit: "ratio"
+    thresholds:
+      P0:
+        value: 0.3
+        condition: ">"
+        message: "错误率过高（>30%），系统可靠性严重下降"
+      P1:
+        value: 0.1
+        condition: ">"
+        message: "错误率较高（>10%），需要调查"
+      P2:
+        value: 0.05
+        condition: ">"
+        message: "错误率偏高（>5%），建议关注"
+  
+  # 4. 数据完整性指标
+  data_integrity:
+    description: "关键数据源完整性检查"
+    source: "runtime-status.ts diagnostics"
+    calculation: "检查 agent_state.json, tasks.json, queue文件是否存在且可读"
+    thresholds:
+      P0:
+        condition: "任何关键文件缺失或无法读取"
+        message: "关键数据源缺失，系统状态不可信"
+      P1:
+        condition: "部分非关键文件缺失或陈旧（>24小时）"
+        message: "数据源不完整，可能影响监控准确性"
+      P2:
+        condition: "数据文件格式异常但可读取"
+        message: "数据源存在格式问题，建议修复"
+
+# 告警聚合规则
+alert_aggregation:
+  max_severity_rule: "取所有触发告警中的最高严重等级"
+  deduplication_window_minutes: 30
+  suppression_rules:
+    - "同一指标相同等级告警30分钟内不重复触发"
+    - "P2告警在非工作时间（22:00-08:00）静默"
+    - "测试环境P0告警降级为P1"
+
+# 默认处置动作
+default_actions:
+  P0:
+    - "暂停所有自动执行队列"
+    - "发送紧急通知（邮件、Slack）"
+    - "记录诊断信息到日志文件"
+    - "等待人工确认后恢复"
+  P1:
+    - "记录告警详情到监控日志"
+    - "发送非紧急通知"
+    - "标记需要后续分析"
+    - "继续运行但增加监控频率"
+  P2:
+    - "记录到系统日志"
+    - "在下次健康检查时重新评估"
+    - "无需立即行动，趋势监控"
+
+# 健康检查接线配置
+health_check_integration:
+  runtime_health_source: "vendor/tenacitOS/src/lib/runtime-status.ts"
+  queue_state_source: ".openclaw/plan_queue/*.json"
+  error_summary_source: "workspace/autoresearch/metrics_baseline*.json"
+  agent_state_source: ".openclaw/agent_state.json"
+  tasks_source: ".openclaw/orchestrator/tasks.json"
+  
+  freshness_thresholds:
+    runtime_status: "5分钟"
+    queue_state: "10分钟"
+    metrics_baseline: "30分钟"
+    agent_state: "1小时"
+    tasks: "1小时"
+
+# 门禁配置（负路径处理）
+gate_config:
+  missing_data_handling:
+    - "关键数据源缺失时，标记系统状态为未知，触发P0告警"
+    - "非关键数据源缺失时，标记为降级，触发P1告警"
+    - "数据陈旧超过阈值时，触发P2告警"
+  
+  threshold_violation_handling:
+    - "任何P0阈值违反时，阻止声称系统稳定"
+    - "连续3次P1阈值违反升级为P0"
+    - "P2阈值违反仅记录，不阻断"
+  
+  mvp_stability_claim_rule: |
+    "只有当所有关键指标（可用性、响应时间、错误率）均未触发P0告警，
+     且至少有一个有效数据源时，才能声称MVP运行稳定。"
+
+# 备注
+notes:
+  - "此为MVP最小基线，后续可根据实际运行数据调整阈值"
+  - "所有指标必须基于现有runtime/queue/health证据，不引入新依赖"
+  - "告警分级需能表达阈值、响应预期和默认处置动作"
+  - "健康检查接线必须统一输入现有Runtime Health/queue state/error summary"
+  - "门禁规则：没有健康数据时，不能宣称MVP运行稳定"
+  - "实现验证：至少补一个指标聚合正路径测试、一个告警阈值命中测试、一个缺指标或超阈值负路径测试"

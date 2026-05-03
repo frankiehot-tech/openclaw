@@ -105,7 +105,7 @@ def main():
 
             # 重新计算counts
             counts = {"pending": 0, "running": 0, "completed": 0, "failed": 0, "manual_hold": 0}
-            for task_id, task in items.items():
+            for _task_id, task in items.items():
                 status = task.get("status", "pending")
                 if status in counts:
                     counts[status] += 1
@@ -124,7 +124,7 @@ def main():
 
             # 检查是否仍有依赖阻塞
             has_dependency_blocked = False
-            for task_id, task in items.items():
+            for _task_id, task in items.items():
                 if task.get("status") == "pending" and "dependency blocked" in task.get(
                     "pipeline_summary", ""
                 ):

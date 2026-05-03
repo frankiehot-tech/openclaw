@@ -1,0 +1,303 @@
+# 上下文预算与约束恢复基础层配置
+# 单一事实源：上下文预算管理、约束恢复协议、渐进式披露策略
+#
+# 配置优先级：session > local > project > managed (与控制面一致)
+# 本地优先策略：默认不出本地，仅在本地环境使用
+#
+# 版本：1.0
+# 创建时间：2026-04-03
+
+version: "1.0"
+updated_at: "2026-04-03"
+description: "Harness Engineering 上下文预算与约束恢复基础层配置"
+schema_version: "1.0"
+compatibility:
+  control_plane_min_version: "1.1"
+  athena_orchestrator_min_version: "1.0"
+
+# ==================== 上下文预算配置 ====================
+context_budget:
+  description: "上下文预算管理配置，定义各类预算限制和阈值"
+  
+  # 全局默认预算（当无特定阶段预算时使用）
+  global_default:
+    max_tokens: 128000
+    critical_reserve: 1000  # 保留用于紧急恢复的token数量
+    utilization_thresholds:
+      warning: 0.7  # 使用率超过70%时警告
+      critical: 0.85  # 使用率超过85%时触发约束恢复
+      reset: 0.95  # 使用率超过95%时强制上下文重置
+    
+  # 阶段特定预算（覆盖全局默认）
+  stage_specific:
+    think:
+      max_tokens: 32000
+      critical_reserve: 500
+      utilization_thresholds:
+        warning: 0.6
+        critical: 0.75
+        reset: 0.9
+    
+    plan:
+      max_tokens: 64000
+      critical_reserve: 800
+      utilization_thresholds:
+        warning: 0.65
+        critical: 0.8
+        reset: 0.92
+    
+    build:
+      max_tokens: 96000
+      critical_reserve: 1000
+      utilization_thresholds:
+        warning: 0.7
+        critical: 0.85
+        reset: 0.95
+    
+    review:
+      max_tokens: 48000
+      critical_reserve: 600
+      utilization_thresholds:
+        warning: 0.6
+        critical: 0.75
+        reset: 0.9
+    
+    qa:
+      max_tokens: 32000
+      critical_reserve: 500
+      utilization_thresholds:
+        warning: 0.6
+        critical: 0.75
+        reset: 0.9
+    
+    browse:
+      max_tokens: 16000
+      critical_reserve: 300
+      utilization_thresholds:
+        warning: 0.65
+        critical: 0.8
+        reset: 0.92
+
+  # OpenHuman 领域阶段预算映射（映射到对应的通用工程阶段）
+  openhuman_mapping:
+    distill: "think"
+    skill_design: "plan"
+    dispatch: "plan"
+    acceptance: "review"
+    settlement: "plan"
+    audit: "review"
+
+# ==================== 渐进式披露/上下文重置骨架 ====================
+progressive_disclosure:
+  description: "渐进式披露与上下文重置策略配置"
+  
+  # 上下文层定义
+  context_layers:
+    - name: "full"
+      description: "完整上下文，包含所有历史记录和详细背景"
+      retention_policy: "selective"  # selective, full, minimal
+      disclosure_priority: 1  # 优先级最高（最先披露）
+    
+    - name: "summary"
+      description: "摘要上下文，包含关键决策和状态摘要"
+      retention_policy: "selective"
+      disclosure_priority: 2
+    
+    - name: "minimal"
+      description: "最小上下文，仅包含当前任务必需信息"
+      retention_policy: "minimal"
+      disclosure_priority: 3  # 优先级最低（最后披露）
+  
+  # 重置行为配置
+  reset_behavior:
+    degrade_strategy: "progressive"  # progressive, immediate, hybrid
+    progressive_steps: ["summary", "minimal", "reset"]
+    
+    immediate_reset_triggers:
+      - utilization_exceeds: "reset_threshold"
+      - constraint_violation: "syntax"
+      - manual_intervention: true
+    
+    preservation_rules:
+      critical_decisions: true  # 保留关键决策
+      task_state: true  # 保留任务状态
+      user_intent: true  # 保留用户意图
+    
+    reset_actions:
+      - action: "clear_conversation_history"
+        scope: "non_essential"
+        preserve: ["task_state", "user_intent"]
+      
+      - action: "summarize_critical_context"
+        scope: "essential"
+        max_tokens: 1000
+      
+      - action: "notify_user"
+        scope: "user_facing"
+        message_template: "上下文使用率已达 ${utilization_percent}%，正在进行优化处理..."
+
+# ==================== 约束与恢复协议 ====================
+constraint_recovery:
+  description: "约束与恢复协议定义"
+  
+  # 约束类型定义
+  constraint_types:
+    syntax:
+      name: "语法约束"
+      description: "代码语法、格式、风格等约束"
+      detection_method: "static_analysis"
+      severity_levels:
+        error: "blocking"
+        warning: "advisory"
+    
+    architecture:
+      name: "架构约束"
+      description: "系统架构、设计模式、组件边界等约束"
+      detection_method: "design_analysis"
+      severity_levels:
+        error: "blocking"
+        warning: "advisory"
+    
+    behavioral:
+      name: "行为约束"
+      description: "运行时行为、资源使用、安全策略等约束"
+      detection_method: "runtime_monitoring"
+      severity_levels:
+        error: "blocking"
+        warning: "advisory"
+  
+  # 约束合约接口定义
+  constraint_contract:
+    required_fields:
+      - type
+      - severity
+      - message
+      - detection_source
+      - violation_context
+    
+    optional_fields:
+      - suggested_fix
+      - related_files
+      - metrics
+    
+    validation_rules:
+      type_must_be_one_of: ["syntax", "architecture", "behavioral"]
+      severity_must_be_one_of: ["error", "warning"]
+      message_must_be_non_empty: true
+  
+  # 恢复动作定义
+  recovery_actions:
+    retry:
+      name: "重试"
+      description: "相同上下文和参数下重新执行"
+      max_attempts: 3
+      backoff_strategy: "exponential"
+      applicability: ["transient_errors", "rate_limits"]
+    
+    reset:
+      name: "重置"
+      description: "清理部分或全部上下文后重新执行"
+      context_scope: ["partial", "full"]
+      preserve_critical: true
+      applicability: ["context_exhaustion", "state_corruption"]
+    
+    split:
+      name: "拆分"
+      description: "将大任务拆分为多个子任务分别执行"
+      split_strategy: ["by_complexity", "by_domain", "by_resource"]
+      max_subtasks: 5
+      applicability: ["task_too_large", "resource_constraints"]
+    
+    human_escalation:
+      name: "人工升级"
+      description: "请求人工干预或决策"
+      escalation_channels: ["wecom", "telegram", "email", "dashboard"]
+      priority_levels: ["low", "medium", "high", "critical"]
+      applicability: ["unsolvable_constraints", "high_risk_operations"]
+  
+  # 恢复策略映射（约束类型 -> 推荐的恢复动作）
+  recovery_strategy_mapping:
+    syntax:
+      error: ["retry", "split", "human_escalation"]
+      warning: ["retry"]
+    
+    architecture:
+      error: ["reset", "split", "human_escalation"]
+      warning: ["reset"]
+    
+    behavioral:
+      error: ["reset", "human_escalation"]
+      warning: ["retry", "reset"]
+
+# ==================== 与现有系统集成点 ====================
+integration_points:
+  description: "与现有 Athena 运行时的集成点定义"
+  
+  control_plane:
+    - point: "context_budget_config_reference"
+      method: "config_reference"
+      source: "control_plane.yaml::project.context_budget"
+      status: "待实现"
+    
+    - point: "progressive_disclosure_to_session_context"
+      method: "context_injection"
+      source: "session.execution_context.context_layer"
+      status: "待实现"
+    
+    - point: "constraint_recovery_to_approval_workflow"
+      method: "workflow_integration"
+      source: "approval_state"
+      status: "待实现"
+  
+  existing_components:
+    - component: "athena_orchestrator.py"
+      integration: "任务预算检查与约束恢复触发"
+      status: "待实现"
+    
+    - component: "chat_runtime.py"
+      integration: "上下文使用率监控与重置"
+      status: "待实现"
+    
+    - component: "provider_registry.py"
+      integration: "模型上下文长度限制对齐"
+      status: "待实现"
+    
+    - component: "openhuman_validation.py"
+      integration: "约束检测与恢复动作执行"
+      status: "待实现"
+
+# ==================== 验证与测试配置 ====================
+validation:
+  description: "配置验证规则与测试用例"
+  
+  schema_validation:
+    enabled: true
+    strict_mode: false
+  
+  test_cases:
+    context_budget:
+      - name: "全局默认预算解析"
+        config_path: "context_budget.global_default"
+        expected_fields: ["max_tokens", "critical_reserve", "utilization_thresholds"]
+      
+      - name: "阶段特定预算覆盖"
+        config_path: "context_budget.stage_specific.build"
+        expected_fields: ["max_tokens", "critical_reserve", "utilization_thresholds"]
+    
+    progressive_disclosure:
+      - name: "上下文层定义完整性"
+        config_path: "progressive_disclosure.context_layers"
+        min_count: 3
+      
+      - name: "重置行为配置"
+        config_path: "progressive_disclosure.reset_behavior"
+        expected_fields: ["degrade_strategy", "progressive_steps", "reset_actions"]
+    
+    constraint_recovery:
+      - name: "约束类型定义"
+        config_path: "constraint_recovery.constraint_types"
+        expected_keys: ["syntax", "architecture", "behavioral"]
+      
+      - name: "恢复动作定义"
+        config_path: "constraint_recovery.recovery_actions"
+        expected_keys: ["retry", "reset", "split", "human_escalation"]

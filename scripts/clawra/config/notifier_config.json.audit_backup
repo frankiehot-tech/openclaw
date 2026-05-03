@@ -1,0 +1,17 @@
+{
+  "wecom_enabled": true,
+  "wecom_webhook": "http://127.0.0.1:18789/wecom/webhook",
+  "email_enabled": true,
+  "email_smtp_server": "smtp.qq.com",
+  "email_smtp_port": 587,
+  "email_sender": "athenabot@qq.com",
+  "email_receivers": ["athenabot@qq.com"],
+  "email_password": "At2632na",
+  "slack_enabled": false,
+  "slack_webhook": "",
+  "file_log_enabled": true,
+  "file_log_path": "/Volumes/1TB-M2/openclaw/scripts/clawra/logs/maref_notifications.log",
+  "console_log_enabled": true,
+  "athena_integration_enabled": true,
+  "athena_notification_api": "http://localhost:8000/api/notifications"
+}

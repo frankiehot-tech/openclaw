@@ -250,6 +250,61 @@ wiki/ → memory/日志
 | 修复了反复出现的 bug | 记录到 `PATTERNS.md` |
 | 页面超过 30 天未更新 | 标记"可能过时" |
 
+## 🤖 Karpathy 智能工作流集成
+
+本项目遵循 Karpathy AutoResearch / 智能工作流方法论。以下原则内建于每次代码生成和修改任务中。
+
+### 代码生成四原则
+
+1. **先想再写**：澄清需求再动手，理解 WHY + WHAT + HOW。提出更简单的替代方案
+2. **简洁第一**：最小代码，不添加未请求的功能。不为单次使用创建抽象。三行重复好过提前抽象
+3. **精准执行**：只改需要改的，不重构无问题的代码。匹配现有代码风格
+4. **目标驱动**：拆解为可验证小步骤，每步有明确完成标准，满足即停止
+
+### 5维评分标准（每次改动后自我评估）
+
+| 维度 | 权重 | 检查要点 |
+|------|------|---------|
+| 正确性 | 35% | 是否实现需求？所有边界条件正确处理？ |
+| 测试 | 25% | 是否有测试覆盖？核心路径是否验证？ |
+| 代码质量 | 20% | 是否简洁可维护？有无过度抽象？命名自说明？ |
+| 安全 | 10% | 是否引入漏洞？密钥/Token 是否泄露？ |
+| 性能 | 10% | 是否有明显退步？时间复杂度是否合理？ |
+
+**评分阈值**：≥ 9.0 方可提交；8.0-8.9 人工确认；6.0-7.9 反馈重生成（最多3轮）；< 6.0 丢弃。
+
+**一票否决**：SQL注入、XSS、密钥泄露、未验证输入、危险命令注入 → 评分直接归零。
+
+### Ratchet Loop 协议（自主迭代优化时）
+
+```
+edit → run → measure → keep/revert
+
+每次只改一个变量，只看一个指标，只进不退。
+指标改善 → git commit --amend（KEEP）
+指标退步 → git reset --hard（DISCARD）
+连续10次 DISCARD → 停止
+```
+
+### 简洁性检查清单
+
+- 能用更少行数实现吗？
+- 这个抽象被用了超过一次吗？（只用一次 → 内联它）
+- 这个"灵活性"有人要求过吗？（没要求 → 删除它）
+- 删除这段代码会破坏什么？（不破坏 → 删除它）
+- 新人能一眼看懂吗？（不能 → 简化它）
+
+### 与 Claude Code Skill 协同
+
+在 Claude Code 会话中，以下 Skill 提供等效约束：
+- `karpathy-principles` — 高层原则（已有，autoApply）
+- `karpathy-code-quality` — 5维评分细化标准
+- `karpathy-simplicity` — 简洁哲学与反模式识别
+- `karpathy-autoresearch-loop` — Ratchet loop 自循环管理
+- `karpathy-knowledge-bases` — Markdown Wiki 编译与健康检查
+
+OpenCode 会话中，以上原则通过本 AGENTS.md 内建实现，不依赖外部 Skill 系统。
+
 ## Make It Yours
 
 This is a starting point. Add your own conventions, style, and rules as you figure out what works.

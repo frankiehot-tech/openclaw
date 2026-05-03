@@ -1,0 +1,488 @@
+# OpenHuman MVP 测试环境配置骨架
+# 单一事实源：MVP试用环境定义、内部用户分层、onboarding流程
+#
+# 目标：提供最小可运行的内部试用骨架，兼容local-first运行方式
+# 变更范围：mini-agent/config/, mini-agent/agent/core/, scripts/, workspace/
+#
+# 配置优先级：session > local > project > managed (与控制面一致)
+# 本地优先策略：默认不出本地，内部试用数据仅在本地环境流转
+#
+# 版本：1.0
+# 创建时间：2026-04-03
+
+version: "1.0"
+updated_at: "2026-04-03"
+description: "OpenHuman MVP 测试环境与内部试用闭环骨架"
+schema_version: "1.0"
+compatibility:
+  control_plane_min_version: "1.1"
+  openhuman_stage_registry_min_version: "1.0"
+
+# ==================== MVP 测试环境定义 ====================
+test_environments:
+  description: "MVP测试环境定义，支持多环境并行，兼容local-first"
+  environments:
+    mvp_local_sandbox:
+      name: "MVP本地沙箱"
+      mode: "local_sandbox"
+      purpose: "内部试用、功能验证、闭环测试"
+      resource_budget:
+        max_concurrent_users: 5
+        max_concurrent_builds: 2
+        memory_limit_mb: 4096
+        disk_quota_mb: 10240
+        network_restricted: true
+      access_methods:
+        - type: "cli"
+          endpoint: "local"
+          authentication: "session_token"
+          port: null
+        - type: "web_desktop"
+          endpoint: "http://localhost:8080"
+          authentication: "session_token"
+          port: 8080
+      persistence:
+        storage_backend: "local_filesystem"
+        data_retention_days: 30
+        backup_enabled: false
+      monitoring:
+        logs_enabled: true
+        metrics_enabled: true
+        alerting_enabled: false
+      compatibility:
+        requires_control_plane: true
+        requires_openhuman_stages: ["distill", "dispatch", "acceptance"]
+        supports_queue_integration: true
+        supports_observability: true
+
+    mvp_remote_staging:
+      name: "MVP远程预发"
+      mode: "remote_staging"
+      purpose: "跨团队试用、集成测试、性能基线"
+      resource_budget:
+        max_concurrent_users: 10
+        max_concurrent_builds: 3
+        memory_limit_mb: 8192
+        disk_quota_mb: 20480
+        network_restricted: false
+      access_methods:
+        - type: "web_desktop"
+          endpoint: "https://staging.openhuman.example.com"
+          authentication: "invite_token"
+          port: 443
+      persistence:
+        storage_backend: "local_filesystem"  # 暂未集成外部存储
+        data_retention_days: 14
+        backup_enabled: true
+      monitoring:
+        logs_enabled: true
+        metrics_enabled: true
+        alerting_enabled: true
+      compatibility:
+        requires_control_plane: true
+        requires_openhuman_stages: ["distill", "dispatch", "acceptance", "settlement", "audit"]
+        supports_queue_integration: true
+        supports_observability: true
+
+  default_environment: "mvp_local_sandbox"
+  environment_selection_policy:
+    auto_select_based_on_role: true
+    fallback_to_local: true
+    allow_manual_override: true
+
+# ==================== 内部试用用户分层 ====================
+internal_user_tiers:
+  description: "内部试用用户分层，定义角色、权限、试用重点"
+  tiers:
+    core_dev:
+      label: "核心开发者"
+      description: "系统开发者、架构师、核心贡献者"
+      default_permissions:
+        - "environment_admin"
+        - "user_management"
+        - "config_management"
+        - "queue_management"
+        - "stage_execution"
+        - "audit_access"
+        - "debug_tools"
+      trial_focus:
+        - "系统稳定性"
+        - "架构扩展性"
+        - "性能基准"
+        - "安全边界"
+      quota:
+        max_concurrent_tasks: 10
+        max_daily_tasks: 50
+        resource_multiplier: 2.0
+      onboarding_path: "self_onboarding"
+      support_channel: "core_dev_chat"
+
+    product:
+      label: "产品团队"
+      description: "产品经理、设计师、业务分析师"
+      default_permissions:
+        - "stage_execution"
+        - "task_submission"
+        - "result_review"
+        - "feedback_submission"
+        - "analytics_view"
+      trial_focus:
+        - "用户体验"
+        - "工作流完整性"
+        - "功能完整性"
+        - "易用性"
+      quota:
+        max_concurrent_tasks: 5
+        max_daily_tasks: 20
+        resource_multiplier: 1.0
+      onboarding_path: "guided_onboarding"
+      support_channel: "product_support"
+
+    early_adopter:
+      label: "早期采用者"
+      description: "外部合作伙伴、早期用户、领域专家"
+      default_permissions:
+        - "task_submission"
+        - "result_review"
+        - "feedback_submission"
+      trial_focus:
+        - "核心功能可用性"
+        - "集成体验"
+        - "价值验证"
+      quota:
+        max_concurrent_tasks: 3
+        max_daily_tasks: 10
+        resource_multiplier: 0.5
+      onboarding_path: "invite_only"
+      support_channel: "early_adopter_support"
+
+  permission_definitions:
+    environment_admin: "环境管理权限（启停、配置、监控）"
+    user_management: "用户管理权限（邀请、审批、权限调整）"
+    config_management: "配置管理权限（读取、修改、发布配置）"
+    queue_management: "队列管理权限（任务提交、暂停、取消、优先级调整）"
+    stage_execution: "阶段执行权限（触发distill/dispatch/acceptance等阶段）"
+    audit_access: "审计访问权限（查看审计日志、追溯记录）"
+    debug_tools: "调试工具权限（诊断、日志查询、性能分析）"
+    task_submission: "任务提交权限（提交新任务到队列）"
+    result_review: "结果查看权限（查看任务执行结果）"
+    feedback_submission: "反馈提交权限（提交产品反馈）"
+    analytics_view: "分析查看权限（查看使用数据、指标）"
+
+  tier_selection_policy:
+    auto_assign_based_on_invite: true
+    allow_role_upgrade: true
+    require_approval_for_upgrade: true
+
+# ==================== 试用 Onboarding 骨架 ====================
+onboarding_skeleton:
+  description: "试用 onboarding 流程骨架，包含邀请、审批、培训、支持"
+  
+  invitation_workflow:
+    steps:
+      - step: "invite_generation"
+        actor: "core_dev"
+        output: "invite_token"
+        automated: true
+      - step: "invite_delivery"
+        actor: "system"
+        channel: ["email", "slack", "internal_portal"]
+        automated: true
+      - step: "invite_acceptance"
+        actor: "invitee"
+        required_actions: ["click_link", "create_account"]
+        automated: false
+      - step: "tier_assignment"
+        actor: "system"
+        based_on: ["invite_type", "user_profile"]
+        automated: true
+      - step: "initial_permissions_grant"
+        actor: "system"
+        scope: "default_permissions"
+        automated: true
+    
+    invite_types:
+      core_dev_invite:
+        allowed_inviters: ["core_dev"]
+        max_uses: 5
+        expires_hours: 168  # 7天
+        default_tier: "core_dev"
+      
+      product_invite:
+        allowed_inviters: ["core_dev", "product"]
+        max_uses: 10
+        expires_hours: 72  # 3天
+        default_tier: "product"
+      
+      early_adopter_invite:
+        allowed_inviters: ["core_dev"]
+        max_uses: 1
+        expires_hours: 24
+        default_tier: "early_adopter"
+        require_approval: true
+  
+  approval_workflow:
+    required_for_tiers: ["early_adopter"]
+    approval_steps:
+      - step: "submission"
+        actor: "inviter"
+        data_required: ["reason", "expected_use_case", "duration"]
+      - step: "review"
+        actor: "core_dev"
+        time_limit_hours: 24
+        decision_options: ["approve", "reject", "request_changes"]
+      - step: "notification"
+        actor: "system"
+        notify: ["inviter", "invitee"]
+    
+    auto_approval_conditions:
+      - condition: "same_tier_invite"
+        description: "同层级用户邀请（如product邀请product）"
+        auto_approve: true
+      - condition: "core_dev_invite"
+        description: "核心开发者邀请"
+        auto_approve: true
+  
+  training_materials:
+    structure:
+      - category: "getting_started"
+        materials:
+          - type: "quickstart_guide"
+            format: "markdown"
+            path: "workspace/onboarding/quickstart.md"
+            target_tiers: ["core_dev", "product", "early_adopter"]
+          - type: "environment_setup"
+            format: "bash_script"
+            path: "scripts/onboarding/setup_env.sh"
+            target_tiers: ["core_dev", "product"]
+          - type: "cli_reference"
+            format: "cheatsheet"
+            path: "workspace/onboarding/cli_cheatsheet.md"
+            target_tiers: ["core_dev", "product"]
+      
+      - category: "advanced"
+        materials:
+          - type: "architecture_overview"
+            format: "diagram"
+            path: "workspace/onboarding/architecture.md"
+            target_tiers: ["core_dev"]
+          - type: "troubleshooting_guide"
+            format: "faq"
+            path: "workspace/onboarding/troubleshooting.md"
+            target_tiers: ["core_dev", "product"]
+          - type: "best_practices"
+            format: "guide"
+            path: "workspace/onboarding/best_practices.md"
+            target_tiers: ["core_dev", "product"]
+    
+    delivery_method:
+      - tier: "core_dev"
+        method: "self_service"
+        recommended_order: ["getting_started", "advanced"]
+      - tier: "product"
+        method: "guided"
+        recommended_order: ["getting_started"]
+      - tier: "early_adopter"
+        method: "just_in_time"
+        recommended_order: ["getting_started"]
+  
+  support_channels:
+    tier_specific_channels:
+      core_dev:
+        primary: "core_dev_chat"
+        secondary: "issue_tracker"
+        escalation: "direct_contact"
+        response_sla_hours: 2
+      
+      product:
+        primary: "product_support"
+        secondary: "faq_portal"
+        escalation: "core_dev_chat"
+        response_sla_hours: 8
+      
+      early_adopter:
+        primary: "early_adopter_support"
+        secondary: "faq_portal"
+        escalation: "product_support"
+        response_sla_hours: 24
+    
+    channel_definitions:
+      core_dev_chat: "核心开发者专用聊天（Slack/Teams）"
+      product_support: "产品支持频道（Slack/Teams）"
+      early_adopter_support: "早期采用者支持（Email/Forum）"
+      issue_tracker: "问题追踪系统（GitHub Issues）"
+      faq_portal: "自助FAQ门户"
+      direct_contact: "直接联系人（紧急问题）"
+    
+    feedback_collection:
+      mechanisms:
+        - type: "in_product_feedback"
+          trigger: "task_completion"
+          frequency: "per_session"
+        - type: "weekly_survey"
+          trigger: "time_based"
+          frequency: "weekly"
+        - type: "exit_interview"
+          trigger: "trial_completion"
+          frequency: "once"
+
+# ==================== 环境状态与健康检查 ====================
+environment_health:
+  description: "环境健康检查定义，用于smoke测试"
+  
+  health_checks:
+    config_load:
+      name: "配置加载检查"
+      check_type: "config_validation"
+      target: "mvp_test_env.yaml"
+      expected_result: "valid_yaml"
+      error_action: "fail_fast"
+    
+    control_plane_integration:
+      name: "控制面集成检查"
+      check_type: "integration"
+      target: "control_plane.yaml"
+      expected_result: "compatible_version"
+      error_action: "warn"
+    
+    user_tier_resolution:
+      name: "用户分层解析检查"
+      check_type: "schema_validation"
+      target: "internal_user_tiers.tiers"
+      expected_result: "three_tiers_defined"
+      error_action: "warn"
+    
+    permission_mapping:
+      name: "权限映射检查"
+      check_type: "mapping_validation"
+      target: "internal_user_tiers.permission_definitions"
+      expected_result: "all_permissions_mapped"
+      error_action: "warn"
+    
+    onboarding_smoke:
+      name: "Onboarding流程冒烟测试"
+      check_type: "workflow_smoke"
+      target: "onboarding_skeleton.invitation_workflow.steps"
+      expected_result: "workflow_defined"
+      error_action: "log_only"
+  
+  smoke_test_suite:
+    name: "MVP环境冒烟测试套件"
+    tests:
+      - id: "smoke_config_load"
+        description: "测试配置加载"
+        command: "python -c \"import yaml; yaml.safe_load(open('mini-agent/config/mvp_test_env.yaml'))\""
+        expected_exit_code: 0
+        timeout_seconds: 10
+      
+      - id: "smoke_user_tiers"
+        description: "测试用户分层解析"
+        command: "python scripts/test_mvp_user_tiers.py"
+        expected_exit_code: 0
+        timeout_seconds: 30
+      
+      - id: "smoke_permission_mapping"
+        description: "测试权限映射"
+        command: "python scripts/test_mvp_permission_mapping.py"
+        expected_exit_code: 0
+        timeout_seconds: 30
+    
+    run_policy:
+      on_environment_start: true
+      on_user_login: false
+      scheduled_interval_hours: 24
+      failure_action: "alert_and_degrade"
+
+# ==================== 配置优先级与合并规则 ====================
+configuration_priority:
+  description: "与本配置相关的优先级规则，继承控制面优先级策略"
+  inherit_from: "control_plane.configuration_priority"
+  
+  mvp_specific_overrides:
+    test_environment_selection:
+      session: "environment_override"
+      local: "default_environment"
+      project: "default_environment"
+      managed: "mvp_local_sandbox"
+    
+    user_tier_assignment:
+      session: "tier_override"
+      local: "tier_preference"
+      project: "default_tier"
+      managed: "early_adopter"  # 最严格默认
+    
+    onboarding_materials:
+      session: "custom_materials"
+      local: "tier_specific_materials"
+      project: "standard_materials"
+      managed: "minimal_materials"
+
+# ==================== 与现有系统集成点 ====================
+integration_points:
+  description: "与现有系统的集成点定义"
+  
+  control_plane:
+    - point: "environment_config_reference"
+      method: "config_reference"
+      source: "control_plane.yaml::project.mvp_test_env"
+      status: "待实现"
+    
+    - point: "user_tier_to_permission_mapping"
+      method: "permission_resolution"
+      source: "openhuman_stage_registry::check_tool_guardrail"
+      status: "待实现"
+    
+    - point: "onboarding_to_session_context"
+      method: "context_injection"
+      source: "session.execution_context.user_tier"
+      status: "待实现"
+  
+  existing_components:
+    - component: "athena_ai_plan_runner.py"
+      integration: "环境感知的任务路由"
+      status: "待实现"
+    
+    - component: "athena_web_desktop_compat.py"
+      integration: "基于用户分层的UI适配"
+      status: "待实现"
+    
+    - component: "openhuman_router.py"
+      integration: "用户分层感知的阶段路由"
+      status: "待实现"
+    
+    - component: "observability"
+      integration: "试用环境指标收集"
+      status: "待实现"
+
+# ==================== 迁移与向后兼容性 ====================
+migration:
+  description: "从无MVP环境到有MVP环境的迁移指导"
+  
+  phase_0_prerequisites:
+    - "control_plane.yaml version >= 1.1"
+    - "openhuman_stage_registry 已加载"
+    - "本地文件系统可写"
+  
+  phase_1_initial_deployment:
+    steps:
+      - step: "配置部署"
+        action: "复制 mvp_test_env.yaml 到 config/ 目录"
+        verification: "配置加载测试通过"
+      
+      - step: "控制面引用"
+        action: "在 control_plane.yaml 的 project 作用域添加 mvp_test_env 引用"
+        verification: "控制面解析测试通过"
+      
+      - step: "基础脚本创建"
+        action: "创建 scripts/test_mvp_*.py 测试脚本"
+        verification: "冒烟测试通过"
+    
+    rollback_procedure:
+      - "移除 control_plane.yaml 中的 mvp_test_env 引用"
+      - "保留 mvp_test_env.yaml 文件（不影响功能）"
+      - "系统回退到无MVP环境模式"
+  
+  compatibility_guarantees:
+    - "无MVP环境时，系统行为不变"
+    - "有MVP环境但未激活时，系统行为不变"
+    - "仅当 session 或 local 层显式启用MVP环境时，新行为生效"

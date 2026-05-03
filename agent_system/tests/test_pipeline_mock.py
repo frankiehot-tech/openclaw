@@ -285,7 +285,7 @@ def run_all_tests():
     test_action_executor()
 
     # 4. 检查设备
-    devices = check_device()
+    check_device()
 
     # 5. 测试无设备行为
     test_no_device_behavior()

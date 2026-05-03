@@ -9,6 +9,7 @@ from __future__ import annotations
 
 import contextlib
 import json
+import logging
 import subprocess
 import sys
 import time
@@ -16,6 +17,10 @@ from dataclasses import dataclass, field
 from datetime import UTC, datetime
 from pathlib import Path
 from typing import TYPE_CHECKING, Any
+
+from ._utils import atomic_write_json
+
+logger = logging.getLogger(__name__)
 
 if TYPE_CHECKING:
     from collections.abc import Callable
@@ -151,12 +156,12 @@ class QueueHealthMonitor:
             try:
                 report = self.check(raise_alerts=True)
                 ts = datetime.now().strftime("%H:%M:%S")
-                print(f"[{ts}] {report['samples']} queues | anomalies: {len(report['anomalies'])}")
+                logger.info("[%s] queues=%d anomalies=%d", ts, report['samples'], len(report['anomalies']))
             except KeyboardInterrupt:
-                print("\nMonitoring stopped.")
+                logger.info("Monitoring stopped")
                 break
-            except Exception as e:
-                print(f"Health check error: {e}")
+            except Exception:
+                logger.exception("Health check error")
             time.sleep(interval)
             i += 1
 
@@ -234,8 +239,8 @@ class QueueProtector:
                 if self._protect_one(qf, dry_run=dry_run):
                     repaired.append(qf.stem)
                     protected += 1
-            except Exception as e:
-                print(f"Protect error {qf.name}: {e}")
+            except Exception:
+                logger.exception("Protect error queue=%s", qf.name)
 
         return {"success": True, "queues_protected": protected, "repaired": repaired}
 
@@ -262,10 +267,9 @@ class QueueProtector:
         data["updated_at"] = _now_iso()
 
         if not dry_run:
-            with open(path, "w", encoding="utf-8") as f:
-                json.dump(data, f, indent=2, ensure_ascii=False)
+            atomic_write_json(path, data)
 
-        print(f"Protected queue {data.get('queue_id')}: running -> {pending_ids[0]}")
+        logger.info("Protected queue=%s first_pending=%s", data.get('queue_id'), pending_ids[0])
         return True
 
     # -- Runner management --------------------------------------------------

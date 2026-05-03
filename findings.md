@@ -1,66 +1,64 @@
-# Findings & Decisions — Phase 2
+# 103-四次深度审计 — 探索发现
 
-## Requirements
-- 建立 GitHub Actions CI 流水线（lint→typecheck→test→security）
-- 配置日志轮转（164MB build_worker.log）
-- 清理 74 个备份文件 + 60 个监控报告
-- 集成安全扫描（bandit, pip-audit, truffleHog）
-- 拆分 3 个核心大文件（4868+2062+2051 行）
-- scripts/ 目录按职责拆分
-- 清理 fix_*.py 脚本
-- Plan B 可回滚方案
-
-## Research Findings
-
-### 代码库当前状态
-- 74 个备份文件（`*.backup*` x64 + `backup*` x10）
-- 60 个 `queue_progress_monitoring_*.md` 报告
-- 39 个 `fix_*.py` 在根目录
-- 164MB 日志文件: `logs/athena_ai_plan_build_worker.log`
-- CI/CD: 仅有 1 个 workflow（文档质量检查）
-- 无 pyproject.toml, 无 pre-commit hooks, 无项目级 pytest/mypy/flake8 配置
-- GitHub 仓库: `frankiehot-tech/openclaw.git` (private)
-- `execution/` 和 `ops/` 目录已存在但内容极少（Phase 1 骨架）
-
-### 大文件依赖分析（待深入）
-
-#### athena_ai_plan_runner.py (4868 行)
-- 位于 `scripts/athena_ai_plan_runner.py`
-- 审计建议拆分为: `runner/queue_manager.py`, `runner/build_worker.py`, `runner/budget_controller.py`, `runner/preflight_gate.py`, `runner/memory_writer.py`
-- 已有备份副本: `.backup`, `.backup.original`, `.backup_p0_*`, `.backup_preflight_fix`
-
-#### rebuild_aiplan_priority_queues.py (2062 行)
-- 位于 `scripts/rebuild_aiplan_priority_queues.py`
-- 队列优先级重建逻辑
-
-#### athena_web_desktop_compat.py (2051 行)
-- 位于 `scripts/athena_web_desktop_compat.py`
-- Web/Desktop 兼容层，8080 端口服务
-
-### macOS 日志轮转方案
-- macOS 使用 `newsyslog` 替代 Linux 的 `logrotate`
-- 配置文件: `/etc/newsyslog.d/openclaw.conf`
-- 语法: `logfilename [owner:group] mode count size when flags`
-
-## Technical Decisions
-| Decision | Rationale |
-|----------|-----------|
-| 使用 ruff 替代 flake8 | ruff 速度快 10-100x，兼容 flake8 规则，单个工具替代 flake8+isort+pyupgrade |
-| 日志轮转用 macOS newsyslog | macOS native，无需额外依赖 |
-| 所有变更在 feature branch | git 回滚保证 Plan B |
-| pyproject.toml 统一工具配置 | Python 生态标准做法 |
-
-## Issues Encountered
-| Issue | Resolution |
-|-------|------------|
-| smart_outline 无法解析 3 个大文件 | 改用 Read 分段读取分析 |
-
-## Resources
-- openclaw GitHub: https://github.com/frankiehot-tech/openclaw.git
-- ruff docs: https://docs.astral.sh/ruff/
-- newsyslog man: `man newsyslog`
-- Audit report: `audit_results/comprehensive_audit_report_20260424.md`
+**探索日期**: 2026-04-29
+**探索范围**: 审计报告涉及的 15+ 核心文件 + CI/CD 配置 + 根级脚本
 
 ---
 
-*Update this file after every 2 view/browser/search operations*
+## P0 问题确认（全部验证）
+
+### P0-1: CI pipefail 缺失 ✅ 确认
+- `.github/workflows/ci.yml:53-54`: `2>&1 | head -200` 无 `set -o pipefail`
+- `requirements.txt`: 无 `pytest-timeout` 依赖
+- CI test job 始终返回绿色退出码
+
+### P0-2: TruffleHog 语法错误 ✅ 确认
+- `.github/workflows/ci.yml:88-93`: `extra_args` 包含 `2>&1 | head -50` 字面字符串
+- 使用 `@main` (未固定版本)
+- 无新分支保护
+
+### P0-3: 无 `if __name__` 保护 ✅ 确认
+- `reset_gene_audit_to_pending.py`: line 9-19 立即执行 shutil.copy2
+- `retry_gene_audit_task.py`: line 12-13 立即读取 token 文件
+
+### P0-4: task_orchestrator.py 死代码 ✅ 确认
+- `governance/task_orchestrator.py:212`: `now.replace(tzinfo=None) - __import__("datetime").timedelta(hours=threshold_hours)` 孤立表达式
+- `now` 变量在 line 211 赋值后从未被重新赋值，line 226 的 `now` 仍带 tzinfo
+
+### P0-5: state_machine.py 字符串路径 ✅ 确认
+- `agent_system/state/state_machine.py:17`: 整个 `os.path.join(...)` 被引号包裹为字面量
+- line 20: `os.path.exists(os.path.dirname(STATE_LOG))` 操作在字面量 `"os.path.join..."` 上
+
+---
+
+## 架构分裂验证
+
+### 双治理模块
+| 指标 | agent_system/governance/ | governance/ |
+|------|------------------------|------------|
+| queue_manager.py | 119 行，只读查询 | 275 行，完整 CRUD + save/backup/fix |
+| system_health.py | SelfHealing 类 (349 行) | QueueHealthMonitor + QueueProtector + SystemHealth (347 行) |
+| 导入来源 | `agent_system/semantic/command_map.py` | CLI 和 scripts |
+
+### command_map.py 不存在于预期路径
+- 审计报告说 `command_map.py` 从 `agent_system.governance.*` 导入
+- 实际文件在 `agent_system/semantic/command_map.py` — 语义层
+
+---
+
+## LICENSE 冲突确认
+
+- `pyproject.toml:7`: `license = { text = "MIT" }`
+- `LICENSE` 文件头: "GNU AFFERO GENERAL PUBLIC LICENSE Version 3"
+
+---
+
+## 环境与基础设施
+
+| 发现 | 数据 |
+|------|------|
+| 根级 Python 脚本 | **40 个** `.py` 文件 |
+| requirements.txt | 无 lock 文件，全部 `>=` |
+| pyproject.toml | ruff/mypy/bandit scope 不全（跳过 governance/config/workflow/monitoring/agent_system） |
+| documentation-quality.yml | 使用 Python 3.9 (EOL) |
+| execution/ 目录 | 5 个 `__init__.py` + 空包，runner 实现在 `scripts/runner/` |

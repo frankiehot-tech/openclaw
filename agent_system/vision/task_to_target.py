@@ -264,11 +264,7 @@ def is_low_risk_task(task: str) -> bool:
 
     task_lower = task.lower()
 
-    for pattern in low_risk_patterns:
-        if re.search(pattern, task_lower):
-            return True
-
-    return False
+    return any(re.search(pattern, task_lower) for pattern in low_risk_patterns)
 
 
 def get_task_category(task: str) -> str:

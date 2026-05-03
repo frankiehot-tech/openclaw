@@ -428,7 +428,6 @@ class AgentLoop:
         action_source = "model_inference"
         model_output = None
         ocr_context = None
-        ocr_result = None
 
         if use_vision and screenshot_path:
             grounding_output, ocr_context = self._try_ocr_grounding(screenshot_path, task)
@@ -437,7 +436,7 @@ class AgentLoop:
                 action_source = "ocr_grounding"
                 logger.info(f"使用 OCR Grounding 生成动作: {model_output}")
                 # 保存 OCR 结果用于 MiniCPM
-                ocr_result = ocr_context.get("ocr_texts", []) if ocr_context else []
+                ocr_context.get("ocr_texts", []) if ocr_context else []
 
         # 2.5 如果 OCR grounding 未命中，尝试 MiniCPM 路由（阶段 13 新增）
         if model_output is None and use_vision and screenshot_path:
@@ -764,7 +763,6 @@ class AgentLoop:
             post_action_state_confidence = 0.0
             post_action_check_passed = False
             post_action_check_failed = False
-            correction_action_used = None
 
             if STATE_ENABLE_POST_ACTION_CHECK and target_state and result["result"] == "success":
                 # 等待一小段时间让页面稳定
@@ -825,7 +823,6 @@ class AgentLoop:
                             )
 
                             if correction_result[0]:  # success
-                                correction_action_used = correction_action
                                 state_logger.info(
                                     f"[POST-ACTION] 修正动作成功: {correction_action}"
                                 )

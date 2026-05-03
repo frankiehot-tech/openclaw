@@ -80,15 +80,34 @@ class TestGetAllQueueFiles:
         files = get_all_queue_files()
         assert isinstance(files, list)
 
-    def test_entries_are_paths(self):
-        files = get_all_queue_files()
-        if files:
+    def test_entries_are_paths(self, tmp_path):
+        qdir = tmp_path / ".openclaw" / "plan_queue"
+        qdir.mkdir(parents=True)
+        (qdir / "test1.json").write_text("{}")
+        (qdir / "test2.json").write_text("{}")
+        import config.paths as paths_mod
+        original = paths_mod.PLAN_QUEUE_DIR
+        try:
+            paths_mod.PLAN_QUEUE_DIR = qdir
+            files = paths_mod.get_all_queue_files()
+            assert len(files) >= 2
             assert all(isinstance(f, Path) for f in files)
+        finally:
+            paths_mod.PLAN_QUEUE_DIR = original
 
-    def test_all_exist(self):
-        files = get_all_queue_files()
-        if files:
+    def test_all_exist(self, tmp_path):
+        qdir = tmp_path / ".openclaw" / "plan_queue"
+        qdir.mkdir(parents=True)
+        (qdir / "test1.json").write_text("{}")
+        import config.paths as paths_mod
+        original = paths_mod.PLAN_QUEUE_DIR
+        try:
+            paths_mod.PLAN_QUEUE_DIR = qdir
+            files = paths_mod.get_all_queue_files()
+            assert len(files) >= 1
             assert all(f.exists() for f in files)
+        finally:
+            paths_mod.PLAN_QUEUE_DIR = original
 
 
 class TestGetLatestQueueFile:
@@ -98,6 +117,8 @@ class TestGetLatestQueueFile:
     def test_returns_path_or_none(self):
         result = get_latest_queue_file()
         assert result is None or isinstance(result, Path)
+        result_bad = get_latest_queue_file("zzz_no_match_99999")
+        assert result_bad is None
 
 
 class TestValidatePaths:

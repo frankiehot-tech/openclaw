@@ -1,0 +1,46 @@
+{
+  // ==================== 配置说明 ====================
+  // 1. 环境变量优先级最高，会覆盖此文件中的配置
+  // 2. 敏感信息（密码、Secret等）应通过环境变量设置
+  // 3. 企业微信支持两种方式：Webhook（推荐）和应用API（需IP白名单）
+
+  // ==================== 企业微信配置 ====================
+
+  // Webhook方式（推荐，无需IP白名单）
+  "wecom_enabled": true,
+  "wecom_webhook": "http://127.0.0.1:18789/wecom/webhook",
+
+  // 应用API方式（如需使用IP白名单，取消注释）
+  // "wecom_corpid": "ww02c09b741b716c32",
+  // "wecom_agentid": "1000002",
+  // "wecom_secret": "PLgTOJFU8HJ9La9WHg6cMqmaFu-iSXtnrlAgW0tyB7M",
+
+  // ==================== QQ邮箱配置 ====================
+
+  // 基础配置
+  "email_enabled": true,
+  "email_smtp_server": "smtp.qq.com",
+  "email_smtp_port": 587,
+  "email_sender": "athenabot@qq.com",
+  "email_receivers": ["athenabot@qq.com"],
+
+  // 密码/授权码（敏感信息，建议通过环境变量设置）
+  // "email_password": "YOUR_16_CHAR_AUTH_CODE",
+
+  // 加密设置（与端口匹配）
+  "email_use_ssl": false,    // 端口465时设为true
+  "email_use_tls": true,     // 端口587时设为true
+
+  // ==================== Slack配置 ====================
+  "slack_enabled": false,
+  "slack_webhook": "",
+
+  // ==================== 日志配置 ====================
+  "file_log_enabled": true,
+  "file_log_path": "/Volumes/1TB-M2/openclaw/scripts/clawra/logs/maref_notifications.log",
+  "console_log_enabled": true,
+
+  // ==================== Athena集成 ====================
+  "athena_integration_enabled": true,
+  "athena_notification_api": "http://localhost:8000/api/notifications"
+}

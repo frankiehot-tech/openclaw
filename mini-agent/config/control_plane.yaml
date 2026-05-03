@@ -1,0 +1,430 @@
+# Athena Enterprise Control Plane Configuration
+# 单一事实源：控制面分层与本地优先策略
+# 
+# 四层作用域：
+# 1. managed    - 全局管理配置，跨所有项目和机器共享（企业策略、审计规则、成本控制）
+# 2. project    - 项目级别配置，项目间共享（AI计划路由、provider选择、任务队列策略）
+# 3. local      - 本地机器配置，机器独占（环境变量、路径覆盖、资源限制、凭证）
+# 4. session    - 会话级别配置，临时性（当前执行模式、风险等级、临时权限）
+#
+# 配置优先级：session > local > project > managed
+# 本地优先策略：明确哪些数据默认不出本地，哪些场景允许远程访问
+
+version: "1.1"
+updated_at: "2026-04-02"
+description: "Athena Enterprise Control Plane - 控制面分层与本地优先策略作用域（单一事实源）"
+schema_version: "1.1"
+compatibility_version: "1.0"  # 保持与v1.0的兼容性
+
+# ==================== MANAGED 作用域 ====================
+# 全局管理配置，由管理员设置，跨所有项目和机器共享
+managed:
+  description: "全局管理配置，企业级策略"
+  
+  # 企业策略
+  enterprise_policy:
+    audit_enabled: true
+    cost_monitoring_enabled: true
+    compliance_required: false
+    
+  # 安全与审批规则
+  security:
+    approval_policy:
+      high_risk_keywords:
+        - "结算"
+        - "支付"
+        - "转账"
+        - "审核"
+        - "删除"
+        - "格式化"
+        - "rm -rf"
+        - "drop database"
+      auto_approve_tasks:
+        - "think"
+        - "plan"
+        - "browse"
+      require_hitl_tasks:
+        - "settlement"
+        - "acceptance"
+        - "audit"
+        - "dispatch"
+    
+  # 成本控制策略
+  cost_control:
+    cost_aware: true
+    monthly_budget_limit: null  # 无限制
+    alert_threshold_percent: 80
+    
+  # 数据保留策略
+  data_retention:
+    task_artifacts_days: 30
+    log_files_days: 90
+    memory_files_days: 180
+
+# ==================== PROJECT 作用域 ====================
+# 项目级别配置，项目间共享
+project:
+  description: "项目级别配置，定义AI计划路由、provider选择、任务队列策略"
+  
+  # AI计划路由配置（单一事实源引用）
+  ai_plan_routing:
+    config_source: "${ATHENA_AI_PLAN_CONFIG}"  # 环境变量指向实际配置文件
+    fallback_path: "/Volumes/1TB-M2/openclaw/Documents/Athena知识库/执行项目/2026/003-open human（碳硅基共生）/007-AI-plan/.athena-auto-queue.json"
+    auto_discover: true
+    # 队列策略配置（与scripts/中的配置对齐）
+    queue_policy_ref:
+      max_concurrent_builds: "${ATHENA_AI_PLAN_MAX_BUILD_WORKERS:-2}"
+      resource_gate_enabled: true
+      min_free_memory_percent: "${ATHENA_AI_PLAN_MIN_FREE_MEMORY_PERCENT:-8}"
+      auto_retry_limit: "${ATHENA_AI_PLAN_AUTO_RETRY_LIMIT:-3}"
+      auto_archive_completed: "${ATHENA_AI_PLAN_AUTO_ARCHIVE_COMPLETED:-true}"
+    
+  # 聊天provider配置（引用现有athena_providers.yaml作为单一事实源）
+  chat_providers:
+    config_source: "${ATHENA_PROVIDERS_CONFIG:-athena_providers.yaml}"
+    # 以下值从athena_providers.yaml的defaults部分读取，此处为文档说明
+    primary_provider_ref: "dashscope"
+    primary_model_ref: "qwen3.5-plus"
+    fallback_provider_ref: "ollama_local"
+    fallback_model_ref: "qwen2.5:3b"
+    # 运行时状态跟踪（引用chat_runtime.json）
+    runtime_state_source: "chat_runtime.json"
+    
+  # 任务队列策略
+  queue_policy:
+    max_concurrent_builds: 2
+    resource_gate_enabled: true
+    min_free_memory_percent: 8
+    auto_retry_limit: 3
+    auto_archive_completed: true
+    
+  # 执行器配置（与athena_web_desktop_compat.py中的状态对齐）
+  executors:
+    codex:
+      roles: ["plan", "review"]
+      enabled: true
+      path_ref: "${CODEX_PATH:-/Applications/Codex.app/Contents/Resources/codex}"
+    opencode:
+      roles: ["build"]
+      enabled: true
+      path_ref: "${OPENCODE_PATH:-opencode}"
+    local:
+      roles: ["think", "qa", "browse"]
+      enabled: true
+      path_ref: "${LOCAL_EXECUTOR_PATH:-python3}"
+    # 执行器发现策略
+    discovery:
+      auto_detect: true
+      fallback_to_local: true
+      health_check_enabled: true
+
+  # MVP测试环境配置（单一事实源引用）
+  mvp_test_env:
+    config_source: "mvp_test_env.yaml"
+    auto_load: true
+    compatibility_check: true
+    version_constraint: ">=1.0"
+
+  # 上下文预算与约束恢复配置（单一事实源引用）
+  context_budget:
+    config_source: "context_budget.yaml"
+    auto_load: true
+    compatibility_check: true
+    version_constraint: ">=1.0"
+
+# ==================== LOCAL 作用域 ====================
+# 本地机器配置，机器独占（不应提交到版本控制）
+local:
+  description: "本地机器配置，包含环境变量、路径覆盖、资源限制、凭证"
+  # 注意：此部分通常从环境变量或本地文件加载，不直接在此文件中存储敏感信息
+  
+  # 路径覆盖（可覆盖project中的路径）
+  path_overrides:
+    runtime_root: "${ATHENA_RUNTIME_ROOT:-/Volumes/1TB-M2/openclaw}"
+    plan_config: "${ATHENA_AI_PLAN_CONFIG}"  # 可覆盖project中的config_source
+    workspace_dir: "${ATHENA_WORKSPACE_DIR:-}"
+    
+  # 资源限制（机器特定）
+  resource_limits:
+    max_build_workers: "${ATHENA_AI_PLAN_MAX_BUILD_WORKERS:-2}"
+    build_timeout_seconds: "${ATHENA_AI_PLAN_BUILD_TIMEOUT_SECONDS:-1800}"
+    poll_seconds: "${ATHENA_AI_PLAN_POLL_SECONDS:-15}"
+    second_build_min_free_memory_percent: "${ATHENA_AI_PLAN_SECOND_BUILD_MIN_FREE_MEMORY_PERCENT:-35}"
+    
+  # 凭证占位符（实际值从环境变量读取）
+  credentials:
+    dashscope_api_key: "${DASHSCOPE_API_KEY}"
+    minimax_api_key: "${MINIMAX_API_KEY}"
+    moonshot_api_key: "${MOONSHOT_API_KEY}"
+    zhipu_api_key: "${ZHIPU_API_KEY}"
+    
+  # 网络与代理配置
+  network:
+    http_proxy: "${HTTP_PROXY}"
+    https_proxy: "${HTTPS_PROXY}"
+    no_proxy: "${NO_PROXY}"
+    ollama_host: "127.0.0.1"
+    ollama_port: 11434
+
+# ==================== SESSION 作用域 ====================
+# 会话级别配置，临时性（通常由运行时动态设置）
+session:
+  description: "会话级别配置，包含当前执行模式、风险等级、临时权限"
+  # 注意：此部分通常在内存中动态维护，不持久化
+  
+  # 当前执行上下文
+  execution_context:
+    mode: "build"  # build | review | plan | qa
+    risk_level: "medium"  # low | medium | high
+    change_policy: "normal"  # normal | conservative | aggressive
+    execution_scope: "mutation_exec"  # mutation_exec | read_only | dry_run
+    
+  # 临时权限
+  temporary_permissions:
+    allow_external_api: true
+    allow_file_modifications: true
+    allow_network_access: true
+    allow_system_commands: true
+    
+  # 会话状态
+  session_state:
+    task_id: ""
+    owner: ""
+    started_at: ""
+    expires_at: ""
+
+# ==================== 本地优先策略边界 ====================
+local_first_policy:
+  description: "明确哪些数据默认不出本地，哪些场景允许远程访问"
+  
+  # 默认不出本地的数据（禁止远程传输）
+  never_leaves_local:
+    - "memory/目录下的所有文件"
+    - "AGENTS.md、SOUL.md、USER.md中的个人上下文"
+    - "本地凭证（API密钥、令牌）"
+    - "临时文件和工作区缓存"
+    - "机器特定的资源使用数据"
+    
+  # 允许远程访问的场景
+  allowed_remote_access:
+    - "模型API调用（DashScope、MiniMax、Moonshot等）"
+    - "外部工具调用（GitHub API、包管理器）"
+    - "CI/CD集成（构建状态上报）"
+    - "匿名遥测（可选）"
+    
+  # 明确deny/allow规则（可验证的规则）
+  explicit_rules:
+    # 网络访问规则（格式：host:port 或 CIDR）
+    network_access:
+      deny:
+        - "127.0.0.1/8"  # 全部本地回环，除明确允许的
+      deny_except:
+        "127.0.0.1:11434": "Ollama服务"
+        "127.0.0.1:8080": "Athena Web Desktop兼容层"
+      allow:
+        - "api.dashscope.aliyuncs.com:443"
+        - "api.minimax.chat:443"
+        - "api.moonshot.cn:443"
+        - "open.bigmodel.cn:443"
+        - "github.com:443"
+        - "api.github.com:443"
+        - "pypi.org:443"
+        - "pypi.python.org:443"
+        - "registry.npmjs.org:443"
+        - "*.openai.com:443"
+      allow_cidr: []
+
+    # 文件系统访问规则（路径模式）
+    filesystem_access:
+      deny_patterns:
+        - "/etc/passwd"
+        - "/etc/shadow"
+        - "/etc/sudoers"
+        - "${HOME}/.ssh/**"
+        - "/System/Library/**"
+        - "/Library/**"
+        - "/usr/lib/**"
+      allow_patterns:
+        - "${RUNTIME_ROOT}/**"
+        - "/tmp/**"
+        - "${HOME}/.cache/**"
+        - "${HOME}/Library/Caches/**"
+        - "**/.git/**"
+        - "**/node_modules/**"
+        - "**/__pycache__/**"
+        - "**/.ruff_cache/**"
+        
+    # 数据出口规则（什么数据可以离开本地）
+    data_egress:
+      never_leaves_local:
+        - "memory/*.md"
+        - "AGENTS.md"
+        - "SOUL.md" 
+        - "USER.md"
+        - "MEMORY.md"
+        - "**/.env"
+        - "**/*.key"
+        - "**/*.pem"
+        - "**/credentials.json"
+        - "**/secrets.*"
+      allowed_with_audit:
+        - "任务执行日志（匿名化后）"
+        - "性能指标（聚合后）"
+        - "错误报告（脱敏后）"
+      requires_explicit_consent:
+        - "个人身份信息"
+        - "源代码（除非开源项目）"
+        - "业务数据"
+
+# ==================== 配置优先级与合并规则 ====================
+configuration_priority:
+  description: "配置优先级与合并规则 - session > local > project > managed"
+  priority_order: ["session", "local", "project", "managed"]
+  merge_strategy: "deep_merge_with_override"
+  
+  # 合并行为细节
+  merge_behavior:
+    session:
+      action: "override"
+      persistence: "ephemeral"
+      source: "runtime_state"
+    local:
+      action: "override" 
+      persistence: "machine_persistent"
+      source: "env_vars,local_files"
+    project:
+      action: "baseline"
+      persistence: "version_controlled"
+      source: "project_configs"
+    managed:
+      action: "fallback"
+      persistence: "enterprise_persistent"
+      source: "enterprise_policy"
+  
+  # 配置解析示例（实际值从各层合并）
+  resolution_examples:
+    chat_primary_provider:
+      managed: "dashscope"
+      project: "dashscope" 
+      local: "${DASHSCOPE_ENABLED:-dashscope}"
+      session: "ollama_local"  # 会话可临时覆盖
+      final: "ollama_local"  # session最高优先级
+    runtime_root_path:
+      managed: "/standard/path"
+      project: "/project/specific/path"
+      local: "${ATHENA_RUNTIME_ROOT:-/Volumes/1TB-M2/openclaw}"
+      session: ""  # 通常不覆盖
+      final: "${ATHENA_RUNTIME_ROOT:-/Volumes/1TB-M2/openclaw}"  # local层生效
+    max_build_workers:
+      managed: "1"
+      project: "2"
+      local: "${ATHENA_AI_PLAN_MAX_BUILD_WORKERS:-2}"
+      session: "1"  # 资源紧张时临时限制
+      final: "1"  # session层临时覆盖
+
+# ==================== 与现有系统的兼容桥 ====================
+compatibility_bridge:
+  description: "控制面与现有系统的映射关系 - 确保平稳迁移"
+  
+  # 现有配置文件到控制面作用域的映射（单一事实源引用）
+  existing_config_mapping:
+    # Provider配置
+    "athena_providers.yaml": 
+      scope: "project.chat_providers"
+      role: "provider_registry_source"
+      deprecated: false
+    "chat_runtime.json":
+      scope: "project.chat_providers.runtime_state"  
+      role: "runtime_state_source"
+      deprecated: false
+    # AI计划路由
+    ".athena-auto-queue.json":
+      scope: "project.ai_plan_routing.config_source"
+      role: "queue_config_source"
+      deprecated: false
+    # Agent身份与上下文
+    "AGENTS.md": 
+      scope: "local.context + session.execution_context"
+      role: "agent_identity"
+      deprecated: false
+    "SOUL.md":
+      scope: "managed.security + session.execution_context"
+      role: "agent_soul"
+      deprecated: false
+    "USER.md":
+      scope: "local.context"
+      role: "human_context"
+      deprecated: false
+    # 内存系统
+    "memory/YYYY-MM-DD.md":
+      scope: "session.session_state + local.context"
+      role: "ephemeral_memory"
+      deprecated: false
+    "MEMORY.md":
+      scope: "local.context + managed.security"
+      role: "long_term_memory"
+      deprecated: false
+    # 工具配置
+    "TOOLS.md":
+      scope: "local.context"
+      role: "tool_preferences"
+      deprecated: false
+    "HEARTBEAT.md":
+      scope: "session.execution_context"
+      role: "periodic_tasks"
+      deprecated: false
+    # MVP测试环境配置
+    "mvp_test_env.yaml":
+      scope: "project.mvp_test_env"
+      role: "mvp_test_environment"
+      deprecated: false
+    # 上下文预算与约束恢复配置
+    "context_budget.yaml":
+      scope: "project.context_budget"
+      role: "context_budget_and_recovery"
+      deprecated: false
+
+  # 环境变量到控制面作用域的映射（local层主要来源）
+  env_var_mapping:
+    # 路径覆盖
+    "ATHENA_RUNTIME_ROOT": "local.path_overrides.runtime_root"
+    "ATHENA_AI_PLAN_CONFIG": "local.path_overrides.plan_config"
+    "ATHENA_WORKSPACE_DIR": "local.path_overrides.workspace_dir"
+    # 资源限制
+    "ATHENA_AI_PLAN_MAX_BUILD_WORKERS": "local.resource_limits.max_build_workers"
+    "ATHENA_AI_PLAN_BUILD_TIMEOUT_SECONDS": "local.resource_limits.build_timeout_seconds"
+    "ATHENA_AI_PLAN_POLL_SECONDS": "local.resource_limits.poll_seconds"
+    "ATHENA_AI_PLAN_MIN_FREE_MEMORY_PERCENT": "project.queue_policy_ref.min_free_memory_percent"
+    # 凭证
+    "DASHSCOPE_API_KEY": "local.credentials.dashscope_api_key"
+    "MINIMAX_API_KEY": "local.credentials.minimax_api_key"
+    "MOONSHOT_API_KEY": "local.credentials.moonshot_api_key"
+    "ZHIPU_API_KEY": "local.credentials.zhipu_api_key"
+    # 网络
+    "ATHENA_WEB_DESKTOP_PORT": "local.network.web_port"
+    "HTTP_PROXY": "local.network.http_proxy"
+    "HTTPS_PROXY": "local.network.https_proxy"
+    "NO_PROXY": "local.network.no_proxy"
+    
+  # 向后兼容性保证
+  backward_compatibility:
+    ensure_legacy_configs_loaded: true
+    fallback_to_old_paths: true
+    migration_warnings_enabled: true
+    dual_read_during_migration: true
+    # 迁移阶段
+    migration_phase: "phase1_config_consolidation"
+    next_phase: "phase2_runtime_integration"
+    
+  # 运行时检测与适配
+  runtime_adaptation:
+    detect_legacy_calls: true
+    log_migration_hints: true
+    provide_fallback_values: true
+    # 关键集成点
+    integration_points:
+      - "athena_ai_plan_runner.py::load_control_plane_config()"
+      - "athena_web_desktop_compat.py::load_control_plane_config()"
+      - "provider_registry.py::_load_config()"
+      - "chat_runtime.py::_load_config()"
+      - "openclaw_roots.py::全局路径"

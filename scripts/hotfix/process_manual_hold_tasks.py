@@ -366,7 +366,7 @@ def main():
 
         # 模拟处理
         changes = 0
-        for category_name, tasks in categories.items():
+        for _category_name, tasks in categories.items():
             changes += len(tasks)
 
         print(f"   预计修改 {changes} 个任务")

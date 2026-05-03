@@ -1,0 +1,120 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://athena.local/observability/contracts/node-graph.schema.json",
+  "title": "Athena Node Graph",
+  "allOf": [
+    {
+      "$ref": "./common.schema.json#/$defs/responseEnvelope"
+    },
+    {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "contractVersion": { "$ref": "./common.schema.json#/$defs/contractVersion" },
+        "generatedAt": { "$ref": "./common.schema.json#/$defs/isoDatetime" },
+        "runtimeRoot": { "$ref": "./common.schema.json#/$defs/path" },
+        "source": { "type": "string", "const": "adapter.node-graph" },
+        "freshness": { "$ref": "./common.schema.json#/$defs/freshness" },
+        "message": { "type": "string" },
+        "warnings": { "$ref": "./common.schema.json#/$defs/warningList" },
+        "graphId": { "type": "string", "minLength": 1 },
+        "nodes": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "id": { "type": "string", "minLength": 1 },
+              "title": { "type": "string", "minLength": 1 },
+              "subtitle": { "type": "string" },
+              "kind": {
+                "type": "string",
+                "enum": ["agent", "queue", "item", "task", "service", "artifact"]
+              },
+              "status": { "type": "string" },
+              "mainStat": { "type": "string" },
+              "secondaryStat": { "type": "string" },
+              "color": { "type": "string" },
+              "icon": { "type": "string" },
+              "detailPath": {
+                "type": ["string", "null"]
+              },
+              "data": {
+                "type": "object",
+                "additionalProperties": true
+              }
+            },
+            "required": [
+              "id",
+              "title",
+              "subtitle",
+              "kind",
+              "status",
+              "mainStat",
+              "secondaryStat",
+              "color",
+              "icon",
+              "detailPath",
+              "data"
+            ]
+          }
+        },
+        "edges": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "id": { "type": "string", "minLength": 1 },
+              "sourceId": { "type": "string", "minLength": 1 },
+              "targetId": { "type": "string", "minLength": 1 },
+              "relation": {
+                "type": "string",
+                "enum": [
+                  "owns",
+                  "runs",
+                  "blocked_by",
+                  "produces",
+                  "delegates_to",
+                  "contains",
+                  "depends_on"
+                ]
+              },
+              "status": { "type": "string" },
+              "mainStat": { "type": "string" },
+              "secondaryStat": { "type": "string" },
+              "detailPath": {
+                "type": ["string", "null"]
+              },
+              "data": {
+                "type": "object",
+                "additionalProperties": true
+              }
+            },
+            "required": [
+              "id",
+              "sourceId",
+              "targetId",
+              "relation",
+              "status",
+              "mainStat",
+              "secondaryStat",
+              "detailPath",
+              "data"
+            ]
+          }
+        }
+      },
+      "required": [
+        "contractVersion",
+        "generatedAt",
+        "runtimeRoot",
+        "source",
+        "freshness",
+        "graphId",
+        "nodes",
+        "edges"
+      ]
+    }
+  ]
+}

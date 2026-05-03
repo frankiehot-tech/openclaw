@@ -189,7 +189,7 @@ class QueueMonitor:
                         "failed": 0,
                         "manual_hold": 0,
                     }
-                    for item_id, item_data in items_dict.items():
+                    for _item_id, item_data in items_dict.items():
                         status = str(item_data.get("status", "") or "pending").strip().lower()
                         if status in actual_counts:
                             actual_counts[status] += 1

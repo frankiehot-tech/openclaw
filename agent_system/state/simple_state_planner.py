@@ -272,16 +272,15 @@ def plan_next_step(task: str, current_state: str, state_confidence: float = 0.0)
             )
 
     # 规则 F (Phase 12): 任务 = "点击搜索"，若当前已是 search_page → 不重复点击
-    if task in ["点击搜索", "打开搜索", "搜索"]:
-        if current_state == "search_page":
-            logger.info("当前已在搜索页面，不重复点击")
-            return PlanResult(
-                plan_type="direct_execute",
-                next_action="direct",
-                reason="当前已在搜索页面",
-                state_confidence=state_confidence,
-                original_state=current_state,
-            )
+    if task in ["点击搜索", "打开搜索", "搜索"] and current_state == "search_page":
+        logger.info("当前已在搜索页面，不重复点击")
+        return PlanResult(
+            plan_type="direct_execute",
+            next_action="direct",
+            reason="当前已在搜索页面",
+            state_confidence=state_confidence,
+            original_state=current_state,
+        )
 
     # 默认：直接执行
     logger.info(f"使用默认规划: 直接执行任务 {task}")

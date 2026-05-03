@@ -1,0 +1,355 @@
+# 性能优化基线 (Performance Optimization Baseline)
+# 为 OpenHuman-Fusion-Automaton 定义最小性能优化基线
+# 版本: 1.0 (最小可运行闭环)
+# 更新: 2026-04-04
+
+version: "1.0"
+updated_at: "2026-04-04"
+description: "OpenHuman-Fusion-Automaton 性能优化基线 - 最小可运行闭环"
+status: "active"
+
+# 性能优化领域 (Performance Optimization Domains)
+domains:
+  # 1. 数据库/缓存优化 (Database/Cache Optimization)
+  - domain_id: "database_cache"
+    domain_name: "数据库/缓存优化"
+    priority: "medium"
+    current_status: "partial"
+    items:
+      - item_id: "db_01"
+        description: "SQLite 查询优化与索引"
+        optimization_type: "code_optimization"
+        current_state: "basic"
+        target_state: "optimized"
+        metrics:
+          - name: "query_latency_ms"
+            current: "unknown"
+            target: "<100ms"
+          - name: "concurrent_queries"
+            current: "serial"
+            target: "parallel_safe"
+        implementation_status: "not_started"
+        evidence: "预算引擎使用 SQLite，无显式索引"
+        risk_if_not_optimized: "中 - 随着数据增长性能下降"
+        
+      - item_id: "db_02"
+        description: "结果缓存 (Redis/Memcached)"
+        optimization_type: "infrastructure"
+        current_state: "none"
+        target_state: "implemented"
+        metrics:
+          - name: "cache_hit_rate"
+            current: "0%"
+            target: ">70%"
+          - name: "response_time_reduction"
+            current: "0%"
+            target: ">50%"
+        implementation_status: "not_implemented"
+        evidence: "无缓存层，每次读取数据库"
+        risk_if_not_optimized: "低 - 当前数据量小"
+
+  # 2. 负载均衡优化 (Load Balancing Optimization)
+  - domain_id: "load_balancing"
+    domain_name: "负载均衡优化"
+    priority: "medium"
+    current_status: "partial"
+    items:
+      - item_id: "lb_01"
+        description: "任务队列负载均衡"
+        optimization_type: "algorithm"
+        current_state: "round_robin"
+        target_state: "weighted_by_capacity"
+        metrics:
+          - name: "queue_imbalance"
+            current: "unknown"
+            target: "<20%"
+          - name: "worker_utilization"
+            current: "unknown"
+            target: "60-80%"
+        implementation_status: "implemented"
+        evidence: "parallel_build_gate.py 实现基本负载均衡"
+        risk_if_not_optimized: "中 - 资源利用不均衡"
+        
+      - item_id: "lb_02"
+        description: "动态扩缩容 (基于队列长度)"
+        optimization_type: "auto_scaling"
+        current_state: "manual"
+        target_state: "auto"
+        metrics:
+          - name: "scaling_response_time"
+            current: "manual"
+            target: "<5min"
+          - name: "cost_efficiency"
+            current: "unknown"
+            target: "optimized"
+        implementation_status: "not_implemented"
+        evidence: "无自动扩缩容机制"
+        risk_if_not_optimized: "低 - 当前负载稳定"
+
+  # 3. 代码优化 (Code Optimization)
+  - domain_id: "code_optimization"
+    domain_name: "代码优化"
+    priority: "high"
+    current_status: "implemented"
+    items:
+      - item_id: "code_01"
+        description: "算法复杂度优化 (O(n) → O(log n))"
+        optimization_type: "algorithmic"
+        current_state: "linear"
+        target_state: "optimized"
+        metrics:
+          - name: "time_complexity"
+            current: "O(n)"
+            target: "O(log n)"
+          - name: "memory_footprint"
+            current: "unknown"
+            target: "reduced"
+        implementation_status: "partial"
+        evidence: "部分算法已优化，如技能匹配"
+        risk_if_not_optimized: "高 - 大数据量下性能问题"
+        
+      - item_id: "code_02"
+        description: "内存泄漏检测与修复"
+        optimization_type: "memory_management"
+        current_state: "basic"
+        target_state: "robust"
+        metrics:
+          - name: "memory_leaks"
+            current: "unknown"
+            target: "0"
+          - name: "memory_usage_growth"
+            current: "unknown"
+            target: "stable"
+        implementation_status: "not_implemented"
+        evidence: "无系统化内存泄漏检测"
+        risk_if_not_optimized: "中 - 长时间运行可能崩溃"
+        
+      - item_id: "code_03"
+        description: "并发/并行优化"
+        optimization_type: "parallelism"
+        current_state: "thread_based"
+        target_state: "async_optimized"
+        metrics:
+          - name: "concurrent_tasks"
+            current: "limited"
+            target: "scalable"
+          - name: "cpu_utilization"
+            current: "low"
+            target: "optimal"
+        implementation_status: "implemented"
+        evidence: "异步任务执行与并行构建门"
+        risk_if_not_optimized: "低 - 当前并发需求有限"
+
+  # 4. 监控与调优 (Monitoring & Tuning)
+  - domain_id: "monitoring_tuning"
+    domain_name: "监控与调优"
+    priority: "high"
+    current_status: "implemented"
+    items:
+      - item_id: "mon_01"
+        description: "性能指标收集与可视化"
+        optimization_type: "observability"
+        current_state: "basic"
+        target_state: "comprehensive"
+        metrics:
+          - name: "metric_coverage"
+            current: "60%"
+            target: "90%"
+          - name: "alert_latency"
+            current: "<5min"
+            target: "<1min"
+        implementation_status: "implemented"
+        evidence: "performance_monitor.py, performance_summary.py, alert_rules.yaml"
+        risk_if_not_optimized: "中 - 无法及时发现性能问题"
+        
+      - item_id: "mon_02"
+        description: "A/B 测试与性能对比"
+        optimization_type: "experimentation"
+        current_state: "manual"
+        target_state: "automated"
+        metrics:
+          - name: "experiment_velocity"
+            current: "slow"
+            target: "rapid"
+          - name: "statistical_significance"
+            current: "manual"
+            target: "automated"
+        implementation_status: "partial"
+        evidence: "test_route_scoring_ab.py 实现基本 A/B 测试"
+        risk_if_not_optimized: "低 - 优化决策缺乏数据支持"
+
+# 性能基线指标 (Baseline Metrics)
+baseline_metrics:
+  # 系统级指标
+  - metric_id: "system_throughput"
+    name: "系统吞吐量"
+    unit: "tasks/hour"
+    current_baseline: "unknown"
+    target_baseline: ">100"
+    measurement_method: "performance_summary.py"
+    collection_frequency: "hourly"
+    
+  - metric_id: "avg_response_time"
+    name: "平均响应时间"
+    unit: "seconds"
+    current_baseline: "unknown"
+    target_baseline: "<30"
+    measurement_method: "performance_monitor.py"
+    collection_frequency: "continuous"
+    
+  - metric_id: "success_rate"
+    name: "任务成功率"
+    unit: "percentage"
+    current_baseline: "unknown"
+    target_baseline: ">95%"
+    measurement_method: "performance_summary.py"
+    collection_frequency: "hourly"
+    
+  # 资源利用率
+  - metric_id: "cpu_utilization"
+    name: "CPU 利用率"
+    unit: "percentage"
+    current_baseline: "unknown"
+    target_baseline: "40-70%"
+    measurement_method: "system_resource_facts.py"
+    collection_frequency: "5min"
+    
+  - metric_id: "memory_utilization"
+    name: "内存利用率"
+    unit: "percentage"
+    current_baseline: "unknown"
+    target_baseline: "<80%"
+    measurement_method: "system_resource_facts.py"
+    collection_frequency: "5min"
+    
+  # 队列指标
+  - metric_id: "queue_length"
+    name: "队列长度"
+    unit: "tasks"
+    current_baseline: "unknown"
+    target_baseline: "<20"
+    warning_threshold: 10
+    critical_threshold: 20
+    measurement_method: "performance_monitor.py"
+    collection_frequency: "continuous"
+
+# 优化前后对比案例 (Before/After Comparison Examples)
+optimization_case_studies:
+  - case_id: "budget_engine_query"
+    description: "预算引擎查询优化"
+    before:
+      approach: "全表扫描"
+      performance: "O(n) 复杂度"
+      resource_usage: "高内存、高CPU"
+    after:
+      approach: "索引查询"
+      performance: "O(log n) 复杂度"
+      resource_usage: "降低 60%"
+    status: "planned"
+    estimated_impact: "高"
+    
+  - case_id: "async_task_execution"
+    description: "异步任务执行优化"
+    before:
+      approach: "同步阻塞"
+      performance: "串行执行"
+      resource_usage: "低利用率"
+    after:
+      approach: "异步非阻塞"
+      performance: "并行执行"
+      resource_usage: "CPU 利用率提升 40%"
+    status: "implemented"
+    evidence: "skill_execution_with_budget.py 异步实现"
+
+# 实施路线图 (Implementation Roadmap)
+roadmap:
+  phase_1:
+    name: "最小可运行闭环"
+    timeframe: "已完成"
+    deliverables:
+      - "性能监控基础框架 (performance_monitor.py)"
+      - "告警规则定义 (alert_rules.yaml)"
+      - "负载均衡基础 (parallel_build_gate.py)"
+      - "A/B 测试框架 (test_route_scoring_ab.py)"
+    status: "completed"
+    
+  phase_2:
+    name: "增量优化"
+    timeframe: "Q2 2026"
+    deliverables:
+      - "SQLite 查询优化与索引"
+      - "内存泄漏检测工具集成"
+      - "缓存层实现 (Redis/Memcached)"
+      - "自动扩缩容机制"
+    status: "planned"
+    
+  phase_3:
+    name: "高级优化"
+    timeframe: "Q3 2026"
+    deliverables:
+      - "机器学习驱动的负载预测"
+      - "自适应算法优化"
+      - "全链路性能追踪"
+      - "成本-性能权衡优化"
+    status: "future"
+
+# 验证指令 (Validation Instructions)
+validation_instructions:
+  - description: "运行性能基线测试"
+    command: "python scripts/test_performance_smoke.py"
+    expected_output: "性能监控冒烟测试通过"
+    
+  - description: "生成性能摘要报告"
+    command: "python scripts/performance_summary.py --no-export"
+    expected_output: "性能摘要 Markdown 输出"
+    
+  - description: "检查当前性能指标"
+    command: "python scripts/performance_monitor.py"
+    expected_output: "性能监控仪表板输出"
+    
+  - description: "验证负载均衡"
+    command: "python scripts/test_parallel_build_gate.py"
+    expected_output: "并行构建门测试通过"
+
+# 开源就绪性能声明 (Open Source Readiness - Performance)
+open_source_performance_disclosure:
+  production_ready: "partial"
+  performance_guarantees: "none"
+  scalability_limits: "单机部署，未测试分布式"
+  optimization_status: "基础优化完成，高级优化待实现"
+  performance_testing: "基础冒烟测试，无负载测试"
+  recommended_use_case: "中小规模自动化任务，并发 < 10"
+  
+  known_limitations:
+    - "无数据库查询优化"
+    - "无缓存层"
+    - "内存管理未优化"
+    - "无自动扩缩容"
+    
+  optimization_opportunities:
+    - "实现查询缓存"
+    - "添加数据库索引"
+    - "优化内存使用"
+    - "实现连接池"
+    - "添加 CDN/边缘缓存"
+
+# 总结 (Summary)
+summary:
+  total_optimization_items: 9
+  implemented: 3
+  partial: 3
+  not_implemented: 3
+  priority_distribution:
+    high: 3
+    medium: 4
+    low: 2
+  
+  risk_assessment:
+    high_risk_items: 1
+    medium_risk_items: 4
+    low_risk_items: 4
+  
+  next_steps:
+    - "实施 SQLite 查询优化 (db_01)"
+    - "添加内存泄漏检测 (code_02)"
+    - "建立性能基线指标实际测量"

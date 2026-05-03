@@ -64,10 +64,7 @@ def is_settings_screen(description):
         return False
     text = description.get("text", "").lower()
     settings_keywords = ["设置", "settings", "系统设置", "配置", "关于手机", "galaxy", "三星"]
-    for keyword in settings_keywords:
-        if keyword in text:
-            return True
-    return False
+    return any(keyword in text for keyword in settings_keywords)
 
 
 def is_wifi_screen(description):
@@ -76,10 +73,7 @@ def is_wifi_screen(description):
         return False
     text = description.get("text", "").lower()
     wifi_keywords = ["wifi", "wi-fi", "无线网络", "无线局域网", "wlan", "网络设置", "连接"]
-    for keyword in wifi_keywords:
-        if keyword in text:
-            return True
-    return False
+    return any(keyword in text for keyword in wifi_keywords)
 
 
 def find_wifi_entry(description):
@@ -87,7 +81,7 @@ def find_wifi_entry(description):
     if not description.get("ok"):
         return None, "视觉描述失败"
 
-    text = description.get("text", "")
+    description.get("text", "")
 
     # 尝试使用更具体的提示词获取Wi-Fi位置
     return None, "需要进一步分析"

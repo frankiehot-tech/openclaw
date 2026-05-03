@@ -9,11 +9,14 @@ Merges: reset_task, reset_gene_audit_to_pending, retry_gene_audit_task,
 
 from __future__ import annotations
 
-import json
-import shutil
-from datetime import UTC, datetime
+import logging
+from datetime import UTC, datetime, timedelta
 from pathlib import Path
 from typing import Any
+
+from ._utils import FileLock, atomic_write_json, load_json_safe
+
+logger = logging.getLogger(__name__)
 
 
 def _now_iso() -> str:
@@ -40,17 +43,12 @@ class TaskOrchestrator:
     # ------------------------------------------------------------------
 
     def _load(self, path: Path) -> dict[str, Any] | None:
-        try:
-            with open(path, encoding="utf-8") as f:
-                return json.load(f)
-        except Exception:
-            return None
+        return load_json_safe(path)
 
     def _save(self, path: Path, data: dict[str, Any]) -> None:
-        backup = path.with_suffix(f".task_backup_{datetime.now().strftime('%Y%m%d_%H%M%S')}")
-        shutil.copy2(str(path), str(backup))
-        with open(path, "w", encoding="utf-8") as f:
-            json.dump(data, f, indent=2, ensure_ascii=False)
+        lock_path = path.with_suffix(path.suffix + ".lock")
+        with FileLock(lock_path):
+            atomic_write_json(path, data)
 
     def _resolve_queue(self, queue_ref: str) -> Path:
         p = Path(queue_ref)
@@ -170,6 +168,17 @@ class TaskOrchestrator:
 
         self._recalc_queue_state(data)
         if not dry_run and marked:
+            # 可选的数据质量门禁: DataQualityContract.validate(queue_path)
+            try:
+                from contracts.data_quality import DataQualityContract
+                dq = DataQualityContract()
+                dq_result = dq.validate(str(qpath))
+                if not dq_result.get("passed", True):
+                    logger.warning("Data quality check flagged issues for %s", qpath)
+            except ImportError:
+                pass
+            except Exception:
+                logger.exception("Data quality check failed for %s", qpath)
             self._save(qpath, data)
 
         return {"success": True, "marked": marked}
@@ -209,7 +218,7 @@ class TaskOrchestrator:
         paths = [self._resolve_queue(queue_ref)] if queue_ref else self._all_queues()
 
         now = datetime.now(UTC)
-        now.replace(tzinfo=None) - __import__("datetime").timedelta(hours=threshold_hours)
+        now = now.replace(tzinfo=None) - timedelta(hours=threshold_hours)
 
         for qpath in paths:
             data = self._load(qpath)
@@ -223,7 +232,7 @@ class TaskOrchestrator:
                 if hb:
                     try:
                         hb_dt = datetime.fromisoformat(hb.replace("Z", "+00:00"))
-                        if hb_dt > now - __import__("datetime").timedelta(hours=threshold_hours):
+                        if hb_dt > now - timedelta(hours=threshold_hours):
                             continue
                     except Exception:
                         pass

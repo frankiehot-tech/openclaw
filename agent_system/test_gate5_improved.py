@@ -65,10 +65,7 @@ def is_settings_screen(description):
         return False
     text = description.get("text", "").lower()
     settings_keywords = ["设置", "settings", "系统设置", "配置", "关于手机", "galaxy", "三星"]
-    for keyword in settings_keywords:
-        if keyword in text:
-            return True
-    return False
+    return any(keyword in text for keyword in settings_keywords)
 
 
 def is_wifi_screen(description):
@@ -77,10 +74,7 @@ def is_wifi_screen(description):
         return False
     text = description.get("text", "").lower()
     wifi_keywords = ["wifi", "wi-fi", "无线网络", "无线局域网", "wlan", "网络设置", "连接"]
-    for keyword in wifi_keywords:
-        if keyword in text:
-            return True
-    return False
+    return any(keyword in text for keyword in wifi_keywords)
 
 
 def is_about_phone_screen(description):
@@ -89,10 +83,7 @@ def is_about_phone_screen(description):
         return False
     text = description.get("text", "").lower()
     about_keywords = ["关于手机", "about phone", "设备信息", "galaxy z flip"]
-    for keyword in about_keywords:
-        if keyword in text:
-            return True
-    return False
+    return any(keyword in text for keyword in about_keywords)
 
 
 def tap_screen(x, y):
@@ -234,11 +225,9 @@ def main():
 
         print("✓ 成功返回设置主页")
         current_screenshot = nav_screenshot
-        current_desc = nav_desc
     else:
         print("✓ 当前已在设置主页")
         current_screenshot = start_screenshot
-        current_desc = start_desc
 
     # 第2步：查找Wi-Fi入口
     print("\n## 第2步：查找Wi-Fi入口")
@@ -276,7 +265,7 @@ def main():
             # 重新截图
             current_screenshot = "/tmp/gate5_after_swipe.png"
             capture_screen(current_screenshot)
-            current_desc = describe_with_qwen(current_screenshot)
+            describe_with_qwen(current_screenshot)
 
     # 输出测试记录
     print("\n## 测试记录")

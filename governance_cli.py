@@ -28,8 +28,11 @@ from __future__ import annotations
 
 import argparse
 import json
+import logging
 import sys
 from typing import Any
+
+logger = logging.getLogger(__name__)
 
 from governance.repair_tools import RepairTools
 from governance.task_orchestrator import TaskOrchestrator
@@ -39,7 +42,7 @@ from governance.system_health import QueueHealthMonitor, QueueProtector, SystemH
 
 
 def _print_json(obj: Any) -> None:
-    print(json.dumps(obj, indent=2, ensure_ascii=False, default=str))
+    logger.info(json.dumps(obj, indent=2, ensure_ascii=False, default=str))
 
 
 # ======================================================================
@@ -52,19 +55,19 @@ def cmd_queue_status(args: argparse.Namespace) -> int:
     if args.queue:
         data = qm.load_queue(args.queue)
         if data is None:
-            print(f"Queue not found: {args.queue}")
+            logger.error(f"Queue not found: {args.queue}")
             return 1
-        print(f"Queue: {data.get('queue_id')}  Status: {data.get('queue_status')}")
-        print(f"Counts: {json.dumps(data.get('counts', {}), ensure_ascii=False)}")
-        print(f"Current item: {data.get('current_item_id', '')}")
-        print(f"Pause reason: {data.get('pause_reason', '')}")
+        logger.info(f"Queue: {data.get('queue_id')}  Status: {data.get('queue_status')}")
+        logger.info(f"Counts: {json.dumps(data.get('counts', {}), ensure_ascii=False)}")
+        logger.info(f"Current item: {data.get('current_item_id', '')}")
+        logger.info(f"Pause reason: {data.get('pause_reason', '')}")
     elif args.all:
         for qf in qm.list_queues():
             data = qm.load_queue(str(qf))
             if data:
                 c = data.get("counts", {})
                 st = data.get('queue_status', 'unknown') or 'unknown'
-                print(f"{qf.stem}: {st:20s} P:{c.get('pending',0)} R:{c.get('running',0)} C:{c.get('completed',0)} F:{c.get('failed',0)} H:{c.get('manual_hold',0)}")
+                logger.info(f"{qf.stem}: {st:20s} P:{c.get('pending',0)} R:{c.get('running',0)} C:{c.get('completed',0)} F:{c.get('failed',0)} H:{c.get('manual_hold',0)}")
     else:
         _print_json(qm.list_queues())
     return 0
@@ -79,7 +82,7 @@ def cmd_queue_fix(args: argparse.Namespace) -> int:
         result = qm.fix_queue_status(args.queue, dry_run=args.dry_run)
         _print_json(result)
     else:
-        print("Use --queue QUEUE or --all")
+        logger.error("Use --queue QUEUE or --all")
         return 1
     return 0
 
@@ -87,7 +90,7 @@ def cmd_queue_fix(args: argparse.Namespace) -> int:
 def cmd_queue_deps(args: argparse.Namespace) -> int:
     qm = QueueManager()
     if not args.queue:
-        print("--queue QUEUE is required")
+        logger.error("--queue QUEUE is required")
         return 1
     result = qm.resolve_cross_queue_deps(args.queue, dry_run=args.dry_run)
     _print_json(result)
@@ -124,7 +127,7 @@ def cmd_runners(args: argparse.Namespace) -> int:
 def cmd_task_reset(args: argparse.Namespace) -> int:
     to = TaskOrchestrator()
     if not args.queue or not args.task_id:
-        print("--queue QUEUE and --task-id TASK_ID are required")
+        logger.error("--queue QUEUE and --task-id TASK_ID are required")
         return 1
     result = to.reset_task(args.queue, args.task_id, dry_run=args.dry_run)
     _print_json(result)
@@ -134,7 +137,7 @@ def cmd_task_reset(args: argparse.Namespace) -> int:
 def cmd_task_unhold(args: argparse.Namespace) -> int:
     to = TaskOrchestrator()
     if not args.queue:
-        print("--queue QUEUE is required")
+        logger.error("--queue QUEUE is required")
         return 1
     result = to.reset_all_manual_hold(args.queue, dry_run=args.dry_run)
     _print_json(result)
@@ -144,7 +147,7 @@ def cmd_task_unhold(args: argparse.Namespace) -> int:
 def cmd_task_mark(args: argparse.Namespace) -> int:
     to = TaskOrchestrator()
     if not args.queue or not args.task_id:
-        print("--queue QUEUE and --task-id TASK_ID,... required")
+        logger.error("--queue QUEUE and --task-id TASK_ID,... required")
         return 1
     task_ids = [t.strip() for t in args.task_id.split(",")]
     result = to.mark_tasks_completed(args.queue, task_ids, dry_run=args.dry_run)
@@ -155,7 +158,7 @@ def cmd_task_mark(args: argparse.Namespace) -> int:
 def cmd_task_remove(args: argparse.Namespace) -> int:
     to = TaskOrchestrator()
     if not args.queue or not args.task_id:
-        print("--queue QUEUE and --task-id TASK_ID required")
+        logger.error("--queue QUEUE and --task-id TASK_ID required")
         return 1
     result = to.remove_task(args.queue, args.task_id, dry_run=args.dry_run)
     _print_json(result)
@@ -175,7 +178,7 @@ def cmd_task_zombies(args: argparse.Namespace) -> int:
 def cmd_repair_deps(args: argparse.Namespace) -> int:
     rt = RepairTools()
     if not args.queue:
-        print("--queue QUEUE required")
+        logger.error("--queue QUEUE required")
         return 1
     result = rt.fix_dependency_blocks(args.queue, dry_run=args.dry_run)
     _print_json(result)
@@ -195,7 +198,7 @@ def cmd_repair_stale(args: argparse.Namespace) -> int:
 def cmd_repair_state(args: argparse.Namespace) -> int:
     rt = RepairTools()
     if not args.queue:
-        print("--queue QUEUE required")
+        logger.error("--queue QUEUE required")
         return 1
     result = rt.repair_state_file(args.queue, dry_run=args.dry_run)
     _print_json(result)
@@ -205,7 +208,7 @@ def cmd_repair_state(args: argparse.Namespace) -> int:
 def cmd_repair_ghost(args: argparse.Namespace) -> int:
     rt = RepairTools()
     if not args.queue:
-        print("--queue QUEUE required")
+        logger.error("--queue QUEUE required")
         return 1
     result = rt.remove_ghost_dependencies(args.queue, dry_run=args.dry_run)
     _print_json(result)
@@ -215,7 +218,7 @@ def cmd_repair_ghost(args: argparse.Namespace) -> int:
 def cmd_repair_manifest(args: argparse.Namespace) -> int:
     rt = RepairTools()
     if not args.file:
-        print("--file PATH required")
+        logger.error("--file PATH required")
         return 1
     result = rt.fix_manifest_duplicates(args.file, dry_run=args.dry_run)
     _print_json(result)
@@ -361,6 +364,7 @@ def build_parser() -> argparse.ArgumentParser:
 
 
 def main(argv: list[str] | None = None) -> int:
+    logging.basicConfig(level=logging.INFO, format="%(asctime)s %(levelname)s %(message)s")
     parser = build_parser()
     args = parser.parse_args(argv)
     if hasattr(args, "func"):

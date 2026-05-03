@@ -1,0 +1,20 @@
+{
+  "wecom_enabled": false,
+  "wecom_webhook": "https://qyapi.weixin.qq.com/cgi-bin/webhook/send?key=YOUR_KEY",
+  "email_enabled": true,
+  "email_smtp_server": "smtp.gmail.com",
+  "email_smtp_port": 587,
+  "email_sender": "your-email@gmail.com",
+  "email_receivers": [
+    "devops@example.com",
+    "oncall@example.com"
+  ],
+  "email_password": "YOUR_APP_PASSWORD",
+  "slack_enabled": false,
+  "slack_webhook": "https://hooks.slack.com/services/YOUR/WEBHOOK/PATH",
+  "file_log_enabled": true,
+  "file_log_path": "/var/log/maref_notifications.log",
+  "console_log_enabled": true,
+  "athena_integration_enabled": true,
+  "athena_notification_api": "http://localhost:8000/api/notifications"
+}

@@ -741,7 +741,7 @@ class AthenaQueueAuditor:
 
         # 生成建议
         all_recommendations = []
-        for category, findings in self.audit_results.items():
+        for _category, findings in self.audit_results.items():
             if "recommendations" in findings:
                 all_recommendations.extend(findings["recommendations"])
 

@@ -1,0 +1,30 @@
+# 平台配置 - 目标平台最小闭环 MVP
+platform_id: x_platform_mvp
+platform_name: "目标平台名称"
+app_package: "com.example.app"
+supports_official_api: false
+requires_human_confirmation_before_publish: true
+login_steps_human_only: true
+
+# 敏感动作 - 需要人工介入或禁止自动执行
+sensitive_actions:
+  - login
+  - two_factor_auth
+  - final_publish
+
+# 允许动作 - Phase 1 最小闭环允许的动作范围
+allowed_actions:
+  - launch_app
+  - navigate
+  - find_target
+  - fill_form
+  - review_pre_publish_page
+  - cancel
+  - confirm_publish_after_human_approval
+
+# 禁止动作 - Phase 1 硬边界禁止的动作
+forbidden_actions:
+  - auto_register_account
+  - auto_handle_verification_code
+  - auto_manage_unauthorized_account
+  - auto_bypass_risk_prompt

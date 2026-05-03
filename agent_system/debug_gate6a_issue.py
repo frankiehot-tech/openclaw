@@ -157,7 +157,7 @@ def check_for_widgets() -> list[str]:
     success2, output2 = run_adb(["shell", "dumpsys", "notification"])
     if success2:
         lines = output2.split("\n")
-        for i, line in enumerate(lines[:20]):
+        for _i, line in enumerate(lines[:20]):
             if "StatusBar" in line or "Notification" in line:
                 widgets.append(f"通知相关: {line.strip()}")
 
@@ -259,7 +259,7 @@ def compare_screenshots(files: list[str]) -> bool:
         print(f"所有截图相同（MD5: {first_hash[:8]}...）")
     else:
         print("截图不同！")
-        for i, (file, h) in enumerate(zip(files, hashes)):
+        for i, (file, h) in enumerate(zip(files, hashes, strict=False)):
             print(f"  截图{i+1}: {file} -> MD5: {h[:8]}...")
 
     return all_same
@@ -290,7 +290,7 @@ def main():
     # 显示一些窗口信息
     if window_info.get("allWindows"):
         print("  前5个窗口:")
-        for i, win in enumerate(window_info.get("allWindows", [])[:5]):
+        for _i, win in enumerate(window_info.get("allWindows", [])[:5]):
             print(f"    {win}")
 
     # 第3步：获取包信息

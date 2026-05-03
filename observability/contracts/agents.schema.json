@@ -1,0 +1,129 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://athena.local/observability/contracts/agents.schema.json",
+  "title": "Athena Agent Roster",
+  "allOf": [
+    {
+      "$ref": "./common.schema.json#/$defs/responseEnvelope"
+    },
+    {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "contractVersion": { "$ref": "./common.schema.json#/$defs/contractVersion" },
+        "generatedAt": { "$ref": "./common.schema.json#/$defs/isoDatetime" },
+        "runtimeRoot": { "$ref": "./common.schema.json#/$defs/path" },
+        "source": { "type": "string", "const": "adapter.agents" },
+        "freshness": { "$ref": "./common.schema.json#/$defs/freshness" },
+        "message": { "type": "string" },
+        "warnings": { "$ref": "./common.schema.json#/$defs/warningList" },
+        "counts": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "total": { "type": "integer", "minimum": 0 },
+            "online": { "type": "integer", "minimum": 0 },
+            "offline": { "type": "integer", "minimum": 0 },
+            "running": { "type": "integer", "minimum": 0 },
+            "idle": { "type": "integer", "minimum": 0 },
+            "degraded": { "type": "integer", "minimum": 0 }
+          },
+          "required": ["total", "online", "offline", "running", "idle", "degraded"]
+        },
+        "agents": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "agentId": { "type": "string", "minLength": 1 },
+              "displayName": { "type": "string", "minLength": 1 },
+              "role": { "type": "string", "minLength": 1 },
+              "layer": { "type": "string" },
+              "status": {
+                "type": "string",
+                "enum": ["online", "offline", "running", "idle", "degraded", "unknown"]
+              },
+              "statusDetail": { "type": "string" },
+              "currentTask": { "type": "string" },
+              "currentTaskId": { "type": "string" },
+              "currentQueueItemId": { "type": "string" },
+              "currentStage": { "type": "string" },
+              "executor": { "type": "string" },
+              "provider": { "type": "string" },
+              "model": { "type": "string" },
+              "skills": {
+                "type": "array",
+                "items": { "type": "string" }
+              },
+              "capabilities": {
+                "type": "array",
+                "items": { "type": "string" }
+              },
+              "parentAgentId": {
+                "type": ["string", "null"]
+              },
+              "sourceKind": {
+                "type": "string",
+                "enum": [
+                  "core_role",
+                  "configured_subagent",
+                  "delegation_runtime",
+                  "service",
+                  "queue_runner"
+                ]
+              },
+              "lastSeenAt": {
+                "type": ["string", "null"],
+                "format": "date-time"
+              },
+              "links": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "taskTracePath": {
+                    "type": ["string", "null"]
+                  },
+                  "artifactPath": {
+                    "type": ["string", "null"]
+                  }
+                },
+                "required": ["taskTracePath", "artifactPath"]
+              }
+            },
+            "required": [
+              "agentId",
+              "displayName",
+              "role",
+              "layer",
+              "status",
+              "statusDetail",
+              "currentTask",
+              "currentTaskId",
+              "currentQueueItemId",
+              "currentStage",
+              "executor",
+              "provider",
+              "model",
+              "skills",
+              "capabilities",
+              "parentAgentId",
+              "sourceKind",
+              "lastSeenAt",
+              "links"
+            ]
+          }
+        }
+      },
+      "required": [
+        "contractVersion",
+        "generatedAt",
+        "runtimeRoot",
+        "source",
+        "freshness",
+        "counts",
+        "agents"
+      ]
+    }
+  ]
+}

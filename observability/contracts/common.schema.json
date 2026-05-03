@@ -1,0 +1,106 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://athena.local/observability/contracts/common.schema.json",
+  "title": "Athena Observability Common Types",
+  "type": "object",
+  "$defs": {
+    "contractVersion": {
+      "type": "string",
+      "const": "athena-observability.v1-draft"
+    },
+    "isoDatetime": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "freshness": {
+      "type": "string",
+      "enum": ["live", "stale", "unavailable"]
+    },
+    "simpleSource": {
+      "type": "string",
+      "minLength": 1
+    },
+    "path": {
+      "type": "string",
+      "minLength": 1
+    },
+    "nullablePath": {
+      "type": ["string", "null"]
+    },
+    "percentInt": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 100
+    },
+    "percentNumber": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 100
+    },
+    "queueStatus": {
+      "type": "string",
+      "enum": [
+        "pending",
+        "running",
+        "completed",
+        "failed",
+        "manual_hold",
+        "stale"
+      ]
+    },
+    "taskStage": {
+      "type": "string",
+      "enum": [
+        "think",
+        "plan",
+        "build",
+        "review",
+        "qa",
+        "browse",
+        "distill",
+        "skill_design",
+        "dispatch",
+        "acceptance",
+        "settlement",
+        "audit"
+      ]
+    },
+    "queueCounts": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "pending": { "type": "integer", "minimum": 0 },
+        "running": { "type": "integer", "minimum": 0 },
+        "completed": { "type": "integer", "minimum": 0 },
+        "failed": { "type": "integer", "minimum": 0 },
+        "manual_hold": { "type": "integer", "minimum": 0 }
+      },
+      "required": ["pending", "running", "completed", "failed", "manual_hold"]
+    },
+    "warningList": {
+      "type": "array",
+      "items": { "type": "string" },
+      "default": []
+    },
+    "responseEnvelope": {
+      "type": "object",
+      "additionalProperties": true,
+      "properties": {
+        "contractVersion": { "$ref": "#/$defs/contractVersion" },
+        "generatedAt": { "$ref": "#/$defs/isoDatetime" },
+        "runtimeRoot": { "$ref": "#/$defs/path" },
+        "source": { "$ref": "#/$defs/simpleSource" },
+        "freshness": { "$ref": "#/$defs/freshness" },
+        "message": { "type": "string" },
+        "warnings": { "$ref": "#/$defs/warningList" }
+      },
+      "required": [
+        "contractVersion",
+        "generatedAt",
+        "runtimeRoot",
+        "source",
+        "freshness"
+      ]
+    }
+  }
+}

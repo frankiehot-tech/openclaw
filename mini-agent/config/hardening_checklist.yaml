@@ -1,0 +1,187 @@
+# 安全加固清单 (Hardening Checklist)
+# 为 OpenHuman-Fusion-Automaton 定义最小安全加固基线
+# 版本: 1.0 (最小可运行闭环)
+# 更新: 2026-04-04
+
+version: "1.0"
+updated_at: "2026-04-04"
+description: "OpenHuman-Fusion-Automaton 安全加固清单 - 最小可运行闭环"
+status: "active"
+
+# 安全域 (Security Domains)
+domains:
+  # 1. 身份与访问控制 (Identity & Access Control)
+  - domain_id: "identity_access"
+    domain_name: "身份与访问控制"
+    priority: "high"
+    items:
+      - item_id: "iac_01"
+        description: "API 密钥与敏感配置不得硬编码"
+        check_type: "static_analysis"
+        tool: "grep/secrets_detection"
+        pattern: "(password|secret|token|key|api_key|auth)[\\s]*=([\\s]*['\"][^'\"]+['\"])"
+        status: "implemented"
+        evidence: "配置已外部化至 YAML 文件"
+        risk_if_missing: "高 - 凭证泄露"
+        
+      - item_id: "iac_02"
+        description: "审计日志覆盖关键操作 (登录、权限变更、数据访问)"
+        check_type: "code_review"
+        component: "athena/open_human/phase1/audit/"
+        status: "implemented"
+        evidence: "audit_logger.py 与 audit_schema.py 已就绪"
+        risk_if_missing: "中 - 无法追溯操作"
+        
+      - item_id: "iac_03"
+        description: "最小权限原则 - 服务账户仅拥有必要权限"
+        check_type: "manual_review"
+        status: "mock"
+        evidence: "当前为本地单机环境，权限隔离待生产环境实施"
+        risk_if_missing: "中 - 权限过度分配"
+
+  # 2. 数据安全 (Data Security)
+  - domain_id: "data_security"
+    domain_name: "数据安全"
+    priority: "high"
+    items:
+      - item_id: "ds_01"
+        description: "敏感数据脱敏 (PII、财务信息、凭证)"
+        check_type: "manual_review"
+        status: "partial"
+        evidence: "审计日志中账号ID等已脱敏，财务数据未脱敏"
+        risk_if_missing: "高 - 数据泄露"
+        
+      - item_id: "ds_02"
+        description: "数据传输加密 (HTTPS/TLS)"
+        check_type: "runtime_check"
+        tool: "network_inspection"
+        status: "mock"
+        evidence: "当前为本地进程间通信，未涉及网络传输"
+        risk_if_missing: "高 - 中间人攻击"
+        
+      - item_id: "ds_03"
+        description: "数据存储加密 (静态数据加密)"
+        check_type: "manual_review"
+        status: "not_implemented"
+        evidence: "SQLite 数据库未加密，存储预算数据"
+        risk_if_missing: "中 - 数据泄露"
+
+  # 3. 依赖安全 (Dependency Security)
+  - domain_id: "dependency_security"
+    domain_name: "依赖安全"
+    priority: "medium"
+    items:
+      - item_id: "dep_01"
+        description: "依赖漏洞扫描 (CVE)"
+        check_type: "automated"
+        tool: "safety/pip-audit"
+        status: "not_implemented"
+        evidence: "需集成到 CI/CD 流水线"
+        risk_if_missing: "中 - 已知漏洞利用"
+        
+      - item_id: "dep_02"
+        description: "依赖版本锁定 (requirements.txt/pipfile.lock)"
+        check_type: "static_analysis"
+        status: "partial"
+        evidence: "observability/requirements.txt 存在，其他模块未锁定"
+        risk_if_missing: "低 - 版本漂移导致兼容性问题"
+        
+      - item_id: "dep_03"
+        description: "禁止非官方包源 (仅允许 PyPI)"
+        check_type: "manual_review"
+        status: "implemented"
+        evidence: "未使用非官方源"
+        risk_if_missing: "高 - 供应链攻击"
+
+  # 4. 运行时安全 (Runtime Security)
+  - domain_id: "runtime_security"
+    domain_name: "运行时安全"
+    priority: "medium"
+    items:
+      - item_id: "rs_01"
+        description: "输入验证与消毒 (防止注入攻击)"
+        check_type: "code_review"
+        component: "guards/"
+        status: "implemented"
+        evidence: "account_scope_guard, human_confirmation_guard 等实现输入验证"
+        risk_if_missing: "高 - 注入攻击"
+        
+      - item_id: "rs_02"
+        description: "输出编码 (防止 XSS)"
+        check_type: "code_review"
+        status: "not_applicable"
+        evidence: "当前无 Web 前端直接输出"
+        risk_if_missing: "低"
+        
+      - item_id: "rs_03"
+        description: "异常处理不泄露敏感信息"
+        check_type: "code_review"
+        status: "partial"
+        evidence: "部分异常处理可能泄露堆栈跟踪"
+        risk_if_missing: "中 - 信息泄露"
+
+  # 5. 审计与监控 (Audit & Monitoring)
+  - domain_id: "audit_monitoring"
+    domain_name: "审计与监控"
+    priority: "medium"
+    items:
+      - item_id: "am_01"
+        description: "关键操作审计日志记录"
+        check_type: "runtime_validation"
+        component: "audit_logger.py"
+        status: "implemented"
+        evidence: "审计日志器已实现 JSON Lines 格式输出"
+        risk_if_missing: "中 - 无法追溯安全事件"
+        
+      - item_id: "am_02"
+        description: "异常行为检测规则"
+        check_type: "manual_review"
+        component: "alert_rules.yaml"
+        status: "implemented"
+        evidence: "性能告警规则已定义，安全告警规则待补充"
+        risk_if_missing: "中 - 无法检测异常"
+        
+      - item_id: "am_03"
+        description: "日志保留策略 (时长、归档)"
+        check_type: "manual_review"
+        status: "not_implemented"
+        evidence: "无自动日志轮转与归档"
+        risk_if_missing: "低 - 存储空间与合规"
+
+# 合规与标准
+compliance:
+  - standard: "OWASP Top 10"
+    coverage: "partial"
+    notes: "覆盖注入、失效的身份认证、敏感信息泄露等部分项"
+    
+  - standard: "GDPR/PIPL"
+    coverage: "partial"
+    notes: "审计日志包含数据主体标识，但未实现完整的数据主体权利流程"
+
+# 实施状态摘要
+summary:
+  total_items: 15
+  implemented: 6
+  partial: 3
+  not_implemented: 4
+  not_applicable: 1
+  mock: 1
+  
+  risk_assessment:
+    high_risk_items: 3
+    medium_risk_items: 7
+    low_risk_items: 5
+
+# 验证指令
+validation_instructions:
+  - description: "运行安全检查脚本"
+    command: "python scripts/security_hardening_check.py --checklist"
+    expected_output: "安全检查报告 JSON"
+    
+  - description: "验证审计日志功能"
+    command: "python -c 'from athena.open_human.phase1.audit.audit_logger import get_default_audit_logger; logger = get_default_audit_logger(); print(f\"Audit log path: {logger.get_log_path()}\")'"
+    expected_output: "审计日志路径确认"
+    
+  - description: "检查敏感信息硬编码"
+    command: "grep -r \"password\\|secret\\|token\\|key\\|api_key\\|auth\" --include=\"*.py\" --include=\"*.yaml\" --include=\"*.yml\" scripts/ mini-agent/ athena/ | grep -v '.pyc' | grep -v '__pycache__' | grep -v 'hardening_checklist.yaml' | grep -v 'test_'"
+    expected_output: "无敏感信息硬编码（或仅限测试文件）"

@@ -114,7 +114,7 @@ def check_queue_status():
                             "failed": 0,
                             "manual_hold": 0,
                         }
-                        for task_id, task in items.items():
+                        for _task_id, task in items.items():
                             status = task.get("status", "pending")
                             if status in new_counts:
                                 new_counts[status] += 1

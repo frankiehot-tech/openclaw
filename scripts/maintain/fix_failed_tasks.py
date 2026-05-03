@@ -51,7 +51,7 @@ def fix_failed_tasks(queue_id):
     if fixed_count > 0:
         # 重新计算counts
         new_counts = {"pending": 0, "running": 0, "completed": 0, "failed": 0, "manual_hold": 0}
-        for task_id, task in items.items():
+        for _task_id, task in items.items():
             status = task.get("status", "pending")
             if status in new_counts:
                 new_counts[status] += 1

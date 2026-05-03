@@ -14,14 +14,14 @@ Merges: fix_dependency_block, fix_dependency_block_v2, fix_dependency_block_chai
 
 from __future__ import annotations
 
-import json
 import os
 import re
-import shutil
 import subprocess
 from datetime import UTC, datetime
 from pathlib import Path
 from typing import Any
+
+from ._utils import atomic_write_json, load_json_safe
 
 
 def _now_iso() -> str:
@@ -37,18 +37,11 @@ def _root() -> Path:
 # ---------------------------------------------------------------------------
 
 def _load_json(path: Path) -> dict[str, Any] | None:
-    try:
-        with open(path, encoding="utf-8") as f:
-            return json.load(f)
-    except Exception:
-        return None
+    return load_json_safe(path)
 
 
 def _save_json(path: Path, data: dict[str, Any]) -> None:
-    backup = path.with_suffix(f".repair_backup_{datetime.now().strftime('%Y%m%d_%H%M%S')}")
-    shutil.copy2(str(path), str(backup))
-    with open(path, "w", encoding="utf-8") as f:
-        json.dump(data, f, indent=2, ensure_ascii=False)
+    atomic_write_json(path, data)
 
 
 def _recalc_counts(items: dict[str, dict[str, Any]]) -> dict[str, int]:

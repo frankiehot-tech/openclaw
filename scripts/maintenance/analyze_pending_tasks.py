@@ -55,7 +55,7 @@ def analyze_pending_tasks(queue_data):
 
     # 统计状态
     status_counts = defaultdict(int)
-    for task_id, task in items.items():
+    for _task_id, task in items.items():
         status = task.get("status", "unknown")
         status_counts[status] += 1
 

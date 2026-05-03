@@ -295,7 +295,7 @@ def scan_and_convert():
     if new_tasks:
         # 重新计算计数
         counts = {"pending": 0, "running": 0, "completed": 0, "failed": 0, "manual_hold": 0}
-        for task_id, task in queue_data.get("items", {}).items():
+        for _task_id, task in queue_data.get("items", {}).items():
             status = task.get("status", "pending")
             if status in counts:
                 counts[status] += 1

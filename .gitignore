@@ -87,27 +87,20 @@ openclaw-openhuman-alignment/
 # 去除根目录排除，由 agent_system/.gitignore 自身管理
 agents/
 artifacts/
-athena/
 audit_results/
 audit_test/
 candidates/
 chaos_test_results/
 completed/
-contracts/
 deployment_backups/
 harness/
 memory/
 nonconforming_archive/
-observability/
 patterns/
 static/
 templates/
-workflow/
 EVO/
 archive/
-config/
-logs/
-monitoring/
 quality_report.json
 .dashboard.log
 queue_runner.log

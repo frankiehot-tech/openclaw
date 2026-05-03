@@ -150,10 +150,18 @@ class TestQueueHealthMonitor:
     def test_check_cpu_returns_dict(self):
         result = QueueHealthMonitor.check_cpu()
         assert isinstance(result, dict)
+        assert "cpu_percent" in result
+        assert "alert" in result
+        assert isinstance(result["cpu_percent"], (int, float))
+        assert isinstance(result["alert"], bool)
 
     def test_check_memory_returns_dict(self):
         result = QueueHealthMonitor.check_memory()
         assert isinstance(result, dict)
+        assert "percent" in result
+        assert "free_gb" in result
+        assert isinstance(result["percent"], (int, float))
+        assert isinstance(result["free_gb"], (int, float))
 
 
 class TestQueueProtector:
@@ -167,6 +175,8 @@ class TestQueueProtector:
         protector = QueueProtector()
         result = protector.check_runners()
         assert isinstance(result, dict)
+        for v in result.values():
+            assert isinstance(v, bool)
 
 
 class TestSystemHealth:
@@ -226,6 +236,7 @@ class TestRepairTools:
     def test_check_process_returns_bool(self):
         result = RepairTools.check_process("python")
         assert isinstance(result, bool)
+        assert RepairTools.check_process("this_process_does_not_exist_xyz_12345") is False
 
 
 # =========================================================================

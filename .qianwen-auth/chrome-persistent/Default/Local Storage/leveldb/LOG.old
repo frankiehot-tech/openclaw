@@ -1,0 +1,12 @@
+2026/05/03-14:46:31.771 18110b7 Reusing MANIFEST /Volumes/1TB-M2/openclaw/.qianwen-auth/chrome-persistent/Default/Local Storage/leveldb/MANIFEST-000001
+2026/05/03-14:46:31.773 18110b7 Recovering log #35
+2026/05/03-14:46:31.774 18110b7 Reusing old log /Volumes/1TB-M2/openclaw/.qianwen-auth/chrome-persistent/Default/Local Storage/leveldb/000035.log 
+2026/05/03-14:48:35.126 18124fa Level-0 table #39: started
+2026/05/03-14:48:35.154 18124fa Level-0 table #39: 40472 bytes OK
+2026/05/03-14:48:35.195 18124fa Delete type=0 #35
+2026/05/03-14:50:35.131 18110ba Level-0 table #41: started
+2026/05/03-14:50:35.141 18110ba Level-0 table #41: 28529 bytes OK
+2026/05/03-14:50:35.162 18110ba Delete type=0 #38
+2026/05/03-14:52:10.674 18110ba Level-0 table #43: started
+2026/05/03-14:52:10.684 18110ba Level-0 table #43: 28444 bytes OK
+2026/05/03-14:52:10.708 18110ba Delete type=0 #40

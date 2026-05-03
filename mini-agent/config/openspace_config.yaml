@@ -1,0 +1,386 @@
+# OpenSpace 本地适配器配置契约
+# 遵循 Athena local-first 架构，默认禁用云同步与外部写出
+# 作为 OpenSpace 集成的最小骨架，为后续 metrics/sandbox/audit 提供复用接口
+
+version: "1.0"
+updated_at: "2026-04-03"
+description: "OpenSpace 本地优先适配器配置契约 - 定义本地优先、禁云、沙箱要求及数据交换 schema"
+schema_version: "1.0"
+compatibility_version: "1.0"
+
+# ==================== 本地优先与禁云策略 ====================
+local_first_policy:
+  description: "本地优先策略 - 明确禁止云同步与外部写出，确保所有操作在本地完成"
+  
+  # 强制本地优先设置
+  enforced_settings:
+    cloud_sync_disabled: true
+    external_write_disabled: true
+    local_only: true
+    
+  # 云同步禁用详情
+  cloud_sync_disabled_detail:
+    disabled_services:
+      - "openai_cloud_sync"
+      - "github_gist_backup"
+      - "external_skill_market"
+      - "community_skill_sharing"
+    allowed_local_exports:
+      - "local_disk_export"
+      - "local_network_share"  # 仅限可信本地网络
+      
+  # 外部写出禁用详情
+  external_write_disabled_detail:
+    blocked_destinations:
+      - "external_apis"
+      - "cloud_storage"
+      - "remote_databases"
+      - "third_party_services"
+    allowed_local_writes:
+      - "local_log_files"
+      - "local_metrics_store"
+      - "local_sandbox_artifacts"
+      
+  # 本地优先验证检查点
+  validation_checkpoints:
+    - "pre_execution_cloud_check"
+    - "post_execution_data_egress_audit"
+    - "runtime_network_monitoring"
+
+# ==================== 沙箱要求 ====================
+sandbox_requirements:
+  description: "沙箱执行环境要求 - 确保技能进化与优化在隔离环境中执行"
+  
+  # 沙箱类型定义
+  sandbox_types:
+    local_sandbox:
+      name: "本地进程沙箱"
+      isolation_level: "process"
+      resource_limits:
+        cpu_quota: "80%"
+        memory_limit: "2GB"
+        disk_quota: "10GB"
+      network_policy: "local_only"
+      allowed_hosts: ["127.0.0.1", "localhost"]
+      
+    container_sandbox:
+      name: "容器沙箱"
+      isolation_level: "container"
+      runtime: "docker"
+      image: "openspace-sandbox:latest"
+      resource_limits:
+        cpu_shares: 512
+        memory_limit: "4GB"
+        disk_size: "20GB"
+      network_policy: "none"
+      capabilities_drop: ["ALL"]
+      
+  # 默认沙箱选择（根据环境自动选择）
+  default_sandbox: "local_sandbox"
+  fallback_sandbox: "container_sandbox"
+  
+  # 沙箱准入检查
+  admission_checks:
+    required:
+      - "resource_availability"
+      - "isolation_verification"
+      - "clean_state_guarantee"
+    optional:
+      - "performance_baseline"
+      - "security_scan"
+
+# ==================== 数据交换 Schema ====================
+# 定义 Athena <-> OpenSpace 数据交换的最小结构化 schema
+# 确保结果结构化，不只返回自然语言
+
+data_exchange_schema:
+  description: "Athena <-> OpenSpace 数据交换骨架 - 技能输入、性能指标输入、优化建议输出"
+  
+  # 技能输入 Schema (Athena -> OpenSpace)
+  skill_input:
+    schema_version: "1.0"
+    required_fields:
+      - "skill_id"
+      - "skill_definition"
+      - "execution_context"
+    fields:
+      skill_id:
+        type: "string"
+        description: "技能唯一标识符"
+        example: "openhuman-skill-matcher"
+        
+      skill_definition:
+        type: "object"
+        description: "完整技能定义"
+        fields:
+          name: { type: "string", description: "技能名称" }
+          description: { type: "string", description: "技能描述" }
+          category: { type: "string", description: "技能分类" }
+          executable: { type: "boolean", description: "是否可执行" }
+          path: { type: "string", description: "技能路径" }
+          command: { type: "string", description: "执行命令", optional: true }
+          arguments_schema: { type: "array", description: "参数schema" }
+          dependencies: { type: "array", description: "依赖列表" }
+          gate_conditions: { type: "array", description: "门控条件" }
+          
+      execution_context:
+        type: "object"
+        description: "执行上下文"
+        fields:
+          task_id: { type: "string", description: "任务ID", optional: true }
+          session_id: { type: "string", description: "会话ID", optional: true }
+          risk_level: { type: "string", enum: ["low", "medium", "high"], description: "风险等级" }
+          sandbox_required: { type: "boolean", description: "是否需要沙箱" }
+          
+      performance_baseline:
+        type: "object"
+        description: "性能基线数据（可选）"
+        optional: true
+        fields:
+          execution_time_ms: { type: "number", description: "执行时间（毫秒）" }
+          success_rate: { type: "number", description: "成功率（0-1）" }
+          resource_usage: { type: "object", description: "资源使用情况" }
+          
+  # 性能指标输入 Schema (Athena -> OpenSpace)
+  performance_metrics_input:
+    schema_version: "1.0"
+    required_fields:
+      - "metric_id"
+      - "metric_type"
+      - "values"
+    fields:
+      metric_id:
+        type: "string"
+        description: "指标唯一标识符"
+        example: "skill_execution_time"
+        
+      metric_type:
+        type: "string"
+        enum: ["execution_time", "success_rate", "resource_usage", "accuracy", "latency"]
+        description: "指标类型"
+        
+      values:
+        type: "array"
+        description: "指标值序列"
+        items:
+          type: "object"
+          fields:
+            timestamp: { type: "string", format: "iso8601", description: "时间戳" }
+            value: { type: "number", description: "指标值" }
+            context: { type: "object", description: "上下文信息", optional: true }
+            
+      aggregation_period:
+        type: "string"
+        enum: ["hourly", "daily", "weekly", "monthly"]
+        description: "聚合周期"
+        optional: true
+        
+  # 优化建议输出 Schema (OpenSpace -> Athena)
+  optimization_suggestions_output:
+    schema_version: "1.0"
+    required_fields:
+      - "suggestion_id"
+      - "skill_id"
+      - "suggestion_type"
+      - "changes"
+    fields:
+      suggestion_id:
+        type: "string"
+        description: "建议唯一标识符"
+        format: "uuid"
+        
+      skill_id:
+        type: "string"
+        description: "目标技能ID"
+        
+      suggestion_type:
+        type: "string"
+        enum: ["code_optimization", "parameter_tuning", "dependency_update", "architecture_change", "performance_improvement"]
+        description: "建议类型"
+        
+      changes:
+        type: "array"
+        description: "具体变更建议"
+        items:
+          type: "object"
+          fields:
+            component: { type: "string", description: "组件名称" }
+            current_value: { type: "string", description: "当前值" }
+            suggested_value: { type: "string", description: "建议值" }
+            rationale: { type: "string", description: "变更理由" }
+            expected_impact: { type: "object", description: "预期影响", optional: true }
+            
+      confidence_score:
+        type: "number"
+        description: "置信度分数（0-1）"
+        optional: true
+        
+      estimated_effort:
+        type: "string"
+        enum: ["low", "medium", "high"]
+        description: "预估实施工作量"
+        optional: true
+        
+      validation_requirements:
+        type: "array"
+        description: "验证要求"
+        optional: true
+        items:
+          type: "string"
+          enum: ["sandbox_test", "performance_benchmark", "security_review", "human_approval"]
+          
+  # 结果包装 Schema（所有 OpenSpace 响应的统一包装）
+  result_wrapper:
+    schema_version: "1.0"
+    required_fields:
+      - "success"
+      - "request_id"
+      - "timestamp"
+    fields:
+      success:
+        type: "boolean"
+        description: "请求是否成功"
+        
+      request_id:
+        type: "string"
+        description: "请求ID"
+        format: "uuid"
+        
+      timestamp:
+        type: "string"
+        format: "iso8601"
+        description: "响应时间戳"
+        
+      data:
+        type: "object"
+        description: "响应数据（根据具体操作类型变化）"
+        optional: true
+        
+      error:
+        type: "object"
+        description: "错误信息"
+        optional: true
+        fields:
+          code: { type: "string", description: "错误代码" }
+          message: { type: "string", description: "错误消息" }
+          details: { type: "object", description: "错误详情", optional: true }
+        
+      warnings:
+        type: "array"
+        description: "警告信息"
+        optional: true
+        items:
+          type: "object"
+          fields:
+            code: { type: "string", description: "警告代码" }
+            message: { type: "string", description: "警告消息" }
+
+# ==================== 适配器运行时配置 ====================
+adapter_runtime:
+  description: "OpenSpace 适配器运行时配置"
+  
+  # 适配器模式
+  modes:
+    local_only:
+      name: "本地优先模式"
+      description: "完全本地运行，禁用所有外部依赖"
+      features:
+        - "local_sandbox_execution"
+        - "local_metrics_collection"
+        - "local_optimization_suggestions"
+        
+    hybrid:
+      name: "混合模式"
+      description: "本地执行，可选外部分析（需显式启用）"
+      features:
+        - "local_sandbox_execution"
+        - "optional_cloud_analysis"
+        - "manual_export_only"
+      requires_explicit_consent: true
+      
+  # 默认模式
+  default_mode: "local_only"
+  
+  # 运行时限制
+  runtime_limits:
+    max_concurrent_evolutions: 1
+    max_sandbox_duration_seconds: 3600
+    max_skill_size_mb: 100
+    daily_evolution_limit: 10
+    
+  # 日志与审计
+  logging:
+    audit_log_enabled: true
+    performance_log_enabled: true
+    local_log_retention_days: 30
+    audit_log_path: "logs/openspace_audit.log"
+    performance_log_path: "logs/openspace_performance.log"
+
+# ==================== 与现有控制面集成 ====================
+control_plane_integration:
+  description: "与 Athena 控制面的集成配置"
+  
+  # 作用域映射
+  scope_mapping:
+    openspace_config:
+      scope: "project.openspace_integration"
+      role: "openspace_adapter_config"
+      
+    local_first_policy:
+      scope: "local_first_policy.never_leaves_local"
+      extends: true
+      
+    sandbox_requirements:
+      scope: "session.execution_context.sandbox_required"
+      default_value: true
+      
+  # 集成点
+  integration_points:
+    - "skill_registry.py::SkillRegistry.execute_skill() - 添加 OpenSpace 性能收集钩子"
+    - "athena_orchestrator.py::Orchestrator.check_tool_guardrail() - 添加 OpenSpace 约束检查"
+    - "subagent_registry.py::SubAgentRegistry.register() - 注册 OpenSpace 适配器作为子代理"
+    
+  # 兼容性桥接
+  compatibility_bridge:
+    legacy_support: false
+    migration_path: "直接集成到现有技能系统"
+    deprecation_timeline: "无"
+
+# ==================== 验证规则 ====================
+validation_rules:
+  description: "配置验证规则"
+  
+  required_validations:
+    - "cloud_sync_disabled must be true"
+    - "local_only must be true"
+    - "sandbox_required must be true for evolution operations"
+    
+  schema_validations:
+    - "data_exchange_schema must conform to defined structure"
+    - "skill_input must contain required fields"
+    - "optimization_suggestions_output must be structured"
+    
+  runtime_validations:
+    - "network egress blocked during sandbox execution"
+    - "local file writes only to allowed paths"
+    - "resource limits enforced"
+
+# ==================== 配置优先级与合并 ====================
+configuration_priority:
+  description: "配置优先级 - 遵循 Athena 控制面优先级 session > local > project > managed"
+  priority_order: ["session", "local", "project", "managed"]
+  
+  # OpenSpace 特定覆盖规则
+  openspace_specific_overrides:
+    cloud_sync_disabled: "不可覆盖 - 必须为 true"
+    local_only: "不可覆盖 - 必须为 true"
+    sandbox_required: "可被 session 层临时覆盖（如调试模式）"
+    
+  # 配置来源
+  config_sources:
+    primary: "openspace_config.yaml"
+    fallback: "control_plane.yaml 中的 openspace_integration 部分"
+    environment_variables:
+      - "OPENSPACE_LOCAL_ONLY"
+      - "OPENSPACE_SANDBOX_REQUIRED"
+      - "OPENSPACE_CLOUD_SYNC_DISABLED"

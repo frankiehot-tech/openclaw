@@ -1,0 +1,33 @@
+{
+  "frontend": {
+    "enabled": true,
+    "name": "stitch-frontend",
+    "version": "0.1.0",
+    "paths": {
+      "workspace": "../../workspace/stitch-frontend",
+      "buildOutput": "../../workspace/stitch-frontend/.next",
+      "staticAssets": "../../workspace/stitch-frontend/public"
+    },
+    "integration": {
+      "athenaApi": "http://localhost:3001/api",
+      "webSocketEndpoint": "ws://localhost:3001/ws",
+      "pollingInterval": 5000
+    },
+    "features": {
+      "chat": true,
+      "skills": true,
+      "tasks": true,
+      "settings": true
+    }
+  },
+  "apiProxy": {
+    "enabled": true,
+    "port": 3002,
+    "target": "http://localhost:3000",
+    "routes": [
+      { "path": "/api/chat", "proxyTo": "http://localhost:3001/api/chat" },
+      { "path": "/api/tasks", "proxyTo": "http://localhost:3001/api/tasks" },
+      { "path": "/api/skills", "proxyTo": "http://localhost:3001/api/skills" }
+    ]
+  }
+}

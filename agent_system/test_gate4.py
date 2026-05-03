@@ -65,10 +65,7 @@ def is_desktop_screen(description):
         return False
     text = description.get("text", "").lower()
     desktop_keywords = ["桌面", "主屏幕", "应用图标", "app", "图标", "主页", "启动器", "launcher"]
-    for keyword in desktop_keywords:
-        if keyword in text:
-            return True
-    return False
+    return any(keyword in text for keyword in desktop_keywords)
 
 
 def check_desktop_by_adb():
@@ -80,9 +77,7 @@ def check_desktop_by_adb():
             text=True,
             timeout=5,
         )
-        if "com.sec.android.app.launcher" in result.stdout:
-            return True
-        return False
+        return "com.sec.android.app.launcher" in result.stdout
     except:
         return False
 
@@ -93,10 +88,7 @@ def is_settings_screen(description):
         return False
     text = description.get("text", "").lower()
     settings_keywords = ["设置", "settings", "系统设置", "配置", "关于手机", "galaxy", "三星"]
-    for keyword in settings_keywords:
-        if keyword in text:
-            return True
-    return False
+    return any(keyword in text for keyword in settings_keywords)
 
 
 def main():

@@ -118,7 +118,7 @@ def print_category_report(process_categories):
 
     # 检查是否有僵尸进程
     zombie_count = 0
-    for category, processes in process_categories.items():
+    for _category, processes in process_categories.items():
         for proc in processes:
             if proc["status"] == psutil.STATUS_ZOMBIE:
                 zombie_count += 1

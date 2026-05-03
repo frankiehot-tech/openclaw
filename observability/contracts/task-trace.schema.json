@@ -1,0 +1,103 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://athena.local/observability/contracts/task-trace.schema.json",
+  "title": "Athena Task Trace",
+  "allOf": [
+    {
+      "$ref": "./common.schema.json#/$defs/responseEnvelope"
+    },
+    {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "contractVersion": { "$ref": "./common.schema.json#/$defs/contractVersion" },
+        "generatedAt": { "$ref": "./common.schema.json#/$defs/isoDatetime" },
+        "runtimeRoot": { "$ref": "./common.schema.json#/$defs/path" },
+        "source": { "type": "string", "const": "trace.json" },
+        "freshness": { "$ref": "./common.schema.json#/$defs/freshness" },
+        "message": { "type": "string" },
+        "warnings": { "$ref": "./common.schema.json#/$defs/warningList" },
+        "taskId": { "type": "string", "minLength": 1 },
+        "taskDir": { "$ref": "./common.schema.json#/$defs/path" },
+        "tracePath": { "$ref": "./common.schema.json#/$defs/path" },
+        "createdAt": { "$ref": "./common.schema.json#/$defs/isoDatetime" },
+        "version": { "type": "string" },
+        "events": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "timestamp": { "$ref": "./common.schema.json#/$defs/isoDatetime" },
+              "type": { "type": "string", "minLength": 1 },
+              "data": {
+                "type": "object",
+                "additionalProperties": true
+              }
+            },
+            "required": ["timestamp", "type", "data"]
+          }
+        },
+        "artifacts": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "timestamp": { "$ref": "./common.schema.json#/$defs/isoDatetime" },
+              "artifactType": { "type": "string", "minLength": 1 },
+              "path": { "$ref": "./common.schema.json#/$defs/path" },
+              "metadata": {
+                "type": "object",
+                "additionalProperties": true
+              }
+            },
+            "required": ["timestamp", "artifactType", "path", "metadata"]
+          }
+        },
+        "statusChanges": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "timestamp": { "$ref": "./common.schema.json#/$defs/isoDatetime" },
+              "oldStatus": { "type": "string" },
+              "newStatus": { "type": "string" },
+              "reason": { "type": "string" }
+            },
+            "required": ["timestamp", "oldStatus", "newStatus", "reason"]
+          }
+        },
+        "directories": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "workspace": { "type": "string" },
+            "inputs": { "type": "string" },
+            "outputs": { "type": "string" },
+            "evidence": { "type": "string" },
+            "checkpoints": { "type": "string" }
+          },
+          "required": ["workspace", "inputs", "outputs", "evidence", "checkpoints"]
+        }
+      },
+      "required": [
+        "contractVersion",
+        "generatedAt",
+        "runtimeRoot",
+        "source",
+        "freshness",
+        "taskId",
+        "taskDir",
+        "tracePath",
+        "createdAt",
+        "version",
+        "events",
+        "artifacts",
+        "statusChanges",
+        "directories"
+      ]
+    }
+  ]
+}

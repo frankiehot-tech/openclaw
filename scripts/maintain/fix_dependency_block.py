@@ -197,7 +197,7 @@ def main():
     print("\n🧮 重新计算计数...")
     status_counts = {"pending": 0, "running": 0, "completed": 0, "failed": 0, "manual_hold": 0}
 
-    for task_id, task_data in items.items():
+    for _task_id, task_data in items.items():
         status = task_data.get("status", "pending")
         if status in status_counts:
             status_counts[status] += 1

@@ -507,10 +507,7 @@ class MiniCPMClient:
             return False
 
         # 最大不超过屏幕 95%（放宽限制以支持列表项等大元素）
-        if width > 1080 * 0.95 or height > 2640 * 0.95:
-            return False
-
-        return True
+        return not (width > 1080 * 0.95 or height > 2640 * 0.95)
 
     def _parse_response(self, response: dict) -> MiniCPMResult:
         """

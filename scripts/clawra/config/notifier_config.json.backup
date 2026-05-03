@@ -1,0 +1,17 @@
+{
+  "wecom_enabled": false,
+  "wecom_webhook": "",
+  "email_enabled": true,
+  "email_smtp_server": "smtp.gmail.com",
+  "email_smtp_port": 587,
+  "email_sender": "maref.monitor@example.com",
+  "email_receivers": ["your.email@example.com"],
+  "email_password": "your_app_password_here",
+  "slack_enabled": false,
+  "slack_webhook": "",
+  "file_log_enabled": true,
+  "file_log_path": "/Volumes/1TB-M2/openclaw/scripts/clawra/logs/maref_notifications.log",
+  "console_log_enabled": true,
+  "athena_integration_enabled": true,
+  "athena_notification_api": "http://localhost:8000/api/notifications"
+}

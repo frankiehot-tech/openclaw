@@ -55,7 +55,7 @@ def main():
 
     # 重新计算counts
     counts = {"pending": 0, "running": 0, "completed": 0, "failed": 0, "manual_hold": 0}
-    for task_id, task in items.items():
+    for _task_id, task in items.items():
         status = task.get("status", "pending")
         if status in counts:
             counts[status] += 1

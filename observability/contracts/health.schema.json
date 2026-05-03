@@ -1,0 +1,110 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://athena.local/observability/contracts/health.schema.json",
+  "title": "Athena Adapter Health",
+  "allOf": [
+    {
+      "$ref": "./common.schema.json#/$defs/responseEnvelope"
+    },
+    {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "contractVersion": { "$ref": "./common.schema.json#/$defs/contractVersion" },
+        "generatedAt": { "$ref": "./common.schema.json#/$defs/isoDatetime" },
+        "runtimeRoot": { "$ref": "./common.schema.json#/$defs/path" },
+        "source": { "type": "string", "const": "adapter.health" },
+        "freshness": { "$ref": "./common.schema.json#/$defs/freshness" },
+        "message": { "type": "string" },
+        "warnings": { "$ref": "./common.schema.json#/$defs/warningList" },
+        "status": {
+          "type": "string",
+          "enum": ["ok", "degraded", "unavailable"]
+        },
+        "adapterVersion": {
+          "type": "string"
+        },
+        "uptimeSeconds": {
+          "type": "number",
+          "minimum": 0
+        },
+        "paths": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "planConfigPath": { "$ref": "./common.schema.json#/$defs/path" },
+            "queueStateDir": { "$ref": "./common.schema.json#/$defs/path" },
+            "tasksPath": { "$ref": "./common.schema.json#/$defs/path" },
+            "tasksDir": { "$ref": "./common.schema.json#/$defs/path" },
+            "agentStatePath": { "$ref": "./common.schema.json#/$defs/path" },
+            "tokenFile": { "$ref": "./common.schema.json#/$defs/path" },
+            "webPortFile": { "$ref": "./common.schema.json#/$defs/path" }
+          },
+          "required": [
+            "planConfigPath",
+            "queueStateDir",
+            "tasksPath",
+            "tasksDir",
+            "agentStatePath",
+            "tokenFile",
+            "webPortFile"
+          ]
+        },
+        "pathChecks": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "name": { "type": "string" },
+              "path": { "$ref": "./common.schema.json#/$defs/path" },
+              "exists": { "type": "boolean" },
+              "required": { "type": "boolean" },
+              "status": {
+                "type": "string",
+                "enum": ["ok", "missing", "warning"]
+              }
+            },
+            "required": ["name", "path", "exists", "required", "status"]
+          }
+        },
+        "dependencies": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "queueSnapshot": {
+              "type": "string",
+              "enum": ["ok", "degraded", "unavailable"]
+            },
+            "systemFacts": {
+              "type": "string",
+              "enum": ["ok", "degraded", "unavailable"]
+            },
+            "tasksIndex": {
+              "type": "string",
+              "enum": ["ok", "degraded", "unavailable"]
+            },
+            "chatRuntime": {
+              "type": "string",
+              "enum": ["ok", "degraded", "unavailable"]
+            }
+          },
+          "required": ["queueSnapshot", "systemFacts", "tasksIndex", "chatRuntime"]
+        }
+      },
+      "required": [
+        "contractVersion",
+        "generatedAt",
+        "runtimeRoot",
+        "source",
+        "freshness",
+        "status",
+        "adapterVersion",
+        "uptimeSeconds",
+        "paths",
+        "pathChecks",
+        "dependencies"
+      ]
+    }
+  ]
+}

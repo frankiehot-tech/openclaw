@@ -1,0 +1,181 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://athena.local/observability/contracts/queues.schema.json",
+  "title": "Athena Queue Snapshot",
+  "allOf": [
+    {
+      "$ref": "./common.schema.json#/$defs/responseEnvelope"
+    },
+    {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "contractVersion": { "$ref": "./common.schema.json#/$defs/contractVersion" },
+        "generatedAt": { "$ref": "./common.schema.json#/$defs/isoDatetime" },
+        "runtimeRoot": { "$ref": "./common.schema.json#/$defs/path" },
+        "source": { "type": "string", "const": "athena_web_desktop_compat.py" },
+        "freshness": { "$ref": "./common.schema.json#/$defs/freshness" },
+        "message": { "type": "string" },
+        "warnings": { "$ref": "./common.schema.json#/$defs/warningList" },
+        "found": { "type": "boolean" },
+        "configPath": { "$ref": "./common.schema.json#/$defs/path" },
+        "counts": { "$ref": "./common.schema.json#/$defs/queueCounts" },
+        "autoCounts": { "$ref": "./common.schema.json#/$defs/queueCounts" },
+        "manualCounts": { "$ref": "./common.schema.json#/$defs/queueCounts" },
+        "routes": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "routeId": { "type": "string", "minLength": 1 },
+              "queueId": { "type": "string" },
+              "name": { "type": "string", "minLength": 1 },
+              "runnerMode": { "type": "string", "minLength": 1 },
+              "manifestPath": { "$ref": "./common.schema.json#/$defs/path" },
+              "statePath": { "$ref": "./common.schema.json#/$defs/path" },
+              "currentItemId": { "type": "string" },
+              "currentItemIds": {
+                "type": "array",
+                "items": { "type": "string" }
+              },
+              "counts": { "$ref": "./common.schema.json#/$defs/queueCounts" },
+              "queueStatus": {
+                "type": "string",
+                "enum": [
+                  "running",
+                  "paused",
+                  "idle",
+                  "empty",
+                  "dependency_blocked",
+                  "no_consumer"
+                ]
+              },
+              "pauseReason": { "type": "string" },
+              "nextActionHint": { "type": "string" },
+              "message": { "type": "string" },
+              "items": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "properties": {
+                    "id": { "type": "string", "minLength": 1 },
+                    "title": { "type": "string", "minLength": 1 },
+                    "status": { "$ref": "./common.schema.json#/$defs/queueStatus" },
+                    "statusLabel": { "type": "string" },
+                    "entryStage": { "$ref": "./common.schema.json#/$defs/taskStage" },
+                    "riskLevel": {
+                      "type": "string",
+                      "enum": ["low", "medium", "high", "critical"]
+                    },
+                    "priority": { "type": "string" },
+                    "lane": { "type": "string" },
+                    "dependsOn": {
+                      "type": "array",
+                      "items": { "type": "string" }
+                    },
+                    "instructionPath": { "type": "string" },
+                    "rootTaskId": { "type": "string" },
+                    "stage": { "type": "string" },
+                    "executor": { "type": "string" },
+                    "startedAt": { "type": "string" },
+                    "finishedAt": { "type": "string" },
+                    "summary": { "type": "string" },
+                    "artifactPath": { "type": "string" },
+                    "error": { "type": "string" },
+                    "resultExcerpt": { "type": "string" },
+                    "pipelineSummary": { "type": "string" },
+                    "artifactPaths": {
+                      "type": "array",
+                      "items": { "type": "string" }
+                    },
+                    "progressPercent": {
+                      "$ref": "./common.schema.json#/$defs/percentInt"
+                    },
+                    "expectedStages": {
+                      "type": "array",
+                      "items": { "type": "string" }
+                    },
+                    "currentStageIds": {
+                      "type": "array",
+                      "items": { "type": "string" }
+                    },
+                    "runnerPid": {
+                      "type": ["integer", "null"],
+                      "minimum": 1
+                    },
+                    "runnerHeartbeatAt": { "type": "string" },
+                    "manualOverrideAutostart": { "type": "boolean" },
+                    "retryable": { "type": "boolean" },
+                    "isCurrent": { "type": "boolean" }
+                  },
+                  "required": [
+                    "id",
+                    "title",
+                    "status",
+                    "statusLabel",
+                    "entryStage",
+                    "riskLevel",
+                    "priority",
+                    "lane",
+                    "dependsOn",
+                    "instructionPath",
+                    "rootTaskId",
+                    "stage",
+                    "executor",
+                    "startedAt",
+                    "finishedAt",
+                    "summary",
+                    "artifactPath",
+                    "error",
+                    "resultExcerpt",
+                    "pipelineSummary",
+                    "artifactPaths",
+                    "progressPercent",
+                    "expectedStages",
+                    "currentStageIds",
+                    "runnerPid",
+                    "runnerHeartbeatAt",
+                    "manualOverrideAutostart",
+                    "retryable",
+                    "isCurrent"
+                  ]
+                }
+              }
+            },
+            "required": [
+              "routeId",
+              "queueId",
+              "name",
+              "runnerMode",
+              "manifestPath",
+              "statePath",
+              "currentItemId",
+              "currentItemIds",
+              "counts",
+              "queueStatus",
+              "pauseReason",
+              "nextActionHint",
+              "message",
+              "items"
+            ]
+          }
+        }
+      },
+      "required": [
+        "contractVersion",
+        "generatedAt",
+        "runtimeRoot",
+        "source",
+        "freshness",
+        "found",
+        "configPath",
+        "counts",
+        "autoCounts",
+        "manualCounts",
+        "routes"
+      ]
+    }
+  ]
+}

@@ -57,7 +57,7 @@ def check_skills():
     if bun_links:
         # All bun links should have the same cache prefix
         prefixes = set()
-        for name, target in bun_links:
+        for _name, target in bun_links:
             parts = target.replace(BUN_CACHE_PREFIX, "").split("/")
             if parts:
                 prefixes.add(parts[0])

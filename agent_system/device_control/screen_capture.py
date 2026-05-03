@@ -8,6 +8,7 @@ Screen Capture - 屏幕截图模块
 import hashlib
 import logging
 import os
+import shlex
 import subprocess
 from datetime import datetime
 
@@ -59,7 +60,7 @@ def capture_screen(device_id: str | None = None, save: bool = True) -> str | Non
 
     try:
         # 执行截图命令
-        result1 = subprocess.run(cmd1, shell=True, capture_output=True, timeout=30)
+        result1 = subprocess.run(shlex.split(cmd1), capture_output=True, timeout=30)
         if result1.returncode != 0:
             logger.error(
                 f"截图命令失败: {result1.stderr.decode() if result1.stderr else 'Unknown'}"
@@ -67,7 +68,7 @@ def capture_screen(device_id: str | None = None, save: bool = True) -> str | Non
             return None
 
         # 拉取文件
-        result2 = subprocess.run(cmd2, shell=True, capture_output=True, timeout=30)
+        result2 = subprocess.run(shlex.split(cmd2), capture_output=True, timeout=30)
         if result2.returncode != 0:
             logger.error(
                 f"拉取截图失败: {result2.stderr.decode() if result2.stderr else 'Unknown'}"
@@ -75,7 +76,7 @@ def capture_screen(device_id: str | None = None, save: bool = True) -> str | Non
             return None
 
         # 清理设备端临时文件
-        subprocess.run(cmd3, shell=True, capture_output=True, timeout=10)
+        subprocess.run(shlex.split(cmd3), capture_output=True, timeout=10)
 
         # 检查文件是否有效
         if os.path.getsize(filepath) > 0:
@@ -108,7 +109,7 @@ def capture_screen_to_bytes(device_id: str | None = None) -> bytes | None:
     command = f"adb {device_arg} exec-out screencap -p"
 
     try:
-        result = subprocess.run(command, shell=True, capture_output=True, timeout=30)
+        result = subprocess.run(shlex.split(command), capture_output=True, timeout=30)
 
         if result.returncode == 0 and len(result.stdout) > 0:
             logger.info(f"截图成功，大小: {len(result.stdout)} bytes")

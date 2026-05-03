@@ -490,7 +490,7 @@ def main():
 
     # Validate function coverage
     assigned = set()
-    for mod_name, mod_info in MODULES.items():
+    for _mod_name, mod_info in MODULES.items():
         for func_name in mod_info["functions"]:
             if func_name in func_ranges:
                 assigned.add(func_name)
