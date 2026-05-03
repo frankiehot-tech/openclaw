@@ -86,11 +86,7 @@ class TaskRouter:
         if not task or not task.strip():
             return False
 
-        # 任务长度限制
-        if len(task.strip()) > 1000:
-            return False
-
-        return True
+        return len(task.strip()) <= 1000
 
     def validate_device(self, device: str) -> bool:
         """
