@@ -128,3 +128,11 @@ document_cleanup.log
 tools/claude-code-setup/
 backups/
 
+# Browser profiles and automation caches
+chrome-profiles/
+.qianwen-auth/
+.trae/documents/
+
+# Generated lock files
+requirements-lock.txt
+

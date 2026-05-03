@@ -1,7 +1,7 @@
 ---
 type: pattern
 created: 2026-04-24
-updated: 2026-04-24
+updated: 2026-05-03
 tags: [patterns, best-practices, traps]
 ---
 
@@ -178,6 +178,60 @@ tags: [patterns, best-practices, traps]
 **修复**: 将外层分隔符从 `"""` 改为 `'''`。
 
 ---
+
+## 已知技术债（Ruff 残量）
+
+> **记录时间**: 2026-05-03  
+> **基线**: 142 项，从初始 726 项修复后剩余（-584, 80.4%）  
+> **审计方法**: Karpathy Ratchet Loop (轮次1-5)  
+> **评分**: 全部修复 ≥ 9.0 (KEEP)
+
+### TD-001: E402 import 位置 (113项)
+
+**问题**: 大量文件使用 `sys.path.insert(0, project_root)` 在模块级导入之前修改路径。
+
+**文件分布**: `agent_system/` (3), `scripts/runner/` (~20), `scripts/maintain/` (~30), `scripts/maintenance/` (~40), 其他 (~20)
+
+**风险**: 🔴 高。随意移动 import 会导致 `ModuleNotFoundError`。
+
+**审计标准**: 
+- import 依赖 `sys.path.insert` → 保留，加 `# noqa: E402`
+- import 不依赖路径修改 → 可安全上移
+- try/except ImportError → 条件导入，保留
+
+**建议**: 深度重构时处理。不要批处理。
+
+### TD-002: SIM102 嵌套 if 简化 (19项)
+
+**问题**: 遗留维护脚本中的嵌套 if，inner if 常有 else/elif，ruff 自动合并风险高。
+
+**文件分布**: `scripts/maintenance/` (8), `scripts/maintain/` (4), `agent_system/vision/` (3), 其他 (4)
+
+**风险**: 🟡 中。需逐个审计内层 if 是否有 else 分支。
+
+**建议**: 心跳任务逐个处理。
+
+### TD-003: SIM115 上下文管理器 (3项)
+
+**问题**: `subprocess.Popen(stdout=open(...))` 模式，文件未用 `with`。
+
+**文件**: `test_gate4.py:213`, `start_migration_monitor.py:45`, `athena_web_desktop_compat.py:1524`
+
+**风险**: 🟡 中。改 `with open` 需要保持 subprocess 期间文件打开。
+
+**建议**: 需评估 subprocess 生命周期与 `with` 作用域的匹配。
+
+### TD-004: 其他杂项 (7项)
+
+| 类型 | 数量 | 文件 |
+|------|------|------|
+| SIM116 | 1 | `contracts/duplicate_analyzer.py:69` |
+| CR80/FKA0/R3/M2 | 4 | 设备 ID 硬编码（测试文件） |
+| F401 条件导入 | 2 | `create_entry_navigator.py:16`, `smart_orchestrator.py` |
+
+**风险**: 🟢 低。
+
+**建议**: 心跳任务逐个处理。
 
 ## 审计模式
 
