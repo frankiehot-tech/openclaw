@@ -91,7 +91,7 @@ except ImportError:
 # Phase 2: 导入创建入口导航器
 try:
     from athena.open_human.phase2.navigation.create_entry_navigator import (
-        CreateEntryNavigationResult        CreateEntryNavigator,
+        CreateEntryNavigator,
         navigate_to_create_entry,
     )
 
@@ -153,7 +153,7 @@ except ImportError:
 # Phase 2: 导入草稿编辑导航器
 try:
     from athena.open_human.phase2.navigation.draft_edit_navigator import (
-        DraftEditNavigationResult        DraftEditNavigator,
+        DraftEditNavigator,
         navigate_to_draft_edit,
     )
 
@@ -376,7 +376,7 @@ class CompliantMVPFlow:
             print(f"[审计] {action}: {reason}")
         except Exception as e:
             print(f"[审计错误] 记录事件失败: {e}")
-            raise RuntimeError(f"审计事件记录失败: {e}")
+            raise RuntimeError(f"审计事件记录失败: {e}") from e
 
     def _load_configs(self) -> None:
         """加载配置文件"""
@@ -387,7 +387,7 @@ class CompliantMVPFlow:
             self._log_step("读取平台配置", "成功", {"path": self.platform_config_path})
         except Exception as e:
             self._log_step("读取平台配置", "失败", {"error": str(e)})
-            raise RuntimeError(f"加载平台配置失败: {e}")
+            raise RuntimeError(f"加载平台配置失败: {e}") from e
 
         # 步骤2: 读取授权账号配置
         try:
@@ -398,7 +398,7 @@ class CompliantMVPFlow:
             )
         except Exception as e:
             self._log_step("读取授权账号配置", "失败", {"error": str(e)})
-            raise RuntimeError(f"加载授权账号配置失败: {e}")
+            raise RuntimeError(f"加载授权账号配置失败: {e}") from e
 
     def _validate_draft_payload(self) -> bool:
         """校验草稿payload（复用已有逻辑）"""
@@ -436,7 +436,7 @@ class CompliantMVPFlow:
 
         except Exception as e:
             self._log_step("校验草稿payload", "异常", {"error": str(e)})
-            raise RuntimeError(f"草稿校验失败: {e}")
+            raise RuntimeError(f"草稿校验失败: {e}") from e
 
     def _get_draft_validation_evidence(self) -> list[str]:
         """获取草稿校验的证据列表"""

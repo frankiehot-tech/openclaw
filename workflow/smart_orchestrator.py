@@ -42,9 +42,10 @@ sys.path.insert(0, project_root)
 # 导入现有编排器，用于向后兼容
 try:
     from mini_agent.agent.core.athena_orchestrator import (
-        ENGINEERING_STAGE_LABELS        OPENHUMAN_STAGES,
+        OPENHUMAN_STAGES,
         OPENHUMAN_TO_ENGINEERING_MAP,
-        VALID_ENGINEERING_STAGES        AthenaOrchestrator        get_orchestrator,
+        AthenaOrchestrator,
+        get_orchestrator,
     )
 
     ATHENA_ORCHESTRATOR_AVAILABLE = True
