@@ -1,0 +1,33 @@
+schema_version: "men0.semantic.v1"
+log_level: "INFO"
+
+llm:
+  ollama_base_url: "http://localhost:11434"
+  openai_base_url: "https://api.openai.com/v1"
+  l1_model: "gemma4:2b"
+  l2_model: "deepseek-v4-pro"
+  request_timeout: 60.0
+  max_retries: 2
+  default_temperature: 0.0
+
+token_budget:
+  preset_total: 50000
+  reserved: 5000
+  segment_overrides: {}
+
+ambiguity:
+  threshold: 0.7
+  carbon_silicon_dims: 2
+  max_clarification_rounds: 3
+
+cache:
+  mvsl_hit_rate_target: 0.85
+  immutable_segment_ttl_seconds: 3600
+  cache_anchor_count: 4
+
+feature_flags:
+  semantic_layer_mvsl_enabled: false
+  semantic_layer_cache_v2: false
+  men0_bridge_enabled: false
+  semantic_carbon_silicon: false
+  semantic_tool_router: false

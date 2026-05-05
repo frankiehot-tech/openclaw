@@ -1,0 +1,89 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "athena.semantic.v1.SemanticStateSnapshot",
+  "title": "SemanticStateSnapshot",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "snapshot_id": { "type": "string", "format": "uuid" },
+    "agent_id": { "type": "string" },
+    "timestamp": { "type": "string", "format": "date-time" },
+    "cognitive_state": {
+      "type": "string",
+      "enum": ["planning", "executing", "reflecting", "blocked", "ambiguous", "awaiting_human"]
+    },
+    "working_memory": {
+      "type": "array",
+      "maxItems": 9,
+      "items": { "$ref": "#/$defs/SemanticChunk" }
+    },
+    "working_memory_capacity": { "type": "integer", "minimum": 5, "maximum": 9 },
+    "context_vector": { "$ref": "#/$defs/ContextVector" },
+    "human_summary": { "type": "string" },
+    "queryable_facts": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/FactTriple" }
+    },
+    "pending_decisions": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/DecisionPoint" }
+    },
+    "token_budget_remaining": { "type": "integer", "minimum": 0 },
+    "mode": { "type": "string" }
+  },
+  "required": ["snapshot_id", "agent_id", "cognitive_state", "human_summary"],
+  "$defs": {
+    "SemanticChunk": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "chunk_id": { "type": "string", "format": "uuid" },
+        "content": { "type": "string" },
+        "chunk_type": {
+          "type": "string",
+          "enum": ["task", "fact", "constraint", "decision", "observation"]
+        },
+        "priority": { "type": "number", "minimum": 0.0, "maximum": 1.0 },
+        "timestamp": { "type": "string", "format": "date-time" }
+      },
+      "required": ["chunk_id", "content", "chunk_type"]
+    },
+    "ContextVector": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "dimensions": { "type": "integer" },
+        "vector": { "type": "array", "items": { "type": "number" } },
+        "compressed_size": { "type": "integer" }
+      },
+      "required": ["dimensions"]
+    },
+    "FactTriple": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "subject": { "type": "string" },
+        "predicate": { "type": "string" },
+        "obj": { "type": "string" },
+        "confidence": { "type": "number", "minimum": 0.0, "maximum": 1.0 },
+        "source_agent": { "type": "string" }
+      },
+      "required": ["subject", "predicate", "obj"]
+    },
+    "DecisionPoint": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "decision_id": { "type": "string", "format": "uuid" },
+        "question": { "type": "string" },
+        "options": { "type": "array", "items": { "type": "string" } },
+        "recommended_option": { "type": "string" },
+        "deadline": { "type": "string", "format": "date-time" },
+        "resolved": { "type": "boolean" },
+        "resolution": { "type": "string" },
+        "resolver": { "type": "string" }
+      },
+      "required": ["decision_id", "question", "resolved"]
+    }
+  }
+}

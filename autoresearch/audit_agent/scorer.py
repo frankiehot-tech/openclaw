@@ -13,6 +13,8 @@ import subprocess
 from dataclasses import dataclass, field
 from enum import Enum
 
+SCRIPT_VERSION = "0.2.0"
+
 
 class ScoreStatus(Enum):
     PASS = "PASS"

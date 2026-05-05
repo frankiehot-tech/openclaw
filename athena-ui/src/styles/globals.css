@@ -1,0 +1,269 @@
+@import 'tailwindcss';
+
+/* ===== Static Tokens (Ethereal Logic Design System) ===== */
+:root {
+  /* Primary — Indigo */
+  --brand-000: 224 100% 35%;
+  --brand-100: 224 76% 48%;
+  --brand-200: 226 70% 58%;
+  --brand-900: 230 100% 92%;
+
+  /* Accent — Slate Blue */
+  --accent-000: 218 29% 39%;
+  --accent-100: 218 24% 46%;
+  --accent-200: 218 20% 58%;
+  --accent-900: 220 20% 92%;
+
+  /* Semantic */
+  --info-000: 224 100% 35%;
+  --info-100: 224 76% 48%;
+  --info-200: 226 70% 58%;
+  --success-000: 160 100% 28%;
+  --success-100: 160 80% 32%;
+  --warning-000: 28 100% 45%;
+  --warning-100: 28 90% 52%;
+  --danger-000: 0 75% 42%;
+  --danger-100: 0 70% 48%;
+
+  /* Invariants */
+  --always-black: 0 0% 0%;
+  --always-white: 0 0% 100%;
+
+  /* Typography — Inter-first, no serif for messages */
+  --font-ui: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  --font-serif: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  --font-mono: 'JetBrains Mono', 'Fira Code', 'Cascadia Code', Consolas, monospace;
+
+  /* Animation — same brand easing */
+  --ease-brand: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* ===== Light Theme (default — Ethereal Logic) ===== */
+:root,
+[data-mode='light'] {
+  --bg-000: 0 0% 100%;
+  --bg-100: 210 20% 98%;
+  --bg-200: 210 16% 94%;
+  --bg-300: 210 12% 90%;
+  --bg-400: 210 10% 86%;
+  --bg-500: 210 8% 80%;
+
+  --text-000: 200 12% 11%;
+  --text-100: 200 8% 18%;
+  --text-200: 200 6% 30%;
+  --text-300: 200 4% 46%;
+  --text-400: 200 4% 58%;
+  --text-500: 200 4% 72%;
+
+  --border-100: 210 14% 89%;
+  --border-200: 210 12% 82%;
+  --border-300: 210 10% 72%;
+
+  --surface-000: 0 0% 100%;
+  --surface-100: 210 20% 97%;
+  --surface-200: 210 16% 93%;
+
+  --_sb-sm: 0 1px 2px hsl(210 10% 50% / 5%);
+  --_sb-md: 0 4px 16px hsl(210 10% 50% / 6%);
+  --_sb-lg: 0 8px 32px hsl(210 10% 50% / 8%);
+  --_sb-xl: 0 16px 48px hsl(210 10% 50% / 10%);
+}
+
+/* ===== Dark Theme ===== */
+[data-mode='dark'] {
+  --bg-000: 210 8% 12%;
+  --bg-100: 210 6% 16%;
+  --bg-200: 210 5% 20%;
+  --bg-300: 210 5% 26%;
+  --bg-400: 210 4% 32%;
+  --bg-500: 210 4% 40%;
+
+  --text-000: 210 20% 96%;
+  --text-100: 210 16% 88%;
+  --text-200: 210 12% 72%;
+  --text-300: 210 8% 56%;
+  --text-400: 210 8% 44%;
+  --text-500: 210 6% 32%;
+
+  --border-100: 210 8% 24%;
+  --border-200: 210 8% 30%;
+  --border-300: 210 8% 38%;
+
+  --surface-000: 210 6% 14%;
+  --surface-100: 210 5% 17%;
+  --surface-200: 210 4% 21%;
+
+  --_sb-sm: 0 1px 2px hsl(var(--always-black) / 20%);
+  --_sb-md: 0 4px 16px hsl(var(--always-black) / 30%);
+  --_sb-lg: 0 8px 32px hsl(var(--always-black) / 40%);
+  --_sb-xl: 0 16px 48px hsl(var(--always-black) / 50%);
+}
+
+/* ===== Tailwind v4 Theme ===== */
+@theme {
+  --color-brand: hsl(var(--brand-000));
+  --color-brand-000: hsl(var(--brand-000));
+  --color-brand-100: hsl(var(--brand-100));
+  --color-brand-200: hsl(var(--brand-200));
+  --color-brand-900: hsl(var(--brand-900));
+
+  --color-accent-000: hsl(var(--accent-000));
+  --color-accent-100: hsl(var(--accent-100));
+  --color-accent-200: hsl(var(--accent-200));
+  --color-accent-900: hsl(var(--accent-900));
+
+  --color-info-000: hsl(var(--info-000));
+  --color-info-100: hsl(var(--info-100));
+  --color-info-200: hsl(var(--info-200));
+  --color-success-000: hsl(var(--success-000));
+  --color-success-100: hsl(var(--success-100));
+  --color-warning-000: hsl(var(--warning-000));
+  --color-warning-100: hsl(var(--warning-100));
+  --color-danger-000: hsl(var(--danger-000));
+  --color-danger-100: hsl(var(--danger-100));
+
+  --color-bg-000: hsl(var(--bg-000));
+  --color-bg-100: hsl(var(--bg-100));
+  --color-bg-200: hsl(var(--bg-200));
+  --color-bg-300: hsl(var(--bg-300));
+  --color-bg-400: hsl(var(--bg-400));
+  --color-bg-500: hsl(var(--bg-500));
+
+  --color-text-000: hsl(var(--text-000));
+  --color-text-100: hsl(var(--text-100));
+  --color-text-200: hsl(var(--text-200));
+  --color-text-300: hsl(var(--text-300));
+  --color-text-400: hsl(var(--text-400));
+  --color-text-500: hsl(var(--text-500));
+
+  --color-border-100: hsl(var(--border-100));
+  --color-border-200: hsl(var(--border-200));
+  --color-border-300: hsl(var(--border-300));
+
+  --color-surface-000: hsl(var(--surface-000));
+  --color-surface-100: hsl(var(--surface-100));
+  --color-surface-200: hsl(var(--surface-200));
+
+  --font-ui: var(--font-ui);
+  --font-serif: var(--font-serif);
+  --font-mono: var(--font-mono);
+
+  --shadow-sm: var(--_sb-sm);
+  --shadow-md: var(--_sb-md);
+  --shadow-lg: var(--_sb-lg);
+  --shadow-xl: var(--_sb-xl);
+
+  /* Ethereal Logic — smaller, softer radii */
+  --radius-xs: 2px;
+  --radius-sm: 4px;
+  --radius-md: 6px;
+  --radius-lg: 8px;
+  --radius-xl: 10px;
+  --radius-2xl: 12px;
+  --radius-3xl: 14px;
+  --radius-4xl: 16px;
+
+  --ease-brand: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* ===== Keyframes ===== */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes slideRight {
+  from { opacity: 0; transform: translateX(-6px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes scaleIn {
+  from { opacity: 0; transform: scale(0.97); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+@keyframes pulseGlow {
+  0%, 100% { opacity: 0.5; }
+  50% { opacity: 1; }
+}
+
+/* ===== Global Reset ===== */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-family: var(--font-ui);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  background: hsl(var(--bg-100));
+  color: hsl(var(--text-100));
+  min-height: 100vh;
+}
+
+#root {
+  min-height: 100vh;
+  display: flex;
+}
+
+/* ===== Scrollbar — Ethereal thin ===== */
+::-webkit-scrollbar {
+  width: 4px;
+  height: 4px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: hsl(var(--border-200));
+  border-radius: 2px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: hsl(var(--border-300));
+}
+
+/* ===== Utility Animation Classes ===== */
+.anim-fadeIn {
+  animation: fadeIn 0.15s var(--ease-out-expo);
+}
+
+.anim-slideUp {
+  animation: slideUp 0.25s var(--ease-brand);
+}
+
+.anim-slideRight {
+  animation: slideRight 0.2s var(--ease-brand);
+}
+
+.anim-scaleIn {
+  animation: scaleIn 0.15s var(--ease-out-expo);
+}
+
+.anim-pulse {
+  animation: pulseGlow 2s ease-in-out infinite;
+}
+
+/* ===== Layout ===== */
+.app-layout {
+  display: flex;
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+}

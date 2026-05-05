@@ -1,0 +1,164 @@
+syntax = "proto3";
+
+package athena.semantic.v1;
+
+message IntentPacket {
+  string intent_id = 1;
+  string raw_input = 2;
+  double timestamp = 3;
+
+  enum CognitiveMode {
+    INSTANT = 0;
+    THINKING = 1;
+    AGENT = 2;
+    SWARM = 3;
+    CARBON_SILICON = 4;
+  }
+  CognitiveMode mode_recommendation = 4;
+  double urgency_level = 5;
+
+  SemanticFrame semantic_frame = 6;
+  AmbiguityVector ambiguity_vector = 7;
+
+  enum SecurityLevel {
+    LOW = 0;
+    MEDIUM = 1;
+    HIGH = 2;
+    CRITICAL = 3;
+  }
+  SecurityLevel required_clearance = 8;
+  repeated string target_agent_pool = 9;
+  TokenBudget execution_budget = 10;
+  repeated string context_tags = 11;
+  string intent_fingerprint = 12;
+}
+
+message SemanticFrame {
+  enum ActionVerb {
+    ANALYZE = 0; CREATE = 1; MODIFY = 2; DELETE = 3;
+    SEARCH = 4; EXPLAIN = 5; CONFIGURE = 6; DEPLOY = 7;
+    AUDIT = 8; DEBUG = 9; TEST = 10; DOCUMENT = 11;
+    REVIEW = 12; SUMMARIZE = 13; TRANSLATE = 14; CONVERT = 15;
+  }
+  ActionVerb action_verb = 1;
+  SemanticObject action_object = 2;
+  ContextFrame action_context = 3;
+  repeated string expected_modalities = 4;
+  string intent_fingerprint = 5;
+}
+
+message SemanticObject {
+  string object_type = 1;
+  string object_name = 2;
+  optional string object_path = 3;
+  map<string, string> object_metadata = 4;
+}
+
+message ContextFrame {
+  string domain = 1;
+  repeated string tags = 2;
+  repeated string related_entities = 3;
+  int32 conversation_round = 4;
+}
+
+message AmbiguityVector {
+  double scope_ambiguity = 1;
+  double target_ambiguity = 2;
+  double modality_ambiguity = 3;
+  double authority_ambiguity = 4;
+}
+
+message TokenBudget {
+  int32 total = 1;
+  int32 consumed = 2;
+  int32 reserved = 3;
+}
+
+message SemanticStateSnapshot {
+  string snapshot_id = 1;
+  string agent_id = 2;
+  int64 timestamp = 3;
+  string cognitive_state = 4;
+  repeated SemanticChunk working_memory = 5;
+  int32 working_memory_capacity = 6;
+  ContextVector context_vector = 7;
+  string human_summary = 8;
+  repeated FactTriple queryable_facts = 9;
+  repeated DecisionPoint pending_decisions = 10;
+  int32 token_budget_remaining = 11;
+  string mode = 12;
+}
+
+message SemanticChunk {
+  string chunk_id = 1;
+  string content = 2;
+  string chunk_type = 3;
+  double priority = 4;
+  int64 timestamp = 5;
+}
+
+message ContextVector {
+  int32 dimensions = 1;
+  repeated float vector = 2;
+  int32 compressed_size = 3;
+}
+
+message FactTriple {
+  string subject = 1;
+  string predicate = 2;
+  string obj = 3;
+  double confidence = 4;
+  optional string source_agent = 5;
+}
+
+message DecisionPoint {
+  string decision_id = 1;
+  string question = 2;
+  repeated string options = 3;
+  optional string recommended_option = 4;
+  optional int64 deadline = 5;
+  bool resolved = 6;
+  optional string resolution = 7;
+  optional string resolver = 8;
+}
+
+message SemanticMessage {
+  string message_id = 1;
+  string source_agent = 2;
+  string target_agent = 3;
+  string payload_type = 4;
+  bytes payload = 5;
+  map<string, int32> vector_clock = 6;
+  string schema_version = 7;
+  int64 timestamp = 8;
+}
+
+message Men0SharedState {
+  string context_id = 1;
+  int64 timestamp = 2;
+  map<string, int32> agent_vector_clock = 3;
+  repeated IntentPacket shared_intents = 4;
+  repeated SharedSemanticFact shared_facts = 5;
+  repeated Constraint shared_constraints = 6;
+}
+
+message SharedSemanticFact {
+  string fact_id = 1;
+  string content = 2;
+  double confidence = 3;
+  repeated string source_agents = 4;
+  int32 verification_count = 5;
+  int32 contradiction_count = 6;
+  bool is_global = 7;
+  int64 created_at = 8;
+  optional int64 last_verified = 9;
+  string ngram_signature = 10;
+}
+
+message Constraint {
+  string constraint_id = 1;
+  string rule = 2;
+  string scope = 3;
+  int32 priority = 4;
+  bool active = 5;
+}

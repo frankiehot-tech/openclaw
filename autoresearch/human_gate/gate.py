@@ -31,6 +31,13 @@ HIGH_RISK_ACTIONS = {
     "rotate_secrets",
     "modify_identity_roles",
     "change_approval_policy",
+    "openhuman_human_gate_v2",
+    "openhuman_permissions",
+    "openhuman_budget",
+    "maref_tla",
+    "maref_redline",
+    "openclaw_men0_keys",
+    "athena_ff_highrisk",
 }
 
 

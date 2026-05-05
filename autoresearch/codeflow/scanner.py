@@ -32,6 +32,20 @@ class ScanResult:
 
 DEFAULT_TARGETS: list[dict[str, Any]] = [
     {
+        "path": "Athena知识库/执行项目/2026/003-open human（碳硅基共生）/019-工作台/收件箱/已批准/",
+        "approved": True,
+        "auto_execute": False,
+        "description": "OpenHuman v0.2.0 approved consumption inbox",
+        "priority": "high",
+    },
+    {
+        "path": "Athena知识库/执行项目/2026/003-open human（碳硅基共生）/019-工作台/收件箱/完成/v0.2.0 归档/",
+        "approved": True,
+        "auto_execute": False,
+        "description": "OpenHuman v0.2.0 completed archive",
+        "priority": "high",
+    },
+    {
         "path": "Athena知识库/执行项目/2026/003-open human（碳硅基共生）/007-AI-plan/completed/",
         "approved": True,
         "auto_execute": False,

@@ -1,0 +1,523 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Athena — 碳硅共生 Agent 平台</title>
+<style>
+:root{
+  --accent:#0071e3;--accent-hover:#0066cc;--ink:#1d1d1f;--bg:#f5f5f7;
+  --surface:#ffffff;--muted:#6e6e73;--border-soft:#d2d2d7;--border-mid:#86868b;
+  --good:#2f7d4a;--warn:#b85c00;--danger:#b53a2a;
+  --shadow-sm:0 1px 2px rgba(0,0,0,0.04);--shadow-md:0 2px 10px rgba(0,0,0,0.04);
+  --radius-sm:6px;--radius-md:10px;--radius-lg:14px;--top-h:48px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font:14px/1.5 -apple-system,'Inter','SF Pro Text',system-ui,sans-serif;background:var(--bg);color:var(--ink);height:100vh;overflow:hidden}
+#app{display:flex;width:100%;height:100%}
+
+#sidebar-left{width:240px;min-width:200px;max-width:360px;background:var(--surface);border-right:1px solid var(--border-soft);display:flex;flex-direction:column;padding:14px 10px;height:100vh;position:relative;transition:width 0.25s ease,min-width 0.25s ease,padding 0.25s ease,opacity 0.2s ease;overflow:hidden}
+#sidebar-left.collapsed{width:0!important;min-width:0!important;padding:0;border-right:none;opacity:0}
+.sidebar-inner{flex:1;display:flex;flex-direction:column;min-width:0}
+.sidebar-brand{display:flex;align-items:center;gap:10px;padding:6px 10px 16px;flex-shrink:0;font-size:14px;font-weight:700;letter-spacing:-0.01em}
+.sidebar-brand .logo{width:28px;height:28px;border-radius:7px;background:var(--accent);color:white;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:800;flex-shrink:0}
+.sidebar-nav{flex:1;display:flex;flex-direction:column;gap:1px;overflow-y:auto;min-height:0}
+.sidebar-nav .group{font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:0.08em;font-weight:600;padding:14px 10px 5px}
+.sidebar-nav a{display:flex;align-items:center;gap:9px;padding:7px 10px;border-radius:8px;font-size:13px;transition:background 0.15s;font-weight:500;cursor:pointer}
+.sidebar-nav a:hover{background:var(--bg)}
+.sidebar-nav a.active{background:var(--accent);color:white}
+.sidebar-nav a .icon{font-size:15px;width:20px;text-align:center}
+.sidebar-nav a .badge{margin-left:auto;font-size:10px;padding:1px 7px;border-radius:99px;background:var(--border-soft)}
+.sidebar-nav a.active .badge{background:rgba(255,255,255,0.25);color:white}
+.sidebar-footer{border-top:1px solid var(--border-soft);padding-top:10px;margin-top:6px;display:flex;align-items:center;gap:8px;font-size:11px;padding:10px 10px 0;flex-shrink:0}
+.sidebar-footer .dot{width:7px;height:7px;border-radius:50%;background:var(--good);box-shadow:0 0 6px rgba(47,125,74,0.4)}
+.sidebar-footer .fold-btn{background:none;border:none;cursor:pointer;color:var(--muted);font-size:12px;padding:2px;border-radius:4px;margin-left:auto;transition:color 0.15s;flex-shrink:0}
+.sidebar-footer .fold-btn:hover{color:var(--accent)}
+
+.sidebar-inner{flex:1;display:flex;flex-direction:column;min-width:0;overflow:hidden}
+.conv-label{font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:0.08em;font-weight:600;padding:8px 10px 4px;flex-shrink:0}
+.conv-list{flex:1;overflow-y:auto;min-height:0;display:flex;flex-direction:column;gap:1px}
+.conv-item{display:flex;align-items:center;gap:8px;padding:6px 10px;border-radius:6px;cursor:pointer;transition:background 0.15s;font-size:12px;color:var(--muted)}
+.conv-item:hover{background:var(--bg);color:var(--ink)}
+.conv-item.active{background:var(--bg);color:var(--ink);font-weight:500}
+.conv-item .cicon{font-size:13px;flex-shrink:0;width:18px;text-align:center}
+.conv-item .ctitle{flex:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.conv-item .ctime{font-size:10px;color:var(--border-mid);flex-shrink:0}
+
+.collapse-btn{position:absolute;top:50%;transform:translateY(-50%);z-index:20;width:18px;height:48px;border-radius:0 6px 6px 0;background:var(--surface);border:1px solid var(--border-soft);border-left:none;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:10px;color:var(--muted);transition:color 0.15s}
+.collapse-btn:hover{color:var(--accent)}
+.collapse-btn.left-btn{right:-18px}
+.collapse-btn.right-btn{left:-18px;border-radius:6px 0 0 6px;border-left:1px solid var(--border-soft);border-right:none}
+.resize-handle{width:4px;cursor:col-resize;background:transparent;transition:background 0.15s;flex-shrink:0;position:relative;z-index:10}
+.resize-handle:hover,.resize-handle.active{background:var(--accent);opacity:0.4}
+.resize-handle.hidden{display:none}
+
+#center-col{flex:1;display:flex;flex-direction:column;min-width:300px;overflow:hidden}
+.topbar{display:flex;align-items:center;justify-content:space-between;padding:0 20px;height:var(--top-h);flex-shrink:0;background:rgba(255,255,255,0.85);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid var(--border-soft)}
+.topbar-left{display:flex;align-items:center;gap:10px}
+.topbar-left h1{font-size:15px;font-weight:600;letter-spacing:-0.01em}
+.topbar-actions{display:flex;align-items:center;gap:6px}
+.btn-icon{width:32px;height:32px;padding:0;border-radius:50%;display:flex;align-items:center;justify-content:center;background:none;border:none;cursor:pointer;font-size:15px;color:var(--muted);transition:all 0.15s}
+.btn-icon:hover{background:var(--bg);color:var(--ink)}
+.btn-icon.active{color:var(--accent)}
+
+/* Chat */
+.chat-scroll{flex:1;overflow-y:auto;padding:0 20px;display:flex;flex-direction:column;align-items:center}
+.chat-inner{width:100%;max-width:860px;padding:32px 0;display:flex;flex-direction:column;gap:24px}
+.session-badge{text-align:center}
+.session-badge span{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:0.08em;font-weight:600;background:var(--bg);padding:4px 14px;border-radius:99px;border:1px solid var(--border-soft)}
+.msg-user{display:flex;flex-direction:column;gap:6px}
+.msg-user .byline{display:flex;align-items:center;gap:8px;font-size:11px;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:0.04em}
+.msg-user .byline .avatar{width:22px;height:22px;border-radius:5px;background:var(--bg);display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;color:var(--muted)}
+.msg-user .body{font-size:15px;line-height:1.6;padding-right:40px}
+.msg-ai{background:var(--surface);border:1px solid var(--border-soft);border-radius:var(--radius-lg);padding:24px;box-shadow:var(--shadow-md)}
+.msg-ai .ai-header{display:flex;align-items:center;gap:8px;margin-bottom:12px;padding-bottom:12px;border-bottom:1px solid var(--border-soft)}
+.msg-ai .ai-header .dot{width:16px;height:16px;border-radius:50%;background:var(--accent);display:flex;align-items:center;justify-content:center;font-size:10px;color:white}
+.msg-ai .ai-header span{font-size:11px;color:var(--accent);font-weight:600;text-transform:uppercase;letter-spacing:0.04em}
+.msg-ai .body{font-size:14px;line-height:1.65;color:var(--ink)}
+.msg-ai .body p+p{margin-top:12px}
+.code-block{background:#1d1d1f;color:#f5f5f7;border-radius:var(--radius-md);padding:14px 16px;margin:12px 0;overflow-x:auto;font-family:'SF Mono','JetBrains Mono',monospace;font-size:13px;line-height:1.5;position:relative}
+.code-block .copy{position:absolute;top:8px;right:8px;background:rgba(255,255,255,0.12);border:none;cursor:pointer;color:var(--border-mid);font-size:12px;padding:4px 8px;border-radius:5px;transition:all 0.15s}
+.code-block .copy:hover{color:white;background:rgba(255,255,255,0.2)}
+.input-area{padding:12px 20px 20px;flex-shrink:0;display:flex;justify-content:center;background:linear-gradient(180deg,transparent,var(--bg) 30%)}
+.input-area-inner{width:100%;max-width:860px;border:1px solid var(--border-soft);border-radius:var(--radius-lg);background:var(--surface);box-shadow:var(--shadow-md);display:flex;align-items:flex-end;transition:border-color 0.2s}
+.input-area-inner:focus-within{border-color:var(--accent);box-shadow:0 0 0 1px var(--accent),var(--shadow-md)}
+.input-area-inner textarea{flex:1;border:none;background:none;resize:none;font:inherit;font-size:14px;line-height:1.5;padding:12px 14px;outline:none;max-height:120px;min-height:44px;color:var(--ink)}
+.input-area-inner textarea::placeholder{color:var(--border-mid)}
+.input-area-inner .send{width:36px;height:36px;margin:6px 6px 6px 0;border-radius:8px;background:var(--accent);color:white;border:none;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:background 0.15s}
+.input-area-inner .send:hover{background:var(--accent-hover)}
+
+/* Right sidebar */
+#sidebar-right{width:300px;min-width:240px;max-width:400px;background:var(--surface);border-left:1px solid var(--border-soft);padding:16px 14px;display:flex;flex-direction:column;gap:16px;height:100vh;overflow:hidden;position:relative;transition:width 0.25s ease,min-width 0.25s ease,padding 0.25s ease,opacity 0.2s ease}
+#sidebar-right.collapsed{width:0!important;min-width:0!important;padding:0;border-left:none;opacity:0}
+#right-content{flex:1;overflow-y:auto;display:flex;flex-direction:column;gap:16px}
+
+.diag-metric{display:flex;flex-direction:column;gap:4px}
+.diag-metric .mr{display:flex;justify-content:space-between;align-items:center;font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:0.06em;color:var(--muted)}
+.diag-metric .mr .vl{font-size:11px;font-family:'SF Mono',monospace;color:var(--ink)}
+.meter{height:3px;border-radius:2px;background:var(--bg);overflow:hidden}
+.meter .f{height:100%;border-radius:2px;transition:width 1s ease}
+.meter .f.blue{background:var(--accent)}
+.meter .f.gray{background:var(--border-mid)}
+.gpu-g{display:flex;gap:3px;height:4px;border-radius:2px;overflow:hidden;background:var(--bg)}
+.gpu-g .c{flex:1}
+.gpu-g .c.on{background:var(--accent);opacity:0.6}
+.ev{background:var(--bg);border:1px solid var(--border-soft);border-radius:var(--radius-sm);padding:8px 10px;font-size:10px;font-family:'SF Mono',monospace;color:var(--muted);display:flex;flex-direction:column;gap:3px;max-height:120px;overflow-y:auto;margin-top:4px}
+.ev div{border-left:2px solid var(--border-soft);padding-left:7px}
+.ev div.acc{border-left-color:var(--accent);color:var(--ink)}
+.ev div.wn{border-left-color:var(--warn);color:var(--warn)}
+.ev div.dm{opacity:0.5}
+
+/* Dashboard */
+.dash-scroll{flex:1;overflow-y:auto;padding:20px;display:flex;flex-direction:column;gap:18px}
+.kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+.kpi-card{background:var(--surface);border:1px solid var(--border-soft);border-radius:var(--radius-lg);padding:16px 18px;display:flex;flex-direction:column;gap:5px}
+.kpi-card .lbl{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:0.06em;font-weight:600}
+.kpi-card .val{font-size:28px;font-weight:700;letter-spacing:-0.02em;line-height:1}
+.kpi-card .delta{font-size:11px;font-weight:500}
+.kpi-card .delta.up{color:var(--good)}
+.kpi-card .delta.down{color:var(--danger)}
+.two-col{display:grid;grid-template-columns:3fr 2fr;gap:14px}
+.panel{background:var(--surface);border:1px solid var(--border-soft);border-radius:var(--radius-lg);padding:18px}
+.panel h3{font-size:14px;font-weight:600;margin:0 0 14px}
+table{width:100%;border-collapse:collapse;font-size:13px}
+th{text-align:left;padding:8px 8px;font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:0.06em;font-weight:600;border-bottom:1px solid var(--border-soft)}
+td{padding:9px 8px;border-bottom:1px solid var(--border-soft)}
+tr:last-child td{border-bottom:none}
+.pill{display:inline-block;font-size:10px;font-weight:600;padding:2px 8px;border-radius:99px;background:var(--bg);border:1px solid var(--border-soft)}
+.pill.success{color:var(--good);border-color:rgba(47,125,74,0.25)}
+.pill.danger{color:var(--danger);border-color:rgba(181,58,42,0.25)}
+.pill.running{color:var(--accent);border-color:rgba(0,113,227,0.25)}
+.res-row{display:flex;flex-direction:column;gap:10px}
+.res-item{display:flex;flex-direction:column;gap:3px}
+.res-head{display:flex;justify-content:space-between;font-size:12px}
+.res-head span:first-child{color:var(--muted)}
+.res-head span:last-child{font-weight:600}
+.res-bar{height:4px;border-radius:2px;background:var(--bg);overflow:hidden}
+.res-fill{height:100%;border-radius:2px;transition:width 0.6s ease}
+.res-fill.cpu{background:var(--accent)}
+.res-fill.mem{background:#5856d6}
+.res-fill.disk{background:#ff9500}
+.res-fill.gpu{background:var(--danger)}
+.loop-row{display:flex;align-items:center;justify-content:center;gap:20px;padding:4px 0}
+.loop-node{text-align:center}
+.loop-node .num{font-size:24px;font-weight:700;letter-spacing:-0.02em}
+.loop-node .lbl{font-size:11px;color:var(--muted);margin-top:2px}
+.loop-arc{width:60px;height:60px;position:relative}
+.loop-arc svg{width:100%;height:100%}
+.loop-ratio{text-align:center;font-size:12px;color:var(--muted)}
+.v{display:none;flex-direction:column;flex:1;overflow:hidden;min-height:0}
+.v.active{display:flex}
+
+/* Agent view */
+.ag-scroll{flex:1;overflow-y:auto;padding:20px;display:flex;flex-direction:column;gap:16px}
+.ag-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:12px}
+.ag-card{background:var(--surface);border:1px solid var(--border-soft);border-radius:var(--radius-lg);padding:16px;display:flex;flex-direction:column;gap:10px;cursor:pointer;transition:all 0.15s}
+.ag-card:hover{border-color:var(--accent);box-shadow:var(--shadow-md)}
+.ag-card .atop{display:flex;align-items:center;gap:10px}
+.ag-card .adot{width:9px;height:9px;border-radius:50%;flex-shrink:0}
+.ag-card .adot.online{background:var(--good)}
+.ag-card .adot.offline{background:var(--border-mid)}
+.ag-card .adot.warning{background:var(--warn)}
+.ag-card .adot.error{background:var(--danger);animation:pulse 1.5s ease-in-out infinite}
+.ag-card .ainfo{flex:1}
+.ag-card .ainfo .anm{font-size:13px;font-weight:600}
+.ag-card .ainfo .atp{font-size:11px;color:var(--muted);margin-top:1px}
+.ag-card .aload{display:flex;align-items:center;gap:8px}
+.ag-card .aload .bar{flex:1;height:4px;border-radius:2px;background:var(--bg);overflow:hidden}
+.ag-card .aload .bar .f{height:100%;border-radius:2px}
+.ag-card .aload .pct{font-size:11px;color:var(--muted);min-width:32px;text-align:right}
+
+/* Skills view */
+.sk-scroll{flex:1;overflow-y:auto;padding:20px;display:flex;flex-direction:column;gap:16px}
+.sk-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:12px}
+.sk-card{background:var(--surface);border:1px solid var(--border-soft);border-radius:var(--radius-lg);padding:16px;display:flex;flex-direction:column;gap:8px;transition:all 0.15s;cursor:pointer}
+.sk-card:hover{border-color:var(--accent);box-shadow:var(--shadow-md)}
+.sk-card .sknm{font-size:14px;font-weight:600}
+.sk-card .skid{font-size:10px;color:var(--muted);font-family:monospace}
+.sk-card .skdesc{font-size:12px;color:var(--ink);line-height:1.5;margin-top:2px}
+.sk-card .skfoot{display:flex;justify-content:space-between;align-items:center;padding-top:8px;border-top:1px solid var(--border-soft);margin-top:4px}
+.sk-chip{font-size:10px;padding:2px 8px;border-radius:99px;font-weight:600}
+.sk-chip.core{background:rgba(0,113,227,0.12);color:var(--accent)}
+.sk-chip.dev{background:rgba(88,86,214,0.12);color:#5856d6}
+.sk-chip.media{background:rgba(47,125,74,0.12);color:var(--good)}
+.sk-chip.research{background:rgba(184,92,0,0.12);color:var(--warn)}
+
+/* Code view */
+.cd-scroll{flex:1;overflow-y:auto;padding:20px;display:flex;flex-direction:column;gap:16px}
+.cd-editor{background:var(--surface);border:1px solid var(--border-soft);border-radius:var(--radius-lg);overflow:hidden}
+.cd-editor .cdhead{display:flex;justify-content:space-between;align-items:center;padding:8px 14px;background:var(--bg);border-bottom:1px solid var(--border-soft);font-size:11px;color:var(--muted);font-family:monospace}
+.cd-editor textarea{width:100%;min-height:180px;background:none;border:none;padding:14px;font-family:'SF Mono',monospace;font-size:13px;line-height:1.6;color:var(--ink);outline:none;resize:vertical}
+.cd-editor textarea::placeholder{color:var(--border-mid)}
+.cd-output{background:var(--surface);border:1px solid var(--border-soft);border-radius:var(--radius-lg);overflow:hidden;flex:1;display:flex;flex-direction:column}
+.cd-output .cdhead{display:flex;justify-content:space-between;align-items:center;padding:8px 14px;background:var(--bg);border-bottom:1px solid var(--border-soft);font-size:11px;color:var(--muted);font-family:monospace}
+.cd-output .cdbody{padding:12px 14px;font-family:'SF Mono',monospace;font-size:12px;line-height:1.6;color:var(--muted);overflow-y:auto;flex:1;display:flex;flex-direction:column;gap:4px}
+.cd-output .cdbody .log{color:var(--ink)}
+.cd-output .cdbody .log.dim{opacity:0.5}
+
+/* Monitoring view */
+.mo-scroll{flex:1;overflow-y:auto;padding:20px;display:flex;flex-direction:column;gap:16px}
+.metric-card{background:var(--surface);border:1px solid var(--border-soft);border-radius:var(--radius-lg);padding:16px;display:flex;flex-direction:column;gap:6px}
+.metric-card .mh{display:flex;justify-content:space-between;font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:0.06em;font-weight:600}
+.metric-card .mh .mv{font-size:11px;font-family:monospace;color:var(--ink)}
+.metric-card .mb{height:4px;border-radius:2px;background:var(--bg);overflow:hidden}
+.metric-card .mb .mf{height:100%;border-radius:2px;transition:width 1s ease}
+.alarm{background:var(--surface);border:1px solid var(--danger);border-radius:var(--radius-lg);padding:12px 16px;display:flex;align-items:center;gap:10px}
+.alarm .dot{width:8px;height:8px;border-radius:50%;background:var(--danger);animation:pulse 1.5s ease-in-out infinite;flex-shrink:0}
+.alarm .txt{flex:1;font-size:12px}
+.alarm .tag{font-size:10px;padding:2px 8px;border-radius:99px;background:rgba(181,58,42,0.12);color:var(--danger);font-weight:600}
+
+/* Settings */
+.st-scroll{flex:1;overflow-y:auto;padding:20px;display:flex;flex-direction:column;gap:12px;max-width:500px}
+.st-sect{background:var(--surface);border:1px solid var(--border-soft);border-radius:var(--radius-lg);overflow:hidden}
+.st-sect .sthead{padding:12px 16px;border-bottom:1px solid var(--border-soft);font-size:13px;font-weight:600}
+.st-row{display:flex;align-items:center;justify-content:space-between;padding:10px 16px;border-bottom:1px solid var(--border-soft)}
+.st-row:last-child{border-bottom:none}
+.st-row .stlbl{font-size:12px;font-weight:500}
+.st-row .stdesc{font-size:11px;color:var(--muted);margin-top:1px}
+.tog{width:40px;height:20px;border-radius:10px;position:relative;cursor:pointer;transition:background 0.2s;border:none;flex-shrink:0}
+.tog.on{background:var(--accent)}
+.tog.off{background:var(--bg);border:1px solid var(--border-soft)}
+.tog::after{content:'';position:absolute;top:2px;left:2px;width:14px;height:14px;border-radius:50%;background:white;transition:transform 0.2s}
+.tog.on::after{transform:translateX(20px)}
+</style>
+</head>
+<body>
+<div id="app">
+<aside id="sidebar-left">
+<div class="sidebar-inner">
+<div class="sidebar-brand">
+<div class="logo">A</div>
+<div>Athena<div style="font-size:10px;color:var(--muted);font-weight:400;margin-top:1px">v0.7.0-alpha</div></div>
+</div>
+<nav class="sidebar-nav">
+<div class="group">核心</div>
+<a href="#" class="active" data-view="chat"><span class="icon">💬</span>对话</a>
+<div class="conv-label" style="padding:12px 10px 4px 10px;font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:0.08em;font-weight:600">最近对话</div>
+<div class="conv-list" style="display:flex;flex-direction:column;gap:1px;margin-bottom:6px">
+<div class="conv-item active" style="display:flex;align-items:center;gap:8px;padding:5px 10px;border-radius:6px;cursor:pointer;font-size:12px;color:var(--muted);transition:background 0.15s" onclick="this.parentElement.querySelectorAll('.conv-item').forEach(x=>x.style.background='');this.style.background='var(--bg)';this.style.color='var(--ink)'"><span style="font-size:12px;width:18px;text-align:center">💬</span><span style="flex:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">注意力机制退化分析</span><span style="font-size:10px;color:var(--border-mid);flex-shrink:0">刚刚</span></div>
+<div class="conv-item" style="display:flex;align-items:center;gap:8px;padding:5px 10px;border-radius:6px;cursor:pointer;font-size:12px;color:var(--muted);transition:background 0.15s" onclick="this.parentElement.querySelectorAll('.conv-item').forEach(x=>x.style.background='');this.style.background='var(--bg)';this.style.color='var(--ink)'"><span style="font-size:12px;width:18px;text-align:center">💬</span><span style="flex:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">竞品分析任务调度</span><span style="font-size:10px;color:var(--border-mid);flex-shrink:0">14分钟前</span></div>
+<div class="conv-item" style="display:flex;align-items:center;gap:8px;padding:5px 10px;border-radius:6px;cursor:pointer;font-size:12px;color:var(--muted);transition:background 0.15s" onclick="this.parentElement.querySelectorAll('.conv-item').forEach(x=>x.style.background='');this.style.background='var(--bg)';this.style.color='var(--ink)'"><span style="font-size:12px;width:18px;text-align:center">💬</span><span style="flex:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">MHA 架构优化讨论</span><span style="font-size:10px;color:var(--border-mid);flex-shrink:0">2小时前</span></div>
+<div class="conv-item" style="display:flex;align-items:center;gap:8px;padding:5px 10px;border-radius:6px;cursor:pointer;font-size:12px;color:var(--muted);transition:background 0.15s" onclick="this.parentElement.querySelectorAll('.conv-item').forEach(x=>x.style.background='');this.style.background='var(--bg)';this.style.color='var(--ink)'"><span style="font-size:12px;width:18px;text-align:center">💬</span><span style="flex:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">小红书爆款笔记分析</span><span style="font-size:10px;color:var(--border-mid);flex-shrink:0">昨天</span></div>
+<div class="conv-item" style="display:flex;align-items:center;gap:8px;padding:5px 10px;border-radius:6px;cursor:pointer;font-size:12px;color:var(--muted);transition:background 0.15s" onclick="this.parentElement.querySelectorAll('.conv-item').forEach(x=>x.style.background='');this.style.background='var(--bg)';this.style.color='var(--ink)'"><span style="font-size:12px;width:18px;text-align:center">💬</span><span style="flex:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">Agent 集群配置检查</span><span style="font-size:10px;color:var(--border-mid);flex-shrink:0">3天前</span></div>
+</div>
+<a href="#" data-view="dash"><span class="icon">📊</span>仪表板</a>
+<a href="#" data-view="agents"><span class="icon">🐝</span>Agent 蜂群<span class="badge">8</span></a>
+<div class="group">能力</div>
+<a href="#" data-view="skills"><span class="icon">⚡</span>技能中心<span class="badge">24</span></a>
+<a href="#" data-view="arsenal"><span class="icon">🛠️</span>Arsenal 沙箱</a>
+<a href="#" data-view="monitoring"><span class="icon">📡</span>监控看板</a>
+<div class="group">系统</div>
+<a href="#" data-view="settings"><span class="icon">⚙️</span>系统设置</a>
+</nav>
+<div class="sidebar-footer">
+<span class="dot"></span>
+<div><div style="font-weight:600;font-size:12px">ARM 集群</div><div style="color:var(--muted);font-size:10px">8 节点 · 已连接</div></div>
+<button class="fold-btn" id="sidebar-fold" title="隐藏左侧栏">◀</button>
+</div>
+</div>
+<button class="collapse-btn left-btn" id="collapse-left" title="收起">«</button>
+</aside>
+<div class="resize-handle" id="resize-left"></div>
+
+<div id="center-col">
+<header class="topbar">
+<div class="topbar-left">
+<button class="btn-icon" id="toggle-left" title="切换左侧栏">☰</button>
+<span id="view-title" style="font-size:15px;font-weight:600;letter-spacing:-0.01em">Neural Core · 对话</span>
+</div>
+<div class="topbar-actions">
+<button class="btn-icon" title="搜索">🔍</button>
+<button class="btn-icon" title="通知">🔔</button>
+<button class="btn-icon" id="toggle-right" title="切换右侧栏">📊</button>
+</div>
+</header>
+
+<div id="view-container" style="flex:1;display:flex;flex-direction:column;overflow:hidden;min-height:0">
+<div class="v active" id="v-chat">
+<div class="chat-scroll">
+<div class="chat-inner">
+<div class="session-badge"><span>Session 84.A — 初始化</span></div>
+<div class="msg-user">
+<div class="byline"><div class="avatar">用</div><span>用户指令</span></div>
+<div class="body">分析当前主要语言模型在处理超过 128k token 上下文窗口时的架构约束，重点关注意注意力机制的退化问题。</div>
+</div>
+<div class="msg-ai">
+<div class="ai-header"><div class="dot">⚡</div><span>Athena Core</span></div>
+<div class="body">
+<p>分析 128k+ token 的约束，揭示了标准多头注意力 (MHA) 实现中显著的非线性扩展问题。</p>
+<p>主要的退化并非发生在纯内存分配上，而是注意力矩阵的信噪比。随着序列长度 (N) 的增加，N 个键上的 softmax 函数趋于平坦，导致模型过度关注高频但语义无关的 token（即"干扰效应"）。</p>
+<div class="code-block">
+<button class="copy" onclick="navigator.clipboard.writeText(this.parentElement.querySelector('code').textContent)">复制</button>
+<pre><code>def calculate_attention_entropy(attn_weights):
+    probs = torch.softmax(attn_weights, dim=-1)
+    entropy = -torch.sum(probs * torch.log(probs + 1e-9), dim=-1)
+    return entropy.mean().item()</code></pre>
+</div>
+<p>为缓解此问题，建议迁移至稀疏注意力 (Sparse Attention) 或实施环形注意力 (Ring Attention) 架构，分布式部署于 GPU 集群中，以在超出当前限制时保持持续的连贯性。</p>
+</div>
+</div>
+<div class="msg-user">
+<div class="byline"><div class="avatar">用</div><span>用户指令</span></div>
+<div class="body">调度 content-agent 和 research-agent 执行竞品分析任务。</div>
+</div>
+<div class="msg-ai">
+<div class="ai-header"><div class="dot">⚡</div><span>Athena Core</span></div>
+<div class="body">
+<p>收到，正在通过 Operon 平台调度 Agent 集群：</p>
+<p>• <strong>content-agent</strong> ← 已唤醒，负载 67%<br>
+• <strong>research-agent</strong> ← 已激活，准备爬取数据</p>
+<p>任务 TK-043 已入队，预计 3 分钟内返回初步结果。</p>
+</div>
+</div>
+</div></div>
+
+<div class="input-area"><div class="input-area-inner">
+<textarea placeholder="输入指令，调度 Athena Agent 集群..." rows="1" id="chat-input"></textarea>
+<button class="send" title="发送">↑</button>
+</div></div>
+</div>
+
+<div class="v" id="v-dash">
+<div class="dash-scroll">
+<div class="kpis">
+<div class="kpi-card"><div class="lbl">活跃 Agent</div><div class="val">12</div><div class="delta up">+3 本周</div></div>
+<div class="kpi-card"><div class="lbl">任务队列</div><div class="val">47</div><div class="delta down">-5 本周</div></div>
+<div class="kpi-card"><div class="lbl">碳硅回环</div><div class="val">1,248</div><div class="delta up">+89 今日</div></div>
+<div class="kpi-card"><div class="lbl">GPU 温度</div><div class="val">58°C</div><div class="delta down">-3°C</div></div>
+</div>
+<div class="two-col">
+<div class="panel"><h3>任务流水线</h3>
+<table><thead><tr><th>ID</th><th>任务</th><th>Agent</th><th>状态</th><th>进度</th></tr></thead>
+<tbody>
+<tr><td style="font-family:monospace;font-size:11px">TK-042</td><td>小红书文案自动发布</td><td style="font-size:11px;color:var(--muted)">content-agent</td><td><span class="pill running">运行中</span></td><td>65%</td></tr>
+<tr><td style="font-family:monospace;font-size:11px">TK-041</td><td>竞品价格爬取分析</td><td style="font-size:11px;color:var(--muted)">research-agent</td><td><span class="pill success">已完成</span></td><td>100%</td></tr>
+<tr><td style="font-family:monospace;font-size:11px">TK-040</td><td>App 自动化回归测试</td><td style="font-size:11px;color:var(--muted)">test-agent</td><td><span class="pill success">已完成</span></td><td>100%</td></tr>
+<tr><td style="font-family:monospace;font-size:11px">TK-039</td><td>多平台消息同步</td><td style="font-size:11px;color:var(--muted)">bridge-agent</td><td><span class="pill danger">失败</span></td><td>42%</td></tr>
+</tbody></table></div>
+<div style="display:flex;flex-direction:column;gap:14px">
+<div class="panel"><h3>系统资源</h3>
+<div class="res-row">
+<div class="res-item"><div class="res-head"><span>CPU</span><span>67%</span></div><div class="res-bar"><div class="res-fill cpu" style="width:67%"></div></div></div>
+<div class="res-item"><div class="res-head"><span>内存</span><span>43%</span></div><div class="res-bar"><div class="res-fill mem" style="width:43%"></div></div></div>
+<div class="res-item"><div class="res-head"><span>硬盘</span><span>72%</span></div><div class="res-bar"><div class="res-fill disk" style="width:72%"></div></div></div>
+<div class="res-item"><div class="res-head"><span>GPU</span><span style="color:var(--danger)">88%</span></div><div class="res-bar"><div class="res-fill gpu" style="width:88%"></div></div></div>
+</div></div>
+<div class="panel"><h3>碳硅回环</h3>
+<div class="loop-row">
+<div class="loop-node"><div class="num" style="color:var(--accent)">1,248</div><div class="lbl">硅 (机器)</div></div>
+<div class="loop-arc"><svg viewBox="0 0 64 64"><circle cx="32" cy="32" r="28" fill="none" stroke="var(--border-soft)" stroke-width="3"/><path d="M32 4 A28 28 0 0 1 60 32" fill="none" stroke="var(--accent)" stroke-width="3" stroke-linecap="round"><animateTransform attributeName="transform" type="rotate" values="0 32 32;360 32 32" dur="3s" repeatCount="indefinite"/></path><circle cx="32" cy="32" r="6" fill="var(--accent)"><animate attributeName="r" values="6;8;6" dur="1.5s" repeatCount="indefinite"/><animate attributeName="opacity" values="0.5;1;0.5" dur="1.5s" repeatCount="indefinite"/></circle></svg></div>
+<div class="loop-node"><div class="num">892</div><div class="lbl">碳 (人类)</div></div>
+</div>
+<div class="loop-ratio">共生比率: <strong>1.40</strong></div>
+</div></div></div></div></div>
+
+<div class="v" id="v-agents">
+<div class="ag-scroll">
+<div style="display:flex;justify-content:space-between;align-items:center"><div style="font-size:16px;font-weight:600">Agent 蜂群</div><span style="font-size:11px;color:var(--muted)">6 个 Agent · 4 在线</span></div>
+<div class="ag-grid">
+<div class="ag-card"><div class="atop"><span class="adot online"></span><div class="ainfo"><div class="anm">content-agent</div><div class="atp">内容生产 · 在线 · 3 任务</div></div></div><div class="aload"><div class="bar"><div class="f" style="width:67%;background:var(--accent)"></div></div><span class="pct">67%</span></div><div style="font-size:10px;color:var(--muted)">deepseek-v4-pro · 运行 9.5h</div></div>
+<div class="ag-card"><div class="atop"><span class="adot online"></span><div class="ainfo"><div class="anm">research-agent</div><div class="atp">数据研究 · 在线 · 2 任务</div></div></div><div class="aload"><div class="bar"><div class="f" style="width:43%;background:var(--accent)"></div></div><span class="pct">43%</span></div><div style="font-size:10px;color:var(--muted)">gpt-5o · 运行 14.4h</div></div>
+<div class="ag-card"><div class="atop"><span class="adot online"></span><div class="ainfo"><div class="anm">test-agent</div><div class="atp">自动化测试 · 在线 · 1 任务</div></div></div><div class="aload"><div class="bar"><div class="f" style="width:22%;background:var(--accent)"></div></div><span class="pct">22%</span></div><div style="font-size:10px;color:var(--muted)">qwen3-coder · 运行 24h</div></div>
+<div class="ag-card"><div class="atop"><span class="adot offline"></span><div class="ainfo"><div class="anm">bridge-agent</div><div class="atp">消息桥接 · 离线</div></div></div><div class="aload"><div class="bar"><div class="f" style="width:0%;background:var(--border-mid)"></div></div><span class="pct">0%</span></div><div style="font-size:10px;color:var(--muted)">离线 · 无任务</div></div>
+<div class="ag-card"><div class="atop"><span class="adot online"></span><div class="ainfo"><div class="anm">semantic-agent</div><div class="atp">语义理解 · 在线 · 4 任务</div></div></div><div class="aload"><div class="bar"><div class="f" style="width:55%;background:var(--accent)"></div></div><span class="pct">55%</span></div><div style="font-size:10px;color:var(--muted)">deepseek-v4-pro · 运行 7.4h</div></div>
+<div class="ag-card"><div class="atop"><span class="adot warning"></span><div class="ainfo"><div class="anm">vision-agent</div><div class="atp">视觉处理 · 告警 · 5 任务</div></div></div><div class="aload"><div class="bar"><div class="f" style="width:89%;background:var(--danger)"></div></div><span class="pct">89%</span></div><div style="font-size:10px;color:var(--muted)">gpt-5o · 运行 3.9h</div></div>
+</div></div></div>
+
+<div class="v" id="v-skills">
+<div class="sk-scroll">
+<div style="display:flex;justify-content:space-between;align-items:center"><div style="font-size:16px;font-weight:600">技能中心</div><span style="font-size:11px;color:var(--muted)">24 技能</span></div>
+<div class="sk-grid">
+<div class="sk-card"><div class="sknm">CSWDP 数字化工厂</div><div class="skid">cswdp</div><div class="skdesc">五层设计模式、成本熔断、质量门禁</div><div class="skfoot"><span class="sk-chip core">core</span><span style="font-size:11px;color:var(--good)">已启用</span></div></div>
+<div class="sk-card"><div class="sknm">DeerFlow 工作流引擎</div><div class="skid">deerflow-pipeline</div><div class="skdesc">复杂任务 DAG 分解、编排与执行</div><div class="skfoot"><span class="sk-chip core">core</span><span style="font-size:11px;color:var(--good)">已启用</span></div></div>
+<div class="sk-card"><div class="sknm">MAREF 多Agent框架</div><div class="skid">maref-architecture</div><div class="skdesc">易经哲学多Agent架构，韧性进化框架</div><div class="skfoot"><span class="sk-chip core">core</span><span style="font-size:11px;color:var(--good)">已启用</span></div></div>
+<div class="sk-card"><div class="sknm">Men0 通信协议</div><div class="skid">men0-interop</div><div class="skdesc">Agent间JSONL通信，A2A互操作</div><div class="skfoot"><span class="sk-chip core">core</span><span style="font-size:11px;color:var(--muted)">未启用</span></div></div>
+<div class="sk-card"><div class="sknm">UI/UX 设计审查</div><div class="skid">ui-ux-pro-max</div><div class="skdesc">前端界面、设计系统、可访问性审查</div><div class="skfoot"><span class="sk-chip dev">dev</span><span style="font-size:11px;color:var(--good)">已启用</span></div></div>
+<div class="sk-card"><div class="sknm">HappyHorse 提示词库</div><div class="skid">happyhorse-prompt</div><div class="skdesc">PENTA五层提示词架构、视频/图像生成</div><div class="skfoot"><span class="sk-chip media">media</span><span style="font-size:11px;color:var(--good)">已启用</span></div></div>
+</div></div></div>
+
+<div class="v" id="v-arsenal">
+<div class="cd-scroll">
+<div style="display:flex;justify-content:space-between;align-items:center"><div style="font-size:16px;font-weight:600">Arsenal 沙箱</div><button style="background:var(--accent);color:white;border:none;border-radius:6px;padding:5px 12px;cursor:pointer;font-size:11px" onclick="alert('代码已执行')">▶ 执行</button></div>
+<div class="cd-editor">
+<div class="cdhead"><span>sandbox.js</span><span>JavaScript</span></div>
+<textarea placeholder="// 在此输入代码..." spellcheck="false">// Athena Sandbox
+const agent = { name: 'prototype-agent', model: 'deepseek-v4-pro' }
+console.log(Starting agent: ${agent.name})
+console.log(Model: ${agent.model})</textarea>
+</div>
+<div class="cd-output">
+<div class="cdhead"><span>输出</span><span>0 行</span></div>
+<div class="cdbody"><div class="log dim">// 点击执行运行代码</div></div>
+</div></div></div>
+
+<div class="v" id="v-monitoring">
+<div class="mo-scroll">
+<div style="font-size:16px;font-weight:600;margin-bottom:4px">监控看板</div>
+<div class="kpis" style="grid-template-columns:repeat(4,1fr)">
+<div class="kpi-card"><div class="lbl">CPU</div><div class="val" style="color:var(--accent)">34%</div><div class="delta up">-12% vs 昨日</div></div>
+<div class="kpi-card"><div class="lbl">内存</div><div class="val" style="color:#5856d6">67%</div><div class="delta up">+4% vs 昨日</div></div>
+<div class="kpi-card"><div class="lbl">GPU</div><div class="val" style="color:var(--danger)">88%</div><div class="delta up">+15% vs 昨日</div></div>
+<div class="kpi-card"><div class="lbl">GPU 温度</div><div class="val" style="color:var(--warn)">82°C</div><div class="delta up">+6°C</div></div>
+</div>
+<div class="alarm"><span class="dot"></span><span class="txt">GPU 温度过高 · 建议检查散热系统</span><span class="tag">严重</span></div>
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+<div class="metric-card"><div class="mh"><span>🖥️ Token 延迟</span><span class="mv">24ms</span></div><div class="mb"><div class="mf" style="width:15%;background:var(--accent)"></div></div></div>
+<div class="metric-card"><div class="mh"><span>🗄️ 上下文填充</span><span class="mv">82%</span></div><div class="mb"><div class="mf" style="width:82%;background:var(--border-mid)"></div></div></div>
+<div class="metric-card"><div class="mh"><span>📊 API 请求/秒</span><span class="mv">1,247</span></div><div class="mb"><div class="mf" style="width:45%;background:var(--accent)"></div></div></div>
+<div class="metric-card"><div class="mh"><span>📦 队列深度</span><span class="mv">47</span></div><div class="mb"><div class="mf" style="width:30%;background:var(--good)"></div></div></div>
+</div></div></div>
+
+<div class="v" id="v-settings">
+<div class="st-scroll">
+<div style="font-size:16px;font-weight:600;margin-bottom:4px">系统设置</div>
+<div class="st-sect">
+<div class="sthead">外观</div>
+<div class="st-row"><div><div class="stlbl">暗色模式</div><div class="stdesc">当前: 亮色</div></div><button class="tog off" onclick="this.classList.toggle('off');this.classList.toggle('on')"></button></div>
+<div class="st-row"><div><div class="stlbl">语言</div><div class="stdesc">界面显示语言</div></div><select style="background:var(--bg);border:1px solid var(--border-soft);border-radius:6px;padding:4px 8px;font-size:11px;color:var(--ink)"><option>中文 (简体)</option><option>English (US)</option></select></div>
+</div>
+<div class="st-sect">
+<div class="sthead">自动化</div>
+<div class="st-row"><div><div class="stlbl">自动扩缩</div><div class="stdesc">根据负载自动调整 Agent 数量</div></div><button class="tog off" onclick="this.classList.toggle('off');this.classList.toggle('on')"></button></div>
+<div class="st-row"><div><div class="stlbl">邮件告警</div><div class="stdesc">关键事件发送邮件通知</div></div><button class="tog on" onclick="this.classList.toggle('off');this.classList.toggle('on')"></button></div>
+<div class="st-row"><div><div class="stlbl">重试策略</div><div class="stdesc">任务失败后的重试方式</div></div><select style="background:var(--bg);border:1px solid var(--border-soft);border-radius:6px;padding:4px 8px;font-size:11px;color:var(--ink)"><option>指数退避</option><option>线性重试</option><option>不重试</option></select></div>
+</div>
+<div class="st-sect">
+<div class="sthead">关于</div>
+<div class="st-row"><div><div class="stlbl">版本</div><div class="stdesc">v0.7.0-alpha · 构建 20260504</div></div><span style="font-size:11px;color:var(--muted)">Athena</span></div>
+</div></div></div>
+
+</div>
+</div>
+
+<div class="resize-handle" id="resize-right"></div>
+
+<aside id="sidebar-right">
+<div id="right-content"></div>
+<button class="collapse-btn right-btn" id="collapse-right" title="收起">»</button>
+</aside>
+</div>
+
+<script>
+(function(){
+const el=document.getElementById('right-content');
+el.innerHTML=`
+<div><div style="font-size:13px;font-weight:600;display:flex;align-items:center;justify-content:space-between"><span>系统诊断</span><button onclick="tR()" style="background:none;border:none;cursor:pointer;color:var(--muted);font-size:12px;padding:2px 4px;border-radius:4px" title="隐藏右侧栏">✕</button></div><div style="font-size:10px;color:var(--muted);margin-top:3px;display:flex;align-items:center;gap:5px"><span style="width:6px;height:6px;border-radius:50%;background:var(--good);box-shadow:0 0 6px rgba(47,125,74,0.4)"></span>硬件状态: 正常</div></div>
+
+<div class="diag-metric"><div class="mr"><span>⚡ Token 延迟</span><span class="vl">24ms</span></div><div class="meter"><div class="f blue" style="width:15%"></div></div></div>
+<div class="diag-metric"><div class="mr"><span>🗄️ 上下文窗口</span><span class="vl">82%</span></div><div class="meter"><div class="f gray" style="width:82%"></div></div></div>
+<div class="diag-metric"><div class="mr"><span>🖥️ GPU 集群</span><span class="vl">4/8 活跃</span></div><div class="gpu-g"><div class="c on"></div><div class="c on"></div><div class="c on"></div><div class="c on"></div><div class="c"></div><div class="c"></div><div class="c"></div><div class="c"></div></div></div>
+
+<div><div class="section-title" style="font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:0.08em;font-weight:600;margin-bottom:4px">📡 事件日志</span></div><div class="ev"><div class="acc">09:41:02 — MHA 计算正常</div><div class="dm">09:40:15 — 缓存命中率: 94%</div><div class="wn">09:39:50 — 检测到小幅 GC 暂停</div><div class="dm">09:38:11 — 会话 84.A 已启动</div><div class="dm">09:37:00 — Agent: 12 在线</div><div class="acc">09:35:22 — TK-042 已调度</div></div></div>
+
+<div><div class="section-title" style="font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:0.08em;font-weight:600;display:flex;align-items:center;justify-content:space-between;margin-bottom:6px"><span>📋 Agent 任务队列</span><span style="font-size:10px;background:var(--bg);padding:1px 8px;border-radius:99px">6</span></div>
+<div style="display:flex;gap:5px;margin-bottom:6px">
+<div style="flex:1;background:var(--bg);border:1px solid var(--border-soft);border-radius:var(--radius-sm);padding:6px 8px;text-align:center"><div style="font-size:16px;font-weight:700;color:var(--warn)">1</div><div style="font-size:9px;color:var(--muted);margin-top:1px;letter-spacing:0.04em">排队</div></div>
+<div style="flex:1;background:var(--bg);border:1px solid var(--border-soft);border-radius:var(--radius-sm);padding:6px 8px;text-align:center"><div style="font-size:16px;font-weight:700;color:var(--accent)">2</div><div style="font-size:9px;color:var(--muted);margin-top:1px;letter-spacing:0.04em">运行中</div></div>
+<div style="flex:1;background:var(--bg);border:1px solid var(--border-soft);border-radius:var(--radius-sm);padding:6px 8px;text-align:center"><div style="font-size:16px;font-weight:700;color:var(--good)">2</div><div style="font-size:9px;color:var(--muted);margin-top:1px;letter-spacing:0.04em">已完成</div></div>
+<div style="flex:1;background:var(--bg);border:1px solid var(--border-soft);border-radius:var(--radius-sm);padding:6px 8px;text-align:center"><div style="font-size:16px;font-weight:700;color:var(--danger)">1</div><div style="font-size:9px;color:var(--muted);margin-top:1px;letter-spacing:0.04em">失败</div></div>
+</div>
+<div style="display:flex;flex-direction:column;gap:2px;max-height:120px;overflow-y:auto">
+<div style="display:flex;align-items:center;gap:6px;padding:5px 6px;border-radius:4px;cursor:pointer;transition:background 0.15s" onclick="this.style.background='var(--bg)'"><span style="flex:1;font-size:11px;font-weight:500;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">小红书文案自动发布</span><span style="font-size:9px;padding:1px 5px;border-radius:99px;font-weight:600;background:rgba(0,113,227,0.12);color:var(--accent)">运行中</span></div>
+<div style="display:flex;align-items:center;gap:6px;padding:5px 6px;border-radius:4px;cursor:pointer;transition:background 0.15s" onclick="this.style.background='var(--bg)'"><span style="flex:1;font-size:11px;font-weight:500;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">竞品价格爬取分析</span><span style="font-size:9px;padding:1px 5px;border-radius:99px;font-weight:600;background:rgba(47,125,74,0.12);color:var(--good)">已完成</span></div>
+<div style="display:flex;align-items:center;gap:6px;padding:5px 6px;border-radius:4px;cursor:pointer;transition:background 0.15s" onclick="this.style.background='var(--bg)'"><span style="flex:1;font-size:11px;font-weight:500;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">App 自动化回归测试</span><span style="font-size:9px;padding:1px 5px;border-radius:99px;font-weight:600;background:rgba(47,125,74,0.12);color:var(--good)">已完成</span></div>
+<div style="display:flex;align-items:center;gap:6px;padding:5px 6px;border-radius:4px;cursor:pointer;transition:background 0.15s" onclick="this.style.background='var(--bg)'"><span style="flex:1;font-size:11px;font-weight:500;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">多平台消息同步</span><span style="font-size:9px;padding:1px 5px;border-radius:99px;font-weight:600;background:rgba(181,58,42,0.12);color:var(--danger)">失败</span></div>
+<div style="display:flex;align-items:center;gap:6px;padding:5px 6px;border-radius:4px;cursor:pointer;transition:background 0.15s" onclick="this.style.background='var(--bg)'"><span style="flex:1;font-size:11px;font-weight:500;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">用户意图语义分析</span><span style="font-size:9px;padding:1px 5px;border-radius:99px;font-weight:600;background:rgba(0,113,227,0.12);color:var(--accent)">运行中</span></div>
+</div></div>
+
+<div style="border-top:1px solid var(--border-soft);padding-top:10px;display:flex;flex-direction:column;gap:4px;flex-shrink:0;margin-top:auto">
+<button style="background:none;border:none;cursor:pointer;font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:0.06em;font-weight:600;text-align:left;display:flex;align-items:center;gap:5px;padding:3px 0" onclick="this.style.color='var(--accent)'">📥 导出日志</button>
+<button style="background:none;border:none;cursor:pointer;font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:0.06em;font-weight:600;text-align:left;display:flex;align-items:center;gap:5px;padding:3px 0" onclick="this.style.color='var(--accent)'">🔗 文档</button>
+</div>`;
+
+/* Toggle sidebars */
+const left=document.getElementById('sidebar-left'),right=document.getElementById('sidebar-right');
+const rL=document.getElementById('resize-left'),rR=document.getElementById('resize-right');
+function tL(){left.classList.toggle('collapsed');rL.classList.toggle('hidden')}
+function tR(){right.classList.toggle('collapsed');rR.classList.toggle('hidden')}
+window.tR=tR;
+document.getElementById('collapse-left').addEventListener('click',tL);
+document.getElementById('collapse-right').addEventListener('click',tR);
+document.getElementById('toggle-left').addEventListener('click',tL);
+document.getElementById('toggle-right').addEventListener('click',tR);
+document.getElementById('sidebar-fold').addEventListener('click',tL);
+
+/* Resize */
+let ah=null,sx=0,sw=0,tg=null;
+function dn(e,h,s){ah=h;tg=s;sx=e.clientX;sw=s.getBoundingClientRect().width;h.classList.add('active');document.body.style.cursor='col-resize';document.body.style.userSelect='none'}
+document.getElementById('resize-left').addEventListener('mousedown',e=>dn(e,document.getElementById('resize-left'),left));
+document.getElementById('resize-right').addEventListener('mousedown',e=>dn(e,document.getElementById('resize-right'),right));
+document.addEventListener('mousemove',e=>{if(!ah)return;const d=tg===right?sx-e.clientX:e.clientX-sx;let nw=sw+d;nw=Math.max(tg===left?200:240,Math.min(tg===left?360:400,nw));tg.style.width=nw+'px'});
+document.addEventListener('mouseup',()=>{if(ah){ah.classList.remove('active');ah=null;tg=null;document.body.style.cursor='';document.body.style.userSelect=''}});
+
+/* Chat */
+const inp=document.getElementById('chat-input'),sd=document.querySelector('.send');
+
+/* View switching */
+const views={chat:'Neural Core · 对话',dash:'仪表板 · 碳硅共生集群',agents:'Agent 蜂群 · 状态',skills:'技能中心 · 能力配置',arsenal:'Arsenal · 代码沙箱',monitoring:'监控看板 · 系统指标',settings:'系统设置 · 偏好'};
+document.querySelectorAll('.sidebar-nav a').forEach(a=>{
+a.addEventListener('click',function(e){
+e.preventDefault();
+document.querySelectorAll('.sidebar-nav a').forEach(x=>x.classList.remove('active'));
+this.classList.add('active');
+const v=this.dataset.view;
+document.querySelectorAll('.v').forEach(x=>x.classList.remove('active'));
+const el=document.getElementById('v-'+v);
+if(el)el.classList.add('active');
+document.getElementById('view-title').textContent=views[v]||'Neural Core';
+});
+});
+sd.addEventListener('click',()=>{
+const t=inp.value.trim();if(!t)return;
+const ci=document.querySelector('.chat-inner');
+const d=document.createElement('div');d.className='msg-user';
+d.innerHTML=`<div class="byline"><div class="avatar">用</div><span>用户指令</span></div><div class="body">${t}</div>`;
+ci.appendChild(d);
+setTimeout(()=>{const r=document.createElement('div');r.className='msg-ai';r.innerHTML=`<div class="ai-header"><div class="dot">⚡</div><span>Athena Core</span></div><div class="body"><p>收到指令："${t}"。正在通过 Operon 平台调度 Agent 能力模块执行此任务。</p></div>`;ci.appendChild(r);r.scrollIntoView({behavior:'smooth'})},800);
+inp.value='';d.scrollIntoView({behavior:'smooth'});
+});
+inp.addEventListener('keydown',e=>{if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();sd.click()}});
+})();
+</script>
+</body>
+</html>

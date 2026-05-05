@@ -1,0 +1,100 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "athena.semantic.v1.IntentPacket",
+  "title": "IntentPacket",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "intent_id": { "type": "string", "format": "uuid" },
+    "raw_input": { "type": "string" },
+    "timestamp": { "type": "number" },
+    "mode_recommendation": {
+      "type": "string",
+      "enum": ["instant", "thinking", "agent", "swarm", "carbon-silicon"]
+    },
+    "urgency_level": { "type": "number", "minimum": 0.0, "maximum": 1.0 },
+    "semantic_frame": { "$ref": "#/$defs/SemanticFrame" },
+    "ambiguity_vector": { "$ref": "#/$defs/AmbiguityVector" },
+    "required_clearance": {
+      "type": "string",
+      "enum": ["low", "medium", "high", "critical"]
+    },
+    "target_agent_pool": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "execution_budget": { "$ref": "#/$defs/TokenBudget" },
+    "context_tags": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "intent_fingerprint": { "type": "string" }
+  },
+  "required": ["intent_id", "raw_input", "mode_recommendation", "semantic_frame"],
+  "$defs": {
+    "SemanticFrame": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "action_verb": {
+          "type": "string",
+          "enum": ["analyze", "create", "modify", "delete", "search", "explain", "configure", "deploy", "audit", "debug", "test", "document", "review", "summarize", "translate", "convert"]
+        },
+        "action_object": { "$ref": "#/$defs/SemanticObject" },
+        "action_context": { "$ref": "#/$defs/ContextFrame" },
+        "expected_modalities": {
+          "type": "array",
+          "items": { "type": "string", "enum": ["text", "code", "image", "video", "audio"] }
+        },
+        "intent_fingerprint": { "type": "string" }
+      },
+      "required": ["action_verb", "action_object", "action_context"]
+    },
+    "SemanticObject": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "object_type": { "type": "string" },
+        "object_name": { "type": "string" },
+        "object_path": { "type": "string" },
+        "object_metadata": {
+          "type": "object",
+          "additionalProperties": { "type": "string" }
+        }
+      },
+      "required": ["object_type", "object_name"]
+    },
+    "ContextFrame": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "domain": { "type": "string" },
+        "tags": { "type": "array", "items": { "type": "string" } },
+        "related_entities": { "type": "array", "items": { "type": "string" } },
+        "conversation_round": { "type": "integer", "minimum": 0 }
+      },
+      "required": ["domain"]
+    },
+    "AmbiguityVector": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "scope_ambiguity": { "type": "number", "minimum": 0.0, "maximum": 1.0 },
+        "target_ambiguity": { "type": "number", "minimum": 0.0, "maximum": 1.0 },
+        "modality_ambiguity": { "type": "number", "minimum": 0.0, "maximum": 1.0 },
+        "authority_ambiguity": { "type": "number", "minimum": 0.0, "maximum": 1.0 }
+      },
+      "required": ["scope_ambiguity", "target_ambiguity", "modality_ambiguity", "authority_ambiguity"]
+    },
+    "TokenBudget": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "total": { "type": "integer", "minimum": 0 },
+        "consumed": { "type": "integer", "minimum": 0 },
+        "reserved": { "type": "integer", "minimum": 0 }
+      },
+      "required": ["total", "consumed", "reserved"]
+    }
+  }
+}

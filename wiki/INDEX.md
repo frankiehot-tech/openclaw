@@ -42,9 +42,18 @@
 
 ## 当前状态
 
-- **最后更新**: 2026-05-03
-- **页面数量**: 7 + 3 会话摘要 (+CROSS_PROJECT.md 强化索引)
+- **最后更新**: 2026-05-04
+- **页面数量**: 7 + 3 会话摘要 (+CROSS_PROJECT.md)
+- **Skill 数量**: 2
+- **Athena 语义层 v0.2.0**: ✅ 已实施 (28 源文件 | 229 测试 | Phase 1-5 全量)
+  - Phase 1: Schema 固化 + infra
+  - Phase 2: MVSL 三段编译器
+  - Phase 3: 12段全量 + Carbon-Silicon + StateCodec
+  - Phase 4: CRDT 内核 + Men0 Bridge
+  - Phase 5: 性能基准 + 集成回归测试
+- **新增 ADR**: ADR-009 至 ADR-014 (Athena 语义层六维架构/CRDT/Engram/Men0)
 - **会话摘要**:
-  - `sessions/2026-05-03.md` — Karpathy AutoResearch 全链路部署 + Ratchet Loop 实战
+  - `sessions/2026-05-04.md` — Athena 语义层 v0.2.0 Phase 1-5 全量实施
+  - `sessions/2026-05-03.md` — HappyHorse Gate 1-5 全验证 + Karpathy AutoResearch 全链路
   - `sessions/2026-04-27.md` — 全量代码库审计（23K 问题修复）
   - `sessions/2026-04-24.md` — wiki 初始化 + MAREF 审计

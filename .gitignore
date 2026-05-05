@@ -57,6 +57,8 @@ logs/
 # Temporary files
 tmp/
 temp/
+.autorun_state
+.knowledge_base_state/
 
 # Project specific
 .document_recycle_bin/

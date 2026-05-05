@@ -1,0 +1,9 @@
+{
+  "ratchet_loop_auto": {
+    "enabled": true,
+    "rollout_percent": 100,
+    "description": "",
+    "owner": "",
+    "created": ""
+  }
+}

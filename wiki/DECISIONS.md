@@ -1,7 +1,7 @@
 ---
 type: decision
 created: 2026-04-24
-updated: 2026-05-03
+updated: 2026-05-04
 tags: [decisions, adr]
 ---
 
@@ -123,6 +123,41 @@ tags: [decisions, adr]
 - **后果**: 每次代码改动需自我评估 5 维评分；自主迭代时遵循 ratchet loop 协议；wiki 需定期健康检查
 - **来源**: [[CROSS_PROJECT]] → AutoResearch/Karpathy软件开发迁移/
 
+### ADR-007: HappyHorse 自动化采用 Playwright Persistent Context 替代 CDP ⚠️ [已废弃 — 2026-04-16]
+
+> **废弃原因**: 千问 HappyHorse 频道登录态不稳定（cookie 有效期 72h），且依赖第三方网站而非官方 API。已由 ADR-015（DashScope API 直连方案）替代。相关脚本目录 `comfyui_workspace/Pixelle-Video/scripts/` 不再维护。
+
+- **日期**: 2026-05-03
+- **状态**: ⚠️ 已废弃 → 参见 ADR-015
+- **上下文**: 千问 HappyHorse 自动化需要浏览器登录态维持。原方案使用 CDP 连接外部 Chrome 实例，存在 WAF 触发概率高、cookie 管理复杂、需要额外的 Chrome Daemon 进程等问题。
+- **选项**:
+  1. CDP 连接外部 Chrome（原方案：chrome_daemon.py + cdp_browser_client.py）
+  2. Playwright `launch_persistent_context`（浏览器 profile 持久化，内置 cookie 管理）
+  3. 纯 API 调用（千问无公开 API）
+- **决策**: 采用 `launch_persistent_context`
+- **理由**:
+  - cookie/localStorage 自动持久化到文件系统，无需额外管理
+  - headless 模式下 WAF 触发率显著低于 CDP
+  - 无需维护独立的 Chrome 守护进程
+  - `expect_file_chooser` API 是唯一能在千问 React 层正确触发文件上传的方式
+  - 已验证 5 轮 gate validation 全部通过
+- **后果**: 需要维护 persistent context 目录 `.qianwen-auth/chrome-persistent/`（~50MB）；每 72h 需重新扫码登录；需要 `ensure_login.py` 脚本管理登录状态
+
+### ADR-008: HappyHorse 提示词库采用版本化 Skill 模式管理
+
+- **日期**: 2026-05-03
+- **上下文**: 碳硅共生项目有完整的 HappyHorse 提示词库（PENTA 框架 + 4 文生图模板 + 4 图生视频模板 + 情绪变体矩阵 + 中文文案适配），需要纳入项目知识管理体系。
+- **选项**:
+  1. 仅保留原始 .md 文档在 Downloads 目录
+  2. 编译为 `.claude/skills/` 下的版本化 Skill（SKILL.md 格式）
+  3. 同时写入 wiki CONCEPTS.md
+- **决策**: 选项 2 + 3 并行（Skill + Wiki 双层）
+- **理由**:
+  - Skill 格式支持版本号、user-invocable 触发，Claude Code 可直接调用
+  - Wiki 格式提供交叉引用和知识图链接
+  - 两层互补而不冗余
+- **后果**: 提示词更新时需要同时维护两处；版本迭代需在 Skill 和 Wiki 中同步
+
 ### ADR-005: 采用 llm-wiki 模式实现知识复利
 
 - **上下文**: 当前 wiki/ 基础设施存在但未充分利用；会话知识在每次会话后丢失
@@ -133,3 +168,79 @@ tags: [decisions, adr]
   - wiki 是 Markdown 文件，可 Git 版本化
   - LLM 原生理解 Markdown，零依赖
 - **后果**: 每次会话结束需额外 token 用于 wiki 写入；长期收益远大于成本
+
+### ADR-009: Athena 语义层六维架构
+
+- **日期**: 2026-05-04 (设计) → 2026-05-04 (实施)
+- **状态**: ✅ 已实施
+- **上下文**: Athena 需要统一的语义层处理意图解析、记忆管理、模式切换、工具路由、状态观测和跨Agent协作
+- **决策**: 六维架构：意图语义核 + 认知模式切换 + 记忆语义塔 + 工具语义路由 + 状态语义编码 + 提示语义层 + 跨Agent互操作层
+- **后果**: openclaw/athena/semantic_layer/ 已部署 28 个源文件 + 222 个测试
+
+### ADR-010: MVSL 三步策略（最小可行语义层先行）
+
+- **日期**: 2026-05-04
+- **状态**: ✅ 已实施 (MVSL 3段) → ✅ 全量12段
+- **上下文**: 全量12段需10周，但需快速验证语义段概念
+- **决策**: Phase 2 先做 ROLE/MEMORY/ROUTING 三段 MVSL，Phase 3 补齐全量12段
+- **后果**: Prompt Cache 命中率目标 76%→≥85%；12段全量编译器已投产
+
+### ADR-011: Schema 三层定义 + 版本策略
+
+- **日期**: 2026-05-04
+- **状态**: ✅ 已实施
+- **上下文**: 语义对象需高性能跨语言传输（gRPC）+ 灵活结构化生成（SGLang）+ Python 内部运行
+- **决策**: Pydantic (Source of Truth) → Proto (gRPC) + JSON Schema (SGLang)，版本号 men0.semantic.v1
+- **后果**: SchemaRegistry + SchemaVersion 已实现；Pydantic↔Proto 互转 (to_proto/from_proto) 已部署
+
+### ADR-012: CRDT 语义同步内核
+
+- **日期**: 2026-05-04
+- **状态**: ✅ 已实施
+- **上下文**: 跨Agent 语义状态同步需要无冲突合并
+- **决策**: LWW-Register (事实同步) + OR-Set (意图队列) + Two-Phase Set (约束集)
+- **后果**: CRDT 内核部署在 openclaw/athena/semantic_layer/crdt/；53 个测试覆盖
+
+### ADR-013: Engram 置信度门控
+
+- **日期**: 2026-05-04
+- **状态**: ✅ 已实施
+- **上下文**: DeepSeek V4 Engram 的 σ(W·[hidden, memory]) 门控，迁移到系统级
+- **决策**: confidence = σ(α·confirm_ratio + β·consistency + γ·freshness)；>0.8 → global, 0.5-0.8 → pending, <0.5 → local
+- **后果**: ConfidenceGatedMemoryStore 已实现；EngramInspiredFact 待后续增加
+
+### ADR-014: Men0 文件系统 MVP
+
+- **日期**: 2026-05-04
+- **状态**: ✅ 已实施
+- **上下文**: Men0 gRPC 未就绪时需降级方案
+- **决策**: JSONL + flock 文件系统作为 Men0 Bridge MVP
+- **后果**: Men0Bridge 实现 publish/consume/sync 完整生命周期；待 gRPC 就绪后升级
+
+### ADR-015: HappyHorse 采用 DashScope API 直连方案替代浏览器自动化
+
+- **日期**: 2026-04-16
+- **状态**: ✅ 已实施
+- **上下文**: ADR-007 的 Playwright 浏览器自动化方案存在根本性问题：
+  1. 千问 HappyHorse 频道需要微信/支付宝扫码登录，cookie 有效期仅 72h
+  2. 依赖第三方网站而非官方 API，稳定性无法保证
+  3. WAF 可能触发反爬机制，headless 模式有封禁风险
+  4. 需要维护浏览器 profile 目录（~50MB）和 Chrome 守护进程
+  5. 该方案依赖的第三方网站 `happyhorse.cn` 并非阿里官方服务
+- **选项**:
+  1. 继续维护 Playwright 浏览器自动化（ADR-007 方案，维护成本高）
+  2. 使用 DashScope 官方 `/video-synthesis` API + `happyhorse-1.0-i2v` 模型直连
+  3. 自行搭建视频生成环境（GPU 成本极高）
+- **决策**: 采用 DashScope API 直连方案（选项 2）
+- **理由**:
+  - 百炼（DashScope）是阿里云官方平台，`happyhorse-1.0-i2v` 是其正式发布的图生视频模型
+  - 使用百炼 API Key（`sk-` 开头）直接调用，与 Qwen 等模型共享账户余额，无需独立充值
+  - 按秒计费：720P 0.9 元/秒，Pro 会员 0.44 元/秒；1080P 1.6 元/秒
+  - 异步任务模式稳定可靠，无需维护浏览器环境和登录态
+  - 生成的视频包含音频（音画同步），无需额外合成步骤
+- **后果**:
+  - ADR-007 已废弃，相关脚本 `comfyui_workspace/Pixelle-Video/scripts/` 不再维护
+  - 提示词需按 PENTA 五层架构组织，通过 `HAPPYHORSE_PROMPTS` 字典管理
+  - 参考图需要通过公网可访问的 URL 传入（使用 jsDelivr CDN 托管 GitHub 图片）
+  - 主脚本路径: `scripts/clawra/generate_happyhorse_video.py`
+  - 提示词库维护: `.claude/skills/happyhorse-prompt-library/SKILL.md`
